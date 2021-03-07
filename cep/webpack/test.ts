@@ -46,16 +46,7 @@ export function getTestConfig(
                 inject: true,
                 chunks: 'all',
             }),
-            // new CopyPlugin({
-            //     patterns: [{ from: '../_build/panel/*.jsx', to: paths.user_ae_extension_root }],
-            // }),
         ],
-        // node: {
-        //     fs: 'empty',
-        //     module: 'empty',
-        //     os: 'empty',
-        // },
-        // externals: [nodeExternals()],
         optimization: {
             splitChunks: {
                 cacheGroups: {
