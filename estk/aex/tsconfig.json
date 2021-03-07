@@ -1,0 +1,18 @@
+{
+    "include": [
+        "aex.tsx",
+        "../dist/aeq.d.ts",
+        "../typings/aftereffects/ae.d.ts"
+    ],
+    "exclude": [
+    ],
+    "compilerOptions": {
+        "removeComments": true,
+        "allowJs": true,
+        "noLib": true,
+        "outDir": "../dist",
+        "target": "ES3",
+        "jsx": "preserve",
+        "esModuleInterop": false
+    }
+}

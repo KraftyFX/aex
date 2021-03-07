@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "pretty": true,
+    "watch": true,
+    "declaration": false,
+    "strict": true,
+    "module": "commonjs",
+    "jsx": "react",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true,
+    "target": "es5",
+    "noLib": false,
+    "baseUrl": ".",
+    "paths": {
+        "~/*": ["src/*"]
+    },
+    "lib": ["es2015", "es2015.core", "es2015.collection", "es2015.promise", "es2015.generator", "dom", "dom.iterable"]
+}
+}

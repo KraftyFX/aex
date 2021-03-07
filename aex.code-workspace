@@ -1,0 +1,35 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "AEX"
+		},
+        {
+            "path": "C:\\Program Files (x86)\\Common Files\\Adobe\\CEP\\extensions\\aex-cep",
+            "name": "After Effects Test Harness (Win)"
+        },
+        {
+            "path": "/Users/rafikhan/Library/Application Support/Adobe/CEP/extensions/aex-cep",
+            "name": "After Effects Test Harness (Mac)"
+        },
+	],
+	"settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/node_modules": true
+        },
+        "search.exclude": {
+            "cep/src/lib/**": true,
+            "**/node_modules": true,
+            "extension.signed": true,
+            "**/*.js": true,
+            "**/*.js.map": true
+        },
+        "typescript.tsdk": "cep/node_modules/typescript/lib",
+        "editor.formatOnSave": true
+	}
+}

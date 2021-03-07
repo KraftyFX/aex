@@ -1,0 +1,19 @@
+{
+  "name": "aex",
+  "version": "0.0.1",
+  "description": "Serializer and deserializer for After Effects",
+  "main": "main.tsx",
+  "repository": "git@github.com:KraftyFX/aex.git",
+  "author": "rafikhan@kraftyfx.com",
+  "scripts": {
+    "clean": "rm -rf dist/* && yarn build:aeq",
+    "start": "yarn build:aeq --watch & yarn build:aex --watch",
+    "build": "yarn build:aeq && yarn build:aex",
+    "build:aeq": "tsc -p aeq/tsconfig.json",
+    "build:aex": "tsc -p aex/tsconfig.json"
+  },
+  "dependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Browser Tests</title>
+        <style id="style">
+            * {
+                -webkit-user-select: none;
+            }
+        </style>
+        <script>
+            if (typeof cep_node !== 'undefined') {
+                window.require = cep_node.require;
+                window.Buffer = cep_node.Buffer;
+                window.process = cep_node.process;
+            }
+        </script>
+    </head>
+    <body unselectable="on">
+        <div id="mocha"></div>
+    </body>
+</html>

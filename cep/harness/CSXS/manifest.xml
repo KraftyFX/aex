@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  Version="6.0" 
+  ExtensionBundleId="kraftyfx.aex.test" 
+  ExtensionBundleVersion="1.0" 
+  ExtensionBundleName="KraftyFX AEX Test Harness">
+
+  <ExtensionList>
+    <Extension Id="com.kraftyfx.aex.test" Version="1.0"/>
+  </ExtensionList>
+
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="AEFT" Version="15" />
+    </HostList>
+    <LocaleList>
+      <Locale Code="All"/>
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="8.0"/>
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+
+  <DispatchInfoList>
+		<Extension Id="com.kraftyfx.aex.test">
+			<DispatchInfo >
+				<Resources>
+					<MainPath>./index.html</MainPath>
+					<CEFCommandLine>
+					  <Parameter>--enable-nodejs</Parameter>
+						<Parameter>--allow-file-access-from-files</Parameter>
+					  <Parameter>--allow-file-access</Parameter>
+					</CEFCommandLine>
+				</Resources>
+				<Lifecycle>
+					<AutoVisible>true</AutoVisible>
+				</Lifecycle>
+				<UI>
+					<Type>Panel</Type>
+    			    <Menu>AEX Test Harness</Menu>
+					<Geometry>
+						<Size>
+							<Height>500</Height>
+							<Width>500</Width>
+						</Size>
+						<MinSize>
+							<Height>500</Height>
+							<Width>500</Width>
+						</MinSize>
+					</Geometry>
+				</UI>
+			</DispatchInfo>
+		</Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

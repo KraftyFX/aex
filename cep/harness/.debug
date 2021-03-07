@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ExtensionList>
+	<Extension Id="com.kraftyfx.aex.test">
+		<HostList>
+			<Host Name="AEFT" Port="8094"/> 
+		</HostList>
+	</Extension>
+</ExtensionList>

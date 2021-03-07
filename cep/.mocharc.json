@@ -1,0 +1,6 @@
+{
+    "async-only": true,
+    "colors": true,
+    "slow": 250,
+    "require": ["ts-node/register"]
+}
