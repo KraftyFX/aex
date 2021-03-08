@@ -1,6 +1,7 @@
 {
     "include": [
-        "aeq.tsx",
+        "*.ts",
+        "*.tsx",
         "../typings/aftereffects/ae.d.ts",
     ],
     "compilerOptions": {

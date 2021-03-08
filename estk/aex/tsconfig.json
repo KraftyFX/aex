@@ -1,6 +1,7 @@
 {
     "include": [
-        "aex.tsx",
+        "*.ts",
+        "*.tsx",
         "../dist/aeq.d.ts",
         "../typings/aftereffects/ae.d.ts"
     ],
