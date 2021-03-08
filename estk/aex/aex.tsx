@@ -1,17 +1,45 @@
-type Serializable = CompItem | Layer | Property;
+type Serializable = Project | CompItem | Layer | Property;
 
-function aex() {
+interface IAexProject {
+    comps: IAexComp[];
+}
+
+interface IAexComp {
+    layers: IAexLayer[];
+}
+
+interface IAexLayer {}
+
+interface IAexOptions {}
+
+function aex(options: IAexOptions) {
     return {
-        toObject(item: Serializable | undefined) {
+        toObject(item: Serializable | undefined): IAexProject {
             if (isNullOrUndefined(item)) {
                 throw new Error(`item is null or undefined`);
             }
 
             if (isComp(item)) {
-                return 'comp';
-            } else {
-                return 'unknown';
+                return {
+                    comps: [this.visitComp(item as CompItem)],
+                };
+            } else if (isLayer(item)) {
+                return {
+                    comps: [
+                        {
+                            layers: [this.visitLayer(item as Layer)],
+                        },
+                    ],
+                };
             }
+        },
+        visitComp(comp: CompItem): IAexComp {
+            return {
+                layers: [],
+            };
+        },
+        visitLayer(layer: Layer): IAexLayer {
+            return {};
         },
     };
 }

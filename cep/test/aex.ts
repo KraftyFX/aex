@@ -1,5 +1,9 @@
 import { evalScript } from './csinterface';
 
+export enum CompState {
+    WithWhatever,
+}
+
 export function aex() {
     return {
         async toObject(item: any) {
@@ -8,6 +12,9 @@ export function aex() {
             } else {
                 return await evalScript(`aex().toObject(${item || 'undefined'})`);
             }
+        },
+        async toObjectWithActiveComp(state: CompState) {
+            return await evalScript(`aex().toObject(app.project.activeComp)`);
         },
     };
 }

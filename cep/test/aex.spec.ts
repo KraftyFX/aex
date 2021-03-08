@@ -30,4 +30,9 @@ describe('aex().toObject()', function () {
 
         expect(result).to.equal('unknown');
     });
+
+    it(`Do something cool`, async () => {
+        // const result = await aex().toObjectWithActiveComp();
+        // expect(result).to.equal('unknown');
+    });
 });
