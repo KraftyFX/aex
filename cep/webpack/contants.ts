@@ -2,14 +2,12 @@ import path = require('path');
 const { name } = require('../../cep/package.json');
 
 const system_ae_extension_root =
-    process.platform === 'win32'
-        ? `c:\\Program Files (x86)\\Common Files\\Adobe\\cep\\extensions\\${name}`
-        : `/Library/Application Support/Adobe/CEP/extensions/${name}`;
+    process.platform === 'win32' ? `${process.env.APPDATA}\\cep\\extensions\\${name}` : `/Library/Application Support/Adobe/CEP/extensions/${name}`;
 
 const user_ae_extension_root =
     process.platform === 'win32'
-        ? `c:\\Program Files (x86)\\Common Files\\Adobe\\cep\\extensions\\${name}`
-        : `/Users/rafikhan/Library/Application Support/Adobe/CEP/extensions/${name}`;
+        ? `${process.env.APPDATA}\\cep\\extensions\\${name}`
+        : `${process.env.HOME}/Library/Application Support/Adobe/CEP/extensions/${name}`;
 
 export const paths = {
     system_ae_extension_root,
