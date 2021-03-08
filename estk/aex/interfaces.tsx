@@ -1,4 +1,4 @@
-type Serializable = Project | CompItem | Layer | Property;
+type Serializable = Project | CompItem | Layer | Property<any>;
 
 interface AexOptions {}
 
