@@ -2,7 +2,7 @@
     "include": [
         "*.ts",
         "*.tsx",
-        "../typings/aftereffects/ae.d.ts",
+        "../typings/index.d.ts"
     ],
     "compilerOptions": {
         "removeComments": true,
@@ -11,6 +11,11 @@
         "target": "ES3",
         "declaration": true,
         "jsx": "preserve",
-        "esModuleInterop": false
+        "esModuleInterop": false,
+        "types": ["AfterEffects/2018"],
+        "typeRoots": [
+            "../node_modules/types-for-adobe",
+            "../../cep/node_modules/types-for-adobe"
+        ]
     }
 }

@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "ts-node": "^9.1.1",
+    "types-for-adobe": "bbb999/Types-for-Adobe",
     "typescript": "^4.2.3"
   }
 }

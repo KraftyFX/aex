@@ -3,7 +3,7 @@
         "*.ts",
         "*.tsx",
         "../dist/aeq.d.ts",
-        "../typings/aftereffects/ae.d.ts"
+        "../typings/index.d.ts"
     ],
     "exclude": [
         "json2.tsx"
@@ -15,6 +15,11 @@
         "outDir": "../dist",
         "target": "ES3",
         "jsx": "preserve",
-        "esModuleInterop": false
+        "esModuleInterop": false,
+        "types": ["AfterEffects/2018"],
+        "typeRoots": [
+            "../node_modules/types-for-adobe",
+            "../../cep/node_modules/types-for-adobe"
+        ]
     }
 }
