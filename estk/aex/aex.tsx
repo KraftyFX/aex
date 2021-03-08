@@ -15,6 +15,10 @@ function aex(options: AexOptions) {
                         },
                     ],
                 };
+            } else {
+                return {
+                    comps: [],
+                };
             }
         },
         visitComp(comp: CompItem): AexComp {

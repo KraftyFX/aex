@@ -6,6 +6,7 @@
         "../typings/aftereffects/ae.d.ts"
     ],
     "exclude": [
+        "json2.tsx"
     ],
     "compilerOptions": {
         "removeComments": true,

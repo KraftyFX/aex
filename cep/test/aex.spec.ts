@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { aex } from './aex';
+import { AeObject, aex } from './aex';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
 
 describe('aex().toObject()', function () {
@@ -25,14 +25,19 @@ describe('aex().toObject()', function () {
         }
     });
 
-    it(`Can return 'unknown' for an unrecognized input`, async () => {
-        const result = await aex().toObject('Foo');
+    it(`Random test to show how to compare results`, async () => {
+        const result = await aex().toObject('this is a bad test case and should be rewritten');
 
-        expect(result).to.equal('unknown');
+        expect(result).to.deep.equal({ comps: [] });
     });
 
-    it(`Do something cool`, async () => {
-        // const result = await aex().toObjectWithActiveComp();
-        // expect(result).to.equal('unknown');
+    it(`Cannot serialize if there is no active comp open`, async () => {
+        try {
+            const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+            expect(result).to.equal('unknown');
+        } catch (e) {
+            expect(e.isEstkError).to.be.true;
+            expect(e.message).to.contain('undefined');
+        }
     });
 });

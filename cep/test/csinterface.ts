@@ -54,6 +54,7 @@ export function evalScript(code: string): Promise<void> {
 }
 
 export async function evalAexIntoESTK() {
+    await injectFile('json2.jsx');
     await injectFile('all.jsx');
 }
 

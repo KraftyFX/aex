@@ -9,27 +9,20 @@ __aeq_ipc_invoke = function (id: number, func: () => any) {
     eventObj.type = 'aeq_result';
 
     try {
-        let result = undefined;
-        const o = func();
+        const result = func();
 
-        if (isString(o)) {
-            result = `"${o}"`;
-        } else if (isNumber(o) || isBoolean(o) || isNullOrUndefined(o)) {
-            result = o;
-        }
-
-        eventObj.data = `{ 
-            "id" : ${id},
-            "success" : true,
-            "result" : ${result}
-        }`;
+        eventObj.data = JSON.stringify({
+            id,
+            success: true,
+            result,
+        });
     } catch (e) {
-        eventObj.data = `{ 
-            "id" : ${id},
-            "success" : false,
-            "name" : "${e.name}",
-            "message" : "${e.message}"
-        }`;
+        eventObj.data = JSON.stringify({
+            id,
+            success: false,
+            name: e.name,
+            message: e.message,
+        });
     }
 
     eventObj.dispatch();

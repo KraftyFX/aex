@@ -1,7 +1,7 @@
 import { evalScript } from './csinterface';
 
-export enum CompState {
-    WithWhatever,
+export enum AeObject {
+    ActiveComp = 'app.project.activeComp',
 }
 
 export function aex() {
@@ -13,8 +13,13 @@ export function aex() {
                 return await evalScript(`aex().toObject(${item || 'undefined'})`);
             }
         },
-        async toObjectWithActiveComp(state: CompState) {
-            return await evalScript(`aex().toObject(app.project.activeComp)`);
+        async toObjectWithAeObject(aeobject: AeObject) {
+            switch (aeobject) {
+                case AeObject.ActiveComp:
+                    return await evalScript(`aex().toObject(${aeobject})`);
+                default:
+                    throw new Error(`Unrecognized AE Object - ${aeobject}`);
+            }
         },
     };
 }

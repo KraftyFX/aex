@@ -44,14 +44,18 @@ function yarnBuildJsx() {
     return gulp.src(paths.estk, { read: false }).pipe(shell([`yarn build`], { cwd: paths.estk }));
 }
 
-function combineJsxAndDeploy() {
+function deployLibs() {
+    return gulp.src(`${paths.estk}/lib/*.jsx`).pipe(gulp.dest(`${paths._build}/panel`));
+}
+
+function combineAndDeployJsx() {
     return gulp
         .src(`${paths.estk}/dist/*.jsx`)
         .pipe(concat('all.jsx'))
         .pipe(gulp.dest(`${paths._build}/panel`));
 }
 
-const buildJsx = gulp.series(yarnBuildJsx, combineJsxAndDeploy);
+const buildJsx = gulp.series(yarnBuildJsx, combineAndDeployJsx, deployLibs);
 
 function deployToAe() {
     return gulp.src([`${paths._build}/panel/**`], { dot: true }).pipe(gulp.dest(paths.user_ae_extension_root));
@@ -60,7 +64,7 @@ function deployToAe() {
 function watchAndDeployArtifacts() {
     gulp.watch(`${paths._build}/panel/**`, deployToAe);
     gulp.watch(`${paths.harness}/**`, buildTestPanel);
-    gulp.watch(`${paths.estk}/dist/**`, combineJsxAndDeploy);
+    gulp.watch(`${paths.estk}/dist/**`, combineAndDeployJsx);
 }
 
 export const clean = gulp.series(cleanCep, cleanJsx);
