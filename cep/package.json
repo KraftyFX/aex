@@ -48,7 +48,6 @@
     "source-map-loader": "^0.2.4",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
-    "types-for-adobe": "bbb999/Types-for-Adobe",
     "typescript": "^4.2.3",
     "webpack": "^4.22.0",
     "webpack-dev-server": "^3.11.2",

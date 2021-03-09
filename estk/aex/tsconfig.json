@@ -18,8 +18,7 @@
         "esModuleInterop": false,
         "types": ["AfterEffects/2018"],
         "typeRoots": [
-            "../node_modules/types-for-adobe",
-            "../../cep/node_modules/types-for-adobe"
+            "../node_modules/types-for-adobe"
         ]
     }
 }
