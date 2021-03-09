@@ -7,6 +7,8 @@ Serializer and Deserializer for After Effects
 On the terminal do this:
 
 ```bash
+$ cd estk
+$ yarn
 $ cd cep
 $ yarn
 $ yarn start
