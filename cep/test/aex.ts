@@ -1,7 +1,7 @@
 import { evalScript } from './csinterface';
 
 export enum AeObject {
-    ActiveComp = 'app.project.activeComp',
+    ActiveComp = 'app.project.activeItem',
 }
 
 export function aex() {
