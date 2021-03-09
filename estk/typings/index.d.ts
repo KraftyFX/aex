@@ -1,3 +1,5 @@
+/// <reference path="./aequery.d.ts" />
+
 interface JSON {
     /**
      * Converts a JavaScript Object Notation (JSON) string into an object.

@@ -3,11 +3,11 @@ function aex(options: AexOptions) {
         toObject(item: Serializable): AexProject {
             assertIsDefined(item, 'item');
 
-            if (isComp(item)) {
+            if (aeq.isComp(item)) {
                 return {
                     comps: [this.visitComp(item as CompItem)],
                 };
-            } else if (isLayer(item)) {
+            } else if (aeq.isLayer(item)) {
                 return {
                     comps: [
                         {

@@ -45,7 +45,10 @@ function yarnBuildJsx() {
 }
 
 function deployLibs() {
-    return gulp.src(`${paths.estk}/lib/*.jsx`).pipe(gulp.dest(`${paths._build}/panel`));
+    return gulp
+        .src(`${paths.estk}/lib/*.jsx`)
+        .pipe(concat('libs.jsx'))
+        .pipe(gulp.dest(`${paths._build}/panel`));
 }
 
 function combineAndDeployJsx() {
