@@ -33,7 +33,7 @@ function aex(options: AexOptions) {
                 pixelAspect,
                 width,
                 bgColor,
-                // displayStartFrame,
+                displayStartFrame,
                 displayStartTime,
                 draft3d,
                 dropFrame,
@@ -66,8 +66,10 @@ function aex(options: AexOptions) {
                 layers.push(layerData);
             });
 
-            /** @todo parse comp markers */
-            let compMarkers = [];
+            let markers;
+            if (comp.markerProperty.isModified) {
+                markers = me.visitMarkers(comp.markerProperty);
+            }
 
             /** @todo explore essential props */
             let essentialProps = [];
@@ -88,7 +90,7 @@ function aex(options: AexOptions) {
 
                 /** Comp internal data */
                 bgColor,
-                // displayStartFrame,
+                displayStartFrame,
                 displayStartTime,
                 draft3d,
                 dropFrame,
@@ -109,9 +111,44 @@ function aex(options: AexOptions) {
 
                 /** Nested objects */
                 layers,
-                compMarkers,
+                markers,
                 essentialProps,
             };
+        },
+        visitMarkers(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
+            let markerData = [] as AexMarkerProperty[];
+
+            for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
+                let time = markerProperty.keyTime(ii);
+                let keyValue = markerProperty.keyValue(ii);
+
+                const comment = getModifiedValue(keyValue.comment, '');
+                const chapter = getModifiedValue(keyValue.chapter, '');
+                const url = getModifiedValue(keyValue.url, '');
+                const frameTarget = getModifiedValue(keyValue.frameTarget, '');
+                const cuePointName = getModifiedValue(keyValue.cuePointName, '');
+                const duration = getModifiedValue(keyValue.duration, 0);
+                const label = getModifiedValue(keyValue.label, 0);
+                const protectedRegion = getModifiedValue(keyValue.protectedRegion, false);
+
+                const markerParameters = keyValue.getParameters();
+                let parameters = markerParameters.toSource() === '({})' ? undefined : markerParameters;
+
+                markerData.push({
+                    time,
+                    comment,
+                    chapter,
+                    url,
+                    frameTarget,
+                    cuePointName,
+                    duration,
+                    parameters,
+                    label,
+                    protectedRegion,
+                });
+            }
+
+            return markerData;
         },
         visitLayer(layer: Layer): AexLayer {
             return {

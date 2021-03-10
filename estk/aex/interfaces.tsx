@@ -20,7 +20,7 @@ interface AexComp {
     width: number;
 
     bgColor: number[];
-    // displayStartFrame: number;
+    displayStartFrame: number;
     displayStartTime: number;
     draft3d: boolean;
     dropFrame: boolean;
@@ -39,7 +39,7 @@ interface AexComp {
     workAreaStart: number;
 
     layers: AexLayer[];
-    compMarkers: AexMarkerProperty[];
+    markers: AexMarkerProperty[];
     essentialProps: any[];
 }
 
@@ -49,4 +49,15 @@ interface AexLayer {
 
 interface AexProperty {}
 
-interface AexMarkerProperty {}
+interface AexMarkerProperty {
+    time: number;
+    comment: string;
+    chapter: string;
+    url: string;
+    frameTarget: string;
+    cuePointName: string;
+    duration: number;
+    parameters: object;
+    label: number;
+    protectedRegion: boolean;
+}
