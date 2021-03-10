@@ -22,42 +22,42 @@ function aex(options: AexOptions) {
             }
         },
         visitComp(comp: CompItem): AexComp {
-            let {
-                comment,
-                label,
-                parentFolder,
+            const {
+                dropFrame,
                 duration,
                 frameRate,
                 height,
-                name,
-                pixelAspect,
-                width,
-                bgColor,
-                displayStartFrame,
-                displayStartTime,
-                draft3d,
-                dropFrame,
-                frameBlending,
-                frameDuration,
-                hideShyLayers,
-                motionBlur,
                 motionBlurAdaptiveSampleLimit,
                 motionBlurSamplesPerFrame,
-                preserveNestedFrameRate,
-                preserveNestedResolution,
+                name,
+                parentFolder,
+                pixelAspect,
                 renderer,
-                resolutionFactor,
                 shutterAngle,
                 shutterPhase,
-                workAreaDuration,
-                workAreaStart,
+                width,
             } = comp;
+
+            const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
+            const comment = getModifiedValue(comp.comment, '');
+            const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
+            const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
+            const draft3d = getModifiedValue(comp.draft3d, false);
+            const frameBlending = getModifiedValue(comp.frameBlending, false);
+            const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
+            const label = getModifiedValue(comp.label, 15);
+            const motionBlur = getModifiedValue(comp.motionBlur, false);
+            const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
+            const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
+            const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
+            const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
+            const workAreaDuration = comp.workAreaDuration === duration ? undefined : comp.workAreaDuration;
 
             /**
              * @todo Add AexOption to preserve project folder structure.
              * For now, just get the immediate parent folder name & assume lives in root
              **/
-            const folder = parentFolder.name;
+            const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
 
             let layers = [] as AexLayer[];
             const me = this;
@@ -95,7 +95,6 @@ function aex(options: AexOptions) {
                 draft3d,
                 dropFrame,
                 frameBlending,
-                frameDuration,
                 hideShyLayers,
                 motionBlur,
                 motionBlurAdaptiveSampleLimit,

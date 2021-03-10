@@ -12,7 +12,6 @@ interface AexComp {
     folder: string;
 
     duration: number;
-    frameDuration: number;
     frameRate: number;
     height: number;
     name: string;
