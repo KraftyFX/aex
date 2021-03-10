@@ -1,6 +1,6 @@
 declare var aeq: AEQuery;
 
-declare class AEQuery {
+declare interface AEQuery {
     /** Module for interacting with AE itself */
     app: AEQAppClass;
 
@@ -334,7 +334,7 @@ declare type anyArrayCallback<T> = (item: T, index: number, array: Array<T>) => 
 
 /** AEQ MODULES **/
 
-declare class AEQAppClass {
+declare interface AEQAppClass {
     /** The After Effects version */
     version: number;
 
@@ -366,7 +366,7 @@ declare class AEQAppClass {
     open(filePath: File | string): File;
 }
 
-declare class AEQCommandClass {
+declare interface AEQCommandClass {
     /** Call a command-line/system command. */
     call(windows: string, mac: string, arg?: string): string;
 
@@ -383,7 +383,7 @@ declare class AEQCommandClass {
     copyToClipboard(text: string): void;
 }
 
-declare class AEQCompClass {
+declare interface AEQCompClass {
     /** Creates a comp with the given settings */
     create(folder: FolderItem | string, options: AEQCompCreateOptions): CompItem;
     create(options?: AEQCompCreateOptions): CompItem;
@@ -398,7 +398,7 @@ declare class AEQCompClass {
     isQueued(comp: CompItem): boolean;
 }
 
-declare class AEQFileClass {
+declare interface AEQFileClass {
     /** The value of the OS's file system path separator symbol; \ or / */
     pathSeparatorSymbol: string;
 
@@ -453,7 +453,7 @@ declare class AEQFileClass {
     get: typeof aeq.file.getFile;
 }
 
-declare class AEQLayerClass {
+declare interface AEQLayerClass {
     /** Copies the state of layer toggles from one layer to another. */
     copyLayerToggles(sourceLayer: Layer, destLayer: Layer): void;
 
@@ -470,7 +470,7 @@ declare class AEQLayerClass {
     relatedLayers(root: Layer): AEQArrayEx<Layer>;
 }
 
-declare class AEQProjectClass {
+declare interface AEQProjectClass {
     /** Gets all footage items in project */
     getFootage(parentFolder?: FolderItem | string): AEQArrayEx<Item>;
 
@@ -526,7 +526,7 @@ declare class AEQProjectClass {
     reduceToQueuedComps(): AEQArrayEx<CompItem> | null;
 }
 
-declare class AEQPropertyClass {
+declare interface AEQPropertyClass {
     /** Returns the property value type of a Property as a string. */
     valueType(property: Property<PropertyValueType>): string;
 
@@ -537,7 +537,7 @@ declare class AEQPropertyClass {
     getLayer(property: Property<PropertyValueType>): Layer;
 }
 
-declare class AEQRenderQueueClass {
+declare interface AEQRenderQueueClass {
     /** Add a project item to the render queue. */
     queue(item: Item): RenderQueueItem;
 
@@ -575,7 +575,7 @@ declare class AEQRenderQueueClass {
     rqTemplateExists(templateName: string): boolean;
 }
 
-declare class AEQSettingsClass {
+declare interface AEQSettingsClass {
     /** Saves setting if present, else gets setting */
     setting(sectionName: string, keyName: string, value?: string): string;
 
@@ -613,7 +613,7 @@ declare class AEQSettingsClass {
 
 /** AEQ CUSTOM OBJECTS **/
 
-declare class AEQArrayEx<T> extends Array<T> {
+declare interface AEQArrayEx<T> extends Array<T> {
     /** Loops through the elements in the array and executes a function */
     forEach(callback: forEachArrayCallback<T>): void;
 
@@ -645,7 +645,7 @@ declare class AEQArrayEx<T> extends Array<T> {
     insertAt(insert: T, index: number): void;
 }
 
-declare class AEQComp extends CompItem {
+declare interface AEQComp extends CompItem {
     /** Get the original object */
     get(): CompItem;
 
@@ -653,7 +653,7 @@ declare class AEQComp extends CompItem {
     forEachLayer(callback: forEachArrayCallback<Layer>): void;
 }
 
-declare class AEQKey {
+declare interface AEQKey {
     /** Used to check if the key index is the correct for refrensing */
     checkKey(): void;
 
@@ -691,7 +691,7 @@ declare class AEQKey {
     valueTypeIs(type: string): boolean;
 }
 
-declare class AEQLayer {
+declare interface AEQLayer {
     /** Get the original object */
     get(): Layer;
 
@@ -723,7 +723,7 @@ declare class AEQLayer {
     relatedLayers(): AEQArrayEx<AEQLayer>;
 }
 
-declare class AEQProperty<PropertyValueType> {
+declare interface AEQProperty<PropertyValueType> {
     /** Get the original object */
     get(): Property<PropertyValueType>;
 
@@ -776,7 +776,7 @@ declare class AEQProperty<PropertyValueType> {
     getKeys(): AEQArrayEx<AEQKey>;
 }
 
-declare class AEQUIContainer<T> {
+declare interface AEQUIContainer<T> {
     obj: T;
 
     /** Get the original object */
@@ -856,17 +856,13 @@ declare class AEQUIContainer<T> {
 
     /** Add a TreeView to this container */
     addTreeView(items: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesTreeView>): AEQUITreeView;
-
-    // Shortcuts
-    addListbox: typeof AEQUIContainer.prototype.addListBox;
-    addStatictext: typeof AEQUIContainer.prototype.addStaticText;
-    addTreeview: typeof AEQUIContainer.prototype.addTreeView;
 }
 
-declare class AEQUIListbox {
+declare interface AEQUIListbox {
     obj: ListBox;
 
     /** Adds a ListItem to this ListBox */
+    add(text: string, image?: ScriptUIImage, index?: number): ListItem;
     addItem(text: string, image?: ScriptUIImage, index?: number): ListItem;
 
     /** Removes a ListItem from this list */
@@ -901,12 +897,9 @@ declare class AEQUIListbox {
 
     /** Gets the selection in a list */
     getSelection(): AEQArrayEx<ListItem>;
-
-    // Shortcuts
-    add: typeof AEQUIListbox.prototype.addItem;
 }
 
-declare class AEQUITreeView extends AEQUIListbox {
+declare interface AEQUITreeView extends AEQUIListbox {
     // obj: TreeView;
 
     /** Reveals (expands) an item in a treeview by name */
@@ -937,7 +930,7 @@ declare class AEQUITreeView extends AEQUIListbox {
     isItem(branch: ListItem): boolean;
 }
 
-declare class AEQUIWindow<T> extends AEQUIContainer<T> {
+declare interface AEQUIWindow<T> extends AEQUIContainer<T> {
     obj: T;
 
     /** Shows a window */
@@ -953,7 +946,7 @@ declare class AEQUIWindow<T> extends AEQUIContainer<T> {
     layout(): void;
 }
 
-declare class AEQUIClass {
+declare interface AEQUIClass {
     /** Creates a UI Main Window */
     createMainWindow(thisObj: Panel, title: string, options?: { resizable: boolean }): AEQUIWindow<Panel | Window>;
 
@@ -969,7 +962,7 @@ declare class AEQUIClass {
 
 /** AEQ SUBOBJECTS **/
 
-declare class SpatialTangent {
+declare interface SpatialTangent {
     /** Tangent for keyIn */
     inTangent: KeyframeSpatialTangent;
 
@@ -977,13 +970,13 @@ declare class SpatialTangent {
     outTangent: KeyframeSpatialTangent;
 }
 
-declare class KeyframeSpatialTangent {
+declare interface KeyframeSpatialTangent {
     xSpatialTangent: number;
     ySpatialTangent: number;
     zSpatialTangent?: number;
 }
 
-declare class TemporalEase {
+declare interface TemporalEase {
     /** TemporalEase for keyIn */
     inTemporalEase: KeyframeTemporalEase;
 
@@ -991,13 +984,13 @@ declare class TemporalEase {
     outTemporalEase: KeyframeTemporalEase;
 }
 
-declare class KeyframeTemporalEase {
+declare interface KeyframeTemporalEase {
     xTemporalEase: number;
     yTemporalEase: number;
     zTemporalEase?: number;
 }
 
-declare class AEQKeyInfo {
+declare interface AEQKeyInfo {
     /** Prop that the key lives on */
     property: Property<PropertyValueType>;
 
@@ -1032,7 +1025,7 @@ declare class AEQKeyInfo {
     roving: boolean;
 }
 
-declare class AEQWriteFileOptions {
+declare interface AEQWriteFileOptions {
     /** Whether to overwrite file if already exists */
     overwrite?: boolean;
 
@@ -1040,7 +1033,7 @@ declare class AEQWriteFileOptions {
     encoding?: string;
 }
 
-declare class AEQCompCreateOptions {
+declare interface AEQCompCreateOptions {
     name?: string;
     width?: number;
     height?: number;
@@ -1049,7 +1042,7 @@ declare class AEQCompCreateOptions {
     frameRate?: number;
 }
 
-declare class AEQGetPropertyChildrenOptions {
+declare interface AEQGetPropertyChildrenOptions {
     /** set to true to separate properties */
     separate?: boolean;
 
