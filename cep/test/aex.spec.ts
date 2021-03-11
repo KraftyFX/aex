@@ -46,7 +46,61 @@ describe('aex().toObject()', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
+        console.log('project_empty', result);
         expect(result).property('items').to.be.empty;
+        expect(result).property('comps').to.be.empty;
+    });
+
+    it(`Can parse flat project folders`, async () => {
+        aex().openProject('testAssets/project_folders-flat.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        console.log('project_folders-flat', result);
+        expect(result)
+            .property('items')
+            .to.eql([
+                {
+                    itemType: 'Folder',
+                    name: 'Folder A',
+                },
+                {
+                    itemType: 'Folder',
+                    name: 'Solids',
+                },
+            ]);
+        expect(result).property('comps').to.be.empty;
+    });
+
+    it(`Can parse nested project folders`, async () => {
+        aex().openProject('testAssets/project_folders-nested.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        console.log('project_folders-nested', result);
+        expect(result)
+            .property('items')
+            .to.eql([
+                {
+                    itemType: 'Folder',
+                    name: 'Solids',
+                },
+                {
+                    folder: 'Solids',
+                    itemType: 'Folder',
+                    name: 'Folder A',
+                },
+                {
+                    folder: 'Folder A',
+                    itemType: 'Folder',
+                    name: 'Folder C',
+                },
+                {
+                    folder: 'Solids',
+                    itemType: 'Folder',
+                    name: 'Folder B',
+                },
+            ]);
         expect(result).property('comps').to.be.empty;
     });
 
@@ -55,6 +109,7 @@ describe('aex().toObject()', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
+        console.log('comp_empty-comp', result);
         expect(result).property('items').to.be.empty;
         expect(result)
             .property('comps')
@@ -76,6 +131,7 @@ describe('aex().toObject()', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
+        console.log('comp_markers-comp', result);
         expect(result).property('items').to.be.empty;
         expect(result)
             .property('comps')
@@ -149,6 +205,7 @@ describe('aex().toObject()', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
+        console.log('layer_empty-layer', result);
         expect(result).property('items').to.be.empty;
         expect(result)
             .property('comps')
@@ -176,13 +233,14 @@ describe('aex().toObject()', function () {
     it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
+        console.log('activecomp', result);
         expect(result);
     });
 
     it(`Unsophisticated test to check project data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
-        console.log(result);
+        console.log('full project', result);
         expect(result);
     });
 });

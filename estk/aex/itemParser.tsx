@@ -20,7 +20,7 @@ function itemParser(options: AexOptions) {
             let itemType = 'Footage' as AexItemType;
 
             const comment = getModifiedValue(item.comment, '');
-            const label = getModifiedValue(item.label, 15);
+            let label = getModifiedValue(item.label, 15);
 
             /**
              * @todo Add AexOption to preserve project folder structure.
@@ -30,6 +30,7 @@ function itemParser(options: AexOptions) {
 
             if (aeq.isFolderItem(item)) {
                 itemType = 'Folder';
+                label = getModifiedValue(item.label, 2);
             }
 
             return {
