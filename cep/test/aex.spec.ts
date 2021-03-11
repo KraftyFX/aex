@@ -55,7 +55,6 @@ describe('aex().toObject()', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
-        console.log(result);
         expect(result).property('items').to.be.empty;
         expect(result)
             .property('comps')
@@ -64,8 +63,81 @@ describe('aex().toObject()', function () {
                     duration: 4,
                     frameRate: 60,
                     height: 720,
-                    layerType: 'Comp',
+                    itemType: 'Comp',
                     name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
+    });
+
+    it(`Can parse comp markers`, async () => {
+        aex().openProject('testAssets/comp_markers.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        expect(result).property('items').to.be.empty;
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    markers: [
+                        {
+                            duration: 0.2,
+                            time: 0.16666666666667,
+                        },
+                        {
+                            comment: 'Some Comment',
+                            duration: 1,
+                            label: 4,
+                            protectedRegion: true,
+                            time: 0.46666666666667,
+                        },
+                        {
+                            label: 3,
+                            time: 0.78333333333333,
+                        },
+                        {
+                            comment: 'banana',
+                            time: 1.83333333333333,
+                        },
+                        {
+                            duration: 0.33333333333333,
+                            protectedRegion: true,
+                            time: 3.55,
+                        },
+                    ],
+                    name: 'DetailedMarkers',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    markers: [
+                        {
+                            time: 0.16666666666667,
+                        },
+                        {
+                            time: 0.46666666666667,
+                        },
+                        {
+                            time: 0.78333333333333,
+                        },
+                        {
+                            time: 1.83333333333333,
+                        },
+                        {
+                            time: 3.55,
+                        },
+                    ],
+                    name: 'PlainMarkers',
                     pixelAspect: 1,
                     width: 1280,
                 },
