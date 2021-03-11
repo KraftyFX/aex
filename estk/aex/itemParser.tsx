@@ -1,48 +1,47 @@
 function itemParser(options: AexOptions) {
-    function _parseItemAttributes(item: Item): AexItemAttributes {
-        const { name, parentFolder } = item;
-
-        let itemType = 'Footage' as AexItemType;
-
-        const comment = getModifiedValue(item.comment, '');
-        const label = getModifiedValue(item.label, 15);
-
-        /**
-         * @todo Add AexOption to preserve project folder structure.
-         * For now, just get the immediate parent folder name & assume lives in root
-         **/
-        const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
-
-        if (aeq.isFolderItem(item)) {
-            itemType = 'Folder';
-        }
-
-        return {
-            name,
-            itemType,
-            comment,
-            label,
-            folder,
-        };
-    }
-    function _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
-        const { duration, frameRate, height, pixelAspect, width } = item;
-        const itemAttributes = _parseItemAttributes(item);
-
-        return {
-            ...itemAttributes,
-
-            duration,
-            frameRate,
-            height,
-            pixelAspect,
-            width,
-        };
-    }
-
     return {
+        _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
+            const { duration, frameRate, height, pixelAspect, width } = item;
+            const itemAttributes = this.parseItemAttributes(item);
+
+            return {
+                ...itemAttributes,
+
+                duration,
+                frameRate,
+                height,
+                pixelAspect,
+                width,
+            };
+        },
+        parseItemAttributes(item: Item): AexItemAttributes {
+            const { name, parentFolder } = item;
+
+            let itemType = 'Footage' as AexItemType;
+
+            const comment = getModifiedValue(item.comment, '');
+            const label = getModifiedValue(item.label, 15);
+
+            /**
+             * @todo Add AexOption to preserve project folder structure.
+             * For now, just get the immediate parent folder name & assume lives in root
+             **/
+            const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
+
+            if (aeq.isFolderItem(item)) {
+                itemType = 'Folder';
+            }
+
+            return {
+                name,
+                itemType,
+                comment,
+                label,
+                folder,
+            };
+        },
         parseFootageAttributes(item: FootageItem): AexFootageItemAttributes {
-            const avItemAttributes = _parseAVItemAttributes(item);
+            const avItemAttributes = this._parseAVItemAttributes(item);
 
             const itemSource = item.mainSource;
 
@@ -85,7 +84,7 @@ function itemParser(options: AexOptions) {
             };
         },
         parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
-            const avItemAttributes = _parseAVItemAttributes(comp);
+            const avItemAttributes = this._parseAVItemAttributes(comp);
             avItemAttributes.itemType = 'Comp';
 
             const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);

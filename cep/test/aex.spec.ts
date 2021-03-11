@@ -144,6 +144,35 @@ describe('aex().toObject()', function () {
             ]);
     });
 
+    it(`Can parse essential layer attributes`, async () => {
+        aex().openProject('testAssets/layer_empty-layer.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+
+        expect(result).property('items').to.be.empty;
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 1,
+                            layerType: 'AVLayer',
+                            name: 'Null 1',
+                            nullLayer: true,
+                        },
+                    ],
+                    name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
+    });
+
     it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 

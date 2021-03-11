@@ -55,7 +55,11 @@ function aex(options: AexOptions) {
                 return itemParsing.parseFootageAttributes(item);
             }
 
-            return this.visitComp(item as CompItem);
+            if (aeq.isComp(item)) {
+                return this.visitComp(item as CompItem);
+            }
+
+            return itemParsing.parseItemAttributes(item);
         },
         visitComp(comp: CompItem): AexComp {
             const compAttributes = itemParsing.parseCompItemAttributes(comp);
@@ -97,11 +101,9 @@ function aex(options: AexOptions) {
                 const frameTarget = getModifiedValue(keyValue.frameTarget, '');
                 const cuePointName = getModifiedValue(keyValue.cuePointName, '');
                 const duration = getModifiedValue(keyValue.duration, 0);
+                const parameters = keyValue.getParameters();
                 const label = getModifiedValue(keyValue.label, 0);
                 const protectedRegion = getModifiedValue(keyValue.protectedRegion, false);
-
-                const markerParameters = keyValue.getParameters();
-                let parameters = markerParameters.toSource() === '({})' ? undefined : markerParameters;
 
                 markerData.push({
                     time,
@@ -111,7 +113,7 @@ function aex(options: AexOptions) {
                     frameTarget,
                     cuePointName,
                     duration,
-                    parameters,
+                    parameters: parameters.toSource() === '({})' ? undefined : parameters,
                     label,
                     protectedRegion,
                 });
@@ -137,7 +139,7 @@ function aex(options: AexOptions) {
             return {
                 ...layerAttributes,
 
-                properties,
+                properties: properties.toSource() === '({})' ? undefined : properties,
             };
         },
     };
