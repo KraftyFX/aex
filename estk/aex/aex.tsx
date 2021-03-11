@@ -65,7 +65,13 @@ function aex(options: AexOptions) {
                 layerType = 'Folder';
             }
 
-            let footageAttributes = {} as AexAVItem;
+            let avItemAttributes = {} as AexAVItem;
+            if (aeq.isComp(item)) {
+                avItemAttributes = this.visitAVItem(item);
+                layerType = 'Comp';
+            }
+
+            let footageAttributes = {};
             if (aeq.isFootageItem(item)) {
                 const itemSource = item.mainSource;
 
@@ -80,7 +86,7 @@ function aex(options: AexOptions) {
                 const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 
                 let fileSourceAttributes = {} as AexFileSourceAttributes;
-                let solidSourceAttributes = {} as AexSoldSourceAttributes;
+                let solidSourceAttributes = {} as AexSolidSourceAttributes;
                 if (sourceIsFile(itemSource)) {
                     /** @todo Explore file handling */
                     fileSourceAttributes.file = itemSource.file.fsName;
@@ -90,8 +96,6 @@ function aex(options: AexOptions) {
                 } else if (sourceIsPlaceholder(itemSource)) {
                     layerType = 'Placeholder';
                 }
-
-                const avItemAttributes = this.visitAVItem(item);
 
                 footageAttributes = {
                     alphaMode,
@@ -103,7 +107,6 @@ function aex(options: AexOptions) {
                     removePulldown,
                     invertAlpha,
 
-                    ...avItemAttributes,
                     ...fileSourceAttributes,
                     ...solidSourceAttributes,
                 };
@@ -115,6 +118,7 @@ function aex(options: AexOptions) {
                 label,
                 folder,
 
+                ...avItemAttributes,
                 ...footageAttributes,
             };
         },
@@ -130,19 +134,24 @@ function aex(options: AexOptions) {
             };
         },
         visitComp(comp: CompItem): AexComp {
-            const { dropFrame, motionBlurAdaptiveSampleLimit, motionBlurSamplesPerFrame, renderer, shutterAngle, shutterPhase } = comp;
-
             const itemAttributes = this.visitItem(comp);
+            const avItemAttributes = this.visitAVItem(comp);
 
             const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
             const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
             const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
+            const dropFrame = getModifiedValue(comp.dropFrame, true);
             const draft3d = getModifiedValue(comp.draft3d, false);
+            const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
             const frameBlending = getModifiedValue(comp.frameBlending, false);
             const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
             const motionBlur = getModifiedValue(comp.motionBlur, false);
             const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
+            const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
+            const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
             const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
+            const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
+            const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
             const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
             const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
             const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
@@ -164,6 +173,7 @@ function aex(options: AexOptions) {
 
             return {
                 ...itemAttributes,
+                ...avItemAttributes,
 
                 /** Comp internal data */
                 bgColor,
@@ -186,9 +196,9 @@ function aex(options: AexOptions) {
                 workAreaStart,
 
                 /** Nested objects */
-                layers,
                 markers,
-                essentialProps,
+                layers: layers.length > 0 ? layers : undefined,
+                essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
             };
         },
         visitMarkers(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {

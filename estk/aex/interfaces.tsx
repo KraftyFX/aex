@@ -1,7 +1,7 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
 
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
-type AexItemType = 'Folder' | 'Footage' | 'Solid' | 'Placeholder';
+type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
 
 interface AexOptions {}
 
@@ -31,7 +31,7 @@ interface AexFileSourceAttributes {
     file: string;
 }
 
-interface AexSoldSourceAttributes {
+interface AexSolidSourceAttributes {
     color: number[];
 }
 
