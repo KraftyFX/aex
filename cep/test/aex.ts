@@ -2,6 +2,7 @@ import { evalScript } from './csinterface';
 
 export enum AeObject {
     ActiveComp = 'app.project.activeItem',
+    Project = 'app.project',
 }
 
 export function aex() {
@@ -16,6 +17,7 @@ export function aex() {
         async toObjectWithAeObject(aeobject: AeObject) {
             switch (aeobject) {
                 case AeObject.ActiveComp:
+                case AeObject.Project:
                     return await evalScript(`aex().toObject(${aeobject})`);
                 default:
                     throw new Error(`Unrecognized AE Object - ${aeobject}`);

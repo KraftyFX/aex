@@ -14,3 +14,19 @@ function getModifiedValue<T>(value: T, original: T): T | undefined {
 
     return value;
 }
+
+function sourceIsSolid(source: any): source is SolidSource {
+    return source instanceof SolidSource;
+}
+
+function sourceIsFile(source: any): source is FileSource {
+    return source instanceof FileSource;
+}
+
+function sourceIsPlaceholder(source: any): source is PlaceholderSource {
+    return source instanceof PlaceholderSource;
+}
+
+function isProject(item: any): item is Project {
+    return item instanceof Project;
+}

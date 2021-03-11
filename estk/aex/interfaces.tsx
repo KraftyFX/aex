@@ -1,25 +1,41 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
 
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
+type AexItemType = 'Folder' | 'Footage' | 'Solid' | 'Placeholder';
 
 interface AexOptions {}
 
 interface AexProject {
+    items: Partial<AexItem>[];
     comps: Partial<AexComp>[];
 }
 
-interface AexComp {
+interface AexItem {
     comment: string;
     label: number;
+    name: string;
     folder: string;
+    layerType: AexItemType;
+}
 
+interface AexAVItem {
     duration: number;
     frameRate: number;
     height: number;
-    name: string;
     pixelAspect: number;
     width: number;
+}
 
+interface AexFileSourceAttributes {
+    /** Path to file */
+    file: string;
+}
+
+interface AexSoldSourceAttributes {
+    color: number[];
+}
+
+interface AexComp extends AexAVItem, AexItem {
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;
@@ -59,6 +75,7 @@ interface AexLayer {
     parentLayerIndex: number;
 
     layerType: AexLayerType;
+    properties: AexProperties;
 }
 
 interface AexAVLayerAttributes {
@@ -87,6 +104,10 @@ interface AexLightLayerAttributes {
 
 interface AexTextLayerAttributes {
     threeDPerChar: boolean;
+}
+
+interface AexProperties {
+    [name: string]: AexProperty;
 }
 
 interface AexProperty {}
