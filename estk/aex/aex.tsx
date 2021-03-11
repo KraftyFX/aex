@@ -1,10 +1,12 @@
 function aex(options: AexOptions) {
+    const items = itemParser(options);
+
     return {
         toObject(item: Serializable): AexProject {
             assertIsDefined(item, 'item');
 
             if (isProject(item)) {
-                return this.visitProject(item);
+                return this.visitProject();
             } else if (aeq.isComp(item)) {
                 return {
                     items: [],
@@ -26,8 +28,8 @@ function aex(options: AexOptions) {
                 };
             }
         },
-        visitProject(project: Project): AexProject {
-            var me = this;
+        visitProject(): AexProject {
+            const me = this;
 
             const items = aeq.getItems().filter(function (item) {
                 return !aeq.isComp(item);
@@ -48,115 +50,16 @@ function aex(options: AexOptions) {
             };
         },
         visitItem(item: Item): AexItem {
-            const { name, parentFolder } = item;
-
-            let layerType = 'Footage' as AexItemType;
-
-            const comment = getModifiedValue(item.comment, '');
-            const label = getModifiedValue(item.label, 15);
-
-            /**
-             * @todo Add AexOption to preserve project folder structure.
-             * For now, just get the immediate parent folder name & assume lives in root
-             **/
-            const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
-
-            if (aeq.isFolderItem(item)) {
-                layerType = 'Folder';
-            }
-
-            let avItemAttributes = {} as AexAVItem;
-            if (aeq.isComp(item)) {
-                avItemAttributes = this.visitAVItem(item);
-                layerType = 'Comp';
-            }
-
-            let footageAttributes = {};
             if (aeq.isFootageItem(item)) {
-                const itemSource = item.mainSource;
-
-                const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
-                const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
-                const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-                const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
-                const loop = getModifiedValue(itemSource.loop, 1);
-                const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
-                const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
-
-                const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
-
-                let fileSourceAttributes = {} as AexFileSourceAttributes;
-                let solidSourceAttributes = {} as AexSolidSourceAttributes;
-                if (sourceIsFile(itemSource)) {
-                    /** @todo Explore file handling */
-                    fileSourceAttributes.file = itemSource.file.fsName;
-                } else if (sourceIsSolid(itemSource)) {
-                    layerType = 'Solid';
-                    solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
-                } else if (sourceIsPlaceholder(itemSource)) {
-                    layerType = 'Placeholder';
-                }
-
-                footageAttributes = {
-                    alphaMode,
-                    conformFrameRate,
-                    highQualityFieldSeparation,
-                    fieldSeparationType,
-                    loop,
-                    premulColor,
-                    removePulldown,
-                    invertAlpha,
-
-                    ...fileSourceAttributes,
-                    ...solidSourceAttributes,
-                };
+                return items.parseFootageAttributes(item);
             }
-            return {
-                name,
-                layerType,
-                comment,
-                label,
-                folder,
 
-                ...avItemAttributes,
-                ...footageAttributes,
-            };
-        },
-        visitAVItem(item: AVItem): AexAVItem {
-            const { duration, frameRate, height, pixelAspect, width } = item;
-
-            return {
-                duration,
-                frameRate,
-                height,
-                pixelAspect,
-                width,
-            };
+            return this.visitComp(item as CompItem);
         },
         visitComp(comp: CompItem): AexComp {
-            const itemAttributes = this.visitItem(comp);
-            const avItemAttributes = this.visitAVItem(comp);
+            const compAttributes = items.parseCompItemAttributes(comp);
 
-            const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
-            const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
-            const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
-            const dropFrame = getModifiedValue(comp.dropFrame, true);
-            const draft3d = getModifiedValue(comp.draft3d, false);
-            const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
-            const frameBlending = getModifiedValue(comp.frameBlending, false);
-            const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
-            const motionBlur = getModifiedValue(comp.motionBlur, false);
-            const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
-            const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
-            const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
-            const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
-            const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
-            const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
-            const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
-            const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
-            const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
-
-            var me = this;
+            const me = this;
             let layers = [] as AexLayer[];
             aeq.forEachLayer(comp, function (layer: Layer) {
                 let layerData = me.visitLayer(layer);
@@ -172,28 +75,7 @@ function aex(options: AexOptions) {
             let essentialProps = [];
 
             return {
-                ...itemAttributes,
-                ...avItemAttributes,
-
-                /** Comp internal data */
-                bgColor,
-                displayStartFrame,
-                displayStartTime,
-                draft3d,
-                dropFrame,
-                frameBlending,
-                hideShyLayers,
-                motionBlur,
-                motionBlurAdaptiveSampleLimit,
-                motionBlurSamplesPerFrame,
-                preserveNestedFrameRate,
-                preserveNestedResolution,
-                renderer,
-                resolutionFactor,
-                shutterAngle,
-                shutterPhase,
-                workAreaDuration,
-                workAreaStart,
+                ...compAttributes,
 
                 /** Nested objects */
                 markers,

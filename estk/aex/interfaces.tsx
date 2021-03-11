@@ -10,15 +10,15 @@ interface AexProject {
     comps: Partial<AexComp>[];
 }
 
-interface AexItem {
+interface AexItemAttributes {
     comment: string;
     label: number;
     name: string;
     folder: string;
-    layerType: AexItemType;
+    itemType: AexItemType;
 }
 
-interface AexAVItem {
+interface AexAVItemAttributes extends Partial<AexItemAttributes> {
     duration: number;
     frameRate: number;
     height: number;
@@ -26,16 +26,7 @@ interface AexAVItem {
     width: number;
 }
 
-interface AexFileSourceAttributes {
-    /** Path to file */
-    file: string;
-}
-
-interface AexSolidSourceAttributes {
-    color: number[];
-}
-
-interface AexComp extends AexAVItem, AexItem {
+interface AexCompItemAttributes extends Partial<AexAVItemAttributes> {
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;
@@ -54,13 +45,37 @@ interface AexComp extends AexAVItem, AexItem {
     shutterPhase: number;
     workAreaDuration: number;
     workAreaStart: number;
+}
 
+interface AexItem extends Partial<AexFootageItemAttributes>, Partial<AexComp> {}
+
+interface AexFootageItemAttributes extends Partial<AexAVItemAttributes>, Partial<AexFileSourceAttributes>, Partial<AexSolidSourceAttributes> {
+    alphaMode: AlphaMode;
+    conformFrameRate: number;
+    fieldSeparationType: FieldSeparationType;
+    highQualityFieldSeparation: boolean;
+    loop: number;
+    premulColor: number[];
+    removePulldown: PulldownPhase;
+    invertAlpha: boolean;
+}
+
+interface AexFileSourceAttributes {
+    /** Path to file */
+    file: string;
+}
+
+interface AexSolidSourceAttributes {
+    color: number[];
+}
+
+interface AexComp extends Partial<AexCompItemAttributes> {
     layers: AexLayer[];
     markers: AexMarkerProperty[];
     essentialProps: any[];
 }
 
-interface AexLayer {
+interface AexLayerAttributes {
     name: string;
     label: number;
     comment: string;
@@ -73,12 +88,9 @@ interface AexLayer {
     shy: boolean;
     solo: boolean;
     parentLayerIndex: number;
-
-    layerType: AexLayerType;
-    properties: AexProperties;
 }
 
-interface AexAVLayerAttributes {
+interface AexAVLayerAttributes extends Partial<AexLayerAttributes> {
     adjustmentLayer: boolean;
     audioEnabled: boolean;
     autoOrient: AutoOrientType;
@@ -98,12 +110,17 @@ interface AexAVLayerAttributes {
     trackMatteType: TrackMatteType;
 }
 
-interface AexLightLayerAttributes {
+interface AexLightLayerAttributes extends Partial<AexLayerAttributes> {
     lightType: LightType;
 }
 
-interface AexTextLayerAttributes {
+interface AexTextLayerAttributes extends Partial<AexLayerAttributes> {
     threeDPerChar: boolean;
+}
+
+interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
+    layerType: AexLayerType;
+    properties: AexProperties;
 }
 
 interface AexProperties {
