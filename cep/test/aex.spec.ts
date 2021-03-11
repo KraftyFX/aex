@@ -14,6 +14,7 @@ describe('aex().toObject()', function () {
         await cleanupAeqIpc();
     });
 
+    /** Meta tests */
     it(`Can throw if undefined is passed in`, async () => {
         try {
             await aex().toObject(undefined);
@@ -41,13 +42,29 @@ describe('aex().toObject()', function () {
         }
     });
 
-    it(`Can parse empty project`, async () => {
-        aex().openProject('testAssets/project_empty.aep');
+    /** Project tests */
+    it(`Can parse basic project attributes`, async () => {
+        aex().openProject('testAssets/project_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
-        console.log('project_empty', result);
-        expect(result).property('items').to.be.empty;
+        console.log('project_basic', result);
+        expect(result)
+            .property('items')
+            .to.eql([
+                { itemType: 'Folder', name: 'Solids' },
+                {
+                    duration: 0,
+                    folder: 'Solids',
+                    frameRate: 0,
+                    height: 500,
+                    itemType: 'Solid',
+                    label: 1,
+                    name: 'Black Solid 1',
+                    pixelAspect: 1,
+                    width: 500,
+                },
+            ]);
         expect(result).property('comps').to.be.empty;
     });
 
@@ -104,7 +121,8 @@ describe('aex().toObject()', function () {
         expect(result).property('comps').to.be.empty;
     });
 
-    it(`Can parse essential comp attributes`, async () => {
+    /** Comp tests */
+    it(`Can parse basic comp attributes`, async () => {
         aex().openProject('testAssets/comp_empty-comp.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
@@ -200,12 +218,13 @@ describe('aex().toObject()', function () {
             ]);
     });
 
-    it(`Can parse essential layer attributes`, async () => {
-        aex().openProject('testAssets/layer_empty-layer.aep');
+    /** Layer tests */
+    it(`Can parse basic layer attributes`, async () => {
+        aex().openProject('testAssets/layer_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
-        console.log('layer_empty-layer', result);
+        console.log('layer_basic', result);
         expect(result).property('items').to.be.empty;
         expect(result)
             .property('comps')
@@ -219,8 +238,52 @@ describe('aex().toObject()', function () {
                         {
                             label: 1,
                             layerType: 'AVLayer',
-                            name: 'Null 1',
+                            name: 'Solo',
                             nullLayer: true,
+                            solo: true,
+                        },
+                        {
+                            label: 1,
+                            layerType: 'AVLayer',
+                            name: 'Empty',
+                            nullLayer: true,
+                        },
+                        {
+                            inPoint: 0.5,
+                            label: 1,
+                            layerType: 'AVLayer',
+                            name: 'Timing',
+                            nullLayer: true,
+                            outPoint: 3.06666666666667,
+                        },
+                        {
+                            adjustmentLayer: true,
+                            autoOrient: 4213,
+                            collapseTransformation: true,
+                            label: 2,
+                            layerType: 'AVLayer',
+                            motionBlur: true,
+                            name: 'Flags',
+                            nullLayer: true,
+                            samplingQuality: 4813,
+                            shy: true,
+                            threeDLayer: true,
+                        },
+                        {
+                            blendingMode: 5216,
+                            label: 1,
+                            layerType: 'AVLayer',
+                            name: 'Blend Stretch',
+                            nullLayer: true,
+                            outPoint: 1,
+                            stretch: 25,
+                        },
+                        {
+                            label: 1,
+                            layerType: 'AVLayer',
+                            name: 'Parented',
+                            nullLayer: true,
+                            parentLayerIndex: 4,
                         },
                     ],
                     name: 'Comp 1',
@@ -230,6 +293,55 @@ describe('aex().toObject()', function () {
             ]);
     });
 
+    it(`Can parse light layer attributes`, async () => {
+        aex().openProject('testAssets/layer_light.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+
+        console.log('layer_light', result);
+        expect(result).property('items').to.be.empty;
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 6,
+                            layerType: 'LightLayer',
+                            lightType: 4412,
+                            name: 'Parallel Light',
+                        },
+                        {
+                            label: 6,
+                            layerType: 'LightLayer',
+                            lightType: 4413,
+                            name: 'Spot Light',
+                        },
+                        {
+                            label: 6,
+                            layerType: 'LightLayer',
+                            lightType: 4414,
+                            name: 'Point Light',
+                        },
+                        {
+                            label: 6,
+                            layerType: 'LightLayer',
+                            lightType: 4415,
+                            name: 'Ambient Light',
+                        },
+                    ],
+                    name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
+    });
+
+    /** Data dumps */
     it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
