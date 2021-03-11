@@ -3,7 +3,7 @@ import { AeObject, aex } from './aex';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
 
 describe('aex().toObject()', function () {
-    this.timeout(1000);
+    this.timeout(2000);
 
     before(async () => {
         await evalAexIntoESTK();
@@ -39,6 +39,37 @@ describe('aex().toObject()', function () {
             expect(e.isEstkError).to.be.true;
             expect(e.message).to.contain('undefined');
         }
+    });
+
+    it(`Can parse empty project`, async () => {
+        aex().openProject('testAssets/project_empty.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        expect(result).property('items').to.be.empty;
+        expect(result).property('comps').to.be.empty;
+    });
+
+    it(`Can parse essential comp attributes`, async () => {
+        aex().openProject('testAssets/comp_empty-comp.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        console.log(result);
+        expect(result).property('items').to.be.empty;
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    layerType: 'Comp',
+                    name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
     });
 
     it(`Unsophisticated test to check comp data parsing`, async () => {

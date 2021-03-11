@@ -99,3 +99,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# After Effects artifacts
+Adobe After Effects Auto-Save/
