@@ -15,10 +15,12 @@ interface AexItemAttributes {
     label: number;
     name: string;
     folder: string;
+
+    /** AEX-specific properties */
     itemType: AexItemType;
 }
 
-interface AexAVItemAttributes extends Partial<AexItemAttributes> {
+interface AexAVItemAttributes extends AexItemAttributes {
     duration: number;
     frameRate: number;
     height: number;
@@ -26,7 +28,7 @@ interface AexAVItemAttributes extends Partial<AexItemAttributes> {
     width: number;
 }
 
-interface AexCompItemAttributes extends Partial<AexAVItemAttributes> {
+interface AexCompItemAttributes extends AexAVItemAttributes {
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;
@@ -49,7 +51,7 @@ interface AexCompItemAttributes extends Partial<AexAVItemAttributes> {
 
 interface AexItem extends Partial<AexFootageItemAttributes>, Partial<AexComp> {}
 
-interface AexFootageItemAttributes extends Partial<AexAVItemAttributes>, Partial<AexFileSourceAttributes>, Partial<AexSolidSourceAttributes> {
+interface AexFootageItemAttributes extends AexAVItemAttributes, AexFileSourceAttributes, AexSolidSourceAttributes {
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -69,7 +71,7 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends Partial<AexCompItemAttributes> {
+interface AexComp extends AexCompItemAttributes {
     layers: AexLayer[];
     markers: AexMarkerProperty[];
     essentialProps: any[];
@@ -87,10 +89,13 @@ interface AexLayerAttributes {
     nullLayer: boolean;
     shy: boolean;
     solo: boolean;
+
+    /** AEX-specific properties */
     parentLayerIndex: number;
+    layerType: AexLayerType;
 }
 
-interface AexAVLayerAttributes extends Partial<AexLayerAttributes> {
+interface AexAVLayerAttributes extends AexLayerAttributes {
     adjustmentLayer: boolean;
     audioEnabled: boolean;
     autoOrient: AutoOrientType;
@@ -110,16 +115,15 @@ interface AexAVLayerAttributes extends Partial<AexLayerAttributes> {
     trackMatteType: TrackMatteType;
 }
 
-interface AexLightLayerAttributes extends Partial<AexLayerAttributes> {
+interface AexLightLayerAttributes extends AexLayerAttributes {
     lightType: LightType;
 }
 
-interface AexTextLayerAttributes extends Partial<AexLayerAttributes> {
+interface AexTextLayerAttributes extends AexLayerAttributes {
     threeDPerChar: boolean;
 }
 
 interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
-    layerType: AexLayerType;
     properties: AexProperties;
 }
 

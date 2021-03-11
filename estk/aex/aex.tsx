@@ -1,5 +1,6 @@
 function aex(options: AexOptions) {
-    const items = itemParser(options);
+    const itemParsing = itemParser(options);
+    const layerParsing = layerParser(options);
 
     return {
         toObject(item: Serializable): AexProject {
@@ -51,13 +52,13 @@ function aex(options: AexOptions) {
         },
         visitItem(item: Item): AexItem {
             if (aeq.isFootageItem(item)) {
-                return items.parseFootageAttributes(item);
+                return itemParsing.parseFootageAttributes(item);
             }
 
             return this.visitComp(item as CompItem);
         },
         visitComp(comp: CompItem): AexComp {
-            const compAttributes = items.parseCompItemAttributes(comp);
+            const compAttributes = itemParsing.parseCompItemAttributes(comp);
 
             const me = this;
             let layers = [] as AexLayer[];
@@ -119,123 +120,24 @@ function aex(options: AexOptions) {
             return markerData;
         },
         visitLayer(layer: Layer): AexLayer {
-            const containingComp = layer.containingComp;
-
-            const name = layer.name;
-            const label = layer.label;
-            let layerType = 'Layer' as AexLayerType;
-
-            const comment = getModifiedValue(layer.comment, '');
-            let hasVideo = getModifiedValue(layer.hasVideo, true);
-            const inPoint = getModifiedValue(layer.inPoint, 0);
-            const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
-            const startTime = getModifiedValue(layer.startTime, 0);
-            const stretch = getModifiedValue(layer.stretch, 100);
-            const nullLayer = getModifiedValue(layer.nullLayer, false);
-            const shy = getModifiedValue(layer.shy, false);
-            const solo = getModifiedValue(layer.solo, false);
-
-            const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
-
             let properties = {} as AexProperties;
-            let avAttributes = {} as AexAVLayerAttributes;
+            let layerAttributes = {} as AexLayerAttributes;
             if (aeq.isAVLayer(layer)) {
-                layerType = 'AVLayer';
-
-                /** @todo Handle track matte */
-                /** @todo Handle source */
-                const source = layer.source;
-
-                const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
-                const audioEnabled = getModifiedValue(layer.audioEnabled, true);
-                const autoOrient = getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT);
-                const blendingMode = getModifiedValue(layer.blendingMode, BlendingMode.NORMAL);
-                const collapseTransformation = getModifiedValue(layer.collapseTransformation, false);
-                const effectsActive = getModifiedValue(layer.effectsActive, true);
-                const environmentLayer = getModifiedValue(layer.environmentLayer, false);
-                const frameBlending = getModifiedValue(layer.frameBlending, false);
-                const frameBlendingType = frameBlending ? getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND) : undefined;
-                const guideLayer = getModifiedValue(layer.guideLayer, false);
-                const motionBlur = getModifiedValue(layer.motionBlur, false);
-                const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
-                const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
-                const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
-                const threeDLayer = getModifiedValue(layer.threeDLayer, false);
-                const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
-                const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
-
-                avAttributes = {
-                    adjustmentLayer,
-                    audioEnabled,
-                    autoOrient,
-                    blendingMode,
-                    collapseTransformation,
-                    effectsActive,
-                    environmentLayer,
-                    frameBlending,
-                    frameBlendingType,
-                    guideLayer,
-                    motionBlur,
-                    preserveTransparency,
-                    quality,
-                    samplingQuality,
-                    threeDLayer,
-                    timeRemapEnabled,
-                    trackMatteType,
-                };
+                layerAttributes = layerParsing.parseAVLayerAttributes(layer);
             }
 
-            if (aeq.isShapeLayer(layer)) {
-                layerType = 'ShapeLayer';
-            }
-
-            let lightAttributes = {} as AexLightLayerAttributes;
             if (aeq.isLightLayer(layer)) {
-                hasVideo = getModifiedValue(layer.hasVideo, false);
-                layerType = 'LightLayer';
-
-                const lightType = layer.lightType;
-                lightAttributes = {
-                    lightType,
-                };
+                layerAttributes = layerParsing.parseLightLayerAttributes(layer);
             }
 
-            let textAttributes = {} as AexTextLayerAttributes;
             if (aeq.isTextLayer(layer)) {
-                layerType = 'TextLayer';
-
-                const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
-                textAttributes = {
-                    threeDPerChar,
-                };
-            }
-
-            if (aeq.isCameraLayer(layer)) {
-                hasVideo = getModifiedValue(layer.hasVideo, false);
-                layerType = 'CameraLayer';
+                layerAttributes = layerParsing.parseTextLayerAttributes(layer);
             }
 
             return {
-                name,
-                label,
-                layerType,
-
-                comment,
-                hasVideo,
-                inPoint,
-                outPoint,
-                startTime,
-                stretch,
-                nullLayer,
-                shy,
-                solo,
-                parentLayerIndex,
+                ...layerAttributes,
 
                 properties,
-
-                ...avAttributes,
-                ...lightAttributes,
-                ...textAttributes,
             };
         },
     };
