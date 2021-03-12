@@ -126,14 +126,12 @@ function aex(options: AexOptions) {
             let layerAttributes = {} as AexLayerAttributes;
             if (aeq.isAVLayer(layer)) {
                 layerAttributes = layerParsing.parseAVLayerAttributes(layer);
-            }
-
-            if (aeq.isLightLayer(layer)) {
+            } else if (aeq.isLightLayer(layer)) {
                 layerAttributes = layerParsing.parseLightLayerAttributes(layer);
-            }
-
-            if (aeq.isTextLayer(layer)) {
+            } else if (aeq.isTextLayer(layer)) {
                 layerAttributes = layerParsing.parseTextLayerAttributes(layer);
+            } else {
+                layerAttributes = layerParsing.parseLayerAttributes(layer);
             }
 
             return {

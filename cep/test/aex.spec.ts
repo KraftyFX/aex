@@ -236,10 +236,14 @@ describe('aex().toObject()', function () {
                     itemType: 'Comp',
                     layers: [
                         {
+                            label: 4,
+                            layerType: 'CameraLayer',
+                            name: 'Camera',
+                        },
+                        {
                             label: 1,
-                            layerType: 'AVLayer',
-                            name: 'Solo',
-                            nullLayer: true,
+                            layerType: 'TextLayer',
+                            name: 'Solo Text Layer',
                             solo: true,
                         },
                         {
@@ -251,9 +255,9 @@ describe('aex().toObject()', function () {
                         {
                             inPoint: 0.5,
                             label: 1,
-                            layerType: 'AVLayer',
-                            name: 'Timing',
-                            nullLayer: true,
+                            layerType: 'LightLayer',
+                            lightType: 4414,
+                            name: 'Timing Light',
                             outPoint: 3.06666666666667,
                         },
                         {
@@ -281,9 +285,8 @@ describe('aex().toObject()', function () {
                         {
                             label: 1,
                             layerType: 'AVLayer',
-                            name: 'Parented',
-                            nullLayer: true,
-                            parentLayerIndex: 4,
+                            name: 'Parented Solid',
+                            parentLayerIndex: 5,
                         },
                     ],
                     name: 'Comp 1',

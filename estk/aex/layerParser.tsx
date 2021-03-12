@@ -1,53 +1,53 @@
 function layerParser(options: AexOptions) {
-    function _parseLayerAttributes(layer: Layer): AexLayerAttributes {
-        const containingComp = layer.containingComp;
-
-        const name = layer.name;
-        const label = layer.label;
-        let layerType = 'Layer' as AexLayerType;
-
-        const comment = getModifiedValue(layer.comment, '');
-        let hasVideo = getModifiedValue(layer.hasVideo, true);
-        const inPoint = getModifiedValue(layer.inPoint, 0);
-        const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
-        const startTime = getModifiedValue(layer.startTime, 0);
-        const stretch = getModifiedValue(layer.stretch, 100);
-        const nullLayer = getModifiedValue(layer.nullLayer, false);
-        const shy = getModifiedValue(layer.shy, false);
-        const solo = getModifiedValue(layer.solo, false);
-
-        const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
-
-        if (aeq.isShapeLayer(layer)) {
-            layerType = 'ShapeLayer';
-        }
-
-        if (aeq.isCameraLayer(layer)) {
-            hasVideo = getModifiedValue(layer.hasVideo, false);
-            layerType = 'CameraLayer';
-        }
-
-        return {
-            name,
-            label,
-            layerType,
-
-            comment,
-            hasVideo,
-            inPoint,
-            outPoint,
-            startTime,
-            stretch,
-            nullLayer,
-            shy,
-            solo,
-            parentLayerIndex,
-        };
-    }
-
     return {
+        parseLayerAttributes(layer: Layer): AexLayerAttributes {
+            const containingComp = layer.containingComp;
+
+            const name = layer.name;
+            const label = layer.label;
+            let layerType = 'Layer' as AexLayerType;
+
+            const comment = getModifiedValue(layer.comment, '');
+            let hasVideo = getModifiedValue(layer.hasVideo, true);
+            const inPoint = getModifiedValue(layer.inPoint, 0);
+            const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
+            const startTime = getModifiedValue(layer.startTime, 0);
+            const stretch = getModifiedValue(layer.stretch, 100);
+            const nullLayer = getModifiedValue(layer.nullLayer, false);
+            const shy = getModifiedValue(layer.shy, false);
+            const solo = getModifiedValue(layer.solo, false);
+
+            const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
+
+            if (aeq.isShapeLayer(layer)) {
+                layerType = 'ShapeLayer';
+            }
+
+            if (aeq.isCameraLayer(layer)) {
+                hasVideo = getModifiedValue(layer.hasVideo, false);
+                layerType = 'CameraLayer';
+            }
+
+            return {
+                name,
+                label,
+                layerType,
+
+                comment,
+                hasVideo,
+                inPoint,
+                outPoint,
+                startTime,
+                stretch,
+                nullLayer,
+                shy,
+                solo,
+                parentLayerIndex,
+            };
+        },
+
         parseAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
-            const layerAttributes = _parseLayerAttributes(layer);
+            const layerAttributes = this.parseLayerAttributes(layer);
             layerAttributes.layerType = 'AVLayer';
 
             /** @todo Handle track matte */
@@ -95,7 +95,7 @@ function layerParser(options: AexOptions) {
             };
         },
         parseLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
-            const layerAttributes = _parseLayerAttributes(layer);
+            const layerAttributes = this.parseLayerAttributes(layer);
             layerAttributes.layerType = 'LightLayer';
             layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
@@ -106,7 +106,7 @@ function layerParser(options: AexOptions) {
             };
         },
         parseTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
-            const layerAttributes = _parseLayerAttributes(layer);
+            const layerAttributes = this.parseLayerAttributes(layer);
             layerAttributes.layerType = 'TextLayer';
 
             const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
