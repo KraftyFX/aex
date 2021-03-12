@@ -125,6 +125,7 @@ interface AexTextLayerAttributes extends AexLayerAttributes {
 }
 
 interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
+    markers: AexMarkerProperty;
     properties: AexProperties;
     transform: AexTransform;
 }

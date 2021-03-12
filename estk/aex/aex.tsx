@@ -1,6 +1,7 @@
 function aex(options: AexOptions) {
     const itemParsing = itemParser(options);
     const layerParsing = layerParser(options);
+    const propertyParsing = propertyParser(options);
 
     return {
         toObject(item: Serializable): AexProject {
@@ -73,7 +74,7 @@ function aex(options: AexOptions) {
 
             let markers;
             if (comp.markerProperty.isModified) {
-                markers = me.visitMarkers(comp.markerProperty);
+                markers = propertyParsing.parseMarkers(comp.markerProperty);
             }
 
             /** @todo explore essential props */
@@ -87,39 +88,6 @@ function aex(options: AexOptions) {
                 layers: layers.length > 0 ? layers : undefined,
                 essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
             };
-        },
-        visitMarkers(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
-            let markerData = [] as AexMarkerProperty[];
-
-            for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
-                let time = markerProperty.keyTime(ii);
-                let keyValue = markerProperty.keyValue(ii);
-
-                const comment = getModifiedValue(keyValue.comment, '');
-                const chapter = getModifiedValue(keyValue.chapter, '');
-                const url = getModifiedValue(keyValue.url, '');
-                const frameTarget = getModifiedValue(keyValue.frameTarget, '');
-                const cuePointName = getModifiedValue(keyValue.cuePointName, '');
-                const duration = getModifiedValue(keyValue.duration, 0);
-                const parameters = keyValue.getParameters();
-                const label = getModifiedValue(keyValue.label, 0);
-                const protectedRegion = getModifiedValue(keyValue.protectedRegion, false);
-
-                markerData.push({
-                    time,
-                    comment,
-                    chapter,
-                    url,
-                    frameTarget,
-                    cuePointName,
-                    duration,
-                    parameters: parameters.toSource() === '({})' ? undefined : parameters,
-                    label,
-                    protectedRegion,
-                });
-            }
-
-            return markerData;
         },
         visitLayer(layer: Layer): AexLayer {
             let properties = {} as AexProperties;
@@ -135,10 +103,15 @@ function aex(options: AexOptions) {
             }
 
             let transform = layerParsing.parseTransform(layer);
+            let markers;
+            if (layer.marker.isModified) {
+                markers = propertyParsing.parseMarkers(layer.marker);
+            }
 
             return {
                 ...layerAttributes,
 
+                markers,
                 transform,
                 properties: properties.toSource() === '({})' ? undefined : properties,
             };

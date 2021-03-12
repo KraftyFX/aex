@@ -103,5 +103,38 @@ function propertyParser(options: AexOptions) {
                 keys,
             };
         },
+        parseMarkers(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
+            let markerData = [] as AexMarkerProperty[];
+
+            for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
+                let time = markerProperty.keyTime(ii);
+                let keyValue = markerProperty.keyValue(ii);
+
+                const comment = getModifiedValue(keyValue.comment, '');
+                const chapter = getModifiedValue(keyValue.chapter, '');
+                const url = getModifiedValue(keyValue.url, '');
+                const frameTarget = getModifiedValue(keyValue.frameTarget, '');
+                const cuePointName = getModifiedValue(keyValue.cuePointName, '');
+                const duration = getModifiedValue(keyValue.duration, 0);
+                const parameters = keyValue.getParameters();
+                const label = getModifiedValue(keyValue.label, 0);
+                const protectedRegion = getModifiedValue(keyValue.protectedRegion, false);
+
+                markerData.push({
+                    time,
+                    comment,
+                    chapter,
+                    url,
+                    frameTarget,
+                    cuePointName,
+                    duration,
+                    parameters: parameters.toSource() === '({})' ? undefined : parameters,
+                    label,
+                    protectedRegion,
+                });
+            }
+
+            return markerData;
+        },
     };
 }

@@ -354,6 +354,84 @@ describe('aex().toObject()', function () {
             ]);
     });
 
+    it(`Can parse layer markers`, async () => {
+        aex().openProject('testAssets/layer_markers.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
+
+        console.log('layer_markers', result);
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 1,
+                            layerType: 'AVLayer',
+                            markers: [
+                                {
+                                    time: 0.16666666666667,
+                                },
+                                {
+                                    time: 0.46666666666667,
+                                },
+                                {
+                                    time: 0.78333333333333,
+                                },
+                                {
+                                    time: 1.83333333333333,
+                                },
+                                {
+                                    time: 3.55,
+                                },
+                            ],
+                            name: 'PlainMarkers',
+                            nullLayer: true,
+                            transform: {},
+                        },
+                        {
+                            label: 1,
+                            layerType: 'AVLayer',
+                            markers: [
+                                {
+                                    duration: 0.2,
+                                    time: 0.16666666666667,
+                                },
+                                {
+                                    comment: 'Some Comment',
+                                    duration: 1,
+                                    label: 4,
+                                    time: 0.46666666666667,
+                                },
+                                {
+                                    time: 0.78333333333333,
+                                },
+                                {
+                                    comment: 'banana',
+                                    time: 1.83333333333333,
+                                },
+                                {
+                                    duration: 0.33333333333333,
+                                    label: 8,
+                                    time: 3.55,
+                                },
+                            ],
+                            name: 'DetailedMarkers',
+                            nullLayer: true,
+                            transform: {},
+                        },
+                    ],
+                    name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
+    });
+
     it(`Can parse layer transform properties`, async () => {
         aex().openProject('testAssets/layer_transform.aep');
 
