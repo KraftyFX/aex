@@ -552,7 +552,7 @@ describe('aex().toObject()', function () {
     it(`Can parse animated transform properties`, async () => {
         aex().openProject('testAssets/property_animated.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('property_animated', result);
         expect(result)
@@ -569,12 +569,12 @@ describe('aex().toObject()', function () {
                             layerType: 'CameraLayer',
                             name: 'Camera',
                             transform: {
-                                position: {
+                                rotation: {
                                     keys: [
                                         {
-                                            interpolationType: {},
-                                            spatialContinuous: true,
-                                            spatialTangent: {},
+                                            interpolationType: {
+                                                outType: 6613,
+                                            },
                                             temporalEase: {
                                                 inEase: [
                                                     {
@@ -584,23 +584,45 @@ describe('aex().toObject()', function () {
                                                 ],
                                                 outEase: [
                                                     {
-                                                        influence: 16.666666667,
-                                                        speed: 482.003213905773,
+                                                        influence: 33.333332999578,
+                                                        speed: 0,
                                                     },
                                                 ],
                                             },
                                             time: 0,
-                                            value: [640, 360, -1777.77777773],
+                                            value: 0,
                                         },
                                         {
-                                            interpolationType: {},
-                                            spatialContinuous: true,
-                                            spatialTangent: {},
+                                            interpolationType: {
+                                                inType: 6613,
+                                                outType: 6613,
+                                            },
                                             temporalEase: {
                                                 inEase: [
                                                     {
-                                                        influence: 16.666666667,
-                                                        speed: 482.003213905773,
+                                                        influence: 33.333333498752,
+                                                        speed: 33.8906198973312,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 33.3333335012409,
+                                                        speed: 33.8906198956625,
+                                                    },
+                                                ],
+                                            },
+                                            time: 2,
+                                            value: 20,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                inType: 6613,
+                                            },
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 33.3333330004256,
+                                                        speed: 0,
                                                     },
                                                 ],
                                                 outEase: [
@@ -611,13 +633,79 @@ describe('aex().toObject()', function () {
                                                 ],
                                             },
                                             time: 3.98333333333333,
-                                            value: [1, 2, -3],
+                                            value: 90,
                                         },
                                     ],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [640, 360, -1777.77777773],
+                                    matchName: 'ADBE Rotate Z',
+                                    name: 'Z Rotation',
+                                    value: 20,
                                 },
+                            },
+                        },
+                    ],
+                    name: 'Eased',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 4,
+                            layerType: 'CameraLayer',
+                            name: 'Camera',
+                            transform: {
+                                rotation: {
+                                    keys: [
+                                        {
+                                            interpolationType: {
+                                                outType: 6614,
+                                            },
+                                            time: 0,
+                                            value: 0,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                inType: 6613,
+                                                outType: 6614,
+                                            },
+                                            time: 2,
+                                            value: 20,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                inType: 6613,
+                                                outType: 6614,
+                                            },
+                                            time: 3.5,
+                                            value: 90,
+                                        },
+                                    ],
+                                    matchName: 'ADBE Rotate Z',
+                                    name: 'Z Rotation',
+                                    value: 0,
+                                },
+                            },
+                        },
+                    ],
+                    name: 'Hold',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 4,
+                            layerType: 'CameraLayer',
+                            name: 'Camera',
+                            transform: {
                                 rotation: {
                                     keys: [
                                         {
@@ -666,7 +754,122 @@ describe('aex().toObject()', function () {
                             },
                         },
                     ],
-                    name: 'Comp 1',
+                    name: 'Linear',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 4,
+                            layerType: 'CameraLayer',
+                            name: 'Camera',
+                            transform: {
+                                rotation: {
+                                    keys: [
+                                        {
+                                            interpolationType: {
+                                                outType: 6613,
+                                            },
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 95.6887529934006,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 0,
+                                            value: 0,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                outType: 6614,
+                                            },
+                                            time: 1,
+                                            value: 10,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                inType: 6613,
+                                                outType: 6613,
+                                            },
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 66.5593382363078,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 2,
+                                            value: 20,
+                                        },
+                                        {
+                                            interpolationType: {
+                                                inType: 6613,
+                                            },
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 85.2938012922363,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 40.6779661016949,
+                                                    },
+                                                ],
+                                            },
+                                            time: 3,
+                                            value: 50,
+                                        },
+                                        {
+                                            interpolationType: {},
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 40.6779661016949,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 3.98333333333333,
+                                            value: 90,
+                                        },
+                                    ],
+                                    matchName: 'ADBE Rotate Z',
+                                    name: 'Z Rotation',
+                                    value: 0,
+                                },
+                            },
+                        },
+                    ],
+                    name: 'Mixed',
                     pixelAspect: 1,
                     width: 1280,
                 },
