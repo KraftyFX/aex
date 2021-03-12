@@ -32,13 +32,13 @@ function propertyParser(options: AexOptions) {
                           {
                               influence: 16.666666667,
                               speed: 0,
-                          },
+                          } as KeyframeEase, // TODO: Fix typings later
                       ]),
                       outEase: getModifiedValue(keyTemporalEase.outEase, [
                           {
                               influence: 16.666666667,
                               speed: 0,
-                          },
+                          } as KeyframeEase,
                       ]),
                   }
                 : undefined;
