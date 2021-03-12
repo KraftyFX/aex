@@ -44,25 +44,21 @@ function yarnBuildJsx() {
     return gulp.src(paths.estk, { read: false }).pipe(shell([`yarn build`], { cwd: paths.estk }));
 }
 
-function deployLibs() {
-    return gulp
-        .src(`${paths.estk}/lib/*.jsx`)
-        .pipe(concat('libs.jsx'))
-        .pipe(gulp.dest(`${paths._build}/panel`));
-}
-
 function deployTestAEPs() {
     return gulp.src(`${paths.tests}/assets/*.aep`).pipe(gulp.dest(`${paths._build}/panel/testAssets`));
 }
 
 function combineAndDeployJsx() {
     return gulp
-        .src(`${paths.estk}/dist/*.jsx`)
+        .src([
+          `${paths.estk}/lib/*.jsx`,
+          `${paths.estk}/dist/*.jsx`
+        ])
         .pipe(concat('all.jsx'))
         .pipe(gulp.dest(`${paths._build}/panel`));
 }
 
-const buildJsx = gulp.series(yarnBuildJsx, combineAndDeployJsx, deployLibs);
+const buildJsx = gulp.series(yarnBuildJsx, combineAndDeployJsx);
 
 function deployToAe() {
     return gulp.src([`${paths._build}/panel/**`], { dot: true }).pipe(gulp.dest(paths.user_ae_extension_root));
@@ -77,5 +73,5 @@ function watchAndDeployArtifacts() {
 
 export const clean = gulp.series(cleanCep, cleanJsx);
 
-export const build = gulp.series(clean, buildTestPanel, buildJsx, buildTestServer, deployToAe);
+export const build = gulp.series(clean, buildTestPanel, buildJsx, buildTestServer, deployTestAEPs, deployToAe);
 export const start = gulp.series(build, gulp.parallel(startJsx, startTestServer, watchAndDeployArtifacts));
