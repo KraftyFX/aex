@@ -12,7 +12,7 @@
         "declaration": true,
         "jsx": "preserve",
         "esModuleInterop": false,
-        "types": ["AfterEffects/2018"],
+        "types": ["AfterEffects/17.1"],
         "typeRoots": [
             "../node_modules/types-for-adobe"
         ]

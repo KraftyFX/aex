@@ -52,9 +52,9 @@ ts-node@^9.1.1:
     source-map-support "^0.5.17"
     yn "3.1.1"
 
-types-for-adobe@bbb999/Types-for-Adobe:
+types-for-adobe@zlovatt/Types-for-Adobe:
   version "6.0.1"
-  resolved "https://codeload.github.com/bbb999/Types-for-Adobe/tar.gz/006433e3210fdada69525927cccd789496ce95b2"
+  resolved "https://codeload.github.com/zlovatt/Types-for-Adobe/tar.gz/fe42fcb4e265a7c0858009e755c72cce6de4248c"
 
 typescript@^4.2.3:
   version "4.2.3"

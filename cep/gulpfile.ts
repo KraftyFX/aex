@@ -45,7 +45,14 @@ function yarnBuildJsx() {
 }
 
 function deployLibs() {
-    return gulp.src(`${paths.estk}/lib/*.jsx`).pipe(gulp.dest(`${paths._build}/panel`));
+    return gulp
+        .src(`${paths.estk}/lib/*.jsx`)
+        .pipe(concat('libs.jsx'))
+        .pipe(gulp.dest(`${paths._build}/panel`));
+}
+
+function deployTestAEPs() {
+    return gulp.src(`${paths.tests}/assets/*.aep`).pipe(gulp.dest(`${paths._build}/panel/testAssets`));
 }
 
 function combineAndDeployJsx() {
@@ -65,6 +72,7 @@ function watchAndDeployArtifacts() {
     gulp.watch(`${paths._build}/panel/**`, deployToAe);
     gulp.watch(`${paths.harness}/**`, buildTestPanel);
     gulp.watch(`${paths.estk}/dist/**`, combineAndDeployJsx);
+    gulp.watch(`${paths.tests}/assets/**`, deployTestAEPs);
 }
 
 export const clean = gulp.series(cleanCep, cleanJsx);
