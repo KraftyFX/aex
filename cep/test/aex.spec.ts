@@ -122,7 +122,7 @@ describe('aex().toObject()', function () {
     it(`Can parse basic comp attributes`, async () => {
         aex().openProject('testAssets/comp_empty-comp.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
         console.log('comp_empty-comp', result);
         expect(result)
@@ -357,7 +357,7 @@ describe('aex().toObject()', function () {
     it(`Can parse layer markers`, async () => {
         aex().openProject('testAssets/layer_markers.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
         console.log('layer_markers', result);
         expect(result)
