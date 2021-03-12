@@ -36,7 +36,7 @@ cs.addEventListener('aeq_result', function (event: any) {
     }
 });
 
-export function evalScript(code: string): Promise<void> {
+export function evalScript(code: string): Promise<object> {
     const request: any = {};
 
     request.id = requestId++;

@@ -267,6 +267,10 @@ describe('aex().toObject()', function () {
                             motionBlur: true,
                             name: 'Flags',
                             nullLayer: true,
+                            properties: {
+                              geometryOption: {},
+                              materialOption: {},
+                            },
                             samplingQuality: 4813,
                             shy: true,
                             threeDLayer: true,
@@ -465,6 +469,10 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: '3d AV Layer',
                             nullLayer: true,
+                            properties: {
+                              geometryOption: {},
+                              materialOption: {},
+                            },
                             threeDLayer: true,
                             transform: {},
                         },
@@ -541,6 +549,10 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: '3d AV Layer',
                             nullLayer: true,
+                            properties: {
+                              geometryOption: {},
+                              materialOption: {},
+                            },
                             threeDLayer: true,
                             transform: {
                                 anchorPoint: {

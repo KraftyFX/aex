@@ -131,7 +131,7 @@ interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerA
 }
 
 interface AexProperties {
-    [name: string]: AexProperty<any>;
+    [name: string]: AexProperty<any> | AexProperties;
 }
 
 interface AexPropertyBase {

@@ -90,7 +90,6 @@ function aex(options: AexOptions) {
             };
         },
         visitLayer(layer: Layer): AexLayer {
-            let properties = {} as AexProperties;
             let layerAttributes = {} as AexLayerAttributes;
             if (aeq.isAVLayer(layer)) {
                 layerAttributes = layerParsing.parseAVLayerAttributes(layer);
@@ -107,6 +106,8 @@ function aex(options: AexOptions) {
             if (layer.marker.isModified) {
                 markers = propertyParsing.parseMarkers(layer.marker);
             }
+
+            let properties = layerParsing.parseLayerProperties(layer);
 
             return {
                 ...layerAttributes,

@@ -151,5 +151,72 @@ function layerParser(options: AexOptions) {
                 yRotation,
             };
         },
+        parseLayer3dOptions(layer: ShapeLayer | AVLayer | TextLayer): AexProperties {
+          return {
+          materialOption: {
+            castsShadows: propertyParsing.getModifiedProperty(layer.materialOption.castsShadows),
+            lightTransmission: propertyParsing.getModifiedProperty(layer.materialOption.lightTransmission),
+            acceptsShadows: propertyParsing.getModifiedProperty(layer.materialOption.acceptsShadows),
+            acceptsLights: propertyParsing.getModifiedProperty(layer.materialOption.acceptsLights),
+            appearsInReflections: propertyParsing.getModifiedProperty(layer.materialOption.appearsInReflections),
+            ambient: propertyParsing.getModifiedProperty(layer.materialOption.ambient),
+            diffuse: propertyParsing.getModifiedProperty(layer.materialOption.diffuse),
+            specularIntensity: propertyParsing.getModifiedProperty(layer.materialOption.specularIntensity),
+            specularShininess: propertyParsing.getModifiedProperty(layer.materialOption.specularShininess),
+            metal: propertyParsing.getModifiedProperty(layer.materialOption.metal),
+            reflectionIntensity: propertyParsing.getModifiedProperty(layer.materialOption.reflectionIntensity),
+            reflectionSharpness: propertyParsing.getModifiedProperty(layer.materialOption.reflectionSharpness),
+            reflectionRolloff: propertyParsing.getModifiedProperty(layer.materialOption.reflectionRolloff),
+            transparency: propertyParsing.getModifiedProperty(layer.materialOption.transparency),
+            transparencyRolloff: propertyParsing.getModifiedProperty(layer.materialOption.transparencyRolloff),
+            indexOfRefraction: propertyParsing.getModifiedProperty(layer.materialOption.indexOfRefraction),
+          },
+
+          geometryOption: {
+            curvature: propertyParsing.getModifiedProperty(layer.geometryOption.curvature),
+            segments: propertyParsing.getModifiedProperty(layer.geometryOption.segments),
+            bevelStyle: propertyParsing.getModifiedProperty(layer.geometryOption.bevelStyle),
+            bevelDepth: propertyParsing.getModifiedProperty(layer.geometryOption.bevelDepth),
+            holeBevelDepth: propertyParsing.getModifiedProperty(layer.geometryOption.holeBevelDepth),
+            extrusionDepth: propertyParsing.getModifiedProperty(layer.geometryOption.extrusionDepth),
+          }
+        }
+        },
+        parseLayerProperties(layer: Layer): AexProperties {
+          let properties = {} as AexProperties;
+
+          if (aeq.isAVLayer(layer)) {
+              if (layer.timeRemapEnabled) {
+                properties.timeRemap = propertyParsing.getModifiedProperty(layer.timeRemap);
+              }
+
+              if (layer.threeDLayer) {
+                properties = {
+                  ...properties,
+                  ...this.parseLayer3dOptions(layer),
+                }
+              }
+          }
+
+          if (aeq.isTextLayer(layer)) {
+            if (layer.threeDLayer) {
+              properties = {
+                ...properties,
+                ...this.parseLayer3dOptions(layer),
+              }
+            }
+          }
+
+          if (aeq.isShapeLayer(layer)) {
+            if (layer.threeDLayer) {
+              properties = {
+                ...properties,
+                ...this.parseLayer3dOptions(layer),
+              }
+            }
+          }
+
+          return properties;
+        }
     };
 }
