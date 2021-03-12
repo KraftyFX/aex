@@ -44,7 +44,7 @@ describe('aex().toObject()', function () {
 
     /** Project tests */
     it(`Can parse basic project attributes`, async () => {
-        aex().openProject('testAssets/project_basic.aep');
+        await aex().openProject('testAssets/project_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -68,7 +68,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse flat project folders`, async () => {
-        aex().openProject('testAssets/project_folders-flat.aep');
+        await aex().openProject('testAssets/project_folders-flat.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -88,7 +88,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse nested project folders`, async () => {
-        aex().openProject('testAssets/project_folders-nested.aep');
+        await aex().openProject('testAssets/project_folders-nested.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -120,7 +120,7 @@ describe('aex().toObject()', function () {
 
     /** Comp tests */
     it(`Can parse basic comp attributes`, async () => {
-        aex().openProject('testAssets/comp_empty-comp.aep');
+        await aex().openProject('testAssets/comp_empty-comp.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -141,7 +141,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse comp markers`, async () => {
-        aex().openProject('testAssets/comp_markers.aep');
+        await aex().openProject('testAssets/comp_markers.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -215,7 +215,7 @@ describe('aex().toObject()', function () {
 
     /** Layer tests */
     it(`Can parse basic layer attributes`, async () => {
-        aex().openProject('testAssets/layer_basic.aep');
+        await aex().openProject('testAssets/layer_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -304,7 +304,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse light layer attributes`, async () => {
-        aex().openProject('testAssets/layer_light.aep');
+        await aex().openProject('testAssets/layer_light.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -355,7 +355,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse layer markers`, async () => {
-        aex().openProject('testAssets/layer_markers.aep');
+        await aex().openProject('testAssets/layer_markers.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -433,7 +433,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse layer transform properties`, async () => {
-        aex().openProject('testAssets/layer_transform.aep');
+        await aex().openProject('testAssets/layer_transform.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -628,7 +628,7 @@ describe('aex().toObject()', function () {
     });
 
     it(`Can parse animated transform properties`, async () => {
-        aex().openProject('testAssets/property_animated.aep');
+        await aex().openProject('testAssets/property_animated.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
