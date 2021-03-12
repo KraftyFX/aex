@@ -2,6 +2,7 @@ type Serializable = Project | CompItem | Layer | Property<any>;
 
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
 type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
+type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
 interface AexOptions {}
 
@@ -125,13 +126,27 @@ interface AexTextLayerAttributes extends AexLayerAttributes {
 
 interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
     properties: AexProperties;
+    transform: AexTransform;
 }
 
 interface AexProperties {
-    [name: string]: AexProperty;
+    [name: string]: AexProperty<any>;
 }
 
-interface AexProperty {}
+interface AexPropertyBase {
+    enabled: boolean;
+    matchName: string;
+    name: string;
+}
+
+interface AexProperty<T> extends AexPropertyBase {
+    expression: string;
+    expressionEnabled: boolean;
+    value: T;
+
+    /** AEX-specific properties */
+    keys: AEQKeyInfo[];
+}
 
 interface AexMarkerProperty {
     time: number;
@@ -144,4 +159,16 @@ interface AexMarkerProperty {
     parameters: object;
     label: number;
     protectedRegion: boolean;
+}
+
+interface AexTransform {
+    anchorPoint: AexProperty<[number, number] | [number, number, number]>;
+    position: AexProperty<[number, number] | [number, number, number]>;
+    scale: AexProperty<[number, number] | [number, number, number]>;
+    pointOfInterest: AexProperty<[number, number, number]>;
+    orientation: AexProperty<[number, number, number]>;
+    xRotation: AexProperty<number>;
+    yRotation: AexProperty<number>;
+    rotation: AexProperty<number>;
+    opacity: AexProperty<number>;
 }

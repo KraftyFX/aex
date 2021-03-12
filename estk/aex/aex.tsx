@@ -134,9 +134,12 @@ function aex(options: AexOptions) {
                 layerAttributes = layerParsing.parseLayerAttributes(layer);
             }
 
+            let transform = layerParsing.parseTransform(layer);
+
             return {
                 ...layerAttributes,
 
+                transform,
                 properties: properties.toSource() === '({})' ? undefined : properties,
             };
         },

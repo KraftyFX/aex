@@ -1,4 +1,6 @@
 function layerParser(options: AexOptions) {
+    const propertyParsing = propertyParser(options);
+
     return {
         parseLayerAttributes(layer: Layer): AexLayerAttributes {
             const containingComp = layer.containingComp;
@@ -45,7 +47,6 @@ function layerParser(options: AexOptions) {
                 parentLayerIndex,
             };
         },
-
         parseAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
             const layerAttributes = this.parseLayerAttributes(layer);
             layerAttributes.layerType = 'AVLayer';
@@ -113,6 +114,41 @@ function layerParser(options: AexOptions) {
             return {
                 ...layerAttributes,
                 threeDPerChar,
+            };
+        },
+
+        parseTransform(layer: Layer): AexTransform {
+            const transformGroup = layer.transform;
+
+            const anchorPoint = propertyParsing.getModifiedProperty(transformGroup.anchorPoint);
+            const position = propertyParsing.getModifiedProperty(transformGroup.position);
+            const scale = propertyParsing.getModifiedProperty(transformGroup.scale);
+            let rotation = propertyParsing.getModifiedProperty(transformGroup.rotation);
+            const opacity = propertyParsing.getModifiedProperty(transformGroup.opacity);
+
+            let pointOfInterest;
+            let orientation;
+            let xRotation;
+            let yRotation;
+
+            if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
+                pointOfInterest = propertyParsing.getModifiedProperty(transformGroup.pointOfInterest);
+                orientation = propertyParsing.getModifiedProperty(transformGroup.orientation);
+                xRotation = propertyParsing.getModifiedProperty(transformGroup.xRotation);
+                yRotation = propertyParsing.getModifiedProperty(transformGroup.yRotation);
+                rotation = propertyParsing.getModifiedProperty(transformGroup.zRotation);
+            }
+
+            return {
+                anchorPoint,
+                position,
+                scale,
+                rotation,
+                opacity,
+                pointOfInterest,
+                orientation,
+                xRotation,
+                yRotation,
             };
         },
     };
