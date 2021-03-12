@@ -970,24 +970,19 @@ declare interface SpatialTangent {
     outTangent: KeyframeSpatialTangent;
 }
 
-declare interface KeyframeSpatialTangent {
-    xSpatialTangent: number;
-    ySpatialTangent: number;
-    zSpatialTangent?: number;
-}
+declare type KeyframeSpatialTangent = [xSpatialTangent: number, ySpatialTangent: number, zSpatialTangent?: number];
 
 declare interface TemporalEase {
     /** TemporalEase for keyIn */
-    inTemporalEase: KeyframeTemporalEase;
+    inEase: KeyframeEase[];
 
     /** TemporalEase for keyOut */
-    outTemporalEase: KeyframeTemporalEase;
+    outEase: KeyframeEase[];
 }
 
-declare interface KeyframeTemporalEase {
-    xTemporalEase: number;
-    yTemporalEase: number;
-    zTemporalEase?: number;
+declare interface InterpolationType {
+    inType: KeyframeInterpolationType;
+    outType: KeyframeInterpolationType;
 }
 
 declare interface AEQKeyInfo {
@@ -1001,7 +996,7 @@ declare interface AEQKeyInfo {
     time: number;
 
     /** In/out interpolation type */
-    interpolationType: KeyframeInterpolationType;
+    interpolationType: InterpolationType;
 
     /** In/out temporal ease */
     temporalEase: TemporalEase;

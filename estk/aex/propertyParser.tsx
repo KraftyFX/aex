@@ -14,18 +14,48 @@ function propertyParser(options: AexOptions) {
     function _parseKeys<T>(property: Property<T>): AEQKeyInfo[] {
         const propertyKeys = aeq.getKeys(property as any);
         const keys = propertyKeys.map(function (key) {
-            const {
-                value,
-                time,
-                interpolationType,
-                temporalEase,
-                spatialTangent,
-                temporalAutoBezier,
-                temporalContinuous,
-                spatialAutoBezier,
-                spatialContinuous,
-                roving,
-            } = key.getKeyInfo();
+            const keyInfo = key.getKeyInfo();
+
+            let value = keyInfo.value;
+            let time = keyInfo.time;
+
+            let keyInterpolationType = keyInfo.interpolationType;
+            let interpolationType = {
+                inType: getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR),
+                outType: getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR),
+            };
+
+            let keyTemporalEase = keyInfo.temporalEase;
+            let temporalEase = keyTemporalEase
+                ? {
+                      inEase: getModifiedValue(keyTemporalEase.inEase, [
+                          {
+                              influence: 16.666666667,
+                              speed: 0,
+                          },
+                      ]),
+                      outEase: getModifiedValue(keyTemporalEase.outEase, [
+                          {
+                              influence: 16.666666667,
+                              speed: 0,
+                          },
+                      ]),
+                  }
+                : undefined;
+
+            let keySpatialTangent = keyInfo.spatialTangent;
+            let spatialTangent = keySpatialTangent
+                ? {
+                      inTangent: getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]),
+                      outTangent: getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]),
+                  }
+                : undefined;
+
+            let temporalAutoBezier = keyInfo.temporalAutoBezier ? getModifiedValue(keyInfo.temporalAutoBezier, false) : undefined;
+            let temporalContinuous = keyInfo.temporalContinuous ? getModifiedValue(keyInfo.temporalContinuous, false) : undefined;
+            let spatialAutoBezier = keyInfo.spatialAutoBezier ? getModifiedValue(keyInfo.spatialAutoBezier, false) : undefined;
+            let spatialContinuous = keyInfo.spatialContinuous ? getModifiedValue(keyInfo.spatialContinuous, false) : undefined;
+            let roving = keyInfo.roving ? getModifiedValue(keyInfo.roving, false) : undefined;
 
             return {
                 value,

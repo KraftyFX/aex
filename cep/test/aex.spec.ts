@@ -549,6 +549,130 @@ describe('aex().toObject()', function () {
             ]);
     });
 
+    it(`Can parse animated transform properties`, async () => {
+        aex().openProject('testAssets/property_animated.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+
+        console.log('property_animated', result);
+        expect(result)
+            .property('comps')
+            .to.eql([
+                {
+                    duration: 4,
+                    frameRate: 60,
+                    height: 720,
+                    itemType: 'Comp',
+                    layers: [
+                        {
+                            label: 4,
+                            layerType: 'CameraLayer',
+                            name: 'Camera',
+                            transform: {
+                                position: {
+                                    keys: [
+                                        {
+                                            interpolationType: {},
+                                            spatialContinuous: true,
+                                            spatialTangent: {},
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 482.003213905773,
+                                                    },
+                                                ],
+                                            },
+                                            time: 0,
+                                            value: [640, 360, -1777.77777773],
+                                        },
+                                        {
+                                            interpolationType: {},
+                                            spatialContinuous: true,
+                                            spatialTangent: {},
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 482.003213905773,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 3.98333333333333,
+                                            value: [1, 2, -3],
+                                        },
+                                    ],
+                                    matchName: 'ADBE Position',
+                                    name: 'Position',
+                                    value: [640, 360, -1777.77777773],
+                                },
+                                rotation: {
+                                    keys: [
+                                        {
+                                            interpolationType: {},
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 22.5941422594142,
+                                                    },
+                                                ],
+                                            },
+                                            time: 0,
+                                            value: 0,
+                                        },
+                                        {
+                                            interpolationType: {},
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 22.5941422594142,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 3.98333333333333,
+                                            value: 90,
+                                        },
+                                    ],
+                                    matchName: 'ADBE Rotate Z',
+                                    name: 'Z Rotation',
+                                    value: 0,
+                                },
+                            },
+                        },
+                    ],
+                    name: 'Comp 1',
+                    pixelAspect: 1,
+                    width: 1280,
+                },
+            ]);
+    });
+
     /** Data dumps */
     it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
