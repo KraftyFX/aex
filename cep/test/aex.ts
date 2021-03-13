@@ -8,7 +8,7 @@ export enum AeObject {
 export function aex() {
     return {
         async openProject(projectPath: string) {
-            return await evalScript(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`);
+            return await evalScript(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}")) && undefined`);
         },
         async toObject(item: any) {
             if (typeof item === 'string') {
