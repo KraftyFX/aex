@@ -2,10 +2,12 @@ function visitProject(options: AexOptions): AexProject {
     const items = aeq.getItems().filter((item) => !aeq.isComp(item));
     const comps = aeq.getComps();
 
-    return {
+    const aexProject: AexProject = {
         items: items.map((item) => visitItem(item, options)),
         comps: comps.map((comp) => visitItem(comp, options)),
     };
+
+    return aexProject;
 }
 
 function visitItem(item: Item, options: AexOptions): AexItem {
@@ -29,7 +31,7 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
     /** @todo explore essential props */
     let essentialProps = [];
 
-    return {
+    const aexComp: AexComp = {
         ...compAttributes,
 
         /** Nested objects */
@@ -37,6 +39,8 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
         layers: getCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
     };
+
+    return aexComp;
 }
 
 function visitLayer(layer: Layer, options: AexOptions): AexLayer {
@@ -64,11 +68,13 @@ function visitLayer(layer: Layer, options: AexOptions): AexLayer {
 
     let properties = {} as AexProperties;
 
-    return {
+    const aexLayer: AexLayer = {
         ...layerAttributes,
 
         markers,
         transform,
         properties: properties.toSource() === '({})' ? undefined : properties,
     };
+
+    return aexLayer;
 }
