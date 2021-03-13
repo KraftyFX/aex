@@ -151,13 +151,27 @@ function layerParser(options: AexOptions) {
                 yRotation,
             };
         },
-        parseLayerProperties(layer: Layer): AexProperties {
-            let properties = {} as AexProperties;
+        parseLayerProperties(layer: Layer): AexLayerProperties {
+            let transform = this.parseTransform(layer);
 
+            let markers;
+            if (layer.marker.isModified) {
+                markers = propertyParsing.parseMarkers(layer.marker);
+            }
+
+            let audio;
+            let geometryOption;
+            let layerStyles;
+            let materialOption;
+            let timeRemap;
             if (isVisibleLayer(layer)) {
                 if (aeq.isAVLayer(layer)) {
                     if (layer.timeRemapEnabled) {
-                        properties.timeRemap = propertyParsing.getModifiedProperty(layer.timeRemap);
+                        timeRemap = propertyParsing.getModifiedProperty(layer.timeRemap);
+                    }
+
+                    if (layer.hasAudio) {
+                        audio = propertyParsing.parsePropertyGroup(layer.audio);
                     }
 
                     if (aeq.isTextLayer(layer)) {
@@ -168,7 +182,6 @@ function layerParser(options: AexOptions) {
                 }
 
                 // User has added layer styles, so check them
-                let layerStyles;
                 if (layer.layerStyle.canSetEnabled) {
                     layerStyles = propertyParsing.parsePropertyGroup(layer.layerStyle);
 
@@ -177,21 +190,21 @@ function layerParser(options: AexOptions) {
                     }
                 }
 
-                let threeDProps = {};
                 if (layer.threeDLayer) {
-                    threeDProps = {
-                        materialOption: propertyParsing.parsePropertyGroup(layer.materialOption),
-                        geometryOption: propertyParsing.parsePropertyGroup(layer.geometryOption),
-                    };
+                    materialOption = propertyParsing.parsePropertyGroup(layer.materialOption);
+                    geometryOption = propertyParsing.parsePropertyGroup(layer.geometryOption);
                 }
-
-                properties = {
-                    layerStyles,
-                    ...threeDProps,
-                };
             }
 
-            return properties;
+            return {
+                transform,
+                markers,
+                audio,
+                geometryOption,
+                layerStyles,
+                materialOption,
+                timeRemap,
+            };
         },
     };
 }

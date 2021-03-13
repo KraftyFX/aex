@@ -101,20 +101,11 @@ function aex(options: AexOptions) {
                 layerAttributes = layerParsing.parseLayerAttributes(layer);
             }
 
-            let transform = layerParsing.parseTransform(layer);
-            let markers;
-            if (layer.marker.isModified) {
-                markers = propertyParsing.parseMarkers(layer.marker);
-            }
-
             let properties = layerParsing.parseLayerProperties(layer);
 
             return {
                 ...layerAttributes,
-
-                markers,
-                transform,
-                properties: properties.toSource() === '({})' ? undefined : properties,
+                properties,
             };
         },
     };
