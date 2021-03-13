@@ -3,18 +3,15 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
         return getAexComp(item as CompItem, options);
     }
 
-    const itemParser = getItemParser(options);
-
     if (aeq.isFootageItem(item)) {
-        return itemParser.parseFootageAttributes(item);
+        return parseFootageAttributes(item);
     } else {
-        return itemParser.parseItemAttributes(item);
+        return parseItemAttributes(item);
     }
 }
 
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
-    const itemParser = getItemParser(options);
-    const compAttributes = itemParser.parseCompItemAttributes(comp);
+    const compAttributes = parseCompItemAttributes(comp);
 
     /** @todo explore essential props */
     let essentialProps = [];
@@ -23,15 +20,15 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         ...compAttributes,
 
         /** Nested objects */
-        markers: getAexCompMarkers(comp, options),
-        layers: getCompLayers(comp, options),
+        markers: _getAexCompMarkers(comp, options),
+        layers: _getCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
     };
 
     return aexComp;
 }
 
-function getCompLayers(comp: CompItem, options: AexOptions) {
+function _getCompLayers(comp: CompItem, options: AexOptions) {
     let layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
@@ -42,7 +39,7 @@ function getCompLayers(comp: CompItem, options: AexOptions) {
     return layers.length === 0 ? undefined : layers;
 }
 
-function getAexCompMarkers(comp: CompItem, options: AexOptions) {
+function _getAexCompMarkers(comp: CompItem, options: AexOptions) {
     if (comp.markerProperty.isModified) {
         return getAexMarkerProperties(comp.markerProperty);
     } else {
@@ -50,139 +47,138 @@ function getAexCompMarkers(comp: CompItem, options: AexOptions) {
     }
 }
 
-function getItemParser(options: AexOptions) {
+function _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
+    const { duration, frameRate, height, pixelAspect, width } = item;
+    const itemAttributes = parseItemAttributes(item);
+
     return {
-        _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
-            const { duration, frameRate, height, pixelAspect, width } = item;
-            const itemAttributes = this.parseItemAttributes(item);
+        ...itemAttributes,
 
-            return {
-                ...itemAttributes,
+        duration,
+        frameRate,
+        height,
+        pixelAspect,
+        width,
+    };
+}
 
-                duration,
-                frameRate,
-                height,
-                pixelAspect,
-                width,
-            };
-        },
-        parseItemAttributes(item: Item): AexItemAttributes {
-            const { name, parentFolder } = item;
+function parseItemAttributes(item: Item): AexItemAttributes {
+    const { name, parentFolder } = item;
 
-            let itemType = 'Footage' as AexItemType;
+    let itemType = 'Footage' as AexItemType;
 
-            const comment = getModifiedValue(item.comment, '');
-            let label = getModifiedValue(item.label, 15);
+    const comment = getModifiedValue(item.comment, '');
+    let label = getModifiedValue(item.label, 15);
 
-            /**
-             * @todo Add AexOption to preserve project folder structure.
-             * For now, just get the immediate parent folder name & assume lives in root
-             **/
-            const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
+    /**
+     * @todo Add AexOption to preserve project folder structure.
+     * For now, just get the immediate parent folder name & assume lives in root
+     **/
+    const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
 
-            if (aeq.isFolderItem(item)) {
-                itemType = 'Folder';
-                label = getModifiedValue(item.label, 2);
-            }
+    if (aeq.isFolderItem(item)) {
+        itemType = 'Folder';
+        label = getModifiedValue(item.label, 2);
+    }
 
-            return {
-                name,
-                itemType,
-                comment,
-                label,
-                folder,
-            };
-        },
-        parseFootageAttributes(item: FootageItem): AexFootageItemAttributes {
-            const avItemAttributes = this._parseAVItemAttributes(item);
+    return {
+        name,
+        itemType,
+        comment,
+        label,
+        folder,
+    };
+}
 
-            const itemSource = item.mainSource;
+function parseFootageAttributes(item: FootageItem): AexFootageItemAttributes {
+    const avItemAttributes = _parseAVItemAttributes(item);
 
-            const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
-            const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
-            const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-            const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
-            const loop = getModifiedValue(itemSource.loop, 1);
-            const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
-            const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+    const itemSource = item.mainSource;
 
-            const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
+    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
+    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
+    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
+    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
+    const loop = getModifiedValue(itemSource.loop, 1);
+    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
+    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
 
-            let fileSourceAttributes = {} as AexFileSourceAttributes;
-            let solidSourceAttributes = {} as AexSolidSourceAttributes;
-            if (sourceIsFile(itemSource)) {
-                /** @todo Explore file handling */
-                fileSourceAttributes.file = itemSource.file.fsName;
-            } else if (sourceIsSolid(itemSource)) {
-                solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
-                avItemAttributes.itemType = 'Solid';
-            } else if (sourceIsPlaceholder(itemSource)) {
-                avItemAttributes.itemType = 'Placeholder';
-            }
+    const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 
-            return {
-                ...avItemAttributes,
+    let fileSourceAttributes = {} as AexFileSourceAttributes;
+    let solidSourceAttributes = {} as AexSolidSourceAttributes;
+    if (sourceIsFile(itemSource)) {
+        /** @todo Explore file handling */
+        fileSourceAttributes.file = itemSource.file.fsName;
+    } else if (sourceIsSolid(itemSource)) {
+        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
+        avItemAttributes.itemType = 'Solid';
+    } else if (sourceIsPlaceholder(itemSource)) {
+        avItemAttributes.itemType = 'Placeholder';
+    }
 
-                alphaMode,
-                conformFrameRate,
-                fieldSeparationType,
-                highQualityFieldSeparation,
-                loop,
-                premulColor,
-                removePulldown,
-                invertAlpha,
+    return {
+        ...avItemAttributes,
 
-                ...fileSourceAttributes,
-                ...solidSourceAttributes,
-            };
-        },
-        parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
-            const avItemAttributes = this._parseAVItemAttributes(comp);
-            avItemAttributes.itemType = 'Comp';
+        alphaMode,
+        conformFrameRate,
+        fieldSeparationType,
+        highQualityFieldSeparation,
+        loop,
+        premulColor,
+        removePulldown,
+        invertAlpha,
 
-            const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
-            const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
-            const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
-            const dropFrame = getModifiedValue(comp.dropFrame, true);
-            const draft3d = getModifiedValue(comp.draft3d, false);
-            const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
-            const frameBlending = getModifiedValue(comp.frameBlending, false);
-            const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
-            const motionBlur = getModifiedValue(comp.motionBlur, false);
-            const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
-            const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
-            const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
-            const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
-            const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
-            const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
-            const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
-            const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
-            const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
+        ...fileSourceAttributes,
+        ...solidSourceAttributes,
+    };
+}
 
-            return {
-                /** Item & AVItem attributes */
-                ...avItemAttributes,
+function parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
+    const avItemAttributes = _parseAVItemAttributes(comp);
+    avItemAttributes.itemType = 'Comp';
 
-                /** Comp internal data */
-                bgColor,
-                displayStartFrame,
-                displayStartTime,
-                draft3d,
-                dropFrame,
-                frameBlending,
-                hideShyLayers,
-                motionBlur,
-                motionBlurAdaptiveSampleLimit,
-                motionBlurSamplesPerFrame,
-                preserveNestedFrameRate,
-                preserveNestedResolution,
-                renderer,
-                resolutionFactor,
-                shutterAngle,
-                shutterPhase,
-                workAreaDuration,
-                workAreaStart,
-            };
-        },
+    const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
+    const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
+    const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
+    const dropFrame = getModifiedValue(comp.dropFrame, true);
+    const draft3d = getModifiedValue(comp.draft3d, false);
+    const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
+    const frameBlending = getModifiedValue(comp.frameBlending, false);
+    const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
+    const motionBlur = getModifiedValue(comp.motionBlur, false);
+    const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
+    const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
+    const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
+    const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
+    const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
+    const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
+    const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
+    const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
+    const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
+
+    return {
+        /** Item & AVItem attributes */
+        ...avItemAttributes,
+
+        /** Comp internal data */
+        bgColor,
+        displayStartFrame,
+        displayStartTime,
+        draft3d,
+        dropFrame,
+        frameBlending,
+        hideShyLayers,
+        motionBlur,
+        motionBlurAdaptiveSampleLimit,
+        motionBlurSamplesPerFrame,
+        preserveNestedFrameRate,
+        preserveNestedResolution,
+        renderer,
+        resolutionFactor,
+        shutterAngle,
+        shutterPhase,
+        workAreaDuration,
+        workAreaStart,
     };
 }
