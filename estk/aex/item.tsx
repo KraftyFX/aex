@@ -17,7 +17,7 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
 }
 
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
-    const compAttributes = _parseCompItemAttributes(comp);
+    const compAttributes = _getCompItemAttributes(comp);
 
     /** @todo explore essential props */
     let essentialProps = [];
@@ -130,7 +130,7 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
     };
 }
 
-function _parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
+function _getCompItemAttributes(comp: CompItem): AexCompItemAttributes {
     const avItemAttributes = _getAVItemAttributes(comp);
     avItemAttributes.itemType = 'Comp';
 

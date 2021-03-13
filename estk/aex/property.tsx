@@ -45,7 +45,7 @@ function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
     }
 
     const propertyKeys = aeq.getKeys(property as any);
-    const keys = propertyKeys.map(function (key) {
+    const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
         const value = keyInfo.value;

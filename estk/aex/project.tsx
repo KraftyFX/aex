@@ -4,7 +4,7 @@ function getAexProject(options: AexOptions): AexProject {
 
     const aexProject: AexProject = {
         items: items.map((item) => getAexItem(item, options)),
-        comps: comps.map((comp) => getAexItem(comp, options)),
+        comps: comps.map((comp) => getAexComp(comp, options)),
     };
 
     return aexProject;
