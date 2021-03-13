@@ -1,4 +1,45 @@
-function getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
+function getModifiedProperty<T>(property: Property<T>): AexProperty<T> | undefined {
+    if (aeq.isNullOrUndefined(property) || !property.isModified) {
+        return undefined;
+    }
+
+    const aexProperty: AexProperty<T> = {
+        name: property.name,
+        matchName: property.matchName,
+        value: property.value,
+        enabled: getModifiedValue(property.enabled, true),
+        expression: getModifiedValue(property.expression, ''),
+        expressionEnabled: getModifiedValue(property.expressionEnabled, false),
+        keys: _getPropertyKeys<T>(property),
+    };
+
+    return aexProperty;
+}
+
+function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
+    const markerData = [] as AexMarkerProperty[];
+
+    for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
+        const keyValue = markerProperty.keyValue(ii);
+
+        markerData.push({
+            time: markerProperty.keyTime(ii),
+            comment: getModifiedValue(keyValue.comment, ''),
+            chapter: getModifiedValue(keyValue.chapter, ''),
+            url: getModifiedValue(keyValue.url, ''),
+            frameTarget: getModifiedValue(keyValue.frameTarget, ''),
+            cuePointName: getModifiedValue(keyValue.cuePointName, ''),
+            duration: getModifiedValue(keyValue.duration, 0),
+            label: getModifiedValue(keyValue.label, 0),
+            protectedRegion: getModifiedValue(keyValue.protectedRegion, false),
+            parameters: _getMarkerParameters(keyValue),
+        });
+    }
+
+    return markerData;
+}
+
+function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
     if (property.numKeys === 0) {
         return undefined;
     }
@@ -65,48 +106,7 @@ function getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
     return keys;
 }
 
-function getModifiedProperty<T>(property: Property<T>): AexProperty<T> | undefined {
-    if (aeq.isNullOrUndefined(property) || !property.isModified) {
-        return undefined;
-    }
-
-    const aexProperty: AexProperty<T> = {
-        name: property.name,
-        matchName: property.matchName,
-        value: property.value,
-        enabled: getModifiedValue(property.enabled, true),
-        expression: getModifiedValue(property.expression, ''),
-        expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: getPropertyKeys<T>(property),
-    };
-
-    return aexProperty;
-}
-
-function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
-    const markerData = [] as AexMarkerProperty[];
-
-    for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
-        const keyValue = markerProperty.keyValue(ii);
-
-        markerData.push({
-            time: markerProperty.keyTime(ii),
-            comment: getModifiedValue(keyValue.comment, ''),
-            chapter: getModifiedValue(keyValue.chapter, ''),
-            url: getModifiedValue(keyValue.url, ''),
-            frameTarget: getModifiedValue(keyValue.frameTarget, ''),
-            cuePointName: getModifiedValue(keyValue.cuePointName, ''),
-            duration: getModifiedValue(keyValue.duration, 0),
-            label: getModifiedValue(keyValue.label, 0),
-            protectedRegion: getModifiedValue(keyValue.protectedRegion, false),
-            parameters: getMarkerParameters(keyValue),
-        });
-    }
-
-    return markerData;
-}
-
-function getMarkerParameters(keyValue: MarkerValue): object {
+function _getMarkerParameters(keyValue: MarkerValue): object {
     const parameters = keyValue.getParameters();
 
     return parameters.toSource() === '({})' ? undefined : parameters;
