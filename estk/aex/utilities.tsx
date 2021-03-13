@@ -38,17 +38,13 @@ function _arraysIdentical(a: any[], b: any[]): boolean {
 
 /** true if identical */
 function _simpleCompareElements(a: any, b: any): boolean {
-    if (a instanceof Array && _arraysIdentical(a, b)) {
-        return true;
-    } else if (typeof a === 'object' && _objectsIdential(a, b)) {
-        return true;
+    if (a instanceof Array) {
+        return _arraysIdentical(a, b);
+    } else if (typeof a === 'object') {
+        return _objectsIdential(a, b);
+    } else {
+        return a === b;
     }
-
-    if (a === b) {
-        return true;
-    }
-
-    return false;
 }
 
 function getModifiedValue<T>(value: T, original: T): T | undefined {
