@@ -8,9 +8,11 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     } else if (aeq.isTextLayer(layer)) {
         baseAttributes = _getTextLayerAttributes(layer);
     } else if (aeq.isShapeLayer(layer)) {
+        // TODO: Factor this out
         baseAttributes = _getLayerAttributes(layer);
         baseAttributes.layerType = 'ShapeLayer';
     } else if (aeq.isCameraLayer(layer)) {
+        // TODO: Factor this out
         baseAttributes = _getLayerAttributes(layer);
         baseAttributes.layerType = 'CameraLayer';
         baseAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
@@ -90,7 +92,7 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
 }
 
 function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
-    const layerAttributes = this.parseLayerAttributes(layer);
+    const layerAttributes = _getLayerAttributes(layer);
     layerAttributes.layerType = 'AVLayer';
 
     /** @todo Handle track matte */
@@ -139,7 +141,7 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 }
 
 function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
-    const layerAttributes = this.parseLayerAttributes(layer);
+    const layerAttributes = _getLayerAttributes(layer);
     layerAttributes.layerType = 'LightLayer';
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
@@ -151,7 +153,7 @@ function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
 }
 
 function _getTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
-    const layerAttributes = this.parseLayerAttributes(layer);
+    const layerAttributes = _getLayerAttributes(layer);
     layerAttributes.layerType = 'TextLayer';
 
     const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
