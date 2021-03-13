@@ -1,3 +1,13 @@
+function getLayerMarkers(layer: Layer, options: AexOptions) {
+    const propertyParser = getPropertyParser(options);
+
+    if (layer.marker.isModified) {
+        return propertyParser.parseMarkers(layer.marker);
+    } else {
+        return undefined;
+    }
+}
+
 function getLayerParser(options: AexOptions) {
     const propertyParser = getPropertyParser(options);
 

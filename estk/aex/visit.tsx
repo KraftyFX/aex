@@ -57,22 +57,13 @@ function visitLayer(layer: Layer, options: AexOptions): AexLayer {
         layerAttributes = layerParser.parseLayerAttributes(layer);
     }
 
-    const propertyParser = getPropertyParser(options);
-
-    let transform = layerParser.parseTransform(layer);
-    let markers;
-
-    if (layer.marker.isModified) {
-        markers = propertyParser.parseMarkers(layer.marker);
-    }
-
     let properties = {} as AexProperties;
 
     const aexLayer: AexLayer = {
         ...layerAttributes,
 
-        markers,
-        transform,
+        markers: getLayerMarkers(layer, options),
+        transform: layerParser.parseTransform(layer),
         properties: properties.toSource() === '({})' ? undefined : properties,
     };
 
