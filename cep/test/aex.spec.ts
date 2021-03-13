@@ -1000,7 +1000,7 @@ describe('aex().toObject()', function () {
     });
 
     /** Data dumps */
-    it.only(`Unsophisticated test to check comp data parsing`, async () => {
+    it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
         console.log('activecomp', result);
