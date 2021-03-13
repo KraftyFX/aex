@@ -35,7 +35,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         ...compAttributes,
 
         /** Nested objects */
-        markers: getPropertyMarkers(comp, options),
+        markers: getAexMarkersProperty(comp, options),
         layers: getCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
     };
