@@ -26,22 +26,6 @@ describe('aex().toObject()', function () {
         }
     });
 
-    it(`Random test to show how to compare results`, async () => {
-        const result = await aex().toObject('this is a bad test case and should be rewritten');
-
-        expect(result).to.deep.equal({ items: [], comps: [] });
-    });
-
-    it.skip(`Cannot serialize if there is no active comp open`, async () => {
-        try {
-            const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-            expect(result).to.equal('unknown');
-        } catch (e) {
-            expect(e.isEstkError).to.be.true;
-            expect(e.message).to.contain('undefined');
-        }
-    });
-
     /** Project tests */
     it(`Can parse basic project attributes`, async () => {
         await aex().openProject('testAssets/project_basic.aep');
