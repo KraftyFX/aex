@@ -136,6 +136,7 @@ interface AexLayerProperties {
     materialOption: AexProperties;
     timeRemap: AexProperty<number>;
     transform: AexTransform;
+    masks: AexProperties[];
 }
 
 interface AexProperties {

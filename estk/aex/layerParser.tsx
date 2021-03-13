@@ -151,6 +151,42 @@ function layerParser(options: AexOptions) {
                 yRotation,
             };
         },
+        parseMasks(maskGroup: PropertyGroup): AexProperties[] {
+          let masks = [];
+
+          for (var ii = 1, il = maskGroup.numProperties; ii <= il; ii++) {
+            let mask = maskGroup.property(ii) as MaskPropertyGroup;
+
+            let name = mask.name;
+            let maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
+            let inverted = getModifiedValue(mask.inverted, false);
+            let rotoBezier = getModifiedValue(mask.rotoBezier, false);
+            let maskMotionBlur = getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER);
+            let locked = getModifiedValue(mask.locked, false);
+            let color = mask.color;
+
+            let maskPath = propertyParsing.getModifiedProperty(mask.maskPath);
+            let maskFeather = propertyParsing.getModifiedProperty(mask.maskFeather);
+            let maskOpacity = propertyParsing.getModifiedProperty(mask.maskOpacity);
+            let maskExpansion = propertyParsing.getModifiedProperty(mask.maskExpansion);
+
+            masks.push({
+              name,
+              maskMode,
+              inverted,
+              rotoBezier,
+              maskMotionBlur,
+              locked,
+              color,
+              maskPath,
+              maskFeather,
+              maskOpacity,
+              maskExpansion,
+            })
+          }
+
+          return masks;
+        },
         parseLayerProperties(layer: Layer): AexLayerProperties {
             let transform = this.parseTransform(layer);
 
@@ -164,6 +200,7 @@ function layerParser(options: AexOptions) {
             let layerStyles;
             let materialOption;
             let timeRemap;
+            let masks;
             if (isVisibleLayer(layer)) {
                 if (aeq.isAVLayer(layer)) {
                     if (layer.timeRemapEnabled) {
@@ -183,7 +220,10 @@ function layerParser(options: AexOptions) {
 
                 // User has added layer styles, so check them
                 if (layer.layerStyle.canSetEnabled) {
-                    layerStyles = propertyParsing.parsePropertyGroup(layer.layerStyle);
+                    layerStyles = {
+                      enabled: layer.layerStyle.enabled,
+                      ...propertyParsing.parsePropertyGroup(layer.layerStyle)
+                    }
 
                     if (layerStyles.hasOwnProperty('patternFill/enabled')) {
                         delete layerStyles['patternFill/enabled'];
@@ -193,6 +233,11 @@ function layerParser(options: AexOptions) {
                 if (layer.threeDLayer) {
                     materialOption = propertyParsing.parsePropertyGroup(layer.materialOption);
                     geometryOption = propertyParsing.parsePropertyGroup(layer.geometryOption);
+                }
+
+                let maskGroup = layer.mask;
+                if (maskGroup.isModified) {
+                  masks = this.parseMasks(maskGroup);
                 }
             }
 
@@ -204,6 +249,7 @@ function layerParser(options: AexOptions) {
                 layerStyles,
                 materialOption,
                 timeRemap,
+                masks
             };
         },
     };
