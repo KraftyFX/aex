@@ -1,4 +1,4 @@
-function visitProject(options: AexOptions): AexProject {
+function getAexProject(options: AexOptions): AexProject {
     const items = aeq.getItems().filter((item) => !aeq.isComp(item));
     const comps = aeq.getComps();
 
@@ -12,7 +12,7 @@ function visitProject(options: AexOptions): AexProject {
 
 function visitItem(item: Item, options: AexOptions): AexItem {
     if (aeq.isComp(item)) {
-        return visitComp(item as CompItem, options);
+        return getAexComp(item as CompItem, options);
     }
 
     const itemParser = getItemParser(options);
@@ -24,7 +24,7 @@ function visitItem(item: Item, options: AexOptions): AexItem {
     }
 }
 
-function visitComp(comp: CompItem, options: AexOptions): AexComp {
+function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const itemParser = getItemParser(options);
     const compAttributes = itemParser.parseCompItemAttributes(comp);
 
@@ -43,7 +43,7 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
     return aexComp;
 }
 
-function visitLayer(layer: Layer, options: AexOptions): AexLayer {
+function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     const layerParser = getLayerParser(options);
     let layerAttributes = {} as AexLayerAttributes;
 

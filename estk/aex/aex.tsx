@@ -4,18 +4,18 @@ function aex(options: AexOptions) {
             assertIsDefined(item, 'item');
 
             if (isProject(item)) {
-                return visitProject(options);
+                return getAexProject(options);
             } else if (aeq.isComp(item)) {
                 return {
                     items: [],
-                    comps: [visitComp(item as CompItem, options)],
+                    comps: [getAexComp(item as CompItem, options)],
                 };
             } else if (aeq.isLayer(item)) {
                 return {
                     items: [],
                     comps: [
                         {
-                            layers: [visitLayer(item as Layer, options)],
+                            layers: [getAexLayer(item as Layer, options)],
                         },
                     ],
                 };

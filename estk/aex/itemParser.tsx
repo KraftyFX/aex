@@ -2,7 +2,7 @@ function getCompLayers(comp: CompItem, options: AexOptions) {
     let layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
-        let layerData = visitLayer(layer, options);
+        let layerData = getAexLayer(layer, options);
         layers.push(layerData);
     });
 
