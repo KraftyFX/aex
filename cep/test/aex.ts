@@ -10,14 +10,14 @@ export function aex() {
         async openProject(projectPath: string) {
             return await evalScript(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}")) && undefined`);
         },
-        async toObject(item: any) {
+        async toObject(item: any): Promise<any> {
             if (typeof item === 'string') {
                 return await evalScript(`aex().toObject("${item.toString()}")`);
             } else {
                 return await evalScript(`aex().toObject(${item || 'undefined'})`);
             }
         },
-        async toObjectWithAeObject(aeobject: AeObject) {
+        async toObjectWithAeObject(aeobject: AeObject): Promise<any> {
             switch (aeobject) {
                 case AeObject.ActiveComp:
                 case AeObject.Project:
