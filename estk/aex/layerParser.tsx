@@ -1,4 +1,41 @@
-function getAexLayerMarkers(layer: Layer, options: AexOptions) {
+function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
+    let baseAttributes = {} as AexLayerAttributes;
+
+    if (aeq.isAVLayer(layer)) {
+        baseAttributes = _getAVLayerAttributes(layer);
+    } else if (aeq.isLightLayer(layer)) {
+        baseAttributes = _getLightLayerAttributes(layer);
+    } else if (aeq.isTextLayer(layer)) {
+        baseAttributes = _getTextLayerAttributes(layer);
+    } else if (aeq.isShapeLayer(layer)) {
+        baseAttributes = _getLayerAttributes(layer);
+        baseAttributes.layerType = 'ShapeLayer';
+    } else if (aeq.isCameraLayer(layer)) {
+        baseAttributes = _getLayerAttributes(layer);
+        baseAttributes.layerType = 'CameraLayer';
+        baseAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
+    } else {
+        throw new Error(`Unrecognized Layer Type`);
+    }
+
+    const aexLayer: AexLayer = {
+        ...baseAttributes,
+
+        markers: _getAexLayerMarkers(layer, options),
+        transform: _getTransform(layer),
+        properties: _getProperties(layer),
+    };
+
+    return aexLayer;
+}
+
+function _getProperties(layer: Layer): AexProperties {
+    let properties = {} as AexProperties;
+
+    return properties.toSource() === '({})' ? undefined : properties;
+}
+
+function _getAexLayerMarkers(layer: Layer, options: AexOptions) {
     if (layer.marker.isModified) {
         return getAexMarkerProperties(layer.marker);
     } else {
@@ -6,156 +43,155 @@ function getAexLayerMarkers(layer: Layer, options: AexOptions) {
     }
 }
 
-function getLayerParser(options: AexOptions) {
+function _getLayerAttributes(layer: Layer): AexLayerAttributes {
+    const containingComp = layer.containingComp;
+
+    const name = layer.name;
+    const label = layer.label;
+    let layerType = 'Layer' as AexLayerType;
+
+    const comment = getModifiedValue(layer.comment, '');
+    let hasVideo = getModifiedValue(layer.hasVideo, true);
+    const inPoint = getModifiedValue(layer.inPoint, 0);
+    const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
+    const startTime = getModifiedValue(layer.startTime, 0);
+    const stretch = getModifiedValue(layer.stretch, 100);
+    const nullLayer = getModifiedValue(layer.nullLayer, false);
+    const shy = getModifiedValue(layer.shy, false);
+    const solo = getModifiedValue(layer.solo, false);
+
+    const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
+
+    if (aeq.isShapeLayer(layer)) {
+        layerType = 'ShapeLayer';
+    }
+
+    if (aeq.isCameraLayer(layer)) {
+        hasVideo = getModifiedValue(layer.hasVideo, false);
+        layerType = 'CameraLayer';
+    }
+
     return {
-        parseLayerAttributes(layer: Layer): AexLayerAttributes {
-            const containingComp = layer.containingComp;
+        name,
+        label,
+        layerType,
 
-            const name = layer.name;
-            const label = layer.label;
-            let layerType = 'Layer' as AexLayerType;
+        comment,
+        hasVideo,
+        inPoint,
+        outPoint,
+        startTime,
+        stretch,
+        nullLayer,
+        shy,
+        solo,
+        parentLayerIndex,
+    };
+}
 
-            const comment = getModifiedValue(layer.comment, '');
-            let hasVideo = getModifiedValue(layer.hasVideo, true);
-            const inPoint = getModifiedValue(layer.inPoint, 0);
-            const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
-            const startTime = getModifiedValue(layer.startTime, 0);
-            const stretch = getModifiedValue(layer.stretch, 100);
-            const nullLayer = getModifiedValue(layer.nullLayer, false);
-            const shy = getModifiedValue(layer.shy, false);
-            const solo = getModifiedValue(layer.solo, false);
+function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
+    const layerAttributes = this.parseLayerAttributes(layer);
+    layerAttributes.layerType = 'AVLayer';
 
-            const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
+    /** @todo Handle track matte */
+    /** @todo Handle source */
+    const source = layer.source;
 
-            if (aeq.isShapeLayer(layer)) {
-                layerType = 'ShapeLayer';
-            }
+    const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
+    const audioEnabled = getModifiedValue(layer.audioEnabled, true);
+    const autoOrient = getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT);
+    const blendingMode = getModifiedValue(layer.blendingMode, BlendingMode.NORMAL);
+    const collapseTransformation = getModifiedValue(layer.collapseTransformation, false);
+    const effectsActive = getModifiedValue(layer.effectsActive, true);
+    const environmentLayer = getModifiedValue(layer.environmentLayer, false);
+    const frameBlending = getModifiedValue(layer.frameBlending, false);
+    const frameBlendingType = frameBlending ? getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND) : undefined;
+    const guideLayer = getModifiedValue(layer.guideLayer, false);
+    const motionBlur = getModifiedValue(layer.motionBlur, false);
+    const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
+    const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
+    const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
+    const threeDLayer = getModifiedValue(layer.threeDLayer, false);
+    const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
+    const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
 
-            if (aeq.isCameraLayer(layer)) {
-                hasVideo = getModifiedValue(layer.hasVideo, false);
-                layerType = 'CameraLayer';
-            }
+    return {
+        ...layerAttributes,
 
-            return {
-                name,
-                label,
-                layerType,
+        adjustmentLayer,
+        audioEnabled,
+        autoOrient,
+        blendingMode,
+        collapseTransformation,
+        effectsActive,
+        environmentLayer,
+        frameBlending,
+        frameBlendingType,
+        guideLayer,
+        motionBlur,
+        preserveTransparency,
+        quality,
+        samplingQuality,
+        threeDLayer,
+        timeRemapEnabled,
+        trackMatteType,
+    };
+}
 
-                comment,
-                hasVideo,
-                inPoint,
-                outPoint,
-                startTime,
-                stretch,
-                nullLayer,
-                shy,
-                solo,
-                parentLayerIndex,
-            };
-        },
-        parseAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
-            const layerAttributes = this.parseLayerAttributes(layer);
-            layerAttributes.layerType = 'AVLayer';
+function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
+    const layerAttributes = this.parseLayerAttributes(layer);
+    layerAttributes.layerType = 'LightLayer';
+    layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
-            /** @todo Handle track matte */
-            /** @todo Handle source */
-            const source = layer.source;
+    const lightType = layer.lightType;
+    return {
+        ...layerAttributes,
+        lightType,
+    };
+}
 
-            const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
-            const audioEnabled = getModifiedValue(layer.audioEnabled, true);
-            const autoOrient = getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT);
-            const blendingMode = getModifiedValue(layer.blendingMode, BlendingMode.NORMAL);
-            const collapseTransformation = getModifiedValue(layer.collapseTransformation, false);
-            const effectsActive = getModifiedValue(layer.effectsActive, true);
-            const environmentLayer = getModifiedValue(layer.environmentLayer, false);
-            const frameBlending = getModifiedValue(layer.frameBlending, false);
-            const frameBlendingType = frameBlending ? getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND) : undefined;
-            const guideLayer = getModifiedValue(layer.guideLayer, false);
-            const motionBlur = getModifiedValue(layer.motionBlur, false);
-            const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
-            const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
-            const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
-            const threeDLayer = getModifiedValue(layer.threeDLayer, false);
-            const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
-            const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
+function _getTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
+    const layerAttributes = this.parseLayerAttributes(layer);
+    layerAttributes.layerType = 'TextLayer';
 
-            return {
-                ...layerAttributes,
+    const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
+    return {
+        ...layerAttributes,
+        threeDPerChar,
+    };
+}
 
-                adjustmentLayer,
-                audioEnabled,
-                autoOrient,
-                blendingMode,
-                collapseTransformation,
-                effectsActive,
-                environmentLayer,
-                frameBlending,
-                frameBlendingType,
-                guideLayer,
-                motionBlur,
-                preserveTransparency,
-                quality,
-                samplingQuality,
-                threeDLayer,
-                timeRemapEnabled,
-                trackMatteType,
-            };
-        },
-        parseLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
-            const layerAttributes = this.parseLayerAttributes(layer);
-            layerAttributes.layerType = 'LightLayer';
-            layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
+function _getTransform(layer: Layer): AexTransform {
+    const transformGroup = layer.transform;
 
-            const lightType = layer.lightType;
-            return {
-                ...layerAttributes,
-                lightType,
-            };
-        },
-        parseTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
-            const layerAttributes = this.parseLayerAttributes(layer);
-            layerAttributes.layerType = 'TextLayer';
+    const anchorPoint = getModifiedProperty(transformGroup.anchorPoint);
+    const position = getModifiedProperty(transformGroup.position);
+    const scale = getModifiedProperty(transformGroup.scale);
+    let rotation = getModifiedProperty(transformGroup.rotation);
+    const opacity = getModifiedProperty(transformGroup.opacity);
 
-            const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
-            return {
-                ...layerAttributes,
-                threeDPerChar,
-            };
-        },
+    let pointOfInterest;
+    let orientation;
+    let xRotation;
+    let yRotation;
 
-        parseTransform(layer: Layer): AexTransform {
-            const transformGroup = layer.transform;
+    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
+        pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
+        orientation = getModifiedProperty(transformGroup.orientation);
+        xRotation = getModifiedProperty(transformGroup.xRotation);
+        yRotation = getModifiedProperty(transformGroup.yRotation);
+        rotation = getModifiedProperty(transformGroup.zRotation);
+    }
 
-            const anchorPoint = getModifiedProperty(transformGroup.anchorPoint);
-            const position = getModifiedProperty(transformGroup.position);
-            const scale = getModifiedProperty(transformGroup.scale);
-            let rotation = getModifiedProperty(transformGroup.rotation);
-            const opacity = getModifiedProperty(transformGroup.opacity);
-
-            let pointOfInterest;
-            let orientation;
-            let xRotation;
-            let yRotation;
-
-            if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-                pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
-                orientation = getModifiedProperty(transformGroup.orientation);
-                xRotation = getModifiedProperty(transformGroup.xRotation);
-                yRotation = getModifiedProperty(transformGroup.yRotation);
-                rotation = getModifiedProperty(transformGroup.zRotation);
-            }
-
-            return {
-                anchorPoint,
-                position,
-                scale,
-                rotation,
-                opacity,
-                pointOfInterest,
-                orientation,
-                xRotation,
-                yRotation,
-            };
-        },
+    return {
+        anchorPoint,
+        position,
+        scale,
+        rotation,
+        opacity,
+        pointOfInterest,
+        orientation,
+        xRotation,
+        yRotation,
     };
 }

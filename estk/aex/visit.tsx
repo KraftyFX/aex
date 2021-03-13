@@ -42,30 +42,3 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
 
     return aexComp;
 }
-
-function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
-    const layerParser = getLayerParser(options);
-    let layerAttributes = {} as AexLayerAttributes;
-
-    if (aeq.isAVLayer(layer)) {
-        layerAttributes = layerParser.parseAVLayerAttributes(layer);
-    } else if (aeq.isLightLayer(layer)) {
-        layerAttributes = layerParser.parseLightLayerAttributes(layer);
-    } else if (aeq.isTextLayer(layer)) {
-        layerAttributes = layerParser.parseTextLayerAttributes(layer);
-    } else {
-        layerAttributes = layerParser.parseLayerAttributes(layer);
-    }
-
-    let properties = {} as AexProperties;
-
-    const aexLayer: AexLayer = {
-        ...layerAttributes,
-
-        markers: getAexLayerMarkers(layer, options),
-        transform: layerParser.parseTransform(layer),
-        properties: properties.toSource() === '({})' ? undefined : properties,
-    };
-
-    return aexLayer;
-}
