@@ -1,3 +1,8 @@
+function getPropertyMarkers(comp: CompItem, options: AexOptions) {
+    const propertyParser = getPropertyParser(options);
+    return comp.markerProperty.isModified ? propertyParser.parseMarkers(comp.markerProperty) : undefined;
+}
+
 function getPropertyParser(options: AexOptions) {
     function _parsePropertyBase<T>(property: Property<T>): AexPropertyBase {
         const enabled = getModifiedValue(property.enabled, true);

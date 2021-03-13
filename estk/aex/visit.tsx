@@ -1,52 +1,30 @@
 function visitProject(options: AexOptions): AexProject {
-    const items = aeq.getItems().filter(function (item) {
-        return !aeq.isComp(item);
-    });
+    const items = aeq.getItems().filter((item) => !aeq.isComp(item));
     const comps = aeq.getComps();
 
     return {
-        items: [
-            ...items.map(function (item) {
-                return visitItem(item, options);
-            }),
-        ],
-        comps: [
-            ...comps.map(function (comp) {
-                return visitComp(comp, options);
-            }),
-        ],
+        items: items.map((item) => visitItem(item, options)),
+        comps: comps.map((comp) => visitItem(comp, options)),
     };
 }
 
 function visitItem(item: Item, options: AexOptions): AexItem {
-    const itemParser = getItemParser(options);
-
-    if (aeq.isFootageItem(item)) {
-        return itemParser.parseFootageAttributes(item);
-    }
-
     if (aeq.isComp(item)) {
         return visitComp(item as CompItem, options);
     }
 
-    return itemParser.parseItemAttributes(item);
+    const itemParser = getItemParser(options);
+
+    if (aeq.isFootageItem(item)) {
+        return itemParser.parseFootageAttributes(item);
+    } else {
+        return itemParser.parseItemAttributes(item);
+    }
 }
 
 function visitComp(comp: CompItem, options: AexOptions): AexComp {
     const itemParser = getItemParser(options);
     const compAttributes = itemParser.parseCompItemAttributes(comp);
-    const propertyParser = getPropertyParser(options);
-
-    let layers = [] as AexLayer[];
-    aeq.forEachLayer(comp, function (layer: Layer) {
-        let layerData = visitLayer(layer, options);
-        layers.push(layerData);
-    });
-
-    let markers;
-    if (comp.markerProperty.isModified) {
-        markers = propertyParser.parseMarkers(comp.markerProperty);
-    }
 
     /** @todo explore essential props */
     let essentialProps = [];
@@ -55,16 +33,16 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
         ...compAttributes,
 
         /** Nested objects */
-        markers,
-        layers: layers.length > 0 ? layers : undefined,
+        markers: getPropertyMarkers(comp, options),
+        layers: getCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
     };
 }
 
 function visitLayer(layer: Layer, options: AexOptions): AexLayer {
     const layerParser = getLayerParser(options);
-    let properties = {} as AexProperties;
     let layerAttributes = {} as AexLayerAttributes;
+
     if (aeq.isAVLayer(layer)) {
         layerAttributes = layerParser.parseAVLayerAttributes(layer);
     } else if (aeq.isLightLayer(layer)) {
@@ -76,11 +54,15 @@ function visitLayer(layer: Layer, options: AexOptions): AexLayer {
     }
 
     const propertyParser = getPropertyParser(options);
+
     let transform = layerParser.parseTransform(layer);
     let markers;
+
     if (layer.marker.isModified) {
         markers = propertyParser.parseMarkers(layer.marker);
     }
+
+    let properties = {} as AexProperties;
 
     return {
         ...layerAttributes,

@@ -1,3 +1,14 @@
+function getCompLayers(comp: CompItem, options: AexOptions) {
+    let layers = [] as AexLayer[];
+
+    aeq.forEachLayer(comp, (layer: Layer) => {
+        let layerData = visitLayer(layer, options);
+        layers.push(layerData);
+    });
+
+    return layers.length === 0 ? undefined : layers;
+}
+
 function getItemParser(options: AexOptions) {
     return {
         _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
