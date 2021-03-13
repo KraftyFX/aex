@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
+import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Project', function () {
     this.slow(500);
@@ -16,7 +16,7 @@ describe('Project', function () {
     });
 
     it(`Can parse basic project attributes`, async () => {
-        await aex().openProject('testAssets/project_basic.aep');
+        await openProject('testAssets/project_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -40,7 +40,7 @@ describe('Project', function () {
     });
 
     it(`Can parse flat project folders`, async () => {
-        await aex().openProject('testAssets/project_folders-flat.aep');
+        await openProject('testAssets/project_folders-flat.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -60,7 +60,7 @@ describe('Project', function () {
     });
 
     it(`Can parse nested project folders`, async () => {
-        await aex().openProject('testAssets/project_folders-nested.aep');
+        await openProject('testAssets/project_folders-nested.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 

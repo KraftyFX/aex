@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
+import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Comp', function () {
     this.slow(500);
@@ -17,7 +17,7 @@ describe('Comp', function () {
 
     /** Comp tests */
     it(`Can parse basic comp attributes`, async () => {
-        await aex().openProject('testAssets/comp_empty-comp.aep');
+        await openProject('testAssets/comp_empty-comp.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -38,7 +38,7 @@ describe('Comp', function () {
     });
 
     it(`Can parse comp markers`, async () => {
-        await aex().openProject('testAssets/comp_markers.aep');
+        await openProject('testAssets/comp_markers.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 

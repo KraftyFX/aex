@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
+import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Layer', function () {
     this.slow(500);
@@ -17,7 +17,7 @@ describe('Layer', function () {
 
     /** Layer tests */
     it(`Can parse basic layer attributes`, async () => {
-        await aex().openProject('testAssets/layer_basic.aep');
+        await openProject('testAssets/layer_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -97,7 +97,7 @@ describe('Layer', function () {
     });
 
     it(`Can parse light layer attributes`, async () => {
-        await aex().openProject('testAssets/layer_light.aep');
+        await openProject('testAssets/layer_light.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -139,7 +139,7 @@ describe('Layer', function () {
     });
 
     it(`Can parse layer markers`, async () => {
-        await aex().openProject('testAssets/layer_markers.aep');
+        await openProject('testAssets/layer_markers.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
@@ -217,7 +217,7 @@ describe('Layer', function () {
     });
 
     it(`Can parse layer transform properties`, async () => {
-        await aex().openProject('testAssets/layer_transform.aep');
+        await openProject('testAssets/layer_transform.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
@@ -412,7 +412,7 @@ describe('Layer', function () {
     });
 
     it(`Can parse animated transform properties`, async () => {
-        await aex().openProject('testAssets/property_animated.aep');
+        await openProject('testAssets/property_animated.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
