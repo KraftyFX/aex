@@ -152,40 +152,59 @@ function layerParser(options: AexOptions) {
             };
         },
         parseMasks(maskGroup: PropertyGroup): AexProperties[] {
-          let masks = [];
+            let masks = [];
 
-          for (var ii = 1, il = maskGroup.numProperties; ii <= il; ii++) {
-            let mask = maskGroup.property(ii) as MaskPropertyGroup;
+            for (let ii = 1, il = maskGroup.numProperties; ii <= il; ii++) {
+                const mask = maskGroup.property(ii) as MaskPropertyGroup;
 
-            let name = mask.name;
-            let maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
-            let inverted = getModifiedValue(mask.inverted, false);
-            let rotoBezier = getModifiedValue(mask.rotoBezier, false);
-            let maskMotionBlur = getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER);
-            let locked = getModifiedValue(mask.locked, false);
-            let color = mask.color;
+                const { name, color } = mask;
 
-            let maskPath = propertyParsing.getModifiedProperty(mask.maskPath);
-            let maskFeather = propertyParsing.getModifiedProperty(mask.maskFeather);
-            let maskOpacity = propertyParsing.getModifiedProperty(mask.maskOpacity);
-            let maskExpansion = propertyParsing.getModifiedProperty(mask.maskExpansion);
+                const maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
+                const inverted = getModifiedValue(mask.inverted, false);
+                const rotoBezier = getModifiedValue(mask.rotoBezier, false);
+                const maskMotionBlur = getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER);
+                const locked = getModifiedValue(mask.locked, false);
 
-            masks.push({
-              name,
-              maskMode,
-              inverted,
-              rotoBezier,
-              maskMotionBlur,
-              locked,
-              color,
-              maskPath,
-              maskFeather,
-              maskOpacity,
-              maskExpansion,
-            })
-          }
+                const maskPath = propertyParsing.getModifiedProperty(mask.maskPath);
+                const maskFeather = propertyParsing.getModifiedProperty(mask.maskFeather);
+                const maskOpacity = propertyParsing.getModifiedProperty(mask.maskOpacity);
+                const maskExpansion = propertyParsing.getModifiedProperty(mask.maskExpansion);
 
-          return masks;
+                masks.push({
+                    name,
+                    maskMode,
+                    inverted,
+                    rotoBezier,
+                    maskMotionBlur,
+                    locked,
+                    color,
+                    maskPath,
+                    maskFeather,
+                    maskOpacity,
+                    maskExpansion,
+                });
+            }
+
+            return masks;
+        },
+        parseEffects(effectsGroup: PropertyGroup): AexProperties[] {
+            let effects = [];
+            for (let ii = 1, il = effectsGroup.numProperties; ii <= il; ii++) {
+                const effect = effectsGroup.property(ii) as PropertyGroup;
+
+                const { name, matchName, enabled } = effect;
+
+                let properties = propertyParsing.parsePropertyGroup(effect);
+
+                effects.push({
+                    name,
+                    matchName,
+                    enabled,
+
+                    properties,
+                });
+            }
+            return effects;
         },
         parseLayerProperties(layer: Layer): AexLayerProperties {
             let transform = this.parseTransform(layer);
@@ -201,6 +220,7 @@ function layerParser(options: AexOptions) {
             let materialOption;
             let timeRemap;
             let masks;
+            let effects;
             if (isVisibleLayer(layer)) {
                 if (aeq.isAVLayer(layer)) {
                     if (layer.timeRemapEnabled) {
@@ -221,9 +241,9 @@ function layerParser(options: AexOptions) {
                 // User has added layer styles, so check them
                 if (layer.layerStyle.canSetEnabled) {
                     layerStyles = {
-                      enabled: layer.layerStyle.enabled,
-                      ...propertyParsing.parsePropertyGroup(layer.layerStyle)
-                    }
+                        enabled: layer.layerStyle.enabled,
+                        ...propertyParsing.parsePropertyGroup(layer.layerStyle),
+                    };
 
                     if (layerStyles.hasOwnProperty('patternFill/enabled')) {
                         delete layerStyles['patternFill/enabled'];
@@ -237,7 +257,12 @@ function layerParser(options: AexOptions) {
 
                 let maskGroup = layer.mask;
                 if (maskGroup.isModified) {
-                  masks = this.parseMasks(maskGroup);
+                    masks = this.parseMasks(maskGroup);
+                }
+
+                let effectsGroup = layer.effect;
+                if (effectsGroup.isModified) {
+                    effects = this.parseEffects(effectsGroup);
                 }
             }
 
@@ -249,7 +274,8 @@ function layerParser(options: AexOptions) {
                 layerStyles,
                 materialOption,
                 timeRemap,
-                masks
+                masks,
+                effects,
             };
         },
     };

@@ -143,7 +143,7 @@ function propertyParser(options: AexOptions) {
         parsePropertyGroup(propertyGroup: PropertyGroup): AexProperties {
             let groupProperties = {};
 
-            for (var ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
+            for (let ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
                 const property = propertyGroup.property(ii) as Property<any>;
                 const matchName = property.matchName;
 

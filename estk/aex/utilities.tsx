@@ -1,5 +1,5 @@
 function _objectsIdential(a: object, b: object): boolean {
-    for (var key in a) {
+    for (let key in a) {
         if (!a.hasOwnProperty(key)) {
             continue;
         }
