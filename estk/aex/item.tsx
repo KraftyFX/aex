@@ -28,7 +28,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         /** Nested objects */
         markers: _getAexCompMarkers(comp, options),
         layers: _getCompLayers(comp, options),
-        essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
+        essentialProps: essentialProps.length > 0 ? essentialProps : undefined, // zlovatt: Put this into a function laters
     };
 
     return aexComp;
