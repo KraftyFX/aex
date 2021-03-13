@@ -240,6 +240,7 @@ describe('aex().toObject()', function () {
                             layerType: 'TextLayer',
                             name: 'Solo Text Layer',
                             solo: true,
+                            properties: {},
                             transform: {},
                         },
                         {
@@ -247,6 +248,7 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: 'Empty',
                             nullLayer: true,
+                            properties: {},
                             transform: {},
                         },
                         {
@@ -268,8 +270,8 @@ describe('aex().toObject()', function () {
                             name: 'Flags',
                             nullLayer: true,
                             properties: {
-                              geometryOption: {},
-                              materialOption: {},
+                                geometryOption: {},
+                                materialOption: {},
                             },
                             samplingQuality: 4813,
                             shy: true,
@@ -284,6 +286,7 @@ describe('aex().toObject()', function () {
                             nullLayer: true,
                             outPoint: 1,
                             stretch: 25,
+                            properties: {},
                             transform: {},
                         },
                         {
@@ -291,6 +294,7 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: 'Parented Solid',
                             parentLayerIndex: 5,
+                            properties: {},
                             transform: {
                                 position: {
                                     matchName: 'ADBE Position',
@@ -395,6 +399,7 @@ describe('aex().toObject()', function () {
                             ],
                             name: 'PlainMarkers',
                             nullLayer: true,
+                            properties: {},
                             transform: {},
                         },
                         {
@@ -426,6 +431,7 @@ describe('aex().toObject()', function () {
                             ],
                             name: 'DetailedMarkers',
                             nullLayer: true,
+                            properties: {},
                             transform: {},
                         },
                     ],
@@ -470,8 +476,8 @@ describe('aex().toObject()', function () {
                             name: '3d AV Layer',
                             nullLayer: true,
                             properties: {
-                              geometryOption: {},
-                              materialOption: {},
+                                geometryOption: {},
+                                materialOption: {},
                             },
                             threeDLayer: true,
                             transform: {},
@@ -481,6 +487,7 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: '2d AV Layer',
                             nullLayer: true,
+                            properties: {},
                             transform: {},
                         },
                     ],
@@ -550,8 +557,8 @@ describe('aex().toObject()', function () {
                             name: '3d AV Layer',
                             nullLayer: true,
                             properties: {
-                              geometryOption: {},
-                              materialOption: {},
+                                geometryOption: {},
+                                materialOption: {},
                             },
                             threeDLayer: true,
                             transform: {
@@ -603,6 +610,7 @@ describe('aex().toObject()', function () {
                             layerType: 'AVLayer',
                             name: '2d AV Layer',
                             nullLayer: true,
+                            properties: {},
                             transform: {
                                 anchorPoint: {
                                     matchName: 'ADBE Anchor Point',

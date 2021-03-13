@@ -76,3 +76,7 @@ function sourceIsPlaceholder(source: any): source is PlaceholderSource {
 function isProject(item: any): item is Project {
     return item instanceof Project;
 }
+
+function isVisibleLayer(layer: any): layer is AVLayer | TextLayer | ShapeLayer {
+  return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
+}

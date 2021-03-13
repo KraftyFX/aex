@@ -83,13 +83,13 @@ function propertyParser(options: AexOptions) {
             return this.parseProperty(property);
         },
         parseProperty<T>(property: Property<T>): AexProperty<T> {
-            const propertyBaseProperties = _parsePropertyBase(property);
+            const { matchName, propertyValueType } = property;
 
+            const propertyBaseProperties = _parsePropertyBase(property);
             const expression = getModifiedValue(property.expression, '');
             const expressionEnabled = getModifiedValue(property.expressionEnabled, false);
 
             const value = property.value;
-
             let keys;
             if (property.numKeys > 0) {
                 keys = _parseKeys(property);
@@ -135,6 +135,23 @@ function propertyParser(options: AexOptions) {
             }
 
             return markerData;
+        },
+        parsePropertyGroup(propertyGroup: PropertyGroup): AexProperties {
+            let groupProperties = {};
+
+            for (var ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
+                const property = propertyGroup.property(ii) as Property<any>;
+                const matchName = property.matchName;
+
+                if (property.propertyType == PropertyType.PROPERTY) {
+                    groupProperties[matchName] = this.getModifiedProperty(property);
+                    continue;
+                }
+
+                groupProperties[matchName] = this.parsePropertyGroup(property);
+            }
+
+            return groupProperties;
         },
     };
 }
