@@ -1,17 +1,23 @@
 function getAexItem(item: Item, options: AexOptions): AexItem {
     if (aeq.isComp(item)) {
         return getAexComp(item as CompItem, options);
-    }
-
-    if (aeq.isFootageItem(item)) {
-        return parseFootageAttributes(item);
+    } else if (aeq.isFootageItem(item)) {
+        return _getFootageItem(item);
+    } else if (aeq.isFolderItem(item)) {
+        // TODO: Factor this out
+        const aexItem = _getItemAttributes(item, 'Folder');
+        aexItem.label = getModifiedValue(item.label, 2);
+        return aexItem;
     } else {
-        return parseItemAttributes(item);
+        // TODO: Factor this out
+        const aexItem = _getItemAttributes(item, 'Solid'); // zlovatt: Is this right?
+        aexItem.label = getModifiedValue(item.label, 15);
+        return aexItem;
     }
 }
 
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
-    const compAttributes = parseCompItemAttributes(comp);
+    const compAttributes = _parseCompItemAttributes(comp);
 
     /** @todo explore essential props */
     let essentialProps = [];
@@ -47,9 +53,9 @@ function _getAexCompMarkers(comp: CompItem, options: AexOptions) {
     }
 }
 
-function _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
+function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
     const { duration, frameRate, height, pixelAspect, width } = item;
-    const itemAttributes = parseItemAttributes(item);
+    const itemAttributes = _getItemAttributes(item, item.typeName as AexItemType);
 
     return {
         ...itemAttributes,
@@ -62,13 +68,8 @@ function _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
     };
 }
 
-function parseItemAttributes(item: Item): AexItemAttributes {
+function _getItemAttributes(item: Item, itemType: AexItemType): AexItemAttributes {
     const { name, parentFolder } = item;
-
-    let itemType = 'Footage' as AexItemType;
-
-    const comment = getModifiedValue(item.comment, '');
-    let label = getModifiedValue(item.label, 15);
 
     /**
      * @todo Add AexOption to preserve project folder structure.
@@ -76,22 +77,17 @@ function parseItemAttributes(item: Item): AexItemAttributes {
      **/
     const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
 
-    if (aeq.isFolderItem(item)) {
-        itemType = 'Folder';
-        label = getModifiedValue(item.label, 2);
-    }
-
     return {
         name,
         itemType,
-        comment,
-        label,
+        comment: getModifiedValue(item.comment, ''),
+        label: getModifiedValue(item.label, 15),
         folder,
     };
 }
 
-function parseFootageAttributes(item: FootageItem): AexFootageItemAttributes {
-    const avItemAttributes = _parseAVItemAttributes(item);
+function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
+    const avItemAttributes = _getAVItemAttributes(item);
 
     const itemSource = item.mainSource;
 
@@ -134,8 +130,8 @@ function parseFootageAttributes(item: FootageItem): AexFootageItemAttributes {
     };
 }
 
-function parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
-    const avItemAttributes = _parseAVItemAttributes(comp);
+function _parseCompItemAttributes(comp: CompItem): AexCompItemAttributes {
+    const avItemAttributes = _getAVItemAttributes(comp);
     avItemAttributes.itemType = 'Comp';
 
     const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);

@@ -38,6 +38,7 @@ function _getProperties(layer: Layer): AexProperties {
 }
 
 function _getAexLayerMarkers(layer: Layer, options: AexOptions) {
+    // Is marker a scalar or an array?
     if (layer.marker.isModified) {
         return getAexMarkerProperties(layer.marker);
     } else {
