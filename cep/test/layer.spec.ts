@@ -21,86 +21,77 @@ describe('Layer', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
+        expect(result).property('comps').to.be.of.length(1);
+
         console.log('layer_basic', result);
-        expect(result)
-            .property('comps')
+        expect(result.comps[0])
+            .property('layers')
             .to.eql([
                 {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
-                        {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {},
+                    label: 4,
+                    layerType: 'CameraLayer',
+                    name: 'Camera',
+                    transform: {},
+                },
+                {
+                    label: 1,
+                    layerType: 'TextLayer',
+                    name: 'Solo Text Layer',
+                    solo: true,
+                    transform: {},
+                },
+                {
+                    label: 1,
+                    layerType: 'AVLayer',
+                    name: 'Empty',
+                    nullLayer: true,
+                    transform: {},
+                },
+                {
+                    inPoint: 0.5,
+                    label: 1,
+                    layerType: 'LightLayer',
+                    lightType: 4414,
+                    name: 'Timing Light',
+                    outPoint: 3.06666666666667,
+                    transform: {},
+                },
+                {
+                    adjustmentLayer: true,
+                    autoOrient: 4213,
+                    collapseTransformation: true,
+                    label: 2,
+                    layerType: 'AVLayer',
+                    motionBlur: true,
+                    name: 'Flags',
+                    nullLayer: true,
+                    samplingQuality: 4813,
+                    shy: true,
+                    threeDLayer: true,
+                    transform: {},
+                },
+                {
+                    blendingMode: 5216,
+                    label: 1,
+                    layerType: 'AVLayer',
+                    name: 'Blend Stretch',
+                    nullLayer: true,
+                    outPoint: 1,
+                    stretch: 25,
+                    transform: {},
+                },
+                {
+                    label: 1,
+                    layerType: 'AVLayer',
+                    name: 'Parented Solid',
+                    parentLayerIndex: 5,
+                    transform: {
+                        position: {
+                            matchName: 'ADBE Position',
+                            name: 'Position',
+                            value: [0, 0, 0],
                         },
-                        {
-                            label: 1,
-                            layerType: 'TextLayer',
-                            name: 'Solo Text Layer',
-                            solo: true,
-                            transform: {},
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: 'Empty',
-                            nullLayer: true,
-                            transform: {},
-                        },
-                        {
-                            inPoint: 0.5,
-                            label: 1,
-                            layerType: 'LightLayer',
-                            lightType: 4414,
-                            name: 'Timing Light',
-                            outPoint: 3.06666666666667,
-                            transform: {},
-                        },
-                        {
-                            adjustmentLayer: true,
-                            autoOrient: 4213,
-                            collapseTransformation: true,
-                            label: 2,
-                            layerType: 'AVLayer',
-                            motionBlur: true,
-                            name: 'Flags',
-                            nullLayer: true,
-                            samplingQuality: 4813,
-                            shy: true,
-                            threeDLayer: true,
-                            transform: {},
-                        },
-                        {
-                            blendingMode: 5216,
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: 'Blend Stretch',
-                            nullLayer: true,
-                            outPoint: 1,
-                            stretch: 25,
-                            transform: {},
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: 'Parented Solid',
-                            parentLayerIndex: 5,
-                            transform: {
-                                position: {
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [0, 0, 0],
-                                },
-                            },
-                        },
-                    ],
-                    name: 'Comp 1',
-                    pixelAspect: 1,
-                    width: 1280,
+                    },
                 },
             ]);
     });
@@ -110,48 +101,39 @@ describe('Layer', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
+        expect(result).property('comps').to.be.of.length(1);
+
         console.log('layer_light', result);
-        expect(result)
-            .property('comps')
+        expect(result.comps[0])
+            .property('layers')
             .to.eql([
                 {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4412,
-                            name: 'Parallel Light',
-                            transform: {},
-                        },
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4413,
-                            name: 'Spot Light',
-                            transform: {},
-                        },
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4414,
-                            name: 'Point Light',
-                            transform: {},
-                        },
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4415,
-                            name: 'Ambient Light',
-                            transform: {},
-                        },
-                    ],
-                    name: 'Comp 1',
-                    pixelAspect: 1,
-                    width: 1280,
+                    label: 6,
+                    layerType: 'LightLayer',
+                    lightType: 4412,
+                    name: 'Parallel Light',
+                    transform: {},
+                },
+                {
+                    label: 6,
+                    layerType: 'LightLayer',
+                    lightType: 4413,
+                    name: 'Spot Light',
+                    transform: {},
+                },
+                {
+                    label: 6,
+                    layerType: 'LightLayer',
+                    lightType: 4414,
+                    name: 'Point Light',
+                    transform: {},
+                },
+                {
+                    label: 6,
+                    layerType: 'LightLayer',
+                    lightType: 4415,
+                    name: 'Ambient Light',
+                    transform: {},
                 },
             ]);
     });

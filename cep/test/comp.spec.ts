@@ -43,69 +43,55 @@ describe('Comp', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('comp_markers-comp', result);
-        expect(result)
-            .property('comps')
+
+        expect(result).property('comps').to.be.of.length(2);
+
+        expect(result.comps[0])
+            .property('markers')
             .to.eql([
                 {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    markers: [
-                        {
-                            duration: 0.2,
-                            time: 0.16666666666667,
-                        },
-                        {
-                            comment: 'Some Comment',
-                            duration: 1,
-                            label: 4,
-                            protectedRegion: true,
-                            time: 0.46666666666667,
-                        },
-                        {
-                            label: 3,
-                            time: 0.78333333333333,
-                        },
-                        {
-                            comment: 'banana',
-                            time: 1.83333333333333,
-                        },
-                        {
-                            duration: 0.33333333333333,
-                            protectedRegion: true,
-                            time: 3.55,
-                        },
-                    ],
-                    name: 'DetailedMarkers',
-                    pixelAspect: 1,
-                    width: 1280,
+                    duration: 0.2,
+                    time: 0.16666666666667,
                 },
                 {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    markers: [
-                        {
-                            time: 0.16666666666667,
-                        },
-                        {
-                            time: 0.46666666666667,
-                        },
-                        {
-                            time: 0.78333333333333,
-                        },
-                        {
-                            time: 1.83333333333333,
-                        },
-                        {
-                            time: 3.55,
-                        },
-                    ],
-                    name: 'PlainMarkers',
-                    pixelAspect: 1,
-                    width: 1280,
+                    comment: 'Some Comment',
+                    duration: 1,
+                    label: 4,
+                    protectedRegion: true,
+                    time: 0.46666666666667,
+                },
+                {
+                    label: 3,
+                    time: 0.78333333333333,
+                },
+                {
+                    comment: 'banana',
+                    time: 1.83333333333333,
+                },
+                {
+                    duration: 0.33333333333333,
+                    protectedRegion: true,
+                    time: 3.55,
+                },
+            ]);
+
+        expect(result.comps[1])
+            .property('markers')
+            .to.eql([
+                {
+                    time: 0.16666666666667,
+                },
+                {
+                    time: 0.46666666666667,
+                },
+                {
+                    time: 0.78333333333333,
+                },
+                {
+                    time: 1.83333333333333,
+                },
+                {
+                    time: 3.55,
                 },
             ]);
     });
