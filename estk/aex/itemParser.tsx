@@ -1,4 +1,4 @@
-function itemParser(options: AexOptions) {
+function getItemParser(options: AexOptions) {
     return {
         _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {
             const { duration, frameRate, height, pixelAspect, width } = item;

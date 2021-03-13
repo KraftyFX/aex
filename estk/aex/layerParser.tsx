@@ -1,5 +1,5 @@
-function layerParser(options: AexOptions) {
-    const propertyParsing = propertyParser(options);
+function getLayerParser(options: AexOptions) {
+    const propertyParser = getPropertyParser(options);
 
     return {
         parseLayerAttributes(layer: Layer): AexLayerAttributes {
@@ -120,11 +120,11 @@ function layerParser(options: AexOptions) {
         parseTransform(layer: Layer): AexTransform {
             const transformGroup = layer.transform;
 
-            const anchorPoint = propertyParsing.getModifiedProperty(transformGroup.anchorPoint);
-            const position = propertyParsing.getModifiedProperty(transformGroup.position);
-            const scale = propertyParsing.getModifiedProperty(transformGroup.scale);
-            let rotation = propertyParsing.getModifiedProperty(transformGroup.rotation);
-            const opacity = propertyParsing.getModifiedProperty(transformGroup.opacity);
+            const anchorPoint = propertyParser.getModifiedProperty(transformGroup.anchorPoint);
+            const position = propertyParser.getModifiedProperty(transformGroup.position);
+            const scale = propertyParser.getModifiedProperty(transformGroup.scale);
+            let rotation = propertyParser.getModifiedProperty(transformGroup.rotation);
+            const opacity = propertyParser.getModifiedProperty(transformGroup.opacity);
 
             let pointOfInterest;
             let orientation;
@@ -132,11 +132,11 @@ function layerParser(options: AexOptions) {
             let yRotation;
 
             if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-                pointOfInterest = propertyParsing.getModifiedProperty(transformGroup.pointOfInterest);
-                orientation = propertyParsing.getModifiedProperty(transformGroup.orientation);
-                xRotation = propertyParsing.getModifiedProperty(transformGroup.xRotation);
-                yRotation = propertyParsing.getModifiedProperty(transformGroup.yRotation);
-                rotation = propertyParsing.getModifiedProperty(transformGroup.zRotation);
+                pointOfInterest = propertyParser.getModifiedProperty(transformGroup.pointOfInterest);
+                orientation = propertyParser.getModifiedProperty(transformGroup.orientation);
+                xRotation = propertyParser.getModifiedProperty(transformGroup.xRotation);
+                yRotation = propertyParser.getModifiedProperty(transformGroup.yRotation);
+                rotation = propertyParser.getModifiedProperty(transformGroup.zRotation);
             }
 
             return {

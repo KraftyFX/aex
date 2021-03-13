@@ -1,4 +1,4 @@
-function propertyParser(options: AexOptions) {
+function getPropertyParser(options: AexOptions) {
     function _parsePropertyBase<T>(property: Property<T>): AexPropertyBase {
         const enabled = getModifiedValue(property.enabled, true);
         const matchName = property.matchName;

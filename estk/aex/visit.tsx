@@ -19,23 +19,23 @@ function visitProject(options: AexOptions): AexProject {
 }
 
 function visitItem(item: Item, options: AexOptions): AexItem {
-    const itemParsing = itemParser(options);
+    const itemParser = getItemParser(options);
 
     if (aeq.isFootageItem(item)) {
-        return itemParsing.parseFootageAttributes(item);
+        return itemParser.parseFootageAttributes(item);
     }
 
     if (aeq.isComp(item)) {
         return visitComp(item as CompItem, options);
     }
 
-    return itemParsing.parseItemAttributes(item);
+    return itemParser.parseItemAttributes(item);
 }
 
 function visitComp(comp: CompItem, options: AexOptions): AexComp {
-    const itemParsing = itemParser(options);
-    const compAttributes = itemParsing.parseCompItemAttributes(comp);
-    const propertyParsing = propertyParser(options);
+    const itemParser = getItemParser(options);
+    const compAttributes = itemParser.parseCompItemAttributes(comp);
+    const propertyParser = getPropertyParser(options);
 
     let layers = [] as AexLayer[];
     aeq.forEachLayer(comp, function (layer: Layer) {
@@ -45,7 +45,7 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
 
     let markers;
     if (comp.markerProperty.isModified) {
-        markers = propertyParsing.parseMarkers(comp.markerProperty);
+        markers = propertyParser.parseMarkers(comp.markerProperty);
     }
 
     /** @todo explore essential props */
@@ -62,24 +62,24 @@ function visitComp(comp: CompItem, options: AexOptions): AexComp {
 }
 
 function visitLayer(layer: Layer, options: AexOptions): AexLayer {
-    const layerParsing = layerParser(options);
+    const layerParser = getLayerParser(options);
     let properties = {} as AexProperties;
     let layerAttributes = {} as AexLayerAttributes;
     if (aeq.isAVLayer(layer)) {
-        layerAttributes = layerParsing.parseAVLayerAttributes(layer);
+        layerAttributes = layerParser.parseAVLayerAttributes(layer);
     } else if (aeq.isLightLayer(layer)) {
-        layerAttributes = layerParsing.parseLightLayerAttributes(layer);
+        layerAttributes = layerParser.parseLightLayerAttributes(layer);
     } else if (aeq.isTextLayer(layer)) {
-        layerAttributes = layerParsing.parseTextLayerAttributes(layer);
+        layerAttributes = layerParser.parseTextLayerAttributes(layer);
     } else {
-        layerAttributes = layerParsing.parseLayerAttributes(layer);
+        layerAttributes = layerParser.parseLayerAttributes(layer);
     }
 
-    const propertyParsing = propertyParser(options);
-    let transform = layerParsing.parseTransform(layer);
+    const propertyParser = getPropertyParser(options);
+    let transform = layerParser.parseTransform(layer);
     let markers;
     if (layer.marker.isModified) {
-        markers = propertyParsing.parseMarkers(layer.marker);
+        markers = propertyParser.parseMarkers(layer.marker);
     }
 
     return {
