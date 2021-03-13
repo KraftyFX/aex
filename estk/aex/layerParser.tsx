@@ -1,6 +1,6 @@
-function getLayerMarkers(layer: Layer, options: AexOptions) {
+function getAexLayerMarkers(layer: Layer, options: AexOptions) {
     if (layer.marker.isModified) {
-        return parseMarkers(layer.marker);
+        return getAexMarkerProperties(layer.marker);
     } else {
         return undefined;
     }

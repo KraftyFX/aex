@@ -1,35 +1,23 @@
-function getAexMarkersProperty(comp: CompItem, options: AexOptions) {
-    return comp.markerProperty.isModified ? parseMarkers(comp.markerProperty) : undefined;
-}
+function getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
+    if (property.numKeys === 0) {
+        return undefined;
+    }
 
-function _parsePropertyBase<T>(property: Property<T>): AexPropertyBase {
-    const enabled = getModifiedValue(property.enabled, true);
-    const matchName = property.matchName;
-    const name = property.name;
-
-    return {
-        enabled,
-        matchName,
-        name,
-    };
-}
-
-function _parseKeys<T>(property: Property<T>): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property as any);
     const keys = propertyKeys.map(function (key) {
         const keyInfo = key.getKeyInfo();
 
-        let value = keyInfo.value;
-        let time = keyInfo.time;
+        const value = keyInfo.value;
+        const time = keyInfo.time;
 
-        let keyInterpolationType = keyInfo.interpolationType;
-        let interpolationType = {
+        const keyInterpolationType = keyInfo.interpolationType;
+        const interpolationType = {
             inType: getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR),
             outType: getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR),
         };
 
-        let keyTemporalEase = keyInfo.temporalEase;
-        let temporalEase = keyTemporalEase
+        const keyTemporalEase = keyInfo.temporalEase;
+        const temporalEase = keyTemporalEase
             ? {
                   inEase: getModifiedValue(keyTemporalEase.inEase, [
                       {
@@ -46,19 +34,19 @@ function _parseKeys<T>(property: Property<T>): AEQKeyInfo[] {
               }
             : undefined;
 
-        let keySpatialTangent = keyInfo.spatialTangent;
-        let spatialTangent = keySpatialTangent
+        const keySpatialTangent = keyInfo.spatialTangent;
+        const spatialTangent = keySpatialTangent
             ? {
                   inTangent: getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]),
                   outTangent: getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]),
               }
             : undefined;
 
-        let temporalAutoBezier = keyInfo.temporalAutoBezier ? getModifiedValue(keyInfo.temporalAutoBezier, false) : undefined;
-        let temporalContinuous = keyInfo.temporalContinuous ? getModifiedValue(keyInfo.temporalContinuous, false) : undefined;
-        let spatialAutoBezier = keyInfo.spatialAutoBezier ? getModifiedValue(keyInfo.spatialAutoBezier, false) : undefined;
-        let spatialContinuous = keyInfo.spatialContinuous ? getModifiedValue(keyInfo.spatialContinuous, false) : undefined;
-        let roving = keyInfo.roving ? getModifiedValue(keyInfo.roving, false) : undefined;
+        const temporalAutoBezier = keyInfo.temporalAutoBezier ? getModifiedValue(keyInfo.temporalAutoBezier, false) : undefined;
+        const temporalContinuous = keyInfo.temporalContinuous ? getModifiedValue(keyInfo.temporalContinuous, false) : undefined;
+        const spatialAutoBezier = keyInfo.spatialAutoBezier ? getModifiedValue(keyInfo.spatialAutoBezier, false) : undefined;
+        const spatialContinuous = keyInfo.spatialContinuous ? getModifiedValue(keyInfo.spatialContinuous, false) : undefined;
+        const roving = keyInfo.roving ? getModifiedValue(keyInfo.roving, false) : undefined;
 
         return {
             value,
@@ -82,61 +70,44 @@ function getModifiedProperty<T>(property: Property<T>): AexProperty<T> | undefin
         return undefined;
     }
 
-    return this.parseProperty(property);
-}
-
-function parseProperty<T>(property: Property<T>): AexProperty<T> {
-    const propertyBaseProperties = _parsePropertyBase(property);
-
-    const expression = getModifiedValue(property.expression, '');
-    const expressionEnabled = getModifiedValue(property.expressionEnabled, false);
-
-    const value = property.value;
-
-    let keys;
-    if (property.numKeys > 0) {
-        keys = _parseKeys(property);
-    }
-
-    return {
-        ...propertyBaseProperties,
-        expression,
-        expressionEnabled,
-        value,
-        keys,
+    const aexProperty: AexProperty<T> = {
+        name: property.name,
+        matchName: property.matchName,
+        value: property.value,
+        enabled: getModifiedValue(property.enabled, true),
+        expression: getModifiedValue(property.expression, ''),
+        expressionEnabled: getModifiedValue(property.expressionEnabled, false),
+        keys: getPropertyKeys<T>(property),
     };
+
+    return aexProperty;
 }
 
-function parseMarkers(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
-    let markerData = [] as AexMarkerProperty[];
+function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
+    const markerData = [] as AexMarkerProperty[];
 
     for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
-        let time = markerProperty.keyTime(ii);
-        let keyValue = markerProperty.keyValue(ii);
-
-        const comment = getModifiedValue(keyValue.comment, '');
-        const chapter = getModifiedValue(keyValue.chapter, '');
-        const url = getModifiedValue(keyValue.url, '');
-        const frameTarget = getModifiedValue(keyValue.frameTarget, '');
-        const cuePointName = getModifiedValue(keyValue.cuePointName, '');
-        const duration = getModifiedValue(keyValue.duration, 0);
-        const parameters = keyValue.getParameters();
-        const label = getModifiedValue(keyValue.label, 0);
-        const protectedRegion = getModifiedValue(keyValue.protectedRegion, false);
+        const keyValue = markerProperty.keyValue(ii);
 
         markerData.push({
-            time,
-            comment,
-            chapter,
-            url,
-            frameTarget,
-            cuePointName,
-            duration,
-            parameters: parameters.toSource() === '({})' ? undefined : parameters,
-            label,
-            protectedRegion,
+            time: markerProperty.keyTime(ii),
+            comment: getModifiedValue(keyValue.comment, ''),
+            chapter: getModifiedValue(keyValue.chapter, ''),
+            url: getModifiedValue(keyValue.url, ''),
+            frameTarget: getModifiedValue(keyValue.frameTarget, ''),
+            cuePointName: getModifiedValue(keyValue.cuePointName, ''),
+            duration: getModifiedValue(keyValue.duration, 0),
+            label: getModifiedValue(keyValue.label, 0),
+            protectedRegion: getModifiedValue(keyValue.protectedRegion, false),
+            parameters: getMarkerParameters(keyValue),
         });
     }
 
     return markerData;
+}
+
+function getMarkerParameters(keyValue: MarkerValue): object {
+    const parameters = keyValue.getParameters();
+
+    return parameters.toSource() === '({})' ? undefined : parameters;
 }

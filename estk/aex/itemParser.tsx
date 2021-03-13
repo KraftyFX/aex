@@ -9,6 +9,14 @@ function getCompLayers(comp: CompItem, options: AexOptions) {
     return layers.length === 0 ? undefined : layers;
 }
 
+function getAexCompMarkers(comp: CompItem, options: AexOptions) {
+    if (comp.markerProperty.isModified) {
+        return getAexMarkerProperties(comp.markerProperty);
+    } else {
+        return undefined;
+    }
+}
+
 function getItemParser(options: AexOptions) {
     return {
         _parseAVItemAttributes(item: AVItem): AexAVItemAttributes {

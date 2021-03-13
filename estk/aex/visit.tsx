@@ -35,7 +35,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         ...compAttributes,
 
         /** Nested objects */
-        markers: getAexMarkersProperty(comp, options),
+        markers: getAexCompMarkers(comp, options),
         layers: getCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
     };
@@ -62,7 +62,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     const aexLayer: AexLayer = {
         ...layerAttributes,
 
-        markers: getLayerMarkers(layer, options),
+        markers: getAexLayerMarkers(layer, options),
         transform: layerParser.parseTransform(layer),
         properties: properties.toSource() === '({})' ? undefined : properties,
     };
