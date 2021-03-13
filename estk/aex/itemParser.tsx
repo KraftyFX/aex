@@ -1,3 +1,36 @@
+function getAexItem(item: Item, options: AexOptions): AexItem {
+    if (aeq.isComp(item)) {
+        return getAexComp(item as CompItem, options);
+    }
+
+    const itemParser = getItemParser(options);
+
+    if (aeq.isFootageItem(item)) {
+        return itemParser.parseFootageAttributes(item);
+    } else {
+        return itemParser.parseItemAttributes(item);
+    }
+}
+
+function getAexComp(comp: CompItem, options: AexOptions): AexComp {
+    const itemParser = getItemParser(options);
+    const compAttributes = itemParser.parseCompItemAttributes(comp);
+
+    /** @todo explore essential props */
+    let essentialProps = [];
+
+    const aexComp: AexComp = {
+        ...compAttributes,
+
+        /** Nested objects */
+        markers: getAexCompMarkers(comp, options),
+        layers: getCompLayers(comp, options),
+        essentialProps: essentialProps.length > 0 ? essentialProps : undefined,
+    };
+
+    return aexComp;
+}
+
 function getCompLayers(comp: CompItem, options: AexOptions) {
     let layers = [] as AexLayer[];
 
