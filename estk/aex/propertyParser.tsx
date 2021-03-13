@@ -89,6 +89,10 @@ function propertyParser(options: AexOptions) {
             const expression = getModifiedValue(property.expression, '');
             const expressionEnabled = getModifiedValue(property.expressionEnabled, false);
 
+            if (propertyValueType == PropertyValueType.NO_VALUE || propertyValueType === PropertyValueType.CUSTOM_VALUE) {
+                throw new Error(`Can't parse property: ${matchName}`);
+            }
+
             const value = property.value;
             let keys;
             if (property.numKeys > 0) {

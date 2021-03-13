@@ -42,6 +42,18 @@ describe('aex().toObject()', function () {
         }
     });
 
+    it(`Can throw if unsupported property is found is passed in`, async () => {
+        await aex().openProject('testAssets/property_unsupported.aep');
+
+        try {
+          await aex().toObjectWithAeObject(AeObject.Project);
+          expect.fail(`Test should have thrown but it completed.`);
+      } catch (e) {
+          expect(e.isEstkError).to.be.true;
+          expect(e.message).to.contain("Can't parse property");
+      }
+  });
+
     /** Project tests */
     it(`Can parse basic project attributes`, async () => {
         await aex().openProject('testAssets/project_basic.aep');
