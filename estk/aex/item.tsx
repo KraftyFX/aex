@@ -27,14 +27,14 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
 
         /** Nested objects */
         markers: _getAexCompMarkers(comp, options),
-        layers: _getCompLayers(comp, options),
+        layers: _getAexCompLayers(comp, options),
         essentialProps: essentialProps.length > 0 ? essentialProps : undefined, // zlovatt: Put this into a function laters
     };
 
     return aexComp;
 }
 
-function _getCompLayers(comp: CompItem, options: AexOptions) {
+function _getAexCompLayers(comp: CompItem, options: AexOptions) {
     let layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
