@@ -4,18 +4,25 @@ declare var ExternalObject: any;
 declare var CSXSEvent: any;
 
 __aeq_ipc_eo = new ExternalObject('lib:PlugPlugExternalObject');
-__aeq_ipc_invoke = function (id: number, func: () => any) {
+__aeq_ipc_invoke = function (id: number, func: () => any, options: { ignoreReturn: boolean }) {
     var eventObj = new CSXSEvent();
     eventObj.type = 'aeq_result';
 
     try {
         const result = func();
 
-        eventObj.data = JSON.stringify({
-            id,
-            success: true,
-            result,
-        });
+        if (options.ignoreReturn) {
+            eventObj.data = JSON.stringify({
+                id,
+                success: true,
+            });
+        } else {
+            eventObj.data = JSON.stringify({
+                id,
+                success: true,
+                result,
+            });
+        }
     } catch (e) {
         eventObj.data = JSON.stringify({
             id,

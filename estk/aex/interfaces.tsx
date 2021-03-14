@@ -1,4 +1,5 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
+type AexSerialized = AexProject | AexComp | AexLayer;
 
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
 type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
@@ -6,9 +7,13 @@ type AexValueType = number | [number, number] | [number, number, number] | [numb
 
 interface AexOptions {}
 
-interface AexProject {
-    items: Partial<AexItem>[];
-    comps: Partial<AexComp>[];
+interface AexObject {
+    type: 'aex:project' | 'aex:comp' | 'aex:layer';
+}
+
+interface AexProject extends AexObject {
+    items: AexItem[];
+    comps: AexComp[];
 }
 
 interface AexItemAttributes {
@@ -72,7 +77,7 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends AexCompItemAttributes {
+interface AexComp extends AexObject, AexCompItemAttributes {
     layers: AexLayer[];
     markers: AexMarkerProperty[];
     essentialProps: any[];
@@ -124,8 +129,8 @@ interface AexTextLayerAttributes extends AexLayerAttributes {
     threeDPerChar: boolean;
 }
 
-interface AexLayer extends Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
-    markers: AexMarkerProperty;
+interface AexLayer extends AexObject, Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
+    markers: AexMarkerProperty[];
     properties: AexProperties;
     transform: AexTransform;
 }
