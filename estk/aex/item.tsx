@@ -23,6 +23,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     let essentialProps = [];
 
     const aexComp: AexComp = {
+        type: 'aex:comp',
         ...compAttributes,
 
         /** Nested objects */

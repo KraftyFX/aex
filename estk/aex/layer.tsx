@@ -21,6 +21,8 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     }
 
     const aexLayer: AexLayer = {
+        type: AEX_LAYER,
+
         ...baseAttributes,
 
         markers: _getAexLayerMarkers(layer, options),
