@@ -3,7 +3,7 @@
         "*.ts",
         "*.tsx",
         "../dist/aeq.d.ts",
-        "../typings/index.d.ts"
+        "../typings/*.d.ts"
     ],
     "exclude": [
         "json2.tsx"
