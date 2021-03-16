@@ -111,11 +111,11 @@ function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
               }
             : undefined;
 
-        const temporalAutoBezier = keyInfo.temporalAutoBezier ? getModifiedValue(keyInfo.temporalAutoBezier, false) : undefined;
-        const temporalContinuous = keyInfo.temporalContinuous ? getModifiedValue(keyInfo.temporalContinuous, false) : undefined;
-        const spatialAutoBezier = keyInfo.spatialAutoBezier ? getModifiedValue(keyInfo.spatialAutoBezier, false) : undefined;
-        const spatialContinuous = keyInfo.spatialContinuous ? getModifiedValue(keyInfo.spatialContinuous, false) : undefined;
-        const roving = keyInfo.roving ? getModifiedValue(keyInfo.roving, false) : undefined;
+        const temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
+        const temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
+        const spatialAutoBezier = getModifiedValue(keyInfo.spatialAutoBezier, false);
+        const spatialContinuous = getModifiedValue(keyInfo.spatialContinuous, false);
+        const roving = getModifiedValue(keyInfo.roving, false);
 
         return {
             value,

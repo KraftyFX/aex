@@ -48,6 +48,10 @@ function _simpleCompareElements(a: any, b: any): boolean {
 }
 
 function getModifiedValue<T>(value: T, original: T): T | undefined {
+    if (aeq.isNullOrUndefined(value)) {
+        return undefined;
+    }
+
     let valueIsDefault = _simpleCompareElements(value, original);
 
     if (!valueIsDefault) {
@@ -78,5 +82,5 @@ function isProject(item: any): item is Project {
 }
 
 function isVisibleLayer(layer: any): layer is AVLayer | TextLayer | ShapeLayer {
-  return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
+    return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
 }
