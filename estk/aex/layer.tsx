@@ -7,9 +7,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         if (aeq.isTextLayer(layer)) {
             baseAttributes = _getTextLayerAttributes(layer);
         } else if (aeq.isShapeLayer(layer)) {
-            // TODO: Factor this out
-            baseAttributes = _getLayerAttributes(layer);
-            baseAttributes.layerType = 'ShapeLayer';
+            baseAttributes = _getShapeLayerAttributes(layer);
         } else {
             baseAttributes = _getAVLayerAttributes(layer);
         }
@@ -35,10 +33,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     } else if (aeq.isLightLayer(layer)) {
         baseAttributes = _getLightLayerAttributes(layer);
     } else if (aeq.isCameraLayer(layer)) {
-        // TODO: Factor this out
-        baseAttributes = _getLayerAttributes(layer);
-        baseAttributes.layerType = 'CameraLayer';
-        baseAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
+        baseAttributes = _getCameraLayerAttributes(layer);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
@@ -179,15 +174,6 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
 
     const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
 
-    if (aeq.isShapeLayer(layer)) {
-        layerType = 'ShapeLayer';
-    }
-
-    if (aeq.isCameraLayer(layer)) {
-        hasVideo = getModifiedValue(layer.hasVideo, false);
-        layerType = 'CameraLayer';
-    }
-
     return {
         name,
         label,
@@ -264,6 +250,25 @@ function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
     return {
         ...layerAttributes,
         lightType,
+    };
+}
+
+function _getCameraLayerAttributes(layer: CameraLayer): AexLayerAttributes {
+    const layerAttributes = _getLayerAttributes(layer);
+    layerAttributes.layerType = 'CameraLayer';
+    layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
+
+    return {
+        ...layerAttributes,
+    };
+}
+
+function _getShapeLayerAttributes(layer: ShapeLayer): AexLayerAttributes {
+    const layerAttributes = _getLayerAttributes(layer);
+    layerAttributes.layerType = 'ShapeLayer';
+
+    return {
+        ...layerAttributes,
     };
 }
 
