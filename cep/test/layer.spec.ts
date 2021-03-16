@@ -21,9 +21,8 @@ describe('Layer', function () {
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
-        expect(result).property('comps').to.be.of.length(1);
-
         console.log('layer_basic', result);
+        expect(result).property('comps').to.be.of.length(1);
         expect(result.comps[0])
             .property('layers')
             .to.eql([
@@ -32,6 +31,7 @@ describe('Layer', function () {
                     layerType: 'CameraLayer',
                     name: 'Camera',
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 1,
@@ -39,6 +39,7 @@ describe('Layer', function () {
                     name: 'Solo Text Layer',
                     solo: true,
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 1,
@@ -46,6 +47,7 @@ describe('Layer', function () {
                     name: 'Empty',
                     nullLayer: true,
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     inPoint: 0.5,
@@ -55,13 +57,16 @@ describe('Layer', function () {
                     name: 'Timing Light',
                     outPoint: 3.06666666666667,
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     adjustmentLayer: true,
                     autoOrient: 4213,
                     collapseTransformation: true,
+                    geometryOption: {},
                     label: 2,
                     layerType: 'AVLayer',
+                    materialOption: {},
                     motionBlur: true,
                     name: 'Flags',
                     nullLayer: true,
@@ -69,6 +74,7 @@ describe('Layer', function () {
                     shy: true,
                     threeDLayer: true,
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     blendingMode: 5216,
@@ -79,6 +85,7 @@ describe('Layer', function () {
                     outPoint: 1,
                     stretch: 25,
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 1,
@@ -92,6 +99,7 @@ describe('Layer', function () {
                             value: [0, 0, 0],
                         },
                     },
+                    type: 'aex:layer',
                 },
             ]);
     });
@@ -113,6 +121,7 @@ describe('Layer', function () {
                     lightType: 4412,
                     name: 'Parallel Light',
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 6,
@@ -120,6 +129,7 @@ describe('Layer', function () {
                     lightType: 4413,
                     name: 'Spot Light',
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 6,
@@ -127,6 +137,7 @@ describe('Layer', function () {
                     lightType: 4414,
                     name: 'Point Light',
                     transform: {},
+                    type: 'aex:layer',
                 },
                 {
                     label: 6,
@@ -134,6 +145,7 @@ describe('Layer', function () {
                     lightType: 4415,
                     name: 'Ambient Light',
                     transform: {},
+                    type: 'aex:layer',
                 },
             ]);
     });
@@ -144,74 +156,49 @@ describe('Layer', function () {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
         console.log('layer_markers', result);
-        expect(result)
-            .property('comps')
+        expect(result.comps[0].layers[0])
+            .property('markers')
             .to.eql([
                 {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            markers: [
-                                {
-                                    time: 0.16666666666667,
-                                },
-                                {
-                                    time: 0.46666666666667,
-                                },
-                                {
-                                    time: 0.78333333333333,
-                                },
-                                {
-                                    time: 1.83333333333333,
-                                },
-                                {
-                                    time: 3.55,
-                                },
-                            ],
-                            name: 'PlainMarkers',
-                            nullLayer: true,
-                            transform: {},
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            markers: [
-                                {
-                                    duration: 0.2,
-                                    time: 0.16666666666667,
-                                },
-                                {
-                                    comment: 'Some Comment',
-                                    duration: 1,
-                                    label: 4,
-                                    time: 0.46666666666667,
-                                },
-                                {
-                                    time: 0.78333333333333,
-                                },
-                                {
-                                    comment: 'banana',
-                                    time: 1.83333333333333,
-                                },
-                                {
-                                    duration: 0.33333333333333,
-                                    label: 8,
-                                    time: 3.55,
-                                },
-                            ],
-                            name: 'DetailedMarkers',
-                            nullLayer: true,
-                            transform: {},
-                        },
-                    ],
-                    name: 'Comp 1',
-                    pixelAspect: 1,
-                    width: 1280,
+                    time: 0.16666666666667,
+                },
+                {
+                    time: 0.46666666666667,
+                },
+                {
+                    time: 0.78333333333333,
+                },
+                {
+                    time: 1.83333333333333,
+                },
+                {
+                    time: 3.55,
+                },
+            ]);
+        expect(result.comps[0].layers[1])
+            .property('markers')
+            .to.eql([
+                {
+                    duration: 0.2,
+                    time: 0.16666666666667,
+                },
+                {
+                    comment: 'Some Comment',
+                    duration: 1,
+                    label: 4,
+                    time: 0.46666666666667,
+                },
+                {
+                    time: 0.78333333333333,
+                },
+                {
+                    comment: 'banana',
+                    time: 1.83333333333333,
+                },
+                {
+                    duration: 0.33333333333333,
+                    label: 8,
+                    time: 3.55,
                 },
             ]);
     });
@@ -222,193 +209,183 @@ describe('Layer', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('layer_transform', result);
-        expect(result)
-            .property('comps')
-            .to.eql([
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
-                        {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {},
-                        },
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4414,
-                            name: 'Light',
-                            transform: {},
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: '3d AV Layer',
-                            nullLayer: true,
-                            threeDLayer: true,
-                            transform: {},
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: '2d AV Layer',
-                            nullLayer: true,
-                            transform: {},
-                        },
-                    ],
-                    name: 'Defaults',
-                    pixelAspect: 1,
-                    width: 1280,
+        expect(result.comps[0].layers).to.eql([
+            {
+                label: 4,
+                layerType: 'CameraLayer',
+                name: 'Camera',
+                transform: {},
+                type: 'aex:layer',
+            },
+            {
+                label: 6,
+                layerType: 'LightLayer',
+                lightType: 4414,
+                name: 'Light',
+                transform: {},
+                type: 'aex:layer',
+            },
+            {
+                geometryOption: {},
+                label: 1,
+                layerType: 'AVLayer',
+                materialOption: {},
+                name: '3d AV Layer',
+                nullLayer: true,
+                threeDLayer: true,
+                transform: {},
+                type: 'aex:layer',
+            },
+            {
+                label: 1,
+                layerType: 'AVLayer',
+                name: '2d AV Layer',
+                nullLayer: true,
+                transform: {},
+                type: 'aex:layer',
+            },
+        ]);
+        expect(result.comps[1].layers).to.eql([
+            {
+                label: 4,
+                layerType: 'CameraLayer',
+                name: 'Camera',
+                transform: {
+                    orientation: {
+                        matchName: 'ADBE Orientation',
+                        name: 'Orientation',
+                        value: [100, 200, 300],
+                    },
+                    pointOfInterest: {
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Point of Interest',
+                        value: [11, 22, 33],
+                    },
+                    position: {
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, -3],
+                    },
+                    rotation: {
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 90,
+                    },
+                    xRotation: {
+                        matchName: 'ADBE Rotate X',
+                        name: 'X Rotation',
+                        value: -90,
+                    },
+                    yRotation: {
+                        matchName: 'ADBE Rotate Y',
+                        name: 'Y Rotation',
+                        value: -3600,
+                    },
                 },
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
-                        {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {
-                                orientation: {
-                                    matchName: 'ADBE Orientation',
-                                    name: 'Orientation',
-                                    value: [100, 200, 300],
-                                },
-                                pointOfInterest: {
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Point of Interest',
-                                    value: [11, 22, 33],
-                                },
-                                position: {
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, -3],
-                                },
-                                rotation: {
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 90,
-                                },
-                                xRotation: {
-                                    matchName: 'ADBE Rotate X',
-                                    name: 'X Rotation',
-                                    value: -90,
-                                },
-                                yRotation: {
-                                    matchName: 'ADBE Rotate Y',
-                                    name: 'Y Rotation',
-                                    value: -3600,
-                                },
-                            },
-                        },
-                        {
-                            label: 6,
-                            layerType: 'LightLayer',
-                            lightType: 4414,
-                            name: 'Light',
-                            transform: {
-                                position: {
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [100, 200, 300],
-                                },
-                            },
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: '3d AV Layer',
-                            nullLayer: true,
-                            threeDLayer: true,
-                            transform: {
-                                anchorPoint: {
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Anchor Point',
-                                    value: [11, 22, 33],
-                                },
-                                opacity: {
-                                    matchName: 'ADBE Opacity',
-                                    name: 'Opacity',
-                                    value: 50,
-                                },
-                                orientation: {
-                                    matchName: 'ADBE Orientation',
-                                    name: 'Orientation',
-                                    value: [100, 200, 300],
-                                },
+                type: 'aex:layer',
+            },
+            {
+                label: 6,
+                layerType: 'LightLayer',
+                lightType: 4414,
+                name: 'Light',
+                transform: {
+                    position: {
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [100, 200, 300],
+                    },
+                },
+                type: 'aex:layer',
+            },
+            {
+                geometryOption: {},
+                label: 1,
+                layerType: 'AVLayer',
+                name: '3d AV Layer',
+                nullLayer: true,
+                threeDLayer: true,
+                materialOption: {},
+                transform: {
+                    anchorPoint: {
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Anchor Point',
+                        value: [11, 22, 33],
+                    },
+                    opacity: {
+                        matchName: 'ADBE Opacity',
+                        name: 'Opacity',
+                        value: 50,
+                    },
+                    orientation: {
+                        matchName: 'ADBE Orientation',
+                        name: 'Orientation',
+                        value: [100, 200, 300],
+                    },
 
-                                position: {
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, -3],
-                                },
-                                rotation: {
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 90,
-                                },
-                                scale: {
-                                    matchName: 'ADBE Scale',
-                                    name: 'Scale',
-                                    value: [10, 20, 30],
-                                },
-                                xRotation: {
-                                    matchName: 'ADBE Rotate X',
-                                    name: 'X Rotation',
-                                    value: -90,
-                                },
-                                yRotation: {
-                                    matchName: 'ADBE Rotate Y',
-                                    name: 'Y Rotation',
-                                    value: -3600,
-                                },
-                            },
-                        },
-                        {
-                            label: 1,
-                            layerType: 'AVLayer',
-                            name: '2d AV Layer',
-                            nullLayer: true,
-                            transform: {
-                                anchorPoint: {
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Anchor Point',
-                                    value: [11, 22, 0],
-                                },
-                                opacity: {
-                                    matchName: 'ADBE Opacity',
-                                    name: 'Opacity',
-                                    value: 50,
-                                },
-                                position: {
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, 0],
-                                },
-                                rotation: {
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Rotation',
-                                    value: 90,
-                                },
-                                scale: {
-                                    matchName: 'ADBE Scale',
-                                    name: 'Scale',
-                                    value: [10, 20, 100],
-                                },
-                            },
-                        },
-                    ],
-                    name: 'Modified',
-                    pixelAspect: 1,
-                    width: 1280,
+                    position: {
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, -3],
+                    },
+                    rotation: {
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 90,
+                    },
+                    scale: {
+                        matchName: 'ADBE Scale',
+                        name: 'Scale',
+                        value: [10, 20, 30],
+                    },
+                    xRotation: {
+                        matchName: 'ADBE Rotate X',
+                        name: 'X Rotation',
+                        value: -90,
+                    },
+                    yRotation: {
+                        matchName: 'ADBE Rotate Y',
+                        name: 'Y Rotation',
+                        value: -3600,
+                    },
                 },
-            ]);
+                type: 'aex:layer',
+            },
+            {
+                label: 1,
+                layerType: 'AVLayer',
+                name: '2d AV Layer',
+                nullLayer: true,
+                transform: {
+                    anchorPoint: {
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Anchor Point',
+                        value: [11, 22, 0],
+                    },
+                    opacity: {
+                        matchName: 'ADBE Opacity',
+                        name: 'Opacity',
+                        value: 50,
+                    },
+                    position: {
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, 0],
+                    },
+                    rotation: {
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Rotation',
+                        value: 90,
+                    },
+                    scale: {
+                        matchName: 'ADBE Scale',
+                        name: 'Scale',
+                        value: [10, 20, 100],
+                    },
+                },
+                type: 'aex:layer',
+            },
+        ]);
     });
 
     it(`Can parse animated transform properties`, async () => {
@@ -417,324 +394,264 @@ describe('Layer', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('property_animated', result);
-        expect(result)
-            .property('comps')
-            .to.eql([
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
+        expect(result.comps[0].layers[0])
+            .property('transform')
+            .to.eql({
+                rotation: {
+                    keys: [
                         {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {
-                                rotation: {
-                                    keys: [
-                                        {
-                                            interpolationType: {
-                                                outType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 33.333332999578,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 0,
-                                            value: 0,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                                outType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 33.333333498752,
-                                                        speed: 33.8906198973312,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 33.3333335012409,
-                                                        speed: 33.8906198956625,
-                                                    },
-                                                ],
-                                            },
-                                            time: 2,
-                                            value: 20,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 33.3333330004256,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 3.98333333333333,
-                                            value: 90,
-                                        },
-                                    ],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 20,
-                                },
+                            interpolationType: {
+                                outType: 6613,
                             },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 33.333332999578,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 0,
+                            value: 0,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                                outType: 6613,
+                            },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 33.333333498752,
+                                        speed: 33.8906198973312,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 33.3333335012409,
+                                        speed: 33.8906198956625,
+                                    },
+                                ],
+                            },
+                            time: 2,
+                            value: 20,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                            },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 33.3333330004256,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 3.98333333333333,
+                            value: 90,
                         },
                     ],
-                    name: 'Eased',
-                    pixelAspect: 1,
-                    width: 1280,
+                    matchName: 'ADBE Rotate Z',
+                    name: 'Z Rotation',
+                    value: 20,
                 },
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
+            });
+        expect(result.comps[1].layers[0])
+            .property('transform')
+            .to.eql({
+                rotation: {
+                    keys: [
                         {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {
-                                rotation: {
-                                    keys: [
-                                        {
-                                            interpolationType: {
-                                                outType: 6614,
-                                            },
-                                            time: 0,
-                                            value: 0,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                                outType: 6614,
-                                            },
-                                            time: 2,
-                                            value: 20,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                                outType: 6614,
-                                            },
-                                            time: 3.5,
-                                            value: 90,
-                                        },
-                                    ],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 0,
-                                },
+                            interpolationType: {
+                                outType: 6614,
                             },
+                            time: 0,
+                            value: 0,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                                outType: 6614,
+                            },
+                            time: 2,
+                            value: 20,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                                outType: 6614,
+                            },
+                            time: 3.5,
+                            value: 90,
                         },
                     ],
-                    name: 'Hold',
-                    pixelAspect: 1,
-                    width: 1280,
+                    matchName: 'ADBE Rotate Z',
+                    name: 'Z Rotation',
+                    value: 0,
                 },
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
+            });
+        expect(result.comps[2].layers[0])
+            .property('transform')
+            .to.eql({
+                rotation: {
+                    keys: [
                         {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {
-                                rotation: {
-                                    keys: [
-                                        {
-                                            interpolationType: {},
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 22.5941422594142,
-                                                    },
-                                                ],
-                                            },
-                                            time: 0,
-                                            value: 0,
-                                        },
-                                        {
-                                            interpolationType: {},
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 22.5941422594142,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 3.98333333333333,
-                                            value: 90,
-                                        },
-                                    ],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 0,
-                                },
+                            interpolationType: {},
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 22.5941422594142,
+                                    },
+                                ],
                             },
+                            time: 0,
+                            value: 0,
+                        },
+                        {
+                            interpolationType: {},
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 22.5941422594142,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 3.98333333333333,
+                            value: 90,
                         },
                     ],
-                    name: 'Linear',
-                    pixelAspect: 1,
-                    width: 1280,
+                    matchName: 'ADBE Rotate Z',
+                    name: 'Z Rotation',
+                    value: 0,
                 },
-                {
-                    duration: 4,
-                    frameRate: 60,
-                    height: 720,
-                    itemType: 'Comp',
-                    layers: [
+            });
+        expect(result.comps[3].layers[0])
+            .property('transform')
+            .to.eql({
+                rotation: {
+                    keys: [
                         {
-                            label: 4,
-                            layerType: 'CameraLayer',
-                            name: 'Camera',
-                            transform: {
-                                rotation: {
-                                    keys: [
-                                        {
-                                            interpolationType: {
-                                                outType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 95.6887529934006,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 0,
-                                            value: 0,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                outType: 6614,
-                                            },
-                                            time: 1,
-                                            value: 10,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                                outType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 66.5593382363078,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 2,
-                                            value: 20,
-                                        },
-                                        {
-                                            interpolationType: {
-                                                inType: 6613,
-                                            },
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 85.2938012922363,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 40.6779661016949,
-                                                    },
-                                                ],
-                                            },
-                                            time: 3,
-                                            value: 50,
-                                        },
-                                        {
-                                            interpolationType: {},
-                                            temporalEase: {
-                                                inEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 40.6779661016949,
-                                                    },
-                                                ],
-                                                outEase: [
-                                                    {
-                                                        influence: 16.666666667,
-                                                        speed: 0,
-                                                    },
-                                                ],
-                                            },
-                                            time: 3.98333333333333,
-                                            value: 90,
-                                        },
-                                    ],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 0,
-                                },
+                            interpolationType: {
+                                outType: 6613,
                             },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 95.6887529934006,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 0,
+                            value: 0,
+                        },
+                        {
+                            interpolationType: {
+                                outType: 6614,
+                            },
+                            time: 1,
+                            value: 10,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                                outType: 6613,
+                            },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 66.5593382363078,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 2,
+                            value: 20,
+                        },
+                        {
+                            interpolationType: {
+                                inType: 6613,
+                            },
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 85.2938012922363,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 40.6779661016949,
+                                    },
+                                ],
+                            },
+                            time: 3,
+                            value: 50,
+                        },
+                        {
+                            interpolationType: {},
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 40.6779661016949,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.666666667,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 3.98333333333333,
+                            value: 90,
                         },
                     ],
-                    name: 'Mixed',
-                    pixelAspect: 1,
-                    width: 1280,
+                    matchName: 'ADBE Rotate Z',
+                    name: 'Z Rotation',
+                    value: 0,
                 },
-            ]);
+            });
     });
 });

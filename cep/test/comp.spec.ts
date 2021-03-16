@@ -32,6 +32,7 @@ describe('Comp', function () {
                     itemType: 'Comp',
                     name: 'Comp 1',
                     pixelAspect: 1,
+                    type: 'aex:comp',
                     width: 1280,
                 },
             ]);
