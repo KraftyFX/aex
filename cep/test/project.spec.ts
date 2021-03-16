@@ -31,7 +31,6 @@ describe('Project', function () {
                     frameRate: 0,
                     height: 500,
                     itemType: 'Solid',
-                    label: 1,
                     name: 'Black Solid 1',
                     pixelAspect: 1,
                     width: 500,

@@ -4,15 +4,9 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
     } else if (aeq.isFootageItem(item)) {
         return _getFootageItem(item);
     } else if (aeq.isFolderItem(item)) {
-        // TODO: Factor this out
-        const aexItem = _getItemAttributes(item, 'Folder');
-        aexItem.label = getModifiedValue(item.label, 2);
-        return aexItem;
+        return _getFolderItem(item);
     } else {
-        // TODO: Factor this out
-        const aexItem = _getItemAttributes(item, 'Solid'); // zlovatt: Is this right?
-        aexItem.label = getModifiedValue(item.label, 15);
-        return aexItem;
+        throw new Error(`Unrecognized Layer Type`);
     }
 }
 
@@ -87,6 +81,12 @@ function _getItemAttributes(item: Item, itemType: AexItemType): AexItemAttribute
     };
 }
 
+function _getFolderItem(item: FolderItem): AexItemAttributes {
+    const aexItem = _getItemAttributes(item, 'Folder');
+    aexItem.label = getModifiedValue(item.label, 2);
+    return aexItem;
+}
+
 function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
     const avItemAttributes = _getAVItemAttributes(item);
 
@@ -109,6 +109,7 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
         solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
+        avItemAttributes.label = getModifiedValue(item.label, 1);
         avItemAttributes.itemType = 'Solid';
     } else if (sourceIsPlaceholder(itemSource)) {
         avItemAttributes.itemType = 'Placeholder';
