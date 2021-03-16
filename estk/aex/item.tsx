@@ -13,9 +13,6 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const compAttributes = _getCompItemAttributes(comp);
 
-    /** @todo explore essential props */
-    let essentialProps = [];
-
     const aexComp: AexComp = {
         type: 'aex:comp',
         ...compAttributes,
@@ -23,10 +20,17 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         /** Nested objects */
         markers: _getAexCompMarkers(comp, options),
         layers: _getAexCompLayers(comp, options),
-        essentialProps: essentialProps.length > 0 ? essentialProps : undefined, // zlovatt: Put this into a function laters
+        essentialProps: _getEssentialProperties(comp, options),
     };
 
     return aexComp;
+}
+
+/** @todo explore whether essential props can be serialized */
+function _getEssentialProperties(comp: CompItem, options: AexOptions) {
+    let essentialProps = [];
+
+    return essentialProps.length > 0 ? essentialProps : undefined;
 }
 
 function _getAexCompLayers(comp: CompItem, options: AexOptions) {
