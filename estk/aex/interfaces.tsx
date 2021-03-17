@@ -42,8 +42,6 @@ interface AexAVItemBase extends AexItemBase {
 }
 
 interface AexFootageItem extends AexAVItemBase {
-    itemType: 'Footage';
-
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;

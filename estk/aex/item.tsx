@@ -78,6 +78,8 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     const itemSource = item.mainSource;
 
     if (sourceIsFile(itemSource)) {
+        avItemAttributes.itemType = 'Footage';
+
         /** @todo Explore file handling */
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
@@ -101,7 +103,6 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
 
     return {
         ...avItemAttributes,
-        itemType: 'Footage',
 
         alphaMode,
         conformFrameRate,
