@@ -1,9 +1,11 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
-type AexSerialized = AexProject | AexComp | AexLayer;
+type AexSerialized = AexProject | AexItem | AexLayer;
 
-type AexObjectType = 'aex:project' | 'aex:comp' | 'aex:layer';
+type AexObjectType = 'aex:project' | AexItemType | 'aex:layer';
+type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
+type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
+type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
-type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
 interface AexOptions {}
@@ -20,18 +22,13 @@ interface AexProject extends AexObject {
 type AexItem = AexComp | AexFootageItem | AexFolderItem;
 
 interface AexItemBase {
-    /** AEX-specific properties */
-    itemType: AexItemType;
-
     comment: string;
     label: number;
     name: string;
     folder: string;
 }
 
-interface AexFolderItem extends AexItemBase {
-    itemType: 'Folder';
-}
+interface AexFolderItem extends AexItemBase, AexObject {}
 
 interface AexAVItemBase extends AexItemBase {
     duration: number;
@@ -41,7 +38,7 @@ interface AexAVItemBase extends AexItemBase {
     width: number;
 }
 
-interface AexFootageItem extends AexAVItemBase {
+interface AexFootageItem extends AexAVItemBase, AexObject {
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -62,8 +59,6 @@ interface AexSolidSourceAttributes {
 }
 
 interface AexComp extends AexAVItemBase, AexObject {
-    itemType: 'Comp';
-
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;

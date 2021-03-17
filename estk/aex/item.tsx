@@ -13,8 +13,6 @@ function getAexItem(item: Item, options: AexOptions): AexItemBase {
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const avItemAttributes = _getAVItemAttributes(comp);
 
-    avItemAttributes.itemType = 'Comp';
-
     const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
     const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
     const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
@@ -40,7 +38,6 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
 
         /** Item & AVItem attributes */
         ...avItemAttributes,
-        itemType: 'Comp',
 
         /** Comp internal data */
         bgColor,
@@ -76,19 +73,20 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     const solidSourceAttributes = {} as AexSolidSourceAttributes;
 
     const itemSource = item.mainSource;
+    let type: AexItemType;
 
     if (sourceIsFile(itemSource)) {
-        avItemAttributes.itemType = 'Footage';
+        type = AEX_FILE_FOOTAGE;
 
         /** @todo Explore file handling */
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
-        avItemAttributes.itemType = 'Solid';
+        type = AEX_SOLID;
         avItemAttributes.label = getModifiedValue(item.label, 1);
 
         solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
     } else if (sourceIsPlaceholder(itemSource)) {
-        avItemAttributes.itemType = 'Placeholder';
+        type = AEX_PLACEHOLDER;
     }
 
     const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
@@ -102,6 +100,7 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
 
     return {
+        type,
         ...avItemAttributes,
 
         alphaMode,
@@ -122,9 +121,9 @@ function _getFolderItem(item: FolderItem): AexFolderItem {
     const itemAttributes = _getItemAttributes(item);
 
     return {
+        type: AEX_FOLDER,
         ...itemAttributes,
 
-        itemType: 'Folder',
         label: getModifiedValue(item.label, 2),
     };
 }
@@ -152,7 +151,6 @@ function _getAVItemAttributes(item: AVItem): AexAVItemBase {
 
     return {
         ...itemAttributes,
-        itemType: item.typeName as AexItemType,
 
         duration,
         frameRate,
