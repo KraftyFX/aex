@@ -68,6 +68,100 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     return aexComp;
 }
 
+function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
+    const avItemAttributes = _getAVItemAttributes(item);
+    const fileSourceAttributes = {} as AexFileSourceAttributes;
+    const solidSourceAttributes = {} as AexSolidSourceAttributes;
+
+    const itemSource = item.mainSource;
+
+    if (sourceIsFile(itemSource)) {
+        /** @todo Explore file handling */
+        fileSourceAttributes.file = itemSource.file.fsName;
+    } else if (sourceIsSolid(itemSource)) {
+        avItemAttributes.itemType = 'Solid';
+        avItemAttributes.label = getModifiedValue(item.label, 1);
+
+        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
+    } else if (sourceIsPlaceholder(itemSource)) {
+        avItemAttributes.itemType = 'Placeholder';
+    }
+
+    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
+    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
+    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
+    const loop = getModifiedValue(itemSource.loop, 1);
+    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
+    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+
+    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
+    const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
+
+    return {
+        ...avItemAttributes,
+
+        alphaMode,
+        conformFrameRate,
+        fieldSeparationType,
+        highQualityFieldSeparation,
+        loop,
+        premulColor,
+        removePulldown,
+        invertAlpha,
+
+        ...fileSourceAttributes,
+        ...solidSourceAttributes,
+    };
+}
+
+function _getFolderItem(item: FolderItem): AexItem {
+    const itemAttributes = _getAexItemAttributes(item);
+
+    itemAttributes.label = getModifiedValue(item.label, 2);
+
+    return {
+        ...itemAttributes,
+        itemType: 'Folder',
+    };
+}
+
+function _getAexItemAttributes(item: Item) {
+    const { name, parentFolder } = item;
+
+    /**
+     * @todo Add AexOption to preserve project folder structure.
+     * For now, just get the immediate parent folder name & assume lives in root
+     **/
+    const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
+
+    return {
+        name,
+        comment: getModifiedValue(item.comment, ''),
+        label: getModifiedValue(item.label, 15),
+        folder,
+    };
+}
+
+function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
+    const { duration, frameRate, height, pixelAspect, width } = item;
+    const itemAttributes = _getAexItemAttributes(item);
+
+    return {
+        ...itemAttributes,
+        itemType: item.typeName as AexItemType,
+
+        duration,
+        frameRate,
+        height,
+        pixelAspect,
+        width,
+    };
+}
+
+function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
+    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
+}
+
 /** @todo explore whether essential props can be serialized */
 function _getEssentialProperties(comp: CompItem, options: AexOptions) {
     let essentialProps = [];
@@ -92,94 +186,4 @@ function _getAexCompMarkers(comp: CompItem, options: AexOptions) {
     } else {
         return undefined;
     }
-}
-
-function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
-    const { duration, frameRate, height, pixelAspect, width } = item;
-    const itemAttributes = _getAexItemAttributes(item);
-
-    return {
-        ...itemAttributes,
-        itemType: item.typeName as AexItemType,
-
-        duration,
-        frameRate,
-        height,
-        pixelAspect,
-        width,
-    };
-}
-
-function _getAexItemAttributes(item: Item) {
-    const { name, parentFolder } = item;
-
-    /**
-     * @todo Add AexOption to preserve project folder structure.
-     * For now, just get the immediate parent folder name & assume lives in root
-     **/
-    const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
-
-    return {
-        name,
-        comment: getModifiedValue(item.comment, ''),
-        label: getModifiedValue(item.label, 15),
-        folder,
-    };
-}
-
-function _getFolderItem(item: FolderItem): AexItem {
-    const itemAttributes = _getAexItemAttributes(item);
-
-    itemAttributes.label = getModifiedValue(item.label, 2);
-
-    return {
-        ...itemAttributes,
-        itemType: 'Folder',
-    };
-}
-
-function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
-    const avItemAttributes = _getAVItemAttributes(item);
-    const fileSourceAttributes = {} as AexFileSourceAttributes;
-    const solidSourceAttributes = {} as AexSolidSourceAttributes;
-
-    const itemSource = item.mainSource;
-
-    if (sourceIsFile(itemSource)) {
-        /** @todo Explore file handling */
-        fileSourceAttributes.file = itemSource.file.fsName;
-    } else if (sourceIsSolid(itemSource)) {
-        avItemAttributes.itemType = 'Solid';
-        avItemAttributes.label = getModifiedValue(item.label, 1);
-
-        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
-    } else if (sourceIsPlaceholder(itemSource)) {
-        avItemAttributes.itemType = 'Placeholder';
-    }
-
-    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
-    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
-    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
-    const loop = getModifiedValue(itemSource.loop, 1);
-    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
-    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
-
-    const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
-
-    return {
-        ...avItemAttributes,
-
-        alphaMode,
-        conformFrameRate,
-        fieldSeparationType,
-        highQualityFieldSeparation,
-        loop,
-        premulColor,
-        removePulldown,
-        invertAlpha,
-
-        ...fileSourceAttributes,
-        ...solidSourceAttributes,
-    };
 }
