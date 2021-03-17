@@ -1,6 +1,7 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
 type AexSerialized = AexProject | AexComp | AexLayer;
 
+type AexObjectType = 'aex:project' | 'aex:comp' | 'aex:layer';
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
 type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
@@ -8,7 +9,7 @@ type AexValueType = number | [number, number] | [number, number, number] | [numb
 interface AexOptions {}
 
 interface AexObject {
-    type: 'aex:project' | 'aex:comp' | 'aex:layer';
+    type: AexObjectType;
 }
 
 interface AexProject extends AexObject {
@@ -34,27 +35,6 @@ interface AexAVItemAttributes extends AexItemAttributes {
     width: number;
 }
 
-interface AexCompItemAttributes extends AexAVItemAttributes {
-    bgColor: number[];
-    displayStartFrame: number;
-    displayStartTime: number;
-    draft3d: boolean;
-    dropFrame: boolean;
-    frameBlending: boolean;
-    hideShyLayers: boolean;
-    motionBlur: boolean;
-    motionBlurAdaptiveSampleLimit: number;
-    motionBlurSamplesPerFrame: number;
-    preserveNestedFrameRate: boolean;
-    preserveNestedResolution: boolean;
-    renderer: string;
-    resolutionFactor: number[];
-    shutterAngle: number;
-    shutterPhase: number;
-    workAreaDuration: number;
-    workAreaStart: number;
-}
-
 interface AexItem extends Partial<AexFootageItemAttributes>, Partial<AexComp> {}
 
 interface AexFootageItemAttributes extends AexAVItemAttributes, AexFileSourceAttributes, AexSolidSourceAttributes {
@@ -77,7 +57,25 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends AexObject, AexCompItemAttributes {
+interface AexComp extends AexObject {
+    bgColor: number[];
+    displayStartFrame: number;
+    displayStartTime: number;
+    draft3d: boolean;
+    dropFrame: boolean;
+    frameBlending: boolean;
+    hideShyLayers: boolean;
+    motionBlur: boolean;
+    motionBlurAdaptiveSampleLimit: number;
+    motionBlurSamplesPerFrame: number;
+    preserveNestedFrameRate: boolean;
+    preserveNestedResolution: boolean;
+    renderer: string;
+    resolutionFactor: number[];
+    shutterAngle: number;
+    shutterPhase: number;
+    workAreaDuration: number;
+    workAreaStart: number;
     layers: AexLayer[];
     markers: AexMarkerProperty[];
     essentialProps: any[];

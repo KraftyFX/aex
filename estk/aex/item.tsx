@@ -11,14 +11,55 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
 }
 
 function getAexComp(comp: CompItem, options: AexOptions): AexComp {
-    const compAttributes = _getCompItemAttributes(comp);
+    const avItemAttributes = _getAVItemAttributes(comp);
+
+    avItemAttributes.itemType = 'Comp';
+
+    const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
+    const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
+    const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
+    const dropFrame = getModifiedValue(comp.dropFrame, true);
+    const draft3d = getModifiedValue(comp.draft3d, false);
+    const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
+    const frameBlending = getModifiedValue(comp.frameBlending, false);
+    const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
+    const motionBlur = getModifiedValue(comp.motionBlur, false);
+    const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
+    const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
+    const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
+    const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
+    const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
+    const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
+    const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
+    const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
+    const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
 
     const aexComp: AexComp = {
         type: AEX_COMP,
 
-        ...compAttributes,
+        /** Item & AVItem attributes */
+        ...avItemAttributes,
 
-        /** Nested objects */
+        /** Comp internal data */
+        bgColor,
+        displayStartFrame,
+        displayStartTime,
+        draft3d,
+        dropFrame,
+        frameBlending,
+        hideShyLayers,
+        motionBlur,
+        motionBlurAdaptiveSampleLimit,
+        motionBlurSamplesPerFrame,
+        preserveNestedFrameRate,
+        preserveNestedResolution,
+        renderer,
+        resolutionFactor,
+        shutterAngle,
+        shutterPhase,
+        workAreaDuration,
+        workAreaStart,
+
         markers: _getAexCompMarkers(comp, options),
         layers: _getAexCompLayers(comp, options),
         essentialProps: _getEssentialProperties(comp, options),
@@ -135,54 +176,5 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
 
         ...fileSourceAttributes,
         ...solidSourceAttributes,
-    };
-}
-
-function _getCompItemAttributes(comp: CompItem): AexCompItemAttributes {
-    const avItemAttributes = _getAVItemAttributes(comp);
-    avItemAttributes.itemType = 'Comp';
-
-    const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
-    const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
-    const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
-    const dropFrame = getModifiedValue(comp.dropFrame, true);
-    const draft3d = getModifiedValue(comp.draft3d, false);
-    const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
-    const frameBlending = getModifiedValue(comp.frameBlending, false);
-    const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
-    const motionBlur = getModifiedValue(comp.motionBlur, false);
-    const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
-    const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
-    const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
-    const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
-    const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
-    const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
-    const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
-    const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
-    const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
-
-    return {
-        /** Item & AVItem attributes */
-        ...avItemAttributes,
-
-        /** Comp internal data */
-        bgColor,
-        displayStartFrame,
-        displayStartTime,
-        draft3d,
-        dropFrame,
-        frameBlending,
-        hideShyLayers,
-        motionBlur,
-        motionBlurAdaptiveSampleLimit,
-        motionBlurSamplesPerFrame,
-        preserveNestedFrameRate,
-        preserveNestedResolution,
-        renderer,
-        resolutionFactor,
-        shutterAngle,
-        shutterPhase,
-        workAreaDuration,
-        workAreaStart,
     };
 }
