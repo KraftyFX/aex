@@ -93,8 +93,6 @@ function _getFolderItem(item: FolderItem): AexItemAttributes {
 }
 
 function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
-    const avItemAttributes = _getAVItemAttributes(item);
-
     const itemSource = item.mainSource;
 
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
@@ -107,15 +105,18 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
 
     const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 
-    let fileSourceAttributes = {} as AexFileSourceAttributes;
-    let solidSourceAttributes = {} as AexSolidSourceAttributes;
+    const avItemAttributes = _getAVItemAttributes(item);
+    const fileSourceAttributes = {} as AexFileSourceAttributes;
+    const solidSourceAttributes = {} as AexSolidSourceAttributes;
+
     if (sourceIsFile(itemSource)) {
         /** @todo Explore file handling */
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
-        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
-        avItemAttributes.label = getModifiedValue(item.label, 1);
         avItemAttributes.itemType = 'Solid';
+        avItemAttributes.label = getModifiedValue(item.label, 1);
+
+        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
     } else if (sourceIsPlaceholder(itemSource)) {
         avItemAttributes.itemType = 'Placeholder';
     }
