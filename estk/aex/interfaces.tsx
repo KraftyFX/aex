@@ -175,6 +175,37 @@ interface AexMarkerProperty {
     protectedRegion: boolean;
 }
 
+interface AexTextDocumentProperty {
+    allCaps: boolean;
+    applyFill: boolean;
+    applyStroke: boolean;
+    baselineLocs: number[];
+    baselineShift: number;
+    boxTextPos: [number, number];
+    boxTextSize: [number, number];
+    fauxBold: boolean;
+    fauxItalic: boolean;
+    fillColor: [number, number, number];
+    font: string;
+    fontFamily: string;
+    fontSize: number;
+    fontStyle: string;
+    horizontalScale: number;
+    justification: ParagraphJustification;
+    leading: number;
+    pointText: boolean;
+    smallCaps: boolean;
+    strokeColor: [number, number, number];
+    strokeOverFill: boolean;
+    strokeWidth: number;
+    subscript: boolean;
+    superscript: boolean;
+    text: string;
+    tracking: number;
+    tsume: number;
+    verticalScale: number;
+}
+
 interface AexTransform {
     anchorPoint: AexProperty<[number, number] | [number, number, number]>;
     position: AexProperty<[number, number] | [number, number, number]>;

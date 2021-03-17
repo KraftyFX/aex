@@ -1,4 +1,4 @@
-function getModifiedProperty<T>(property: Property<T>): AexProperty<T> | undefined {
+function getModifiedProperty<T>(property: Property<T>, valueParser?: Function): AexProperty<T> | undefined {
     if (aeq.isNullOrUndefined(property) || !property.isModified) {
         return undefined;
     }
@@ -12,11 +12,11 @@ function getModifiedProperty<T>(property: Property<T>): AexProperty<T> | undefin
     const aexProperty: AexProperty<T> = {
         name: property.name,
         matchName,
-        value: property.value,
+        value: valueParser ? valueParser(property) : property.value,
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
         expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: _getPropertyKeys<T>(property),
+        keys: _getPropertyKeys<T>(property, valueParser),
     };
 
     return aexProperty;
@@ -45,7 +45,42 @@ function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarke
     return markerData;
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup): AexProperties {
+function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextDocumentProperty {
+    const text = sourceText.value;
+
+    return {
+        allCaps: getModifiedValue(text.allCaps, false),
+        applyFill: getModifiedValue(text.applyFill, false),
+        applyStroke: getModifiedValue(text.applyStroke, false),
+        baselineLocs: getModifiedValue(text.baselineLocs, [0, 0]),
+        baselineShift: getModifiedValue(text.baselineShift, -1),
+        boxTextPos: text.boxText ? getModifiedValue(text.boxTextPos, [0, 0]) : undefined,
+        boxTextSize: text.boxText ? getModifiedValue(text.boxTextSize, [0, 0]) : undefined,
+        fauxBold: getModifiedValue(text.fauxBold, false),
+        fauxItalic: getModifiedValue(text.fauxItalic, false),
+        fillColor: text.applyFill ? getModifiedValue(text.fillColor, [0, 0, 0]) : undefined,
+        font: getModifiedValue(text.font, ''),
+        fontFamily: getModifiedValue(text.fontFamily, ''),
+        fontSize: getModifiedValue(text.fontSize, 32),
+        fontStyle: getModifiedValue(text.fontStyle, ''),
+        horizontalScale: getModifiedValue(text.horizontalScale, -1),
+        justification: getModifiedValue(text.justification, ParagraphJustification.LEFT_JUSTIFY),
+        leading: getModifiedValue(text.leading, -1),
+        pointText: getModifiedValue(text.pointText, true),
+        smallCaps: getModifiedValue(text.smallCaps, false),
+        strokeColor: text.applyStroke ? getModifiedValue(text.strokeColor, [0, 0, 0]) : undefined,
+        strokeOverFill: text.applyStroke ? getModifiedValue(text.strokeOverFill, false) : undefined,
+        strokeWidth: text.applyStroke ? getModifiedValue(text.strokeWidth, -1) : undefined,
+        subscript: getModifiedValue(text.subscript, false),
+        superscript: getModifiedValue(text.superscript, false),
+        text: getModifiedValue(text.text, ''),
+        tracking: getModifiedValue(text.tracking, -1),
+        tsume: getModifiedValue(text.tsume, -1),
+        verticalScale: getModifiedValue(text.verticalScale, -1),
+    };
+}
+
+function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexProperties {
     if (!propertyGroup) {
         return undefined;
     }
@@ -57,17 +92,17 @@ function getPropertyGroup(propertyGroup: PropertyGroup): AexProperties {
         const matchName = property.matchName;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            groupProperties[matchName] = getModifiedProperty(property as Property<any>);
+            groupProperties[matchName] = getModifiedProperty(property as Property<any>, valueParser);
             continue;
         }
 
-        groupProperties[matchName] = getPropertyGroup(property as PropertyGroup);
+        groupProperties[matchName] = getPropertyGroup(property as PropertyGroup, valueParser);
     }
 
     return groupProperties;
 }
 
-function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
+function _getPropertyKeys<T>(property: Property<T>, valueParser?: Function): AEQKeyInfo[] {
     if (property.numKeys === 0) {
         return undefined;
     }
@@ -76,7 +111,7 @@ function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
-        const value = keyInfo.value;
+        const value = valueParser ? valueParser(keyInfo) : keyInfo.value;
         const time = keyInfo.time;
 
         const keyInterpolationType = keyInfo.interpolationType;

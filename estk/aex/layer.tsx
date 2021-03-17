@@ -7,6 +7,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     if (isVisibleLayer(layer)) {
         if (aeq.isTextLayer(layer)) {
             baseAttributes = _getTextLayerAttributes(layer);
+            properties = _getTextLayerProperties(layer);
         } else if (aeq.isShapeLayer(layer)) {
             baseAttributes = _getShapeLayerAttributes(layer);
         } else {
@@ -294,6 +295,18 @@ function _getCameraLayerProperties(layer: CameraLayer) {
 function _getLightLayerProperties(layer: LightLayer) {
     return {
         lightOption: getPropertyGroup(layer.lightOption),
+    };
+}
+
+function _getTextLayerProperties(layer: TextLayer) {
+    const text = layer.text;
+    const animators = text.property('ADBE Text Animators') as PropertyGroup;
+
+    return {
+        sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
+        pathOption: getPropertyGroup(text.pathOption),
+        moreOption: getPropertyGroup(text.moreOption),
+        animators: getPropertyGroup(animators),
     };
 }
 
