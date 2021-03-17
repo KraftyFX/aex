@@ -82,7 +82,7 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
         type = AEX_SOLID;
-        avItemAttributes.label = getModifiedValue(item.label, 1);
+        avItemAttributes.label = getModifiedValue(item.label, 1); // What is the significance of 1?
 
         solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
     } else if (sourceIsPlaceholder(itemSource)) {
@@ -140,7 +140,7 @@ function _getItemAttributes(item: Item) {
     return {
         name,
         comment: getModifiedValue(item.comment, ''),
-        label: getModifiedValue(item.label, 15),
+        label: getModifiedValue(item.label, 15), // What is the significance of 15?
         folder,
     };
 }
@@ -161,6 +161,7 @@ function _getAVItemAttributes(item: AVItem): AexAVItemBase {
 }
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
+    // TODO: Discuss why you would you omit this? Maybe make this an option?
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
@@ -179,6 +180,7 @@ function _getAexCompLayers(comp: CompItem, options: AexOptions) {
         layers.push(layerData);
     });
 
+    // TODO: Why make this undefined vs an empty array?
     return layers.length === 0 ? undefined : layers;
 }
 
