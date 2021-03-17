@@ -1,5 +1,6 @@
 function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     let baseAttributes = {} as AexLayerAttributes;
+    let properties = {} as AexProperties;
 
     let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
 
@@ -32,8 +33,10 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         }
     } else if (aeq.isLightLayer(layer)) {
         baseAttributes = _getLightLayerAttributes(layer);
+        properties = _getLightLayerProperties(layer);
     } else if (aeq.isCameraLayer(layer)) {
         baseAttributes = _getCameraLayerAttributes(layer);
+        properties = _getCameraLayerProperties(layer);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
@@ -42,6 +45,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         type: AEX_LAYER,
 
         ...baseAttributes,
+        properties,
 
         markers: _getAexLayerMarkers(layer, options),
         transform: _getTransform(layer),
@@ -52,8 +56,6 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         layerStyles,
         materialOption,
         geometryOption,
-
-        properties: _getProperties(layer),
     };
 
     return aexLayer;
@@ -280,6 +282,18 @@ function _getTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
     return {
         ...layerAttributes,
         threeDPerChar,
+    };
+}
+
+function _getCameraLayerProperties(layer: CameraLayer) {
+    return {
+        cameraOption: getPropertyGroup(layer.cameraOption),
+    };
+}
+
+function _getLightLayerProperties(layer: LightLayer) {
+    return {
+        lightOption: getPropertyGroup(layer.lightOption),
     };
 }
 
