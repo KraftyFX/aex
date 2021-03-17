@@ -30,6 +30,9 @@ describe('Layer', function () {
                     label: 4,
                     layerType: 'CameraLayer',
                     name: 'Camera',
+                    properties: {
+                        cameraOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -38,6 +41,32 @@ describe('Layer', function () {
                     layerType: 'TextLayer',
                     name: 'Solo Text Layer',
                     solo: true,
+                    properties: {
+                        animators: {},
+                        moreOption: {},
+                        pathOption: {},
+                        sourceText: {
+                            matchName: 'ADBE Text Document',
+                            name: 'Source Text',
+                            value: {
+                                applyFill: true,
+                                baselineLocs: [-115.33203125, 0, 115.33203125, 0],
+                                baselineShift: 0,
+                                fillColor: [1, 1, 1],
+                                font: 'ArialMT',
+                                fontFamily: 'Arial',
+                                fontSize: 50,
+                                fontStyle: 'Regular',
+                                horizontalScale: 1,
+                                justification: 7415,
+                                leading: 60.0000038146973,
+                                text: 'Text Layer',
+                                tracking: 0,
+                                tsume: 0,
+                                verticalScale: 1,
+                            },
+                        },
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -46,6 +75,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     name: 'Empty',
                     nullLayer: true,
+                    properties: {},
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -56,6 +86,9 @@ describe('Layer', function () {
                     lightType: 4414,
                     name: 'Timing Light',
                     outPoint: 3.06666666666667,
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -70,6 +103,7 @@ describe('Layer', function () {
                     motionBlur: true,
                     name: 'Flags',
                     nullLayer: true,
+                    properties: {},
                     samplingQuality: 4813,
                     shy: true,
                     threeDLayer: true,
@@ -83,6 +117,7 @@ describe('Layer', function () {
                     name: 'Blend Stretch',
                     nullLayer: true,
                     outPoint: 1,
+                    properties: {},
                     stretch: 25,
                     transform: {},
                     type: 'aex:layer',
@@ -92,6 +127,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     name: 'Parented Solid',
                     parentLayerIndex: 5,
+                    properties: {},
                     transform: {
                         position: {
                             matchName: 'ADBE Position',
@@ -120,6 +156,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4412,
                     name: 'Parallel Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -128,6 +167,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4413,
                     name: 'Spot Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -136,6 +178,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     name: 'Point Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -144,6 +189,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4415,
                     name: 'Ambient Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -226,6 +274,9 @@ describe('Layer', function () {
                     label: 4,
                     layerType: 'CameraLayer',
                     name: 'Camera',
+                    properties: {
+                        cameraOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -234,6 +285,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     name: 'Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -244,6 +298,7 @@ describe('Layer', function () {
                     materialOption: {},
                     name: '3d AV Layer',
                     nullLayer: true,
+                    properties: {},
                     threeDLayer: true,
                     transform: {},
                     type: 'aex:layer',
@@ -253,6 +308,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     name: '2d AV Layer',
                     nullLayer: true,
+                    properties: {},
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -265,6 +321,9 @@ describe('Layer', function () {
                     label: 4,
                     layerType: 'CameraLayer',
                     name: 'Camera',
+                    properties: {
+                        cameraOption: {},
+                    },
                     transform: {
                         orientation: {
                             matchName: 'ADBE Orientation',
@@ -304,6 +363,9 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     name: 'Light',
+                    properties: {
+                        lightOption: {},
+                    },
                     transform: {
                         position: {
                             matchName: 'ADBE Position',
@@ -319,6 +381,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     name: '3d AV Layer',
                     nullLayer: true,
+                    properties: {},
                     threeDLayer: true,
                     materialOption: {},
                     transform: {
@@ -371,6 +434,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     name: '2d AV Layer',
                     nullLayer: true,
+                    properties: {},
                     transform: {
                         anchorPoint: {
                             matchName: 'ADBE Anchor Point',
