@@ -1,4 +1,4 @@
-function getAexItem(item: Item, options: AexOptions): AexItem {
+function getAexItem(item: Item, options: AexOptions): AexItemBase {
     if (aeq.isComp(item)) {
         return getAexComp(item as CompItem, options);
     } else if (aeq.isFootageItem(item)) {
@@ -6,7 +6,7 @@ function getAexItem(item: Item, options: AexOptions): AexItem {
     } else if (aeq.isFolderItem(item)) {
         return _getFolderItem(item);
     } else {
-        throw new Error(`Unrecognized Layer Type`);
+        throw new Error(`Unrecognized Item Type`);
     }
 }
 
@@ -35,10 +35,12 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
 
     const aexComp: AexComp = {
+        // TODO: This should be aex:item:comp, not a aex:comp.
         type: AEX_COMP,
 
         /** Item & AVItem attributes */
         ...avItemAttributes,
+        itemType: 'Comp',
 
         /** Comp internal data */
         bgColor,
@@ -68,7 +70,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     return aexComp;
 }
 
-function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
+function _getFootageItem(item: FootageItem): AexFootageItem {
     const avItemAttributes = _getAVItemAttributes(item);
     const fileSourceAttributes = {} as AexFileSourceAttributes;
     const solidSourceAttributes = {} as AexSolidSourceAttributes;
@@ -99,6 +101,7 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
 
     return {
         ...avItemAttributes,
+        itemType: 'Footage',
 
         alphaMode,
         conformFrameRate,
@@ -114,18 +117,18 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
     };
 }
 
-function _getFolderItem(item: FolderItem): AexItem {
-    const itemAttributes = _getAexItemAttributes(item);
-
-    itemAttributes.label = getModifiedValue(item.label, 2);
+function _getFolderItem(item: FolderItem): AexFolderItem {
+    const itemAttributes = _getItemAttributes(item);
 
     return {
         ...itemAttributes,
+
         itemType: 'Folder',
+        label: getModifiedValue(item.label, 2),
     };
 }
 
-function _getAexItemAttributes(item: Item) {
+function _getItemAttributes(item: Item) {
     const { name, parentFolder } = item;
 
     /**
@@ -142,9 +145,9 @@ function _getAexItemAttributes(item: Item) {
     };
 }
 
-function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
+function _getAVItemAttributes(item: AVItem): AexAVItemBase {
     const { duration, frameRate, height, pixelAspect, width } = item;
-    const itemAttributes = _getAexItemAttributes(item);
+    const itemAttributes = _getItemAttributes(item);
 
     return {
         ...itemAttributes,

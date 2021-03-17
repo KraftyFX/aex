@@ -17,7 +17,9 @@ interface AexProject extends AexObject {
     comps: AexComp[];
 }
 
-interface AexItem {
+type AexItem = AexComp | AexFootageItem | AexFolderItem;
+
+interface AexItemBase {
     /** AEX-specific properties */
     itemType: AexItemType;
 
@@ -27,7 +29,11 @@ interface AexItem {
     folder: string;
 }
 
-interface AexAVItemAttributes extends AexItem {
+interface AexFolderItem extends AexItemBase {
+    itemType: 'Folder';
+}
+
+interface AexAVItemBase extends AexItemBase {
     duration: number;
     frameRate: number;
     height: number;
@@ -35,7 +41,9 @@ interface AexAVItemAttributes extends AexItem {
     width: number;
 }
 
-interface AexFootageItemAttributes extends AexAVItemAttributes, AexFileSourceAttributes, AexSolidSourceAttributes {
+interface AexFootageItem extends AexAVItemBase {
+    itemType: 'Footage';
+
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -55,7 +63,9 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends AexItem, AexObject {
+interface AexComp extends AexAVItemBase, AexObject {
+    itemType: 'Comp';
+
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;
