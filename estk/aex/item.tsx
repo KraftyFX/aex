@@ -14,7 +14,8 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const compAttributes = _getCompItemAttributes(comp);
 
     const aexComp: AexComp = {
-        type: 'aex:comp',
+        type: AEX_COMP,
+
         ...compAttributes,
 
         /** Nested objects */
