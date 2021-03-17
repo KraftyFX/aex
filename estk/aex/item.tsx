@@ -96,10 +96,11 @@ function _getAexCompMarkers(comp: CompItem, options: AexOptions) {
 
 function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
     const { duration, frameRate, height, pixelAspect, width } = item;
-    const itemAttributes = _getItemAttributes(item, item.typeName as AexItemType);
+    const itemAttributes = _getAexItemAttributes(item);
 
     return {
         ...itemAttributes,
+        itemType: item.typeName as AexItemType,
 
         duration,
         frameRate,
@@ -109,7 +110,7 @@ function _getAVItemAttributes(item: AVItem): AexAVItemAttributes {
     };
 }
 
-function _getItemAttributes(item: Item, itemType: AexItemType): AexItemAttributes {
+function _getAexItemAttributes(item: Item) {
     const { name, parentFolder } = item;
 
     /**
@@ -120,25 +121,29 @@ function _getItemAttributes(item: Item, itemType: AexItemType): AexItemAttribute
 
     return {
         name,
-        itemType,
         comment: getModifiedValue(item.comment, ''),
         label: getModifiedValue(item.label, 15),
         folder,
     };
 }
 
-function _getFolderItem(item: FolderItem): AexItemAttributes {
-    const aexItem = _getItemAttributes(item, 'Folder');
-    aexItem.label = getModifiedValue(item.label, 2);
-    return aexItem;
+function _getFolderItem(item: FolderItem): AexItem {
+    const itemAttributes = _getAexItemAttributes(item);
+
+    itemAttributes.label = getModifiedValue(item.label, 2);
+
+    return {
+        ...itemAttributes,
+        itemType: 'Folder',
+    };
 }
 
 function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
-    const itemSource = item.mainSource;
-
     const avItemAttributes = _getAVItemAttributes(item);
     const fileSourceAttributes = {} as AexFileSourceAttributes;
     const solidSourceAttributes = {} as AexSolidSourceAttributes;
+
+    const itemSource = item.mainSource;
 
     if (sourceIsFile(itemSource)) {
         /** @todo Explore file handling */

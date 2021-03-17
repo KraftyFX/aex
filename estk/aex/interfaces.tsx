@@ -17,25 +17,23 @@ interface AexProject extends AexObject {
     comps: AexComp[];
 }
 
-interface AexItemAttributes {
+interface AexItem {
+    /** AEX-specific properties */
+    itemType: AexItemType;
+
     comment: string;
     label: number;
     name: string;
     folder: string;
-
-    /** AEX-specific properties */
-    itemType: AexItemType;
 }
 
-interface AexAVItemAttributes extends AexItemAttributes {
+interface AexAVItemAttributes extends AexItem {
     duration: number;
     frameRate: number;
     height: number;
     pixelAspect: number;
     width: number;
 }
-
-interface AexItem extends Partial<AexFootageItemAttributes>, Partial<AexComp> {}
 
 interface AexFootageItemAttributes extends AexAVItemAttributes, AexFileSourceAttributes, AexSolidSourceAttributes {
     alphaMode: AlphaMode;
@@ -57,7 +55,7 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends AexObject {
+interface AexComp extends AexItem, AexObject {
     bgColor: number[];
     displayStartFrame: number;
     displayStartTime: number;
