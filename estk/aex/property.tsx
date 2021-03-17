@@ -72,6 +72,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup): AexProperties {
 }
 
 function _getPropertyKeys<T>(property: Property<T>): AEQKeyInfo[] {
+    // TODO: Discuss if this could just return an empty array instead
     if (property.numKeys === 0) {
         return undefined;
     }
