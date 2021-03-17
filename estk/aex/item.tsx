@@ -136,16 +136,6 @@ function _getFolderItem(item: FolderItem): AexItemAttributes {
 function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
     const itemSource = item.mainSource;
 
-    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
-    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
-    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
-    const loop = getModifiedValue(itemSource.loop, 1);
-    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
-    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
-
-    const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
-
     const avItemAttributes = _getAVItemAttributes(item);
     const fileSourceAttributes = {} as AexFileSourceAttributes;
     const solidSourceAttributes = {} as AexSolidSourceAttributes;
@@ -161,6 +151,16 @@ function _getFootageItem(item: FootageItem): AexFootageItemAttributes {
     } else if (sourceIsPlaceholder(itemSource)) {
         avItemAttributes.itemType = 'Placeholder';
     }
+
+    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
+    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
+    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
+    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
+    const loop = getModifiedValue(itemSource.loop, 1);
+    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
+    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+
+    const invertAlpha = itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 
     return {
         ...avItemAttributes,
