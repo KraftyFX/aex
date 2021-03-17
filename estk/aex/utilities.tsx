@@ -63,7 +63,7 @@ function getModifiedValue<T>(value: T, aeDefault: T | GetValueCallback<T>): T | 
         return undefined;
     }
 
-    const aeDefaultValue = typeof aeDefault === 'function' ? (aeDefault as GetValueCallback<T>)(value) : value;
+    const aeDefaultValue = typeof aeDefault === 'function' ? (aeDefault as GetValueCallback<T>)(value) : aeDefault;
 
     return _isEqual(value, aeDefaultValue) ? undefined : value;
 }
