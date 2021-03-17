@@ -1,4 +1,4 @@
-function _objectsIdential(a: object, b: object): boolean {
+function _isObjectEqual(a: object, b: object): boolean {
     for (let key in a) {
         if (!a.hasOwnProperty(key)) {
             continue;
@@ -11,7 +11,7 @@ function _objectsIdential(a: object, b: object): boolean {
         const srcValue = a[key];
         const destValue = b[key];
 
-        if (!_simpleCompareElements(srcValue, destValue)) {
+        if (!_isEqual(srcValue, destValue)) {
             return false;
         }
     }
@@ -19,7 +19,7 @@ function _objectsIdential(a: object, b: object): boolean {
     return true;
 }
 
-function _arraysIdentical(a: any[], b: any[]): boolean {
+function _isArrayEqual(a: any[], b: any[]): boolean {
     if (a.length !== b.length) {
         return false;
     }
@@ -28,7 +28,7 @@ function _arraysIdentical(a: any[], b: any[]): boolean {
         let elementA = a[ii];
         let elementB = b[ii];
 
-        if (!_simpleCompareElements(elementA, elementB)) {
+        if (!_isEqual(elementA, elementB)) {
             return false;
         }
     }
@@ -37,28 +37,35 @@ function _arraysIdentical(a: any[], b: any[]): boolean {
 }
 
 /** true if identical */
-function _simpleCompareElements(a: any, b: any): boolean {
+function _isEqual(a: any, b: any): boolean {
     if (a instanceof Array) {
-        return _arraysIdentical(a, b);
+        return _isArrayEqual(a, b);
     } else if (typeof a === 'object') {
-        return _objectsIdential(a, b);
+        return _isObjectEqual(a, b);
     } else {
         return a === b;
     }
 }
 
-function getModifiedValue<T>(value: T, original: T): T | undefined {
+type GetValueCallback<T> = (value: T) => T;
+/**
+ * Gets the value of a property if it's different than the internal AE
+ * default. This is useful b/c it helps keep the serialized objects
+ * small.
+ *
+ * @param value Property value from AfterEffects
+ * @param aeDefault The expected default value provided by AE for the property
+ * @returns The property value if and only if the property exists and is
+ * set to something other than the default.
+ */
+function getModifiedValue<T>(value: T, aeDefault: T | GetValueCallback<T>): T | undefined {
     if (aeq.isNullOrUndefined(value)) {
         return undefined;
     }
 
-    let valueIsDefault = _simpleCompareElements(value, original);
+    const aeDefaultValue = typeof aeDefault === 'function' ? (aeDefault as GetValueCallback<T>)(value) : value;
 
-    if (!valueIsDefault) {
-        return value;
-    }
-
-    return undefined;
+    return _isEqual(value, aeDefaultValue) ? undefined : value;
 }
 
 function sourceIsSolid(source: any): source is SolidSource {
