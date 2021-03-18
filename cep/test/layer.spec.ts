@@ -266,7 +266,7 @@ describe('Layer', function () {
             ]);
     });
 
-    it.only(`Can parse camera layer attributes`, async () => {
+    it(`Can parse camera layer attributes`, async () => {
         await openProject('testAssets/layer_camera.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
