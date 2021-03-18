@@ -50,7 +50,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         ...baseAttributes,
         properties,
 
-        markers: _getAexLayerMarkers(layer, options),
+        markers: _getAexLayerMarkers(layer),
         transform: _getTransform(layer),
         timeRemap,
         effects,
@@ -152,13 +152,8 @@ function _getAexLayerMasks(layer: Layer): AexProperties[] {
     return masks;
 }
 
-function _getAexLayerMarkers(layer: Layer, options: AexOptions) {
-    // zlovatt: Is marker a scalar or an array?
-    if (layer.marker.isModified) {
+function _getAexLayerMarkers(layer: Layer) {
         return getAexMarkerProperties(layer.marker);
-    } else {
-        return undefined;
-    }
 }
 
 function _getLayerAttributes(layer: Layer): AexLayerAttributes {

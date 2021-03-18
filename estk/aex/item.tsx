@@ -59,7 +59,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         workAreaDuration,
         workAreaStart,
 
-        markers: _getAexCompMarkers(comp, options),
+        markers: _getAexCompMarkers(comp),
         layers: _getAexCompLayers(comp, options),
         essentialProps: _getEssentialProperties(comp, options),
     };
@@ -184,10 +184,6 @@ function _getAexCompLayers(comp: CompItem, options: AexOptions) {
     return layers.length === 0 ? undefined : layers;
 }
 
-function _getAexCompMarkers(comp: CompItem, options: AexOptions) {
-    if (comp.markerProperty.isModified) {
-        return getAexMarkerProperties(comp.markerProperty);
-    } else {
-        return undefined;
-    }
+function _getAexCompMarkers(comp: CompItem) {
+    return getAexMarkerProperties(comp.markerProperty);
 }
