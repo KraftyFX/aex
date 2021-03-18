@@ -18,11 +18,11 @@ describe('Comp', function () {
 
     /** Comp tests */
     it(`Can parse basic comp attributes`, async () => {
-        await openProject('testAssets/comp_empty-comp.aep');
+        await openProject('testAssets/comp_basic.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
-        console.log('comp_empty-comp', result);
+        console.log('comp_basic', result);
         expect(result)
             .property('comps')
             .to.eql([
