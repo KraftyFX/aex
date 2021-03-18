@@ -176,7 +176,50 @@ describe('Layer', function () {
                     masks: [],
                     name: 'Parallel Light',
                     properties: {
-                        lightOption: {},
+                        lightOption: {
+                            'ADBE Casts Shadows': {
+                                keys: [],
+                                matchName: 'ADBE Casts Shadows',
+                                name: 'Casts Shadows',
+                                value: 1,
+                            },
+                            'ADBE Light Color': {
+                                keys: [],
+                                matchName: 'ADBE Light Color',
+                                name: 'Color',
+                                value: [1, 0, 0, 1],
+                            },
+                            'ADBE Light Falloff Distance': {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Distance',
+                                name: 'Falloff Distance',
+                                value: 394,
+                            },
+                            'ADBE Light Falloff Start': {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Start',
+                                name: 'Radius',
+                                value: 453,
+                            },
+                            'ADBE Light Falloff Type': {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Type',
+                                name: 'Falloff',
+                                value: 2,
+                            },
+                            'ADBE Light Intensity': {
+                                keys: [],
+                                matchName: 'ADBE Light Intensity',
+                                name: 'Intensity',
+                                value: 76,
+                            },
+                            'ADBE Light Shadow Darkness': {
+                                keys: [],
+                                matchName: 'ADBE Light Shadow Darkness',
+                                name: 'Shadow Darkness',
+                                value: 42,
+                            },
+                        },
                     },
                     transform: {},
                     type: 'aex:layer',
