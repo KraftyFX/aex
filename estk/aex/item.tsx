@@ -61,7 +61,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
 
         markers: _getAexCompMarkers(comp),
         layers: _getAexCompLayers(comp, options),
-        essentialProps: _getEssentialProperties(comp, options),
+        // essentialProps: _getEssentialProperties(comp, options),
     };
 
     return aexComp;
@@ -169,7 +169,7 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
 function _getEssentialProperties(comp: CompItem, options: AexOptions) {
     let essentialProps = [];
 
-    return essentialProps.length > 0 ? essentialProps : undefined;
+    return essentialProps;
 }
 
 function _getAexCompLayers(comp: CompItem, options: AexOptions) {
