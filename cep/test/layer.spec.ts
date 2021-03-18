@@ -384,6 +384,26 @@ describe('Layer', function () {
             ]);
     });
 
+    it(`Can parse layer audio`, async () => {
+        await openProject('testAssets/layer_audio.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+
+        console.log('layer_audio', result);
+        expect(result).property('comps').to.be.of.length(1);
+        expect(result.comps[0].layers[0]).property('audio').to.eql({});
+        expect(result.comps[0].layers[1])
+            .property('audio')
+            .to.eql({
+                'ADBE Audio Levels': {
+                    keys: [],
+                    matchName: 'ADBE Audio Levels',
+                    name: 'Audio Levels',
+                    value: [12, 12],
+                },
+            });
+    });
+
     describe('Layer Markers', async () => {
         let result: any;
 
