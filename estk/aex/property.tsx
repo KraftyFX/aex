@@ -85,11 +85,6 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexProperties {
-    // zlovatt: Given the call sites why would this ever be null?
-    if (!propertyGroup) {
-        return undefined;
-    }
-
     const groupProperties = {};
 
     for (let ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
