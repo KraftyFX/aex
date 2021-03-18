@@ -404,6 +404,193 @@ describe('Layer', function () {
             });
     });
 
+    describe('Text Properties', async () => {
+        let result: any;
+
+        before(async () => {
+            await openProject('testAssets/layer_text.aep');
+            result = await aex().toObjectWithAeObject(AeObject.Project);
+            console.log('layer_text', result);
+        });
+
+        it('Can parse per-character 3d', async () => {
+            expect(result.comps[0].layers[0]).property('threeDPerChar').to.eql(true);
+        });
+
+        it('Can parse Text Path Options', async () => {
+            expect(result.comps[0].layers[1].properties)
+                .property('pathOption')
+                .to.eql({
+                    'ADBE Text First Margin': {
+                        name: 'First Margin',
+                        matchName: 'ADBE Text First Margin',
+                        value: 18,
+                        keys: [],
+                    },
+                    'ADBE Text Force Align Path': {
+                        name: 'Force Alignment',
+                        matchName: 'ADBE Text Force Align Path',
+                        value: 1,
+                        keys: [],
+                    },
+                    'ADBE Text Last Margin': {
+                        name: 'Last Margin',
+                        matchName: 'ADBE Text Last Margin',
+                        value: 20,
+                        keys: [],
+                    },
+                    'ADBE Text Path': {
+                        name: 'Path',
+                        matchName: 'ADBE Text Path',
+                        value: 1,
+                        keys: [],
+                    },
+                    'ADBE Text Reverse Path': {
+                        name: 'Reverse Path',
+                        matchName: 'ADBE Text Reverse Path',
+                        value: 1,
+                        keys: [],
+                    },
+                });
+        });
+
+        it('Can parse Text More Options', async () => {
+            expect(result.comps[0].layers[2].properties)
+                .property('moreOption')
+                .to.eql({
+                    'ADBE Text Anchor Point Align': {
+                        name: 'Grouping Alignment',
+                        matchName: 'ADBE Text Anchor Point Align',
+                        value: [18, 20],
+                        keys: [],
+                    },
+                    'ADBE Text Anchor Point Option': {
+                        name: 'Anchor Point Grouping',
+                        matchName: 'ADBE Text Anchor Point Option',
+                        value: 2,
+                        keys: [],
+                    },
+                    'ADBE Text Character Blend Mode': {
+                        name: 'Inter-Character Blending',
+                        matchName: 'ADBE Text Character Blend Mode',
+                        value: 9,
+                        keys: [],
+                    },
+                    'ADBE Text Render Order': {
+                        name: 'Fill & Stroke',
+                        matchName: 'ADBE Text Render Order',
+                        value: 2,
+                        keys: [],
+                    },
+                });
+        });
+
+        it('Can parse Text Animators', async () => {
+            expect(result.comps[1].layers[0].properties)
+                .property('animators')
+                .to.eql({
+                    'ADBE Text Animator': {
+                        'ADBE Text Animator Properties': {},
+                        'ADBE Text Selectors': {
+                            'ADBE Text Selector': {
+                                'ADBE Text Range Advanced': {},
+                            },
+                        },
+                    },
+                });
+            expect(result.comps[1].layers[1].properties)
+                .property('animators')
+                .to.eql({
+                    'ADBE Text Animator': {
+                        'ADBE Text Animator Properties': {
+                            'ADBE Text Position 3D': {
+                                keys: [],
+                                matchName: 'ADBE Text Position 3D',
+                                name: 'Position',
+                                value: [0, 100, 0],
+                            },
+                        },
+                        'ADBE Text Selectors': {
+                            'ADBE Text Selector': {
+                                'ADBE Text Percent Start': {
+                                    keys: [
+                                        {
+                                            value: 0,
+                                            time: 0,
+                                            interpolationType: {},
+                                            temporalEase: {
+                                                inEase: [{ influence: 16.666666667, speed: 0 }],
+                                                outEase: [{ influence: 16.666666667, speed: 50 }],
+                                            },
+                                        },
+                                        {
+                                            value: 100,
+                                            time: 2,
+                                            interpolationType: {},
+                                            temporalEase: {
+                                                inEase: [{ influence: 16.666666667, speed: 50 }],
+                                                outEase: [{ influence: 16.666666667, speed: 0 }],
+                                            },
+                                        },
+                                    ],
+                                    matchName: 'ADBE Text Percent Start',
+                                    name: 'Start',
+                                    value: 0,
+                                },
+                                'ADBE Text Range Advanced': {},
+                            },
+                        },
+                    },
+                });
+            expect(result.comps[1].layers[2].properties)
+                .property('animators')
+                .to.eql({
+                    'ADBE Text Animator': {
+                        'ADBE Text Animator Properties': {},
+                        'ADBE Text Selectors': {
+                            'ADBE Text Expressible Selector': {
+                                'ADBE Text Expressible Amount': {
+                                    expression: 'timeToFrames(time * 10) * textIndex/textTotal',
+                                    expressionEnabled: true,
+                                    keys: [],
+                                    matchName: 'ADBE Text Expressible Amount',
+                                    name: 'Amount',
+                                    value: [100, 100, 100],
+                                },
+                            },
+                            'ADBE Text Selector': {
+                                'ADBE Text Range Advanced': {},
+                            },
+                        },
+                    },
+                });
+            expect(result.comps[1].layers[3].properties)
+                .property('animators')
+                .to.eql({
+                    'ADBE Text Animator': {
+                        'ADBE Text Animator Properties': {
+                            'ADBE Text Tracking Amount': {
+                                keys: [],
+                                matchName: 'ADBE Text Tracking Amount',
+                                name: 'Tracking Amount',
+                                value: 100,
+                            },
+                        },
+                        'ADBE Text Selectors': {
+                            'ADBE Text Wiggly Selector': {
+                                'ADBE Text Selector Mode': {
+                                    keys: [],
+                                    matchName: 'ADBE Text Selector Mode',
+                                    name: 'Mode',
+                                    value: 3,
+                                },
+                            },
+                        },
+                    },
+                });
+        });
+    });
+
     describe('Layer Markers', async () => {
         let result: any;
 
