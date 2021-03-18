@@ -47,23 +47,20 @@ function _isEqual(a: any, b: any): boolean {
     }
 }
 
-type GetValueCallback<T> = (value: T) => T;
 /**
  * Gets the value of a property if it's different than the internal AE
  * default. This is useful b/c it helps keep the serialized objects
  * small.
  *
  * @param value Property value from AfterEffects
- * @param aeDefault The expected default value provided by AE for the property
+ * @param aeDefaultValue The expected default value provided by AE for the property
  * @returns The property value if and only if the property exists and is
  * set to something other than the default.
  */
-function getModifiedValue<T>(value: T, aeDefault: T | GetValueCallback<T>): T | undefined {
+function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
     if (aeq.isNullOrUndefined(value)) {
         return undefined;
     }
-
-    const aeDefaultValue = typeof aeDefault === 'function' ? (aeDefault as GetValueCallback<T>)(value) : aeDefault;
 
     return _isEqual(value, aeDefaultValue) ? undefined : value;
 }
