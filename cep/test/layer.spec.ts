@@ -49,6 +49,7 @@ describe('Layer', function () {
                         moreOption: {},
                         pathOption: {},
                         sourceText: {
+                            keys: [],
                             matchName: 'ADBE Text Document',
                             name: 'Source Text',
                             value: {
@@ -145,6 +146,7 @@ describe('Layer', function () {
                     properties: {},
                     transform: {
                         position: {
+                            keys: [],
                             matchName: 'ADBE Position',
                             name: 'Position',
                             value: [0, 0, 0],
@@ -359,31 +361,37 @@ describe('Layer', function () {
                     },
                     transform: {
                         orientation: {
+                            keys: [],
                             matchName: 'ADBE Orientation',
                             name: 'Orientation',
                             value: [100, 200, 300],
                         },
                         pointOfInterest: {
+                            keys: [],
                             matchName: 'ADBE Anchor Point',
                             name: 'Point of Interest',
                             value: [11, 22, 33],
                         },
                         position: {
+                            keys: [],
                             matchName: 'ADBE Position',
                             name: 'Position',
                             value: [1, 2, -3],
                         },
                         rotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate Z',
                             name: 'Z Rotation',
                             value: 90,
                         },
                         xRotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate X',
                             name: 'X Rotation',
                             value: -90,
                         },
                         yRotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate Y',
                             name: 'Y Rotation',
                             value: -3600,
@@ -403,6 +411,7 @@ describe('Layer', function () {
                     },
                     transform: {
                         position: {
+                            keys: [],
                             matchName: 'ADBE Position',
                             name: 'Position',
                             value: [100, 200, 300],
@@ -423,42 +432,50 @@ describe('Layer', function () {
                     materialOption: {},
                     transform: {
                         anchorPoint: {
+                            keys: [],
                             matchName: 'ADBE Anchor Point',
                             name: 'Anchor Point',
                             value: [11, 22, 33],
                         },
                         opacity: {
+                            keys: [],
                             matchName: 'ADBE Opacity',
                             name: 'Opacity',
                             value: 50,
                         },
                         orientation: {
+                            keys: [],
                             matchName: 'ADBE Orientation',
                             name: 'Orientation',
                             value: [100, 200, 300],
                         },
 
                         position: {
+                            keys: [],
                             matchName: 'ADBE Position',
                             name: 'Position',
                             value: [1, 2, -3],
                         },
                         rotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate Z',
                             name: 'Z Rotation',
                             value: 90,
                         },
                         scale: {
+                            keys: [],
                             matchName: 'ADBE Scale',
                             name: 'Scale',
                             value: [10, 20, 30],
                         },
                         xRotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate X',
                             name: 'X Rotation',
                             value: -90,
                         },
                         yRotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate Y',
                             name: 'Y Rotation',
                             value: -3600,
@@ -476,26 +493,31 @@ describe('Layer', function () {
                     properties: {},
                     transform: {
                         anchorPoint: {
+                            keys: [],
                             matchName: 'ADBE Anchor Point',
                             name: 'Anchor Point',
                             value: [11, 22, 0],
                         },
                         opacity: {
+                            keys: [],
                             matchName: 'ADBE Opacity',
                             name: 'Opacity',
                             value: 50,
                         },
                         position: {
+                            keys: [],
                             matchName: 'ADBE Position',
                             name: 'Position',
                             value: [1, 2, 0],
                         },
                         rotation: {
+                            keys: [],
                             matchName: 'ADBE Rotate Z',
                             name: 'Rotation',
                             value: 90,
                         },
                         scale: {
+                            keys: [],
                             matchName: 'ADBE Scale',
                             name: 'Scale',
                             value: [10, 20, 100],

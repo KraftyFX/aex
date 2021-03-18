@@ -107,11 +107,6 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
 }
 
 function _getPropertyKeys<T>(property: Property<T>, valueParser?: Function): AEQKeyInfo[] {
-    // TODO: Discuss if this could just return an empty array instead
-    if (property.numKeys === 0) {
-        return undefined;
-    }
-
     const propertyKeys = aeq.getKeys(property as any);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
