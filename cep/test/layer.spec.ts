@@ -266,6 +266,124 @@ describe('Layer', function () {
             ]);
     });
 
+    it.only(`Can parse camera layer attributes`, async () => {
+        await openProject('testAssets/layer_camera.aep');
+
+        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+
+        expect(result).property('comps').to.be.of.length(1);
+
+        console.log('layer_camera', result);
+        expect(result.comps[0])
+            .property('layers')
+            .to.eql([
+                {
+                    label: 4,
+                    layerType: 'CameraLayer',
+                    markers: [],
+                    masks: [],
+                    name: 'One-Node',
+                    properties: {
+                        cameraOption: {
+                            'ADBE Camera Aperture': {
+                                keys: [],
+                                matchName: 'ADBE Camera Aperture',
+                                name: 'Aperture',
+                                value: 3,
+                            },
+                            'ADBE Camera Blur Level': {
+                                keys: [],
+                                matchName: 'ADBE Camera Blur Level',
+                                name: 'Blur Level',
+                                value: 4,
+                            },
+                            'ADBE Camera Focus Distance': {
+                                keys: [],
+                                matchName: 'ADBE Camera Focus Distance',
+                                name: 'Focus Distance',
+                                value: 2,
+                            },
+                            'ADBE Camera Zoom': {
+                                keys: [],
+                                matchName: 'ADBE Camera Zoom',
+                                name: 'Zoom',
+                                value: 1,
+                            },
+                            'ADBE Iris Aspect Ratio': {
+                                keys: [],
+                                matchName: 'ADBE Iris Aspect Ratio',
+                                name: 'Iris Aspect Ratio',
+                                value: 7,
+                            },
+                            'ADBE Iris Diffraction Fringe': {
+                                keys: [],
+                                matchName: 'ADBE Iris Diffraction Fringe',
+                                name: 'Iris Diffraction Fringe',
+                                value: 8,
+                            },
+                            'ADBE Iris Highlight Gain': {
+                                keys: [],
+                                matchName: 'ADBE Iris Highlight Gain',
+                                name: 'Highlight Gain',
+                                value: 9,
+                            },
+                            'ADBE Iris Highlight Threshold': {
+                                keys: [],
+                                matchName: 'ADBE Iris Highlight Threshold',
+                                name: 'Highlight Threshold',
+                                value: 0.03921568627451,
+                            },
+                            'ADBE Iris Hightlight Saturation': {
+                                keys: [],
+                                matchName: 'ADBE Iris Hightlight Saturation',
+                                name: 'Highlight Saturation',
+                                value: 11,
+                            },
+                            'ADBE Iris Rotation': {
+                                keys: [],
+                                matchName: 'ADBE Iris Rotation',
+                                name: 'Iris Rotation',
+                                value: 5,
+                            },
+                            'ADBE Iris Roundness': {
+                                keys: [],
+                                matchName: 'ADBE Iris Roundness',
+                                name: 'Iris Roundness',
+                                value: 6,
+                            },
+                            'ADBE Iris Shape': {
+                                keys: [],
+                                matchName: 'ADBE Iris Shape',
+                                name: 'Iris Shape',
+                                value: 4,
+                            },
+                        },
+                    },
+                    transform: {},
+                    type: 'aex:layer',
+                },
+                {
+                    label: 4,
+                    layerType: 'CameraLayer',
+                    markers: [],
+                    masks: [],
+                    name: 'Two-Node',
+                    properties: {
+                        cameraOption: {},
+                    },
+                    transform: {
+                        pointOfInterest: {
+                            keys: [],
+                            matchName: 'ADBE Anchor Point',
+                            name: 'Point of Interest',
+                            value: [100, 200, 300],
+                        },
+                    },
+                    type: 'aex:layer',
+                },
+            ]);
+    });
+
     describe('Layer Markers', async () => {
         let result: any;
 
