@@ -106,9 +106,9 @@ function _getEffects(layer: AVLayer | TextLayer | ShapeLayer): AexProperties[] {
 }
 
 function _getAexLayerMasks(layer: Layer): AexProperties[] {
-  let masks = [];
+    let masks = [];
 
-  if (!isVisibleLayer(layer)) {
+    if (!isVisibleLayer(layer)) {
         return masks;
     }
 
@@ -149,7 +149,7 @@ function _getAexLayerMasks(layer: Layer): AexProperties[] {
 }
 
 function _getAexLayerMarkers(layer: Layer) {
-        return getAexMarkerProperties(layer.marker);
+    return getAexMarkerProperties(layer.marker);
 }
 
 function _getLayerAttributes(layer: Layer): AexLayerAttributes {
@@ -313,17 +313,19 @@ function _getTransform(layer: Layer): AexTransform {
     let rotation = getModifiedProperty(transformGroup.rotation);
     const opacity = getModifiedProperty(transformGroup.opacity);
 
-    let pointOfInterest;
-    let orientation;
-    let xRotation;
-    let yRotation;
+    // 3d & Camera properties
+    let pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
+    let orientation = getModifiedProperty(transformGroup.orientation);
+    let xRotation = getModifiedProperty(transformGroup.xRotation);
+    let yRotation = getModifiedProperty(transformGroup.yRotation);
 
-    // zlovatt: What does this if condition convey?
+    /**
+     * For 3d layers (or camera/lights), we want to use the zRotation property
+     * for 'rotation' instead of the standard 'rotation' property.
+     *
+     * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
+     */
     if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-        pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
-        orientation = getModifiedProperty(transformGroup.orientation);
-        xRotation = getModifiedProperty(transformGroup.xRotation);
-        yRotation = getModifiedProperty(transformGroup.yRotation);
         rotation = getModifiedProperty(transformGroup.zRotation);
     }
 

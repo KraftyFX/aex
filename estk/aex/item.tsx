@@ -33,7 +33,6 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
 
     const aexComp: AexComp = {
-        // TODO: This should be aex:item:comp, not a aex:comp.
         type: AEX_COMP,
 
         /** Item & AVItem attributes */
@@ -161,7 +160,6 @@ function _getAVItemAttributes(item: AVItem): AexAVItemBase {
 }
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
-    // TODO: Discuss why you would you omit this? Maybe make this an option?
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
