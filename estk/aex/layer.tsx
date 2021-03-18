@@ -106,17 +106,13 @@ function _getEffects(layer: AVLayer | TextLayer | ShapeLayer): AexProperties[] {
 }
 
 function _getAexLayerMasks(layer: Layer): AexProperties[] {
-    if (!isVisibleLayer(layer)) {
-        return undefined;
+  let masks = [];
+
+  if (!isVisibleLayer(layer)) {
+        return masks;
     }
 
     let maskGroup = layer.mask;
-
-    if (!maskGroup.isModified) {
-        return undefined;
-    }
-
-    let masks = [];
 
     for (let ii = 1, il = maskGroup.numProperties; ii <= il; ii++) {
         const mask = maskGroup.property(ii) as MaskPropertyGroup;

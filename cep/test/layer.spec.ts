@@ -29,8 +29,9 @@ describe('Layer', function () {
                 {
                     label: 4,
                     layerType: 'CameraLayer',
-                    name: 'Camera',
                     markers: [],
+                    masks: [],
+                    name: 'Camera',
                     properties: {
                         cameraOption: {},
                     },
@@ -40,8 +41,9 @@ describe('Layer', function () {
                 {
                     label: 1,
                     layerType: 'TextLayer',
-                    name: 'Solo Text Layer',
                     markers: [],
+                    masks: [],
+                    name: 'Solo Text Layer',
                     properties: {
                         animators: {},
                         moreOption: {},
@@ -77,6 +79,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: 'Empty',
                     nullLayer: true,
                     properties: {},
@@ -89,6 +92,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     markers: [],
+                    masks: [],
                     name: 'Timing Light',
                     outPoint: 3.06666666666667,
                     properties: {
@@ -105,6 +109,7 @@ describe('Layer', function () {
                     label: 2,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     materialOption: {},
                     motionBlur: true,
                     name: 'Flags',
@@ -121,6 +126,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: 'Blend Stretch',
                     nullLayer: true,
                     outPoint: 1,
@@ -133,6 +139,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: 'Parented Solid',
                     parentLayerIndex: 5,
                     properties: {},
@@ -164,6 +171,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4412,
                     markers: [],
+                    masks: [],
                     name: 'Parallel Light',
                     properties: {
                         lightOption: {},
@@ -176,6 +184,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4413,
                     markers: [],
+                    masks: [],
                     name: 'Spot Light',
                     properties: {
                         lightOption: {},
@@ -188,6 +197,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     markers: [],
+                    masks: [],
                     name: 'Point Light',
                     properties: {
                         lightOption: {},
@@ -200,6 +210,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4415,
                     markers: [],
+                    masks: [],
                     name: 'Ambient Light',
                     properties: {
                         lightOption: {},
@@ -286,6 +297,7 @@ describe('Layer', function () {
                     label: 4,
                     layerType: 'CameraLayer',
                     markers: [],
+                    masks: [],
                     name: 'Camera',
                     properties: {
                         cameraOption: {},
@@ -298,6 +310,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     markers: [],
+                    masks: [],
                     name: 'Light',
                     properties: {
                         lightOption: {},
@@ -311,6 +324,7 @@ describe('Layer', function () {
                     layerType: 'AVLayer',
                     materialOption: {},
                     markers: [],
+                    masks: [],
                     name: '3d AV Layer',
                     nullLayer: true,
                     properties: {},
@@ -322,6 +336,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: '2d AV Layer',
                     nullLayer: true,
                     properties: {},
@@ -337,6 +352,7 @@ describe('Layer', function () {
                     label: 4,
                     layerType: 'CameraLayer',
                     markers: [],
+                    masks: [],
                     name: 'Camera',
                     properties: {
                         cameraOption: {},
@@ -380,6 +396,7 @@ describe('Layer', function () {
                     layerType: 'LightLayer',
                     lightType: 4414,
                     markers: [],
+                    masks: [],
                     name: 'Light',
                     properties: {
                         lightOption: {},
@@ -398,6 +415,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: '3d AV Layer',
                     nullLayer: true,
                     properties: {},
@@ -452,6 +470,7 @@ describe('Layer', function () {
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
+                    masks: [],
                     name: '2d AV Layer',
                     nullLayer: true,
                     properties: {},
