@@ -1,17 +1,15 @@
 function getModifiedProperty<T>(property: Property<T>, valueParser?: Function): AexProperty<T> | undefined {
-    if (aeq.isNullOrUndefined(property) || !property.isModified) {
+    const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
+
+    if (hasDefaultPropertyValue) {
         return undefined;
     }
 
-    const { matchName, propertyValueType } = property;
-
-    if (propertyValueType == PropertyValueType.NO_VALUE || propertyValueType === PropertyValueType.CUSTOM_VALUE) {
-        throw new Error(`Can't parse property: ${matchName}`);
-    }
+    assertIsReadableProperty<T>(property);
 
     const aexProperty: AexProperty<T> = {
         name: property.name,
-        matchName,
+        matchName: property.matchName,
         value: valueParser ? valueParser(property) : property.value,
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
@@ -20,6 +18,12 @@ function getModifiedProperty<T>(property: Property<T>, valueParser?: Function): 
     };
 
     return aexProperty;
+}
+
+function assertIsReadableProperty<T>(property: Property<T>) {
+    if (property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE) {
+        throw new Error(`Can't parse property: ${property.matchName}`);
+    }
 }
 
 function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
@@ -81,11 +85,12 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexProperties {
+    // zlovatt: Given the call sites why would this ever be null?
     if (!propertyGroup) {
         return undefined;
     }
 
-    let groupProperties = {};
+    const groupProperties = {};
 
     for (let ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
         const property = propertyGroup.property(ii);
@@ -93,16 +98,16 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
 
         if (property.propertyType == PropertyType.PROPERTY) {
             groupProperties[matchName] = getModifiedProperty(property as Property<any>, valueParser);
-            continue;
+        } else {
+            groupProperties[matchName] = getPropertyGroup(property as PropertyGroup, valueParser);
         }
-
-        groupProperties[matchName] = getPropertyGroup(property as PropertyGroup, valueParser);
     }
 
     return groupProperties;
 }
 
 function _getPropertyKeys<T>(property: Property<T>, valueParser?: Function): AEQKeyInfo[] {
+    // TODO: Discuss if this could just return an empty array instead
     if (property.numKeys === 0) {
         return undefined;
     }

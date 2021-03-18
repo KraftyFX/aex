@@ -17,9 +17,11 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         if (layer.timeRemapEnabled) {
             timeRemap = getModifiedProperty(layer.timeRemap);
         }
+
         if (layer.hasAudio) {
             audio = getPropertyGroup(layer.audio);
         }
+
         if (layer.layerStyle.canSetEnabled) {
             layerStyles = _getLayerStyles(layer);
         }
@@ -63,7 +65,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
 }
 
 function _getLayerStyles(layer: AVLayer | TextLayer | ShapeLayer) {
-    let layerStyles = {
+    const layerStyles = {
         enabled: layer.layerStyle.enabled,
         ...getPropertyGroup(layer.layerStyle),
     };
@@ -76,14 +78,15 @@ function _getLayerStyles(layer: AVLayer | TextLayer | ShapeLayer) {
 }
 
 function _getProperties(layer: Layer): AexProperties {
-    let properties = {} as AexProperties;
+    const properties = {} as AexProperties;
 
     return properties.toSource() === '({})' ? undefined : properties;
 }
 
 function _getEffects(layer: AVLayer | TextLayer | ShapeLayer): AexProperties[] {
     const effectsGroup = layer.effect;
-    let effects = [];
+    const effects = [];
+
     for (let ii = 1, il = effectsGroup.numProperties; ii <= il; ii++) {
         const effect = effectsGroup.property(ii) as PropertyGroup;
 
@@ -150,7 +153,7 @@ function _getAexLayerMasks(layer: Layer): AexProperties[] {
 }
 
 function _getAexLayerMarkers(layer: Layer, options: AexOptions) {
-    // Is marker a scalar or an array?
+    // zlovatt: Is marker a scalar or an array?
     if (layer.marker.isModified) {
         return getAexMarkerProperties(layer.marker);
     } else {
@@ -163,10 +166,10 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
 
     const name = layer.name;
     const label = layer.label;
-    let layerType = 'Layer' as AexLayerType;
+    const layerType = 'Layer';
 
     const comment = getModifiedValue(layer.comment, '');
-    let hasVideo = getModifiedValue(layer.hasVideo, true);
+    const hasVideo = getModifiedValue(layer.hasVideo, true);
     const inPoint = getModifiedValue(layer.inPoint, 0);
     const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
     const startTime = getModifiedValue(layer.startTime, 0);
@@ -324,6 +327,7 @@ function _getTransform(layer: Layer): AexTransform {
     let xRotation;
     let yRotation;
 
+    // zlovatt: What does this if condition convey?
     if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
         pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
         orientation = getModifiedProperty(transformGroup.orientation);
