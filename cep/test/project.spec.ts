@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
+import { AEX_FOLDER, AEX_SOLID } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Project', function () {
@@ -24,13 +25,13 @@ describe('Project', function () {
         expect(result)
             .property('items')
             .to.eql([
-                { itemType: 'Folder', name: 'Solids' },
+                { type: AEX_FOLDER, name: 'Solids' },
                 {
                     duration: 0,
                     folder: 'Solids',
                     frameRate: 0,
                     height: 500,
-                    itemType: 'Solid',
+                    type: AEX_SOLID,
                     name: 'Black Solid 1',
                     pixelAspect: 1,
                     width: 500,
@@ -48,11 +49,11 @@ describe('Project', function () {
             .property('items')
             .to.eql([
                 {
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Folder A',
                 },
                 {
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Solids',
                 },
             ]);
@@ -68,22 +69,22 @@ describe('Project', function () {
             .property('items')
             .to.eql([
                 {
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Solids',
                 },
                 {
                     folder: 'Solids',
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Folder A',
                 },
                 {
                     folder: 'Folder A',
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Folder C',
                 },
                 {
                     folder: 'Solids',
-                    itemType: 'Folder',
+                    type: AEX_FOLDER,
                     name: 'Folder B',
                 },
             ]);

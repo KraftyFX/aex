@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
+import { AEX_COMP } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Comp', function () {
@@ -29,10 +30,9 @@ describe('Comp', function () {
                     duration: 4,
                     frameRate: 60,
                     height: 720,
-                    itemType: 'Comp',
                     name: 'Comp 1',
                     pixelAspect: 1,
-                    type: 'aex:comp',
+                    type: AEX_COMP,
                     width: 1280,
                 },
             ]);

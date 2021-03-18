@@ -1,14 +1,17 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
-type AexSerialized = AexProject | AexComp | AexLayer;
+type AexSerialized = AexProject | AexItem | AexLayer;
 
+type AexObjectType = 'aex:project' | AexItemType | 'aex:layer';
+type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
+type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
+type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
-type AexItemType = 'Folder' | 'Footage' | 'Comp' | 'Solid' | 'Placeholder';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
 interface AexOptions {}
 
 interface AexObject {
-    type: 'aex:project' | 'aex:comp' | 'aex:layer';
+    type: AexObjectType;
 }
 
 interface AexProject extends AexObject {
@@ -16,17 +19,18 @@ interface AexProject extends AexObject {
     comps: AexComp[];
 }
 
-interface AexItemAttributes {
+type AexItem = AexComp | AexFootageItem | AexFolderItem;
+
+interface AexItemBase {
     comment: string;
     label: number;
     name: string;
     folder: string;
-
-    /** AEX-specific properties */
-    itemType: AexItemType;
 }
 
-interface AexAVItemAttributes extends AexItemAttributes {
+interface AexFolderItem extends AexItemBase, AexObject {}
+
+interface AexAVItemBase extends AexItemBase {
     duration: number;
     frameRate: number;
     height: number;
@@ -34,30 +38,7 @@ interface AexAVItemAttributes extends AexItemAttributes {
     width: number;
 }
 
-interface AexCompItemAttributes extends AexAVItemAttributes {
-    bgColor: number[];
-    displayStartFrame: number;
-    displayStartTime: number;
-    draft3d: boolean;
-    dropFrame: boolean;
-    frameBlending: boolean;
-    hideShyLayers: boolean;
-    motionBlur: boolean;
-    motionBlurAdaptiveSampleLimit: number;
-    motionBlurSamplesPerFrame: number;
-    preserveNestedFrameRate: boolean;
-    preserveNestedResolution: boolean;
-    renderer: string;
-    resolutionFactor: number[];
-    shutterAngle: number;
-    shutterPhase: number;
-    workAreaDuration: number;
-    workAreaStart: number;
-}
-
-interface AexItem extends Partial<AexFootageItemAttributes>, Partial<AexComp> {}
-
-interface AexFootageItemAttributes extends AexAVItemAttributes, AexFileSourceAttributes, AexSolidSourceAttributes {
+interface AexFootageItem extends AexAVItemBase, AexObject {
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -77,7 +58,25 @@ interface AexSolidSourceAttributes {
     color: number[];
 }
 
-interface AexComp extends AexObject, AexCompItemAttributes {
+interface AexComp extends AexAVItemBase, AexObject {
+    bgColor: number[];
+    displayStartFrame: number;
+    displayStartTime: number;
+    draft3d: boolean;
+    dropFrame: boolean;
+    frameBlending: boolean;
+    hideShyLayers: boolean;
+    motionBlur: boolean;
+    motionBlurAdaptiveSampleLimit: number;
+    motionBlurSamplesPerFrame: number;
+    preserveNestedFrameRate: boolean;
+    preserveNestedResolution: boolean;
+    renderer: string;
+    resolutionFactor: number[];
+    shutterAngle: number;
+    shutterPhase: number;
+    workAreaDuration: number;
+    workAreaStart: number;
     layers: AexLayer[];
     markers: AexMarkerProperty[];
     essentialProps: any[];
