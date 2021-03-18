@@ -180,8 +180,7 @@ function _getAexCompLayers(comp: CompItem, options: AexOptions) {
         layers.push(layerData);
     });
 
-    // TODO: Why make this undefined vs an empty array?
-    return layers.length === 0 ? undefined : layers;
+    return layers;
 }
 
 function _getAexCompMarkers(comp: CompItem) {

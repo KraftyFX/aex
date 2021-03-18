@@ -30,6 +30,7 @@ describe('Comp', function () {
                     duration: 4,
                     frameRate: 60,
                     height: 720,
+                    layers: [],
                     markers: [],
                     name: 'Comp 1',
                     pixelAspect: 1,
