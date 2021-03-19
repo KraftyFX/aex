@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
+import { AEX_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Layer', function () {
@@ -32,7 +33,7 @@ describe('Layer', function () {
             name: 'Camera',
             properties: {},
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[1]).to.eql({
             label: 1,
@@ -66,7 +67,7 @@ describe('Layer', function () {
             },
             solo: true,
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[2]).to.eql({
             label: 1,
@@ -78,7 +79,7 @@ describe('Layer', function () {
             properties: {},
             transform: {},
             source: 'null 1:50',
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[3]).to.eql({
             inPoint: 0.5,
@@ -91,7 +92,7 @@ describe('Layer', function () {
             outPoint: 3.06666666666667,
             properties: {},
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[4]).to.eql({
             adjustmentLayer: true,
@@ -110,7 +111,7 @@ describe('Layer', function () {
             source: 'null 1:50',
             threeDLayer: true,
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[5]).to.eql({
             blendingMode: 5216,
@@ -125,7 +126,7 @@ describe('Layer', function () {
             source: 'null 1:50',
             stretch: 25,
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[6]).to.eql({
             label: 1,
@@ -144,7 +145,7 @@ describe('Layer', function () {
                     value: [0, 0, 0],
                 },
             },
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
     });
 
@@ -213,7 +214,7 @@ describe('Layer', function () {
                 },
             },
             transform: {},
-            type: 'aex:layer',
+            type: AEX_LAYER,
         });
         expect(result.comps[0].layers[1]).property('lightType').to.eql(4413);
         expect(result.comps[0].layers[2]).property('lightType').to.eql(4414);
@@ -319,7 +320,7 @@ describe('Layer', function () {
                         value: [100, 200, 300],
                     },
                 },
-                type: 'aex:layer',
+                type: AEX_LAYER,
             });
     });
 
@@ -1108,7 +1109,7 @@ describe('Layer', function () {
                     name: 'Camera',
                     properties: {},
                     transform: {},
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 6,
@@ -1119,7 +1120,7 @@ describe('Layer', function () {
                     name: 'Light',
                     properties: {},
                     transform: {},
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 1,
@@ -1132,7 +1133,7 @@ describe('Layer', function () {
                     source: 'null 1:50',
                     threeDLayer: true,
                     transform: {},
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 1,
@@ -1144,7 +1145,7 @@ describe('Layer', function () {
                     properties: {},
                     source: 'null 1:50',
                     transform: {},
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
             ]);
         });
@@ -1196,7 +1197,7 @@ describe('Layer', function () {
                             value: -3600,
                         },
                     },
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 6,
@@ -1214,7 +1215,7 @@ describe('Layer', function () {
                             value: [100, 200, 300],
                         },
                     },
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 1,
@@ -1277,7 +1278,7 @@ describe('Layer', function () {
                             value: -3600,
                         },
                     },
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
                 {
                     label: 1,
@@ -1320,7 +1321,7 @@ describe('Layer', function () {
                             value: [10, 20, 100],
                         },
                     },
-                    type: 'aex:layer',
+                    type: AEX_LAYER,
                 },
             ]);
         });
