@@ -141,6 +141,8 @@ function _getItemAttributes(item: Item) {
         comment: getModifiedValue(item.comment, ''),
         label: getModifiedValue(item.label, 15), // What is the significance of 15?
         folder,
+
+        aexid: generateItemUID(item),
     };
 }
 
@@ -183,4 +185,8 @@ function _getAexCompLayers(comp: CompItem, options: AexOptions) {
 
 function _getAexCompMarkers(comp: CompItem) {
     return getAexMarkerProperties(comp.markerProperty);
+}
+
+function generateItemUID(item: Item): string {
+    return `${item.name.toLowerCase()}:${item.id}`;
 }

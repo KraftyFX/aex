@@ -208,7 +208,7 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 
     /** @todo Handle track matte */
     /** @todo Handle source */
-    const source = layer.source;
+    const source = generateItemUID(layer.source);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
     const audioEnabled = getModifiedValue(layer.audioEnabled, true);
@@ -230,6 +230,8 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 
     return {
         ...layerAttributes,
+
+        source,
 
         adjustmentLayer,
         audioEnabled,

@@ -25,8 +25,13 @@ describe('Project', function () {
         expect(result)
             .property('items')
             .to.eql([
-                { type: AEX_FOLDER, name: 'Solids' },
                 {
+                    aexid: 'solids:37',
+                    type: AEX_FOLDER,
+                    name: 'Solids',
+                },
+                {
+                    aexid: 'black solid 1:38',
                     duration: 0,
                     folder: 'Solids',
                     frameRate: 0,
@@ -49,10 +54,12 @@ describe('Project', function () {
             .property('items')
             .to.eql([
                 {
+                    aexid: 'folder a:52',
                     type: AEX_FOLDER,
                     name: 'Folder A',
                 },
                 {
+                    aexid: 'solids:49',
                     type: AEX_FOLDER,
                     name: 'Solids',
                 },
@@ -69,20 +76,24 @@ describe('Project', function () {
             .property('items')
             .to.eql([
                 {
+                    aexid: 'solids:49',
                     type: AEX_FOLDER,
                     name: 'Solids',
                 },
                 {
+                    aexid: 'folder a:52',
                     folder: 'Solids',
                     type: AEX_FOLDER,
                     name: 'Folder A',
                 },
                 {
+                    aexid: 'folder c:55',
                     folder: 'Folder A',
                     type: AEX_FOLDER,
                     name: 'Folder C',
                 },
                 {
+                    aexid: 'folder b:54',
                     folder: 'Solids',
                     type: AEX_FOLDER,
                     name: 'Folder B',

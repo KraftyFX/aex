@@ -27,6 +27,7 @@ describe('Comp', function () {
             .property('comps')
             .to.eql([
                 {
+                    aexid: 'comp 1:1',
                     duration: 4,
                     frameRate: 60,
                     height: 720,

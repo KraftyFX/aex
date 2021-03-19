@@ -77,6 +77,7 @@ describe('Layer', function () {
             nullLayer: true,
             properties: {},
             transform: {},
+            source: 'null 1:50',
             type: 'aex:layer',
         });
         expect(result.comps[0].layers[3]).to.eql({
@@ -106,6 +107,7 @@ describe('Layer', function () {
             properties: {},
             samplingQuality: 4813,
             shy: true,
+            source: 'null 1:50',
             threeDLayer: true,
             transform: {},
             type: 'aex:layer',
@@ -120,6 +122,7 @@ describe('Layer', function () {
             nullLayer: true,
             outPoint: 1,
             properties: {},
+            source: 'null 1:50',
             stretch: 25,
             transform: {},
             type: 'aex:layer',
@@ -132,6 +135,7 @@ describe('Layer', function () {
             name: 'Parented Solid',
             parentLayerIndex: 5,
             properties: {},
+            source: 'parented solid:61',
             transform: {
                 position: {
                     keys: [],
@@ -1125,6 +1129,7 @@ describe('Layer', function () {
                     name: '3d AV Layer',
                     nullLayer: true,
                     properties: {},
+                    source: 'null 1:50',
                     threeDLayer: true,
                     transform: {},
                     type: 'aex:layer',
@@ -1137,6 +1142,7 @@ describe('Layer', function () {
                     name: '2d AV Layer',
                     nullLayer: true,
                     properties: {},
+                    source: 'null 1:50',
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -1219,6 +1225,7 @@ describe('Layer', function () {
                     nullLayer: true,
                     properties: {},
                     threeDLayer: true,
+                    source: 'null 1:50',
                     transform: {
                         anchorPoint: {
                             keys: [],
@@ -1280,6 +1287,7 @@ describe('Layer', function () {
                     name: '2d AV Layer',
                     nullLayer: true,
                     properties: {},
+                    source: 'null 1:50',
                     transform: {
                         anchorPoint: {
                             keys: [],
