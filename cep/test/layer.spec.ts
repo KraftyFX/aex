@@ -23,138 +23,125 @@ describe('Layer', function () {
 
         console.log('layer_basic', result);
         expect(result).property('comps').to.be.of.length(1);
-        expect(result.comps[0])
-            .property('layers')
-            .to.eql([
-                {
-                    label: 4,
-                    layerType: 'CameraLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Camera',
-                    properties: {
-                        cameraOption: {},
+        expect(result.comps[0]).property('layers').to.be.of.length(7);
+        expect(result.comps[0].layers[0]).to.eql({
+            label: 4,
+            layerType: 'CameraLayer',
+            markers: [],
+            masks: [],
+            name: 'Camera',
+            properties: {},
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[1]).to.eql({
+            label: 1,
+            layerType: 'TextLayer',
+            markers: [],
+            masks: [],
+            name: 'Solo Text Layer',
+            properties: {
+                sourceText: {
+                    keys: [],
+                    matchName: 'ADBE Text Document',
+                    name: 'Source Text',
+                    value: {
+                        applyFill: true,
+                        baselineLocs: [-115.33203125, 0, 115.33203125, 0],
+                        baselineShift: 0,
+                        fillColor: [1, 1, 1],
+                        font: 'ArialMT',
+                        fontFamily: 'Arial',
+                        fontSize: 50,
+                        fontStyle: 'Regular',
+                        horizontalScale: 1,
+                        justification: 7415,
+                        leading: 60.0000038146973,
+                        text: 'Text Layer',
+                        tracking: 0,
+                        tsume: 0,
+                        verticalScale: 1,
                     },
-                    transform: {},
-                    type: 'aex:layer',
                 },
-                {
-                    label: 1,
-                    layerType: 'TextLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Solo Text Layer',
-                    properties: {
-                        animators: {},
-                        moreOption: {},
-                        pathOption: {},
-                        sourceText: {
-                            keys: [],
-                            matchName: 'ADBE Text Document',
-                            name: 'Source Text',
-                            value: {
-                                applyFill: true,
-                                baselineLocs: [-115.33203125, 0, 115.33203125, 0],
-                                baselineShift: 0,
-                                fillColor: [1, 1, 1],
-                                font: 'ArialMT',
-                                fontFamily: 'Arial',
-                                fontSize: 50,
-                                fontStyle: 'Regular',
-                                horizontalScale: 1,
-                                justification: 7415,
-                                leading: 60.0000038146973,
-                                text: 'Text Layer',
-                                tracking: 0,
-                                tsume: 0,
-                                verticalScale: 1,
-                            },
-                        },
-                    },
-                    solo: true,
-
-                    transform: {},
-                    type: 'aex:layer',
+            },
+            solo: true,
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[2]).to.eql({
+            label: 1,
+            layerType: 'AVLayer',
+            markers: [],
+            masks: [],
+            name: 'Empty',
+            nullLayer: true,
+            properties: {},
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[3]).to.eql({
+            inPoint: 0.5,
+            label: 1,
+            layerType: 'LightLayer',
+            lightType: 4414,
+            markers: [],
+            masks: [],
+            name: 'Timing Light',
+            outPoint: 3.06666666666667,
+            properties: {},
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[4]).to.eql({
+            adjustmentLayer: true,
+            autoOrient: 4213,
+            collapseTransformation: true,
+            label: 2,
+            layerType: 'AVLayer',
+            markers: [],
+            masks: [],
+            motionBlur: true,
+            name: 'Flags',
+            nullLayer: true,
+            properties: {},
+            samplingQuality: 4813,
+            shy: true,
+            threeDLayer: true,
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[5]).to.eql({
+            blendingMode: 5216,
+            label: 1,
+            layerType: 'AVLayer',
+            markers: [],
+            masks: [],
+            name: 'Blend Stretch',
+            nullLayer: true,
+            outPoint: 1,
+            properties: {},
+            stretch: 25,
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[6]).to.eql({
+            label: 1,
+            layerType: 'AVLayer',
+            markers: [],
+            masks: [],
+            name: 'Parented Solid',
+            parentLayerIndex: 5,
+            properties: {},
+            transform: {
+                position: {
+                    keys: [],
+                    matchName: 'ADBE Position',
+                    name: 'Position',
+                    value: [0, 0, 0],
                 },
-                {
-                    label: 1,
-                    layerType: 'AVLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Empty',
-                    nullLayer: true,
-                    properties: {},
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    inPoint: 0.5,
-                    label: 1,
-                    layerType: 'LightLayer',
-                    lightType: 4414,
-                    markers: [],
-                    masks: [],
-                    name: 'Timing Light',
-                    outPoint: 3.06666666666667,
-                    properties: {
-                        lightOption: {},
-                    },
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    adjustmentLayer: true,
-                    autoOrient: 4213,
-                    collapseTransformation: true,
-                    geometryOption: {},
-                    label: 2,
-                    layerType: 'AVLayer',
-                    markers: [],
-                    masks: [],
-                    materialOption: {},
-                    motionBlur: true,
-                    name: 'Flags',
-                    nullLayer: true,
-                    properties: {},
-                    samplingQuality: 4813,
-                    shy: true,
-                    threeDLayer: true,
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    blendingMode: 5216,
-                    label: 1,
-                    layerType: 'AVLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Blend Stretch',
-                    nullLayer: true,
-                    outPoint: 1,
-                    properties: {},
-                    stretch: 25,
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    label: 1,
-                    layerType: 'AVLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Parented Solid',
-                    parentLayerIndex: 5,
-                    properties: {},
-                    transform: {
-                        position: {
-                            keys: [],
-                            matchName: 'ADBE Position',
-                            name: 'Position',
-                            value: [0, 0, 0],
-                        },
-                    },
-                    type: 'aex:layer',
-                },
-            ]);
+            },
+            type: 'aex:layer',
+        });
     });
 
     it(`Can parse light layer attributes`, async () => {
@@ -165,223 +152,171 @@ describe('Layer', function () {
         expect(result).property('comps').to.be.of.length(1);
 
         console.log('layer_light', result);
-        expect(result.comps[0])
-            .property('layers')
-            .to.eql([
-                {
-                    label: 6,
-                    layerType: 'LightLayer',
-                    lightType: 4412,
-                    markers: [],
-                    masks: [],
-                    name: 'Parallel Light',
-                    properties: {
-                        lightOption: {
-                            'ADBE Casts Shadows': {
-                                keys: [],
-                                matchName: 'ADBE Casts Shadows',
-                                name: 'Casts Shadows',
-                                value: 1,
-                            },
-                            'ADBE Light Color': {
-                                keys: [],
-                                matchName: 'ADBE Light Color',
-                                name: 'Color',
-                                value: [1, 0, 0, 1],
-                            },
-                            'ADBE Light Falloff Distance': {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Distance',
-                                name: 'Falloff Distance',
-                                value: 394,
-                            },
-                            'ADBE Light Falloff Start': {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Start',
-                                name: 'Radius',
-                                value: 453,
-                            },
-                            'ADBE Light Falloff Type': {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Type',
-                                name: 'Falloff',
-                                value: 2,
-                            },
-                            'ADBE Light Intensity': {
-                                keys: [],
-                                matchName: 'ADBE Light Intensity',
-                                name: 'Intensity',
-                                value: 76,
-                            },
-                            'ADBE Light Shadow Darkness': {
-                                keys: [],
-                                matchName: 'ADBE Light Shadow Darkness',
-                                name: 'Shadow Darkness',
-                                value: 42,
-                            },
+        expect(result.comps[0].layers[0]).to.eql({
+            label: 6,
+            layerType: 'LightLayer',
+            lightType: 4412,
+            markers: [],
+            masks: [],
+            name: 'Parallel Light',
+            properties: {
+                lightOption: {
+                    matchName: 'ADBE Light Options Group',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Intensity',
+                            name: 'Intensity',
+                            value: 76,
                         },
-                    },
-                    transform: {},
-                    type: 'aex:layer',
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Color',
+                            name: 'Color',
+                            value: [1, 0, 0, 1],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Type',
+                            name: 'Falloff',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Start',
+                            name: 'Radius',
+                            value: 453,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Distance',
+                            name: 'Falloff Distance',
+                            value: 394,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Casts Shadows',
+                            name: 'Casts Shadows',
+                            value: 1,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Shadow Darkness',
+                            name: 'Shadow Darkness',
+                            value: 42,
+                        },
+                    ],
                 },
-                {
-                    label: 6,
-                    layerType: 'LightLayer',
-                    lightType: 4413,
-                    markers: [],
-                    masks: [],
-                    name: 'Spot Light',
-                    properties: {
-                        lightOption: {},
-                    },
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    label: 6,
-                    layerType: 'LightLayer',
-                    lightType: 4414,
-                    markers: [],
-                    masks: [],
-                    name: 'Point Light',
-                    properties: {
-                        lightOption: {},
-                    },
-                    transform: {},
-                    type: 'aex:layer',
-                },
-                {
-                    label: 6,
-                    layerType: 'LightLayer',
-                    lightType: 4415,
-                    markers: [],
-                    masks: [],
-                    name: 'Ambient Light',
-                    properties: {
-                        lightOption: {},
-                    },
-                    transform: {},
-                    type: 'aex:layer',
-                },
-            ]);
+            },
+            transform: {},
+            type: 'aex:layer',
+        });
+        expect(result.comps[0].layers[1]).property('lightType').to.eql(4413);
+        expect(result.comps[0].layers[2]).property('lightType').to.eql(4414);
+        expect(result.comps[0].layers[3]).property('lightType').to.eql(4415);
     });
 
     it(`Can parse camera layer attributes`, async () => {
         await openProject('testAssets/layer_camera.aep');
 
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        console.log('layer_camera', result);
 
         expect(result).property('comps').to.be.of.length(1);
-
-        console.log('layer_camera', result);
-        expect(result.comps[0])
-            .property('layers')
-            .to.eql([
+        expect(result.comps[0].layers[0].properties.cameraOption).to.eql({
+            matchName: 'ADBE Camera Options Group',
+            properties: [
                 {
-                    label: 4,
-                    layerType: 'CameraLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'One-Node',
-                    properties: {
-                        cameraOption: {
-                            'ADBE Camera Aperture': {
-                                keys: [],
-                                matchName: 'ADBE Camera Aperture',
-                                name: 'Aperture',
-                                value: 3,
-                            },
-                            'ADBE Camera Blur Level': {
-                                keys: [],
-                                matchName: 'ADBE Camera Blur Level',
-                                name: 'Blur Level',
-                                value: 4,
-                            },
-                            'ADBE Camera Focus Distance': {
-                                keys: [],
-                                matchName: 'ADBE Camera Focus Distance',
-                                name: 'Focus Distance',
-                                value: 2,
-                            },
-                            'ADBE Camera Zoom': {
-                                keys: [],
-                                matchName: 'ADBE Camera Zoom',
-                                name: 'Zoom',
-                                value: 1,
-                            },
-                            'ADBE Iris Aspect Ratio': {
-                                keys: [],
-                                matchName: 'ADBE Iris Aspect Ratio',
-                                name: 'Iris Aspect Ratio',
-                                value: 7,
-                            },
-                            'ADBE Iris Diffraction Fringe': {
-                                keys: [],
-                                matchName: 'ADBE Iris Diffraction Fringe',
-                                name: 'Iris Diffraction Fringe',
-                                value: 8,
-                            },
-                            'ADBE Iris Highlight Gain': {
-                                keys: [],
-                                matchName: 'ADBE Iris Highlight Gain',
-                                name: 'Highlight Gain',
-                                value: 9,
-                            },
-                            'ADBE Iris Highlight Threshold': {
-                                keys: [],
-                                matchName: 'ADBE Iris Highlight Threshold',
-                                name: 'Highlight Threshold',
-                                value: 0.03921568627451,
-                            },
-                            'ADBE Iris Hightlight Saturation': {
-                                keys: [],
-                                matchName: 'ADBE Iris Hightlight Saturation',
-                                name: 'Highlight Saturation',
-                                value: 11,
-                            },
-                            'ADBE Iris Rotation': {
-                                keys: [],
-                                matchName: 'ADBE Iris Rotation',
-                                name: 'Iris Rotation',
-                                value: 5,
-                            },
-                            'ADBE Iris Roundness': {
-                                keys: [],
-                                matchName: 'ADBE Iris Roundness',
-                                name: 'Iris Roundness',
-                                value: 6,
-                            },
-                            'ADBE Iris Shape': {
-                                keys: [],
-                                matchName: 'ADBE Iris Shape',
-                                name: 'Iris Shape',
-                                value: 4,
-                            },
-                        },
-                    },
-                    transform: {},
-                    type: 'aex:layer',
+                    keys: [],
+                    matchName: 'ADBE Camera Zoom',
+                    name: 'Zoom',
+                    value: 1,
                 },
                 {
-                    label: 4,
-                    layerType: 'CameraLayer',
-                    markers: [],
-                    masks: [],
-                    name: 'Two-Node',
-                    properties: {
-                        cameraOption: {},
-                    },
-                    transform: {
-                        pointOfInterest: {
-                            keys: [],
-                            matchName: 'ADBE Anchor Point',
-                            name: 'Point of Interest',
-                            value: [100, 200, 300],
-                        },
-                    },
-                    type: 'aex:layer',
+                    keys: [],
+                    matchName: 'ADBE Camera Focus Distance',
+                    name: 'Focus Distance',
+                    value: 2,
                 },
-            ]);
+                {
+                    keys: [],
+                    matchName: 'ADBE Camera Aperture',
+                    name: 'Aperture',
+                    value: 3,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Camera Blur Level',
+                    name: 'Blur Level',
+                    value: 4,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Shape',
+                    name: 'Iris Shape',
+                    value: 4,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Rotation',
+                    name: 'Iris Rotation',
+                    value: 5,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Roundness',
+                    name: 'Iris Roundness',
+                    value: 6,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Aspect Ratio',
+                    name: 'Iris Aspect Ratio',
+                    value: 7,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Diffraction Fringe',
+                    name: 'Iris Diffraction Fringe',
+                    value: 8,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Highlight Gain',
+                    name: 'Highlight Gain',
+                    value: 9,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Highlight Threshold',
+                    name: 'Highlight Threshold',
+                    value: 0.03921568627451,
+                },
+                {
+                    keys: [],
+                    matchName: 'ADBE Iris Hightlight Saturation',
+                    name: 'Highlight Saturation',
+                    value: 11,
+                },
+            ],
+        }),
+            expect(result.comps[0].layers[1]).to.eql({
+                label: 4,
+                layerType: 'CameraLayer',
+                markers: [],
+                masks: [],
+                name: 'Two-Node',
+                properties: {},
+                transform: {
+                    pointOfInterest: {
+                        keys: [],
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Point of Interest',
+                        value: [100, 200, 300],
+                    },
+                },
+                type: 'aex:layer',
+            });
     });
 
     it(`Can parse layer audio`, async () => {
@@ -391,17 +326,18 @@ describe('Layer', function () {
 
         console.log('layer_audio', result);
         expect(result).property('comps').to.be.of.length(1);
-        expect(result.comps[0].layers[0]).property('audio').to.eql({});
-        expect(result.comps[0].layers[1])
-            .property('audio')
-            .to.eql({
-                'ADBE Audio Levels': {
+        expect(result.comps[0].layers[0].audio).to.be.undefined;
+        expect(result.comps[0].layers[1].audio).to.eql({
+            matchName: 'ADBE Audio Group',
+            properties: [
+                {
                     keys: [],
                     matchName: 'ADBE Audio Levels',
                     name: 'Audio Levels',
                     value: [12, 12],
                 },
-            });
+            ],
+        });
     });
 
     describe('Text Properties', async () => {
@@ -414,180 +350,284 @@ describe('Layer', function () {
         });
 
         it('Can parse per-character 3d', async () => {
-            expect(result.comps[0].layers[0]).property('threeDPerChar').to.eql(true);
+            expect(result.comps[0].layers[0].threeDPerChar).to.eql(true);
         });
 
         it('Can parse Text Path Options', async () => {
-            expect(result.comps[0].layers[1].properties)
-                .property('pathOption')
-                .to.eql({
-                    'ADBE Text First Margin': {
-                        name: 'First Margin',
-                        matchName: 'ADBE Text First Margin',
-                        value: 18,
+            expect(result.comps[0].layers[1].properties.pathOption).to.eql({
+                matchName: 'ADBE Text Path Options',
+                properties: [
+                    {
                         keys: [],
-                    },
-                    'ADBE Text Force Align Path': {
-                        name: 'Force Alignment',
-                        matchName: 'ADBE Text Force Align Path',
-                        value: 1,
-                        keys: [],
-                    },
-                    'ADBE Text Last Margin': {
-                        name: 'Last Margin',
-                        matchName: 'ADBE Text Last Margin',
-                        value: 20,
-                        keys: [],
-                    },
-                    'ADBE Text Path': {
-                        name: 'Path',
                         matchName: 'ADBE Text Path',
+                        name: 'Path',
                         value: 1,
-                        keys: [],
                     },
-                    'ADBE Text Reverse Path': {
-                        name: 'Reverse Path',
+                    {
+                        keys: [],
                         matchName: 'ADBE Text Reverse Path',
+                        name: 'Reverse Path',
                         value: 1,
-                        keys: [],
                     },
-                });
+                    {
+                        keys: [],
+                        matchName: 'ADBE Text Force Align Path',
+                        name: 'Force Alignment',
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Text First Margin',
+                        name: 'First Margin',
+                        value: 18,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Text Last Margin',
+                        name: 'Last Margin',
+                        value: 20,
+                    },
+                ],
+            });
         });
 
         it('Can parse Text More Options', async () => {
-            expect(result.comps[0].layers[2].properties)
-                .property('moreOption')
-                .to.eql({
-                    'ADBE Text Anchor Point Align': {
-                        name: 'Grouping Alignment',
-                        matchName: 'ADBE Text Anchor Point Align',
-                        value: [18, 20],
+            expect(result.comps[0].layers[2].properties.moreOption).to.eql({
+                matchName: 'ADBE Text More Options',
+                properties: [
+                    {
                         keys: [],
-                    },
-                    'ADBE Text Anchor Point Option': {
-                        name: 'Anchor Point Grouping',
                         matchName: 'ADBE Text Anchor Point Option',
+                        name: 'Anchor Point Grouping',
                         value: 2,
-                        keys: [],
                     },
-                    'ADBE Text Character Blend Mode': {
-                        name: 'Inter-Character Blending',
-                        matchName: 'ADBE Text Character Blend Mode',
-                        value: 9,
+                    {
                         keys: [],
+                        matchName: 'ADBE Text Anchor Point Align',
+                        name: 'Grouping Alignment',
+                        value: [18, 20],
                     },
-                    'ADBE Text Render Order': {
-                        name: 'Fill & Stroke',
+                    {
+                        keys: [],
                         matchName: 'ADBE Text Render Order',
+                        name: 'Fill & Stroke',
                         value: 2,
-                        keys: [],
                     },
-                });
+                    {
+                        keys: [],
+                        matchName: 'ADBE Text Character Blend Mode',
+                        name: 'Inter-Character Blending',
+                        value: 9,
+                    },
+                ],
+            });
         });
 
         it('Can parse Text Animators', async () => {
-            expect(result.comps[1].layers[0].properties)
-                .property('animators')
-                .to.eql({
-                    'ADBE Text Animator': {
-                        'ADBE Text Animator Properties': {},
-                        'ADBE Text Selectors': {
-                            'ADBE Text Selector': {
-                                'ADBE Text Range Advanced': {},
-                            },
-                        },
-                    },
-                });
-            expect(result.comps[1].layers[1].properties)
-                .property('animators')
-                .to.eql({
-                    'ADBE Text Animator': {
-                        'ADBE Text Animator Properties': {
-                            'ADBE Text Position 3D': {
-                                keys: [],
-                                matchName: 'ADBE Text Position 3D',
-                                name: 'Position',
-                                value: [0, 100, 0],
-                            },
-                        },
-                        'ADBE Text Selectors': {
-                            'ADBE Text Selector': {
-                                'ADBE Text Percent Start': {
-                                    keys: [
-                                        {
-                                            value: 0,
-                                            time: 0,
-                                            interpolationType: {},
-                                            temporalEase: {
-                                                inEase: [{ influence: 16.666666667, speed: 0 }],
-                                                outEase: [{ influence: 16.666666667, speed: 50 }],
+            expect(result.comps[1].layers[0].properties).to.not.have.property('animators');
+            expect(result.comps[1].layers[1].properties.animators).to.eql({
+                matchName: 'ADBE Text Animators',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Anim 1 Selector 1',
+                                        properties: [
+                                            {
+                                                name: 'Start',
+                                                matchName: 'ADBE Text Percent Start',
+                                                value: 20,
+                                                keys: [],
                                             },
-                                        },
-                                        {
-                                            value: 100,
-                                            time: 2,
-                                            interpolationType: {},
-                                            temporalEase: {
-                                                inEase: [{ influence: 16.666666667, speed: 50 }],
-                                                outEase: [{ influence: 16.666666667, speed: 0 }],
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        name: 'Position',
+                                        matchName: 'ADBE Text Position 3D',
+                                        value: [100, 200, 0],
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 2',
+                        enabled: false,
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Anim 2 Selector 1',
+                                        properties: [
+                                            {
+                                                name: 'End',
+                                                matchName: 'ADBE Text Percent End',
+                                                value: 50,
+                                                keys: [],
                                             },
-                                        },
-                                    ],
-                                    matchName: 'ADBE Text Percent Start',
-                                    name: 'Start',
-                                    value: 0,
-                                },
-                                'ADBE Text Range Advanced': {},
+                                            {
+                                                matchName: 'ADBE Text Range Advanced',
+                                                properties: [
+                                                    {
+                                                        name: 'Amount',
+                                                        matchName: 'ADBE Text Selector Max Amount',
+                                                        value: 50,
+                                                        keys: [],
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
                             },
-                        },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        name: 'Position',
+                                        matchName: 'ADBE Text Position 3D',
+                                        value: [100, 200, 0],
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
                     },
-                });
-            expect(result.comps[1].layers[2].properties)
-                .property('animators')
-                .to.eql({
-                    'ADBE Text Animator': {
-                        'ADBE Text Animator Properties': {},
-                        'ADBE Text Selectors': {
-                            'ADBE Text Expressible Selector': {
-                                'ADBE Text Expressible Amount': {
-                                    expression: 'timeToFrames(time * 10) * textIndex/textTotal',
-                                    expressionEnabled: true,
-                                    keys: [],
-                                    matchName: 'ADBE Text Expressible Amount',
-                                    name: 'Amount',
-                                    value: [100, 100, 100],
-                                },
+                ],
+            });
+            expect(result.comps[1].layers[2].properties.animators).to.eql({
+                matchName: 'ADBE Text Animators',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Range Selector 1',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Text Percent Start',
+                                                name: 'Start',
+                                                value: 10,
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Range Selector 2',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Text Percent Start',
+                                                name: 'Start',
+                                                value: 20,
+                                            },
+                                        ],
+                                    },
+                                ],
                             },
-                            'ADBE Text Selector': {
-                                'ADBE Text Range Advanced': {},
-                            },
-                        },
+                        ],
                     },
-                });
-            expect(result.comps[1].layers[3].properties)
-                .property('animators')
-                .to.eql({
-                    'ADBE Text Animator': {
-                        'ADBE Text Animator Properties': {
-                            'ADBE Text Tracking Amount': {
-                                keys: [],
-                                matchName: 'ADBE Text Tracking Amount',
-                                name: 'Tracking Amount',
-                                value: 100,
+                ],
+            });
+            expect(result.comps[1].layers[3].properties.animators).to.eql({
+                matchName: 'ADBE Text Animators',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Position Animator',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'A Range Selector',
+                                        properties: [
+                                            {
+                                                name: 'Start',
+                                                matchName: 'ADBE Text Percent Start',
+                                                value: 0,
+                                                keys: [
+                                                    {
+                                                        value: 0,
+                                                        time: 0,
+                                                        interpolationType: {},
+                                                        temporalEase: {
+                                                            inEase: [
+                                                                {
+                                                                    influence: 16.666666667,
+                                                                    speed: 0,
+                                                                },
+                                                            ],
+                                                            outEase: [
+                                                                {
+                                                                    influence: 16.666666667,
+                                                                    speed: 50,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                    {
+                                                        value: 100,
+                                                        time: 2,
+                                                        interpolationType: {},
+                                                        temporalEase: {
+                                                            inEase: [
+                                                                {
+                                                                    influence: 16.666666667,
+                                                                    speed: 50,
+                                                                },
+                                                            ],
+                                                            outEase: [
+                                                                {
+                                                                    influence: 16.666666667,
+                                                                    speed: 0,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
                             },
-                        },
-                        'ADBE Text Selectors': {
-                            'ADBE Text Wiggly Selector': {
-                                'ADBE Text Selector Mode': {
-                                    keys: [],
-                                    matchName: 'ADBE Text Selector Mode',
-                                    name: 'Mode',
-                                    value: 3,
-                                },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Text Position 3D',
+                                        name: 'Position',
+                                        value: [0, 100, 0],
+                                    },
+                                ],
                             },
-                        },
+                        ],
                     },
-                });
+                ],
+            });
         });
     });
 
@@ -1062,9 +1102,7 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Camera',
-                    properties: {
-                        cameraOption: {},
-                    },
+                    properties: {},
                     transform: {},
                     type: 'aex:layer',
                 },
@@ -1075,17 +1113,13 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Light',
-                    properties: {
-                        lightOption: {},
-                    },
+                    properties: {},
                     transform: {},
                     type: 'aex:layer',
                 },
                 {
-                    geometryOption: {},
                     label: 1,
                     layerType: 'AVLayer',
-                    materialOption: {},
                     markers: [],
                     masks: [],
                     name: '3d AV Layer',
@@ -1117,9 +1151,7 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Camera',
-                    properties: {
-                        cameraOption: {},
-                    },
+                    properties: {},
                     transform: {
                         orientation: {
                             keys: [],
@@ -1167,9 +1199,7 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Light',
-                    properties: {
-                        lightOption: {},
-                    },
+                    properties: {},
                     transform: {
                         position: {
                             keys: [],
@@ -1181,7 +1211,6 @@ describe('Layer', function () {
                     type: 'aex:layer',
                 },
                 {
-                    geometryOption: {},
                     label: 1,
                     layerType: 'AVLayer',
                     markers: [],
@@ -1190,7 +1219,6 @@ describe('Layer', function () {
                     nullLayer: true,
                     properties: {},
                     threeDLayer: true,
-                    materialOption: {},
                     transform: {
                         anchorPoint: {
                             keys: [],

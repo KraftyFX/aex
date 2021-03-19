@@ -84,21 +84,55 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
     };
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexProperties {
-    const groupProperties = {};
+function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexPropertyGroup {
+    const properties = [];
 
     for (let ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
         const property = propertyGroup.property(ii);
-        const matchName = property.matchName;
+
+        let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            groupProperties[matchName] = getModifiedProperty(property as Property<any>, valueParser);
+            content = getModifiedProperty(property as Property<any>, valueParser);
         } else {
-            groupProperties[matchName] = getPropertyGroup(property as PropertyGroup, valueParser);
+            content = getPropertyGroup(property as PropertyGroup, valueParser);
+        }
+
+        /**
+         * If we haven't retrieved any data, don't store the property
+         * This helps prevent a _ton_ of objects with empty arrays
+         */
+        if (content) {
+            properties.push(content);
         }
     }
 
-    return groupProperties;
+    /**
+     * If there are no properties at all in this group,
+     * it's default and we can skip it. Preventing empty data.
+     */
+    if (properties.length === 0) {
+        return undefined;
+    }
+
+    /**
+     * If this property group is in an INDEXED_GROUP, the user can specify its name
+     * There's no way to check "isModified" for these names, so we'll dump them no matter what
+     */
+    const name = propertyGroup.parentProperty.propertyType === PropertyType.INDEXED_GROUP ? propertyGroup.name : undefined;
+
+    /**
+     * Some property groups can be enabled/disabled; if this is one, get the value if it's not false.
+     */
+    const enabled = propertyGroup.canSetEnabled ? getModifiedValue(propertyGroup.enabled, true) : undefined;
+
+    return {
+        matchName: propertyGroup.matchName,
+        name: name,
+        enabled: enabled,
+
+        properties,
+    };
 }
 
 function _getPropertyKeys<T>(property: Property<T>, valueParser?: Function): AEQKeyInfo[] {

@@ -139,11 +139,11 @@ interface AexLayer extends AexObject, Partial<AexAVLayerAttributes>, Partial<Aex
     masks: AexProperties[];
     effects: AexProperties[];
 
-    properties: AexProperties;
+    properties: AexProperties | AexTextLayerProperties;
 }
 
 interface AexProperties {
-    [name: string]: AexProperty<any> | AexProperties;
+    [name: string]: AexProperty<any> | AexPropertyGroup | AexPropertyGroup[];
 }
 
 interface AexPropertyBase {
@@ -161,6 +161,10 @@ interface AexProperty<T> extends AexPropertyBase {
     keys: AEQKeyInfo[];
 }
 
+interface AexPropertyGroup extends AexPropertyBase {
+    properties: (AexProperty<any> | AexPropertyGroup)[];
+}
+
 interface AexMarkerProperty {
     time: number;
     comment: string;
@@ -172,6 +176,13 @@ interface AexMarkerProperty {
     parameters: object;
     label: number;
     protectedRegion: boolean;
+}
+
+interface AexTextLayerProperties {
+    sourceText: AexProperty<TextDocument>;
+    pathOption: AexPropertyGroup;
+    moreOption: AexPropertyGroup;
+    animators: AexPropertyGroup;
 }
 
 interface AexTextDocumentProperty {

@@ -1,6 +1,6 @@
 function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     let baseAttributes = {} as AexLayerAttributes;
-    let properties = {} as AexProperties;
+    let properties = {} as AexProperties | AexTextLayerProperties;
 
     let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
 
@@ -292,7 +292,7 @@ function _getLightLayerProperties(layer: LightLayer) {
     };
 }
 
-function _getTextLayerProperties(layer: TextLayer) {
+function _getTextLayerProperties(layer: TextLayer): AexTextLayerProperties {
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
