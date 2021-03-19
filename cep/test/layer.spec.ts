@@ -75,6 +75,7 @@ describe('Layer', function () {
                 type: AEX_LAYER,
             });
         });
+
         it(`Can parse basic AVLayer properties`, async () => {
             expect(result.comps[0].layers[2]).to.eql({
                 label: 1,
@@ -89,6 +90,7 @@ describe('Layer', function () {
                 type: AEX_LAYER,
             });
         });
+
         it(`Can parse basic LightLayer properties`, async () => {
             expect(result.comps[0].layers[3]).to.eql({
                 inPoint: 0.5,
@@ -168,162 +170,174 @@ describe('Layer', function () {
         });
     });
 
-    it(`Can parse light layer attributes`, async () => {
-        await openProject('testAssets/layer_light.aep');
+    describe('Light Layer Attributes', async () => {
+        let result: any;
 
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-
-        expect(result).property('comps').to.be.of.length(1);
-
-        console.log('layer_light', result);
-        expect(result.comps[0].layers[0]).to.eql({
-            label: 6,
-            layerType: 'LightLayer',
-            lightType: 4412,
-            markers: [],
-            masks: [],
-            name: 'Parallel Light',
-            properties: {
-                lightOption: {
-                    matchName: 'ADBE Light Options Group',
-                    properties: [
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Intensity',
-                            name: 'Intensity',
-                            value: 76,
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Color',
-                            name: 'Color',
-                            value: [1, 0, 0, 1],
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Falloff Type',
-                            name: 'Falloff',
-                            value: 2,
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Falloff Start',
-                            name: 'Radius',
-                            value: 453,
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Falloff Distance',
-                            name: 'Falloff Distance',
-                            value: 394,
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Casts Shadows',
-                            name: 'Casts Shadows',
-                            value: 1,
-                        },
-                        {
-                            keys: [],
-                            matchName: 'ADBE Light Shadow Darkness',
-                            name: 'Shadow Darkness',
-                            value: 42,
-                        },
-                    ],
-                },
-            },
-            transform: {},
-            type: AEX_LAYER,
+        before(async () => {
+            await openProject('testAssets/layer_light.aep');
+            result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+            console.log('layer_light', result);
         });
-        expect(result.comps[0].layers[1]).property('lightType').to.eql(4413);
-        expect(result.comps[0].layers[2]).property('lightType').to.eql(4414);
-        expect(result.comps[0].layers[3]).property('lightType').to.eql(4415);
+
+        it(`Can parse light layer attributes`, async () => {
+            expect(result.comps[0].layers[0]).to.eql({
+                label: 6,
+                layerType: 'LightLayer',
+                lightType: 4412,
+                markers: [],
+                masks: [],
+                name: 'Parallel Light',
+                properties: {
+                    lightOption: {
+                        matchName: 'ADBE Light Options Group',
+                        properties: [
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Intensity',
+                                name: 'Intensity',
+                                value: 76,
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Color',
+                                name: 'Color',
+                                value: [1, 0, 0, 1],
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Type',
+                                name: 'Falloff',
+                                value: 2,
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Start',
+                                name: 'Radius',
+                                value: 453,
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Falloff Distance',
+                                name: 'Falloff Distance',
+                                value: 394,
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Casts Shadows',
+                                name: 'Casts Shadows',
+                                value: 1,
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Light Shadow Darkness',
+                                name: 'Shadow Darkness',
+                                value: 42,
+                            },
+                        ],
+                    },
+                },
+                transform: {},
+                type: AEX_LAYER,
+            });
+        });
+
+        it(`Can parse light layer types`, async () => {
+            expect(result.comps[0].layers[1]).property('lightType').to.eql(4413);
+            expect(result.comps[0].layers[2]).property('lightType').to.eql(4414);
+            expect(result.comps[0].layers[3]).property('lightType').to.eql(4415);
+        });
     });
 
-    it(`Can parse camera layer attributes`, async () => {
-        await openProject('testAssets/layer_camera.aep');
+    describe('Camera Layer Attributes', async () => {
+        let result: any;
 
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_camera', result);
+        before(async () => {
+            await openProject('testAssets/layer_camera.aep');
+            result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+            console.log('layer_camera', result);
+        });
 
-        expect(result).property('comps').to.be.of.length(1);
-        expect(result.comps[0].layers[0].properties.cameraOption).to.eql({
-            matchName: 'ADBE Camera Options Group',
-            properties: [
-                {
-                    keys: [],
-                    matchName: 'ADBE Camera Zoom',
-                    name: 'Zoom',
-                    value: 1,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Camera Focus Distance',
-                    name: 'Focus Distance',
-                    value: 2,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Camera Aperture',
-                    name: 'Aperture',
-                    value: 3,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Camera Blur Level',
-                    name: 'Blur Level',
-                    value: 4,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Shape',
-                    name: 'Iris Shape',
-                    value: 4,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Rotation',
-                    name: 'Iris Rotation',
-                    value: 5,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Roundness',
-                    name: 'Iris Roundness',
-                    value: 6,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Aspect Ratio',
-                    name: 'Iris Aspect Ratio',
-                    value: 7,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Diffraction Fringe',
-                    name: 'Iris Diffraction Fringe',
-                    value: 8,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Highlight Gain',
-                    name: 'Highlight Gain',
-                    value: 9,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Highlight Threshold',
-                    name: 'Highlight Threshold',
-                    value: 0.03921568627451,
-                },
-                {
-                    keys: [],
-                    matchName: 'ADBE Iris Hightlight Saturation',
-                    name: 'Highlight Saturation',
-                    value: 11,
-                },
-            ],
-        }),
+        it(`Can parse camera options`, async () => {
+            expect(result.comps[0].layers[0].properties.cameraOption).to.eql({
+                matchName: 'ADBE Camera Options Group',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Camera Zoom',
+                        name: 'Zoom',
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Camera Focus Distance',
+                        name: 'Focus Distance',
+                        value: 2,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Camera Aperture',
+                        name: 'Aperture',
+                        value: 3,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Camera Blur Level',
+                        name: 'Blur Level',
+                        value: 4,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Shape',
+                        name: 'Iris Shape',
+                        value: 4,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Rotation',
+                        name: 'Iris Rotation',
+                        value: 5,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Roundness',
+                        name: 'Iris Roundness',
+                        value: 6,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Aspect Ratio',
+                        name: 'Iris Aspect Ratio',
+                        value: 7,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Diffraction Fringe',
+                        name: 'Iris Diffraction Fringe',
+                        value: 8,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Highlight Gain',
+                        name: 'Highlight Gain',
+                        value: 9,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Highlight Threshold',
+                        name: 'Highlight Threshold',
+                        value: 0.03921568627451,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Iris Hightlight Saturation',
+                        name: 'Highlight Saturation',
+                        value: 11,
+                    },
+                ],
+            });
+        });
+
+        it(`Can parse 2-point cameras`, async () => {
             expect(result.comps[0].layers[1]).to.eql({
                 label: 4,
                 layerType: 'CameraLayer',
@@ -341,6 +355,7 @@ describe('Layer', function () {
                 },
                 type: AEX_LAYER,
             });
+        });
     });
 
     it(`Can parse layer audio`, async () => {
