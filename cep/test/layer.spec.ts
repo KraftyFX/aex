@@ -462,211 +462,280 @@ describe('Layer', function () {
             });
         });
 
-        it('Can parse Text Animators', async () => {
+        it('Can handle empty Text Animators', async () => {
             expect(result.comps[1].layers[0].properties).to.not.have.property('animators');
-            expect(result.comps[1].layers[1].properties.animators).to.eql({
-                matchName: 'ADBE Text Animators',
-                properties: [
-                    {
-                        matchName: 'ADBE Text Animator',
-                        name: 'Animator 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Text Selectors',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Text Selector',
-                                        name: 'Anim 1 Selector 1',
-                                        properties: [
-                                            {
-                                                name: 'Start',
-                                                matchName: 'ADBE Text Percent Start',
-                                                value: 20,
-                                                keys: [],
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                matchName: 'ADBE Text Animator Properties',
-                                properties: [
-                                    {
-                                        name: 'Position',
-                                        matchName: 'ADBE Text Position 3D',
-                                        value: [100, 200, 0],
-                                        keys: [],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                    {
-                        matchName: 'ADBE Text Animator',
-                        name: 'Animator 2',
-                        enabled: false,
-                        properties: [
-                            {
-                                matchName: 'ADBE Text Selectors',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Text Selector',
-                                        name: 'Anim 2 Selector 1',
-                                        properties: [
-                                            {
-                                                name: 'End',
-                                                matchName: 'ADBE Text Percent End',
-                                                value: 50,
-                                                keys: [],
-                                            },
-                                            {
-                                                matchName: 'ADBE Text Range Advanced',
-                                                properties: [
-                                                    {
-                                                        name: 'Amount',
-                                                        matchName: 'ADBE Text Selector Max Amount',
-                                                        value: 50,
-                                                        keys: [],
+        });
+
+        it('Can parse multiple Text Animators on one layer', async () => {
+            expect(result.comps[1].layers[1].properties.animators.properties).to.eql([
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Animator 1',
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Selector',
+                                    name: 'Anim 1 Selector 1',
+                                    properties: [
+                                        {
+                                            name: 'Start',
+                                            matchName: 'ADBE Text Percent Start',
+                                            value: 20,
+                                            keys: [],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            matchName: 'ADBE Text Animator Properties',
+                            properties: [
+                                {
+                                    name: 'Position',
+                                    matchName: 'ADBE Text Position 3D',
+                                    value: [100, 200, 0],
+                                    keys: [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Animator 2',
+                    enabled: false,
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Selector',
+                                    name: 'Anim 2 Selector 1',
+                                    properties: [
+                                        {
+                                            name: 'End',
+                                            matchName: 'ADBE Text Percent End',
+                                            value: 50,
+                                            keys: [],
+                                        },
+                                        {
+                                            matchName: 'ADBE Text Range Advanced',
+                                            properties: [
+                                                {
+                                                    name: 'Amount',
+                                                    matchName: 'ADBE Text Selector Max Amount',
+                                                    value: 50,
+                                                    keys: [],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            matchName: 'ADBE Text Animator Properties',
+                            properties: [
+                                {
+                                    name: 'Position',
+                                    matchName: 'ADBE Text Position 3D',
+                                    value: [100, 200, 0],
+                                    keys: [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ]);
+        });
+
+        it('Can parse multiple Text Animator Selectors on one layer', async () => {
+            expect(result.comps[1].layers[2].properties.animators.properties).to.eql([
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Animator 1',
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Selector',
+                                    name: 'Range Selector 1',
+                                    properties: [
+                                        {
+                                            keys: [],
+                                            matchName: 'ADBE Text Percent Start',
+                                            name: 'Start',
+                                            value: 10,
+                                        },
+                                    ],
+                                },
+                                {
+                                    matchName: 'ADBE Text Selector',
+                                    name: 'Range Selector 2',
+                                    properties: [
+                                        {
+                                            keys: [],
+                                            matchName: 'ADBE Text Percent Start',
+                                            name: 'Start',
+                                            value: 20,
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ]);
+        });
+
+        it('Can parse Text Animator with animated Range Selector', async () => {
+            expect(result.comps[1].layers[3].properties.animators.properties).to.eql([
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Position Animator',
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Selector',
+                                    name: 'A Range Selector',
+                                    properties: [
+                                        {
+                                            name: 'Start',
+                                            matchName: 'ADBE Text Percent Start',
+                                            value: 0,
+                                            keys: [
+                                                {
+                                                    value: 0,
+                                                    time: 0,
+                                                    interpolationType: {},
+                                                    temporalEase: {
+                                                        inEase: [
+                                                            {
+                                                                influence: 16.666666667,
+                                                                speed: 0,
+                                                            },
+                                                        ],
+                                                        outEase: [
+                                                            {
+                                                                influence: 16.666666667,
+                                                                speed: 50,
+                                                            },
+                                                        ],
                                                     },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                matchName: 'ADBE Text Animator Properties',
-                                properties: [
-                                    {
-                                        name: 'Position',
-                                        matchName: 'ADBE Text Position 3D',
-                                        value: [100, 200, 0],
-                                        keys: [],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            });
-            expect(result.comps[1].layers[2].properties.animators).to.eql({
-                matchName: 'ADBE Text Animators',
-                properties: [
-                    {
-                        matchName: 'ADBE Text Animator',
-                        name: 'Animator 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Text Selectors',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Text Selector',
-                                        name: 'Range Selector 1',
-                                        properties: [
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Text Percent Start',
-                                                name: 'Start',
-                                                value: 10,
-                                            },
-                                        ],
-                                    },
-                                    {
-                                        matchName: 'ADBE Text Selector',
-                                        name: 'Range Selector 2',
-                                        properties: [
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Text Percent Start',
-                                                name: 'Start',
-                                                value: 20,
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            });
-            expect(result.comps[1].layers[3].properties.animators).to.eql({
-                matchName: 'ADBE Text Animators',
-                properties: [
-                    {
-                        matchName: 'ADBE Text Animator',
-                        name: 'Position Animator',
-                        properties: [
-                            {
-                                matchName: 'ADBE Text Selectors',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Text Selector',
-                                        name: 'A Range Selector',
-                                        properties: [
-                                            {
-                                                name: 'Start',
-                                                matchName: 'ADBE Text Percent Start',
-                                                value: 0,
-                                                keys: [
-                                                    {
-                                                        value: 0,
-                                                        time: 0,
-                                                        interpolationType: {},
-                                                        temporalEase: {
-                                                            inEase: [
-                                                                {
-                                                                    influence: 16.666666667,
-                                                                    speed: 0,
-                                                                },
-                                                            ],
-                                                            outEase: [
-                                                                {
-                                                                    influence: 16.666666667,
-                                                                    speed: 50,
-                                                                },
-                                                            ],
-                                                        },
+                                                },
+                                                {
+                                                    value: 100,
+                                                    time: 2,
+                                                    interpolationType: {},
+                                                    temporalEase: {
+                                                        inEase: [
+                                                            {
+                                                                influence: 16.666666667,
+                                                                speed: 50,
+                                                            },
+                                                        ],
+                                                        outEase: [
+                                                            {
+                                                                influence: 16.666666667,
+                                                                speed: 0,
+                                                            },
+                                                        ],
                                                     },
-                                                    {
-                                                        value: 100,
-                                                        time: 2,
-                                                        interpolationType: {},
-                                                        temporalEase: {
-                                                            inEase: [
-                                                                {
-                                                                    influence: 16.666666667,
-                                                                    speed: 50,
-                                                                },
-                                                            ],
-                                                            outEase: [
-                                                                {
-                                                                    influence: 16.666666667,
-                                                                    speed: 0,
-                                                                },
-                                                            ],
-                                                        },
-                                                    },
-                                                ],
-                                            },
-                                        ],
-                                    },
-                                ],
-                            },
-                            {
-                                matchName: 'ADBE Text Animator Properties',
-                                properties: [
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Text Position 3D',
-                                        name: 'Position',
-                                        value: [0, 100, 0],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            });
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            matchName: 'ADBE Text Animator Properties',
+                            properties: [
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Text Position 3D',
+                                    name: 'Position',
+                                    value: [0, 100, 0],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ]);
+        });
+
+        it('Can parse Text Animator with Expression Selector', async () => {
+            expect(result.comps[1].layers[4].properties.animators.properties).to.eql([
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Colour Animator',
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Expressible Selector',
+                                    name: 'An Expression Selector',
+                                    properties: [
+                                        {
+                                            name: 'Amount',
+                                            matchName: 'ADBE Text Expressible Amount',
+                                            value: [100, 100, 100],
+                                            expression: 'timeToFrames(time * 10) * textIndex/textTotal',
+                                            expressionEnabled: true,
+                                            keys: [],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ]);
+        });
+
+        it('Can parse Text Animator with Wiggle Selector', async () => {
+            expect(result.comps[1].layers[5].properties.animators.properties).to.eql([
+                {
+                    matchName: 'ADBE Text Animator',
+                    name: 'Tracking Animator',
+                    properties: [
+                        {
+                            matchName: 'ADBE Text Selectors',
+                            properties: [
+                                {
+                                    matchName: 'ADBE Text Wiggly Selector',
+                                    name: 'A Wiggly Selector',
+                                    properties: [
+                                        {
+                                            name: 'Mode',
+                                            matchName: 'ADBE Text Selector Mode',
+                                            value: 3,
+                                            keys: [],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                        {
+                            matchName: 'ADBE Text Animator Properties',
+                            properties: [
+                                {
+                                    name: 'Tracking Amount',
+                                    matchName: 'ADBE Text Tracking Amount',
+                                    value: 100,
+                                    keys: [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ]);
         });
     });
 
