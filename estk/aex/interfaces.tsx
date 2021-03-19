@@ -1,11 +1,13 @@
 type Serializable = Project | CompItem | Layer | Property<any>;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
-type AexObjectType = 'aex:project' | AexItemType | 'aex:layer';
+type AexObjectType = 'aex:project' | AexItemType | AexLayerType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
 type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
-type AexLayerType = 'Layer' | 'CameraLayer' | 'LightLayer' | 'AVLayer' | 'ShapeLayer' | 'TextLayer';
+
+type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
+type AexAvLayerType = 'aex:layer:av:shape' | 'aex:layer:av:text';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
 interface AexOptions {}
@@ -97,7 +99,6 @@ interface AexLayerAttributes {
 
     /** AEX-specific properties */
     parentLayerIndex: number;
-    layerType: AexLayerType;
 }
 
 interface AexAVLayerAttributes extends AexLayerAttributes {

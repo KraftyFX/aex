@@ -3,15 +3,18 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     let properties = {} as AexProperties | AexTextLayerProperties;
 
     let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
+    let type: AexObjectType;
 
-    if (isVisibleLayer(layer)) {
+    if (aeq.isAVLayer(layer)) {
         if (aeq.isTextLayer(layer)) {
+            type = AEX_TEXT_LAYER;
             baseAttributes = _getTextLayerAttributes(layer);
             properties = _getTextLayerProperties(layer);
         } else if (aeq.isShapeLayer(layer)) {
+            type = AEX_SHAPE_LAYER;
             baseAttributes = _getShapeLayerAttributes(layer);
         } else {
-            baseAttributes = _getAVLayerAttributes(layer);
+            throw new Error(`Unrecognized AVLayer Type`);
         }
 
         if (layer.timeRemapEnabled) {
@@ -35,9 +38,11 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
             effects = _getEffects(layer);
         }
     } else if (aeq.isLightLayer(layer)) {
+        type = AEX_LIGHT_LAYER;
         baseAttributes = _getLightLayerAttributes(layer);
         properties = _getLightLayerProperties(layer);
     } else if (aeq.isCameraLayer(layer)) {
+        type = AEX_CAMERA_LAYER;
         baseAttributes = _getCameraLayerAttributes(layer);
         properties = _getCameraLayerProperties(layer);
     } else {
@@ -45,7 +50,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     }
 
     const aexLayer: AexLayer = {
-        type: AEX_LAYER,
+        type,
 
         ...baseAttributes,
         properties,
@@ -83,7 +88,7 @@ function _getProperties(layer: Layer): AexProperties {
     return properties.toSource() === '({})' ? undefined : properties;
 }
 
-function _getEffects(layer: AVLayer | TextLayer | ShapeLayer): AexProperties[] {
+function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
     const effectsGroup = layer.effect;
     const effects = [];
 
@@ -170,7 +175,6 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
 
     const name = layer.name;
     const label = layer.label;
-    const layerType = 'Layer';
 
     const comment = getModifiedValue(layer.comment, '');
     const hasVideo = getModifiedValue(layer.hasVideo, true);
@@ -187,7 +191,6 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
     return {
         name,
         label,
-        layerType,
 
         comment,
         hasVideo,
@@ -204,7 +207,6 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
 
 function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
     const layerAttributes = _getLayerAttributes(layer);
-    layerAttributes.layerType = 'AVLayer';
 
     /** @todo Handle track matte */
     /** @todo Handle source */
@@ -253,7 +255,6 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 
 function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
     const layerAttributes = _getLayerAttributes(layer);
-    layerAttributes.layerType = 'LightLayer';
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
     const lightType = layer.lightType;
@@ -265,7 +266,6 @@ function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
 
 function _getCameraLayerAttributes(layer: CameraLayer): AexLayerAttributes {
     const layerAttributes = _getLayerAttributes(layer);
-    layerAttributes.layerType = 'CameraLayer';
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
     return {
@@ -275,7 +275,6 @@ function _getCameraLayerAttributes(layer: CameraLayer): AexLayerAttributes {
 
 function _getShapeLayerAttributes(layer: ShapeLayer): AexLayerAttributes {
     const layerAttributes = _getLayerAttributes(layer);
-    layerAttributes.layerType = 'ShapeLayer';
 
     return {
         ...layerAttributes,
@@ -284,7 +283,6 @@ function _getShapeLayerAttributes(layer: ShapeLayer): AexLayerAttributes {
 
 function _getTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
     const layerAttributes = _getLayerAttributes(layer);
-    layerAttributes.layerType = 'TextLayer';
 
     const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
     return {
