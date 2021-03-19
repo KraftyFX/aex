@@ -321,24 +321,14 @@ function _getTransform(layer: Layer): AexTransform {
     const anchorPoint = getModifiedProperty(transformGroup.anchorPoint);
     const position = getModifiedProperty(transformGroup.position);
     const scale = getModifiedProperty(transformGroup.scale);
-    let rotation = getModifiedProperty(transformGroup.rotation);
     const opacity = getModifiedProperty(transformGroup.opacity);
 
     // 3d & Camera properties
-    let pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
-    let orientation = getModifiedProperty(transformGroup.orientation);
-    let xRotation = getModifiedProperty(transformGroup.xRotation);
-    let yRotation = getModifiedProperty(transformGroup.yRotation);
-
-    /**
-     * For 3d layers (or camera/lights), we want to use the zRotation property
-     * for 'rotation' instead of the standard 'rotation' property.
-     *
-     * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
-     */
-    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-        rotation = getModifiedProperty(transformGroup.zRotation);
-    }
+    const pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
+    const orientation = getModifiedProperty(transformGroup.orientation);
+    const xRotation = getModifiedProperty(transformGroup.xRotation);
+    const yRotation = getModifiedProperty(transformGroup.yRotation);
+    const rotation = getZRotation(layer, transformGroup);
 
     return {
         anchorPoint,
@@ -351,4 +341,18 @@ function _getTransform(layer: Layer): AexTransform {
         xRotation,
         yRotation,
     };
+}
+
+/**
+ * For 3d layers (or camera/lights), we want to use the zRotation property
+ * for 'rotation' instead of the standard 'rotation' property.
+ *
+ * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
+ */
+function getZRotation(layer: Layer, transformGroup: _TransformGroup) {
+    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
+        return getModifiedProperty(transformGroup.zRotation);
+    } else {
+        return getModifiedProperty(transformGroup.rotation);
+    }
 }
