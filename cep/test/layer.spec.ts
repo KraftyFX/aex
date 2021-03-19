@@ -740,222 +740,162 @@ describe('Layer', function () {
             console.log('layer_masks', result);
         });
 
-        it('Can parse simple masks', async () => {
-            expect(result.comps[0].layers[0])
-                .property('masks')
-                .to.eql([
-                    {
-                        color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
-                        maskPath: {
-                            keys: [],
-                            matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
-                            value: {
-                                closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
-                                inTangents: [
-                                    [96.5352172851562, 0],
-                                    [0, -96.5352172851562],
-                                    [-96.5352020263672, 0],
-                                    [0, 96.5351867675781],
-                                ],
-                                outTangents: [
-                                    [-96.5352020263672, 0],
-                                    [0, 96.5351867675781],
-                                    [96.5352172851562, 0],
-                                    [0, -96.5352172851562],
-                                ],
-                                vertices: [
-                                    [279.849060058594, 92.3773651123047],
-                                    [105.056610107422, 267.169830322266],
-                                    [279.849060058594, 441.962280273438],
-                                    [454.641540527344, 267.169830322266],
-                                ],
-                            },
-                        },
-                        name: 'Basic',
+        it('Can parse simple mask paths', async () => {
+            expect(result.comps[0].layers[0].masks[0]).to.eql({
+                color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
+                maskPath: {
+                    keys: [],
+                    matchName: 'ADBE Mask Shape',
+                    name: 'Mask Path',
+                    value: {
+                        closed: true,
+                        featherInterps: [],
+                        featherRadii: [],
+                        featherRelCornerAngles: [],
+                        featherRelSegLocs: [],
+                        featherSegLocs: [],
+                        featherTensions: [],
+                        featherTypes: [],
+                        inTangents: [
+                            [96.5352172851562, 0],
+                            [0, -96.5352172851562],
+                            [-96.5352020263672, 0],
+                            [0, 96.5351867675781],
+                        ],
+                        outTangents: [
+                            [-96.5352020263672, 0],
+                            [0, 96.5351867675781],
+                            [96.5352172851562, 0],
+                            [0, -96.5352172851562],
+                        ],
+                        vertices: [
+                            [279.849060058594, 92.3773651123047],
+                            [105.056610107422, 267.169830322266],
+                            [279.849060058594, 441.962280273438],
+                            [454.641540527344, 267.169830322266],
+                        ],
                     },
-                    {
-                        color: [0.55686274509804, 0.17254901960784, 0.60392156862745],
-                        inverted: true,
-                        maskExpansion: {
-                            keys: [],
-                            matchName: 'ADBE Mask Offset',
-                            name: 'Mask Expansion',
-                            value: 23,
-                        },
-                        maskFeather: {
-                            keys: [],
-                            matchName: 'ADBE Mask Feather',
-                            name: 'Mask Feather',
-                            value: [33, 33],
-                        },
-                        maskMode: 6814,
-                        maskOpacity: {
-                            keys: [],
-                            matchName: 'ADBE Mask Opacity',
-                            name: 'Mask Opacity',
-                            value: 73,
-                        },
-                        maskPath: {
-                            keys: [],
-                            matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
-                            value: {
-                                closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
-                                inTangents: [
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                ],
-                                outTangents: [
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                    [0, 0],
-                                ],
-                                vertices: [
-                                    [1552.3017578125, 432.905731201172],
-                                    [1381.7353515625, 528.466918945312],
-                                    [1206.31774902344, 442.133514404297],
-                                    [1244.49389648438, 633.881958007812],
-                                    [1108.17895507812, 774.03564453125],
-                                    [1302.33947753906, 796.981323242188],
-                                    [1393.50988769531, 969.934204101562],
-                                    [1475.33142089844, 792.367431640625],
-                                    [1667.99279785156, 759.104736328125],
-                                    [1524.40087890625, 626.41650390625],
-                                ],
-                            },
-                        },
-                        name: 'Attributes',
-                    },
-                ]);
+                },
+                name: 'Basic',
+            });
         });
 
-        it('Can parse detailed masks', async () => {
-            expect(result.comps[0].layers[1])
-                .property('masks')
-                .to.eql([
-                    {
-                        color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
-                        maskPath: {
-                            keys: [],
-                            matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
-                            value: {
-                                closed: true,
-                                featherInterps: [0, 0, 0],
-                                featherRadii: [74.2787603454047, 0, 54.6675452679194],
-                                featherRelCornerAngles: [0, 0, 0],
-                                featherRelSegLocs: [0.99291693248793, 0.98317569935943, 0.88107259136291],
-                                featherSegLocs: [1, 2, 3],
-                                featherTensions: [0, 0, 0],
-                                featherTypes: [0, 0, 0],
-                                inTangents: [
-                                    [96.5352172851562, 0],
-                                    [0, -96.5352172851562],
-                                    [-96.5352020263672, 0],
-                                    [0, 96.5351867675781],
-                                ],
-                                outTangents: [
-                                    [-96.5352020263672, 0],
-                                    [0, 96.5351867675781],
-                                    [96.5352172851562, 0],
-                                    [0, -96.5352172851562],
-                                ],
-                                vertices: [
-                                    [279.849060058594, 92.3773651123047],
-                                    [105.056610107422, 267.169830322266],
-                                    [279.849060058594, 441.962280273438],
-                                    [454.641540527344, 267.169830322266],
-                                ],
-                            },
-                        },
-                        name: 'Feather',
+        it('Can parse simple mask attributes', async () => {
+            expect(result.comps[0].layers[0].masks[1]).to.eql({
+                color: [0.55686274509804, 0.17254901960784, 0.60392156862745],
+                inverted: true,
+                maskExpansion: {
+                    keys: [],
+                    matchName: 'ADBE Mask Offset',
+                    name: 'Mask Expansion',
+                    value: 23,
+                },
+                maskFeather: {
+                    keys: [],
+                    matchName: 'ADBE Mask Feather',
+                    name: 'Mask Feather',
+                    value: [33, 33],
+                },
+                maskMode: 6814,
+                maskOpacity: {
+                    keys: [],
+                    matchName: 'ADBE Mask Opacity',
+                    name: 'Mask Opacity',
+                    value: 73,
+                },
+                maskPath: {
+                    keys: [],
+                    matchName: 'ADBE Mask Shape',
+                    name: 'Mask Path',
+                    value: {
+                        closed: true,
+                        featherInterps: [],
+                        featherRadii: [],
+                        featherRelCornerAngles: [],
+                        featherRelSegLocs: [],
+                        featherSegLocs: [],
+                        featherTensions: [],
+                        featherTypes: [],
+                        inTangents: [
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                        ],
+                        outTangents: [
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                            [0, 0],
+                        ],
+                        vertices: [
+                            [1552.3017578125, 432.905731201172],
+                            [1381.7353515625, 528.466918945312],
+                            [1206.31774902344, 442.133514404297],
+                            [1244.49389648438, 633.881958007812],
+                            [1108.17895507812, 774.03564453125],
+                            [1302.33947753906, 796.981323242188],
+                            [1393.50988769531, 969.934204101562],
+                            [1475.33142089844, 792.367431640625],
+                            [1667.99279785156, 759.104736328125],
+                            [1524.40087890625, 626.41650390625],
+                        ],
                     },
-                    {
-                        color: [0.55686274509804, 0.17254901960784, 0.60392156862745],
-                        maskPath: {
-                            keys: [],
-                            matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
-                            value: {
-                                closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
-                                inTangents: [
-                                    [0, 0],
-                                    [73.961669921875, -5.87274169921875],
-                                    [0, 0],
-                                    [0, -56.2312622070312],
-                                    [0, 0],
-                                    [-47.094482421875, -32.6036376953125],
-                                    [0, 0],
-                                    [-53.385986328125, 53.3859252929688],
-                                    [0, 0],
-                                    [21.004638671875, 64.9070434570312],
-                                ],
-                                outTangents: [
-                                    [0, 0],
-                                    [-73.961669921875, 5.87274169921875],
-                                    [0, 0],
-                                    [0, 56.2312622070312],
-                                    [0, 0],
-                                    [47.094482421875, 32.6036376953125],
-                                    [0, 0],
-                                    [53.385986328125, -53.3859252929688],
-                                    [0, 0],
-                                    [-21.004638671875, -64.9070434570312],
-                                ],
-                                vertices: [
-                                    [1552.3017578125, 432.905731201172],
-                                    [1381.7353515625, 528.466918945312],
-                                    [1206.31774902344, 442.133514404297],
-                                    [1244.49389648438, 633.881958007812],
-                                    [1108.17895507812, 774.03564453125],
-                                    [1302.33947753906, 796.981323242188],
-                                    [1393.50988769531, 969.934204101562],
-                                    [1475.33142089844, 792.367431640625],
-                                    [1667.99279785156, 759.104736328125],
-                                    [1524.40087890625, 626.41650390625],
-                                ],
-                            },
-                        },
-                        name: 'Bezier',
+                },
+                name: 'Attributes',
+            });
+        });
+
+        it('Can parse detailed masks with feather', async () => {
+            expect(result.comps[0].layers[1].masks[0]).to.eql({
+                color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
+                maskPath: {
+                    keys: [],
+                    matchName: 'ADBE Mask Shape',
+                    name: 'Mask Path',
+                    value: {
+                        closed: true,
+                        featherInterps: [0, 0, 0],
+                        featherRadii: [74.2787603454047, 0, 54.6675452679194],
+                        featherRelCornerAngles: [0, 0, 0],
+                        featherRelSegLocs: [0.99291693248793, 0.98317569935943, 0.88107259136291],
+                        featherSegLocs: [1, 2, 3],
+                        featherTensions: [0, 0, 0],
+                        featherTypes: [0, 0, 0],
+                        inTangents: [
+                            [96.5352172851562, 0],
+                            [0, -96.5352172851562],
+                            [-96.5352020263672, 0],
+                            [0, 96.5351867675781],
+                        ],
+                        outTangents: [
+                            [-96.5352020263672, 0],
+                            [0, 96.5351867675781],
+                            [96.5352172851562, 0],
+                            [0, -96.5352172851562],
+                        ],
+                        vertices: [
+                            [279.849060058594, 92.3773651123047],
+                            [105.056610107422, 267.169830322266],
+                            [279.849060058594, 441.962280273438],
+                            [454.641540527344, 267.169830322266],
+                        ],
                     },
-                ]);
+                },
+                name: 'Feather',
+            });
         });
 
         it('Can parse animated masks', async () => {
