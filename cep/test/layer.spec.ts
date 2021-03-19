@@ -17,135 +17,154 @@ describe('Layer', function () {
     });
 
     /** Layer tests */
-    it(`Can parse basic layer attributes`, async () => {
-        await openProject('testAssets/layer_basic.aep');
+    describe('Basic Layer Attributes', async () => {
+        let result: any;
 
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-
-        console.log('layer_basic', result);
-        expect(result).property('comps').to.be.of.length(1);
-        expect(result.comps[0]).property('layers').to.be.of.length(7);
-        expect(result.comps[0].layers[0]).to.eql({
-            label: 4,
-            layerType: 'CameraLayer',
-            markers: [],
-            masks: [],
-            name: 'Camera',
-            properties: {},
-            transform: {},
-            type: AEX_LAYER,
+        before(async () => {
+            await openProject('testAssets/layer_basic.aep');
+            result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+            console.log('layer_basic', result);
         });
-        expect(result.comps[0].layers[1]).to.eql({
-            label: 1,
-            layerType: 'TextLayer',
-            markers: [],
-            masks: [],
-            name: 'Solo Text Layer',
-            properties: {
-                sourceText: {
-                    keys: [],
-                    matchName: 'ADBE Text Document',
-                    name: 'Source Text',
-                    value: {
-                        applyFill: true,
-                        baselineLocs: [-115.33203125, 0, 115.33203125, 0],
-                        baselineShift: 0,
-                        fillColor: [1, 1, 1],
-                        font: 'ArialMT',
-                        fontFamily: 'Arial',
-                        fontSize: 50,
-                        fontStyle: 'Regular',
-                        horizontalScale: 1,
-                        justification: 7415,
-                        leading: 60.0000038146973,
-                        text: 'Text Layer',
-                        tracking: 0,
-                        tsume: 0,
-                        verticalScale: 1,
+
+        it(`Can parse basic CameraLayer properties`, async () => {
+            expect(result.comps[0].layers[0]).to.eql({
+                label: 4,
+                layerType: 'CameraLayer',
+                markers: [],
+                masks: [],
+                name: 'Camera',
+                properties: {},
+                transform: {},
+                type: AEX_LAYER,
+            });
+        });
+
+        it(`Can parse basic TextLayer properties`, async () => {
+            expect(result.comps[0].layers[1]).to.eql({
+                label: 1,
+                layerType: 'TextLayer',
+                markers: [],
+                masks: [],
+                name: 'Solo Text Layer',
+                properties: {
+                    sourceText: {
+                        keys: [],
+                        matchName: 'ADBE Text Document',
+                        name: 'Source Text',
+                        value: {
+                            applyFill: true,
+                            baselineLocs: [-115.33203125, 0, 115.33203125, 0],
+                            baselineShift: 0,
+                            fillColor: [1, 1, 1],
+                            font: 'ArialMT',
+                            fontFamily: 'Arial',
+                            fontSize: 50,
+                            fontStyle: 'Regular',
+                            horizontalScale: 1,
+                            justification: 7415,
+                            leading: 60.0000038146973,
+                            text: 'Text Layer',
+                            tracking: 0,
+                            tsume: 0,
+                            verticalScale: 1,
+                        },
                     },
                 },
-            },
-            solo: true,
-            transform: {},
-            type: AEX_LAYER,
+                solo: true,
+                transform: {},
+                type: AEX_LAYER,
+            });
         });
-        expect(result.comps[0].layers[2]).to.eql({
-            label: 1,
-            layerType: 'AVLayer',
-            markers: [],
-            masks: [],
-            name: 'Empty',
-            nullLayer: true,
-            properties: {},
-            transform: {},
-            source: 'null 1:50',
-            type: AEX_LAYER,
+        it(`Can parse basic AVLayer properties`, async () => {
+            expect(result.comps[0].layers[2]).to.eql({
+                label: 1,
+                layerType: 'AVLayer',
+                markers: [],
+                masks: [],
+                name: 'Empty',
+                nullLayer: true,
+                properties: {},
+                transform: {},
+                source: 'null 1:50',
+                type: AEX_LAYER,
+            });
         });
-        expect(result.comps[0].layers[3]).to.eql({
-            inPoint: 0.5,
-            label: 1,
-            layerType: 'LightLayer',
-            lightType: 4414,
-            markers: [],
-            masks: [],
-            name: 'Timing Light',
-            outPoint: 3.06666666666667,
-            properties: {},
-            transform: {},
-            type: AEX_LAYER,
+        it(`Can parse basic LightLayer properties`, async () => {
+            expect(result.comps[0].layers[3]).to.eql({
+                inPoint: 0.5,
+                label: 1,
+                layerType: 'LightLayer',
+                lightType: 4414,
+                markers: [],
+                masks: [],
+                name: 'Timing Light',
+                outPoint: 3.06666666666667,
+                properties: {},
+                transform: {},
+                type: AEX_LAYER,
+            });
         });
-        expect(result.comps[0].layers[4]).to.eql({
-            adjustmentLayer: true,
-            autoOrient: 4213,
-            collapseTransformation: true,
-            label: 2,
-            layerType: 'AVLayer',
-            markers: [],
-            masks: [],
-            motionBlur: true,
-            name: 'Flags',
-            nullLayer: true,
-            properties: {},
-            samplingQuality: 4813,
-            shy: true,
-            source: 'null 1:50',
-            threeDLayer: true,
-            transform: {},
-            type: AEX_LAYER,
+
+        it(`Can parse various Layer flags`, async () => {
+            expect(result.comps[0].layers[4]).to.eql({
+                adjustmentLayer: true,
+                autoOrient: 4213,
+                collapseTransformation: true,
+                label: 2,
+                layerType: 'AVLayer',
+                markers: [],
+                masks: [],
+                motionBlur: true,
+                name: 'Flags',
+                nullLayer: true,
+                properties: {},
+                samplingQuality: 4813,
+                shy: true,
+                source: 'null 1:50',
+                threeDLayer: true,
+                transform: {},
+                type: AEX_LAYER,
+            });
         });
-        expect(result.comps[0].layers[5]).to.eql({
-            blendingMode: 5216,
-            label: 1,
-            layerType: 'AVLayer',
-            markers: [],
-            masks: [],
-            name: 'Blend Stretch',
-            nullLayer: true,
-            outPoint: 1,
-            properties: {},
-            source: 'null 1:50',
-            stretch: 25,
-            transform: {},
-            type: AEX_LAYER,
+
+        it(`Can parse Layer blend mode & time stretch`, async () => {
+            expect(result.comps[0].layers[5]).to.eql({
+                blendingMode: 5216,
+                label: 1,
+                layerType: 'AVLayer',
+                markers: [],
+                masks: [],
+                name: 'Blend Stretch',
+                nullLayer: true,
+                outPoint: 1,
+                properties: {},
+                source: 'null 1:50',
+                stretch: 25,
+                transform: {},
+                type: AEX_LAYER,
+            });
         });
-        expect(result.comps[0].layers[6]).to.eql({
-            label: 1,
-            layerType: 'AVLayer',
-            markers: [],
-            masks: [],
-            name: 'Parented Solid',
-            parentLayerIndex: 5,
-            properties: {},
-            source: 'parented solid:61',
-            transform: {
-                position: {
-                    keys: [],
-                    matchName: 'ADBE Position',
-                    name: 'Position',
-                    value: [0, 0, 0],
+
+        it(`Can parse parented layers`, async () => {
+            expect(result.comps[0].layers[6]).to.eql({
+                label: 1,
+                layerType: 'AVLayer',
+                markers: [],
+                masks: [],
+                name: 'Parented Solid',
+                parentLayerIndex: 5,
+                properties: {},
+                source: 'parented solid:61',
+                transform: {
+                    position: {
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [0, 0, 0],
+                    },
                 },
-            },
-            type: AEX_LAYER,
+                type: AEX_LAYER,
+            });
         });
     });
 
