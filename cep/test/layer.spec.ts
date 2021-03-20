@@ -1662,7 +1662,6 @@ describe('Layer', function () {
             await openProject('testAssets/layer_styles.aep');
             result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
             console.log('layer_styles', result);
-            console.log(JSON.stringify(result));
         });
 
         it('Can parse Drop Shadow style', async () => {
