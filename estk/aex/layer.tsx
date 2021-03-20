@@ -26,7 +26,7 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
         }
 
         if (layer.layerStyle.canSetEnabled) {
-            layerStyles = _getLayerStyles(layer);
+            layerStyles = _getLayerStyles(layer.layerStyle);
         }
 
         if (layer.threeDLayer) {
@@ -69,17 +69,46 @@ function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
     return aexLayer;
 }
 
-function _getLayerStyles(layer: AVLayer | TextLayer | ShapeLayer) {
-    const layerStyles = {
-        enabled: layer.layerStyle.enabled,
-        ...getPropertyGroup(layer.layerStyle),
+function _getLayerStyles(styleGroup: PropertyGroup) {
+    const styles = {
+        name: styleGroup.name,
+        matchName: styleGroup.matchName,
+        enabled: styleGroup.enabled,
+        properties: [],
     };
 
-    if (layerStyles.hasOwnProperty('patternFill/enabled')) {
-        delete layerStyles['patternFill/enabled'];
+    if (!styleGroup.canSetEnabled) {
+        return styles;
     }
 
-    return layerStyles;
+    for (var ii = 1, il = styleGroup.numProperties; ii <= il; ii++) {
+        const prop = styleGroup.property(ii);
+        const { name, matchName, enabled, canSetEnabled } = prop;
+
+        /**
+         * Voodoo: We always want to parse the first property in this group
+         *   (it's a general property that affects all the others)
+         *
+         * After that, however, layer styles only really exist in the aep if
+         * 'canSetEnabled' is true.
+         */
+        if (ii > 1 && !canSetEnabled) {
+            continue;
+        }
+
+        const propertyData = getPropertyGroup(prop as PropertyGroup);
+        const properties = propertyData ? propertyData.properties : undefined;
+
+        styles.properties.push({
+            name,
+            matchName,
+            enabled,
+
+            properties,
+        });
+    }
+
+    return styles;
 }
 
 function _getProperties(layer: Layer): AexProperties {
@@ -204,7 +233,7 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 
     /** @todo Handle track matte */
     /** @todo Handle source */
-    const source = layer.source;
+    const source = generateItemUID(layer.source);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
     const audioEnabled = getModifiedValue(layer.audioEnabled, true);
@@ -226,6 +255,8 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
 
     return {
         ...layerAttributes,
+
+        source,
 
         adjustmentLayer,
         audioEnabled,

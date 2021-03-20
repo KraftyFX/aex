@@ -10,6 +10,8 @@ type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
 type AexAvLayerType = 'aex:layer:av:shape' | 'aex:layer:av:text';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
+type AexUID = string;
+
 interface AexOptions {}
 
 interface AexObject {
@@ -28,6 +30,8 @@ interface AexItemBase {
     label: number;
     name: string;
     folder: string;
+
+    aexid: string;
 }
 
 interface AexFolderItem extends AexItemBase, AexObject {}
@@ -102,6 +106,8 @@ interface AexLayerAttributes {
 }
 
 interface AexAVLayerAttributes extends AexLayerAttributes {
+    source: AexUID;
+
     adjustmentLayer: boolean;
     audioEnabled: boolean;
     autoOrient: AutoOrientType;
