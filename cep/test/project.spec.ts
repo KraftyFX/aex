@@ -27,13 +27,14 @@ describe('Project', function () {
             .to.eql([
                 {
                     aexid: 'solids:37',
+                    folder: [],
                     type: AEX_FOLDER,
                     name: 'Solids',
                 },
                 {
                     aexid: 'black solid 1:38',
                     duration: 0,
-                    folder: 'Solids',
+                    folder: ['Solids'],
                     frameRate: 0,
                     height: 500,
                     type: AEX_SOLID,
@@ -55,11 +56,13 @@ describe('Project', function () {
             .to.eql([
                 {
                     aexid: 'folder a:52',
+                    folder: [],
                     type: AEX_FOLDER,
                     name: 'Folder A',
                 },
                 {
                     aexid: 'solids:49',
+                    folder: [],
                     type: AEX_FOLDER,
                     name: 'Solids',
                 },
@@ -77,26 +80,27 @@ describe('Project', function () {
             .to.eql([
                 {
                     aexid: 'solids:49',
-                    type: AEX_FOLDER,
+                    folder: [],
                     name: 'Solids',
+                    type: AEX_FOLDER,
                 },
                 {
                     aexid: 'folder a:52',
-                    folder: 'Solids',
-                    type: AEX_FOLDER,
+                    folder: ['Solids'],
                     name: 'Folder A',
+                    type: AEX_FOLDER,
                 },
                 {
                     aexid: 'folder c:55',
-                    folder: 'Folder A',
-                    type: AEX_FOLDER,
+                    folder: ['Folder A', 'Solids'],
                     name: 'Folder C',
+                    type: AEX_FOLDER,
                 },
                 {
                     aexid: 'folder b:54',
-                    folder: 'Solids',
-                    type: AEX_FOLDER,
+                    folder: ['Solids'],
                     name: 'Folder B',
+                    type: AEX_FOLDER,
                 },
             ]);
     });

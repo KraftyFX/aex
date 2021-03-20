@@ -127,14 +127,14 @@ function _getFolderItem(item: FolderItem): AexFolderItem {
     };
 }
 
-function _getItemAttributes(item: Item) {
-    const { name, parentFolder } = item;
+function _getItemAttributes(item: Item): AexItemBase {
+    const { name } = item;
 
     /**
      * @todo Add AexOption to preserve project folder structure.
      * For now, just get the immediate parent folder name & assume lives in root
      **/
-    const folder = parentFolder.name === 'Root' ? undefined : parentFolder.name;
+    const folder = _getParentFolders(item);
 
     return {
         name,
@@ -159,6 +159,19 @@ function _getAVItemAttributes(item: AVItem): AexAVItemBase {
         pixelAspect,
         width,
     };
+}
+
+function _getParentFolders(item: Item): string[] {
+    const folders = [];
+
+    let parent = item.parentFolder;
+
+    while (parent !== app.project.rootFolder) {
+        folders.push(parent.name);
+        parent = parent.parentFolder;
+    }
+
+    return folders;
 }
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {

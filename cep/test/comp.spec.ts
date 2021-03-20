@@ -29,6 +29,7 @@ describe('Comp', function () {
                 {
                     aexid: 'comp 1:1',
                     duration: 4,
+                    folder: [],
                     frameRate: 60,
                     height: 720,
                     layers: [],
