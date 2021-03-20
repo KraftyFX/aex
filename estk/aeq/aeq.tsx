@@ -29,6 +29,8 @@ __aeq_ipc_invoke = function (id: number, func: () => any, options: { ignoreRetur
             success: false,
             name: e.name,
             message: e.message,
+            fileName: e.fileName,
+            line: e.line,
         });
     }
 

@@ -48,9 +48,15 @@ cs.addEventListener('aeq_result', function (event: any) {
             request.resolve(event.data.result);
         }
     } else {
-        const err: any = new Error(event.data.message);
+        const estkError = event.data;
+        const { name, message, fileName, line } = estkError;
+        const err: any = new Error(message);
+
         err.isEstkError = true;
-        err.name = `(ESTK) ` + event.data.name;
+        err.name = `(ESTK) ` + name;
+        err.line = line;
+        err.fileName = fileName;
+        err.stack = `\n    at ${fileName}:${line}`;
 
         request.reject(err);
     }
