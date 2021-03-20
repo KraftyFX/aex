@@ -29,7 +29,7 @@ interface AexItemBase {
     comment: string;
     label: number;
     name: string;
-    folder: string;
+    folder: string[];
 
     aexid: string;
 }
