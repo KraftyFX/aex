@@ -88,3 +88,13 @@ function isProject(item: any): item is Project {
 function isVisibleLayer(layer: any): layer is AVLayer | TextLayer | ShapeLayer {
     return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
 }
+
+type ForEachPropertyGroupCallback<T extends PropertyGroup> = (effect: T, i: number, length: number) => void;
+
+function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: T, callback: ForEachPropertyGroupCallback<T>) {
+    for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
+        const property = group.property(ii) as PropertyGroup;
+
+        callback(property as T, ii, il);
+    }
+}

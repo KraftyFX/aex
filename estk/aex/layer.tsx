@@ -89,14 +89,9 @@ function _getProperties(layer: Layer): AexProperties {
 }
 
 function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
-    const effectsGroup = layer.effect;
     const effects = [];
 
-    for (let ii = 1, il = effectsGroup.numProperties; ii <= il; ii++) {
-        const effect = effectsGroup.property(ii) as PropertyGroup;
-
-        const { name, matchName, enabled } = effect;
-
+    forEachPropertyInGroup(layer.effect, (effect) => {
         const propertyData = getPropertyGroup(effect);
 
         /**
@@ -112,6 +107,8 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
          */
         const properties = propertyData ? propertyData.properties : undefined;
 
+        const { name, matchName, enabled } = effect;
+
         effects.push({
             name,
             matchName,
@@ -119,22 +116,19 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
 
             properties,
         });
-    }
+    });
+
     return effects;
 }
 
 function _getAexLayerMasks(layer: Layer): AexProperties[] {
-    let masks = [];
+    const masks = [];
 
-    if (!isVisibleLayer(layer)) {
+    if (!aeq.isAVLayer(layer)) {
         return masks;
     }
 
-    let maskGroup = layer.mask;
-
-    for (let ii = 1, il = maskGroup.numProperties; ii <= il; ii++) {
-        const mask = maskGroup.property(ii) as MaskPropertyGroup;
-
+    forEachPropertyInGroup<MaskPropertyGroup>(layer.mask, (mask) => {
         const { name, color } = mask;
 
         const maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
@@ -161,7 +155,7 @@ function _getAexLayerMasks(layer: Layer): AexProperties[] {
             maskOpacity,
             maskExpansion,
         });
-    }
+    });
 
     return masks;
 }
