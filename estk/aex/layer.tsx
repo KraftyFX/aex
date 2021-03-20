@@ -1,72 +1,19 @@
 function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
-    let baseAttributes = {} as AexLayerAttributes;
-    let properties = {} as AexProperties | AexTextLayerProperties;
-
-    let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
-    let type: AexObjectType;
-
-    if (aeq.isAVLayer(layer)) {
+    if (isVisibleLayer(layer)) {
         if (aeq.isTextLayer(layer)) {
-            type = AEX_TEXT_LAYER;
-            baseAttributes = _getTextLayerAttributes(layer);
-            properties = _getTextLayerProperties(layer);
+            return _getTextLayer(layer);
         } else if (aeq.isShapeLayer(layer)) {
-            type = AEX_SHAPE_LAYER;
-            baseAttributes = _getShapeLayerAttributes(layer);
+            return _getShapeLayer(layer);
         } else {
-            throw new Error(`Unrecognized AVLayer Type`);
-        }
-
-        if (layer.timeRemapEnabled) {
-            timeRemap = getModifiedProperty(layer.timeRemap);
-        }
-
-        if (layer.hasAudio) {
-            audio = getPropertyGroup(layer.audio);
-        }
-
-        if (layer.layerStyle.canSetEnabled) {
-            layerStyles = _getLayerStyles(layer.layerStyle);
-        }
-
-        if (layer.threeDLayer) {
-            materialOption = getPropertyGroup(layer.materialOption);
-            geometryOption = getPropertyGroup(layer.geometryOption);
-        }
-
-        if (layer.effect.isModified) {
-            effects = _getEffects(layer);
+            return _getAVLayer(layer);
         }
     } else if (aeq.isLightLayer(layer)) {
-        type = AEX_LIGHT_LAYER;
-        baseAttributes = _getLightLayerAttributes(layer);
-        properties = _getLightLayerProperties(layer);
+        return _getLightLayer(layer);
     } else if (aeq.isCameraLayer(layer)) {
-        type = AEX_CAMERA_LAYER;
-        baseAttributes = _getCameraLayerAttributes(layer);
-        properties = _getCameraLayerProperties(layer);
+        return _getCameraLayer(layer);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
-
-    const aexLayer: AexLayer = {
-        type,
-
-        ...baseAttributes,
-        properties,
-
-        markers: _getAexLayerMarkers(layer),
-        transform: _getTransform(layer),
-        timeRemap,
-        effects,
-        masks: _getAexLayerMasks(layer),
-        audio,
-        layerStyles,
-        materialOption,
-        geometryOption,
-    };
-
-    return aexLayer;
 }
 
 function _getLayerStyles(styleGroup: PropertyGroup) {
@@ -153,7 +100,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
 function _getAexLayerMasks(layer: Layer): AexProperties[] {
     const masks = [];
 
-    if (!aeq.isAVLayer(layer)) {
+    if (!isVisibleLayer(layer)) {
         return masks;
     }
 
@@ -193,7 +140,7 @@ function _getAexLayerMarkers(layer: Layer) {
     return getAexMarkerProperties(layer.marker);
 }
 
-function _getLayerAttributes(layer: Layer): AexLayerAttributes {
+function _getLayerAttributes(layer: Layer): AexLayer {
     const containingComp = layer.containingComp;
 
     const name = layer.name;
@@ -225,10 +172,22 @@ function _getLayerAttributes(layer: Layer): AexLayerAttributes {
         shy,
         solo,
         parentLayerIndex,
+        markers: _getAexLayerMarkers(layer),
+        transform: _getTransform(layer),
+        masks: _getAexLayerMasks(layer),
+
+        // Gets set by derived classes
+        timeRemap: undefined,
+        effects: undefined,
+        audio: undefined,
+        layerStyles: undefined,
+        materialOption: undefined,
+        geometryOption: undefined,
+        properties: undefined,
     };
 }
 
-function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
+function _getAVLayer(layer: AVLayer): AexAVLayer {
     const layerAttributes = _getLayerAttributes(layer);
 
     /** @todo Handle track matte */
@@ -253,6 +212,29 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
     const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
     const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
 
+    let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
+
+    if (layer.timeRemapEnabled) {
+        timeRemap = getModifiedProperty(layer.timeRemap);
+    }
+
+    if (layer.hasAudio) {
+        audio = getPropertyGroup(layer.audio);
+    }
+
+    if (layer.layerStyle.canSetEnabled) {
+        layerStyles = _getLayerStyles(layer.layerStyle);
+    }
+
+    if (layer.threeDLayer) {
+        materialOption = getPropertyGroup(layer.materialOption);
+        geometryOption = getPropertyGroup(layer.geometryOption);
+    }
+
+    if (layer.effect.isModified) {
+        effects = _getEffects(layer);
+    }
+
     return {
         ...layerAttributes,
 
@@ -275,44 +257,66 @@ function _getAVLayerAttributes(layer: AVLayer): AexAVLayerAttributes {
         threeDLayer,
         timeRemapEnabled,
         trackMatteType,
+
+        timeRemap,
+        effects,
+        audio,
+        layerStyles,
+        materialOption,
+        geometryOption,
+
+        // Gets set by derived class
+        type: undefined,
     };
 }
 
-function _getLightLayerAttributes(layer: LightLayer): AexLightLayerAttributes {
+function _getLightLayer(layer: LightLayer): AexLightLayer {
     const layerAttributes = _getLayerAttributes(layer);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
+    const properties = _getLightLayerProperties(layer);
     const lightType = layer.lightType;
+
     return {
+        type: AEX_LIGHT_LAYER,
         ...layerAttributes,
         lightType,
+        properties,
     };
 }
 
-function _getCameraLayerAttributes(layer: CameraLayer): AexLayerAttributes {
+function _getCameraLayer(layer: CameraLayer): AexCameraLayer {
+    const type = AEX_CAMERA_LAYER;
     const layerAttributes = _getLayerAttributes(layer);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
+    const properties = _getCameraLayerProperties(layer);
 
     return {
+        type,
         ...layerAttributes,
+        properties,
     };
 }
 
-function _getShapeLayerAttributes(layer: ShapeLayer): AexLayerAttributes {
-    const layerAttributes = _getLayerAttributes(layer);
+function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
+    const avLayerAttributes = _getAVLayer(layer);
 
     return {
-        ...layerAttributes,
+        type: AEX_SHAPE_LAYER,
+        ...avLayerAttributes,
     };
 }
 
-function _getTextLayerAttributes(layer: TextLayer): AexTextLayerAttributes {
-    const layerAttributes = _getLayerAttributes(layer);
-
+function _getTextLayer(layer: TextLayer): AexTextLayer {
+    const avLayerAttributes = _getAVLayer(layer);
     const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
+    const properties = _getTextLayerProperties(layer);
+
     return {
-        ...layerAttributes,
+        type: AEX_TEXT_LAYER,
+        ...avLayerAttributes,
         threeDPerChar,
+        properties,
     };
 }
 
