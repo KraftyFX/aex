@@ -7,7 +7,7 @@ type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
 type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 
 type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
-type AexAvLayerType = 'aex:layer:av:shape' | 'aex:layer:av:text';
+type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
 type AexUID = string;
@@ -88,7 +88,7 @@ interface AexComp extends AexAVItemBase, AexObject {
     // essentialProps: any[];
 }
 
-interface AexLayerAttributes {
+interface AexLayer {
     name: string;
     label: number;
     comment: string;
@@ -103,9 +103,20 @@ interface AexLayerAttributes {
 
     /** AEX-specific properties */
     parentLayerIndex: number;
-}
+    markers: AexMarkerProperty[];
+    transform: AexTransform;
+    masks: AexProperties[];
 
-interface AexAVLayerAttributes extends AexLayerAttributes {
+    timeRemap: AexProperty<number>;
+    audio: AexProperties;
+    layerStyles: AexProperties;
+    geometryOption: AexProperties;
+    materialOption: AexProperties;
+    effects: AexProperties[];
+
+    properties: AexProperties | AexTextLayerProperties;
+}
+interface AexAVLayer extends AexLayer, AexObject {
     source: AexUID;
 
     adjustmentLayer: boolean;
@@ -127,26 +138,16 @@ interface AexAVLayerAttributes extends AexLayerAttributes {
     trackMatteType: TrackMatteType;
 }
 
-interface AexLightLayerAttributes extends AexLayerAttributes {
+interface AexLightLayer extends AexLayer, AexObject {
     lightType: LightType;
 }
 
-interface AexTextLayerAttributes extends AexLayerAttributes {
+interface AexCameraLayer extends AexLayer, AexObject {}
+
+interface AexShapeLayer extends AexAVLayer, AexObject {}
+
+interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;
-}
-
-interface AexLayer extends AexObject, Partial<AexAVLayerAttributes>, Partial<AexLightLayerAttributes>, Partial<AexTextLayerAttributes> {
-    audio: AexProperties;
-    geometryOption: AexProperties;
-    layerStyles: AexProperties;
-    materialOption: AexProperties;
-    timeRemap: AexProperty<number>;
-    markers: AexMarkerProperty[];
-    transform: AexTransform;
-    masks: AexProperties[];
-    effects: AexProperties[];
-
-    properties: AexProperties | AexTextLayerProperties;
 }
 
 interface AexProperties {
