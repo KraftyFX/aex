@@ -201,5 +201,9 @@ function _getAexCompMarkers(comp: CompItem) {
 }
 
 function generateItemUID(item: Item): string {
-    return `${item.name.toLowerCase()}:${item.id}`;
+    if (!!item) {
+        return `${item.name.toLowerCase()}:${item.id}`;
+    } else {
+        return ``;
+    }
 }
