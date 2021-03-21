@@ -58,7 +58,7 @@ cs.addEventListener('aeq_result', function (event: any) {
         err.name = `(ESTK) ` + name;
         err.line = line;
         err.fileName = fileName;
-        err.stack = `\n    at ${path.basename(fileName)}:${line}\n\n> -------- FILE CONTENTS --------\n${getTextNearLine(
+        err.stack = `\n\n> -------- ${path.basename(fileName)}:${line} --------\n${getTextNearLine(
             fileName,
             line,
             5
