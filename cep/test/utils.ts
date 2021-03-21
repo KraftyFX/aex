@@ -20,7 +20,11 @@ function compareAny(path: string, expected: any, actual: any, differences: strin
     } else if (actual instanceof Object) {
         compareObject(path, expected, actual, differences);
     } else if (expected !== actual) {
-        differences.push(`${path} => ${expected} !== ${actual}`);
+        if (typeof expected === 'string') {
+            differences.push(`${path} => "${expected}" !== "${actual}"`);
+        } else {
+            differences.push(`${path} => ${expected} !== ${actual}`);
+        }
     }
 }
 
