@@ -1,4 +1,6 @@
 import 'file-loader!../_build/panel/all.jsx';
+import * as path from 'path';
+const fs = (window as any).cep_node.require('fs');
 const { CSInterface, SystemPath } = require('exports-loader?CSInterface,CSEvent,SystemPath!../lib/CSInterface.js');
 
 export const cs = new CSInterface();
@@ -56,11 +58,27 @@ cs.addEventListener('aeq_result', function (event: any) {
         err.name = `(ESTK) ` + name;
         err.line = line;
         err.fileName = fileName;
-        err.stack = `\n    at ${fileName}:${line}`;
+        err.stack = `\n    at ${path.basename(fileName)}:${line}\n\n> -------- FILE CONTENTS --------\n${getTextNearLine(
+            fileName,
+            line,
+            5
+        )}\n> --------------------------------`;
 
         request.reject(err);
     }
 });
+
+function getTextNearLine(path: string, line: number, window: number) {
+    const fileContents: string = fs.readFileSync(path.replace('~', '/Users/rafikhan').replace('%20', ' ')).toString();
+    const lines: string[] = fileContents.split('\n').map((v: string, i: number) => '> ' + v);
+
+    lines[line - 1] = lines[line - 1].replace('> ', '* ');
+
+    const start = Math.max(line - window, 0);
+    const end = Math.min(line + window, lines.length);
+
+    return lines.slice(start, end).join('\n');
+}
 
 export function getScriptResult(code: string, options?: { ignoreReturn: boolean }): Promise<void> {
     const request: any = {};
