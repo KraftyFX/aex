@@ -11,3 +11,4 @@ const AEX_SHAPE_LAYER = 'aex:layer:av:shape';
 const AEX_TEXT_LAYER = 'aex:layer:av:text';
 const AEX_CAMERA_LAYER = 'aex:layer:camera';
 const AEX_LIGHT_LAYER = 'aex:layer:light';
+const AEX_NULL_LAYER = 'aex:layer:null';

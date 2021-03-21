@@ -6,7 +6,7 @@ type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
 type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 
-type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
+type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'aex:layer:null';
 type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
 type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
 
@@ -114,7 +114,7 @@ interface AexLayer {
     materialOption: AexProperties;
     effects: AexProperties[];
 
-    properties: AexProperties | AexTextLayerProperties;
+    properties: AexProperties;
 }
 interface AexAVLayer extends AexLayer, AexObject {
     source: AexUID;
@@ -146,8 +146,16 @@ interface AexCameraLayer extends AexLayer, AexObject {}
 
 interface AexShapeLayer extends AexAVLayer, AexObject {}
 
+interface AexNullLayer extends AexLayer, AexObject {}
+
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;
+    properties: {
+        sourceText: AexProperty<TextDocument>;
+        pathOption: AexPropertyGroup;
+        moreOption: AexPropertyGroup;
+        animators: AexPropertyGroup;
+    };
 }
 
 interface AexProperties {
@@ -184,13 +192,6 @@ interface AexMarkerProperty {
     parameters: object;
     label: number;
     protectedRegion: boolean;
-}
-
-interface AexTextLayerProperties {
-    sourceText: AexProperty<TextDocument>;
-    pathOption: AexPropertyGroup;
-    moreOption: AexPropertyGroup;
-    animators: AexPropertyGroup;
 }
 
 interface AexTextDocumentProperty {

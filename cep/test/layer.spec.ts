@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_LAYER } from './constants';
+import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_TEXT_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Layer', function () {
     this.slow(500);
@@ -50,23 +51,23 @@ describe('Layer', function () {
         it(`Can parse basic CameraLayer properties`, async () => {
             expect(result.comps[0].layers[0]).to.eql({
                 label: 4,
-                layerType: 'CameraLayer',
                 markers: [],
                 masks: [],
                 name: 'Camera',
                 properties: {},
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_CAMERA_LAYER,
             });
         });
 
         it(`Can parse basic TextLayer properties`, async () => {
-            expect(result.comps[0].layers[1]).to.eql({
+            assertAreEqual(result.comps[0].layers[1], {
                 label: 1,
-                layerType: 'TextLayer',
                 markers: [],
                 masks: [],
                 name: 'Solo Text Layer',
+                source: '',
+                collapseTransformation: true,
                 properties: {
                     sourceText: {
                         keys: [],
@@ -93,14 +94,13 @@ describe('Layer', function () {
                 },
                 solo: true,
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_TEXT_LAYER,
             });
         });
 
         it(`Can parse basic AVLayer properties`, async () => {
-            expect(result.comps[0].layers[2]).to.eql({
+            assertAreEqual(result.comps[0].layers[2], {
                 label: 1,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 name: 'Empty',
@@ -108,7 +108,7 @@ describe('Layer', function () {
                 properties: {},
                 transform: {},
                 source: 'null 1:50',
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
 
@@ -116,7 +116,6 @@ describe('Layer', function () {
             expect(result.comps[0].layers[3]).to.eql({
                 inPoint: 0.5,
                 label: 1,
-                layerType: 'LightLayer',
                 lightType: 4414,
                 markers: [],
                 masks: [],
@@ -124,17 +123,16 @@ describe('Layer', function () {
                 outPoint: 3.06666666666667,
                 properties: {},
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_LIGHT_LAYER,
             });
         });
 
         it(`Can parse various Layer flags`, async () => {
-            expect(result.comps[0].layers[4]).to.eql({
+            assertAreEqual(result.comps[0].layers[4], {
                 adjustmentLayer: true,
                 autoOrient: 4213,
                 collapseTransformation: true,
                 label: 2,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 motionBlur: true,
@@ -146,15 +144,14 @@ describe('Layer', function () {
                 source: 'null 1:50',
                 threeDLayer: true,
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
 
         it(`Can parse Layer blend mode & time stretch`, async () => {
-            expect(result.comps[0].layers[5]).to.eql({
+            assertAreEqual(result.comps[0].layers[5], {
                 blendingMode: 5216,
                 label: 1,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 name: 'Blend Stretch',
@@ -164,14 +161,13 @@ describe('Layer', function () {
                 source: 'null 1:50',
                 stretch: 25,
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
 
         it(`Can parse parented layers`, async () => {
-            expect(result.comps[0].layers[6]).to.eql({
+            assertAreEqual(result.comps[0].layers[6], {
                 label: 1,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 name: 'Parented Solid',
@@ -186,7 +182,7 @@ describe('Layer', function () {
                         value: [0, 0, 0],
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
     });
@@ -203,7 +199,6 @@ describe('Layer', function () {
         it(`Can parse light layer attributes`, async () => {
             expect(result.comps[0].layers[0]).to.eql({
                 label: 6,
-                layerType: 'LightLayer',
                 lightType: 4412,
                 markers: [],
                 masks: [],
@@ -258,7 +253,7 @@ describe('Layer', function () {
                     },
                 },
                 transform: {},
-                type: AEX_LAYER,
+                type: AEX_LIGHT_LAYER,
             });
         });
 
@@ -361,7 +356,6 @@ describe('Layer', function () {
         it(`Can parse 2-point cameras`, async () => {
             expect(result.comps[0].layers[1]).to.eql({
                 label: 4,
-                layerType: 'CameraLayer',
                 markers: [],
                 masks: [],
                 name: 'Two-Node',
@@ -374,7 +368,7 @@ describe('Layer', function () {
                         value: [100, 200, 300],
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_CAMERA_LAYER,
             });
         });
     });
@@ -1146,28 +1140,25 @@ describe('Layer', function () {
             expect(result.comps[0].layers).to.eql([
                 {
                     label: 4,
-                    layerType: 'CameraLayer',
                     markers: [],
                     masks: [],
                     name: 'Camera',
                     properties: {},
                     transform: {},
-                    type: AEX_LAYER,
+                    type: AEX_CAMERA_LAYER,
                 },
                 {
                     label: 6,
-                    layerType: 'LightLayer',
                     lightType: 4414,
                     markers: [],
                     masks: [],
                     name: 'Light',
                     properties: {},
                     transform: {},
-                    type: AEX_LAYER,
+                    type: AEX_LIGHT_LAYER,
                 },
                 {
                     label: 1,
-                    layerType: 'AVLayer',
                     markers: [],
                     masks: [],
                     name: '3d AV Layer',
@@ -1176,11 +1167,10 @@ describe('Layer', function () {
                     source: 'null 1:50',
                     threeDLayer: true,
                     transform: {},
-                    type: AEX_LAYER,
+                    type: AEX_AV_LAYER,
                 },
                 {
                     label: 1,
-                    layerType: 'AVLayer',
                     markers: [],
                     masks: [],
                     name: '2d AV Layer',
@@ -1188,7 +1178,7 @@ describe('Layer', function () {
                     properties: {},
                     source: 'null 1:50',
                     transform: {},
-                    type: AEX_LAYER,
+                    type: AEX_AV_LAYER,
                 },
             ]);
         });
@@ -1196,7 +1186,6 @@ describe('Layer', function () {
         it('Can parse modified 3d Camera data', async () => {
             expect(result.comps[1].layers[0]).to.eql({
                 label: 4,
-                layerType: 'CameraLayer',
                 markers: [],
                 masks: [],
                 name: 'Camera',
@@ -1239,14 +1228,13 @@ describe('Layer', function () {
                         value: -3600,
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_CAMERA_LAYER,
             });
         });
 
         it('Can parse modified 3d LightLayer data', async () => {
             expect(result.comps[1].layers[1]).to.eql({
                 label: 6,
-                layerType: 'LightLayer',
                 lightType: 4414,
                 markers: [],
                 masks: [],
@@ -1260,14 +1248,13 @@ describe('Layer', function () {
                         value: [100, 200, 300],
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_LIGHT_LAYER,
             });
         });
 
         it('Can parse modified 3d AVLayer data', async () => {
             expect(result.comps[1].layers[2]).to.eql({
                 label: 1,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 name: '3d AV Layer',
@@ -1326,14 +1313,13 @@ describe('Layer', function () {
                         value: -3600,
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
 
         it('Can parse modified 2d AVLayer data', async () => {
             expect(result.comps[1].layers[3]).to.eql({
                 label: 1,
-                layerType: 'AVLayer',
                 markers: [],
                 masks: [],
                 name: '2d AV Layer',
@@ -1372,7 +1358,7 @@ describe('Layer', function () {
                         value: [10, 20, 100],
                     },
                 },
-                type: AEX_LAYER,
+                type: AEX_AV_LAYER,
             });
         });
     });

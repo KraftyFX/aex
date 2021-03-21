@@ -58,12 +58,6 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
     return styles;
 }
 
-function _getProperties(layer: Layer): AexProperties {
-    const properties = {} as AexProperties;
-
-    return properties.toSource() === '({})' ? undefined : properties;
-}
-
 function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
     const effects = [];
 
@@ -136,11 +130,7 @@ function _getAexLayerMasks(layer: Layer): AexProperties[] {
     return masks;
 }
 
-function _getAexLayerMarkers(layer: Layer) {
-    return getAexMarkerProperties(layer.marker);
-}
-
-function _getLayerAttributes(layer: Layer): AexLayer {
+function _getLayer(layer: Layer): AexLayer {
     const containingComp = layer.containingComp;
 
     const name = layer.name;
@@ -172,7 +162,7 @@ function _getLayerAttributes(layer: Layer): AexLayer {
         shy,
         solo,
         parentLayerIndex,
-        markers: _getAexLayerMarkers(layer),
+        markers: getAexMarkerProperties(layer.marker),
         transform: _getTransform(layer),
         masks: _getAexLayerMasks(layer),
 
@@ -183,12 +173,13 @@ function _getLayerAttributes(layer: Layer): AexLayer {
         layerStyles: undefined,
         materialOption: undefined,
         geometryOption: undefined,
-        properties: undefined,
+
+        properties: {},
     };
 }
 
 function _getAVLayer(layer: AVLayer): AexAVLayer {
-    const layerAttributes = _getLayerAttributes(layer);
+    const layerAttributes = _getLayer(layer);
 
     /** @todo Handle track matte */
     /** @todo Handle source */
@@ -237,6 +228,7 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
 
     return {
         ...layerAttributes,
+        type: AEX_AV_LAYER,
 
         source,
 
@@ -264,37 +256,34 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
         layerStyles,
         materialOption,
         geometryOption,
-
-        // Gets set by derived class
-        type: undefined,
     };
 }
 
 function _getLightLayer(layer: LightLayer): AexLightLayer {
-    const layerAttributes = _getLayerAttributes(layer);
+    const layerAttributes = _getLayer(layer);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
-
-    const properties = _getLightLayerProperties(layer);
     const lightType = layer.lightType;
 
     return {
-        type: AEX_LIGHT_LAYER,
         ...layerAttributes,
+        type: AEX_LIGHT_LAYER,
         lightType,
-        properties,
+        properties: {
+            lightOption: getPropertyGroup(layer.lightOption),
+        },
     };
 }
 
 function _getCameraLayer(layer: CameraLayer): AexCameraLayer {
-    const type = AEX_CAMERA_LAYER;
-    const layerAttributes = _getLayerAttributes(layer);
+    const layerAttributes = _getLayer(layer);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
-    const properties = _getCameraLayerProperties(layer);
 
     return {
-        type,
         ...layerAttributes,
-        properties,
+        type: AEX_CAMERA_LAYER,
+        properties: {
+            cameraOption: getPropertyGroup(layer.cameraOption),
+        },
     };
 }
 
@@ -302,45 +291,36 @@ function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
     const avLayerAttributes = _getAVLayer(layer);
 
     return {
-        type: AEX_SHAPE_LAYER,
         ...avLayerAttributes,
+        type: AEX_SHAPE_LAYER,
     };
 }
 
 function _getTextLayer(layer: TextLayer): AexTextLayer {
     const avLayerAttributes = _getAVLayer(layer);
     const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
-    const properties = _getTextLayerProperties(layer);
-
-    return {
-        type: AEX_TEXT_LAYER,
-        ...avLayerAttributes,
-        threeDPerChar,
-        properties,
-    };
-}
-
-function _getCameraLayerProperties(layer: CameraLayer) {
-    return {
-        cameraOption: getPropertyGroup(layer.cameraOption),
-    };
-}
-
-function _getLightLayerProperties(layer: LightLayer) {
-    return {
-        lightOption: getPropertyGroup(layer.lightOption),
-    };
-}
-
-function _getTextLayerProperties(layer: TextLayer): AexTextLayerProperties {
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
     return {
-        sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
-        pathOption: getPropertyGroup(text.pathOption),
-        moreOption: getPropertyGroup(text.moreOption),
-        animators: getPropertyGroup(animators),
+        ...avLayerAttributes,
+        type: AEX_TEXT_LAYER,
+        threeDPerChar,
+        properties: {
+            sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
+            pathOption: getPropertyGroup(text.pathOption),
+            moreOption: getPropertyGroup(text.moreOption),
+            animators: getPropertyGroup(animators),
+        },
+    };
+}
+
+function _getNullLayer(layer: Layer): AexNullLayer {
+    const layerAttributes = _getLayer(layer);
+
+    return {
+        ...layerAttributes,
+        type: AEX_NULL_LAYER,
     };
 }
 
