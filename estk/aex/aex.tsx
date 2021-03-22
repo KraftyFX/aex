@@ -33,12 +33,13 @@ function aex(options: AexOptions) {
 }
 
 // Experimental
-function aeTo(item: Project, options: AexOptions): AexProject;
-function aeTo(item: CompItem, options: AexOptions): AexComp;
-function aeTo(item: Layer, options: AexOptions): AexLayer;
-function aeTo(item: Serializable, options: AexOptions): AexSerialized {
+function aeToAex(item: Project, options: AexOptions): AexProject;
+function aeToAex(item: CompItem, options: AexOptions): AexComp;
+function aeToAex(item: Layer, options: AexOptions): AexLayer;
+function aeToAex(item: Serializable, options: AexOptions): AexSerialized {
     assertIsDefined(item, 'item');
 
+    // TODO: Cover array/collection types.
     if (isProject(item)) {
         return getAexProject(item as Project, options);
     } else if (aeq.isComp(item)) {
@@ -50,6 +51,6 @@ function aeTo(item: Serializable, options: AexOptions): AexSerialized {
     }
 }
 
-function aeFrom(o: AexSerialized, options: {}): void {
+function aexToAe(o: AexSerialized, options: {}): void {
     throw new Error(`Not yet implemented`);
 }
