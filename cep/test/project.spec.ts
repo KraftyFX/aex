@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_FOLDER, AEX_SOLID } from './constants';
+import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 
 describe('Project', function () {
@@ -28,7 +28,7 @@ describe('Project', function () {
                 {
                     aexid: 'solids:37',
                     folder: [],
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                     name: 'Solids',
                 },
                 {
@@ -37,7 +37,7 @@ describe('Project', function () {
                     folder: ['Solids'],
                     frameRate: 0,
                     height: 500,
-                    type: AEX_SOLID,
+                    type: AEX_SOLID_ITEM,
                     name: 'Black Solid 1',
                     pixelAspect: 1,
                     width: 500,
@@ -57,13 +57,13 @@ describe('Project', function () {
                 {
                     aexid: 'folder a:52',
                     folder: [],
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                     name: 'Folder A',
                 },
                 {
                     aexid: 'solids:49',
                     folder: [],
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                     name: 'Solids',
                 },
             ]);
@@ -82,25 +82,25 @@ describe('Project', function () {
                     aexid: 'solids:49',
                     folder: [],
                     name: 'Solids',
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                 },
                 {
                     aexid: 'folder a:52',
                     folder: ['Solids'],
                     name: 'Folder A',
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                 },
                 {
                     aexid: 'folder c:55',
                     folder: ['Folder A', 'Solids'],
                     name: 'Folder C',
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                 },
                 {
                     aexid: 'folder b:54',
                     folder: ['Solids'],
                     name: 'Folder B',
-                    type: AEX_FOLDER,
+                    type: AEX_FOLDER_ITEM,
                 },
             ]);
     });

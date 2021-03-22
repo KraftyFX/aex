@@ -33,7 +33,7 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
 
     const aexComp: AexComp = {
-        type: AEX_COMP,
+        type: AEX_COMP_ITEM,
 
         /** Item & AVItem attributes */
         ...avItemAttributes,
@@ -75,17 +75,17 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     let type: AexItemType;
 
     if (sourceIsFile(itemSource)) {
-        type = AEX_FILE_FOOTAGE;
+        type = AEX_FILE_FOOTAGE_ITEM;
 
         /** @todo Explore file handling */
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
-        type = AEX_SOLID;
+        type = AEX_SOLID_ITEM;
         avItemAttributes.label = getModifiedValue(item.label, 1); // What is the significance of 1?
 
         solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
     } else if (sourceIsPlaceholder(itemSource)) {
-        type = AEX_PLACEHOLDER;
+        type = AEX_PLACEHOLDER_ITEM;
     }
 
     const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
@@ -120,7 +120,7 @@ function _getFolderItem(item: FolderItem): AexFolderItem {
     const itemAttributes = _getItemAttributes(item);
 
     return {
-        type: AEX_FOLDER,
+        type: AEX_FOLDER_ITEM,
         ...itemAttributes,
 
         label: getModifiedValue(item.label, 2),
