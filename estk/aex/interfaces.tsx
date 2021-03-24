@@ -113,8 +113,6 @@ interface AexLayer {
     geometryOption: AexProperties;
     materialOption: AexProperties;
     effects: AexProperties[];
-
-    properties: AexProperties;
 }
 interface AexAVLayer extends AexLayer, AexObject {
     source: AexUID;
@@ -140,9 +138,12 @@ interface AexAVLayer extends AexLayer, AexObject {
 
 interface AexLightLayer extends AexLayer, AexObject {
     lightType: LightType;
+    lightOption: AexPropertyGroup;
 }
 
-interface AexCameraLayer extends AexLayer, AexObject {}
+interface AexCameraLayer extends AexLayer, AexObject {
+    cameraOption: AexPropertyGroup;
+}
 
 interface AexShapeLayer extends AexAVLayer, AexObject {}
 
@@ -150,12 +151,10 @@ interface AexNullLayer extends AexLayer, AexObject {}
 
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;
-    properties: {
-        sourceText: AexProperty<TextDocument>;
-        pathOption: AexPropertyGroup;
-        moreOption: AexPropertyGroup;
-        animators: AexPropertyGroup;
-    };
+    sourceText: AexProperty<TextDocument>;
+    pathOption: AexPropertyGroup;
+    moreOption: AexPropertyGroup;
+    animators: AexPropertyGroup;
 }
 
 interface AexProperties {

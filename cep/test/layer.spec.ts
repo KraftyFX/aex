@@ -54,7 +54,6 @@ describe('Layer', function () {
                 markers: [],
                 masks: [],
                 name: 'Camera',
-                properties: {},
                 transform: {},
                 type: AEX_CAMERA_LAYER,
             });
@@ -68,28 +67,26 @@ describe('Layer', function () {
                 name: 'Solo Text Layer',
                 source: '',
                 collapseTransformation: true,
-                properties: {
-                    sourceText: {
-                        keys: [],
-                        matchName: 'ADBE Text Document',
-                        name: 'Source Text',
-                        value: {
-                            applyFill: true,
-                            baselineLocs: [-115.33203125, 0, 115.33203125, 0],
-                            baselineShift: 0,
-                            fillColor: [1, 1, 1],
-                            font: 'ArialMT',
-                            fontFamily: 'Arial',
-                            fontSize: 50,
-                            fontStyle: 'Regular',
-                            horizontalScale: 1,
-                            justification: 7415,
-                            leading: 60.0000038146973,
-                            text: 'Text Layer',
-                            tracking: 0,
-                            tsume: 0,
-                            verticalScale: 1,
-                        },
+                sourceText: {
+                    keys: [],
+                    matchName: 'ADBE Text Document',
+                    name: 'Source Text',
+                    value: {
+                        applyFill: true,
+                        baselineLocs: [-115.33203125, 0, 115.33203125, 0],
+                        baselineShift: 0,
+                        fillColor: [1, 1, 1],
+                        font: 'ArialMT',
+                        fontFamily: 'Arial',
+                        fontSize: 50,
+                        fontStyle: 'Regular',
+                        horizontalScale: 1,
+                        justification: 7415,
+                        leading: 60.0000038146973,
+                        text: 'Text Layer',
+                        tracking: 0,
+                        tsume: 0,
+                        verticalScale: 1,
                     },
                 },
                 solo: true,
@@ -105,7 +102,6 @@ describe('Layer', function () {
                 masks: [],
                 name: 'Empty',
                 nullLayer: true,
-                properties: {},
                 transform: {},
                 source: 'null 1:50',
                 type: AEX_AV_LAYER,
@@ -121,7 +117,6 @@ describe('Layer', function () {
                 masks: [],
                 name: 'Timing Light',
                 outPoint: 3.06666666666667,
-                properties: {},
                 transform: {},
                 type: AEX_LIGHT_LAYER,
             });
@@ -138,7 +133,6 @@ describe('Layer', function () {
                 motionBlur: true,
                 name: 'Flags',
                 nullLayer: true,
-                properties: {},
                 samplingQuality: 4813,
                 shy: true,
                 source: 'null 1:50',
@@ -157,7 +151,6 @@ describe('Layer', function () {
                 name: 'Blend Stretch',
                 nullLayer: true,
                 outPoint: 1,
-                properties: {},
                 source: 'null 1:50',
                 stretch: 25,
                 transform: {},
@@ -172,7 +165,6 @@ describe('Layer', function () {
                 masks: [],
                 name: 'Parented Solid',
                 parentLayerIndex: 5,
-                properties: {},
                 source: 'parented solid:61',
                 transform: {
                     position: {
@@ -203,54 +195,52 @@ describe('Layer', function () {
                 markers: [],
                 masks: [],
                 name: 'Parallel Light',
-                properties: {
-                    lightOption: {
-                        matchName: 'ADBE Light Options Group',
-                        properties: [
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Intensity',
-                                name: 'Intensity',
-                                value: 76,
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Color',
-                                name: 'Color',
-                                value: [1, 0, 0, 1],
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Type',
-                                name: 'Falloff',
-                                value: 2,
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Start',
-                                name: 'Radius',
-                                value: 453,
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Falloff Distance',
-                                name: 'Falloff Distance',
-                                value: 394,
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Casts Shadows',
-                                name: 'Casts Shadows',
-                                value: 1,
-                            },
-                            {
-                                keys: [],
-                                matchName: 'ADBE Light Shadow Darkness',
-                                name: 'Shadow Darkness',
-                                value: 42,
-                            },
-                        ],
-                    },
+                lightOption: {
+                    matchName: 'ADBE Light Options Group',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Intensity',
+                            name: 'Intensity',
+                            value: 76,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Color',
+                            name: 'Color',
+                            value: [1, 0, 0, 1],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Type',
+                            name: 'Falloff',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Start',
+                            name: 'Radius',
+                            value: 453,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Distance',
+                            name: 'Falloff Distance',
+                            value: 394,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Casts Shadows',
+                            name: 'Casts Shadows',
+                            value: 1,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Light Shadow Darkness',
+                            name: 'Shadow Darkness',
+                            value: 42,
+                        },
+                    ],
                 },
                 transform: {},
                 type: AEX_LIGHT_LAYER,
@@ -274,7 +264,7 @@ describe('Layer', function () {
         });
 
         it(`Can parse camera options`, async () => {
-            expect(result.comps[0].layers[0].properties.cameraOption).to.eql({
+            expect(result.comps[0].layers[0].cameraOption).to.eql({
                 matchName: 'ADBE Camera Options Group',
                 properties: [
                     {
@@ -359,7 +349,6 @@ describe('Layer', function () {
                 markers: [],
                 masks: [],
                 name: 'Two-Node',
-                properties: {},
                 transform: {
                     pointOfInterest: {
                         keys: [],
@@ -387,7 +376,7 @@ describe('Layer', function () {
         });
 
         it('Can parse Text Path Options', async () => {
-            expect(result.comps[0].layers[1].properties.pathOption).to.eql({
+            expect(result.comps[0].layers[1].pathOption).to.eql({
                 matchName: 'ADBE Text Path Options',
                 properties: [
                     {
@@ -425,7 +414,7 @@ describe('Layer', function () {
         });
 
         it('Can parse Text More Options', async () => {
-            expect(result.comps[0].layers[2].properties.moreOption).to.eql({
+            expect(result.comps[0].layers[2].moreOption).to.eql({
                 matchName: 'ADBE Text More Options',
                 properties: [
                     {
@@ -457,11 +446,11 @@ describe('Layer', function () {
         });
 
         it('Can handle empty Text Animators', async () => {
-            expect(result.comps[1].layers[0].properties).to.not.have.property('animators');
+            expect(result.comps[1].layers[0]).to.not.have.property('animators');
         });
 
         it('Can parse multiple Text Animators on one layer', async () => {
-            expect(result.comps[1].layers[1].properties.animators.properties).to.eql([
+            expect(result.comps[1].layers[1].animators.properties).to.eql([
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Animator 1',
@@ -546,7 +535,7 @@ describe('Layer', function () {
         });
 
         it('Can parse multiple Text Animator Selectors on one layer', async () => {
-            expect(result.comps[1].layers[2].properties.animators.properties).to.eql([
+            expect(result.comps[1].layers[2].animators.properties).to.eql([
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Animator 1',
@@ -586,7 +575,7 @@ describe('Layer', function () {
         });
 
         it('Can parse Text Animator with animated Range Selector', async () => {
-            expect(result.comps[1].layers[3].properties.animators.properties).to.eql([
+            expect(result.comps[1].layers[3].animators.properties).to.eql([
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Position Animator',
@@ -664,7 +653,7 @@ describe('Layer', function () {
         });
 
         it('Can parse Text Animator with Expression Selector', async () => {
-            expect(result.comps[1].layers[4].properties.animators.properties).to.eql([
+            expect(result.comps[1].layers[4].animators.properties).to.eql([
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Colour Animator',
@@ -694,7 +683,7 @@ describe('Layer', function () {
         });
 
         it('Can parse Text Animator with Wiggle Selector', async () => {
-            expect(result.comps[1].layers[5].properties.animators.properties).to.eql([
+            expect(result.comps[1].layers[5].animators.properties).to.eql([
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Tracking Animator',
@@ -1143,7 +1132,6 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Camera',
-                    properties: {},
                     transform: {},
                     type: AEX_CAMERA_LAYER,
                 },
@@ -1153,7 +1141,6 @@ describe('Layer', function () {
                     markers: [],
                     masks: [],
                     name: 'Light',
-                    properties: {},
                     transform: {},
                     type: AEX_LIGHT_LAYER,
                 },
@@ -1163,7 +1150,6 @@ describe('Layer', function () {
                     masks: [],
                     name: '3d AV Layer',
                     nullLayer: true,
-                    properties: {},
                     source: 'null 1:50',
                     threeDLayer: true,
                     transform: {},
@@ -1175,7 +1161,6 @@ describe('Layer', function () {
                     masks: [],
                     name: '2d AV Layer',
                     nullLayer: true,
-                    properties: {},
                     source: 'null 1:50',
                     transform: {},
                     type: AEX_AV_LAYER,
@@ -1189,7 +1174,6 @@ describe('Layer', function () {
                 markers: [],
                 masks: [],
                 name: 'Camera',
-                properties: {},
                 transform: {
                     orientation: {
                         keys: [],
@@ -1239,7 +1223,6 @@ describe('Layer', function () {
                 markers: [],
                 masks: [],
                 name: 'Light',
-                properties: {},
                 transform: {
                     position: {
                         keys: [],
@@ -1259,7 +1242,6 @@ describe('Layer', function () {
                 masks: [],
                 name: '3d AV Layer',
                 nullLayer: true,
-                properties: {},
                 threeDLayer: true,
                 source: 'null 1:50',
                 transform: {
@@ -1324,7 +1306,6 @@ describe('Layer', function () {
                 masks: [],
                 name: '2d AV Layer',
                 nullLayer: true,
-                properties: {},
                 source: 'null 1:50',
                 transform: {
                     anchorPoint: {

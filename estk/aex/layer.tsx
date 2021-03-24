@@ -173,8 +173,6 @@ function _getLayer(layer: Layer): AexLayer {
         layerStyles: undefined,
         materialOption: undefined,
         geometryOption: undefined,
-
-        properties: {},
     };
 }
 
@@ -268,9 +266,7 @@ function _getLightLayer(layer: LightLayer): AexLightLayer {
         ...layerAttributes,
         type: AEX_LIGHT_LAYER,
         lightType,
-        properties: {
-            lightOption: getPropertyGroup(layer.lightOption),
-        },
+        lightOption: getPropertyGroup(layer.lightOption),
     };
 }
 
@@ -281,9 +277,7 @@ function _getCameraLayer(layer: CameraLayer): AexCameraLayer {
     return {
         ...layerAttributes,
         type: AEX_CAMERA_LAYER,
-        properties: {
-            cameraOption: getPropertyGroup(layer.cameraOption),
-        },
+        cameraOption: getPropertyGroup(layer.cameraOption),
     };
 }
 
@@ -306,12 +300,10 @@ function _getTextLayer(layer: TextLayer): AexTextLayer {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
         threeDPerChar,
-        properties: {
-            sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
-            pathOption: getPropertyGroup(text.pathOption),
-            moreOption: getPropertyGroup(text.moreOption),
-            animators: getPropertyGroup(animators),
-        },
+        sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
+        pathOption: getPropertyGroup(text.pathOption),
+        moreOption: getPropertyGroup(text.moreOption),
+        animators: getPropertyGroup(animators),
     };
 }
 
