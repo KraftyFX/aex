@@ -124,7 +124,6 @@ interface AexAVLayer extends AexLayer, AexObject {
     collapseTransformation: boolean;
     effectsActive: boolean;
     environmentLayer: boolean;
-    frameBlending: boolean;
     frameBlendingType: FrameBlendingType;
     guideLayer: boolean;
     motionBlur: boolean;

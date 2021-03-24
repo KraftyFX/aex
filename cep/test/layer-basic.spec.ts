@@ -35,6 +35,7 @@ describe('Basic Layer Attributes', function () {
 
     it(`Can parse basic TextLayer properties`, async () => {
         assertAreEqual(result.comps[0].layers[1], {
+            effects: [],
             label: 1,
             markers: [],
             masks: [],
@@ -71,6 +72,7 @@ describe('Basic Layer Attributes', function () {
 
     it(`Can parse basic AVLayer properties`, async () => {
         assertAreEqual(result.comps[0].layers[2], {
+            effects: [],
             label: 1,
             markers: [],
             masks: [],
@@ -101,6 +103,7 @@ describe('Basic Layer Attributes', function () {
             adjustmentLayer: true,
             autoOrient: 4213,
             collapseTransformation: true,
+            effects: [],
             label: 2,
             markers: [],
             masks: [],
@@ -119,6 +122,7 @@ describe('Basic Layer Attributes', function () {
     it(`Can parse Layer blend mode & time stretch`, async () => {
         assertAreEqual(result.comps[0].layers[5], {
             blendingMode: 5216,
+            effects: [],
             label: 1,
             markers: [],
             masks: [],
@@ -134,6 +138,7 @@ describe('Basic Layer Attributes', function () {
 
     it(`Can parse parented layers`, async () => {
         assertAreEqual(result.comps[0].layers[6], {
+            effects: [],
             label: 1,
             markers: [],
             masks: [],

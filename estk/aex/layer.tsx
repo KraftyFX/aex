@@ -188,8 +188,7 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
     const collapseTransformation = getModifiedValue(layer.collapseTransformation, false);
     const effectsActive = getModifiedValue(layer.effectsActive, true);
     const environmentLayer = getModifiedValue(layer.environmentLayer, false);
-    const frameBlending = getModifiedValue(layer.frameBlending, false);
-    const frameBlendingType = frameBlending ? getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND) : undefined;
+    const frameBlendingType = getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND);
     const guideLayer = getModifiedValue(layer.guideLayer, false);
     const motionBlur = getModifiedValue(layer.motionBlur, false);
     const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
@@ -199,27 +198,15 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
     const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
     const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
 
-    let audio, timeRemap, layerStyles, materialOption, geometryOption, effects;
+    const audio = getPropertyGroup(layer.audio);
+    const timeRemap = getModifiedProperty(layer.timeRemap);
+    const materialOption = getPropertyGroup(layer.materialOption);
+    const geometryOption = getPropertyGroup(layer.geometryOption);
+    const effects = _getEffects(layer);
 
-    if (layer.timeRemapEnabled) {
-        timeRemap = getModifiedProperty(layer.timeRemap);
-    }
-
-    if (layer.hasAudio) {
-        audio = getPropertyGroup(layer.audio);
-    }
-
+    let layerStyles;
     if (layer.layerStyle.canSetEnabled) {
         layerStyles = _getLayerStyles(layer.layerStyle);
-    }
-
-    if (layer.threeDLayer) {
-        materialOption = getPropertyGroup(layer.materialOption);
-        geometryOption = getPropertyGroup(layer.geometryOption);
-    }
-
-    if (layer.effect.isModified) {
-        effects = _getEffects(layer);
     }
 
     return {
@@ -235,7 +222,6 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
         collapseTransformation,
         effectsActive,
         environmentLayer,
-        frameBlending,
         frameBlendingType,
         guideLayer,
         motionBlur,

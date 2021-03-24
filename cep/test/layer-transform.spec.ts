@@ -41,6 +41,7 @@ describe('Layer Transform', function () {
                 type: AEX_LIGHT_LAYER,
             },
             {
+                effects: [],
                 label: 1,
                 markers: [],
                 masks: [],
@@ -52,6 +53,7 @@ describe('Layer Transform', function () {
                 type: AEX_AV_LAYER,
             },
             {
+                effects: [],
                 label: 1,
                 markers: [],
                 masks: [],
@@ -133,6 +135,7 @@ describe('Layer Transform', function () {
 
     it('Can parse modified 3d AVLayer data', async () => {
         assertAreEqual(result.comps[1].layers[2], {
+            effects: [],
             label: 1,
             markers: [],
             masks: [],
@@ -197,6 +200,7 @@ describe('Layer Transform', function () {
 
     it('Can parse modified 2d AVLayer data', async () => {
         assertAreEqual(result.comps[1].layers[3], {
+            effects: [],
             label: 1,
             markers: [],
             masks: [],
