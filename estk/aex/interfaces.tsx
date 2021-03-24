@@ -105,14 +105,14 @@ interface AexLayer {
     parentLayerIndex: number;
     markers: AexMarkerProperty[];
     transform: AexTransform;
-    masks: AexProperties[];
+    masks: AexPropertyGroup[];
 
     timeRemap: AexProperty<number>;
-    audio: AexProperties;
-    layerStyles: AexProperties;
-    geometryOption: AexProperties;
-    materialOption: AexProperties;
-    effects: AexProperties[];
+    audio: AexPropertyGroup;
+    layerStyles: AexPropertyGroup;
+    geometryOption: AexPropertyGroup;
+    materialOption: AexPropertyGroup;
+    effects: AexPropertyGroup[];
 }
 interface AexAVLayer extends AexLayer, AexObject {
     source: AexUID;
@@ -155,10 +155,6 @@ interface AexTextLayer extends AexAVLayer, AexObject {
     pathOption: AexPropertyGroup;
     moreOption: AexPropertyGroup;
     animators: AexPropertyGroup;
-}
-
-interface AexProperties {
-    [name: string]: AexProperty<any> | AexPropertyGroup | AexPropertyGroup[];
 }
 
 interface AexPropertyBase {

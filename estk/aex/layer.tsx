@@ -58,7 +58,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
     return styles;
 }
 
-function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
+function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
     const effects = [];
 
     forEachPropertyInGroup(layer.effect, (effect) => {
@@ -91,7 +91,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexProperties[] {
     return effects;
 }
 
-function _getAexLayerMasks(layer: Layer): AexProperties[] {
+function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
     const masks = [];
 
     if (!isVisibleLayer(layer)) {
