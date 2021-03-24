@@ -52,6 +52,10 @@ function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarke
 function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextDocumentProperty {
     const text = sourceText.value;
 
+    /**
+     * Voodoo: The ternary properties need that boolean check first.
+     * If we try to access those properties and the boolean is false, an error will be thrown
+     */
     return {
         allCaps: getModifiedValue(text.allCaps, false),
         applyFill: getModifiedValue(text.applyFill, false),
@@ -123,6 +127,8 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
 
     /**
      * Some property groups can be enabled/disabled; if this is one, get the value if it's not false.
+     *
+     * We need the ternary check to avoid throwing an error when querying 'enabled'.
      */
     const enabled = propertyGroup.canSetEnabled ? getModifiedValue(propertyGroup.enabled, true) : undefined;
 

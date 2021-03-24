@@ -81,8 +81,8 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
         fileSourceAttributes.file = itemSource.file.fsName;
     } else if (sourceIsSolid(itemSource)) {
         type = AEX_SOLID_ITEM;
-        avItemAttributes.label = getModifiedValue(item.label, 1); // What is the significance of 1?
 
+        avItemAttributes.label = getModifiedValue(item.label, 1);
         solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
     } else if (sourceIsPlaceholder(itemSource)) {
         type = AEX_PLACEHOLDER_ITEM;
@@ -139,7 +139,7 @@ function _getItemAttributes(item: Item): AexItemBase {
     return {
         name,
         comment: getModifiedValue(item.comment, ''),
-        label: getModifiedValue(item.label, 15), // What is the significance of 15?
+        label: getModifiedValue(item.label, 15),
         folder,
 
         aexid: generateItemUID(item),
