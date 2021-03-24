@@ -26,9 +26,8 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
         return styles;
     }
 
-    for (var ii = 1, il = styleGroup.numProperties; ii <= il; ii++) {
-        const prop = styleGroup.property(ii);
-        const { name, matchName, enabled, canSetEnabled } = prop;
+    forEachPropertyInGroup(styleGroup, (property: Property<any> | PropertyGroup, ii) => {
+        const { name, matchName, enabled, canSetEnabled } = property;
 
         /**
          * Voodoo: We always want to parse the first property in this group
@@ -38,10 +37,10 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
          * 'canSetEnabled' is true.
          */
         if (ii > 1 && !canSetEnabled) {
-            continue;
+            return;
         }
 
-        const propertyData = getPropertyGroup(prop as PropertyGroup);
+        const propertyData = getPropertyGroup(property as PropertyGroup);
         const properties = propertyData ? propertyData.properties : undefined;
 
         styles.properties.push({
@@ -51,7 +50,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
 
             properties,
         });
-    }
+    });
 
     return styles;
 }

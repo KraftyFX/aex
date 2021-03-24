@@ -91,9 +91,7 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
 function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexPropertyGroup {
     const properties = [];
 
-    for (let ii = 1, il = propertyGroup.numProperties; ii <= il; ii++) {
-        const property = propertyGroup.property(ii);
-
+    forEachPropertyInGroup(propertyGroup, (property: Property<any> | PropertyGroup) => {
         let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
@@ -109,7 +107,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
         if (content) {
             properties.push(content);
         }
-    }
+    });
 
     /**
      * If there are no properties at all in this group,

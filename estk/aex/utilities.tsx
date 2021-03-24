@@ -97,7 +97,7 @@ type ForEachPropertyGroupCallback<T extends PropertyGroup> = (effect: T, i: numb
 
 function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: T, callback: ForEachPropertyGroupCallback<T>) {
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
-        const property = group.property(ii) as PropertyGroup;
+        const property = group.property(ii) as Property<any> | PropertyGroup;
 
         callback(property as T, ii, il);
     }
