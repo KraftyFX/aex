@@ -40,7 +40,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Solo Text Layer',
-            source: '',
             collapseTransformation: true,
             sourceText: {
                 keys: [],
@@ -270,7 +269,6 @@ describe('Basic Layer Attributes', function () {
                 ],
             },
             name: '3d',
-            source: '',
             threeDLayer: true,
             transform: {},
             type: AEX_SHAPE_LAYER,

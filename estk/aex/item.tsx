@@ -204,6 +204,6 @@ function generateItemUID(item: Item): string {
     if (!!item) {
         return `${item.name.toLowerCase()}:${item.id}`;
     } else {
-        return ``;
+        return undefined;
     }
 }
