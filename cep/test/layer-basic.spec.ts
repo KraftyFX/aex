@@ -276,4 +276,122 @@ describe('Basic Layer Attributes', function () {
             type: AEX_SHAPE_LAYER,
         });
     });
+
+    it(`Can parse time remap enabled (but not modified)`, async () => {
+        assertAreEqual(result.comps[0].layers[8], {
+            effects: [],
+            label: 15,
+            markers: [],
+            masks: [],
+            name: 'TR Enabled',
+            source: 'precomp:65',
+            timeRemap: {
+                keys: [
+                    {
+                        interpolationType: {},
+                        temporalEase: {
+                            inEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 0,
+                                },
+                            ],
+                            outEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 1,
+                                },
+                            ],
+                        },
+                        time: 0,
+                        value: 0,
+                    },
+                    {
+                        interpolationType: {},
+                        temporalEase: {
+                            inEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 1,
+                                },
+                            ],
+                            outEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 0,
+                                },
+                            ],
+                        },
+                        time: 4,
+                        value: 4,
+                    },
+                ],
+                matchName: 'ADBE Time Remapping',
+                name: 'Time Remap',
+                value: 2,
+            },
+            timeRemapEnabled: true,
+            transform: {},
+            type: AEX_AV_LAYER,
+        });
+    });
+
+    it(`Can parse time remap enabled (and modified)`, async () => {
+        assertAreEqual(result.comps[0].layers[9], {
+            effects: [],
+            label: 15,
+            markers: [],
+            masks: [],
+            name: 'TR Remapped',
+            source: 'precomp:65',
+            timeRemap: {
+                keys: [
+                    {
+                        interpolationType: {},
+                        temporalEase: {
+                            inEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 0,
+                                },
+                            ],
+                            outEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 2,
+                                },
+                            ],
+                        },
+                        time: 0,
+                        value: 0,
+                    },
+                    {
+                        interpolationType: {},
+                        temporalEase: {
+                            inEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 2,
+                                },
+                            ],
+                            outEase: [
+                                {
+                                    influence: 16.666666667,
+                                    speed: 0,
+                                },
+                            ],
+                        },
+                        time: 2,
+                        value: 4,
+                    },
+                ],
+                matchName: 'ADBE Time Remapping',
+                name: 'Time Remap',
+                value: 4,
+            },
+            timeRemapEnabled: true,
+            transform: {},
+            type: AEX_AV_LAYER,
+        });
+    });
 });
