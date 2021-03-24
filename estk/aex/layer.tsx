@@ -1,12 +1,10 @@
 function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
-    if (isVisibleLayer(layer)) {
-        if (aeq.isTextLayer(layer)) {
-            return _getTextLayer(layer);
-        } else if (aeq.isShapeLayer(layer)) {
-            return _getShapeLayer(layer);
-        } else {
-            return _getAVLayer(layer);
-        }
+    if (aeq.isTextLayer(layer)) {
+        return _getTextLayer(layer);
+    } else if (aeq.isShapeLayer(layer)) {
+        return _getShapeLayer(layer);
+    } else if (aeq.isAVLayer(layer)) {
+        return _getAVLayer(layer);
     } else if (aeq.isLightLayer(layer)) {
         return _getLightLayer(layer);
     } else if (aeq.isCameraLayer(layer)) {
