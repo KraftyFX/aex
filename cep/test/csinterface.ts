@@ -6,6 +6,7 @@ const { CSInterface, SystemPath } = require('exports-loader?CSInterface,CSEvent,
 export const cs = new CSInterface();
 export const extensionId = cs.getExtensionID();
 export const ExtensionPath = cs.getSystemPath(SystemPath.EXTENSION);
+export const UserDataPath = cs.getSystemPath(SystemPath.USER_DATA);
 
 export function pause(timeout: number) {
     return new Promise((resolve, reject) => {
@@ -69,8 +70,7 @@ cs.addEventListener('aeq_result', function (event: any) {
 });
 
 function getTextNearLine(path: string, line: number, window: number) {
-    const userDir = navigator.platform === 'Win32' ? 'C:/Users/Zack' : '/Users/rafikhan';
-    const fileContents: string = fs.readFileSync(path.replace('~', userDir).replace('%20', ' ')).toString();
+    const fileContents: string = fs.readFileSync(path.replace('~/AppData/Roaming', UserDataPath).replace('%20', ' ')).toString();
     const lines: string[] = fileContents.split('\n').map((v: string, i: number) => '> ' + v);
 
     lines[line - 1] = lines[line - 1].replace('> ', '* ');
