@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Project', function () {
     this.slow(500);
@@ -22,27 +23,25 @@ describe('Project', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('project_basic', result);
-        expect(result)
-            .property('items')
-            .to.eql([
-                {
-                    aexid: 'solids:37',
-                    folder: [],
-                    type: AEX_FOLDER_ITEM,
-                    name: 'Solids',
-                },
-                {
-                    aexid: 'black solid 1:38',
-                    duration: 0,
-                    folder: ['Solids'],
-                    frameRate: 0,
-                    height: 500,
-                    type: AEX_SOLID_ITEM,
-                    name: 'Black Solid 1',
-                    pixelAspect: 1,
-                    width: 500,
-                },
-            ]);
+        assertAreEqual(result.items, [
+            {
+                aexid: 'solids:37',
+                folder: [],
+                type: AEX_FOLDER_ITEM,
+                name: 'Solids',
+            },
+            {
+                aexid: 'black solid 1:38',
+                duration: 0,
+                folder: ['Solids'],
+                frameRate: 0,
+                height: 500,
+                type: AEX_SOLID_ITEM,
+                name: 'Black Solid 1',
+                pixelAspect: 1,
+                width: 500,
+            },
+        ]);
     });
 
     it(`Can parse flat project folders`, async () => {
@@ -51,22 +50,20 @@ describe('Project', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('project_folders-flat', result);
-        expect(result)
-            .property('items')
-            .to.eql([
-                {
-                    aexid: 'folder a:52',
-                    folder: [],
-                    type: AEX_FOLDER_ITEM,
-                    name: 'Folder A',
-                },
-                {
-                    aexid: 'solids:49',
-                    folder: [],
-                    type: AEX_FOLDER_ITEM,
-                    name: 'Solids',
-                },
-            ]);
+        assertAreEqual(result.items, [
+            {
+                aexid: 'folder a:52',
+                folder: [],
+                type: AEX_FOLDER_ITEM,
+                name: 'Folder A',
+            },
+            {
+                aexid: 'solids:49',
+                folder: [],
+                type: AEX_FOLDER_ITEM,
+                name: 'Solids',
+            },
+        ]);
     });
 
     it(`Can parse nested project folders`, async () => {
@@ -75,33 +72,31 @@ describe('Project', function () {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('project_folders-nested', result);
-        expect(result)
-            .property('items')
-            .to.eql([
-                {
-                    aexid: 'solids:49',
-                    folder: [],
-                    name: 'Solids',
-                    type: AEX_FOLDER_ITEM,
-                },
-                {
-                    aexid: 'folder a:52',
-                    folder: ['Solids'],
-                    name: 'Folder A',
-                    type: AEX_FOLDER_ITEM,
-                },
-                {
-                    aexid: 'folder c:55',
-                    folder: ['Folder A', 'Solids'],
-                    name: 'Folder C',
-                    type: AEX_FOLDER_ITEM,
-                },
-                {
-                    aexid: 'folder b:54',
-                    folder: ['Solids'],
-                    name: 'Folder B',
-                    type: AEX_FOLDER_ITEM,
-                },
-            ]);
+        assertAreEqual(result.items, [
+            {
+                aexid: 'solids:49',
+                folder: [],
+                name: 'Solids',
+                type: AEX_FOLDER_ITEM,
+            },
+            {
+                aexid: 'folder a:52',
+                folder: ['Solids'],
+                name: 'Folder A',
+                type: AEX_FOLDER_ITEM,
+            },
+            {
+                aexid: 'folder c:55',
+                folder: ['Folder A', 'Solids'],
+                name: 'Folder C',
+                type: AEX_FOLDER_ITEM,
+            },
+            {
+                aexid: 'folder b:54',
+                folder: ['Solids'],
+                name: 'Folder B',
+                type: AEX_FOLDER_ITEM,
+            },
+        ]);
     });
 });

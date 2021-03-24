@@ -1,7 +1,7 @@
-import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Layer Transform', function () {
     this.slow(500);
@@ -22,7 +22,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse default transform data', async () => {
-        expect(result.comps[0].layers).to.eql([
+        assertAreEqual(result.comps[0].layers, [
             {
                 label: 4,
                 markers: [],
@@ -65,7 +65,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d Camera data', async () => {
-        expect(result.comps[1].layers[0]).to.eql({
+        assertAreEqual(result.comps[1].layers[0], {
             label: 4,
             markers: [],
             masks: [],
@@ -113,7 +113,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d LightLayer data', async () => {
-        expect(result.comps[1].layers[1]).to.eql({
+        assertAreEqual(result.comps[1].layers[1], {
             label: 6,
             lightType: 4414,
             markers: [],
@@ -132,7 +132,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d AVLayer data', async () => {
-        expect(result.comps[1].layers[2]).to.eql({
+        assertAreEqual(result.comps[1].layers[2], {
             label: 1,
             markers: [],
             masks: [],
@@ -196,7 +196,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 2d AVLayer data', async () => {
-        expect(result.comps[1].layers[3]).to.eql({
+        assertAreEqual(result.comps[1].layers[3], {
             label: 1,
             markers: [],
             masks: [],

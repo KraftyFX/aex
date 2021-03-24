@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_LIGHT_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Light Layer Attributes', function () {
     this.slow(500);
@@ -22,7 +23,7 @@ describe('Light Layer Attributes', function () {
     });
 
     it(`Can parse light layer attributes`, async () => {
-        expect(result.comps[0].layers[0]).to.eql({
+        assertAreEqual(result.comps[0].layers[0], {
             label: 6,
             lightType: 4412,
             markers: [],
@@ -81,8 +82,8 @@ describe('Light Layer Attributes', function () {
     });
 
     it(`Can parse light layer types`, async () => {
-        expect(result.comps[0].layers[1]).property('lightType').to.eql(4413);
-        expect(result.comps[0].layers[2]).property('lightType').to.eql(4414);
-        expect(result.comps[0].layers[3]).property('lightType').to.eql(4415);
+        expect(result.comps[0].layers[1].lightType).to.eql(4413);
+        expect(result.comps[0].layers[2].lightType).to.eql(4414);
+        expect(result.comps[0].layers[3].lightType).to.eql(4415);
     });
 });

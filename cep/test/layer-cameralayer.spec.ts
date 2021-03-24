@@ -1,7 +1,7 @@
-import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_CAMERA_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Camera Layer Attributes', function () {
     this.slow(500);
@@ -22,7 +22,7 @@ describe('Camera Layer Attributes', function () {
     });
 
     it(`Can parse camera options`, async () => {
-        expect(result.comps[0].layers[0].cameraOption).to.eql({
+        assertAreEqual(result.comps[0].layers[0].cameraOption, {
             matchName: 'ADBE Camera Options Group',
             properties: [
                 {
@@ -102,7 +102,7 @@ describe('Camera Layer Attributes', function () {
     });
 
     it(`Can parse 2-point cameras`, async () => {
-        expect(result.comps[0].layers[1]).to.eql({
+        assertAreEqual(result.comps[0].layers[1], {
             label: 4,
             markers: [],
             masks: [],

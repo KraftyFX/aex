@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Text Layer Attributes', function () {
     this.slow(500);
@@ -25,7 +26,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Path Options', async () => {
-        expect(result.comps[0].layers[1].pathOption).to.eql({
+        assertAreEqual(result.comps[0].layers[1].pathOption, {
             matchName: 'ADBE Text Path Options',
             properties: [
                 {
@@ -63,7 +64,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text More Options', async () => {
-        expect(result.comps[0].layers[2].moreOption).to.eql({
+        assertAreEqual(result.comps[0].layers[2].moreOption, {
             matchName: 'ADBE Text More Options',
             properties: [
                 {
@@ -99,7 +100,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse multiple Text Animators on one layer', async () => {
-        expect(result.comps[1].layers[1].animators.properties).to.eql([
+        assertAreEqual(result.comps[1].layers[1].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Animator 1',
@@ -184,7 +185,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse multiple Text Animator Selectors on one layer', async () => {
-        expect(result.comps[1].layers[2].animators.properties).to.eql([
+        assertAreEqual(result.comps[1].layers[2].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Animator 1',
@@ -224,7 +225,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with animated Range Selector', async () => {
-        expect(result.comps[1].layers[3].animators.properties).to.eql([
+        assertAreEqual(result.comps[1].layers[3].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Position Animator',
@@ -302,7 +303,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with Expression Selector', async () => {
-        expect(result.comps[1].layers[4].animators.properties).to.eql([
+        assertAreEqual(result.comps[1].layers[4].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Colour Animator',
@@ -332,7 +333,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with Wiggle Selector', async () => {
-        expect(result.comps[1].layers[5].animators.properties).to.eql([
+        assertAreEqual(result.comps[1].layers[5].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Tracking Animator',

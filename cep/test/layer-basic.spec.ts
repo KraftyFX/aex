@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_TEXT_LAYER } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
@@ -24,7 +23,7 @@ describe('Basic Layer Attributes', function () {
 
     /** Layer tests */
     it(`Can parse basic CameraLayer properties`, async () => {
-        expect(result.comps[0].layers[0]).to.eql({
+        assertAreEqual(result.comps[0].layers[0], {
             label: 4,
             markers: [],
             masks: [],
@@ -84,7 +83,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse basic LightLayer properties`, async () => {
-        expect(result.comps[0].layers[3]).to.eql({
+        assertAreEqual(result.comps[0].layers[3], {
             inPoint: 0.5,
             label: 1,
             lightType: 4414,

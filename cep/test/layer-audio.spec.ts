@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { assertAreEqual } from './utils';
 
 describe('Layer Audio', function () {
     this.slow(500);
@@ -21,8 +22,8 @@ describe('Layer Audio', function () {
     });
 
     it(`Can parse layer audio`, async () => {
-        expect(result.comps[0].layers[0].audio).to.be.undefined;
-        expect(result.comps[0].layers[1].audio).to.eql({
+        expect(result.comps[0].layers[0].audio).to.eql(undefined);
+        assertAreEqual(result.comps[0].layers[1].audio, {
             matchName: 'ADBE Audio Group',
             properties: [
                 {
