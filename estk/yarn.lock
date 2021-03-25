@@ -54,7 +54,7 @@ ts-node@^9.1.1:
 
 types-for-adobe@zlovatt/Types-for-Adobe:
   version "6.0.1"
-  resolved "https://codeload.github.com/zlovatt/Types-for-Adobe/tar.gz/8c7720a0bd92382a7d731ce4a9e7c0da484c9b29"
+  resolved "https://codeload.github.com/zlovatt/Types-for-Adobe/tar.gz/a4e05bb33e04f13713dc0a858508f522179b73e5"
 
 typescript@^4.2.3:
   version "4.2.3"
