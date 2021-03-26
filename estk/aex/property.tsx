@@ -29,11 +29,9 @@ function assertIsReadableProperty<T>(property: Property<T>) {
 function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
     const markerData = [] as AexMarkerProperty[];
 
-    for (let ii = 1, il = markerProperty.numKeys; ii <= il; ii++) {
-        const keyValue = markerProperty.keyValue(ii);
-
+    forEachPropertyKeyValue(markerProperty, (keyValue, i) => {
         markerData.push({
-            time: markerProperty.keyTime(ii),
+            time: markerProperty.keyTime(i + 1), // key related arrays are 1-based
             comment: getModifiedValue(keyValue.comment, ''),
             chapter: getModifiedValue(keyValue.chapter, ''),
             url: getModifiedValue(keyValue.url, ''),
@@ -44,7 +42,7 @@ function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarke
             protectedRegion: getModifiedValue(keyValue.protectedRegion, false),
             parameters: _getMarkerParameters(keyValue),
         });
-    }
+    });
 
     return markerData;
 }

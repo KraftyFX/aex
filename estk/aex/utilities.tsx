@@ -99,6 +99,16 @@ function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: 
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
         const property = group.property(ii) as Property<any> | PropertyGroup;
 
-        callback(property as T, ii, il);
+        callback(property as T, ii - 1, il);
+    }
+}
+
+type ForEachPropertyKeyValueCallback<T> = (value: T, i: number, length: number) => void;
+
+function forEachPropertyKeyValue<T>(property: Property<T>, callback: ForEachPropertyKeyValueCallback<T>) {
+    for (let ii = 1, il = property.numKeys; ii <= il; ii++) {
+        const keyValue: T = property.keyValue(ii);
+
+        callback(keyValue as T, ii - 1, il);
     }
 }

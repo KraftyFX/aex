@@ -36,7 +36,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
          * After that, however, layer styles only really exist in the aep if
          * 'canSetEnabled' is true.
          */
-        if (ii > 1 && !canSetEnabled) {
+        if (ii > 0 && !canSetEnabled) {
             return;
         }
 
