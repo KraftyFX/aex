@@ -1,4 +1,6 @@
-function getModifiedProperty<T>(property: Property<T>, valueParser?: Function): AexProperty<T> | undefined {
+type GetValueCallback<T> = (property: Property<T>) => any;
+
+function getModifiedProperty<T>(property: Property<T>, callback?: GetValueCallback<T>): AexProperty<T> | undefined {
     const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
 
     if (hasDefaultPropertyValue) {
@@ -10,11 +12,11 @@ function getModifiedProperty<T>(property: Property<T>, valueParser?: Function): 
     const aexProperty: AexProperty<T> = {
         name: property.name,
         matchName: property.matchName,
-        value: valueParser ? valueParser(property) : property.value,
+        value: callback ? callback(property) : property.value,
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
         expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: _getPropertyKeys<T>(property, valueParser),
+        keys: _getPropertyKeys<T>(property, callback),
     };
 
     return aexProperty;
@@ -60,11 +62,11 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
         applyStroke: getModifiedValue(text.applyStroke, false),
         baselineLocs: getModifiedValue(text.baselineLocs, [0, 0]),
         baselineShift: getModifiedValue(text.baselineShift, -1),
-        boxTextPos: text.boxText ? getModifiedValue(text.boxTextPos, [0, 0]) : undefined,
-        boxTextSize: text.boxText ? getModifiedValue(text.boxTextSize, [0, 0]) : undefined,
+        boxTextPos: getBoundModifiedValue(text.boxText, () => text.boxTextPos, [0, 0]), // zlovatt: Why isn't boxText serialized?
+        boxTextSize: getBoundModifiedValue(text.boxText, () => text.boxTextSize, [0, 0]),
         fauxBold: getModifiedValue(text.fauxBold, false),
         fauxItalic: getModifiedValue(text.fauxItalic, false),
-        fillColor: text.applyFill ? getModifiedValue(text.fillColor, [0, 0, 0]) : undefined,
+        fillColor: getBoundModifiedValue(text.applyFill, () => text.fillColor, [0, 0, 0]),
         font: getModifiedValue(text.font, ''),
         fontFamily: getModifiedValue(text.fontFamily, ''),
         fontSize: getModifiedValue(text.fontSize, 32),
@@ -74,9 +76,9 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
         leading: getModifiedValue(text.leading, -1),
         pointText: getModifiedValue(text.pointText, true),
         smallCaps: getModifiedValue(text.smallCaps, false),
-        strokeColor: text.applyStroke ? getModifiedValue(text.strokeColor, [0, 0, 0]) : undefined,
-        strokeOverFill: text.applyStroke ? getModifiedValue(text.strokeOverFill, false) : undefined,
-        strokeWidth: text.applyStroke ? getModifiedValue(text.strokeWidth, -1) : undefined,
+        strokeColor: getBoundModifiedValue(text.applyStroke, () => text.strokeColor, [0, 0, 0]),
+        strokeOverFill: getBoundModifiedValue(text.applyStroke, () => text.strokeOverFill, false),
+        strokeWidth: getBoundModifiedValue(text.applyStroke, () => text.strokeWidth, -1),
         subscript: getModifiedValue(text.subscript, false),
         superscript: getModifiedValue(text.superscript, false),
         text: getModifiedValue(text.text, ''),
@@ -86,7 +88,7 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
     };
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function): AexPropertyGroup {
+function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: GetValueCallback<any>): AexPropertyGroup {
     const properties = [];
 
     forEachPropertyInGroup(propertyGroup, (property: Property<any> | PropertyGroup) => {
@@ -102,7 +104,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
          * If we haven't retrieved any data, don't store the property
          * This helps prevent a _ton_ of objects with empty arrays
          */
-        if (content) {
+        if (!aeq.isNullOrUndefined(content)) {
             properties.push(content);
         }
     });
@@ -126,7 +128,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: Function):
      *
      * We need the ternary check to avoid throwing an error when querying 'enabled'.
      */
-    const enabled = propertyGroup.canSetEnabled ? getModifiedValue(propertyGroup.enabled, true) : undefined;
+    const enabled = getBoundModifiedValue(propertyGroup.canSetEnabled, () => propertyGroup.enabled, true);
 
     return {
         matchName: propertyGroup.matchName,

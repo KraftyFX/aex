@@ -1,4 +1,8 @@
 function _isObjectEqual(a: object, b: object): boolean {
+    if (typeof b !== 'object') {
+        return false;
+    }
+
     for (let key in a) {
         if (!a.hasOwnProperty(key)) {
             continue;
@@ -20,7 +24,7 @@ function _isObjectEqual(a: object, b: object): boolean {
 }
 
 function _isArrayEqual(a: any[], b: any[]): boolean {
-    if (a.length !== b.length) {
+    if (!(b instanceof Array) || a.length !== b.length) {
         return false;
     }
 
@@ -63,6 +67,21 @@ function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
     }
 
     return _isEqual(value, aeDefaultValue) ? undefined : value;
+}
+
+/**
+ * Gets the value of a property if and only if another boolean property is set
+ * that dictates if and how it should be read.
+ *
+ * @param shouldRead Property from AfterEffects that decides if the value should be read.
+ * @param callback Function that gets the value that should read
+ * @param aeDefaultValue The expected default value provided by AE for the property
+ * @returns The property value if and only if the property exists and is
+ * set to something other than the default.
+ */
+function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefaultValue: T): T | undefined {
+    // zlovatt: Maybe we should return the default value in these cases instead of undefined?
+    return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
 function sourceIsSolid(source: any): source is SolidSource {

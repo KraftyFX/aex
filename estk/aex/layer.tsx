@@ -202,10 +202,7 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
     const materialOption = getPropertyGroup(layer.materialOption);
     const geometryOption = getPropertyGroup(layer.geometryOption);
 
-    let layerStyles;
-    if (layer.layerStyle.canSetEnabled) {
-        layerStyles = _getLayerStyles(layer.layerStyle);
-    }
+    const layerStyles = getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle), undefined);
 
     return {
         ...layerAttributes,
@@ -235,6 +232,7 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
         effects,
         materialOption,
         geometryOption,
+
         layerStyles,
     };
 }
@@ -274,7 +272,7 @@ function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
 
 function _getTextLayer(layer: TextLayer): AexTextLayer {
     const avLayerAttributes = _getAVLayer(layer);
-    const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
+    const threeDPerChar = getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false);
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
