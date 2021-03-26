@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_LIGHT_LAYER } from './constants';
+import { AEX_COLOR_PROPERTY, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -33,42 +33,49 @@ describe('Light Layer Attributes', function () {
                 matchName: 'ADBE Light Options Group',
                 properties: [
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Intensity',
                         name: 'Intensity',
                         value: 76,
                     },
                     {
+                        type: AEX_COLOR_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Color',
                         name: 'Color',
                         value: [1, 0, 0, 1],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Falloff Type',
                         name: 'Falloff',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Falloff Start',
                         name: 'Radius',
                         value: 453,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Falloff Distance',
                         name: 'Falloff Distance',
                         value: 394,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Casts Shadows',
                         name: 'Casts Shadows',
                         value: 1,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Light Shadow Darkness',
                         name: 'Shadow Darkness',

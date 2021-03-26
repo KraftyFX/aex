@@ -26,9 +26,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
         return styles;
     }
 
-    forEachPropertyInGroup(styleGroup, (property: Property<any> | PropertyGroup, ii) => {
-        const { name, matchName, enabled, canSetEnabled } = property;
-
+    forEachPropertyInGroup(styleGroup, (property: Property | PropertyGroup, ii) => {
         /**
          * Voodoo: We always want to parse the first property in this group
          *   (it's a general property that affects all the others)
@@ -36,20 +34,20 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
          * After that, however, layer styles only really exist in the aep if
          * 'canSetEnabled' is true.
          */
-        if (ii > 1 && !canSetEnabled) {
-            return;
+        if (ii == 0 || property.canSetEnabled) {
+            const { name, matchName, enabled } = property;
+
+            const propertyData = getPropertyGroup(property as PropertyGroup);
+            const properties = propertyData ? propertyData.properties : undefined;
+
+            styles.properties.push({
+                name,
+                matchName,
+                enabled,
+
+                properties,
+            });
         }
-
-        const propertyData = getPropertyGroup(property as PropertyGroup);
-        const properties = propertyData ? propertyData.properties : undefined;
-
-        styles.properties.push({
-            name,
-            matchName,
-            enabled,
-
-            properties,
-        });
     });
 
     return styles;
@@ -59,7 +57,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
     const effects = [];
 
     forEachPropertyInGroup(layer.effect, (effect) => {
-        const propertyData = getPropertyGroup(effect);
+        const propertyData = getPropertyGroup(effect as PropertyGroup);
 
         /**
          * @todo
@@ -95,7 +93,7 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
         return masks;
     }
 
-    forEachPropertyInGroup<MaskPropertyGroup>(layer.mask, (mask) => {
+    forEachPropertyInGroup(layer.mask, (mask: MaskPropertyGroup) => {
         const { name, color } = mask;
 
         const maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
@@ -111,12 +109,12 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
 
         masks.push({
             name,
+            color,
             maskMode,
             inverted,
             rotoBezier,
             maskMotionBlur,
             locked,
-            color,
             maskPath,
             maskFeather,
             maskOpacity,
@@ -130,8 +128,7 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
 function _getLayer(layer: Layer): AexLayer {
     const containingComp = layer.containingComp;
 
-    const name = layer.name;
-    const label = layer.label;
+    const { name, label } = layer;
 
     const comment = getModifiedValue(layer.comment, '');
     const hasVideo = getModifiedValue(layer.hasVideo, true);
@@ -199,14 +196,11 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
 
     const audio = getPropertyGroup(layer.audio);
     const timeRemap = getModifiedProperty(layer.timeRemap);
+    const effects = _getEffects(layer);
     const materialOption = getPropertyGroup(layer.materialOption);
     const geometryOption = getPropertyGroup(layer.geometryOption);
-    const effects = _getEffects(layer);
 
-    let layerStyles;
-    if (layer.layerStyle.canSetEnabled) {
-        layerStyles = _getLayerStyles(layer.layerStyle);
-    }
+    const layerStyles = getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle), undefined);
 
     return {
         ...layerAttributes,
@@ -231,12 +225,13 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
         timeRemapEnabled,
         trackMatteType,
 
+        audio,
         timeRemap,
         effects,
-        audio,
-        layerStyles,
         materialOption,
         geometryOption,
+
+        layerStyles,
     };
 }
 
@@ -275,7 +270,7 @@ function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
 
 function _getTextLayer(layer: TextLayer): AexTextLayer {
     const avLayerAttributes = _getAVLayer(layer);
-    const threeDPerChar = layer.threeDLayer ? getModifiedValue(layer.threeDPerChar, false) : undefined;
+    const threeDPerChar = getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false);
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
@@ -283,7 +278,7 @@ function _getTextLayer(layer: TextLayer): AexTextLayer {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
         threeDPerChar,
-        sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
+        sourceText: getModifiedProperty<TextDocument, AexTextDocument>(text.sourceText, getTextDocumentProperties),
         pathOption: getPropertyGroup(text.pathOption),
         moreOption: getPropertyGroup(text.moreOption),
         animators: getPropertyGroup(animators),

@@ -70,7 +70,8 @@ cs.addEventListener('aeq_result', function (event: any) {
 });
 
 function getTextNearLine(path: string, line: number, window: number) {
-    const fileContents: string = fs.readFileSync(path.replace('~/AppData/Roaming', UserDataPath).replace('%20', ' ')).toString();
+    const userDir = navigator.platform === 'Win32' ? 'C:/Users/Zack' : '/Users/rafikhan';
+    const fileContents: string = fs.readFileSync(path.replace(`~`, userDir).replace('%20', ' ')).toString();
     const lines: string[] = fileContents.split('\n').map((v: string, i: number) => '> ' + v);
 
     lines[line - 1] = lines[line - 1].replace('> ', '* ');

@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
+import { AEX_ONED_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -108,12 +109,14 @@ describe('Layer Styles', function () {
                 enabled: true,
                 properties: [
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Global Light Angle',
                         matchName: 'ADBE Global Angle2',
                         value: 72,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Global Light Altitude',
                         matchName: 'ADBE Global Altitude2',
                         value: 63,
@@ -123,30 +126,35 @@ describe('Layer Styles', function () {
                         matchName: 'ADBE Adv Blend Group',
                         properties: [
                             {
+                                type: AEX_ONED_PROPERTY,
                                 name: 'Fill Opacity',
                                 matchName: 'ADBE Layer Fill Opacity2',
                                 value: 80,
                                 keys: [],
                             },
                             {
+                                type: AEX_ONED_PROPERTY,
                                 name: 'Red',
                                 matchName: 'ADBE R Channel Blend',
                                 value: 0,
                                 keys: [],
                             },
                             {
+                                type: AEX_ONED_PROPERTY,
                                 name: 'Green',
                                 matchName: 'ADBE G Channel Blend',
                                 value: 0,
                                 keys: [],
                             },
                             {
+                                type: AEX_ONED_PROPERTY,
                                 name: 'Blue',
                                 matchName: 'ADBE B Channel Blend',
                                 value: 0,
                                 keys: [],
                             },
                             {
+                                type: AEX_ONED_PROPERTY,
                                 name: 'Blend Interior Styles as Group',
                                 matchName: 'ADBE Blend Interior',
                                 value: 1,
@@ -162,54 +170,63 @@ describe('Layer Styles', function () {
                 enabled: true,
                 properties: [
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Blend Mode',
                         matchName: 'dropShadow/mode2',
                         value: 16,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Opacity',
                         matchName: 'dropShadow/opacity',
                         value: 45,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Use Global Light',
                         matchName: 'dropShadow/useGlobalAngle',
                         value: 1,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Angle',
                         matchName: 'dropShadow/localLightingAngle',
                         value: 153,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Distance',
                         matchName: 'dropShadow/distance',
                         value: 23,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Spread',
                         matchName: 'dropShadow/chokeMatte',
                         value: 37,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Size',
                         matchName: 'dropShadow/blur',
                         value: 26,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Noise',
                         matchName: 'dropShadow/noise',
                         value: 23,
                         keys: [],
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         name: 'Layer Knocks Out Drop Shadow',
                         matchName: 'dropShadow/layerConceals',
                         value: 0,

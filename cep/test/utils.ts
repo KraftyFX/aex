@@ -20,11 +20,7 @@ function compareAny(path: string, expected: any, actual: any, differences: strin
     } else if (actual instanceof Object) {
         compareObject(path, expected, actual, differences);
     } else if (expected !== actual) {
-        if (typeof expected === 'string') {
-            differences.push(`${path} => "${expected}" !== "${actual}"`);
-        } else {
-            differences.push(`${path} => ${expected} !== ${actual}`);
-        }
+        differences.push(`${path} => ${JSON.stringify(expected)} !== ${JSON.stringify(actual)}`);
     }
 }
 
@@ -55,11 +51,11 @@ function compareObject(path: string, expected: any, actual: any, differences: st
     actualKeys.forEach((v) => (expectedKeys.indexOf(v) !== -1 ? common.add(v) : notInExpected.add(v)));
 
     notInActual.forEach((missing) => {
-        differences.push(`${path}.${missing} was not in actual`);
+        differences.push(`${path}.${missing}=${JSON.stringify(expected[missing])} was not in actual`);
     });
 
     notInExpected.forEach((missing) => {
-        differences.push(`${path}.${missing} was not in expected`);
+        differences.push(`${path}.${missing}=${JSON.stringify(actual[missing])} was not in expected`);
     });
 
     common.forEach((key) => {

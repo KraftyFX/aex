@@ -1,4 +1,5 @@
 import { AeObject, aex } from './aex';
+import { AEX_ONED_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -23,6 +24,7 @@ describe('Layer Animation', function () {
     it(`Can parse eased keyframes`, async () => {
         assertAreEqual(result.comps[0].layers[0].transform, {
             rotation: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {
@@ -98,6 +100,7 @@ describe('Layer Animation', function () {
     it(`Can parse hold keyframes`, async () => {
         assertAreEqual(result.comps[1].layers[0].transform, {
             rotation: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {
@@ -132,6 +135,7 @@ describe('Layer Animation', function () {
     it(`Can parse linear keyframes`, async () => {
         assertAreEqual(result.comps[2].layers[0].transform, {
             rotation: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {},
@@ -182,6 +186,7 @@ describe('Layer Animation', function () {
     it(`Can parse mixed easing keyframes`, async () => {
         assertAreEqual(result.comps[3].layers[0].transform, {
             rotation: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {

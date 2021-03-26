@@ -12,3 +12,12 @@ const AEX_TEXT_LAYER = 'aex:layer:av:text';
 const AEX_CAMERA_LAYER = 'aex:layer:camera';
 const AEX_LIGHT_LAYER = 'aex:layer:light';
 const AEX_NULL_LAYER = 'aex:layer:null';
+
+const AEX_ONED_PROPERTY = 'aex:property:oned';
+const AEX_TWOD_PROPERTY = 'aex:property:twod';
+const AEX_THREED_PROPERTY = 'aex:property:threed';
+const AEX_COLOR_PROPERTY = 'aex:property:color';
+const AEX_MARKER_PROPERTY = 'aex:property:marker';
+const AEX_SHAPE_PROPERTY = 'aex:property:shape';
+const AEX_MASKINDEX_PROPERTY = 'aex:property:maskindex';
+const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK } from './csinterface';
 
-describe('Aex', function () {
+describe.skip('Aex', function () {
     this.slow(500);
     this.timeout(2000);
 
@@ -28,14 +28,14 @@ describe('Aex', function () {
     });
 
     /** Data dumps */
-    it.skip(`Unsophisticated test to check comp data parsing`, async () => {
+    it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
 
         console.log('activecomp', result);
         expect(result);
     });
 
-    it.skip(`Unsophisticated test to check project data parsing`, async () => {
+    it(`Unsophisticated test to check project data parsing`, async () => {
         const result = await aex().toObjectWithAeObject(AeObject.Project);
 
         console.log('full project', result);

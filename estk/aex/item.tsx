@@ -16,19 +16,19 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
     const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
     const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
     const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
-    const dropFrame = getModifiedValue(comp.dropFrame, true);
     const draft3d = getModifiedValue(comp.draft3d, false);
-    const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
+    const dropFrame = getModifiedValue(comp.dropFrame, true);
     const frameBlending = getModifiedValue(comp.frameBlending, false);
     const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
     const motionBlur = getModifiedValue(comp.motionBlur, false);
-    const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
     const motionBlurAdaptiveSampleLimit = getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128);
     const motionBlurSamplesPerFrame = getModifiedValue(comp.motionBlurSamplesPerFrame, 16);
+    const preserveNestedFrameRate = getModifiedValue(comp.preserveNestedFrameRate, false);
     const preserveNestedResolution = getModifiedValue(comp.preserveNestedResolution, false);
+    const renderer = getModifiedValue(comp.renderer, 'ADBE Advanced 3d');
+    const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
     const shutterAngle = getModifiedValue(comp.shutterAngle, 180);
     const shutterPhase = getModifiedValue(comp.shutterPhase, 0);
-    const resolutionFactor = getModifiedValue(comp.resolutionFactor, [1, 1]);
     const workAreaStart = getModifiedValue(comp.workAreaStart, 0);
     const workAreaDuration = getModifiedValue(comp.workAreaDuration, comp.duration);
 
@@ -55,8 +55,8 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         resolutionFactor,
         shutterAngle,
         shutterPhase,
-        workAreaDuration,
         workAreaStart,
+        workAreaDuration,
 
         markers: _getAexCompMarkers(comp),
         layers: _getAexCompLayers(comp, options),
@@ -102,13 +102,13 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
         type,
         ...avItemAttributes,
 
-        alphaMode,
         conformFrameRate,
         fieldSeparationType,
         highQualityFieldSeparation,
         loop,
         premulColor,
         removePulldown,
+        alphaMode,
         invertAlpha,
 
         ...fileSourceAttributes,
@@ -128,19 +128,15 @@ function _getFolderItem(item: FolderItem): AexFolderItem {
 }
 
 function _getItemAttributes(item: Item): AexItemBase {
-    const { name } = item;
-
     /**
      * @todo Add AexOption to preserve project folder structure.
      * For now, just get the immediate parent folder name & assume lives in root
      **/
-    const folder = _getParentFolders(item);
-
     return {
-        name,
+        name: item.name,
         comment: getModifiedValue(item.comment, ''),
         label: getModifiedValue(item.label, 15),
-        folder,
+        folder: _getParentFolders(item),
 
         aexid: generateItemUID(item),
     };

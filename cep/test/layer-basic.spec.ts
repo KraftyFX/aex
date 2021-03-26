@@ -1,5 +1,14 @@
 import { AeObject, aex } from './aex';
-import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_SHAPE_LAYER, AEX_TEXT_LAYER } from './constants';
+import {
+    AEX_AV_LAYER,
+    AEX_CAMERA_LAYER,
+    AEX_LIGHT_LAYER,
+    AEX_ONED_PROPERTY,
+    AEX_SHAPE_LAYER,
+    AEX_TEXTDOCUMENT_PROPERTY,
+    AEX_TEXT_LAYER,
+    AEX_THREED_PROPERTY,
+} from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -42,6 +51,7 @@ describe('Basic Layer Attributes', function () {
             name: 'Solo Text Layer',
             collapseTransformation: true,
             sourceText: {
+                type: AEX_TEXTDOCUMENT_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Text Document',
                 name: 'Source Text',
@@ -145,6 +155,7 @@ describe('Basic Layer Attributes', function () {
             source: 'parented solid:61',
             transform: {
                 position: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
@@ -163,24 +174,28 @@ describe('Basic Layer Attributes', function () {
                 matchName: 'ADBE Extrsn Options Group',
                 properties: [
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Bevel Styles',
                         name: 'Bevel Style',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Bevel Depth',
                         name: 'Bevel Depth',
                         value: 1,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Hole Bevel Depth',
                         name: 'Hole Bevel Depth',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Extrsn Depth',
                         name: 'Extrusion Depth',
@@ -195,72 +210,84 @@ describe('Basic Layer Attributes', function () {
                 matchName: 'ADBE Material Options Group',
                 properties: [
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Casts Shadows',
                         name: 'Casts Shadows',
                         value: 1,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Accepts Shadows',
                         name: 'Accepts Shadows',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Accepts Lights',
                         name: 'Accepts Lights',
                         value: 0,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Appears in Reflections',
                         name: 'Appears in Reflections',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Ambient Coefficient',
                         name: 'Ambient',
                         value: 1,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Diffuse Coefficient',
                         name: 'Diffuse',
                         value: 2,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Specular Coefficient',
                         name: 'Specular Intensity',
                         value: 3,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Shininess Coefficient',
                         name: 'Specular Shininess',
                         value: 4,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Metal Coefficient',
                         name: 'Metal',
                         value: 5,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Reflection Coefficient',
                         name: 'Reflection Intensity',
                         value: 6,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Glossiness Coefficient',
                         name: 'Reflection Sharpness',
                         value: 7,
                     },
                     {
+                        type: AEX_ONED_PROPERTY,
                         keys: [],
                         matchName: 'ADBE Fresnel Coefficient',
                         name: 'Reflection Rolloff',
@@ -284,6 +311,7 @@ describe('Basic Layer Attributes', function () {
             name: 'TR Enabled',
             source: 'precomp:65',
             timeRemap: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {},
@@ -343,6 +371,7 @@ describe('Basic Layer Attributes', function () {
             name: 'TR Remapped',
             source: 'precomp:65',
             timeRemap: {
+                type: AEX_ONED_PROPERTY,
                 keys: [
                     {
                         interpolationType: {},

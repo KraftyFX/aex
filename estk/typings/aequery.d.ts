@@ -38,13 +38,13 @@ declare interface AEQuery {
     Comp(comp: CompItem): AEQComp;
 
     /** Converts a Key into an aeq.Key object */
-    Key(property: Property<PropertyValueType>, index: number): AEQKey;
+    Key(property: Property, index: number): AEQKey;
 
     /** Converts a Layer into an aeq.Layer object */
     Layer(layer: Layer): AEQLayer;
 
     /** Converts a Property into an aeq.Property object */
-    Property(property: Property<PropertyValueType>): AEQProperty<PropertyValueType>;
+    Property(property: Property): AEQProperty;
 
     /** Checks if value is null. Throws an error if it is not. */
     assertIsNull(o: any, err: string): o is null;
@@ -92,19 +92,16 @@ declare interface AEQuery {
     getSelectedLayersOrAll(comp?: CompItem): AEQArrayEx<Layer>;
 
     /** Gets the selected properties on a layer or in a comp. Uses the active comp if no argument is given. */
-    getSelectedProperties(obj?: CompItem | Layer): AEQArrayEx<Property<PropertyValueType> | PropertyGroup>;
+    getSelectedProperties(obj?: CompItem | Layer): AEQArrayEx<Property | PropertyGroup>;
 
     /** Gets all Property objects of all Layer objects in an array. */
-    getProperties(
-        layers: Layer[],
-        options?: AEQGetPropertyChildrenOptions
-    ): AEQArrayEx<Property<PropertyValueType> | PropertyGroup | MaskPropertyGroup>;
+    getProperties(layers: Layer[], options?: AEQGetPropertyChildrenOptions): AEQArrayEx<Property | PropertyGroup | MaskPropertyGroup>;
 
     /** Gets all children of the given layer or propertyGroup. */
     getPropertyChildren(
         parent: Layer | PropertyGroup,
         options?: AEQGetPropertyChildrenOptions
-    ): AEQArrayEx<Property<PropertyValueType> | PropertyGroup | MaskPropertyGroup>;
+    ): AEQArrayEx<Property | PropertyGroup | MaskPropertyGroup>;
 
     /** Gets the propertyGroups inside the effects group from all layers given. */
     getEffects(layers: Layer | Array<Layer>): AEQArrayEx<PropertyGroup>;
@@ -113,7 +110,7 @@ declare interface AEQuery {
     getMarkerGroup(obj: Layer | CompItem): PropertyGroup | null;
 
     /** Gets all keys on the given property or array of properties. */
-    getKeys(prop: Property<PropertyValueType> | Property<PropertyValueType>[]): AEQArrayEx<AEQKey>;
+    getKeys(prop: Property | Property[]): AEQArrayEx<AEQKey>;
 
     /** Loops through arrays and objects */
     forEach(obj: any[], callback: forEachArrayCallback<any>, fromIndex?: number): void;
@@ -528,13 +525,13 @@ declare interface AEQProjectClass {
 
 declare interface AEQPropertyClass {
     /** Returns the property value type of a Property as a string. */
-    valueType(property: Property<PropertyValueType>): string;
+    valueType(property: Property): string;
 
     /** Returns the property type as a string. */
-    type(property: Property<PropertyValueType>): string;
+    type(property: Property): string;
 
     /** Gets the layer the given property is contained in. */
-    getLayer(property: Property<PropertyValueType>): Layer;
+    getLayer(property: Property): Layer;
 }
 
 declare interface AEQRenderQueueClass {
@@ -682,7 +679,7 @@ declare interface AEQKey {
     getKeyInfo(): AEQKeyInfo;
 
     /** Copies current key to a new property at current (or target) time */
-    copyTo(targetProp: Property<PropertyValueType>, time?: number, offset?: number): AEQKey;
+    copyTo(targetProp: Property, time?: number, offset?: number): AEQKey;
 
     /** Moves current key to new time */
     moveTo(time: number): void;
@@ -705,7 +702,7 @@ declare interface AEQLayer {
     removeParent(): AEQLayer;
 
     /** Executes a callback function on each effect on this layer */
-    forEachEffect(callback: forEachArrayCallback<Property<PropertyValueType>>): AEQLayer;
+    forEachEffect(callback: forEachArrayCallback<Property>): AEQLayer;
 
     /** Adds effect to layer by name or matchname */
     addEffect(effectName: string): void;
@@ -723,9 +720,9 @@ declare interface AEQLayer {
     relatedLayers(): AEQArrayEx<AEQLayer>;
 }
 
-declare interface AEQProperty<PropertyValueType> {
+declare interface AEQProperty {
     /** Get the original object */
-    get(): Property<PropertyValueType>;
+    get(): Property;
 
     /** Gets or sets expression on property */
     expression(newValue?: string): string | boolean;
@@ -737,7 +734,7 @@ declare interface AEQProperty<PropertyValueType> {
     addKey(time: number): AEQKey;
 
     /** Retrieves property following passed dimension */
-    separationFolloder(dimension: number): Property<PropertyValueType>;
+    separationFolloder(dimension: number): Property;
 
     /** Returns the index of the keyframe nearest to the specified time. */
     nearestKeyIndex(time: number): AEQKey;
@@ -746,7 +743,7 @@ declare interface AEQProperty<PropertyValueType> {
     removeKey(keyIndex: number | AEQKey): void;
 
     /** Returns the original multidimensional property for this separated follower */
-    separationLeader(): Property<PropertyValueType> | null;
+    separationLeader(): Property | null;
 
     /** Returns the dimension number it represents in the multidimensional leader */
     separationDimension(): number | null;
@@ -987,7 +984,7 @@ declare interface InterpolationType {
 
 declare interface AEQKeyInfo {
     /** Prop that the key lives on */
-    property: Property<PropertyValueType>;
+    property: Property;
 
     /** Key value */
     value: any;
