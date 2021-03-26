@@ -115,7 +115,7 @@ interface AexLayer {
     parentLayerIndex: number;
     markers: AexMarkerProperty[];
     transform: AexTransform;
-    masks: AexPropertyGroup[];
+    masks: AexMask[];
 
     timeRemap: AexProperty<number>;
     audio: AexPropertyGroup;
@@ -228,6 +228,21 @@ interface AexTextDocument {
     tracking: number;
     tsume: number;
     verticalScale: number;
+}
+
+interface AexMask {
+    name: string;
+    color: ThreeDPoint;
+    maskMode: MaskMode;
+    inverted: boolean;
+    rotoBezier: boolean;
+    maskMotionBlur: MaskMotionBlur;
+    locked: boolean;
+
+    maskPath: AexProperty<Shape>;
+    maskFeather: AexProperty<TwoDPoint>;
+    maskOpacity: AexProperty<number>;
+    maskExpansion: AexProperty<number>;
 }
 
 interface AexTransform {

@@ -86,7 +86,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
     return effects;
 }
 
-function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
+function _getAexLayerMasks(layer: Layer): AexMask[] {
     const masks = [];
 
     if (!isVisibleLayer(layer)) {
