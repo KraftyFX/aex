@@ -27,8 +27,6 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
     }
 
     forEachPropertyInGroup(styleGroup, (property: Property<any> | PropertyGroup, ii) => {
-        const { name, matchName, enabled, canSetEnabled } = property;
-
         /**
          * Voodoo: We always want to parse the first property in this group
          *   (it's a general property that affects all the others)
@@ -36,20 +34,20 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
          * After that, however, layer styles only really exist in the aep if
          * 'canSetEnabled' is true.
          */
-        if (ii > 0 && !canSetEnabled) {
-            return;
+        if (ii == 0 || property.canSetEnabled) {
+            const { name, matchName, enabled } = property;
+
+            const propertyData = getPropertyGroup(property as PropertyGroup);
+            const properties = propertyData ? propertyData.properties : undefined;
+
+            styles.properties.push({
+                name,
+                matchName,
+                enabled,
+
+                properties,
+            });
         }
-
-        const propertyData = getPropertyGroup(property as PropertyGroup);
-        const properties = propertyData ? propertyData.properties : undefined;
-
-        styles.properties.push({
-            name,
-            matchName,
-            enabled,
-
-            properties,
-        });
     });
 
     return styles;
