@@ -1,5 +1,5 @@
 import { AeObject, aex } from './aex';
-import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER } from './constants';
+import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -74,36 +74,42 @@ describe('Layer Transform', function () {
             name: 'Camera',
             transform: {
                 orientation: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Orientation',
                     name: 'Orientation',
                     value: [100, 200, 300],
                 },
                 pointOfInterest: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Anchor Point',
                     name: 'Point of Interest',
                     value: [11, 22, 33],
                 },
                 position: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
                     value: [1, 2, -3],
                 },
                 rotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate Z',
                     name: 'Z Rotation',
                     value: 90,
                 },
                 xRotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate X',
                     name: 'X Rotation',
                     value: -90,
                 },
                 yRotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate Y',
                     name: 'Y Rotation',
@@ -123,6 +129,7 @@ describe('Layer Transform', function () {
             name: 'Light',
             transform: {
                 position: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
@@ -145,49 +152,56 @@ describe('Layer Transform', function () {
             source: 'null 1:50',
             transform: {
                 anchorPoint: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Anchor Point',
                     name: 'Anchor Point',
                     value: [11, 22, 33],
                 },
                 opacity: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Opacity',
                     name: 'Opacity',
                     value: 50,
                 },
                 orientation: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Orientation',
                     name: 'Orientation',
                     value: [100, 200, 300],
                 },
-
                 position: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
                     value: [1, 2, -3],
                 },
                 rotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate Z',
                     name: 'Z Rotation',
                     value: 90,
                 },
                 scale: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Scale',
                     name: 'Scale',
                     value: [10, 20, 30],
                 },
                 xRotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate X',
                     name: 'X Rotation',
                     value: -90,
                 },
                 yRotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate Y',
                     name: 'Y Rotation',
@@ -209,30 +223,35 @@ describe('Layer Transform', function () {
             source: 'null 1:50',
             transform: {
                 anchorPoint: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Anchor Point',
                     name: 'Anchor Point',
                     value: [11, 22, 0],
                 },
                 opacity: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Opacity',
                     name: 'Opacity',
                     value: 50,
                 },
                 position: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
                     value: [1, 2, 0],
                 },
                 rotation: {
+                    type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Rotate Z',
                     name: 'Rotation',
                     value: 90,
                 },
                 scale: {
+                    type: AEX_THREED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Scale',
                     name: 'Scale',

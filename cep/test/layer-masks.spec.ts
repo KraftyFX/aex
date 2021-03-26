@@ -1,4 +1,5 @@
 import { AeObject, aex } from './aex';
+import { AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -24,6 +25,7 @@ describe('Layer Masks', function () {
         assertAreEqual(result.comps[0].layers[0].masks[0], {
             color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
             maskPath: {
+                type: AEX_SHAPE_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Shape',
                 name: 'Mask Path',
@@ -65,12 +67,14 @@ describe('Layer Masks', function () {
             color: [0.55686274509804, 0.17254901960784, 0.60392156862745],
             inverted: true,
             maskExpansion: {
+                type: AEX_ONED_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Offset',
                 name: 'Mask Expansion',
                 value: 23,
             },
             maskFeather: {
+                type: AEX_TWOD_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Feather',
                 name: 'Mask Feather',
@@ -78,12 +82,14 @@ describe('Layer Masks', function () {
             },
             maskMode: 6814,
             maskOpacity: {
+                type: AEX_ONED_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Opacity',
                 name: 'Mask Opacity',
                 value: 73,
             },
             maskPath: {
+                type: AEX_SHAPE_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Shape',
                 name: 'Mask Path',
@@ -142,6 +148,7 @@ describe('Layer Masks', function () {
         assertAreEqual(result.comps[0].layers[1].masks[0], {
             color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
             maskPath: {
+                type: AEX_SHAPE_PROPERTY,
                 keys: [],
                 matchName: 'ADBE Mask Shape',
                 name: 'Mask Path',
@@ -180,6 +187,7 @@ describe('Layer Masks', function () {
 
     it('Can parse animated masks', async () => {
         assertAreEqual(result.comps[0].layers[2].masks[0].maskPath, {
+            type: AEX_SHAPE_PROPERTY,
             keys: [
                 {
                     interpolationType: {},

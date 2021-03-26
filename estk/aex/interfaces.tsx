@@ -8,7 +8,17 @@ type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' |
 
 type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'aex:layer:null';
 type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
-type AexValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
+
+type AexPropertyType =
+    | 'aex:property:oned'
+    | 'aex:property:twod'
+    | 'aex:property:threed'
+    | 'aex:property:color'
+    | 'aex:property:marker'
+    | 'aex:property:shape'
+    | 'aex:property:maskindex'
+    | 'aex:property:textdocument';
+type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
 
 type AexUID = string;
 
@@ -162,12 +172,13 @@ interface AexPropertyBase {
     name: string;
 }
 
-interface AexProperty<T extends AexValueType = any> extends AexPropertyBase {
+interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyBase {
     expression: string;
     expressionEnabled: boolean;
     value: T;
 
     /** AEX-specific properties */
+    type: AexPropertyType;
     keys: AEQKeyInfo[];
 }
 

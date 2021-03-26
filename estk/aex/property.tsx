@@ -1,6 +1,6 @@
-type GetValueCallback<T extends AexValueType = any> = (property: Property) => T;
+type GetValueCallback<T extends AexPropertyValueType = any> = (property: Property) => T;
 
-function getModifiedProperty<T extends AexValueType = any, K extends AexValueType = any>(
+function getModifiedProperty<T extends AexPropertyValueType = any, K extends AexPropertyValueType = any>(
     property: Property,
     callback?: GetValueCallback<K>
 ): AexProperty<T> | undefined {
@@ -13,6 +13,7 @@ function getModifiedProperty<T extends AexValueType = any, K extends AexValueTyp
     assertIsReadableProperty(property);
 
     const aexProperty: AexProperty<T> = {
+        type: _getPropertyType(property),
         name: property.name,
         matchName: property.matchName,
         value: callback ? callback(property) : property.value,
@@ -23,6 +24,32 @@ function getModifiedProperty<T extends AexValueType = any, K extends AexValueTyp
     };
 
     return aexProperty;
+}
+
+function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
+    // zlovatt: is this mapping okay?
+    switch (property.propertyValueType) {
+        case PropertyValueType.OneD:
+            return 'aex:property:oned';
+        case PropertyValueType.TwoD:
+        case PropertyValueType.TwoD_SPATIAL:
+            return 'aex:property:twod';
+        case PropertyValueType.ThreeD:
+        case PropertyValueType.ThreeD_SPATIAL:
+            return 'aex:property:threed';
+        case PropertyValueType.COLOR:
+            return 'aex:property:color';
+        case PropertyValueType.SHAPE:
+            return 'aex:property:shape';
+        case PropertyValueType.TEXT_DOCUMENT:
+            return 'aex:property:textdocument';
+        case PropertyValueType.MASK_INDEX:
+            return 'aex:property:maskindex';
+        case PropertyValueType.MARKER:
+            return 'aex:property:marker';
+        default:
+            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
+    }
 }
 
 function assertIsReadableProperty(property: Property) {

@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
+import { AEX_TWOD_PROPERTY } from './constants';
 import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -27,6 +28,7 @@ describe('Layer Audio', function () {
             matchName: 'ADBE Audio Group',
             properties: [
                 {
+                    type: AEX_TWOD_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Audio Levels',
                     name: 'Audio Levels',
