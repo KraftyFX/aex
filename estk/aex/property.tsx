@@ -1,13 +1,16 @@
-type GetValueCallback<T> = (property: Property<T>) => any;
+type GetValueCallback<T extends AexValueType = any> = (property: Property) => T;
 
-function getModifiedProperty<T>(property: Property<T>, callback?: GetValueCallback<T>): AexProperty<T> | undefined {
+function getModifiedProperty<T extends AexValueType = any, K extends AexValueType = any>(
+    property: Property,
+    callback?: GetValueCallback<K>
+): AexProperty<T> | undefined {
     const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
 
     if (hasDefaultPropertyValue) {
         return undefined;
     }
 
-    assertIsReadableProperty<T>(property);
+    assertIsReadableProperty(property);
 
     const aexProperty: AexProperty<T> = {
         name: property.name,
@@ -16,24 +19,24 @@ function getModifiedProperty<T>(property: Property<T>, callback?: GetValueCallba
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
         expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: _getPropertyKeys<T>(property, callback),
+        keys: _getPropertyKeys(property, callback),
     };
 
     return aexProperty;
 }
 
-function assertIsReadableProperty<T>(property: Property<T>) {
+function assertIsReadableProperty(property: Property) {
     if (property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE) {
         throw new Error(`Can't parse property: ${property.matchName}`);
     }
 }
 
-function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarkerProperty[] {
+function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerProperty[] {
     const markerData = [] as AexMarkerProperty[];
 
-    forEachPropertyKeyValue(markerProperty, (keyValue, i) => {
+    forEachPropertyKeyValue<MarkerValue>(markerProperty, (keyValue, i) => {
         markerData.push({
-            time: markerProperty.keyTime(i + 1), // key related arrays are 1-based
+            time: markerProperty.keyTime(i + 1), // key indicies are 1-based
             comment: getModifiedValue(keyValue.comment, ''),
             chapter: getModifiedValue(keyValue.chapter, ''),
             url: getModifiedValue(keyValue.url, ''),
@@ -49,7 +52,7 @@ function getAexMarkerProperties(markerProperty: Property<MarkerValue>): AexMarke
     return markerData;
 }
 
-function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextDocumentProperty {
+function getTextDocumentProperties(sourceText: TextDocumentProperty): AexTextDocument {
     const text = sourceText.value;
 
     /**
@@ -88,16 +91,16 @@ function getTextDocumentProperties(sourceText: Property<TextDocument>): AexTextD
     };
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: GetValueCallback<any>): AexPropertyGroup {
+function getPropertyGroup(propertyGroup: PropertyGroup, callback?: GetValueCallback): AexPropertyGroup {
     const properties = [];
 
-    forEachPropertyInGroup(propertyGroup, (property: Property<any> | PropertyGroup) => {
+    forEachPropertyInGroup(propertyGroup, (property) => {
         let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            content = getModifiedProperty(property as Property<any>, valueParser);
+            content = getModifiedProperty(property as Property, callback);
         } else {
-            content = getPropertyGroup(property as PropertyGroup, valueParser);
+            content = getPropertyGroup(property as PropertyGroup, callback);
         }
 
         /**
@@ -139,12 +142,13 @@ function getPropertyGroup(propertyGroup: PropertyGroup, valueParser?: GetValueCa
     };
 }
 
-function _getPropertyKeys<T>(property: Property<T>, valueParser?: Function): AEQKeyInfo[] {
-    const propertyKeys = aeq.getKeys(property as any);
+function _getPropertyKeys(property: Property, valueParser?: GetValueCallback): AEQKeyInfo[] {
+    const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
-        const value = valueParser ? valueParser(keyInfo) : keyInfo.value;
+        // zlovatt: We should talk about what's going on here. This might be a bug in AEQ
+        const value = valueParser ? valueParser(keyInfo as any) : keyInfo.value;
         const time = keyInfo.time;
 
         const keyInterpolationType = keyInfo.interpolationType;

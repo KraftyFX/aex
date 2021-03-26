@@ -112,19 +112,19 @@ function isNullLayer(layer: Layer): layer is Layer {
     return layer.nullLayer;
 }
 
-type ForEachPropertyGroupCallback<T extends PropertyGroup> = (effect: T, i: number, length: number) => void;
+type ForEachPropertyGroupCallback<T> = (effect: Property | T, i: number, length: number) => void;
 
-function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: T, callback: ForEachPropertyGroupCallback<T>) {
+function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: PropertyGroup, callback: ForEachPropertyGroupCallback<T>) {
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
-        const property = group.property(ii) as Property<any> | PropertyGroup;
+        const property = group.property(ii) as Property | T;
 
-        callback(property as T, ii - 1, il);
+        callback(property, ii - 1, il);
     }
 }
 
 type ForEachPropertyKeyValueCallback<T> = (value: T, i: number, length: number) => void;
 
-function forEachPropertyKeyValue<T>(property: Property<T>, callback: ForEachPropertyKeyValueCallback<T>) {
+function forEachPropertyKeyValue<T>(property: Property, callback: ForEachPropertyKeyValueCallback<T>) {
     for (let ii = 1, il = property.numKeys; ii <= il; ii++) {
         const keyValue: T = property.keyValue(ii);
 

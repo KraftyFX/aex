@@ -1,4 +1,4 @@
-type Serializable = Project | CompItem | Layer | Property<any>;
+type Serializable = Project | CompItem | Layer | Property;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType;
@@ -8,7 +8,7 @@ type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' |
 
 type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'aex:layer:null';
 type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
-type AexValueType = number | [number, number] | [number, number, number] | [number, number, number, number] | MarkerValue | Shape | TextDocument;
+type AexValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
 
 type AexUID = string;
 
@@ -150,7 +150,7 @@ interface AexNullLayer extends AexLayer, AexObject {}
 
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;
-    sourceText: AexProperty<TextDocument>;
+    sourceText: AexProperty<AexTextDocument>;
     pathOption: AexPropertyGroup;
     moreOption: AexPropertyGroup;
     animators: AexPropertyGroup;
@@ -162,7 +162,7 @@ interface AexPropertyBase {
     name: string;
 }
 
-interface AexProperty<T> extends AexPropertyBase {
+interface AexProperty<T extends AexValueType = any> extends AexPropertyBase {
     expression: string;
     expressionEnabled: boolean;
     value: T;
@@ -172,7 +172,7 @@ interface AexProperty<T> extends AexPropertyBase {
 }
 
 interface AexPropertyGroup extends AexPropertyBase {
-    properties: (AexProperty<any> | AexPropertyGroup)[];
+    properties: (AexProperty | AexPropertyGroup)[];
 }
 
 interface AexMarkerProperty {
@@ -188,17 +188,17 @@ interface AexMarkerProperty {
     protectedRegion: boolean;
 }
 
-interface AexTextDocumentProperty {
+interface AexTextDocument {
     allCaps: boolean;
     applyFill: boolean;
     applyStroke: boolean;
     baselineLocs: number[];
     baselineShift: number;
-    boxTextPos: [number, number];
-    boxTextSize: [number, number];
+    boxTextPos: TwoDPoint;
+    boxTextSize: TwoDPoint;
     fauxBold: boolean;
     fauxItalic: boolean;
-    fillColor: [number, number, number];
+    fillColor: ThreeDPoint; // zlovatt: this should be ColorValue but it has 4 members, not 3
     font: string;
     fontFamily: string;
     fontSize: number;
@@ -208,7 +208,7 @@ interface AexTextDocumentProperty {
     leading: number;
     pointText: boolean;
     smallCaps: boolean;
-    strokeColor: [number, number, number];
+    strokeColor: ThreeDPoint; // zlovatt: this should be ColorValue but it has 4 members, not 3
     strokeOverFill: boolean;
     strokeWidth: number;
     subscript: boolean;
@@ -220,11 +220,11 @@ interface AexTextDocumentProperty {
 }
 
 interface AexTransform {
-    anchorPoint: AexProperty<[number, number] | [number, number, number]>;
-    position: AexProperty<[number, number] | [number, number, number]>;
-    scale: AexProperty<[number, number] | [number, number, number]>;
-    pointOfInterest: AexProperty<[number, number, number]>;
-    orientation: AexProperty<[number, number, number]>;
+    anchorPoint: AexProperty<TwoDPoint | ThreeDPoint>;
+    position: AexProperty<TwoDPoint | ThreeDPoint>;
+    scale: AexProperty<TwoDPoint | ThreeDPoint>;
+    pointOfInterest: AexProperty<ThreeDPoint>;
+    orientation: AexProperty<ThreeDPoint>;
     xRotation: AexProperty<number>;
     yRotation: AexProperty<number>;
     rotation: AexProperty<number>;

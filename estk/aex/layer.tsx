@@ -26,7 +26,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
         return styles;
     }
 
-    forEachPropertyInGroup(styleGroup, (property: Property<any> | PropertyGroup, ii) => {
+    forEachPropertyInGroup(styleGroup, (property: Property | PropertyGroup, ii) => {
         /**
          * Voodoo: We always want to parse the first property in this group
          *   (it's a general property that affects all the others)
@@ -57,7 +57,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
     const effects = [];
 
     forEachPropertyInGroup(layer.effect, (effect) => {
-        const propertyData = getPropertyGroup(effect);
+        const propertyData = getPropertyGroup(effect as PropertyGroup);
 
         /**
          * @todo
@@ -93,7 +93,7 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
         return masks;
     }
 
-    forEachPropertyInGroup<MaskPropertyGroup>(layer.mask, (mask) => {
+    forEachPropertyInGroup(layer.mask, (mask: MaskPropertyGroup) => {
         const { name, color } = mask;
 
         const maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
@@ -278,7 +278,7 @@ function _getTextLayer(layer: TextLayer): AexTextLayer {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
         threeDPerChar,
-        sourceText: getModifiedProperty(text.sourceText, getTextDocumentProperties),
+        sourceText: getModifiedProperty<TextDocument, AexTextDocument>(text.sourceText, getTextDocumentProperties),
         pathOption: getPropertyGroup(text.pathOption),
         moreOption: getPropertyGroup(text.moreOption),
         animators: getPropertyGroup(animators),
