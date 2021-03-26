@@ -111,12 +111,12 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
 
         masks.push({
             name,
+            color,
             maskMode,
             inverted,
             rotoBezier,
             maskMotionBlur,
             locked,
-            color,
             maskPath,
             maskFeather,
             maskOpacity,
@@ -130,8 +130,7 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
 function _getLayer(layer: Layer): AexLayer {
     const containingComp = layer.containingComp;
 
-    const name = layer.name;
-    const label = layer.label;
+    const { name, label } = layer;
 
     const comment = getModifiedValue(layer.comment, '');
     const hasVideo = getModifiedValue(layer.hasVideo, true);
@@ -199,9 +198,9 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
 
     const audio = getPropertyGroup(layer.audio);
     const timeRemap = getModifiedProperty(layer.timeRemap);
+    const effects = _getEffects(layer);
     const materialOption = getPropertyGroup(layer.materialOption);
     const geometryOption = getPropertyGroup(layer.geometryOption);
-    const effects = _getEffects(layer);
 
     let layerStyles;
     if (layer.layerStyle.canSetEnabled) {
@@ -231,12 +230,12 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
         timeRemapEnabled,
         trackMatteType,
 
+        audio,
         timeRemap,
         effects,
-        audio,
-        layerStyles,
         materialOption,
         geometryOption,
+        layerStyles,
     };
 }
 
