@@ -244,9 +244,9 @@ interface AexTextDocument {
 }
 
 interface AexTransform {
-    anchorPoint: AexProperty<TwoDPoint | ThreeDPoint>;
-    position: AexProperty<TwoDPoint | ThreeDPoint>;
-    scale: AexProperty<TwoDPoint | ThreeDPoint>;
+    anchorPoint: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    position: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    scale: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
     pointOfInterest: AexProperty<ThreeDPoint>;
     orientation: AexProperty<ThreeDPoint>;
     xRotation: AexProperty<number>;

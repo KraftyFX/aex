@@ -3,7 +3,7 @@ function getModifiedProperty(property: TextDocumentProperty, state: AexState): A
 function getModifiedProperty(property: OneDProperty, state: AexState): AexProperty<number> | undefined;
 function getModifiedProperty(property: TwoDProperty, state: AexState): AexProperty<TwoDPoint> | undefined;
 function getModifiedProperty(property: ThreeDProperty, state: AexState): AexProperty<ThreeDPoint> | undefined;
-function getModifiedProperty(property: TwoOrThreeDProperty, state: AexState): AexProperty<TwoDPoint | ThreeDPoint> | undefined;
+function getModifiedProperty(property: TwoDProperty | ThreeDProperty, state: AexState): AexProperty<TwoDPoint> | AexProperty<ThreeDPoint> | undefined;
 function getModifiedProperty(property: Property, state: AexState): AexProperty | undefined {
     const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
 
