@@ -22,10 +22,6 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
         properties: [],
     };
 
-    if (!styleGroup.canSetEnabled) {
-        return styles;
-    }
-
     forEachPropertyInGroup(styleGroup, (property: Property | PropertyGroup, ii) => {
         /**
          * Voodoo: We always want to parse the first property in this group
