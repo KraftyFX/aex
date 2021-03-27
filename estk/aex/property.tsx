@@ -32,6 +32,8 @@ function getModifiedProperty<T extends AexPropertyValueType = any, K extends Aex
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
     switch (property.propertyValueType) {
         case PropertyValueType.OneD:
+        case PropertyValueType.MASK_INDEX:
+        case PropertyValueType.LAYER_INDEX:
             return 'aex:property:oned';
         case PropertyValueType.TwoD:
         case PropertyValueType.TwoD_SPATIAL:
@@ -45,8 +47,6 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
             return 'aex:property:shape';
         case PropertyValueType.TEXT_DOCUMENT:
             return 'aex:property:textdocument';
-        case PropertyValueType.MASK_INDEX:
-            return 'aex:property:maskindex';
         case PropertyValueType.MARKER:
             return 'aex:property:marker';
         case PropertyValueType.CUSTOM_VALUE:

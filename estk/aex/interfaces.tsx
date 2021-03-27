@@ -16,7 +16,6 @@ type AexPropertyType =
     | 'aex:property:color'
     | 'aex:property:marker'
     | 'aex:property:shape'
-    | 'aex:property:maskindex'
     | 'aex:property:textdocument'
     | 'aex:property:custom'
     | 'aex:property:none';
