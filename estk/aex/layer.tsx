@@ -53,11 +53,11 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
     return styles;
 }
 
-function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
-    const effects = [];
+function _getFlatPropertyGroup(property: PropertyGroup): AexPropertyGroup[] {
+    const result = [];
 
-    forEachPropertyInGroup(layer.effect, (effect) => {
-        const propertyData = getPropertyGroup(effect as PropertyGroup);
+    forEachPropertyInGroup(property, (childProperty: PropertyGroup) => {
+        const propertyData = getPropertyGroup(childProperty as PropertyGroup);
 
         /**
          * @todo
@@ -72,9 +72,9 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
          */
         const properties = propertyData ? propertyData.properties : undefined;
 
-        const { name, matchName, enabled } = effect;
+        const { name, matchName, enabled } = childProperty;
 
-        effects.push({
+        result.push({
             name,
             matchName,
             enabled,
@@ -83,7 +83,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
         });
     });
 
-    return effects;
+    return result;
 }
 
 function _getAexLayerMasks(layer: Layer): AexMask[] {
@@ -196,7 +196,7 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
 
     const audio = getPropertyGroup(layer.audio);
     const timeRemap = getModifiedProperty(layer.timeRemap);
-    const effects = _getEffects(layer);
+    const effects = _getFlatPropertyGroup(layer.effect);
     const materialOption = getPropertyGroup(layer.materialOption);
     const geometryOption = getPropertyGroup(layer.geometryOption);
 
