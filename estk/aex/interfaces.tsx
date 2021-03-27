@@ -156,7 +156,9 @@ interface AexCameraLayer extends AexLayer, AexObject {
     cameraOption: AexPropertyGroup;
 }
 
-interface AexShapeLayer extends AexAVLayer, AexObject {}
+interface AexShapeLayer extends AexAVLayer, AexObject {
+    contents: AexPropertyGroup[];
+}
 
 interface AexNullLayer extends AexLayer, AexObject {}
 

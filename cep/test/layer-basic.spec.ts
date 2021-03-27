@@ -169,6 +169,7 @@ describe('Basic Layer Attributes', function () {
     it(`Can parse 3d layers`, async () => {
         assertAreEqual(result.comps[0].layers[7], {
             collapseTransformation: true,
+            contents: [],
             effects: [],
             geometryOption: {
                 matchName: 'ADBE Extrsn Options Group',

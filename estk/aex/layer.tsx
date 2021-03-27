@@ -261,10 +261,12 @@ function _getCameraLayer(layer: CameraLayer): AexCameraLayer {
 
 function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
     const avLayerAttributes = _getAVLayer(layer);
+    const contents = layer.property('ADBE Root Vectors Group') as PropertyGroup;
 
     return {
         ...avLayerAttributes,
         type: AEX_SHAPE_LAYER,
+        contents: _getFlatPropertyGroup(contents),
     };
 }
 
