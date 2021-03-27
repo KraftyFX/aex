@@ -60,7 +60,7 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
 
 function assertIsReadableProperty(property: Property) {
     if (property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE) {
-        throw new Error(`Can't parse property: ${property.matchName}`);
+        throw new Error(`Can't parse property: '${property.name}' (${property.matchName})`);
     }
 }
 
