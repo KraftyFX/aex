@@ -112,6 +112,12 @@ function isNullLayer(layer: Layer): layer is Layer {
     return layer.nullLayer;
 }
 
+function isEffectPropertyGroup(property: Property): boolean {
+    const { propertyDepth, propertyValueType } = property;
+
+    return propertyValueType === PropertyValueType.NO_VALUE && propertyDepth > 2 && property.propertyGroup(propertyDepth - 2).isEffect;
+}
+
 type ForEachPropertyGroupCallback<T> = (effect: Property | T, i: number, length: number) => void;
 
 function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: PropertyGroup, callback: ForEachPropertyGroupCallback<T>) {

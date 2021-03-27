@@ -11,6 +11,20 @@ function getModifiedProperty<T extends AexPropertyValueType = any, K extends Aex
     }
 
     /**
+     * Voodoo: Effect Properties can be nested in the Effects UI,
+     * though these 'groups' appear flat when iterating through them.
+     *
+     * We need to skip these properties, as their types are NO_VALUE and will
+     * throw errors.
+     *
+     * @todo -- see if this is even necessary. it's possible we can just
+     * skip 'no_value' properties altogether instead of this
+     */
+    if (isEffectPropertyGroup(property)) {
+        return undefined;
+    }
+
+    /**
      * @todo Add AexOption to break on unreadable properties vs ignore
      */
     assertIsReadableProperty(property);
