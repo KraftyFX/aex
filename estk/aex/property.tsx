@@ -10,6 +10,9 @@ function getModifiedProperty<T extends AexPropertyValueType = any, K extends Aex
         return undefined;
     }
 
+    /**
+     * @todo Add AexOption to break on unreadable properties vs ignore
+     */
     assertIsReadableProperty(property);
 
     const aexProperty: AexProperty<T> = {
@@ -27,7 +30,6 @@ function getModifiedProperty<T extends AexPropertyValueType = any, K extends Aex
 }
 
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
-    // zlovatt: is this mapping okay?
     switch (property.propertyValueType) {
         case PropertyValueType.OneD:
             return 'aex:property:oned';
@@ -47,6 +49,10 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
             return 'aex:property:maskindex';
         case PropertyValueType.MARKER:
             return 'aex:property:marker';
+        case PropertyValueType.CUSTOM_VALUE:
+            return 'aex:property:custom';
+        case PropertyValueType.NO_VALUE:
+            return 'aex:property:none';
         default:
             throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
     }

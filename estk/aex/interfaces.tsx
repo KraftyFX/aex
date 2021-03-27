@@ -17,7 +17,10 @@ type AexPropertyType =
     | 'aex:property:marker'
     | 'aex:property:shape'
     | 'aex:property:maskindex'
-    | 'aex:property:textdocument';
+    | 'aex:property:textdocument'
+    | 'aex:property:custom'
+    | 'aex:property:none';
+
 type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
 
 type AexUID = string;
