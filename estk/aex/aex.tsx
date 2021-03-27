@@ -1,15 +1,18 @@
-function aex(options: AexOptions) {
+function aex() {
     return {
-        toObject(item: Serializable): AexProject {
+        toObject(item: Serializable, options: AexOptions): AexProject {
+            const state: AexState = { options, log: [] };
+            state.options = state.options || { unspportedPropertyBehavior: 'skip' };
+
             assertIsDefined(item, 'item');
 
             if (isProject(item)) {
-                return getAexProject(item as Project, options);
+                return getAexProject(item as Project, state);
             } else if (aeq.isComp(item)) {
                 return {
                     type: AEX_PROJECT,
                     items: [],
-                    comps: [getAexComp(item as CompItem, options)],
+                    comps: [getAexComp(item as CompItem, state)],
                 };
             } else if (aeq.isLayer(item)) {
                 return {
@@ -17,7 +20,7 @@ function aex(options: AexOptions) {
                     items: [],
                     comps: [
                         {
-                            layers: [getAexLayer(item as Layer, options)],
+                            layers: [getAexLayer(item as Layer, state)],
                         } as AexComp,
                     ],
                 };
@@ -52,13 +55,15 @@ function aeToAex(aeObj: Layer, options: AexOptions): AexLayer;
 function aeToAex(aeObj: Serializable, options: AexOptions): AexSerialized {
     assertIsDefined(aeObj, 'item');
 
+    const state: AexState = { options, log: [] };
+
     // TODO: Cover array/collection types.
     if (isProject(aeObj)) {
-        return getAexProject(aeObj as Project, options);
+        return getAexProject(aeObj as Project, state);
     } else if (aeq.isComp(aeObj)) {
-        return getAexComp(aeObj as CompItem, options);
+        return getAexComp(aeObj as CompItem, state);
     } else if (aeq.isLayer(aeObj)) {
-        return getAexLayer(aeObj as Layer, options);
+        return getAexLayer(aeObj as Layer, state);
     } else {
         throw new Error(`Unrecognized item type`);
     }

@@ -22,7 +22,20 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexUID = string;
 
-interface AexOptions {}
+interface AexOptions {
+    unspportedPropertyBehavior:
+        | 'skip'
+        | 'log'
+        | 'throw'
+        | 'metadata'
+        | ((aeProperty: Property, aexProperty: AexProperty, log: { aexType: string; aeProperty: Property; message: string }[]) => void);
+}
+
+interface AexState {
+    options: AexOptions;
+
+    log: { aexType: string; aeProperty: Property; message: string }[];
+}
 
 interface AexObject {
     type: AexObjectType;

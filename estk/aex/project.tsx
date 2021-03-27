@@ -1,4 +1,4 @@
-function getAexProject(project: Project, options: AexOptions): AexProject {
+function getAexProject(project: Project, options: AexState): AexProject {
     const items = aeq.getItems().filter((item) => !aeq.isComp(item));
     const comps = aeq.getComps();
 

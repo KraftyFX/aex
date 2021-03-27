@@ -1,29 +1,65 @@
-type GetValueCallback<T extends AexPropertyValueType = any> = (property: Property) => T;
-
-function getModifiedProperty<T extends AexPropertyValueType = any, K extends AexPropertyValueType = any>(
-    property: Property,
-    callback?: GetValueCallback<K>
-): AexProperty<T> | undefined {
+function getModifiedProperty(property: ShapeProperty, state: AexState): AexProperty<Shape> | undefined;
+function getModifiedProperty(property: TextDocumentProperty, state: AexState): AexProperty<AexTextDocument> | undefined;
+function getModifiedProperty(property: OneDProperty, state: AexState): AexProperty<number> | undefined;
+function getModifiedProperty(property: TwoDProperty, state: AexState): AexProperty<TwoDPoint> | undefined;
+function getModifiedProperty(property: ThreeDProperty, state: AexState): AexProperty<ThreeDPoint> | undefined;
+function getModifiedProperty(property: TwoOrThreeDProperty, state: AexState): AexProperty<TwoDPoint | ThreeDPoint> | undefined;
+function getModifiedProperty(property: Property, state: AexState): AexProperty | undefined {
     const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
 
     if (hasDefaultPropertyValue) {
         return undefined;
     }
 
-    assertIsReadableProperty(property);
-
-    const aexProperty: AexProperty<T> = {
+    const aexProperty: AexProperty<K> = {
         type: _getPropertyType(property),
         name: property.name,
         matchName: property.matchName,
-        value: callback ? callback(property) : property.value,
+        value: undefined,
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
         expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: _getPropertyKeys(property, callback),
+        keys: undefined,
     };
 
+    const isReadable = isReadableProperty(property);
+
+    if (!isReadable) {
+        switch (state.options.unspportedPropertyBehavior) {
+            case 'skip':
+                return undefined;
+            case 'log':
+                state.log.push({
+                    aexType: aexProperty.type,
+                    aeProperty: property,
+                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
+                });
+                return undefined;
+            case 'throw':
+                throw new Error(`Property "${property.matchName}" is unsupported.`);
+            case 'metadata':
+                // zlovatt: Do we include keys when only fetching metadata?
+                aexProperty.keys = _getPropertyKeys(property, isReadable);
+                return aexProperty;
+            default:
+                state.options.unspportedPropertyBehavior(property, aexProperty, state.log);
+                return aexProperty;
+        }
+    } else {
+        if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+            aexProperty.value = getTextDocumentProperties(property.value);
+        } else {
+            aexProperty.value = property.value;
+        }
+
+        aexProperty.keys = _getPropertyKeys(property, isReadable);
+    }
+
     return aexProperty;
+}
+
+function isReadableProperty(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
 }
 
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
@@ -52,19 +88,23 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
     }
 }
 
-function assertIsReadableProperty(property: Property) {
-    if (property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE) {
-        throw new Error(`Can't parse property: ${property.matchName}`);
-    }
-}
-
-function _getPropertyKeys(property: Property, valueParser?: GetValueCallback): AEQKeyInfo[] {
+function _getPropertyKeys(property: Property, isReadable: boolean): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
-        // zlovatt: We should talk about what's going on here. This might be a bug in AEQ
-        const value = valueParser ? valueParser(keyInfo as any) : keyInfo.value;
+        let value: AEQKeyInfo['value'];
+
+        if (isReadable) {
+            if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+                value = getTextDocumentProperties(keyInfo.value);
+            } else {
+                value = keyInfo.value;
+            }
+        } else {
+            value = undefined;
+        }
+
         const time = keyInfo.time;
 
         const keyInterpolationType = keyInfo.interpolationType;
@@ -122,16 +162,16 @@ function _getPropertyKeys(property: Property, valueParser?: GetValueCallback): A
     return keys;
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, callback?: GetValueCallback): AexPropertyGroup {
+function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
     const properties = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
         let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            content = getModifiedProperty(property as Property, callback);
+            content = getModifiedProperty(property as any, state);
         } else {
-            content = getPropertyGroup(property as PropertyGroup, callback);
+            content = getPropertyGroup(property as PropertyGroup, state);
         }
 
         /**
@@ -173,9 +213,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, callback?: GetValueCallb
     };
 }
 
-function getTextDocumentProperties(sourceText: TextDocumentProperty): AexTextDocument {
-    const text = sourceText.value;
-
+function getTextDocumentProperties(text: TextDocument): AexTextDocument {
     /**
      * Voodoo: The ternary properties need that boolean check first.
      * If we try to access those properties and the boolean is false, an error will be thrown

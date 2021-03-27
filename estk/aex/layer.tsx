@@ -1,20 +1,20 @@
-function getAexLayer(layer: Layer, options: AexOptions): AexLayer {
+function getAexLayer(layer: Layer, state: AexState): AexLayer {
     if (aeq.isTextLayer(layer)) {
-        return _getTextLayer(layer);
+        return _getTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {
-        return _getShapeLayer(layer);
+        return _getShapeLayer(layer, state);
     } else if (aeq.isAVLayer(layer)) {
-        return _getAVLayer(layer);
+        return _getAVLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
-        return _getLightLayer(layer);
+        return _getLightLayer(layer, state);
     } else if (aeq.isCameraLayer(layer)) {
-        return _getCameraLayer(layer);
+        return _getCameraLayer(layer, state);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
 }
 
-function _getLayerStyles(styleGroup: PropertyGroup) {
+function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     const styles = {
         name: styleGroup.name,
         matchName: styleGroup.matchName,
@@ -33,7 +33,7 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
         if (ii == 0 || property.canSetEnabled) {
             const { name, matchName, enabled } = property;
 
-            const propertyData = getPropertyGroup(property as PropertyGroup);
+            const propertyData = getPropertyGroup(property as PropertyGroup, state);
             const properties = propertyData ? propertyData.properties : undefined;
 
             styles.properties.push({
@@ -49,21 +49,21 @@ function _getLayerStyles(styleGroup: PropertyGroup) {
     return styles;
 }
 
-function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
+function _getEffects(layer: TextLayer | ShapeLayer, state: AexState): AexPropertyGroup[] {
     const effects = [];
 
     forEachPropertyInGroup(layer.effect, (effect) => {
-        const propertyData = getPropertyGroup(effect as PropertyGroup);
+        const propertyData = getPropertyGroup(effect as PropertyGroup, state);
 
         /**
          * @todo
-         * getPropertyGroup() is set up so that if there's no data, it doesn't return the group at all.
+         * getPropertyGroup() is set up so that if there's no data, it doesn't return the group at al, statel.
          * This means that if there's a layer effect that has defaults, effects: [] will be empty
          * However, we _always_ want to return the effects if they're present, even if the properties are default.
          *
          * This approach below sucks because we're repeating work.
          * Best would be to still return enabled/matchName/name, with an empty properties array.
-         * This could be accomplished by adding an optional parameter to getPropertyGroup for whether to return undefined if empty or not
+         * This could be accomplished by adding an optional parameter to getPropertyGroup for whether to return undefined if empty or n, stateot
          * In cases like masks & effects, this would be false. Otherwise true.
          */
         const properties = propertyData ? propertyData.properties : undefined;
@@ -82,7 +82,7 @@ function _getEffects(layer: TextLayer | ShapeLayer): AexPropertyGroup[] {
     return effects;
 }
 
-function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
+function _getAexLayerMasks(layer: Layer, state: AexState): AexPropertyGroup[] {
     const masks = [];
 
     if (!isVisibleLayer(layer)) {
@@ -98,10 +98,10 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
         const maskMotionBlur = getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER);
         const locked = getModifiedValue(mask.locked, false);
 
-        const maskPath = getModifiedProperty(mask.maskPath);
-        const maskFeather = getModifiedProperty(mask.maskFeather);
-        const maskOpacity = getModifiedProperty(mask.maskOpacity);
-        const maskExpansion = getModifiedProperty(mask.maskExpansion);
+        const maskPath = getModifiedProperty(mask.maskPath, state);
+        const maskFeather = getModifiedProperty(mask.maskFeather, state);
+        const maskOpacity = getModifiedProperty(mask.maskOpacity, state);
+        const maskExpansion = getModifiedProperty(mask.maskExpansion, state);
 
         masks.push({
             name,
@@ -121,7 +121,7 @@ function _getAexLayerMasks(layer: Layer): AexPropertyGroup[] {
     return masks;
 }
 
-function _getLayer(layer: Layer): AexLayer {
+function _getLayer(layer: Layer, state: AexState): AexLayer {
     const containingComp = layer.containingComp;
 
     const { name, label } = layer;
@@ -153,8 +153,8 @@ function _getLayer(layer: Layer): AexLayer {
         solo,
         parentLayerIndex,
         markers: getAexMarkerProperties(layer.marker),
-        transform: _getTransform(layer),
-        masks: _getAexLayerMasks(layer),
+        transform: _getTransform(layer, state),
+        masks: _getAexLayerMasks(layer, state),
 
         // Gets set by derived classes
         timeRemap: undefined,
@@ -166,8 +166,8 @@ function _getLayer(layer: Layer): AexLayer {
     };
 }
 
-function _getAVLayer(layer: AVLayer): AexAVLayer {
-    const layerAttributes = _getLayer(layer);
+function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
+    const layerAttributes = _getLayer(layer, state);
 
     /** @todo Handle track matte */
     /** @todo Handle source */
@@ -190,13 +190,13 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
     const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
     const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
 
-    const audio = getPropertyGroup(layer.audio);
-    const timeRemap = getModifiedProperty(layer.timeRemap);
-    const effects = _getEffects(layer);
-    const materialOption = getPropertyGroup(layer.materialOption);
-    const geometryOption = getPropertyGroup(layer.geometryOption);
+    const audio = getPropertyGroup(layer.audio, state);
+    const timeRemap = getModifiedProperty(layer.timeRemap, state);
+    const effects = _getEffects(layer, state);
+    const materialOption = getPropertyGroup(layer.materialOption, state);
+    const geometryOption = getPropertyGroup(layer.geometryOption, state);
 
-    const layerStyles = getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle), undefined);
+    const layerStyles = getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined);
 
     return {
         ...layerAttributes,
@@ -231,8 +231,8 @@ function _getAVLayer(layer: AVLayer): AexAVLayer {
     };
 }
 
-function _getLightLayer(layer: LightLayer): AexLightLayer {
-    const layerAttributes = _getLayer(layer);
+function _getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
+    const layerAttributes = _getLayer(layer, state);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
     const lightType = layer.lightType;
 
@@ -240,23 +240,23 @@ function _getLightLayer(layer: LightLayer): AexLightLayer {
         ...layerAttributes,
         type: AEX_LIGHT_LAYER,
         lightType,
-        lightOption: getPropertyGroup(layer.lightOption),
+        lightOption: getPropertyGroup(layer.lightOption, state),
     };
 }
 
-function _getCameraLayer(layer: CameraLayer): AexCameraLayer {
-    const layerAttributes = _getLayer(layer);
+function _getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
+    const layerAttributes = _getLayer(layer, state);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
     return {
         ...layerAttributes,
         type: AEX_CAMERA_LAYER,
-        cameraOption: getPropertyGroup(layer.cameraOption),
+        cameraOption: getPropertyGroup(layer.cameraOption, state),
     };
 }
 
-function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
-    const avLayerAttributes = _getAVLayer(layer);
+function _getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
+    const avLayerAttributes = _getAVLayer(layer, state);
 
     return {
         ...avLayerAttributes,
@@ -264,8 +264,8 @@ function _getShapeLayer(layer: ShapeLayer): AexShapeLayer {
     };
 }
 
-function _getTextLayer(layer: TextLayer): AexTextLayer {
-    const avLayerAttributes = _getAVLayer(layer);
+function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
+    const avLayerAttributes = _getAVLayer(layer, state);
     const threeDPerChar = getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false);
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
@@ -274,15 +274,15 @@ function _getTextLayer(layer: TextLayer): AexTextLayer {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
         threeDPerChar,
-        sourceText: getModifiedProperty<TextDocument, AexTextDocument>(text.sourceText, getTextDocumentProperties),
-        pathOption: getPropertyGroup(text.pathOption),
-        moreOption: getPropertyGroup(text.moreOption),
-        animators: getPropertyGroup(animators),
+        sourceText: getModifiedProperty(text.sourceText, state),
+        pathOption: getPropertyGroup(text.pathOption, state),
+        moreOption: getPropertyGroup(text.moreOption, state),
+        animators: getPropertyGroup(animators, state),
     };
 }
 
-function _getNullLayer(layer: Layer): AexNullLayer {
-    const layerAttributes = _getLayer(layer);
+function _getNullLayer(layer: Layer, state: AexState): AexNullLayer {
+    const layerAttributes = _getLayer(layer, state);
 
     return {
         ...layerAttributes,
@@ -290,20 +290,20 @@ function _getNullLayer(layer: Layer): AexNullLayer {
     };
 }
 
-function _getTransform(layer: Layer): AexTransform {
+function _getTransform(layer: Layer, state: AexState): AexTransform {
     const transformGroup = layer.transform;
 
-    const anchorPoint = getModifiedProperty(transformGroup.anchorPoint);
-    const position = getModifiedProperty(transformGroup.position);
-    const scale = getModifiedProperty(transformGroup.scale);
-    const opacity = getModifiedProperty(transformGroup.opacity);
+    const anchorPoint = getModifiedProperty(transformGroup.anchorPoint, state);
+    const position = getModifiedProperty(transformGroup.position, state);
+    const scale = getModifiedProperty(transformGroup.scale, state);
+    const opacity = getModifiedProperty(transformGroup.opacity, state);
 
     // 3d & Camera properties
-    const pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest);
-    const orientation = getModifiedProperty(transformGroup.orientation);
-    const xRotation = getModifiedProperty(transformGroup.xRotation);
-    const yRotation = getModifiedProperty(transformGroup.yRotation);
-    const rotation = getZRotation(layer, transformGroup);
+    const pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest, state);
+    const orientation = getModifiedProperty(transformGroup.orientation, state);
+    const xRotation = getModifiedProperty(transformGroup.xRotation, state);
+    const yRotation = getModifiedProperty(transformGroup.yRotation, state);
+    const rotation = getZRotation(layer, transformGroup, state);
 
     return {
         anchorPoint,
@@ -324,10 +324,10 @@ function _getTransform(layer: Layer): AexTransform {
  *
  * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
  */
-function getZRotation(layer: Layer, transformGroup: _TransformGroup) {
+function getZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
     if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-        return getModifiedProperty(transformGroup.zRotation);
+        return getModifiedProperty(transformGroup.zRotation, state);
     } else {
-        return getModifiedProperty(transformGroup.rotation);
+        return getModifiedProperty(transformGroup.rotation, state);
     }
 }
