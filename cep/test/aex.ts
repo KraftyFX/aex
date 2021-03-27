@@ -8,11 +8,7 @@ export enum AeObject {
 export function aex() {
     return {
         async toObject(item: any): Promise<any> {
-            if (typeof item === 'string') {
-                return await getScriptResult(`aex().toObject("${item.toString()}")`);
-            } else {
-                return await getScriptResult(`aex().toObject(${item || 'undefined'})`);
-            }
+            return await getScriptResult(`aex().toObject(${item || 'undefined'})`);
         },
         async toObjectWithAeObject(aeobject: AeObject): Promise<any> {
             switch (aeobject) {
