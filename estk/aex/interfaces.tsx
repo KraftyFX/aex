@@ -22,19 +22,20 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexUID = string;
 
+type UnsupportedTypeCallback = (aeProperty: Property, log: AexLogEntry[]) => void;
+
 interface AexOptions {
-    unspportedPropertyBehavior:
-        | 'skip'
-        | 'log'
-        | 'throw'
-        | 'metadata'
-        | ((aeProperty: Property, aexProperty: AexProperty, log: { aexType: string; aeProperty: Property; message: string }[]) => void);
+    unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
+interface AexLogEntry {
+    aeProperty: Property;
+    message: string;
+}
 interface AexState {
     options: AexOptions;
 
-    log: { aexType: string; aeProperty: Property; message: string }[];
+    log: AexLogEntry[];
 }
 
 interface AexObject {

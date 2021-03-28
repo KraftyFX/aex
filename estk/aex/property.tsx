@@ -30,7 +30,6 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
                 return undefined;
             case 'log':
                 state.log.push({
-                    aexType: aexProperty.type,
                     aeProperty: property,
                     message: `Property "${property.matchName}" is unsupported. Skipping.`,
                 });
@@ -38,11 +37,10 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             case 'throw':
                 throw new Error(`Property "${property.matchName}" is unsupported.`);
             case 'metadata':
-                // zlovatt: Do we include keys when only fetching metadata?
                 aexProperty.keys = _getPropertyKeys(property, isReadable);
                 return aexProperty;
             default:
-                state.options.unspportedPropertyBehavior(property, aexProperty, state.log);
+                state.options.unspportedPropertyBehavior(property, state.log);
                 return aexProperty;
         }
     } else {
