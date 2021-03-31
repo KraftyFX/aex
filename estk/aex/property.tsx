@@ -22,9 +22,9 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         keys: undefined,
     };
 
-    const isReadable = isReadableProperty(property);
+    const isUnreadable = isUnreadableProperty(property);
 
-    if (!isReadable) {
+    if (isUnreadable) {
         switch (state.options.unspportedPropertyBehavior) {
             case 'skip':
                 return undefined;
@@ -37,7 +37,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             case 'throw':
                 throw new Error(`Property "${property.matchName}" is unsupported.`);
             case 'metadata':
-                aexProperty.keys = _getPropertyKeys(property, isReadable);
+                aexProperty.keys = _getPropertyKeys(property, isUnreadable);
                 return aexProperty;
             default:
                 state.options.unspportedPropertyBehavior(property, state.log);
@@ -50,57 +50,27 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             aexProperty.value = property.value;
         }
 
-        aexProperty.keys = _getPropertyKeys(property, isReadable);
+        aexProperty.keys = _getPropertyKeys(property, isUnreadable);
     }
 
     return aexProperty;
 }
 
-function isReadableProperty(property: Property<UnknownPropertyType>) {
-    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
-}
-
-function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
-    // zlovatt: is this mapping okay?
-    switch (property.propertyValueType) {
-        case PropertyValueType.OneD:
-            return 'aex:property:oned';
-        case PropertyValueType.TwoD:
-        case PropertyValueType.TwoD_SPATIAL:
-            return 'aex:property:twod';
-        case PropertyValueType.ThreeD:
-        case PropertyValueType.ThreeD_SPATIAL:
-            return 'aex:property:threed';
-        case PropertyValueType.COLOR:
-            return 'aex:property:color';
-        case PropertyValueType.SHAPE:
-            return 'aex:property:shape';
-        case PropertyValueType.TEXT_DOCUMENT:
-            return 'aex:property:textdocument';
-        case PropertyValueType.MASK_INDEX:
-            return 'aex:property:maskindex';
-        case PropertyValueType.MARKER:
-            return 'aex:property:marker';
-        default:
-            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
-    }
-}
-
-function _getPropertyKeys(property: Property, isReadable: boolean): AEQKeyInfo[] {
+function _getPropertyKeys(property: Property, isUnreadable: boolean): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
         let value: AEQKeyInfo['value'];
 
-        if (isReadable) {
+        if (isUnreadable) {
+            value = undefined;
+        } else {
             if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
                 value = getTextDocumentProperties(keyInfo.value);
             } else {
                 value = keyInfo.value;
             }
-        } else {
-            value = undefined;
         }
 
         const time = keyInfo.time;
@@ -158,6 +128,36 @@ function _getPropertyKeys(property: Property, isReadable: boolean): AEQKeyInfo[]
     });
 
     return keys;
+}
+
+function isUnreadableProperty(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
+}
+
+function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
+    // zlovatt: is this mapping okay?
+    switch (property.propertyValueType) {
+        case PropertyValueType.OneD:
+            return 'aex:property:oned';
+        case PropertyValueType.TwoD:
+        case PropertyValueType.TwoD_SPATIAL:
+            return 'aex:property:twod';
+        case PropertyValueType.ThreeD:
+        case PropertyValueType.ThreeD_SPATIAL:
+            return 'aex:property:threed';
+        case PropertyValueType.COLOR:
+            return 'aex:property:color';
+        case PropertyValueType.SHAPE:
+            return 'aex:property:shape';
+        case PropertyValueType.TEXT_DOCUMENT:
+            return 'aex:property:textdocument';
+        case PropertyValueType.MASK_INDEX:
+            return 'aex:property:maskindex';
+        case PropertyValueType.MARKER:
+            return 'aex:property:marker';
+        default:
+            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
+    }
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
