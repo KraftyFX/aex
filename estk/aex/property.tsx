@@ -37,7 +37,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             case 'throw':
                 throw new Error(`Property "${property.matchName}" is unsupported.`);
             case 'metadata':
-                aexProperty.keys = _getPropertyKeys(property, isUnreadable);
+                aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
                 return aexProperty;
             default:
                 state.options.unspportedPropertyBehavior(property, state.log);
@@ -50,13 +50,14 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             aexProperty.value = property.value;
         }
 
-        aexProperty.keys = _getPropertyKeys(property, isUnreadable);
+        aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
     }
 
+    state.stats.propertyCount++;
     return aexProperty;
 }
 
-function _getPropertyKeys(property: Property, isUnreadable: boolean): AEQKeyInfo[] {
+function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
@@ -127,6 +128,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean): AEQKeyInfo
         };
     });
 
+    state.stats.keyCount++;
     return keys;
 }
 

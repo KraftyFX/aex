@@ -34,7 +34,13 @@ interface AexLogEntry {
 }
 interface AexState {
     options: AexOptions;
-
+    stats: {
+        nonCompItemCount: number;
+        compCount: number;
+        layerCount: number;
+        propertyCount: number;
+        keyCount: number;
+    };
     log: AexLogEntry[];
 }
 

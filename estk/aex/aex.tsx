@@ -31,7 +31,7 @@ function aeToAex(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
 function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
-    const state: AexState = { options, log: [] };
+    const state: AexState = { options, log: [], stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 } };
     state.options = state.options || { unspportedPropertyBehavior: 'skip' };
 
     let object: AexSerialized;

@@ -63,6 +63,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
         // essentialProps: _getEssentialProperties(comp, options),
     };
 
+    state.stats.compCount++;
     return aexComp;
 }
 
@@ -98,6 +99,8 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
 
+    state.stats.nonCompItemCount++;
+
     return {
         type,
         ...avItemAttributes,
@@ -119,6 +122,7 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
 function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     const itemAttributes = _getItemAttributes(item);
 
+    state.stats.nonCompItemCount++;
     return {
         type: AEX_FOLDER_ITEM,
         ...itemAttributes,
