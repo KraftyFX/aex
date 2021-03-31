@@ -1,4 +1,4 @@
-import { AeObject, aex } from './aex';
+import { AeObject, aex } from '../aex';
 import {
     AEX_AV_LAYER,
     AEX_CAMERA_LAYER,
@@ -8,9 +8,9 @@ import {
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
-} from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+} from '../constants';
+import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Basic Layer Attributes', function () {
     this.slow(500);

@@ -1,7 +1,7 @@
-import { AeObject, aex } from './aex';
-import { AEX_ONED_PROPERTY } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex } from '../aex';
+import { AEX_ONED_PROPERTY } from '../constants';
+import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Layer Animation', function () {
     this.slow(500);
