@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Comp Markers', function () {
@@ -17,7 +17,6 @@ describe('Comp Markers', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAexIpc();
     });
 
     it(`Can parse detailed markers`, async () => {

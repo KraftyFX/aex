@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { cleanupAex, cleanupAexIpc, evalAexIntoESTK } from './csinterface';
+import { cleanupAex, evalAexIntoESTK } from './csinterface';
 
 describe.skip('Aex', function () {
     this.slow(500);
@@ -12,7 +12,6 @@ describe.skip('Aex', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAexIpc();
     });
 
     /** Meta tests */

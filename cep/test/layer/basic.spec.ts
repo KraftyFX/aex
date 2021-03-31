@@ -9,7 +9,7 @@ import {
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
 } from '../constants';
-import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Basic Layer Attributes', function () {
@@ -27,7 +27,6 @@ describe('Basic Layer Attributes', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAexIpc();
     });
 
     /** Layer tests */

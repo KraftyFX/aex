@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_TWOD_PROPERTY } from '../constants';
-import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Audio', function () {
@@ -19,7 +19,6 @@ describe('Layer Audio', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAexIpc();
     });
 
     it(`Can parse layer audio`, async () => {

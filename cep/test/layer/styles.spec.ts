@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Styles', function () {
@@ -19,7 +19,6 @@ describe('Layer Styles', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAexIpc();
     });
 
     it('Can parse Drop Shadow style', async () => {

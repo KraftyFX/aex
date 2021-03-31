@@ -92,7 +92,7 @@ export function getScriptResult(code: string, options?: { ignoreReturn: boolean 
         request.resolve = resolve;
         request.reject = reject;
 
-        const wrappedCode = `__aeq_ipc_invoke(${
+        const wrappedCode = `aex._ipc_invoke(${
             request.id
         }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
         cs.evalScript(wrappedCode);
@@ -109,11 +109,6 @@ export async function evalAexIntoESTK() {
 
 export async function cleanupAex() {
     await getScriptResult('delete aex');
-}
-
-export async function cleanupAexIpc() {
-    await getScriptResult('delete __aex_ipc_eo');
-    await getScriptResult('delete __aex_ipc_invoke');
 }
 
 export async function alert(value: string) {
