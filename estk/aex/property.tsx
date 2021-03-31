@@ -11,7 +11,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    const aexProperty: AexProperty<K> = {
+    const aexProperty: AexProperty = {
         type: _getPropertyType(property),
         name: property.name,
         matchName: property.matchName,
