@@ -8,13 +8,14 @@ describe('Layer Styles', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_styles.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_styles', result);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
+        console.log('layer_styles', comp);
     });
 
     after(async () => {
@@ -22,7 +23,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Drop Shadow style', async () => {
-        assertAreEqual(result.comps[0].layers[0].layerStyles.properties, [
+        assertAreEqual(comp.layers[0].layerStyles.properties, [
             {
                 name: 'Blending Options',
                 matchName: 'ADBE Blend Options Group',
@@ -37,7 +38,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Inner Shadow style', async () => {
-        assertAreEqual(result.comps[0].layers[1].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[1].layerStyles.properties[1], {
             name: 'Inner Shadow',
             matchName: 'innerShadow/enabled',
             enabled: true,
@@ -45,7 +46,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Outer Glow style', async () => {
-        assertAreEqual(result.comps[0].layers[2].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[2].layerStyles.properties[1], {
             name: 'Outer Glow',
             matchName: 'outerGlow/enabled',
             enabled: true,
@@ -53,7 +54,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Outer Glow style', async () => {
-        assertAreEqual(result.comps[0].layers[3].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[3].layerStyles.properties[1], {
             name: 'Inner Glow',
             matchName: 'innerGlow/enabled',
             enabled: true,
@@ -61,7 +62,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Bevel Emboss style', async () => {
-        assertAreEqual(result.comps[0].layers[4].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[4].layerStyles.properties[1], {
             name: 'Bevel and Emboss',
             matchName: 'bevelEmboss/enabled',
             enabled: true,
@@ -69,7 +70,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Satin style', async () => {
-        assertAreEqual(result.comps[0].layers[5].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[5].layerStyles.properties[1], {
             name: 'Satin',
             matchName: 'chromeFX/enabled',
             enabled: true,
@@ -77,7 +78,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Color Overlay style', async () => {
-        assertAreEqual(result.comps[0].layers[6].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[6].layerStyles.properties[1], {
             name: 'Color Overlay',
             matchName: 'solidFill/enabled',
             enabled: true,
@@ -85,7 +86,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Gradient Overlay style', async () => {
-        assertAreEqual(result.comps[0].layers[7].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[7].layerStyles.properties[1], {
             name: 'Gradient Overlay',
             matchName: 'gradientFill/enabled',
             enabled: true,
@@ -93,7 +94,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse Stroke style', async () => {
-        assertAreEqual(result.comps[0].layers[8].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[8].layerStyles.properties[1], {
             name: 'Stroke',
             matchName: 'frameFX/enabled',
             enabled: true,
@@ -101,7 +102,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse modified layer style', async () => {
-        assertAreEqual(result.comps[0].layers[9].layerStyles.properties, [
+        assertAreEqual(comp.layers[9].layerStyles.properties, [
             {
                 name: 'Blending Options',
                 matchName: 'ADBE Blend Options Group',
@@ -237,7 +238,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse specific disabled style', async () => {
-        assertAreEqual(result.comps[0].layers[10].layerStyles.properties[1], {
+        assertAreEqual(comp.layers[10].layerStyles.properties[1], {
             name: 'Drop Shadow',
             matchName: 'dropShadow/enabled',
             enabled: false,
@@ -245,7 +246,7 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse entire styles property disabled', async () => {
-        assertAreEqual(result.comps[0].layers[11].layerStyles, {
+        assertAreEqual(comp.layers[11].layerStyles, {
             matchName: 'ADBE Layer Styles',
             name: 'Layer Styles',
             enabled: false,
@@ -265,6 +266,6 @@ describe('Layer Styles', function () {
     });
 
     it('Can parse no styles', async () => {
-        expect(result.comps[0].layers[12].layerStyles).to.be.undefined;
+        expect(comp.layers[12].layerStyles).to.be.undefined;
     });
 });

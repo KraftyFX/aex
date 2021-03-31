@@ -16,13 +16,14 @@ describe('Basic Layer Attributes', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_basic.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_basic', result);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
+        console.log('layer_basic', comp);
     });
 
     after(async () => {
@@ -31,7 +32,7 @@ describe('Basic Layer Attributes', function () {
 
     /** Layer tests */
     it(`Can parse basic CameraLayer properties`, async () => {
-        assertAreEqual(result.comps[0].layers[0], {
+        assertAreEqual(comp.layers[0], {
             label: 4,
             markers: [],
             masks: [],
@@ -42,7 +43,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse basic TextLayer properties`, async () => {
-        assertAreEqual(result.comps[0].layers[1], {
+        assertAreEqual(comp.layers[1], {
             effects: [],
             label: 1,
             markers: [],
@@ -79,7 +80,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse basic AVLayer properties`, async () => {
-        assertAreEqual(result.comps[0].layers[2], {
+        assertAreEqual(comp.layers[2], {
             effects: [],
             label: 1,
             markers: [],
@@ -93,7 +94,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse basic LightLayer properties`, async () => {
-        assertAreEqual(result.comps[0].layers[3], {
+        assertAreEqual(comp.layers[3], {
             inPoint: 0.5,
             label: 1,
             lightType: 4414,
@@ -107,7 +108,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse various Layer flags`, async () => {
-        assertAreEqual(result.comps[0].layers[4], {
+        assertAreEqual(comp.layers[4], {
             adjustmentLayer: true,
             autoOrient: 4213,
             collapseTransformation: true,
@@ -127,7 +128,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse Layer blend mode & time stretch`, async () => {
-        assertAreEqual(result.comps[0].layers[5], {
+        assertAreEqual(comp.layers[5], {
             blendingMode: 5216,
             effects: [],
             label: 1,
@@ -144,7 +145,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse parented layers`, async () => {
-        assertAreEqual(result.comps[0].layers[6], {
+        assertAreEqual(comp.layers[6], {
             effects: [],
             label: 1,
             markers: [],
@@ -166,7 +167,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse 3d layers`, async () => {
-        assertAreEqual(result.comps[0].layers[7], {
+        assertAreEqual(comp.layers[7], {
             collapseTransformation: true,
             effects: [],
             geometryOption: {
@@ -302,7 +303,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse time remap enabled (but not modified)`, async () => {
-        assertAreEqual(result.comps[0].layers[8], {
+        assertAreEqual(comp.layers[8], {
             effects: [],
             label: 15,
             markers: [],
@@ -362,7 +363,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     it(`Can parse time remap enabled (and modified)`, async () => {
-        assertAreEqual(result.comps[0].layers[9], {
+        assertAreEqual(comp.layers[9], {
             effects: [],
             label: 15,
             markers: [],

@@ -8,12 +8,13 @@ describe('Light Layer Attributes', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_light.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
         console.log('layer_light', result);
     });
 
@@ -22,7 +23,7 @@ describe('Light Layer Attributes', function () {
     });
 
     it(`Can parse light layer attributes`, async () => {
-        assertAreEqual(result.comps[0].layers[0], {
+        assertAreEqual(comp.layers[0], {
             label: 6,
             lightType: 4412,
             markers: [],
@@ -88,8 +89,8 @@ describe('Light Layer Attributes', function () {
     });
 
     it(`Can parse light layer types`, async () => {
-        expect(result.comps[0].layers[1].lightType).to.eql(4413);
-        expect(result.comps[0].layers[2].lightType).to.eql(4414);
-        expect(result.comps[0].layers[3].lightType).to.eql(4415);
+        expect(comp.layers[1].lightType).to.eql(4413);
+        expect(comp.layers[2].lightType).to.eql(4414);
+        expect(comp.layers[3].lightType).to.eql(4415);
     });
 });

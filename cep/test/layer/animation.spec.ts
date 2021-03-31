@@ -7,13 +7,14 @@ describe('Layer Animation', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let project: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/property_animated.aep');
-        result = await aex().toObjectWithAeObject(AeObject.Project);
-        console.log('property_animated', result);
+        const result = await aex().fromAeObject(AeObject.Project);
+        project = result.object;
+        console.log('property_animated', project);
     });
 
     after(async () => {
@@ -21,7 +22,7 @@ describe('Layer Animation', function () {
     });
 
     it(`Can parse eased keyframes`, async () => {
-        assertAreEqual(result.comps[0].layers[0].transform, {
+        assertAreEqual(project.comps[0].layers[0].transform, {
             rotation: {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -97,7 +98,7 @@ describe('Layer Animation', function () {
         });
     });
     it(`Can parse hold keyframes`, async () => {
-        assertAreEqual(result.comps[1].layers[0].transform, {
+        assertAreEqual(project.comps[1].layers[0].transform, {
             rotation: {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -132,7 +133,7 @@ describe('Layer Animation', function () {
         });
     });
     it(`Can parse linear keyframes`, async () => {
-        assertAreEqual(result.comps[2].layers[0].transform, {
+        assertAreEqual(project.comps[2].layers[0].transform, {
             rotation: {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -183,7 +184,7 @@ describe('Layer Animation', function () {
     });
 
     it(`Can parse mixed easing keyframes`, async () => {
-        assertAreEqual(result.comps[3].layers[0].transform, {
+        assertAreEqual(project.comps[3].layers[0].transform, {
             rotation: {
                 type: AEX_ONED_PROPERTY,
                 keys: [

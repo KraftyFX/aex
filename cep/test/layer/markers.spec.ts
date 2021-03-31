@@ -6,13 +6,14 @@ describe('Layer Markers', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_markers.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_markers', result);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
+        console.log('layer_markers', comp);
     });
 
     after(async () => {
@@ -20,7 +21,7 @@ describe('Layer Markers', function () {
     });
 
     it('Can parse simple markers', async () => {
-        assertAreEqual(result.comps[0].layers[0].markers, [
+        assertAreEqual(comp.layers[0].markers, [
             {
                 time: 0.16666666666667,
             },
@@ -40,7 +41,7 @@ describe('Layer Markers', function () {
     });
 
     it('Can parse complicated markers', async () => {
-        assertAreEqual(result.comps[0].layers[1].markers, [
+        assertAreEqual(comp.layers[1].markers, [
             {
                 duration: 0.2,
                 time: 0.16666666666667,

@@ -18,23 +18,21 @@ describe('Comp', function () {
     it(`Can parse basic comp attributes`, async () => {
         await openProject('testAssets/comp_basic.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        const { object: comp } = await aex().fromAeObject(AeObject.ActiveComp);
 
-        console.log('comp_basic', result);
-        assertAreEqual(result.comps, [
-            {
-                aexid: 'comp 1:1',
-                duration: 4,
-                folder: [],
-                frameRate: 60,
-                height: 720,
-                layers: [],
-                markers: [],
-                name: 'Comp 1',
-                pixelAspect: 1,
-                type: AEX_COMP_ITEM,
-                width: 1280,
-            },
-        ]);
+        console.log('comp_basic', comp);
+        assertAreEqual(comp, {
+            aexid: 'comp 1:1',
+            duration: 4,
+            folder: [],
+            frameRate: 60,
+            height: 720,
+            layers: [],
+            markers: [],
+            name: 'Comp 1',
+            pixelAspect: 1,
+            type: AEX_COMP_ITEM,
+            width: 1280,
+        });
     });
 });

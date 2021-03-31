@@ -7,20 +7,20 @@ export enum AeObject {
 
 export function aex() {
     return {
-        async toObject(item: any): Promise<any> {
+        async fromAe(item: any): Promise<any> {
             if (typeof item === 'string') {
-                return await getScriptResult(`aex().toObject("${item.toString()}")`);
+                return await getScriptResult(`aex().fromAe("${item.toString()}")`);
             } else {
-                return await getScriptResult(`aex().toObject(${item || 'undefined'})`);
+                return await getScriptResult(`aex().fromAe(${item || 'undefined'})`);
             }
         },
-        async toObjectWithAeObject(aeobject: AeObject): Promise<any> {
-            switch (aeobject) {
+        async fromAeObject(aeObject: AeObject): Promise<any> {
+            switch (aeObject) {
                 case AeObject.ActiveComp:
                 case AeObject.Project:
-                    return await getScriptResult(`aex().toObject(${aeobject})`);
+                    return await getScriptResult(`aex().fromAe(${aeObject})`);
                 default:
-                    throw new Error(`Unrecognized AE Object - ${aeobject}`);
+                    throw new Error(`Unrecognized AE Object - ${aeObject}`);
             }
         },
     };

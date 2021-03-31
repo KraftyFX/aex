@@ -17,7 +17,7 @@ describe.skip('Aex', function () {
     /** Meta tests */
     it(`Can throw if undefined is passed in`, async () => {
         try {
-            await aex().toObject(undefined);
+            await aex().fromAe(undefined);
 
             expect.fail(`Test should have thrown but it completed.`);
         } catch (e) {
@@ -28,16 +28,16 @@ describe.skip('Aex', function () {
 
     /** Data dumps */
     it(`Unsophisticated test to check comp data parsing`, async () => {
-        const result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
 
-        console.log('activecomp', result);
-        expect(result);
+        console.log('activecomp', result.object);
+        expect(result.object);
     });
 
     it(`Unsophisticated test to check project data parsing`, async () => {
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().fromAeObject(AeObject.Project);
 
-        console.log('full project', result);
-        expect(result);
+        console.log('full project', result.object);
+        expect(result.object);
     });
 });

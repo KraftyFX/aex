@@ -7,13 +7,14 @@ describe('Layer Masks', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_masks.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_masks', result);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
+        console.log('layer_masks', comp);
     });
 
     after(async () => {
@@ -21,7 +22,7 @@ describe('Layer Masks', function () {
     });
 
     it('Can parse simple mask paths', async () => {
-        assertAreEqual(result.comps[0].layers[0].masks[0], {
+        assertAreEqual(comp.layers[0].masks[0], {
             color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
             maskPath: {
                 type: AEX_SHAPE_PROPERTY,
@@ -62,7 +63,7 @@ describe('Layer Masks', function () {
     });
 
     it('Can parse simple mask attributes', async () => {
-        assertAreEqual(result.comps[0].layers[0].masks[1], {
+        assertAreEqual(comp.layers[0].masks[1], {
             color: [0.55686274509804, 0.17254901960784, 0.60392156862745],
             inverted: true,
             maskExpansion: {
@@ -144,7 +145,7 @@ describe('Layer Masks', function () {
     });
 
     it('Can parse detailed masks with feather', async () => {
-        assertAreEqual(result.comps[0].layers[1].masks[0], {
+        assertAreEqual(comp.layers[1].masks[0], {
             color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
             maskPath: {
                 type: AEX_SHAPE_PROPERTY,
@@ -185,7 +186,7 @@ describe('Layer Masks', function () {
     });
 
     it('Can parse animated masks', async () => {
-        assertAreEqual(result.comps[0].layers[2].masks[0].maskPath, {
+        assertAreEqual(comp.layers[2].masks[0].maskPath, {
             type: AEX_SHAPE_PROPERTY,
             keys: [
                 {

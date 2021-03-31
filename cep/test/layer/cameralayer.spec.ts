@@ -7,13 +7,14 @@ describe('Camera Layer Attributes', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
         await evalAexIntoESTK();
         await openProject('testAssets/layer_camera.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
-        console.log('layer_camera', result);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
+        console.log('layer_camera', comp);
     });
 
     after(async () => {
@@ -21,7 +22,7 @@ describe('Camera Layer Attributes', function () {
     });
 
     it(`Can parse camera options`, async () => {
-        assertAreEqual(result.comps[0].layers[0].cameraOption, {
+        assertAreEqual(comp.layers[0].cameraOption, {
             matchName: 'ADBE Camera Options Group',
             properties: [
                 {
@@ -113,7 +114,7 @@ describe('Camera Layer Attributes', function () {
     });
 
     it(`Can parse 2-point cameras`, async () => {
-        assertAreEqual(result.comps[0].layers[1], {
+        assertAreEqual(comp.layers[1], {
             label: 4,
             markers: [],
             masks: [],

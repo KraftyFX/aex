@@ -1,4 +1,4 @@
-function getAexLayer(layer: Layer, state: AexState): AexLayer {
+function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     if (aeq.isTextLayer(layer)) {
         return _getTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {
