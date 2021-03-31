@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_COLOR_PROPERTY, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
@@ -19,7 +19,7 @@ describe('Light Layer Attributes', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it(`Can parse light layer attributes`, async () => {

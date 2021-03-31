@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_CAMERA_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Camera Layer Attributes', function () {
@@ -18,7 +18,7 @@ describe('Camera Layer Attributes', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it(`Can parse camera options`, async () => {

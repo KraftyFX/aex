@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_MASKINDEX_PROPERTY, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Text Layer Attributes', function () {
@@ -19,7 +19,7 @@ describe('Text Layer Attributes', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it('Can parse per-character 3d', async () => {

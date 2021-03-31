@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Animation', function () {
@@ -18,7 +18,7 @@ describe('Layer Animation', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it(`Can parse eased keyframes`, async () => {

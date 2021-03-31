@@ -1,10 +1,10 @@
-declare var __aeq_ipc_invoke: any;
-declare var __aeq_ipc_eo: any;
+declare var __aex_ipc_invoke: any;
+declare var __aex_ipc_eo: any;
 declare var ExternalObject: any;
 declare var CSXSEvent: any;
 
-__aeq_ipc_eo = new ExternalObject('lib:PlugPlugExternalObject');
-__aeq_ipc_invoke = function (id: number, func: () => any, options: { ignoreReturn: boolean }) {
+__aex_ipc_eo = new ExternalObject('lib:PlugPlugExternalObject');
+__aex_ipc_invoke = function (id: number, func: () => any, options: { ignoreReturn: boolean }) {
     var eventObj = new CSXSEvent();
     eventObj.type = 'aeq_result';
 

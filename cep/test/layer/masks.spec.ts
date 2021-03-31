@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Masks', function () {
@@ -18,7 +18,7 @@ describe('Layer Masks', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it('Can parse simple mask paths', async () => {

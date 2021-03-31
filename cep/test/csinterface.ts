@@ -111,9 +111,9 @@ export async function cleanupAex() {
     await getScriptResult('delete aex');
 }
 
-export async function cleanupAeqIpc() {
-    await getScriptResult('delete __aeq_ipc_eo');
-    await getScriptResult('delete __aeq_ipc_invoke');
+export async function cleanupAexIpc() {
+    await getScriptResult('delete __aex_ipc_eo');
+    await getScriptResult('delete __aex_ipc_invoke');
 }
 
 export async function alert(value: string) {

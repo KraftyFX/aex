@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_COMP_ITEM } from '../constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Comp', function () {
@@ -13,7 +13,7 @@ describe('Comp', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it(`Can parse basic comp attributes`, async () => {

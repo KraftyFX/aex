@@ -1,7 +1,6 @@
-import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { cleanupAex, cleanupAexIpc, evalAexIntoESTK, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe('Project', function () {
@@ -14,7 +13,7 @@ describe('Project', function () {
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
+        await cleanupAexIpc();
     });
 
     it(`Can parse basic project attributes`, async () => {
