@@ -29,7 +29,7 @@ export function getTestConfig(
         output: {
             filename: '[name].spec.js',
         },
-        devtool: 'eval',
+        devtool: 'inline-source-map',
         cache: true,
         resolve: {
             symlinks: false,
