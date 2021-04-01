@@ -7,6 +7,10 @@ export enum AeObject {
 
 export function aex() {
     return {
+        async benchmark(): Promise<any> {
+            return await getScriptResult(`aex().benchmark()`, { ignoreReturn: false });
+        },
+
         async fromAe(item: any): Promise<any> {
             if (typeof item === 'string') {
                 return await getScriptResult(`aex().fromAe("${item.toString()}")`);

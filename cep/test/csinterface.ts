@@ -39,16 +39,35 @@ export async function openProject(projectPath: string) {
 let requestId = 0;
 const requests: any = {};
 
-cs.addEventListener('aeq_result', function (event: any) {
-    const request = requests[event.data.id];
+cs.addEventListener('aex_result', function (event: any) {
+    const now = new Date().valueOf();
+    const data = event.data;
+    const request = requests[data.id];
 
-    delete requests[event.data.id];
+    const ipcStats = data.ipcStats;
 
-    if (event.data.success) {
+    ipcStats.jsonEnd = parseInt(ipcStats.jsonEnd);
+
+    ipcStats.entry = ipcStats.funcStart - request.cepStart;
+    ipcStats.func = ipcStats.funcEnd - ipcStats.funcStart;
+    ipcStats.json = ipcStats.jsonEnd - ipcStats.jsonStart;
+    ipcStats.exit = now - ipcStats.jsonEnd;
+    ipcStats.total = now - request.cepStart;
+
+    delete ipcStats.funcStart;
+    delete ipcStats.funcEnd;
+    delete ipcStats.jsonStart;
+    delete ipcStats.jsonEnd;
+
+    console.info(ipcStats);
+
+    delete requests[data.id];
+
+    if (data.success) {
         if (request.options.ignoreReturn) {
             request.resolve();
         } else {
-            request.resolve(event.data.result);
+            request.resolve(data.result);
         }
     } else {
         const estkError = event.data;
@@ -72,7 +91,7 @@ cs.addEventListener('aeq_result', function (event: any) {
 function getTextNearLine(path: string, line: number, window: number) {
     const userDir = navigator.platform === 'Win32' ? 'C:/Users/Zack' : '/Users/rafikhan';
     const fileContents: string = fs.readFileSync(path.replace(`~`, userDir).replace('%20', ' ')).toString();
-    const lines: string[] = fileContents.split('\n').map((v: string, i: number) => '> ' + v);
+    const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
 
     lines[line - 1] = lines[line - 1].replace('> ', '* ');
 
@@ -92,9 +111,10 @@ export function getScriptResult(code: string, options?: { ignoreReturn: boolean 
         request.resolve = resolve;
         request.reject = reject;
 
-        const wrappedCode = `aex._ipc_invoke(${
-            request.id
-        }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
+        const wrappedCode = `aex._ipc_invoke(${request.id}, function() { ${code}; }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
+
+        // console.log(code);
+        request.cepStart = new Date().valueOf();
         cs.evalScript(wrappedCode);
     });
 

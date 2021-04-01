@@ -1,5 +1,6 @@
 function aex() {
     return {
+        benchmark,
         prescan,
         fromAe: aeToAex,
         toAe: aexToAe,
@@ -25,13 +26,21 @@ interface ToAexResult<T extends AexSerialized> {
     log: string[];
 }
 
+function benchmark() {
+    aex().fromAe(app.project as Project, {} as any);
+}
+
 function aeToAex(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;
 function aeToAex(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
 function aeToAex(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
 function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
-    const state: AexState = { options, log: [], stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 } };
+    const state: AexState = {
+        options,
+        log: [],
+        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+    };
     state.options = state.options || { unspportedPropertyBehavior: 'skip' };
 
     let object: AexSerialized;
