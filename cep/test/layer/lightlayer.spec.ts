@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_COLOR_PROPERTY, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
@@ -11,7 +11,7 @@ describe('Light Layer Attributes', function () {
     let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_light.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;

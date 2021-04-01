@@ -9,7 +9,7 @@ import {
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
 } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Basic Layer Attributes', function () {
@@ -19,7 +19,7 @@ describe('Basic Layer Attributes', function () {
     let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_basic.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;

@@ -1,12 +1,12 @@
 import { aex } from './aex';
-import { cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 
-describe.only('Benchmark', function () {
+describe('Benchmark', function () {
     this.slow(500);
     this.timeout(4000);
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/property_animated.aep');
     });
 

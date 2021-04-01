@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Transform', function () {
@@ -10,7 +10,7 @@ describe('Layer Transform', function () {
     let project: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_transform.aep');
         const result = await aex().fromAeObject(AeObject.Project);
         project = result.object;

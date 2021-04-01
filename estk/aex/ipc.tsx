@@ -46,15 +46,12 @@ declare var CSXSEvent: any;
         funcStart,
         funcEnd,
         jsonStart: new Date().valueOf(),
-        jsonEnd: 'aex:jsonend',
+        jsonEnd: 'aex:jsonEnd',
     };
 
-    let result = JSON.stringify(data);
-    const jsonEnd = new Date().valueOf();
+    let dataAsJson = JSON.stringify(data);
 
-    result = result.replace('aex:jsonend', jsonEnd.toString());
-
-    eventObj.data = result;
+    eventObj.data = dataAsJson.replace('aex:jsonEnd', new Date().valueOf().toString());
 
     eventObj.dispatch();
 };

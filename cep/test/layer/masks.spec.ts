@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Masks', function () {
@@ -10,7 +10,7 @@ describe('Layer Masks', function () {
     let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_masks.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;

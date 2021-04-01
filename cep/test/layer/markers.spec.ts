@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Markers', function () {
@@ -9,7 +9,7 @@ describe('Layer Markers', function () {
     let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_markers.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;

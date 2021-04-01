@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_COMP_ITEM } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Comp', function () {
@@ -8,7 +8,7 @@ describe('Comp', function () {
     this.timeout(2000);
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
     });
 
     after(async () => {

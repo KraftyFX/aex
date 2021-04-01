@@ -1,6 +1,6 @@
 import { AeObject, aex } from './aex';
 import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe('Project', function () {
@@ -8,7 +8,7 @@ describe('Project', function () {
     this.timeout(2000);
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
     });
 
     after(async () => {

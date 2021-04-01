@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Animation', function () {
@@ -10,7 +10,7 @@ describe('Layer Animation', function () {
     let project: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/property_animated.aep');
         const result = await aex().fromAeObject(AeObject.Project);
         project = result.object;

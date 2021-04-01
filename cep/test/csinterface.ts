@@ -14,11 +14,30 @@ export function pause(timeout: number) {
     });
 }
 
-export function evalScript(code: string): Promise<void> {
+export async function evalAexIntoEstk() {
+    const jsxPath = 'all.jsx';
+    const fullyQualifiedPath = JSON.stringify(ExtensionPath + '/' + jsxPath).replace(/ /g, ' ');
+
+    await evalScript(`$.evalFile(${fullyQualifiedPath})`);
+}
+
+export async function cleanupAex() {
+    await getEvalScriptResult('delete aex');
+}
+
+export async function alert(value: string) {
+    await getEvalScriptResult(`alert(${JSON.stringify(value)}, "AEX")`);
+}
+
+export async function openProject(projectPath: string) {
+    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, { ignoreReturn: true });
+}
+
+function evalScript(code: string): Promise<void> {
     return new Promise((resolve, reject) => {
         cs.evalScript(code, (result: any) => {
             if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
-                reject(new Error(`(ESTK) EvalScript failed`));
+                reject(new Error(`AEX: Call to CSInterface.evalScript failed`));
             } else {
                 resolve();
             }
@@ -26,18 +45,32 @@ export function evalScript(code: string): Promise<void> {
     });
 }
 
-export async function injectFile(jsxPath: string) {
-    const fullyQualifiedPath = JSON.stringify(ExtensionPath + '/' + jsxPath).replace(/ /g, ' ');
-
-    await evalScript(`$.evalFile(${fullyQualifiedPath})`);
-}
-
-export async function openProject(projectPath: string) {
-    await getScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, { ignoreReturn: true });
-}
-
 let requestId = 0;
 const requests: any = {};
+
+export function getEvalScriptResult(code: string, options?: { ignoreReturn: boolean }): Promise<void> {
+    const request: any = {};
+    options = options || { ignoreReturn: false };
+
+    request.id = requestId++;
+    request.code = code;
+    request.options = options;
+    request.promise = new Promise((resolve, reject) => {
+        request.resolve = resolve;
+        request.reject = reject;
+
+        const wrappedCode = `aex._ipc_invoke(${
+            request.id
+        }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
+
+        request.cepStart = new Date().valueOf();
+        cs.evalScript(wrappedCode);
+    });
+
+    requests[request.id] = request;
+
+    return request.promise;
+}
 
 cs.addEventListener('aex_result', function (event: any) {
     const now = new Date().valueOf();
@@ -59,6 +92,7 @@ cs.addEventListener('aex_result', function (event: any) {
     delete ipcStats.jsonStart;
     delete ipcStats.jsonEnd;
 
+    console.info(request.code);
     console.info(ipcStats);
 
     delete requests[data.id];
@@ -99,38 +133,4 @@ function getTextNearLine(path: string, line: number, window: number) {
     const end = Math.min(line + window, lines.length);
 
     return lines.slice(start, end).join('\n');
-}
-
-export function getScriptResult(code: string, options?: { ignoreReturn: boolean }): Promise<void> {
-    const request: any = {};
-    options = options || { ignoreReturn: false };
-
-    request.id = requestId++;
-    request.options = options;
-    request.promise = new Promise((resolve, reject) => {
-        request.resolve = resolve;
-        request.reject = reject;
-
-        const wrappedCode = `aex._ipc_invoke(${request.id}, function() { ${code}; }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
-
-        // console.log(code);
-        request.cepStart = new Date().valueOf();
-        cs.evalScript(wrappedCode);
-    });
-
-    requests[request.id] = request;
-
-    return request.promise;
-}
-
-export async function evalAexIntoESTK() {
-    await injectFile('all.jsx');
-}
-
-export async function cleanupAex() {
-    await getScriptResult('delete aex');
-}
-
-export async function alert(value: string) {
-    await getScriptResult(`alert(${JSON.stringify(value)}, "AEX")`);
 }

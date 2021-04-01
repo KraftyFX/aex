@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoESTK, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Styles', function () {
@@ -11,7 +11,7 @@ describe('Layer Styles', function () {
     let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_styles.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;
