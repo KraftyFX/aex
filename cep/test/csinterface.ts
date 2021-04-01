@@ -1,5 +1,6 @@
 import 'file-loader!../_build/panel/all.jsx';
 import * as path from 'path';
+import 'source-map-support/register';
 const fs = (window as any).cep_node.require('fs');
 const { CSInterface, SystemPath } = require('exports-loader?CSInterface,CSEvent,SystemPath!../lib/CSInterface.js');
 
