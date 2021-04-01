@@ -29,7 +29,7 @@ export function getTestConfig(
         output: {
             filename: '[name].spec.js',
         },
-        devtool: 'source-map',
+        devtool: 'eval',
         cache: true,
         resolve: {
             symlinks: false,
