@@ -23,15 +23,15 @@ export async function evalAexIntoEstk() {
 }
 
 export async function cleanupAex() {
-    await getEvalScriptResult('delete aex');
+    await getEvalScriptResult('delete aex', [], { ignoreReturn: true });
 }
 
 export async function alert(value: string) {
-    await getEvalScriptResult(`alert(${JSON.stringify(value)}, "AEX")`);
+    await getEvalScriptResult(`alert(${JSON.stringify(value)}, "AEX")`, [], { ignoreReturn: true });
 }
 
 export async function openProject(projectPath: string) {
-    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, { ignoreReturn: true });
+    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, [], { ignoreReturn: true });
 }
 
 function evalScript(code: string): Promise<void> {
@@ -49,7 +49,7 @@ function evalScript(code: string): Promise<void> {
 let requestId = 0;
 const requests: any = {};
 
-export function getEvalScriptResult(code: string, options?: { ignoreReturn: boolean }): Promise<void> {
+export function getEvalScriptResult(code: string, args: any, options: { ignoreReturn: boolean }): Promise<void> {
     const request: any = {};
     options = options || { ignoreReturn: false };
 
@@ -62,7 +62,7 @@ export function getEvalScriptResult(code: string, options?: { ignoreReturn: bool
 
         const wrappedCode = `aex._ipc_invoke(${
             request.id
-        }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()} })()`;
+        }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()}, args: "${JSON.stringify(args)}" })()`;
 
         request.cepStart = new Date().valueOf();
         cs.evalScript(wrappedCode);

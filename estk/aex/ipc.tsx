@@ -3,16 +3,17 @@ declare var CSXSEvent: any;
 
 (aex as any)._eo = new ExternalObject('lib:PlugPlugExternalObject');
 (aex as any)._ipc_invoke = function (id, func, options) {
-    let funcStart = new Date().valueOf();
+    const args = JSON.parse(options.args);
+    const funcStart = new Date().valueOf();
 
-    var eventObj = new CSXSEvent();
+    const eventObj = new CSXSEvent();
     eventObj.type = 'aex_result';
 
     let funcEnd: number;
     let data: any = null;
 
     try {
-        const result = func();
+        const result = func(args);
         funcEnd = new Date().valueOf();
 
         if (options.ignoreReturn) {
@@ -47,7 +48,7 @@ declare var CSXSEvent: any;
         jsonEnd: 'aex:jsonEnd',
     };
 
-    let dataAsJson = JSON.stringify(data);
+    const dataAsJson = JSON.stringify(data);
 
     eventObj.data = dataAsJson.replace('aex:jsonEnd', new Date().valueOf().toString());
 
