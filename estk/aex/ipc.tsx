@@ -1,5 +1,3 @@
-declare var __aex_ipc_invoke: any;
-declare var __aex_ipc_eo: any;
 declare var ExternalObject: any;
 declare var CSXSEvent: any;
 
