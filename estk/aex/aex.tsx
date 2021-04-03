@@ -26,8 +26,10 @@ interface ToAexResult<T extends AexSerialized> {
     log: string[];
 }
 
-function benchmark() {
-    aex().fromAe(app.project as Project, {} as any);
+function benchmark(options: any) {
+    options.callback(true);
+
+    // aex().fromAe(app.project as Project, {} as any);
 }
 
 function aeToAex(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;

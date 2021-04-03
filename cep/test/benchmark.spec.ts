@@ -1,9 +1,10 @@
+import { expect } from 'chai';
 import { aex } from './aex';
 import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 
-describe('Benchmark', function () {
+describe.only('Benchmark', function () {
     this.slow(500);
-    this.timeout(4000);
+    this.timeout(2000);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -15,6 +16,15 @@ describe('Benchmark', function () {
     });
 
     it(`Serialization`, async () => {
-        await aex().benchmark();
+        let called = false;
+
+        await aex().benchmark({
+            callback: (result) => {
+                called = true;
+                expect(result).to.be.true;
+            },
+        });
+
+        expect(called, 'callback invoked').to.be.true;
     });
 });

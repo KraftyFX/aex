@@ -23,15 +23,15 @@ export async function evalAexIntoEstk() {
 }
 
 export async function cleanupAex() {
-    await getEvalScriptResult('delete aex', [], { ignoreReturn: true });
+    await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
 }
 
 export async function alert(value: string) {
-    await getEvalScriptResult(`alert(${JSON.stringify(value)}, "AEX")`, [], { ignoreReturn: true });
+    await getEvalScriptResult(`alert(${JSON.stringify(value)}, "AEX")`, null, { ignoreReturn: true });
 }
 
 export async function openProject(projectPath: string) {
-    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, [], { ignoreReturn: true });
+    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, null, { ignoreReturn: true });
 }
 
 function evalScript(code: string): Promise<void> {
@@ -53,25 +53,43 @@ export function getEvalScriptResult(code: string, args: any, options: { ignoreRe
     const request: any = {};
     options = options || { ignoreReturn: false };
 
+    request.cepStart = new Date().valueOf();
     request.id = requestId++;
     request.code = code;
+    request.args = args;
     request.options = options;
+    request.callbacks = {};
+
     request.promise = new Promise((resolve, reject) => {
         request.resolve = resolve;
         request.reject = reject;
 
-        const wrappedCode = `aex._ipc_invoke(${
-            request.id
-        }, function() { return (${code}); }, { ignoreReturn: ${options!.ignoreReturn.toString()}, args: "${JSON.stringify(args)}" })()`;
+        const estkArgs = convertCallbackArgs(request);
 
-        request.cepStart = new Date().valueOf();
-        cs.evalScript(wrappedCode);
+        const optionsJson = JSON.stringify({
+            ignoreReturn: options.ignoreReturn,
+            args: estkArgs,
+        });
+
+        const wrappedCode = `aex._ipc_invoke(${request.id}, function(aex_args) { return (${code}); }, ${JSON.stringify(optionsJson)})`;
+
+        cs.evalScript(wrappedCode, (result: any) => {
+            if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
+                reject(new Error(`AEX: Call to CSInterface.evalScript failed`));
+            }
+        });
     });
 
     requests[request.id] = request;
 
     return request.promise;
 }
+
+cs.addEventListener('aex_callback', function (event: any) {
+    const { id, callbackId, args } = event.data;
+
+    requests[id].callbacks[callbackId](args);
+});
 
 cs.addEventListener('aex_result', function (event: any) {
     const now = new Date().valueOf();
@@ -106,6 +124,7 @@ cs.addEventListener('aex_result', function (event: any) {
         }
     } else {
         const estkError = event.data;
+
         const { name, message, fileName, line } = estkError;
         const err: any = new Error(message);
 
@@ -123,15 +142,34 @@ cs.addEventListener('aex_result', function (event: any) {
     }
 });
 
+function convertCallbackArgs(request: any) {
+    const args = request.args || {};
+
+    return Object.keys(args).reduce((o, m) => {
+        if (typeof args[m] === 'function') {
+            o[m] = 'aex:callback';
+            request.callbacks[m] = args[m];
+        } else {
+            o[m] = args[m];
+        }
+        return o;
+    }, {} as any);
+}
+
 function getTextNearLine(path: string, line: number, window: number) {
     const userDir = navigator.platform === 'Win32' ? 'C:/Users/Zack' : '/Users/rafikhan';
-    const fileContents: string = fs.readFileSync(path.replace(`~`, userDir).replace('%20', ' ')).toString();
-    const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
 
-    lines[line - 1] = lines[line - 1].replace('> ', '* ');
+    try {
+        const fileContents: string = fs.readFileSync(path.replace(`~`, userDir).replace('%20', ' ')).toString();
+        const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
 
-    const start = Math.max(line - window, 0);
-    const end = Math.min(line + window, lines.length);
+        lines[line - 1] = lines[line - 1].replace('> ', '* ');
 
-    return lines.slice(start, end).join('\n');
+        const start = Math.max(line - window, 0);
+        const end = Math.min(line + window, lines.length);
+
+        return lines.slice(start, end).join('\n');
+    } catch (e) {
+        return `* Unable to get source code snippet for file "${path}" at line ${line}`;
+    }
 }
