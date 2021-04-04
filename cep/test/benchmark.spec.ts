@@ -15,7 +15,7 @@ describe.only('Benchmark', function () {
         await cleanupAex();
     });
 
-    it(`Serialization`, async () => {
+    it(`Callback`, async () => {
         let called = false;
 
         await aex().benchmark({

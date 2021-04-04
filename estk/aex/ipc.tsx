@@ -3,20 +3,19 @@ declare var CSXSEvent: any;
 
 (aex as any)._eo = new ExternalObject('lib:PlugPlugExternalObject');
 
-(aex as any)._ipc_invoke = function (id, func, optionsJson) {
-    const options = JSON.parse(optionsJson);
-
-    let funcStart: number, funcEnd: number;
+(aex as any)._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOptionsAsJson: string) {
+    let funcStart: number;
     let ipcResponse: any = null;
 
     try {
-        convertCallbacks(id, options);
+        const ipcOptions = JSON.parse(ipcOptionsAsJson);
+
+        convertCallbacks(id, ipcOptions);
 
         funcStart = new Date().valueOf();
-        const result = func(options.args);
-        funcEnd = new Date().valueOf();
+        const result = func(ipcOptions.aex_args);
 
-        if (options.ignoreReturn) {
+        if (ipcOptions.ignoreReturn) {
             ipcResponse = {
                 id,
                 success: true,
@@ -29,8 +28,6 @@ declare var CSXSEvent: any;
             };
         }
     } catch (e) {
-        funcEnd = new Date().valueOf();
-
         ipcResponse = {
             id,
             success: false,
@@ -42,8 +39,7 @@ declare var CSXSEvent: any;
     } finally {
         ipcResponse.ipcStats = {
             funcStart,
-            funcEnd,
-            jsonStart: new Date().valueOf(),
+            funcEnd: new Date().valueOf(),
             jsonEnd: 'aex:jsonEnd',
         };
 
@@ -56,7 +52,19 @@ declare var CSXSEvent: any;
     }
 };
 
-(aex as any)._ipc_callback = function (id: string, callbackId: string, args) {
+function convertCallbacks(id: number, options: any) {
+    const args = options.aex_args;
+
+    for (var member in args) {
+        if (args.hasOwnProperty(member)) {
+            if (args[member] === 'aex:callback') {
+                args[member] = (callbackArgs) => raiseCepCallback(id, member, callbackArgs);
+            }
+        }
+    }
+}
+
+function raiseCepCallback(id: number, callbackId: string, args: any) {
     const eventObj = new CSXSEvent();
     eventObj.type = 'aex_callback';
 
@@ -67,16 +75,4 @@ declare var CSXSEvent: any;
     });
 
     eventObj.dispatch();
-};
-
-function convertCallbacks(id: number, options: any) {
-    const args = options.args;
-
-    for (var m in args) {
-        if (args.hasOwnProperty(m)) {
-            if (args[m] === 'aex:callback') {
-                args[m] = (args) => (aex as any)._ipc_callback(id, m, args);
-            }
-        }
-    }
 }

@@ -46,32 +46,46 @@ function evalScript(code: string): Promise<void> {
     });
 }
 
+interface IPCRequest {
+    promise: Promise<void>;
+    resolve: (value: void) => void;
+    reject: (reason?: any) => void;
+    id: number;
+    code: string;
+    args: any;
+    callbacks: any;
+    options: {
+        ignoreReturn: boolean;
+    };
+
+    cepStart: number;
+}
+
 let requestId = 0;
-const requests: any = {};
+const requests: { [key: string]: IPCRequest } = {};
 
 export function getEvalScriptResult(code: string, args: any, options: { ignoreReturn: boolean }): Promise<void> {
-    const request: any = {};
+    const request = {} as IPCRequest;
+
     options = options || { ignoreReturn: false };
 
     request.cepStart = new Date().valueOf();
     request.id = requestId++;
-    request.code = code;
-    request.args = args;
-    request.options = options;
-    request.callbacks = {};
 
     request.promise = new Promise((resolve, reject) => {
         request.resolve = resolve;
         request.reject = reject;
 
-        const estkArgs = convertCallbackArgs(request);
+        request.code = code;
+        request.args = args;
+        request.options = options;
 
-        const optionsJson = JSON.stringify({
+        const ipcOptionsAsJson = JSON.stringify({
             ignoreReturn: options.ignoreReturn,
-            args: estkArgs,
+            aex_args: convertCallbacks(request),
         });
 
-        const wrappedCode = `aex._ipc_invoke(${request.id}, function(aex_args) { return (${code}); }, ${JSON.stringify(optionsJson)})`;
+        const wrappedCode = `aex._ipc_invoke(${request.id}, function(aex_args) { return (${code}); }, ${JSON.stringify(ipcOptionsAsJson)})`;
 
         cs.evalScript(wrappedCode, (result: any) => {
             if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
@@ -102,17 +116,13 @@ cs.addEventListener('aex_result', function (event: any) {
 
     ipcStats.entry = ipcStats.funcStart - request.cepStart;
     ipcStats.func = ipcStats.funcEnd - ipcStats.funcStart;
-    ipcStats.json = ipcStats.jsonEnd - ipcStats.jsonStart;
+    ipcStats.json = ipcStats.jsonEnd - ipcStats.funcEnd;
     ipcStats.exit = now - ipcStats.jsonEnd;
     ipcStats.total = now - request.cepStart;
 
     delete ipcStats.funcStart;
     delete ipcStats.funcEnd;
-    delete ipcStats.jsonStart;
     delete ipcStats.jsonEnd;
-
-    console.info(request.code);
-    console.info(ipcStats);
 
     delete requests[data.id];
 
@@ -142,18 +152,25 @@ cs.addEventListener('aex_result', function (event: any) {
     }
 });
 
-function convertCallbackArgs(request: any) {
+/**
+ * Looks at the arguments being sent to ESTK and converts the callbacks to magic
+ * strings that can be used to reference and eventually raise them from ESTK.
+ * This function is lazy and only goes one layer deep.
+ *
+ * @param request IPC Request
+ * @returns Serializable arugments that can be sent to ESTK
+ */
+function convertCallbacks(request: IPCRequest) {
     const args = request.args || {};
+    request.callbacks = {};
 
     return Object.keys(args).reduce((o, m) => {
-        if (typeof args[m] === 'function') {
+        if (typeof o[m] === 'function') {
+            request.callbacks[m] = o[m];
             o[m] = 'aex:callback';
-            request.callbacks[m] = args[m];
-        } else {
-            o[m] = args[m];
         }
         return o;
-    }, {} as any);
+    }, args);
 }
 
 function getTextNearLine(path: string, line: number, window: number) {
