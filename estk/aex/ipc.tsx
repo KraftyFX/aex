@@ -5,8 +5,6 @@ declare var CSXSEvent: any;
 
 (aex as any)._ipc_invoke = function (id, func, optionsJson) {
     const options = JSON.parse(optionsJson);
-    const eventObj = new CSXSEvent();
-    eventObj.type = 'aex_result';
 
     let funcStart: number, funcEnd: number;
     let ipcResponse: any = null;
@@ -41,20 +39,21 @@ declare var CSXSEvent: any;
             fileName: e.fileName,
             line: e.line,
         };
+    } finally {
+        ipcResponse.ipcStats = {
+            funcStart,
+            funcEnd,
+            jsonStart: new Date().valueOf(),
+            jsonEnd: 'aex:jsonEnd',
+        };
+
+        const eventObj = new CSXSEvent();
+        eventObj.type = 'aex_result';
+
+        eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', new Date().valueOf().toString());
+
+        eventObj.dispatch();
     }
-
-    ipcResponse.ipcStats = {
-        funcStart,
-        funcEnd,
-        jsonStart: new Date().valueOf(),
-        jsonEnd: 'aex:jsonEnd',
-    };
-
-    const dataAsJson = JSON.stringify(ipcResponse);
-
-    eventObj.data = dataAsJson.replace('aex:jsonEnd', new Date().valueOf().toString());
-
-    eventObj.dispatch();
 };
 
 (aex as any)._ipc_callback = function (id: string, callbackId: string, args) {
