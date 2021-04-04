@@ -23,7 +23,7 @@ function prescan(aeObject: Serializable, options: AexOptions): AexPrescanResult 
 
 interface ToAexResult<T extends AexSerialized> {
     object: T;
-    log: string[];
+    log: AexLogEntry[];
 }
 
 function benchmark(options: any) {
@@ -43,7 +43,10 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
+
+    // TODO: Make a helper function to deal with this
     state.options = state.options || { unspportedPropertyBehavior: 'skip' };
+    state.options.unspportedPropertyBehavior = state.options.unspportedPropertyBehavior || 'skip';
 
     let object: AexSerialized;
 
@@ -60,7 +63,7 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
 
     return {
         object,
-        log: [],
+        log: state.log,
     };
 }
 

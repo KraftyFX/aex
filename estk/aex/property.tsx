@@ -30,7 +30,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
                 return undefined;
             case 'log':
                 state.log.push({
-                    aeProperty: property,
+                    aexProperty,
                     message: `Property "${property.matchName}" is unsupported. Skipping.`,
                 });
                 return undefined;
@@ -40,7 +40,10 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
                 aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
                 return aexProperty;
             default:
-                state.options.unspportedPropertyBehavior(property, state.log);
+                state.options.unspportedPropertyBehavior({
+                    aexProperty,
+                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
+                });
                 return aexProperty;
         }
     } else {
@@ -157,6 +160,10 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
             return 'aex:property:maskindex';
         case PropertyValueType.MARKER:
             return 'aex:property:marker';
+        case PropertyValueType.NO_VALUE:
+            return 'aex:property:no_value';
+        case PropertyValueType.CUSTOM_VALUE:
+            return 'aex:property:custom';
         default:
             throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
     }

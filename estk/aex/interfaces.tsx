@@ -10,6 +10,8 @@ type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'a
 type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
 
 type AexPropertyType =
+    | 'aex:property:no_value'
+    | 'aex:property:custom'
     | 'aex:property:oned'
     | 'aex:property:twod'
     | 'aex:property:threed'
@@ -22,16 +24,17 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexUID = string;
 
-type UnsupportedTypeCallback = (aeProperty: Property, log: AexLogEntry[]) => void;
+type UnsupportedTypeCallback = (log: AexLogEntry) => void;
 
 interface AexOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
 interface AexLogEntry {
-    aeProperty: Property;
+    aexProperty: AexProperty;
     message: string;
 }
+
 interface AexState {
     options: AexOptions;
     stats: {

@@ -47,8 +47,8 @@ function evalScript(code: string): Promise<void> {
 }
 
 interface IPCRequest {
-    promise: Promise<void>;
-    resolve: (value: void) => void;
+    promise: Promise<any>;
+    resolve: (value: any) => void;
     reject: (reason?: any) => void;
     id: number;
     code: string;
@@ -64,7 +64,7 @@ interface IPCRequest {
 let requestId = 0;
 const requests: { [key: string]: IPCRequest } = {};
 
-export function getEvalScriptResult(code: string, args: any, options: { ignoreReturn: boolean }): Promise<void> {
+export function getEvalScriptResult<T = void>(code: string, args: any, options: { ignoreReturn: boolean }): Promise<T> {
     const request = {} as IPCRequest;
 
     options = options || { ignoreReturn: false };
@@ -72,7 +72,7 @@ export function getEvalScriptResult(code: string, args: any, options: { ignoreRe
     request.cepStart = new Date().valueOf();
     request.id = requestId++;
 
-    request.promise = new Promise((resolve, reject) => {
+    request.promise = new Promise<T>((resolve, reject) => {
         request.resolve = resolve;
         request.reject = reject;
 
@@ -120,6 +120,8 @@ cs.addEventListener('aex_result', function (event: any) {
     ipcStats.exit = now - ipcStats.jsonEnd;
     ipcStats.total = now - request.cepStart;
 
+    // TODO: Expose logging hook
+
     delete ipcStats.funcStart;
     delete ipcStats.funcEnd;
     delete ipcStats.jsonEnd;
@@ -128,7 +130,7 @@ cs.addEventListener('aex_result', function (event: any) {
 
     if (data.success) {
         if (request.options.ignoreReturn) {
-            request.resolve();
+            request.resolve(void 0);
         } else {
             request.resolve(data.result);
         }

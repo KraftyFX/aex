@@ -1,3 +1,4 @@
+import { AexOptions, AexResult } from './constants';
 import { getEvalScriptResult } from './csinterface';
 
 export enum AeObject {
@@ -11,19 +12,19 @@ export function aex() {
             return await getEvalScriptResult(`aex().benchmark(aex_args)`, options, { ignoreReturn: false });
         },
 
-        async fromAe(item: any): Promise<any> {
+        async fromAe(item: any, options?: AexOptions): Promise<AexResult> {
             if (typeof item === 'string') {
-                return await getEvalScriptResult(`aex().fromAe("${item.toString()}")`, null, { ignoreReturn: false });
+                return await getEvalScriptResult<AexResult>(`aex().fromAe("${item.toString()}")`, options || {}, { ignoreReturn: false });
             } else {
-                return await getEvalScriptResult(`aex().fromAe(${item || 'undefined'})`, null, { ignoreReturn: false });
+                return await getEvalScriptResult<AexResult>(`aex().fromAe(${item || 'undefined'})`, options || {}, { ignoreReturn: false });
             }
         },
 
-        async fromAeObject(aeObject: AeObject): Promise<any> {
+        async fromAeObject(aeObject: AeObject, options?: AexOptions): Promise<AexResult> {
             switch (aeObject) {
                 case AeObject.ActiveComp:
                 case AeObject.Project:
-                    return await getEvalScriptResult(`aex().fromAe(${aeObject})`, null, { ignoreReturn: false });
+                    return await getEvalScriptResult<AexResult>(`aex().fromAe(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
                 default:
                     throw new Error(`Unrecognized AE Object - ${aeObject}`);
             }
