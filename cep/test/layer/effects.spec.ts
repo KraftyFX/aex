@@ -1,32 +1,33 @@
 import { expect } from 'chai';
-import { aex } from './aex';
-import { AEX_COLOR_PROPERTY, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY, AEX_CUSTOM_PROPERTY } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { aex } from '../aex';
+import { AEX_COLOR_PROPERTY, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY, AEX_CUSTOM_PROPERTY } from '../constants';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Layer Effects', function () {
     this.slow(500);
     this.timeout(2000);
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_effects.aep');
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     describe('Simple Effects', async () => {
-        let result: any;
+        let comp: any;
+
         before(async () => {
-            result = await aex().toObject("aeq.getComp('Simple')");
-            console.log('layer_effects_simple', result);
+            const result = await aex().fromAe("aeq.getComp('Simple')");
+            comp = result.object;
+            console.log('layer_effects_simple', comp);
         });
 
         it('Can parse simple unmodified effect', async () => {
-            assertAreEqual(result.comps[0].layers[0].effects[0], {
+            assertAreEqual(comp.layers[0].effects[0], {
                 enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Default',
@@ -34,7 +35,7 @@ describe('Layer Effects', function () {
         });
 
         it('Can parse simple modified effect', async () => {
-            assertAreEqual(result.comps[0].layers[0].effects[1], {
+            assertAreEqual(comp.layers[0].effects[1], {
                 enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Modified',
@@ -86,7 +87,7 @@ describe('Layer Effects', function () {
         });
 
         it('Can parse effect compositing options', async () => {
-            assertAreEqual(result.comps[0].layers[0].effects[2], {
+            assertAreEqual(comp.layers[0].effects[2], {
                 enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Compositing Options',
@@ -126,7 +127,7 @@ describe('Layer Effects', function () {
         });
 
         it('Can parse default expression controls', async () => {
-            assertAreEqual(result.comps[0].layers[1].effects, [
+            assertAreEqual(comp.layers[1].effects, [
                 {
                     name: '3D Point Control',
                     matchName: 'ADBE Point3D Control',
@@ -171,7 +172,7 @@ describe('Layer Effects', function () {
         });
 
         it('Can parse modified expression controls', async () => {
-            assertAreEqual(result.comps[0].layers[2].effects, [
+            assertAreEqual(comp.layers[2].effects, [
                 {
                     name: '3D Point Control',
                     matchName: 'ADBE Point3D Control',
@@ -288,7 +289,7 @@ describe('Layer Effects', function () {
         });
 
         it('Can parse nested effect groups', async () => {
-            assertAreEqual(result.comps[0].layers[3].effects[0], {
+            assertAreEqual(comp.layers[3].effects[0], {
                 enabled: true,
                 matchName: 'ADBE Fractal Noise',
                 name: 'Fractal Noise',
@@ -305,10 +306,10 @@ describe('Layer Effects', function () {
         });
     });
 
-    describe('Unsupported Effects', async () => {
+    describe.skip('Unsupported Effects', async () => {
         it('Can throw on unsupported properties', async () => {
             try {
-                await aex().toObject("aeq.getComp('Unsupported')");
+                await aex().fromAe("aeq.getComp('Unsupported')");
                 expect.fail(`Test should have thrown but it completed.`);
             } catch (e) {
                 expect(e.isEstkError).to.be.true;
@@ -316,20 +317,24 @@ describe('Layer Effects', function () {
             }
         });
 
-        it.skip('Can skip unsupported properties (with option)', async () => {
-            let result = await aex().toObject("aeq.getComp('Unsupported')");
-            console.log('layer_effects_unsupported_skip', result);
-            assertAreEqual(result.comps[0].layers[0].effects[0], {
+        it('Can skip unsupported properties (with option)', async () => {
+            const result = await aex().fromAe("aeq.getComp('Unsupported')");
+            const comp = result.object;
+            console.log('layer_effects_unsupported_skip', comp);
+
+            assertAreEqual(comp.layers[0].effects[0], {
                 enabled: true,
                 matchName: 'ADBE CurvesCustom',
                 name: 'Curves',
             });
         });
 
-        it.skip('Can return unsupported property metadata (with option)', async () => {
-            let result = await aex().toObject("aeq.getComp('Unsupported')");
-            console.log('layer_effects_unsupported_metadata', result);
-            assertAreEqual(result.comps[0].layers[0].effects[0], {
+        it('Can return unsupported property metadata (with option)', async () => {
+            const result = await aex().fromAe("aeq.getComp('Unsupported')");
+            const comp = result.object;
+
+            console.log('layer_effects_unsupported_metadata', comp);
+            assertAreEqual(comp.layers[0].effects[0], {
                 enabled: true,
                 matchName: 'ADBE CurvesCustom',
                 name: 'Curves',

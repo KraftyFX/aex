@@ -1,33 +1,33 @@
 import { expect } from 'chai';
-import { AeObject, aex } from './aex';
-import { AEX_COLOR_PROPERTY, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_SHAPE_LAYER } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex } from '../aex';
+import { AEX_ONED_PROPERTY, AEX_SHAPE_LAYER } from '../constants';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
-describe.only('Shape Layers', function () {
+describe('Shape Layers', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let comp: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_shapelayer.aep');
-        result = await aex().toObjectWithAeObject(AeObject.ActiveComp);
+        const result = await aex().fromAeObject(AeObject.ActiveComp);
+        comp = result.object;
         console.log('layer_shapelayer', result);
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     it(`Can parse empty shape layers`, async () => {
-        expect(result.comps[0].layers[0]).property('contents').to.be.empty;
+        expect(comp.layers[0]).property('contents').to.be.empty;
     });
 
     it(`Can parse default shape layers`, async () => {
-        assertAreEqual(result.comps[0].layers[1], {
+        assertAreEqual(comp.layers[1], {
             collapseTransformation: true,
             contents: [
                 {
@@ -47,7 +47,7 @@ describe.only('Shape Layers', function () {
     });
 
     it(`Can parse modified shape layers`, async () => {
-        assertAreEqual(result.comps[0].layers[2].contents[0], {
+        assertAreEqual(comp.layers[2].contents[0], {
             enabled: true,
             matchName: 'ADBE Vector Group',
             name: 'Rectangle 1',
@@ -254,7 +254,7 @@ describe.only('Shape Layers', function () {
     });
 
     it(`Can parse multiple shapes on one layer`, async () => {
-        assertAreEqual(result.comps[0].layers[3], {
+        assertAreEqual(comp.layers[3], {
             collapseTransformation: true,
             contents: [
                 {
@@ -280,7 +280,7 @@ describe.only('Shape Layers', function () {
 
     /** @todo */
     it.skip(`Can parse shape dashes`, async () => {
-        assertAreEqual(result.comps[0].layers[4].contents[0].properties, [
+        assertAreEqual(comp.layers[4].contents[0].properties, [
             {
                 matchName: 'ADBE Vectors Group',
                 properties: [
