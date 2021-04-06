@@ -3,7 +3,7 @@ import { AeObject, aex } from './aex';
 import { AEX_NO_VALUE_PROPERTY } from './constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 
-describe.only('Benchmark', function () {
+describe.skip('Benchmark', function () {
     this.slow(500);
     this.timeout(2000);
 
