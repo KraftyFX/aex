@@ -1,27 +1,27 @@
-import { AeObject, aex } from './aex';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex } from '../aex';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Comp Markers', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let project: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/comp_markers.aep');
-        result = await aex().toObjectWithAeObject(AeObject.Project);
-        console.log('comp_markers', result);
+        const result = await aex().fromAeObject(AeObject.Project);
+        project = result.object;
+        console.log('comp_markers', project);
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     it(`Can parse detailed markers`, async () => {
-        assertAreEqual(result.comps[0].markers, [
+        assertAreEqual(project.comps[0].markers, [
             {
                 duration: 0.2,
                 time: 0.16666666666667,
@@ -50,7 +50,7 @@ describe('Comp Markers', function () {
     });
 
     it(`Can parse simple markers`, async () => {
-        assertAreEqual(result.comps[1].markers, [
+        assertAreEqual(project.comps[1].markers, [
             {
                 time: 0.16666666666667,
             },

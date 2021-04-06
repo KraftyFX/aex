@@ -1,7 +1,6 @@
-import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe('Project', function () {
@@ -9,21 +8,21 @@ describe('Project', function () {
     this.timeout(2000);
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     it(`Can parse basic project attributes`, async () => {
         await openProject('testAssets/project_basic.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().fromAeObject(AeObject.Project);
+        const project = result.object;
 
-        console.log('project_basic', result);
-        assertAreEqual(result.items, [
+        console.log('project_basic', project);
+        assertAreEqual(project.items, [
             {
                 aexid: 'solids:37',
                 folder: [],
@@ -47,10 +46,11 @@ describe('Project', function () {
     it(`Can parse flat project folders`, async () => {
         await openProject('testAssets/project_folders-flat.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().fromAeObject(AeObject.Project);
+        const project = result.object;
 
-        console.log('project_folders-flat', result);
-        assertAreEqual(result.items, [
+        console.log('project_folders-flat', project);
+        assertAreEqual(project.items, [
             {
                 aexid: 'folder a:52',
                 folder: [],
@@ -69,10 +69,11 @@ describe('Project', function () {
     it(`Can parse nested project folders`, async () => {
         await openProject('testAssets/project_folders-nested.aep');
 
-        const result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().fromAeObject(AeObject.Project);
+        const project = result.object;
 
-        console.log('project_folders-nested', result);
-        assertAreEqual(result.items, [
+        console.log('project_folders-nested', project);
+        assertAreEqual(project.items, [
             {
                 aexid: 'solids:49',
                 folder: [],

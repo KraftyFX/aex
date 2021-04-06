@@ -1,4 +1,5 @@
-import { getScriptResult } from './csinterface';
+import { AexOptions, AexResult } from './constants';
+import { getEvalScriptResult } from './csinterface';
 
 export enum AeObject {
     ActiveComp = 'app.project.activeItem',
@@ -7,16 +8,21 @@ export enum AeObject {
 
 export function aex() {
     return {
-        async toObject(item: any): Promise<any> {
-            return await getScriptResult(`aex().toObject(${item || 'undefined'})`);
+        async benchmark(options: { callback: (result: boolean) => void }): Promise<any> {
+            return await getEvalScriptResult(`aex().benchmark(aex_args)`, options, { ignoreReturn: false });
         },
-        async toObjectWithAeObject(aeobject: AeObject): Promise<any> {
-            switch (aeobject) {
+
+        async fromAe(item: any, options?: AexOptions): Promise<AexResult> {
+            return await getEvalScriptResult<AexResult>(`aex().fromAe(${item || 'undefined'})`, options || {}, { ignoreReturn: false });
+        },
+
+        async fromAeObject(aeObject: AeObject, options?: AexOptions): Promise<AexResult> {
+            switch (aeObject) {
                 case AeObject.ActiveComp:
                 case AeObject.Project:
-                    return await getScriptResult(`aex().toObject(${aeobject})`);
+                    return await getEvalScriptResult<AexResult>(`aex().fromAe(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
                 default:
-                    throw new Error(`Unrecognized AE Object - ${aeobject}`);
+                    throw new Error(`Unrecognized AE Object - ${aeObject}`);
             }
         },
     };

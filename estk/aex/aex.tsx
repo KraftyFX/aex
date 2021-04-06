@@ -1,34 +1,9 @@
-function aex(options: AexOptions) {
+function aex() {
     return {
-        toObject(item: Serializable): AexProject {
-            assertIsDefined(item, 'item');
-
-            if (isProject(item)) {
-                return getAexProject(item as Project, options);
-            } else if (aeq.isComp(item)) {
-                return {
-                    type: AEX_PROJECT,
-                    items: [],
-                    comps: [getAexComp(item as CompItem, options)],
-                };
-            } else if (aeq.isLayer(item)) {
-                return {
-                    type: AEX_PROJECT,
-                    items: [],
-                    comps: [
-                        {
-                            layers: [getAexLayer(item as Layer, options)],
-                        } as AexComp,
-                    ],
-                };
-            } else {
-                return {
-                    type: AEX_PROJECT,
-                    items: [],
-                    comps: [],
-                };
-            }
-        },
+        benchmark,
+        prescan,
+        fromAe: aeToAex,
+        toAe: aexToAe,
     };
 }
 
@@ -46,22 +21,50 @@ function prescan(aeObject: Serializable, options: AexOptions): AexPrescanResult 
     };
 }
 
-function aeToAex(aeObj: Project, options: AexOptions): AexProject;
-function aeToAex(aeObj: CompItem, options: AexOptions): AexComp;
-function aeToAex(aeObj: Layer, options: AexOptions): AexLayer;
-function aeToAex(aeObj: Serializable, options: AexOptions): AexSerialized {
-    assertIsDefined(aeObj, 'item');
+interface ToAexResult<T extends AexSerialized> {
+    object: T;
+    log: AexLogEntry[];
+}
+
+function benchmark(options: any) {
+    options.callback(true);
+
+    // aex().fromAe(app.project as Project, {} as any);
+}
+
+function aeToAex(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;
+function aeToAex(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
+function aeToAex(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
+function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
+    assertIsDefined(aeObj, 'aeObj');
+
+    const state: AexState = {
+        options,
+        log: [],
+        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+    };
+
+    // TODO: Make a helper function to deal with this
+    state.options = state.options || { unspportedPropertyBehavior: 'skip' };
+    state.options.unspportedPropertyBehavior = state.options.unspportedPropertyBehavior || 'skip';
+
+    let object: AexSerialized;
 
     // TODO: Cover array/collection types.
     if (isProject(aeObj)) {
-        return getAexProject(aeObj as Project, options);
+        object = getAexProject(aeObj as Project, state);
     } else if (aeq.isComp(aeObj)) {
-        return getAexComp(aeObj as CompItem, options);
+        object = getAexComp(aeObj as CompItem, state);
     } else if (aeq.isLayer(aeObj)) {
-        return getAexLayer(aeObj as Layer, options);
+        object = getAexLayer(aeObj as Layer, state);
     } else {
         throw new Error(`Unrecognized item type`);
     }
+
+    return {
+        object,
+        log: state.log,
+    };
 }
 
 function aexToAe(aexObj: AexSerialized, options: {}): void {

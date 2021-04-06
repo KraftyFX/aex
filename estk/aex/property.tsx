@@ -1,9 +1,10 @@
-type GetValueCallback<T extends AexPropertyValueType = any> = (property: Property) => T;
-
-function getModifiedProperty<T extends AexPropertyValueType = any, K extends AexPropertyValueType = any>(
-    property: Property,
-    callback?: GetValueCallback<K>
-): AexProperty<T> | undefined {
+function getModifiedProperty(property: ShapeProperty, state: AexState): AexProperty<Shape> | undefined;
+function getModifiedProperty(property: TextDocumentProperty, state: AexState): AexProperty<AexTextDocument> | undefined;
+function getModifiedProperty(property: OneDProperty, state: AexState): AexProperty<number> | undefined;
+function getModifiedProperty(property: TwoDProperty, state: AexState): AexProperty<TwoDPoint> | undefined;
+function getModifiedProperty(property: ThreeDProperty, state: AexState): AexProperty<ThreeDPoint> | undefined;
+function getModifiedProperty(property: TwoDProperty | ThreeDProperty, state: AexState): AexProperty<TwoDPoint> | AexProperty<ThreeDPoint> | undefined;
+function getModifiedProperty(property: Property, state: AexState): AexProperty | undefined {
     const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
 
     if (hasDefaultPropertyValue) {
@@ -24,67 +25,72 @@ function getModifiedProperty<T extends AexPropertyValueType = any, K extends Aex
         return undefined;
     }
 
-    /**
-     * @todo Add AexOption to break on unreadable properties vs ignore
-     */
-    assertIsReadableProperty(property);
-
-    const aexProperty: AexProperty<T> = {
+    const aexProperty: AexProperty = {
         type: _getPropertyType(property),
         name: property.name,
         matchName: property.matchName,
-        value: callback ? callback(property) : property.value,
+        value: undefined,
         enabled: getModifiedValue(property.enabled, true),
         expression: getModifiedValue(property.expression, ''),
         expressionEnabled: getModifiedValue(property.expressionEnabled, false),
-        keys: _getPropertyKeys(property, callback),
+        keys: undefined,
     };
 
+    const isUnreadable = isUnreadableProperty(property);
+
+    if (isUnreadable) {
+        switch (state.options.unspportedPropertyBehavior) {
+            case 'skip':
+                return undefined;
+            case 'log':
+                state.log.push({
+                    aexProperty,
+                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
+                });
+                return undefined;
+            case 'throw':
+                throw new Error(`Property "${property.matchName}" is unsupported.`);
+            case 'metadata':
+                aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
+                return aexProperty;
+            default:
+                state.options.unspportedPropertyBehavior({
+                    aexProperty,
+                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
+                });
+                return aexProperty;
+        }
+    } else {
+        if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+            aexProperty.value = getTextDocumentProperties(property.value);
+        } else {
+            aexProperty.value = property.value;
+        }
+
+        aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
+    }
+
+    state.stats.propertyCount++;
     return aexProperty;
 }
 
-function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
-    switch (property.propertyValueType) {
-        case PropertyValueType.OneD:
-        case PropertyValueType.MASK_INDEX:
-        case PropertyValueType.LAYER_INDEX:
-            return 'aex:property:oned';
-        case PropertyValueType.TwoD:
-        case PropertyValueType.TwoD_SPATIAL:
-            return 'aex:property:twod';
-        case PropertyValueType.ThreeD:
-        case PropertyValueType.ThreeD_SPATIAL:
-            return 'aex:property:threed';
-        case PropertyValueType.COLOR:
-            return 'aex:property:color';
-        case PropertyValueType.SHAPE:
-            return 'aex:property:shape';
-        case PropertyValueType.TEXT_DOCUMENT:
-            return 'aex:property:textdocument';
-        case PropertyValueType.MARKER:
-            return 'aex:property:marker';
-        case PropertyValueType.CUSTOM_VALUE:
-            return 'aex:property:custom';
-        case PropertyValueType.NO_VALUE:
-            return 'aex:property:none';
-        default:
-            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
-    }
-}
-
-function assertIsReadableProperty(property: Property) {
-    if (property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE) {
-        throw new Error(`Can't parse property: '${property.name}' (${property.matchName})`);
-    }
-}
-
-function _getPropertyKeys(property: Property, valueParser?: GetValueCallback): AEQKeyInfo[] {
+function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const keyInfo = key.getKeyInfo();
 
-        // zlovatt: We should talk about what's going on here. This might be a bug in AEQ
-        const value = valueParser ? valueParser(keyInfo as any) : keyInfo.value;
+        let value: AEQKeyInfo['value'];
+
+        if (isUnreadable) {
+            value = undefined;
+        } else {
+            if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+                value = getTextDocumentProperties(keyInfo.value);
+            } else {
+                value = keyInfo.value;
+            }
+        }
+
         const time = keyInfo.time;
 
         const keyInterpolationType = keyInfo.interpolationType;
@@ -139,19 +145,53 @@ function _getPropertyKeys(property: Property, valueParser?: GetValueCallback): A
         };
     });
 
+    state.stats.keyCount++;
     return keys;
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, callback?: GetValueCallback): AexPropertyGroup {
+function isUnreadableProperty(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
+}
+
+function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
+    switch (property.propertyValueType) {
+        case PropertyValueType.OneD:
+        case PropertyValueType.MASK_INDEX:
+        case PropertyValueType.LAYER_INDEX:
+            return 'aex:property:oned';
+        case PropertyValueType.TwoD:
+        case PropertyValueType.TwoD_SPATIAL:
+            return 'aex:property:twod';
+        case PropertyValueType.ThreeD:
+        case PropertyValueType.ThreeD_SPATIAL:
+            return 'aex:property:threed';
+        case PropertyValueType.COLOR:
+            return 'aex:property:color';
+        case PropertyValueType.SHAPE:
+            return 'aex:property:shape';
+        case PropertyValueType.TEXT_DOCUMENT:
+            return 'aex:property:textdocument';
+        case PropertyValueType.MARKER:
+            return 'aex:property:marker';
+        case PropertyValueType.NO_VALUE:
+            return 'aex:property:no_value';
+        case PropertyValueType.CUSTOM_VALUE:
+            return 'aex:property:custom';
+        default:
+            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
+    }
+}
+
+function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
     const properties = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
         let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            content = getModifiedProperty(property as Property, callback);
+            content = getModifiedProperty(property as any, state);
         } else {
-            content = getPropertyGroup(property as PropertyGroup, callback);
+            content = getPropertyGroup(property as PropertyGroup, state);
         }
 
         /**
@@ -193,9 +233,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, callback?: GetValueCallb
     };
 }
 
-function getTextDocumentProperties(sourceText: TextDocumentProperty): AexTextDocument {
-    const text = sourceText.value;
-
+function getTextDocumentProperties(text: TextDocument): AexTextDocument {
     /**
      * Voodoo: The ternary properties need that boolean check first.
      * If we try to access those properties and the boolean is false, an error will be thrown

@@ -10,6 +10,8 @@ type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'a
 type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
 
 type AexPropertyType =
+    | 'aex:property:no_value'
+    | 'aex:property:custom'
     | 'aex:property:oned'
     | 'aex:property:twod'
     | 'aex:property:threed'
@@ -24,7 +26,28 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexUID = string;
 
-interface AexOptions {}
+type UnsupportedTypeCallback = (log: AexLogEntry) => void;
+
+interface AexOptions {
+    unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
+}
+
+interface AexLogEntry {
+    aexProperty: AexProperty;
+    message: string;
+}
+
+interface AexState {
+    options: AexOptions;
+    stats: {
+        nonCompItemCount: number;
+        compCount: number;
+        layerCount: number;
+        propertyCount: number;
+        keyCount: number;
+    };
+    log: AexLogEntry[];
+}
 
 interface AexObject {
     type: AexObjectType;
@@ -250,9 +273,9 @@ interface AexMask {
 }
 
 interface AexTransform {
-    anchorPoint: AexProperty<TwoDPoint | ThreeDPoint>;
-    position: AexProperty<TwoDPoint | ThreeDPoint>;
-    scale: AexProperty<TwoDPoint | ThreeDPoint>;
+    anchorPoint: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    position: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    scale: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
     pointOfInterest: AexProperty<ThreeDPoint>;
     orientation: AexProperty<ThreeDPoint>;
     xRotation: AexProperty<number>;

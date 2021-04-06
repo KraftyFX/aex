@@ -1,33 +1,33 @@
 import { expect } from 'chai';
-import { AeObject, aex } from './aex';
-import { AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex } from '../aex';
+import { AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Text Layer Attributes', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let project: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_text.aep');
-        result = await aex().toObjectWithAeObject(AeObject.Project);
+        const result = await aex().fromAeObject(AeObject.Project);
+        project = result.object;
         console.log('layer_text', result);
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     it('Can parse per-character 3d', async () => {
-        expect(result.comps[0].layers[0].threeDPerChar).to.eql(true);
+        expect(project.comps[0].layers[0].threeDPerChar).to.eql(true);
     });
 
     it('Can parse Text Path Options', async () => {
-        assertAreEqual(result.comps[0].layers[1].pathOption, {
+        assertAreEqual(project.comps[0].layers[1].pathOption, {
             matchName: 'ADBE Text Path Options',
             properties: [
                 {
@@ -70,7 +70,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text More Options', async () => {
-        assertAreEqual(result.comps[0].layers[2].moreOption, {
+        assertAreEqual(project.comps[0].layers[2].moreOption, {
             matchName: 'ADBE Text More Options',
             properties: [
                 {
@@ -106,11 +106,11 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can handle empty Text Animators', async () => {
-        expect(result.comps[1].layers[0]).to.not.have.property('animators');
+        expect(project.comps[1].layers[0]).to.not.have.property('animators');
     });
 
     it('Can parse multiple Text Animators on one layer', async () => {
-        assertAreEqual(result.comps[1].layers[1].animators.properties, [
+        assertAreEqual(project.comps[1].layers[1].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Animator 1',
@@ -200,7 +200,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse multiple Text Animator Selectors on one layer', async () => {
-        assertAreEqual(result.comps[1].layers[2].animators.properties, [
+        assertAreEqual(project.comps[1].layers[2].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Animator 1',
@@ -242,7 +242,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with animated Range Selector', async () => {
-        assertAreEqual(result.comps[1].layers[3].animators.properties, [
+        assertAreEqual(project.comps[1].layers[3].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Position Animator',
@@ -322,7 +322,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with Expression Selector', async () => {
-        assertAreEqual(result.comps[1].layers[4].animators.properties, [
+        assertAreEqual(project.comps[1].layers[4].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Colour Animator',
@@ -353,7 +353,7 @@ describe('Text Layer Attributes', function () {
     });
 
     it('Can parse Text Animator with Wiggle Selector', async () => {
-        assertAreEqual(result.comps[1].layers[5].animators.properties, [
+        assertAreEqual(project.comps[1].layers[5].animators.properties, [
             {
                 matchName: 'ADBE Text Animator',
                 name: 'Tracking Animator',

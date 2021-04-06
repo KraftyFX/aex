@@ -1,28 +1,28 @@
-import { AeObject, aex } from './aex';
-import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from './constants';
-import { cleanupAeqIpc, cleanupAex, evalAexIntoESTK, openProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex } from '../aex';
+import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Layer Transform', function () {
     this.slow(500);
     this.timeout(2000);
 
-    let result: any;
+    let project: any;
 
     before(async () => {
-        await evalAexIntoESTK();
+        await evalAexIntoEstk();
         await openProject('testAssets/layer_transform.aep');
-        result = await aex().toObjectWithAeObject(AeObject.Project);
-        console.log('layer_transform', result);
+        const result = await aex().fromAeObject(AeObject.Project);
+        project = result.object;
+        console.log('layer_transform', project);
     });
 
     after(async () => {
         await cleanupAex();
-        await cleanupAeqIpc();
     });
 
     it('Can parse default transform data', async () => {
-        assertAreEqual(result.comps[0].layers, [
+        assertAreEqual(project.comps[0].layers, [
             {
                 label: 4,
                 markers: [],
@@ -67,7 +67,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d Camera data', async () => {
-        assertAreEqual(result.comps[1].layers[0], {
+        assertAreEqual(project.comps[1].layers[0], {
             label: 4,
             markers: [],
             masks: [],
@@ -121,7 +121,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d LightLayer data', async () => {
-        assertAreEqual(result.comps[1].layers[1], {
+        assertAreEqual(project.comps[1].layers[1], {
             label: 6,
             lightType: 4414,
             markers: [],
@@ -141,7 +141,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 3d AVLayer data', async () => {
-        assertAreEqual(result.comps[1].layers[2], {
+        assertAreEqual(project.comps[1].layers[2], {
             effects: [],
             label: 1,
             markers: [],
@@ -213,7 +213,7 @@ describe('Layer Transform', function () {
     });
 
     it('Can parse modified 2d AVLayer data', async () => {
-        assertAreEqual(result.comps[1].layers[3], {
+        assertAreEqual(project.comps[1].layers[3], {
             effects: [],
             label: 1,
             markers: [],

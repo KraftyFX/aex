@@ -1,16 +1,16 @@
-function getAexItem(item: Item, options: AexOptions): AexItemBase {
+function getAexItem(item: Item, state: AexState): AexItemBase {
     if (aeq.isComp(item)) {
-        return getAexComp(item as CompItem, options);
+        return getAexComp(item as CompItem, state);
     } else if (aeq.isFootageItem(item)) {
-        return _getFootageItem(item);
+        return _getFootageItem(item, state);
     } else if (aeq.isFolderItem(item)) {
-        return _getFolderItem(item);
+        return _getFolderItem(item, state);
     } else {
         throw new Error(`Unrecognized Item Type`);
     }
 }
 
-function getAexComp(comp: CompItem, options: AexOptions): AexComp {
+function getAexComp(comp: CompItem, state: AexState): AexComp {
     const avItemAttributes = _getAVItemAttributes(comp);
 
     const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
@@ -59,14 +59,15 @@ function getAexComp(comp: CompItem, options: AexOptions): AexComp {
         workAreaDuration,
 
         markers: _getAexCompMarkers(comp),
-        layers: _getAexCompLayers(comp, options),
+        layers: _getAexCompLayers(comp, state),
         // essentialProps: _getEssentialProperties(comp, options),
     };
 
+    state.stats.compCount++;
     return aexComp;
 }
 
-function _getFootageItem(item: FootageItem): AexFootageItem {
+function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     const avItemAttributes = _getAVItemAttributes(item);
     const fileSourceAttributes = {} as AexFileSourceAttributes;
     const solidSourceAttributes = {} as AexSolidSourceAttributes;
@@ -98,6 +99,8 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
 
+    state.stats.nonCompItemCount++;
+
     return {
         type,
         ...avItemAttributes,
@@ -116,9 +119,10 @@ function _getFootageItem(item: FootageItem): AexFootageItem {
     };
 }
 
-function _getFolderItem(item: FolderItem): AexFolderItem {
+function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     const itemAttributes = _getItemAttributes(item);
 
+    state.stats.nonCompItemCount++;
     return {
         type: AEX_FOLDER_ITEM,
         ...itemAttributes,
@@ -175,17 +179,17 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
 }
 
 /** @todo explore whether essential props can be serialized */
-function _getEssentialProperties(comp: CompItem, options: AexOptions) {
+function _getEssentialProperties(comp: CompItem, state: AexState) {
     let essentialProps = [];
 
     return essentialProps;
 }
 
-function _getAexCompLayers(comp: CompItem, options: AexOptions) {
+function _getAexCompLayers(comp: CompItem, state: AexState) {
     let layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
-        let layerData = getAexLayer(layer, options);
+        let layerData = getAexLayer(layer, state);
         layers.push(layerData);
     });
 
