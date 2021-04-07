@@ -15,7 +15,7 @@ describe('Shape Layers', function () {
         await openProject('testAssets/layer_shapelayer.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;
-        console.log('layer_shapelayer', result);
+        console.log('layer_shapelayer', comp);
     });
 
     after(async () => {
@@ -31,9 +31,22 @@ describe('Shape Layers', function () {
             collapseTransformation: true,
             contents: [
                 {
-                    enabled: true,
                     matchName: 'ADBE Vector Group',
                     name: 'Rectangle 1',
+                    contents: [
+                        {
+                            matchName: 'ADBE Vector Shape - Rect',
+                            name: 'Rectangle Path 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Stroke',
+                            name: 'Stroke 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Fill',
+                            name: 'Fill 1',
+                        },
+                    ],
                 },
             ],
             effects: [],
@@ -48,7 +61,139 @@ describe('Shape Layers', function () {
 
     it(`Can parse modified shape layers`, async () => {
         assertAreEqual(comp.layers[2].contents[0], {
-            enabled: true,
+            contents: [
+                {
+                    enabled: false,
+                    matchName: 'ADBE Vector Shape - Rect',
+                    name: 'Rectangle Path 1',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Shape Direction',
+                            name: 'Shape Direction',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Rect Size',
+                            name: 'Size',
+                            type: 'aex:property:twod',
+                            value: [100, 200],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Rect Position',
+                            name: 'Position',
+                            type: 'aex:property:twod',
+                            value: [30, 40],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Rect Roundness',
+                            name: 'Roundness',
+                            type: 'aex:property:oned',
+                            value: 50,
+                        },
+                    ],
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Stroke',
+                    name: 'Stroke 1',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Blend Mode',
+                            name: 'Blend Mode',
+                            type: 'aex:property:oned',
+                            value: 17,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Composite Order',
+                            name: 'Composite',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Stroke Color',
+                            name: 'Color',
+                            type: 'aex:property:color',
+                            value: [1, 0.5, 0, 1],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Stroke Opacity',
+                            name: 'Opacity',
+                            type: 'aex:property:oned',
+                            value: 70,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Stroke Width',
+                            name: 'Stroke Width',
+                            type: 'aex:property:oned',
+                            value: 80,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Stroke Line Cap',
+                            name: 'Line Cap',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Stroke Line Join',
+                            name: 'Line Join',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                    ],
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Fill',
+                    name: 'Fill 1',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Blend Mode',
+                            name: 'Blend Mode',
+                            type: 'aex:property:oned',
+                            value: 23,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Composite Order',
+                            name: 'Composite',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Fill Rule',
+                            name: 'Fill Rule',
+                            type: 'aex:property:oned',
+                            value: 2,
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Fill Color',
+                            name: 'Color',
+                            type: 'aex:property:color',
+                            value: [1, 0.5, 0, 1],
+                        },
+                        {
+                            keys: [],
+                            matchName: 'ADBE Vector Fill Opacity',
+                            name: 'Opacity',
+                            type: 'aex:property:oned',
+                            value: 50,
+                        },
+                    ],
+                },
+            ],
             matchName: 'ADBE Vector Group',
             name: 'Rectangle 1',
             properties: [
@@ -58,142 +203,6 @@ describe('Shape Layers', function () {
                     name: 'Blend Mode',
                     type: AEX_ONED_PROPERTY,
                     value: 15,
-                },
-                {
-                    matchName: 'ADBE Vectors Group',
-                    properties: [
-                        {
-                            matchName: 'ADBE Vector Shape - Rect',
-                            name: 'Rectangle Path 1',
-                            enabled: false,
-                            properties: [
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Shape Direction',
-                                    name: 'Shape Direction',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Rect Size',
-                                    name: 'Size',
-                                    type: 'aex:property:twod',
-                                    value: [100, 200],
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Rect Position',
-                                    name: 'Position',
-                                    type: 'aex:property:twod',
-                                    value: [30, 40],
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Rect Roundness',
-                                    name: 'Roundness',
-                                    type: 'aex:property:oned',
-                                    value: 50,
-                                },
-                            ],
-                        },
-                        {
-                            matchName: 'ADBE Vector Graphic - Stroke',
-                            name: 'Stroke 1',
-                            properties: [
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Blend Mode',
-                                    name: 'Blend Mode',
-                                    type: 'aex:property:oned',
-                                    value: 17,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Composite Order',
-                                    name: 'Composite',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Stroke Color',
-                                    name: 'Color',
-                                    type: 'aex:property:color',
-                                    value: [1, 0.5, 0, 1],
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Stroke Opacity',
-                                    name: 'Opacity',
-                                    type: 'aex:property:oned',
-                                    value: 70,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Stroke Width',
-                                    name: 'Stroke Width',
-                                    type: 'aex:property:oned',
-                                    value: 80,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Stroke Line Cap',
-                                    name: 'Line Cap',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Stroke Line Join',
-                                    name: 'Line Join',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                            ],
-                        },
-                        {
-                            matchName: 'ADBE Vector Graphic - Fill',
-                            name: 'Fill 1',
-                            properties: [
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Blend Mode',
-                                    name: 'Blend Mode',
-                                    type: 'aex:property:oned',
-                                    value: 23,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Composite Order',
-                                    name: 'Composite',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Fill Rule',
-                                    name: 'Fill Rule',
-                                    type: 'aex:property:oned',
-                                    value: 2,
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Fill Color',
-                                    name: 'Color',
-                                    type: 'aex:property:color',
-                                    value: [1, 0.5, 0, 1],
-                                },
-                                {
-                                    keys: [],
-                                    matchName: 'ADBE Vector Fill Opacity',
-                                    name: 'Opacity',
-                                    type: 'aex:property:oned',
-                                    value: 50,
-                                },
-                            ],
-                        },
-                    ],
                 },
                 {
                     matchName: 'ADBE Vector Transform Group',
@@ -258,12 +267,38 @@ describe('Shape Layers', function () {
             collapseTransformation: true,
             contents: [
                 {
-                    enabled: true,
+                    contents: [
+                        {
+                            matchName: 'ADBE Vector Shape - Rect',
+                            name: 'Rectangle Path 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Stroke',
+                            name: 'Stroke 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Fill',
+                            name: 'Fill 1',
+                        },
+                    ],
                     matchName: 'ADBE Vector Group',
                     name: 'Rectangle 1',
                 },
                 {
-                    enabled: true,
+                    contents: [
+                        {
+                            matchName: 'ADBE Vector Shape - Rect',
+                            name: 'Rectangle Path 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Stroke',
+                            name: 'Stroke 1',
+                        },
+                        {
+                            matchName: 'ADBE Vector Graphic - Fill',
+                            name: 'Fill 1',
+                        },
+                    ],
                     matchName: 'ADBE Vector Group',
                     name: 'Rectangle 2',
                 },
@@ -273,6 +308,33 @@ describe('Shape Layers', function () {
             markers: [],
             masks: [],
             name: 'Multiple Default',
+            transform: {},
+            type: AEX_SHAPE_LAYER,
+        });
+    });
+
+    it(`Can parse ungrouped shape items`, async () => {
+        assertAreEqual(comp.layers[4], {
+            collapseTransformation: true,
+            contents: [
+                {
+                    matchName: 'ADBE Vector Shape - Rect',
+                    name: 'Rectangle Path 1',
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Stroke',
+                    name: 'Stroke 1',
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Fill',
+                    name: 'Fill 1',
+                },
+            ],
+            effects: [],
+            label: 8,
+            markers: [],
+            masks: [],
+            name: 'Ungrouped Default',
             transform: {},
             type: AEX_SHAPE_LAYER,
         });

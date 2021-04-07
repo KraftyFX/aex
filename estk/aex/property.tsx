@@ -191,6 +191,13 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
         if (property.propertyType == PropertyType.PROPERTY) {
             content = getModifiedProperty(property as any, state);
         } else {
+            /**
+             * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
+             */
+            if (property.matchName === 'ADBE Vectors Group') {
+                return undefined;
+            }
+
             content = getPropertyGroup(property as PropertyGroup, state);
         }
 

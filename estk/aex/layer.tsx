@@ -55,6 +55,13 @@ function _getFlatPropertyGroup(property: PropertyGroup, state: AexState): AexPro
     const result = [];
 
     forEachPropertyInGroup(property, (childProperty: PropertyGroup) => {
+        let contents;
+
+        if (childProperty.matchName === 'ADBE Vector Group') {
+            const contentsGroup = childProperty.property('ADBE Vectors Group');
+            contents = _getFlatPropertyGroup(contentsGroup as PropertyGroup, state);
+        }
+
         const propertyData = getPropertyGroup(childProperty as PropertyGroup, state);
 
         /**
@@ -70,7 +77,8 @@ function _getFlatPropertyGroup(property: PropertyGroup, state: AexState): AexPro
          */
         const properties = propertyData ? propertyData.properties : undefined;
 
-        const { name, matchName, enabled } = childProperty;
+        const { name, matchName } = childProperty;
+        const enabled = getModifiedValue(childProperty.enabled, true);
 
         result.push({
             name,
@@ -78,6 +86,7 @@ function _getFlatPropertyGroup(property: PropertyGroup, state: AexState): AexPro
             enabled,
 
             properties,
+            contents,
         });
     });
 
