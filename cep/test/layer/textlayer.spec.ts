@@ -15,7 +15,7 @@ describe('Text Layer Attributes', function () {
         await openProject('testAssets/layer_text.aep');
         const result = await aex().fromAeObject(AeObject.Project);
         project = result.object;
-        console.log('layer_text', result);
+        console.log('layer_text', project);
     });
 
     after(async () => {

@@ -15,7 +15,7 @@ describe('Light Layer Attributes', function () {
         await openProject('testAssets/layer_light.aep');
         const result = await aex().fromAeObject(AeObject.ActiveComp);
         comp = result.object;
-        console.log('layer_light', result);
+        console.log('layer_light', comp);
     });
 
     after(async () => {
