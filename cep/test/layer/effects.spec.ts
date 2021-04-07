@@ -28,7 +28,6 @@ describe('Layer Effects', function () {
 
         it('Can parse simple unmodified effect', async () => {
             assertAreEqual(comp.layers[0].effects[0], {
-                enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Default',
             });
@@ -36,7 +35,6 @@ describe('Layer Effects', function () {
 
         it('Can parse simple modified effect', async () => {
             assertAreEqual(comp.layers[0].effects[1], {
-                enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Modified',
                 properties: [
@@ -88,7 +86,6 @@ describe('Layer Effects', function () {
 
         it('Can parse effect compositing options', async () => {
             assertAreEqual(comp.layers[0].effects[2], {
-                enabled: true,
                 matchName: 'ADBE Fill',
                 name: 'Fill - Compositing Options',
                 properties: [
@@ -131,42 +128,34 @@ describe('Layer Effects', function () {
                 {
                     name: '3D Point Control',
                     matchName: 'ADBE Point3D Control',
-                    enabled: true,
                 },
                 {
                     name: 'Angle Control',
                     matchName: 'ADBE Angle Control',
-                    enabled: true,
                 },
                 {
                     name: 'Checkbox Control',
                     matchName: 'ADBE Checkbox Control',
-                    enabled: true,
                 },
                 {
                     name: 'Color Control',
                     matchName: 'ADBE Color Control',
-                    enabled: true,
                 },
                 {
                     name: 'Dropdown Menu Control',
                     matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ',
-                    enabled: true,
                 },
                 {
                     name: 'Layer Control',
                     matchName: 'ADBE Layer Control',
-                    enabled: true,
                 },
                 {
                     name: 'Point Control',
                     matchName: 'ADBE Point Control',
-                    enabled: true,
                 },
                 {
                     name: 'Slider Control',
                     matchName: 'ADBE Slider Control',
-                    enabled: true,
                 },
             ]);
         });
@@ -176,7 +165,6 @@ describe('Layer Effects', function () {
                 {
                     name: '3D Point Control',
                     matchName: 'ADBE Point3D Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -190,7 +178,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Angle Control',
                     matchName: 'ADBE Angle Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -204,7 +191,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Checkbox Control',
                     matchName: 'ADBE Checkbox Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -218,7 +204,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Color Control',
                     matchName: 'ADBE Color Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -232,7 +217,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Dropdown Menu Control',
                     matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -246,7 +230,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Layer Control',
                     matchName: 'ADBE Layer Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -260,7 +243,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Point Control',
                     matchName: 'ADBE Point Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -274,7 +256,6 @@ describe('Layer Effects', function () {
                 {
                     name: 'Slider Control',
                     matchName: 'ADBE Slider Control',
-                    enabled: true,
                     properties: [
                         {
                             keys: [],
@@ -290,7 +271,6 @@ describe('Layer Effects', function () {
 
         it('Can parse nested effect groups', async () => {
             assertAreEqual(comp.layers[3].effects[0], {
-                enabled: true,
                 matchName: 'ADBE Fractal Noise',
                 name: 'Fractal Noise',
                 properties: [
@@ -323,7 +303,6 @@ describe('Layer Effects', function () {
             console.log('layer_effects_unsupported_skip', comp);
 
             assertAreEqual(comp.layers[0].effects[0], {
-                enabled: true,
                 matchName: 'ADBE CurvesCustom',
                 name: 'Curves',
             });
@@ -335,7 +314,6 @@ describe('Layer Effects', function () {
 
             console.log('layer_effects_unsupported_metadata', comp);
             assertAreEqual(comp.layers[0].effects[0], {
-                enabled: true,
                 matchName: 'ADBE CurvesCustom',
                 name: 'Curves',
                 properties: [
