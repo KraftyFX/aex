@@ -5,7 +5,11 @@ function getModifiedProperty(property: TwoDProperty, state: AexState): AexProper
 function getModifiedProperty(property: ThreeDProperty, state: AexState): AexProperty<ThreeDPoint> | undefined;
 function getModifiedProperty(property: TwoDProperty | ThreeDProperty, state: AexState): AexProperty<TwoDPoint> | AexProperty<ThreeDPoint> | undefined;
 function getModifiedProperty(property: Property, state: AexState): AexProperty | undefined {
-    const hasDefaultPropertyValue = aeq.isNullOrUndefined(property) || !property.isModified;
+    if (aeq.isNullOrUndefined(property)) {
+        return undefined;
+    }
+
+    const hasDefaultPropertyValue = !property.isModified;
 
     if (hasDefaultPropertyValue) {
         return undefined;
