@@ -340,32 +340,166 @@ describe('Shape Layers', function () {
         });
     });
 
-    /** @todo */
-    it.skip(`Can parse shape dashes`, async () => {
-        assertAreEqual(comp.layers[4].contents[0].properties, [
-            {
-                matchName: 'ADBE Vectors Group',
-                properties: [
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Vector Stroke Dashes',
-                                properties: [
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 1',
-                                        name: 'Dash',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-        ]);
+    it(`Can parse stroke dashes`, async () => {
+        assertAreEqual(comp.layers[5].contents[0], {
+            contents: [
+                {
+                    matchName: 'ADBE Vector Shape - Rect',
+                    name: 'Rectangle Path 1',
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Stroke',
+                    name: 'Stroke 1',
+                    properties: [
+                        {
+                            matchName: 'ADBE Vector Stroke Dashes',
+                            properties: [
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 1',
+                                    name: 'Dash',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Offset',
+                                    name: 'Offset',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 0,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            matchName: 'ADBE Vector Group',
+            name: 'Rectangle 1',
+        });
+    });
+
+    it(`Can parse all stroke dashes`, async () => {
+        assertAreEqual(comp.layers[6].contents[0], {
+            contents: [
+                {
+                    matchName: 'ADBE Vector Shape - Rect',
+                    name: 'Rectangle Path 1',
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Stroke',
+                    name: 'Stroke 1',
+                    properties: [
+                        {
+                            matchName: 'ADBE Vector Stroke Dashes',
+                            properties: [
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 1',
+                                    name: 'Dash',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Gap 1',
+                                    name: 'Gap',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 2',
+                                    name: 'Dash 2',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Gap 2',
+                                    name: 'Gap 2',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 3',
+                                    name: 'Dash 3',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Gap 3',
+                                    name: 'Gap 3',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 10,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Offset',
+                                    name: 'Offset',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 0,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            matchName: 'ADBE Vector Group',
+            name: 'Rectangle 1',
+        });
+    });
+
+    it(`Can parse modified stroke dashes`, async () => {
+        assertAreEqual(comp.layers[7].contents[0], {
+            contents: [
+                {
+                    matchName: 'ADBE Vector Shape - Rect',
+                    name: 'Rectangle Path 1',
+                },
+                {
+                    matchName: 'ADBE Vector Graphic - Stroke',
+                    name: 'Stroke 1',
+                    properties: [
+                        {
+                            matchName: 'ADBE Vector Stroke Dashes',
+                            properties: [
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 1',
+                                    name: 'Dash',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 1,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Gap 1',
+                                    name: 'Gap',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 2,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Dash 2',
+                                    name: 'Dash 2',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 3,
+                                },
+                                {
+                                    keys: [],
+                                    matchName: 'ADBE Vector Stroke Offset',
+                                    name: 'Offset',
+                                    type: AEX_ONED_PROPERTY,
+                                    value: 4,
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            matchName: 'ADBE Vector Group',
+            name: 'Rectangle 1',
+        });
     });
 });

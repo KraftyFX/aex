@@ -9,7 +9,20 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    const hasDefaultPropertyValue = !property.isModified;
+    let hasDefaultPropertyValue = false;
+
+    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
+        /**
+         * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
+         **/
+        if (!property.canSetExpression) {
+            hasDefaultPropertyValue = true;
+        }
+    } else {
+        if (!property.isModified) {
+            hasDefaultPropertyValue = true;
+        }
+    }
 
     if (hasDefaultPropertyValue) {
         return undefined;
