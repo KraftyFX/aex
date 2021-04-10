@@ -268,7 +268,7 @@ function getTextDocumentProperties(text: TextDocument): AexTextDocument {
         applyStroke: getModifiedValue(text.applyStroke, false),
         baselineLocs: getModifiedValue(text.baselineLocs, [0, 0]),
         baselineShift: getModifiedValue(text.baselineShift, -1),
-        boxTextPos: getBoundModifiedValue(text.boxText, () => text.boxTextPos, [0, 0]), // zlovatt: Why isn't boxText serialized?
+        boxTextPos: getBoundModifiedValue(text.boxText, () => text.boxTextPos, [0, 0]),
         boxTextSize: getBoundModifiedValue(text.boxText, () => text.boxTextSize, [0, 0]),
         fauxBold: getModifiedValue(text.fauxBold, false),
         fauxItalic: getModifiedValue(text.fauxItalic, false),
