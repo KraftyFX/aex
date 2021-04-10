@@ -180,7 +180,6 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
 function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const layerAttributes = _getLayer(layer, state);
 
-    /** @todo Handle track matte */
     /** @todo Handle source */
     const source = generateItemUID(layer.source);
 
@@ -199,6 +198,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
     const threeDLayer = getModifiedValue(layer.threeDLayer, false);
     const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
+    const isTrackMatte = getModifiedValue(layer.isTrackMatte, false);
     const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
 
     const audio = getPropertyGroup(layer.audio, state);
@@ -230,6 +230,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
         samplingQuality,
         threeDLayer,
         timeRemapEnabled,
+        isTrackMatte,
         trackMatteType,
 
         audio,

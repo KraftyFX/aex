@@ -422,4 +422,53 @@ describe('Basic Layer Attributes', function () {
             type: AEX_AV_LAYER,
         });
     });
+
+    it(`Can parse matte and matted layers`, async () => {
+        assertAreEqual(comp.layers[10], {
+            effects: [],
+            isTrackMatte: true,
+            label: 9,
+            markers: [],
+            masks: [],
+            name: 'Matte Solid',
+            source: 'parented solid:61',
+            transform: {},
+            type: AEX_AV_LAYER,
+        });
+
+        assertAreEqual(comp.layers[11], {
+            effects: [],
+            label: 9,
+            markers: [],
+            masks: [],
+            name: 'Matted Text Layer',
+            collapseTransformation: true,
+            sourceText: {
+                type: AEX_TEXTDOCUMENT_PROPERTY,
+                keys: [],
+                matchName: 'ADBE Text Document',
+                name: 'Source Text',
+                value: {
+                    applyFill: true,
+                    baselineLocs: [-198.25439453125, 0, 198.25439453125, 0],
+                    baselineShift: 0,
+                    fillColor: [1, 1, 1],
+                    font: 'ArialMT',
+                    fontFamily: 'Arial',
+                    fontSize: 50,
+                    fontStyle: 'Regular',
+                    horizontalScale: 1,
+                    justification: 7415,
+                    leading: 60.0000038146973,
+                    text: 'Matted Text Layer',
+                    tracking: 0,
+                    tsume: 0,
+                    verticalScale: 1,
+                },
+            },
+            transform: {},
+            trackMatteType: 5013,
+            type: AEX_TEXT_LAYER,
+        });
+    });
 });

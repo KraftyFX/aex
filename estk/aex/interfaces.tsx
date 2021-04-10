@@ -167,6 +167,7 @@ interface AexAVLayer extends AexLayer, AexObject {
     samplingQuality: LayerSamplingQuality;
     threeDLayer: boolean;
     timeRemapEnabled: boolean;
+    isTrackMatte: boolean;
     trackMatteType: TrackMatteType;
 }
 
