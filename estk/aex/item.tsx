@@ -13,7 +13,7 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
 function getAexComp(comp: CompItem, state: AexState): AexComp {
     const avItemAttributes = _getAVItemAttributes(comp);
 
-    const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0]);
+    const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0] as ThreeDColorValue);
     const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
     const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
     const draft3d = getModifiedValue(comp.draft3d, false);
@@ -93,7 +93,7 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
     const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
     const loop = getModifiedValue(itemSource.loop, 1);
-    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0]);
+    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue);
     const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
 
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);

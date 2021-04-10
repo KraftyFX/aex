@@ -85,7 +85,7 @@ interface AexFootageItem extends AexAVItemBase, AexObject {
     fieldSeparationType: FieldSeparationType;
     highQualityFieldSeparation: boolean;
     loop: number;
-    premulColor: number[];
+    premulColor: ThreeDColorValue;
     removePulldown: PulldownPhase;
     invertAlpha: boolean;
 }
@@ -96,11 +96,11 @@ interface AexFileSourceAttributes {
 }
 
 interface AexSolidSourceAttributes {
-    color: number[];
+    color: ThreeDColorValue;
 }
 
 interface AexComp extends AexAVItemBase, AexObject {
-    bgColor: number[];
+    bgColor: ThreeDColorValue;
     displayStartFrame: number;
     displayStartTime: number;
     draft3d: boolean;
@@ -237,7 +237,7 @@ interface AexTextDocument {
     boxTextSize: TwoDPoint;
     fauxBold: boolean;
     fauxItalic: boolean;
-    fillColor: ThreeDPoint; // zlovatt: this should be ColorValue but it has 4 members, not 3
+    fillColor: ThreeDColorValue;
     font: string;
     fontFamily: string;
     fontSize: number;
@@ -247,7 +247,7 @@ interface AexTextDocument {
     leading: number;
     pointText: boolean;
     smallCaps: boolean;
-    strokeColor: ThreeDPoint; // zlovatt: this should be ColorValue but it has 4 members, not 3
+    strokeColor: ThreeDColorValue;
     strokeOverFill: boolean;
     strokeWidth: number;
     subscript: boolean;
@@ -260,7 +260,7 @@ interface AexTextDocument {
 
 interface AexMask {
     name: string;
-    color: ThreeDPoint;
+    color: ThreeDColorValue;
     maskMode: MaskMode;
     inverted: boolean;
     rotoBezier: boolean;
