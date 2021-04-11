@@ -78,7 +78,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
                 return aexProperty;
         }
     } else {
-        if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+        if (isTextDocument(property)) {
             aexProperty.value = getTextDocumentProperties(property.value);
         } else {
             aexProperty.value = property.value;
@@ -101,7 +101,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
         if (isUnreadable) {
             value = undefined;
         } else {
-            if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+            if (isTextDocument(property)) {
                 value = getTextDocumentProperties(keyInfo.value);
             } else {
                 value = keyInfo.value;
@@ -168,6 +168,10 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
 
 function isUnreadableProperty(property: Property<UnknownPropertyType>) {
     return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
+}
+
+function isTextDocument(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
 }
 
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
