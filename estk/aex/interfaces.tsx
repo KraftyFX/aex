@@ -132,7 +132,6 @@ interface AexLayer {
     outPoint: number;
     startTime: number;
     stretch: number;
-    nullLayer: boolean;
     shy: boolean;
     solo: boolean;
 
@@ -153,6 +152,7 @@ interface AexAVLayer extends AexLayer, AexObject {
     frameBlendingType: FrameBlendingType;
     guideLayer: boolean;
     motionBlur: boolean;
+    nullLayer: boolean;
     preserveTransparency: boolean;
     quality: LayerQuality;
     samplingQuality: LayerSamplingQuality;

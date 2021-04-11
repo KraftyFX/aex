@@ -3,6 +3,7 @@ import {
     AEX_AV_LAYER,
     AEX_CAMERA_LAYER,
     AEX_LIGHT_LAYER,
+    AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
     AEX_SHAPE_LAYER,
     AEX_TEXTDOCUMENT_PROPERTY,
@@ -78,7 +79,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    it(`Can parse basic AVLayer properties`, async () => {
+    it(`Can parse basic Null layer properties`, async () => {
         assertAreEqual(comp.layers[2], {
             effects: [],
             label: 1,
@@ -88,7 +89,7 @@ describe('Basic Layer Attributes', function () {
             nullLayer: true,
             transform: {},
             source: 'null 1:50',
-            type: AEX_AV_LAYER,
+            type: AEX_NULL_LAYER,
         });
     });
 
@@ -121,7 +122,7 @@ describe('Basic Layer Attributes', function () {
             shy: true,
             source: 'null 1:50',
             transform: {},
-            type: AEX_AV_LAYER,
+            type: AEX_NULL_LAYER,
         });
     });
 
@@ -138,7 +139,7 @@ describe('Basic Layer Attributes', function () {
             source: 'null 1:50',
             stretch: 25,
             transform: {},
-            type: AEX_AV_LAYER,
+            type: AEX_NULL_LAYER,
         });
     });
 

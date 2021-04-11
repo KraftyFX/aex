@@ -108,7 +108,7 @@ function isVisibleLayer(layer: Layer): layer is AVLayer | TextLayer | ShapeLayer
     return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
 }
 
-function isNullLayer(layer: Layer): layer is Layer {
+function isNullLayer(layer: Layer): layer is AVLayer {
     return layer.nullLayer;
 }
 

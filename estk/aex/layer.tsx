@@ -5,6 +5,8 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
         return _getTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {
         return _getShapeLayer(layer, state);
+    } else if (isNullLayer(layer)) {
+        return _getNullLayer(layer, state);
     } else if (aeq.isAVLayer(layer)) {
         return _getAVLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
@@ -141,7 +143,6 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
     const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
     const startTime = getModifiedValue(layer.startTime, 0);
     const stretch = getModifiedValue(layer.stretch, 100);
-    const nullLayer = getModifiedValue(layer.nullLayer, false);
     const shy = getModifiedValue(layer.shy, false);
     const solo = getModifiedValue(layer.solo, false);
 
@@ -157,14 +158,11 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
         outPoint,
         startTime,
         stretch,
-        nullLayer,
         shy,
         solo,
         parentLayerIndex,
         markers: getAexMarkerProperties(layer.marker),
         transform: _getTransform(layer, state),
-
-        // Gets set by derived classes
     };
 }
 
@@ -183,6 +181,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const frameBlendingType = getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND);
     const guideLayer = getModifiedValue(layer.guideLayer, false);
     const motionBlur = getModifiedValue(layer.motionBlur, false);
+    const nullLayer = getModifiedValue(layer.nullLayer, false);
     const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
     const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
     const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
@@ -215,6 +214,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
         frameBlendingType,
         guideLayer,
         motionBlur,
+        nullLayer,
         preserveTransparency,
         quality,
         samplingQuality,
@@ -286,8 +286,8 @@ function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     };
 }
 
-function _getNullLayer(layer: Layer, state: AexState): AexNullLayer {
-    const layerAttributes = _getLayer(layer, state);
+function _getNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
+    const layerAttributes = _getAVLayer(layer, state);
 
     return {
         ...layerAttributes,

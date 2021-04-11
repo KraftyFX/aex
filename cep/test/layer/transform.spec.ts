@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import { AEX_AV_LAYER, AEX_CAMERA_LAYER, AEX_LIGHT_LAYER, AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -48,7 +48,7 @@ describe('Layer Transform', function () {
                 source: 'null 1:50',
                 threeDLayer: true,
                 transform: {},
-                type: AEX_AV_LAYER,
+                type: AEX_NULL_LAYER,
             },
             {
                 effects: [],
@@ -59,7 +59,7 @@ describe('Layer Transform', function () {
                 nullLayer: true,
                 source: 'null 1:50',
                 transform: {},
-                type: AEX_AV_LAYER,
+                type: AEX_NULL_LAYER,
             },
         ]);
     });
@@ -136,7 +136,7 @@ describe('Layer Transform', function () {
         });
     });
 
-    it('Can parse modified 3d AVLayer data', async () => {
+    it('Can parse modified 3d AVLayer Null data', async () => {
         assertAreEqual(project.comps[1].layers[2], {
             effects: [],
             label: 1,
@@ -204,11 +204,11 @@ describe('Layer Transform', function () {
                     value: -3600,
                 },
             },
-            type: AEX_AV_LAYER,
+            type: AEX_NULL_LAYER,
         });
     });
 
-    it('Can parse modified 2d AVLayer data', async () => {
+    it('Can parse modified 2d AVLayer Null data', async () => {
         assertAreEqual(project.comps[1].layers[3], {
             effects: [],
             label: 1,
@@ -254,7 +254,7 @@ describe('Layer Transform', function () {
                     value: [10, 20, 100],
                 },
             },
-            type: AEX_AV_LAYER,
+            type: AEX_NULL_LAYER,
         });
     });
 });
