@@ -254,8 +254,8 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
 
     return {
         matchName: propertyGroup.matchName,
-        name: name,
-        enabled: enabled,
+        name,
+        enabled,
 
         properties,
     };
