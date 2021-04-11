@@ -33,10 +33,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
      * though these 'groups' appear flat when iterating through them.
      *
      * We need to skip these properties, as their types are NO_VALUE and will
-     * throw errors.
-     *
-     * @todo -- see if this is even necessary. it's possible we can just
-     * skip 'no_value' properties altogether instead of this
+     * otherwise be treated as errors.
      */
     if (isEffectPropertyGroup(property)) {
         return undefined;
