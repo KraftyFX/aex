@@ -9,14 +9,16 @@ describe('Layer Effects', function () {
 
     let puppetComp: any;
     let simpleComp: any;
+    let rotobrushComp: any;
 
     before(async () => {
         await evalAexIntoEstk();
         await openProject('testAssets/layer_effects.aep');
         const result = await aex().fromAeObject(AeObject.Project);
         const project = result.object;
-        puppetComp = project.comps[0];
-        simpleComp = project.comps[1];
+        puppetComp = project.comps.find((comp: any) => comp.name === 'Puppet Pins');
+        simpleComp = project.comps.find((comp: any) => comp.name === 'Simple');
+        rotobrushComp = project.comps.find((comp: any) => comp.name === 'Rotobrush');
         console.log('layer_effects', project);
     });
 
@@ -398,6 +400,52 @@ describe('Layer Effects', function () {
                                                     ],
                                                 },
                                             ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+        });
+    });
+
+    it('Can parse rotobrush effect', async () => {
+        assertAreEqual(rotobrushComp.layers[0].effects[0], {
+            name: 'Roto Brush & Refine Edge',
+            matchName: 'ADBE Samurai',
+            properties: [
+                {
+                    matchName: 'ADBE Samurai Strokes Group',
+                    properties: [
+                        {
+                            matchName: 'ADBE Paint Atom',
+                            name: 'Foreground 1',
+                            properties: [
+                                {
+                                    type: 'aex:property:twod',
+                                    name: 'Duration',
+                                    matchName: 'ADBE Paint Duration',
+                                    value: [0, 1.25],
+                                    keys: [],
+                                },
+                                {
+                                    matchName: 'ADBE Paint Properties',
+                                    properties: [
+                                        {
+                                            type: 'aex:property:color',
+                                            name: 'Color',
+                                            matchName: 'ADBE Paint Color',
+                                            value: [0, 1, 0, 1],
+                                            keys: [],
+                                        },
+                                        {
+                                            type: 'aex:property:oned',
+                                            name: 'Clone Source',
+                                            matchName: 'ADBE Paint Clone Layer',
+                                            value: 0,
+                                            keys: [],
                                         },
                                     ],
                                 },
