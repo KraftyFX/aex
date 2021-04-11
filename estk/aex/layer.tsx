@@ -57,6 +57,9 @@ function _getFlatPropertyGroup(property: PropertyGroup, state: AexState): AexPro
     forEachPropertyInGroup(property, (childProperty: PropertyGroup) => {
         let contents;
 
+        /**
+         * Voodoo: Special case for shape Contents groups
+         */
         if (childProperty.matchName === 'ADBE Vector Group') {
             const contentsGroup = childProperty.property('ADBE Vectors Group');
             contents = _getFlatPropertyGroup(contentsGroup as PropertyGroup, state);
@@ -180,7 +183,6 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
 function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const layerAttributes = _getLayer(layer, state);
 
-    /** @todo Handle source */
     const source = generateItemUID(layer.source);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
