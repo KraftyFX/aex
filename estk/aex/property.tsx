@@ -9,22 +9,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    let hasDefaultPropertyValue = false;
-
-    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
-        /**
-         * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
-         **/
-        if (!property.canSetExpression) {
-            hasDefaultPropertyValue = true;
-        }
-    } else {
-        if (!property.isModified) {
-            hasDefaultPropertyValue = true;
-        }
-    }
-
-    if (hasDefaultPropertyValue) {
+    if (hasDefaultPropertyValue(property)) {
         return undefined;
     }
 
@@ -67,6 +52,17 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
 
     state.stats.propertyCount++;
     return aexProperty;
+}
+
+function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
+    /**
+     * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
+     **/
+    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
+        return !property.canSetExpression;
+    } else {
+        return !property.isModified;
+    }
 }
 
 function getUnreadableProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
