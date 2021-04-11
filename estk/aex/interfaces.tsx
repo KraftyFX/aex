@@ -136,7 +136,6 @@ interface AexLayer {
     shy: boolean;
     solo: boolean;
 
-    /** AEX-specific properties */
     parentLayerIndex: number;
     markers: AexMarkerProperty[];
     transform: AexTransform;
@@ -205,7 +204,6 @@ interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyB
     expressionEnabled: boolean;
     value: T;
 
-    /** AEX-specific properties */
     type: AexPropertyType;
     keys: AEQKeyInfo[];
 }
