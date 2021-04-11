@@ -283,12 +283,14 @@ function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
 function _getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = _getAVLayer(layer, state);
     const source = generateItemUID(layer.source);
+    const trackers = _getFlatPropertyGroup(layer.property('ADBE MTrackers') as PropertyGroup, state);
 
     return {
         ...layerAttributes,
         type: AEX_FOOTAGE_LAYER,
 
         source,
+        trackers,
     };
 }
 

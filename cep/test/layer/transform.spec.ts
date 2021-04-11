@@ -47,6 +47,7 @@ describe('Layer Transform', function () {
                 nullLayer: true,
                 source: 'null 1:50',
                 threeDLayer: true,
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             },
@@ -58,6 +59,7 @@ describe('Layer Transform', function () {
                 name: '2d AV Layer',
                 nullLayer: true,
                 source: 'null 1:50',
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             },
@@ -146,6 +148,7 @@ describe('Layer Transform', function () {
             nullLayer: true,
             threeDLayer: true,
             source: 'null 1:50',
+            trackers: [],
             transform: {
                 anchorPoint: {
                     type: AEX_THREED_PROPERTY,
@@ -217,6 +220,7 @@ describe('Layer Transform', function () {
             name: '2d AV Layer',
             nullLayer: true,
             source: 'null 1:50',
+            trackers: [],
             transform: {
                 anchorPoint: {
                     type: AEX_THREED_PROPERTY,

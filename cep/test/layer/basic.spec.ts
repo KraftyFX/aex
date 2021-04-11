@@ -89,6 +89,7 @@ describe('Basic Layer Attributes', function () {
             nullLayer: true,
             transform: {},
             source: 'null 1:50',
+            trackers: [],
             type: AEX_NULL_LAYER,
         });
     });
@@ -121,6 +122,7 @@ describe('Basic Layer Attributes', function () {
             samplingQuality: 4813,
             shy: true,
             source: 'null 1:50',
+            trackers: [],
             transform: {},
             type: AEX_NULL_LAYER,
         });
@@ -138,6 +140,7 @@ describe('Basic Layer Attributes', function () {
             outPoint: 1,
             source: 'null 1:50',
             stretch: 25,
+            trackers: [],
             transform: {},
             type: AEX_NULL_LAYER,
         });
@@ -152,6 +155,7 @@ describe('Basic Layer Attributes', function () {
             name: 'Parented Solid',
             parentLayerIndex: 5,
             source: 'parented solid:61',
+            trackers: [],
             transform: {
                 position: {
                     type: AEX_THREED_PROPERTY,
@@ -357,6 +361,7 @@ describe('Basic Layer Attributes', function () {
                 value: 2,
             },
             timeRemapEnabled: true,
+            trackers: [],
             transform: {},
             type: AEX_FOOTAGE_LAYER,
         });
@@ -417,6 +422,7 @@ describe('Basic Layer Attributes', function () {
                 value: 4,
             },
             timeRemapEnabled: true,
+            trackers: [],
             transform: {},
             type: AEX_FOOTAGE_LAYER,
         });
@@ -431,6 +437,7 @@ describe('Basic Layer Attributes', function () {
             masks: [],
             name: 'Matte Solid',
             source: 'parented solid:61',
+            trackers: [],
             transform: {},
             type: AEX_FOOTAGE_LAYER,
         });
@@ -468,6 +475,48 @@ describe('Basic Layer Attributes', function () {
             transform: {},
             trackMatteType: 5013,
             type: AEX_TEXT_LAYER,
+        });
+    });
+
+    it(`Can parse layer tracking data`, async () => {
+        assertAreEqual(comp.layers[12], {
+            effects: [],
+            label: 1,
+            markers: [],
+            masks: [],
+            name: 'Trackers',
+            nullLayer: true,
+            source: 'null 1:50',
+            trackers: [
+                {
+                    name: 'Tracker 1',
+                    matchName: 'ADBE MTracker',
+                    properties: [
+                        {
+                            matchName: 'ADBE MTracker Pt',
+                            name: 'Track Point 1',
+                            properties: [
+                                {
+                                    type: 'aex:property:twod',
+                                    name: 'Feature Size',
+                                    matchName: 'ADBE MTracker Pt Feature Size',
+                                    value: [36, 36],
+                                    keys: [],
+                                },
+                                {
+                                    type: 'aex:property:twod',
+                                    name: 'Search Size',
+                                    matchName: 'ADBE MTracker Pt Search Size',
+                                    value: [79, 68],
+                                    keys: [],
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            transform: {},
+            type: AEX_NULL_LAYER,
         });
     });
 });
