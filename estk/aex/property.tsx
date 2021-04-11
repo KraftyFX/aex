@@ -53,30 +53,8 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         keys: undefined,
     };
 
-    const isUnreadable = isUnreadableProperty(property);
-
-    if (isUnreadable) {
-        switch (state.options.unspportedPropertyBehavior) {
-            case 'skip':
-                return undefined;
-            case 'log':
-                state.log.push({
-                    aexProperty,
-                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
-                });
-                return undefined;
-            case 'throw':
-                throw new Error(`Property "${property.matchName}" is unsupported.`);
-            case 'metadata':
-                aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
-                return aexProperty;
-            default:
-                state.options.unspportedPropertyBehavior({
-                    aexProperty,
-                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
-                });
-                return aexProperty;
-        }
+    if (isUnreadableProperty(property)) {
+        return getUnreadableProperty(property, aexProperty, state);
     } else {
         if (isTextDocument(property)) {
             aexProperty.value = getTextDocumentProperties(property.value);
@@ -84,11 +62,35 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
             aexProperty.value = property.value;
         }
 
-        aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
+        aexProperty.keys = _getPropertyKeys(property, false /*=isUnreadable*/, state);
     }
 
     state.stats.propertyCount++;
     return aexProperty;
+}
+
+function getUnreadableProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
+    switch (state.options.unspportedPropertyBehavior) {
+        case 'skip':
+            return undefined;
+        case 'log':
+            state.log.push({
+                aexProperty,
+                message: `Property "${property.matchName}" is unsupported. Skipping.`,
+            });
+            return undefined;
+        case 'throw':
+            throw new Error(`Property "${property.matchName}" is unsupported.`);
+        case 'metadata':
+            aexProperty.keys = _getPropertyKeys(property, true /*=isUnreadable*/, state);
+            return aexProperty;
+        default:
+            state.options.unspportedPropertyBehavior({
+                aexProperty,
+                message: `Property "${property.matchName}" is unsupported. Skipping.`,
+            });
+            return aexProperty;
+    }
 }
 
 function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
