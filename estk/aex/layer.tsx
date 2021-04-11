@@ -8,7 +8,7 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     } else if (isNullLayer(layer)) {
         return _getNullLayer(layer, state);
     } else if (aeq.isAVLayer(layer)) {
-        return _getAVLayer(layer, state);
+        return _getFootageLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
         return _getLightLayer(layer, state);
     } else if (aeq.isCameraLayer(layer)) {
@@ -169,8 +169,6 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
 function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const layerAttributes = _getLayer(layer, state);
 
-    const source = generateItemUID(layer.source);
-
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
     const audioEnabled = getModifiedValue(layer.audioEnabled, true);
     const autoOrient = getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT);
@@ -181,7 +179,6 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
     const frameBlendingType = getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND);
     const guideLayer = getModifiedValue(layer.guideLayer, false);
     const motionBlur = getModifiedValue(layer.motionBlur, false);
-    const nullLayer = getModifiedValue(layer.nullLayer, false);
     const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
     const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
     const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
@@ -200,9 +197,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
 
     return {
         ...layerAttributes,
-        type: AEX_AV_LAYER,
-
-        source,
+        type: AEX_FOOTAGE_LAYER,
 
         adjustmentLayer,
         audioEnabled,
@@ -214,7 +209,6 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
         frameBlendingType,
         guideLayer,
         motionBlur,
-        nullLayer,
         preserveTransparency,
         quality,
         samplingQuality,
@@ -286,12 +280,27 @@ function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     };
 }
 
-function _getNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
+function _getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = _getAVLayer(layer, state);
+    const source = generateItemUID(layer.source);
+
+    return {
+        ...layerAttributes,
+        type: AEX_FOOTAGE_LAYER,
+
+        source,
+    };
+}
+
+function _getNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
+    const layerAttributes = _getFootageLayer(layer, state);
+    const nullLayer = getModifiedValue(layer.nullLayer, false);
 
     return {
         ...layerAttributes,
         type: AEX_NULL_LAYER,
+
+        nullLayer,
     };
 }
 

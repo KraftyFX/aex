@@ -6,7 +6,7 @@ export const AEX_SOLID_ITEM = 'aex:item:av:footage:solid';
 export const AEX_PLACEHOLDER_ITEM = 'aex:item:av:footage:placeholder';
 export const AEX_FOLDER_ITEM = 'aex:item:folder';
 
-export const AEX_AV_LAYER = 'aex:layer:av';
+export const AEX_FOOTAGE_LAYER = 'aex:layer:av';
 export const AEX_SHAPE_LAYER = 'aex:layer:av:shape';
 export const AEX_TEXT_LAYER = 'aex:layer:av:text';
 export const AEX_CAMERA_LAYER = 'aex:layer:camera';

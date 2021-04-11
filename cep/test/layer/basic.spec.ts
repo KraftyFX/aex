@@ -1,6 +1,6 @@
 import { AeObject, aex } from '../aex';
 import {
-    AEX_AV_LAYER,
+    AEX_FOOTAGE_LAYER,
     AEX_CAMERA_LAYER,
     AEX_LIGHT_LAYER,
     AEX_NULL_LAYER,
@@ -161,7 +161,7 @@ describe('Basic Layer Attributes', function () {
                     value: [0, 0, 0],
                 },
             },
-            type: AEX_AV_LAYER,
+            type: AEX_FOOTAGE_LAYER,
         });
     });
 
@@ -358,7 +358,7 @@ describe('Basic Layer Attributes', function () {
             },
             timeRemapEnabled: true,
             transform: {},
-            type: AEX_AV_LAYER,
+            type: AEX_FOOTAGE_LAYER,
         });
     });
 
@@ -418,7 +418,7 @@ describe('Basic Layer Attributes', function () {
             },
             timeRemapEnabled: true,
             transform: {},
-            type: AEX_AV_LAYER,
+            type: AEX_FOOTAGE_LAYER,
         });
     });
 
@@ -432,7 +432,7 @@ describe('Basic Layer Attributes', function () {
             name: 'Matte Solid',
             source: 'parented solid:61',
             transform: {},
-            type: AEX_AV_LAYER,
+            type: AEX_FOOTAGE_LAYER,
         });
 
         assertAreEqual(comp.layers[11], {

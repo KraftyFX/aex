@@ -140,8 +140,6 @@ interface AexLayer {
     transform: AexTransform;
 }
 interface AexAVLayer extends AexLayer, AexObject {
-    source: AexUID;
-
     adjustmentLayer: boolean;
     audioEnabled: boolean;
     autoOrient: AutoOrientType;
@@ -152,7 +150,6 @@ interface AexAVLayer extends AexLayer, AexObject {
     frameBlendingType: FrameBlendingType;
     guideLayer: boolean;
     motionBlur: boolean;
-    nullLayer: boolean;
     preserveTransparency: boolean;
     quality: LayerQuality;
     samplingQuality: LayerSamplingQuality;
@@ -183,7 +180,13 @@ interface AexShapeLayer extends AexAVLayer, AexObject {
     contents: AexPropertyGroup[];
 }
 
-interface AexNullLayer extends AexLayer, AexObject {}
+interface AexFootageLayer extends AexAVLayer, AexObject {
+    source: AexUID;
+}
+
+interface AexNullLayer extends AexFootageLayer, AexObject {
+    nullLayer: boolean;
+}
 
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;

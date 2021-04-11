@@ -5,7 +5,7 @@ import { assertAreEqual } from '../utils';
 
 describe('Layer Effects', function () {
     this.slow(500);
-    this.timeout(2000);
+    this.timeout(3000);
 
     let puppetComp: any;
     let simpleComp: any;
