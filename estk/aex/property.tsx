@@ -204,7 +204,7 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
-    const properties = [];
+    const properties: (AexProperty | AexPropertyGroup)[] = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
         let content;
