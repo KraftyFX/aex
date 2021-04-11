@@ -9,22 +9,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    let hasDefaultPropertyValue = false;
-
-    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
-        /**
-         * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
-         **/
-        if (!property.canSetExpression) {
-            hasDefaultPropertyValue = true;
-        }
-    } else {
-        if (!property.isModified) {
-            hasDefaultPropertyValue = true;
-        }
-    }
-
-    if (hasDefaultPropertyValue) {
+    if (hasDefaultPropertyValue(property)) {
         return undefined;
     }
 
@@ -52,40 +37,55 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
 
     const isUnreadable = isUnreadableProperty(property);
 
+    // zlovatt: Should unreadable properties traverse into the keys?
+    aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
+
     if (isUnreadable) {
-        switch (state.options.unspportedPropertyBehavior) {
-            case 'skip':
-                return undefined;
-            case 'log':
-                state.log.push({
-                    aexProperty,
-                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
-                });
-                return undefined;
-            case 'throw':
-                throw new Error(`Property "${property.matchName}" is unsupported.`);
-            case 'metadata':
-                aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
-                return aexProperty;
-            default:
-                state.options.unspportedPropertyBehavior({
-                    aexProperty,
-                    message: `Property "${property.matchName}" is unsupported. Skipping.`,
-                });
-                return aexProperty;
-        }
+        return getUnsupportedProperty(property, aexProperty, state);
     } else {
-        if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+        if (isTextDocument(property)) {
             aexProperty.value = getTextDocumentProperties(property.value);
         } else {
             aexProperty.value = property.value;
         }
-
-        aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
     }
 
     state.stats.propertyCount++;
     return aexProperty;
+}
+
+function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
+    /**
+     * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
+     **/
+    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
+        return !property.canSetExpression;
+    } else {
+        return !property.isModified;
+    }
+}
+
+function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
+    switch (state.options.unspportedPropertyBehavior) {
+        case 'skip':
+            return undefined;
+        case 'log':
+            state.log.push({
+                aexProperty,
+                message: `Property "${property.matchName}" is unsupported. Skipping.`,
+            });
+            return undefined;
+        case 'throw':
+            throw new Error(`Property "${property.matchName}" is unsupported.`);
+        case 'metadata':
+            return aexProperty;
+        default:
+            state.options.unspportedPropertyBehavior({
+                aexProperty,
+                message: `Property "${property.matchName}" is unsupported. Skipping.`,
+            });
+            return aexProperty;
+    }
 }
 
 function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
@@ -98,7 +98,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
         if (isUnreadable) {
             value = undefined;
         } else {
-            if (property.propertyValueType === PropertyValueType.TEXT_DOCUMENT) {
+            if (isTextDocument(property)) {
                 value = getTextDocumentProperties(keyInfo.value);
             } else {
                 value = keyInfo.value;
@@ -167,6 +167,10 @@ function isUnreadableProperty(property: Property<UnknownPropertyType>) {
     return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
 }
 
+function isTextDocument(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
+}
+
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
     switch (property.propertyValueType) {
         case PropertyValueType.OneD:
@@ -197,21 +201,21 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
-    const properties = [];
+    const properties: (AexProperty | AexPropertyGroup)[] = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
+        /**
+         * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
+         */
+        if (property.matchName === 'ADBE Vectors Group') {
+            return undefined;
+        }
+
         let content;
 
         if (property.propertyType == PropertyType.PROPERTY) {
             content = getModifiedProperty(property as any, state);
         } else {
-            /**
-             * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
-             */
-            if (property.matchName === 'ADBE Vectors Group') {
-                return undefined;
-            }
-
             content = getPropertyGroup(property as PropertyGroup, state);
         }
 
@@ -247,8 +251,8 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
 
     return {
         matchName: propertyGroup.matchName,
-        name: name,
-        enabled: enabled,
+        name,
+        enabled,
 
         properties,
     };
