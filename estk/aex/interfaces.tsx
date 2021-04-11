@@ -212,6 +212,7 @@ interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyB
 
 interface AexPropertyGroup extends AexPropertyBase {
     properties: (AexProperty | AexPropertyGroup)[];
+    contents?: AexPropertyGroup[];
 }
 
 interface AexMarkerProperty {

@@ -55,15 +55,6 @@ function _getFlatPropertyGroup(propertyGroup: PropertyGroup, state: AexState): A
     const result = [];
 
     forEachPropertyInGroup(propertyGroup, (childPropertyGroup: PropertyGroup) => {
-        let contents;
-
-        if (childPropertyGroup.matchName === 'ADBE Vector Group') {
-            const vectorsGroup = childPropertyGroup.property('ADBE Vectors Group') as PropertyGroup;
-            contents = _getFlatPropertyGroup(vectorsGroup, state);
-        }
-
-        const propertyData = getPropertyGroup(childPropertyGroup, state);
-
         /**
          * @todo
          * getPropertyGroup() is set up so that if there's no data, it doesn't return the group at all.
@@ -75,19 +66,26 @@ function _getFlatPropertyGroup(propertyGroup: PropertyGroup, state: AexState): A
          * This could be accomplished by adding an optional parameter to getPropertyGroup for whether to return undefined if empty or not
          * In cases like masks & effects, this would be false. Otherwise true.
          */
+        const propertyData = getPropertyGroup(childPropertyGroup, state);
         const properties = propertyData ? propertyData.properties : undefined;
 
         const { name, matchName } = childPropertyGroup;
         const enabled = getModifiedValue(childPropertyGroup.enabled, true);
-
-        result.push({
+        const aexGroup: AexPropertyGroup = {
             name,
             matchName,
             enabled,
 
             properties,
-            contents,
-        });
+        };
+
+        if (childPropertyGroup.matchName === 'ADBE Vector Group') {
+            const vectorsGroup = childPropertyGroup.property('ADBE Vectors Group') as PropertyGroup;
+
+            aexGroup.contents = _getFlatPropertyGroup(vectorsGroup, state);
+        }
+
+        result.push(aexGroup);
     });
 
     return result;
