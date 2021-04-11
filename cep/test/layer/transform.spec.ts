@@ -26,7 +26,6 @@ describe('Layer Transform', function () {
             {
                 label: 4,
                 markers: [],
-                masks: [],
                 name: 'Camera',
                 transform: {},
                 type: AEX_CAMERA_LAYER,
@@ -35,7 +34,6 @@ describe('Layer Transform', function () {
                 label: 6,
                 lightType: 4414,
                 markers: [],
-                masks: [],
                 name: 'Light',
                 transform: {},
                 type: AEX_LIGHT_LAYER,
@@ -70,7 +68,6 @@ describe('Layer Transform', function () {
         assertAreEqual(project.comps[1].layers[0], {
             label: 4,
             markers: [],
-            masks: [],
             name: 'Camera',
             transform: {
                 orientation: {
@@ -125,7 +122,6 @@ describe('Layer Transform', function () {
             label: 6,
             lightType: 4414,
             markers: [],
-            masks: [],
             name: 'Light',
             transform: {
                 position: {

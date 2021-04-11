@@ -35,7 +35,6 @@ describe('Basic Layer Attributes', function () {
         assertAreEqual(comp.layers[0], {
             label: 4,
             markers: [],
-            masks: [],
             name: 'Camera',
             transform: {},
             type: AEX_CAMERA_LAYER,
@@ -99,7 +98,6 @@ describe('Basic Layer Attributes', function () {
             label: 1,
             lightType: 4414,
             markers: [],
-            masks: [],
             name: 'Timing Light',
             outPoint: 3.06666666666667,
             transform: {},

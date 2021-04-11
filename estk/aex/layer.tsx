@@ -163,15 +163,8 @@ function _getLayer(layer: Layer, state: AexState): AexLayer {
         parentLayerIndex,
         markers: getAexMarkerProperties(layer.marker),
         transform: _getTransform(layer, state),
-        masks: _getAexLayerMasks(layer, state),
 
         // Gets set by derived classes
-        timeRemap: undefined,
-        effects: undefined,
-        audio: undefined,
-        layerStyles: undefined,
-        materialOption: undefined,
-        geometryOption: undefined,
     };
 }
 
@@ -230,6 +223,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
         isTrackMatte,
         trackMatteType,
 
+        masks: _getAexLayerMasks(layer, state),
         audio,
         timeRemap,
         effects,

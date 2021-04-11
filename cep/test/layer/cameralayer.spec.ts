@@ -117,7 +117,6 @@ describe('Camera Layer Attributes', function () {
         assertAreEqual(comp.layers[1], {
             label: 4,
             markers: [],
-            masks: [],
             name: 'Two-Node',
             transform: {
                 pointOfInterest: {

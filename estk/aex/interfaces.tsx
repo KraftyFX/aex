@@ -140,14 +140,6 @@ interface AexLayer {
     parentLayerIndex: number;
     markers: AexMarkerProperty[];
     transform: AexTransform;
-    masks: AexMask[];
-
-    timeRemap: AexProperty<number>;
-    audio: AexPropertyGroup;
-    layerStyles: AexPropertyGroup;
-    geometryOption: AexPropertyGroup;
-    materialOption: AexPropertyGroup;
-    effects: AexPropertyGroup[];
 }
 interface AexAVLayer extends AexLayer, AexObject {
     source: AexUID;
@@ -169,6 +161,14 @@ interface AexAVLayer extends AexLayer, AexObject {
     timeRemapEnabled: boolean;
     isTrackMatte: boolean;
     trackMatteType: TrackMatteType;
+
+    masks: AexMask[];
+    timeRemap: AexProperty<number>;
+    audio: AexPropertyGroup;
+    layerStyles: AexPropertyGroup;
+    geometryOption: AexPropertyGroup;
+    materialOption: AexPropertyGroup;
+    effects: AexPropertyGroup[];
 }
 
 interface AexLightLayer extends AexLayer, AexObject {

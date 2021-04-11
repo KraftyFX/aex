@@ -27,7 +27,6 @@ describe('Light Layer Attributes', function () {
             label: 6,
             lightType: 4412,
             markers: [],
-            masks: [],
             name: 'Parallel Light',
             lightOption: {
                 matchName: 'ADBE Light Options Group',
