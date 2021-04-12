@@ -60,7 +60,6 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
 
         markers: _getAexCompMarkers(comp),
         layers: _getAexCompLayers(comp, state),
-        // essentialProps: _getEssentialProperties(comp, options),
     };
 
     state.stats.compCount++;
@@ -176,13 +175,6 @@ function _getParentFolders(item: Item): string[] {
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
-}
-
-/** @todo explore whether essential props can be serialized */
-function _getEssentialProperties(comp: CompItem, state: AexState) {
-    let essentialProps = [];
-
-    return essentialProps;
 }
 
 function _getAexCompLayers(comp: CompItem, state: AexState) {

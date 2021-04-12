@@ -120,7 +120,6 @@ interface AexComp extends AexAVItemBase, AexObject {
     workAreaStart: number;
     layers: AexLayer[];
     markers: AexMarkerProperty[];
-    // essentialProps: any[];
 }
 
 interface AexLayer {
