@@ -211,20 +211,20 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
             return undefined;
         }
 
-        let content;
+        let aexProperty;
 
         if (property.propertyType == PropertyType.PROPERTY) {
-            content = getModifiedProperty(property as any, state);
+            aexProperty = getModifiedProperty(property as any, state);
         } else {
-            content = getPropertyGroup(property as PropertyGroup, state);
+            aexProperty = getPropertyGroup(property as PropertyGroup, state);
         }
 
         /**
          * If we haven't retrieved any data, don't store the property
          * This helps prevent a _ton_ of objects with empty arrays
          */
-        if (!aeq.isNullOrUndefined(content)) {
-            properties.push(content);
+        if (!aeq.isNullOrUndefined(aexProperty)) {
+            properties.push(aexProperty);
         }
     });
 
