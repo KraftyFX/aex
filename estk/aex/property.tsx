@@ -57,7 +57,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
 function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
     /**
      * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
-     **/
+     */
     if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
         return !property.canSetExpression;
     } else {
@@ -345,7 +345,7 @@ function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState):
      * @todo Replace this with an actual API call when it exists
      *
      * Be sure to check AE version and keep this approach for older AE versions.
-     **/
+     */
     for (let ii = 0, il = dropdownProperty.maxValue; ii < il; ii++) {
         propertyItems.push(`Item ${ii + 1}`);
     }
