@@ -66,27 +66,9 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
+function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItem {
     const avItemAttributes = _getAVItemAttributes(item);
-    const fileSourceAttributes = {} as AexFileSourceAttributes;
-    const solidSourceAttributes = {} as AexSolidSourceAttributes;
-
     const itemSource = item.mainSource;
-    let type: AexItemType;
-
-    if (sourceIsFile(itemSource)) {
-        type = AEX_FILE_FOOTAGE_ITEM;
-
-        /** @todo Explore file handling */
-        fileSourceAttributes.file = itemSource.file.fsName;
-    } else if (sourceIsSolid(itemSource)) {
-        type = AEX_SOLID_ITEM;
-
-        avItemAttributes.label = getModifiedValue(item.label, 1);
-        solidSourceAttributes.color = getModifiedValue(itemSource.color, [0, 0, 0]);
-    } else if (sourceIsPlaceholder(itemSource)) {
-        type = AEX_PLACEHOLDER_ITEM;
-    }
 
     const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
     const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
@@ -101,7 +83,6 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     state.stats.nonCompItemCount++;
 
     return {
-        type,
         ...avItemAttributes,
 
         conformFrameRate,
@@ -112,10 +93,54 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
         removePulldown,
         alphaMode,
         invertAlpha,
-
-        ...fileSourceAttributes,
-        ...solidSourceAttributes,
     };
+}
+
+function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
+    const itemSource = item.mainSource;
+
+    if (sourceIsFile(itemSource)) {
+        return _getFileItem(item, state);
+    } else if (sourceIsSolid(itemSource)) {
+        return _getSolidItem(item, state);
+    } else if (sourceIsPlaceholder(itemSource)) {
+        return _getPlaceholderItem(item, state);
+    }
+}
+
+function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
+    const itemAttributes = _getFootageItemAttributes(item, state);
+    const itemSource = item.mainSource as SolidSource;
+
+    return {
+        ...itemAttributes,
+        type: AEX_SOLID_ITEM,
+
+        label: getModifiedValue(item.label, 1),
+        color: getModifiedValue(itemSource.color, [0, 0, 0]),
+    }
+}
+
+function _getFileItem(item: FootageItem, state: AexState): AexFileItem {
+    const itemAttributes = _getFootageItemAttributes(item, state);
+    const itemSource = item.mainSource as FileSource;
+
+    return {
+        ...itemAttributes,
+        type: AEX_FILE_FOOTAGE_ITEM,
+
+        /** @todo Explore file handling */
+        file: itemSource.file.fsName
+    }
+}
+
+function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
+    const itemAttributes = _getFootageItemAttributes(item, state);
+
+    return {
+        ...itemAttributes,
+        type: AEX_PLACEHOLDER_ITEM,
+    }
 }
 
 function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
