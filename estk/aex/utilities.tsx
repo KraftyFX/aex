@@ -74,7 +74,7 @@ function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
  * that dictates if and how it should be read.
  *
  * @param shouldRead Property from AfterEffects that decides if the value should be read.
- * @param callback Function that gets the value that should read
+ * @param callback Function that gets the value that should be serialized
  * @param aeDefaultValue The expected default value provided by AE for the property
  * @returns The property value if and only if the property exists and is
  * set to something other than the default.
