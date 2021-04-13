@@ -7,8 +7,7 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
         return getShapeLayer(layer, state);
     } else if (isNullLayer(layer)) {
         return getNullLayer(layer, state);
-    } else if (aeq.isAVLayer(layer)) {
-        // The if check should be something like isFootageLayer()
+    } else if (isFootageLayer(layer)) {
         return getFootageLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
         return getLightLayer(layer, state);
