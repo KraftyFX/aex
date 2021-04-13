@@ -366,8 +366,8 @@ function _isVectorsGroup(property: Property | PropertyGroup) {
     return property.matchName === 'ADBE Vectors Group';
 }
 
-function getVectorsGroup(propertyGroup: PropertyGroup, state: AexState) {
+function getVectorsGroup(propertyGroup: PropertyGroup, callback: CustomPropertyHandler<AexShapePropertyGroup>, state: AexState) {
     const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
 
-    return _getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroup, null, state);
+    return _getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroup, callback, state);
 }
