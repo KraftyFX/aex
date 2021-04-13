@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_NO_VALUE_PROPERTY } from './constants';
+import { AEX_NONE_PROPERTY } from './constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
 
 describe.skip('Benchmark', function () {
@@ -46,7 +46,7 @@ describe.skip('Benchmark', function () {
                 called = true;
 
                 expect(aexProperty).to.deep.contain({
-                    type: AEX_NO_VALUE_PROPERTY,
+                    type: AEX_NONE_PROPERTY,
                     name: 'Colors',
                 });
 

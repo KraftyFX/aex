@@ -13,7 +13,6 @@ export const AEX_CAMERA_LAYER = 'aex:layer:camera';
 export const AEX_LIGHT_LAYER = 'aex:layer:light';
 export const AEX_NULL_LAYER = 'aex:layer:null';
 
-export const AEX_NO_VALUE_PROPERTY = 'aex:property:no_value';
 export const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 export const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
 export const AEX_ONED_PROPERTY = 'aex:property:oned';
