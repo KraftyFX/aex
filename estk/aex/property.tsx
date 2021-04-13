@@ -176,25 +176,25 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
         case PropertyValueType.OneD:
         case PropertyValueType.MASK_INDEX:
         case PropertyValueType.LAYER_INDEX:
-            return 'aex:property:oned';
+            return AEX_ONED_PROPERTY;
         case PropertyValueType.TwoD:
         case PropertyValueType.TwoD_SPATIAL:
-            return 'aex:property:twod';
+            return AEX_TWOD_PROPERTY;
         case PropertyValueType.ThreeD:
         case PropertyValueType.ThreeD_SPATIAL:
-            return 'aex:property:threed';
+            return AEX_THREED_PROPERTY;
         case PropertyValueType.COLOR:
-            return 'aex:property:color';
+            return AEX_COLOR_PROPERTY;
         case PropertyValueType.SHAPE:
-            return 'aex:property:shape';
+            return AEX_SHAPE_PROPERTY;
         case PropertyValueType.TEXT_DOCUMENT:
-            return 'aex:property:textdocument';
+            return AEX_TEXTDOCUMENT_PROPERTY;
         case PropertyValueType.MARKER:
-            return 'aex:property:marker';
+            return AEX_MARKER_PROPERTY;
         case PropertyValueType.NO_VALUE:
-            return 'aex:property:no_value';
+            return AEX_NONE_PROPERTY;
         case PropertyValueType.CUSTOM_VALUE:
-            return 'aex:property:custom';
+            return AEX_CUSTOM_PROPERTY;
         default:
             throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
     }
