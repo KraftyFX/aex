@@ -195,13 +195,13 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
-    const properties: (AexProperty | AexPropertyGroup)[] = [];
+    const aexProperties: (AexProperty | AexPropertyGroup)[] = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
         /**
          * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
          */
-        if (property.matchName === 'ADBE Vectors Group') {
+        if (_isVectorsGroup(property)) {
             return undefined;
         }
 
@@ -218,7 +218,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
          * This helps prevent a _ton_ of objects with empty arrays
          */
         if (!aeq.isNullOrUndefined(aexProperty)) {
-            properties.push(aexProperty);
+            aexProperties.push(aexProperty);
         }
     });
 
@@ -226,7 +226,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
      * If there are no properties at all in this group,
      * it's default and we can skip it. Preventing empty data.
      */
-    if (properties.length === 0) {
+    if (aexProperties.length === 0) {
         return undefined;
     }
 
@@ -248,7 +248,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
         name,
         enabled,
 
-        properties,
+        properties: aexProperties,
     };
 }
 
@@ -316,7 +316,18 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
     return parameters.toSource() === '({})' ? undefined : parameters;
 }
 
-function _getDropdownProperty(dropdownProperty: Property, state: AexState): AexDropdownProperty {
+function isDropdownEffect(effect: PropertyGroup, state: AexState): boolean {
+    if (effect.isEffect) {
+        const dropdownProperty = effect.property(1) as Property;
+
+        return dropdownProperty.isDropdownEffect;
+    } else {
+        return false;
+    }
+}
+
+function getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdownProperty {
+    const dropdownProperty = effect.property(1) as Property;
     let propertyData = getModifiedProperty(dropdownProperty as OneDProperty, state) as AexDropdownProperty;
 
     if (aeq.isNullOrUndefined(propertyData)) {
@@ -345,4 +356,18 @@ function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState):
     }
 
     return propertyItems;
+}
+
+function isVectorGroup(propertyGroup: Property | PropertyGroup) {
+    return propertyGroup.matchName === 'ADBE Vector Group';
+}
+
+function _isVectorsGroup(property: Property | PropertyGroup) {
+    return property.matchName === 'ADBE Vectors Group';
+}
+
+function getVectorsGroup(propertyGroup: PropertyGroup, state: AexState) {
+    const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
+
+    return _getUnnestedPropertyGroup(vectorsGroup, state);
 }
