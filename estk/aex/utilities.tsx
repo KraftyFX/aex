@@ -120,7 +120,7 @@ function isEffectPropertyGroup(property: Property): boolean {
     return propertyValueType === PropertyValueType.NO_VALUE && propertyDepth > 2 && property.propertyGroup(propertyDepth - 2).isEffect;
 }
 
-type ForEachPropertyGroupCallback<T> = (effect: Property | T, i: number, length: number) => void;
+type ForEachPropertyGroupCallback<T> = (property: Property | T, i: number, length: number) => void;
 
 function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: PropertyGroup, callback: ForEachPropertyGroupCallback<T>) {
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
