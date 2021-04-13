@@ -177,7 +177,7 @@ interface AexCameraLayer extends AexLayer, AexObject {
 }
 
 interface AexShapeLayer extends AexAVLayer, AexObject {
-    contents: AexPropertyGroup[];
+    contents: AexShapePropertyGroup[];
 }
 
 interface AexFootageLayer extends AexAVLayer, AexObject {
@@ -218,7 +218,10 @@ interface AexDropdownProperty extends AexProperty {
 
 interface AexPropertyGroup extends AexPropertyBase {
     properties: (AexProperty | AexPropertyGroup)[];
-    contents?: AexPropertyGroup[];
+}
+
+interface AexShapePropertyGroup extends AexPropertyGroup {
+    contents: AexShapePropertyGroup[];
 }
 
 interface AexMarkerProperty {
