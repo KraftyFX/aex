@@ -185,9 +185,7 @@ interface AexFootageLayer extends AexAVLayer, AexObject {
     trackers: AexPropertyGroup[];
 }
 
-interface AexNullLayer extends AexFootageLayer, AexObject {
-    nullLayer: boolean;
-}
+interface AexNullLayer extends AexFootageLayer, AexObject {}
 
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;
