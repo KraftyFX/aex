@@ -53,19 +53,26 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     return styles;
 }
 
-function _getUnnestedPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup[] {
-    const result: AexPropertyGroup[] = [];
+type CustomPropertyHandler<T extends AexPropertyGroup = AexPropertyGroup> = (propertyGroup: PropertyGroup, aexPropertyGroup: T) => void;
+
+function _getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>(
+    propertyGroup: PropertyGroup,
+    callback: CustomPropertyHandler<T> | null,
+    state: AexState
+): T[] {
+    callback = callback || (() => {});
+    const result: T[] = [];
 
     forEachPropertyInGroup(propertyGroup, (childPropertyGroup: PropertyGroup) => {
         const { name, matchName } = childPropertyGroup;
         const enabled = getModifiedValue(childPropertyGroup.enabled, true);
-        const aexGroup: AexPropertyGroup = {
+        const aexGroup = {
             name,
             matchName,
             enabled,
 
-            properties: [],
-        };
+            properties: null,
+        } as T;
 
         /**
          * @todo
@@ -79,18 +86,11 @@ function _getUnnestedPropertyGroup(propertyGroup: PropertyGroup, state: AexState
          * In cases like masks & effects, this would be false. Otherwise true.
          */
 
-        /**
-         * Voodoo: We need to handle dropdown effects in a unique way
-         */
-        if (isDropdownEffect(childPropertyGroup, state)) {
-            aexGroup.properties = [getDropdownProperty(childPropertyGroup, state)];
-        } else {
+        callback(childPropertyGroup, aexGroup);
+
+        if (aexGroup.properties === null) {
             const propertyData = getPropertyGroup(childPropertyGroup, state);
             aexGroup.properties = propertyData ? propertyData.properties : undefined;
-        }
-
-        if (isVectorGroup(childPropertyGroup)) {
-            aexGroup.contents = getVectorsGroup(childPropertyGroup, state);
         }
 
         result.push(aexGroup);
@@ -195,7 +195,7 @@ function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
 
     const audio = getPropertyGroup(layer.audio, state);
     const timeRemap = getModifiedProperty(layer.timeRemap, state);
-    const effects = _getUnnestedPropertyGroup(layer.effect, state);
+    const effects = _getEffects(layer, state);
     const materialOption = getPropertyGroup(layer.materialOption, state);
     const geometryOption = getPropertyGroup(layer.geometryOption, state);
 
@@ -260,13 +260,43 @@ function _getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
 
 function _getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     const avLayerAttributes = _getAVLayer(layer, state);
-    const contents = layer.property('ADBE Root Vectors Group') as PropertyGroup;
 
     return {
         ...avLayerAttributes,
         type: AEX_SHAPE_LAYER,
-        contents: _getUnnestedPropertyGroup(contents, state),
+        contents: _getContents(layer, state),
     };
+}
+
+function _getEffects(layer: AVLayer, state: AexState) {
+    const callback: CustomPropertyHandler = (propertyGroup, aexPropertyGroup) => {
+        /**
+         * Voodoo: We need to handle dropdown effects in a unique way
+         */
+        if (isDropdownEffect(propertyGroup, state)) {
+            aexPropertyGroup.properties = [getDropdownProperty(propertyGroup, state)];
+        }
+    };
+
+    return _getUnnestedPropertyGroup(layer.effect, callback, state);
+}
+
+function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
+    const vectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
+
+    const callback: CustomPropertyHandler<AexShapePropertyGroup> = (propertyGroup, aexPropertyGroup) => {
+        if (isVectorGroup(propertyGroup)) {
+            aexPropertyGroup.contents = getVectorsGroup(propertyGroup, state);
+        }
+    };
+
+    return _getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroups, callback, state);
+}
+
+function _getTrackers(layer: AVLayer, state: AexState) {
+    const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
+
+    return _getUnnestedPropertyGroup(trackers, null, state);
 }
 
 function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
@@ -289,7 +319,7 @@ function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
 function _getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = _getAVLayer(layer, state);
     const source = generateItemUID(layer.source);
-    const trackers = _getUnnestedPropertyGroup(layer.property('ADBE MTrackers') as PropertyGroup, state);
+    const trackers = _getTrackers(layer, state);
 
     return {
         ...layerAttributes,
