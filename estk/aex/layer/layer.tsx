@@ -2,24 +2,24 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     state.stats.layerCount++;
 
     if (aeq.isTextLayer(layer)) {
-        return _getTextLayer(layer, state);
+        return getTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {
-        return _getShapeLayer(layer, state);
+        return getShapeLayer(layer, state);
     } else if (isNullLayer(layer)) {
-        return _getNullLayer(layer, state);
+        return getNullLayer(layer, state);
     } else if (aeq.isAVLayer(layer)) {
         // The if check should be something like isFootageLayer()
-        return _getFootageLayer(layer, state);
+        return getFootageLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
-        return _getLightLayer(layer, state);
+        return getLightLayer(layer, state);
     } else if (aeq.isCameraLayer(layer)) {
-        return _getCameraLayer(layer, state);
+        return getCameraLayer(layer, state);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
 }
 
-function _getLayer(layer: Layer, state: AexState): AexLayer {
+function getLayer(layer: Layer, state: AexState): AexLayer {
     const containingComp = layer.containingComp;
 
     const { name, label } = layer;
@@ -66,7 +66,7 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
     const orientation = getModifiedProperty(transformGroup.orientation, state);
     const xRotation = getModifiedProperty(transformGroup.xRotation, state);
     const yRotation = getModifiedProperty(transformGroup.yRotation, state);
-    const rotation = getZRotation(layer, transformGroup, state);
+    const rotation = _getZRotation(layer, transformGroup, state);
 
     return {
         anchorPoint,
@@ -87,7 +87,7 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
  *
  * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
  */
-function getZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
+function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
     if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
         return getModifiedProperty(transformGroup.zRotation, state);
     } else {

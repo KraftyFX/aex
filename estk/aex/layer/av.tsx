@@ -1,5 +1,5 @@
-function _getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
-    const layerAttributes = _getLayer(layer, state);
+function getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
+    const layerAttributes = getLayer(layer, state);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
     const audioEnabled = getModifiedValue(layer.audioEnabled, true);
@@ -144,5 +144,5 @@ function _getEffects(layer: AVLayer, state: AexState) {
         }
     };
 
-    return _getUnnestedPropertyGroup(layer.effect, callback, state);
+    return getUnnestedPropertyGroup(layer.effect, callback, state);
 }

@@ -1,5 +1,5 @@
-function _getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
-    const avLayerAttributes = _getAVLayer(layer, state);
+function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
+    const avLayerAttributes = getAVLayer(layer, state);
     const threeDPerChar = getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false);
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;

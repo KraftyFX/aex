@@ -1,5 +1,5 @@
-function _getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
-    const avLayerAttributes = _getAVLayer(layer, state);
+function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
+    const avLayerAttributes = getAVLayer(layer, state);
 
     return {
         ...avLayerAttributes,
@@ -17,5 +17,5 @@ function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup
         }
     };
 
-    return _getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroups, callback, state);
+    return getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroups, callback, state);
 }

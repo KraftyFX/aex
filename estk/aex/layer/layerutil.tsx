@@ -1,6 +1,6 @@
 type CustomPropertyHandler<T extends AexPropertyGroup = AexPropertyGroup> = (propertyGroup: PropertyGroup, aexPropertyGroup: T) => void;
 
-function _getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>(
+function getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>(
     propertyGroup: PropertyGroup,
     callback: CustomPropertyHandler<T> | null,
     state: AexState

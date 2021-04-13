@@ -1,5 +1,5 @@
-function _getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
-    const layerAttributes = _getAVLayer(layer, state);
+function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
+    const layerAttributes = getAVLayer(layer, state);
     const source = generateItemUID(layer.source);
     const trackers = _getTrackers(layer, state);
 
@@ -15,5 +15,5 @@ function _getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
 function _getTrackers(layer: AVLayer, state: AexState) {
     const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
 
-    return _getUnnestedPropertyGroup(trackers, null, state);
+    return getUnnestedPropertyGroup(trackers, null, state);
 }
