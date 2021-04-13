@@ -80,7 +80,9 @@ function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
  * set to something other than the default.
  */
 function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefaultValue: T): T | undefined {
-    // zlovatt: Maybe we should return the default value in these cases instead of undefined?
+    /**
+     * @todo Add AexOption for whether to return default values, vs return undefined
+     */
     return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
