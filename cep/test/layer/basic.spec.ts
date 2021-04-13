@@ -9,6 +9,7 @@ import {
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
+    AEX_TWOD_PROPERTY,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -497,14 +498,14 @@ describe('Basic Layer Attributes', function () {
                             name: 'Track Point 1',
                             properties: [
                                 {
-                                    type: 'aex:property:twod',
+                                    type: AEX_TWOD_PROPERTY,
                                     name: 'Feature Size',
                                     matchName: 'ADBE MTracker Pt Feature Size',
                                     value: [36, 36],
                                     keys: [],
                                 },
                                 {
-                                    type: 'aex:property:twod',
+                                    type: AEX_TWOD_PROPERTY,
                                     name: 'Search Size',
                                     matchName: 'ADBE MTracker Pt Search Size',
                                     value: [79, 68],

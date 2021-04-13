@@ -315,7 +315,7 @@ describe('Layer Effects', function () {
                                     name: 'Custom Mesh Name',
                                     properties: [
                                         {
-                                            type: 'aex:property:oned',
+                                            type: AEX_ONED_PROPERTY,
                                             name: 'Triangles',
                                             matchName: 'ADBE FreePin3 Mesh Tri Count',
                                             value: 50,
@@ -329,14 +329,14 @@ describe('Layer Effects', function () {
                                                     name: 'Puppet Pin 2',
                                                     properties: [
                                                         {
-                                                            type: 'aex:property:oned',
+                                                            type: AEX_ONED_PROPERTY,
                                                             name: 'Vertex Index',
                                                             matchName: 'ADBE FreePin3 PosPin Vtx Index',
                                                             value: 12,
                                                             keys: [],
                                                         },
                                                         {
-                                                            type: 'aex:property:twod',
+                                                            type: AEX_TWOD_PROPERTY,
                                                             name: 'Position',
                                                             matchName: 'ADBE FreePin3 PosPin Position',
                                                             value: [13, 482],
@@ -349,14 +349,14 @@ describe('Layer Effects', function () {
                                                     name: 'Custom Pin 1',
                                                     properties: [
                                                         {
-                                                            type: 'aex:property:oned',
+                                                            type: AEX_ONED_PROPERTY,
                                                             name: 'Vertex Index',
                                                             matchName: 'ADBE FreePin3 PosPin Vtx Index',
                                                             value: 13,
                                                             keys: [],
                                                         },
                                                         {
-                                                            type: 'aex:property:twod',
+                                                            type: AEX_TWOD_PROPERTY,
                                                             name: 'Position',
                                                             matchName: 'ADBE FreePin3 PosPin Position',
                                                             value: [15, 14],
@@ -438,7 +438,7 @@ describe('Layer Effects', function () {
                             name: 'Foreground 1',
                             properties: [
                                 {
-                                    type: 'aex:property:twod',
+                                    type: AEX_TWOD_PROPERTY,
                                     name: 'Duration',
                                     matchName: 'ADBE Paint Duration',
                                     value: [0, 1.25],
@@ -448,14 +448,14 @@ describe('Layer Effects', function () {
                                     matchName: 'ADBE Paint Properties',
                                     properties: [
                                         {
-                                            type: 'aex:property:color',
+                                            type: AEX_COLOR_PROPERTY,
                                             name: 'Color',
                                             matchName: 'ADBE Paint Color',
                                             value: [0, 1, 0, 1],
                                             keys: [],
                                         },
                                         {
-                                            type: 'aex:property:oned',
+                                            type: AEX_ONED_PROPERTY,
                                             name: 'Clone Source',
                                             matchName: 'ADBE Paint Clone Layer',
                                             value: 0,
