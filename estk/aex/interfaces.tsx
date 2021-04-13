@@ -12,6 +12,7 @@ type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text
 type AexPropertyType =
     | 'aex:property:no_value'
     | 'aex:property:custom'
+    | 'aex:property:dropdown'
     | 'aex:property:oned'
     | 'aex:property:twod'
     | 'aex:property:threed'
@@ -209,6 +210,10 @@ interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyB
 
     type: AexPropertyType;
     keys: AEQKeyInfo[];
+}
+
+interface AexDropdownProperty extends AexProperty {
+    items: string[];
 }
 
 interface AexPropertyGroup extends AexPropertyBase {

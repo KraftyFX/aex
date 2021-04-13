@@ -321,3 +321,34 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
 
     return parameters.toSource() === '({})' ? undefined : parameters;
 }
+
+function _getDropdownProperty(dropdownProperty: Property, state: AexState): AexDropdownProperty {
+    let propertyData = getModifiedProperty(dropdownProperty as OneDProperty, state) as AexDropdownProperty;
+
+    if (aeq.isNullOrUndefined(propertyData)) {
+        propertyData = {} as AexDropdownProperty;
+    }
+
+    propertyData.items = _getDropdownPropertyItems(dropdownProperty, state);
+    propertyData.type = 'aex:property:dropdown';
+
+    return {
+        ...propertyData,
+        items: _getDropdownPropertyItems(dropdownProperty, state),
+    };
+}
+
+function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState): string[] {
+    const propertyItems = [];
+
+    /**
+     * @todo Replace this with an actual API call when it exists
+     *
+     * Be sure to check AE version and keep this approach for older AE versions.
+     **/
+    for (let ii = 0, il = dropdownProperty.maxValue; ii < il; ii++) {
+        propertyItems.push(`Item ${ii + 1}`);
+    }
+
+    return propertyItems;
+}

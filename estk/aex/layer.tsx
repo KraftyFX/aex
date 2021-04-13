@@ -69,7 +69,14 @@ function _getFlatPropertyGroup(propertyGroup: PropertyGroup, state: AexState): A
          * In cases like masks & effects, this would be false. Otherwise true.
          */
         const propertyData = getPropertyGroup(childPropertyGroup, state);
-        const properties = propertyData ? propertyData.properties : undefined;
+        let properties = propertyData ? propertyData.properties : undefined;
+
+        /**
+         * Voodoo: We need to handle dropdown effects in a unique way
+         */
+        if (_isDropdownEffect(childPropertyGroup, state)) {
+            properties = [_getDropdownProperty(childPropertyGroup.property(1) as Property, state)];
+        }
 
         const { name, matchName } = childPropertyGroup;
         const enabled = getModifiedValue(childPropertyGroup.enabled, true);
@@ -91,6 +98,16 @@ function _getFlatPropertyGroup(propertyGroup: PropertyGroup, state: AexState): A
     });
 
     return result;
+}
+
+function _isDropdownEffect(effect: PropertyGroup, state: AexState): boolean {
+    if (effect.isEffect) {
+        const dropdownProperty = effect.property(1) as Property;
+
+        return dropdownProperty.isDropdownEffect;
+    } else {
+        return false;
+    }
 }
 
 function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {

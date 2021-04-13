@@ -21,4 +21,5 @@ const AEX_MARKER_PROPERTY = 'aex:property:marker';
 const AEX_SHAPE_PROPERTY = 'aex:property:shape';
 const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
+const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 const AEX_NONE_PROPERTY = 'aex:property:none';

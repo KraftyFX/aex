@@ -1,5 +1,12 @@
 import { AeObject, aex } from '../aex';
-import { AEX_COLOR_PROPERTY, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY, AEX_CUSTOM_PROPERTY } from '../constants';
+import {
+    AEX_COLOR_PROPERTY,
+    AEX_ONED_PROPERTY,
+    AEX_THREED_PROPERTY,
+    AEX_TWOD_PROPERTY,
+    AEX_CUSTOM_PROPERTY,
+    AEX_DROPDOWN_PROPERTY,
+} from '../constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -144,6 +151,12 @@ describe('Layer Effects', function () {
             {
                 name: 'Dropdown Menu Control',
                 matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ',
+                properties: [
+                    {
+                        items: ['Item 1', 'Item 2', 'Item 3'],
+                        type: AEX_DROPDOWN_PROPERTY,
+                    },
+                ],
             },
             {
                 name: 'Layer Control',
@@ -220,9 +233,10 @@ describe('Layer Effects', function () {
                 properties: [
                     {
                         keys: [],
+                        items: ['Item 1', 'Item 2', 'Item 3'],
                         matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ-0001',
                         name: 'Menu',
-                        type: AEX_ONED_PROPERTY,
+                        type: AEX_DROPDOWN_PROPERTY,
                         value: 3,
                     },
                 ],
