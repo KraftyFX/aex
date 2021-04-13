@@ -335,7 +335,7 @@ function getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdow
     }
 
     propertyData.items = _getDropdownPropertyItems(dropdownProperty, state);
-    propertyData.type = 'aex:property:dropdown';
+    propertyData.type = AEX_DROPDOWN_PROPERTY;
 
     return {
         ...propertyData,
@@ -344,7 +344,7 @@ function getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdow
 }
 
 function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState): string[] {
-    const propertyItems = [];
+    const propertyItems: string[] = [];
 
     /**
      * @todo Replace this with an actual API call when it exists
@@ -369,5 +369,5 @@ function _isVectorsGroup(property: Property | PropertyGroup) {
 function getVectorsGroup(propertyGroup: PropertyGroup, state: AexState) {
     const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
 
-    return _getUnnestedPropertyGroup(vectorsGroup, state);
+    return _getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroup, null, state);
 }
