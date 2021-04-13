@@ -50,7 +50,7 @@ function deployTestAEPs() {
 
 function combineAndDeployJsx() {
     return gulp
-        .src([`${paths.estk}/lib/*.jsx`, `${paths.estk}/dist/*.js*`])
+        .src([`${paths.estk}/lib/*.jsx`, `${paths.estk}/dist/**/*.js*`])
         .pipe(concat('all.jsx'))
         .pipe(gulp.dest(`${paths._build}/panel`));
 }
