@@ -32,7 +32,7 @@ function benchmark(options: any) {
     // aex().fromAe(app.project as Project, {} as any);
 }
 
-function aeToAex(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;
+function aeToAex(aeObj: Project, options: AexOptions): void;
 function aeToAex(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
 function aeToAex(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
 function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
@@ -50,7 +50,7 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
 
     let object: AexSerialized;
 
-    // TODO: Cover array/collection types.
+    // TODO: Cover collection types.
     if (isProject(aeObj)) {
         object = getAexProject(aeObj as Project, state);
     } else if (aeq.isComp(aeObj)) {
@@ -67,6 +67,29 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
     };
 }
 
-function aexToAe(aexObj: AexSerialized, options: {}): void {
-    throw new Error(`Not yet implemented`);
+function aexToAe(aexObj: AexProject, options: AexOptions): void;
+function aexToAe(aexObj: AexComp, options: AexOptions): void;
+function aexToAe(aexObj: AexAVLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexShapeLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexLightLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexCameraLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexFootageLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexNullLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexTextLayer, options: AexOptions): void;
+function aexToAe(aexObj: AexObject, options: AexOptions): void {
+    assertIsDefined(aexObj, 'aexObj');
+
+    const state: AexState = {
+        options,
+        log: [],
+        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+    };
+
+    switch (aexObj.type) {
+        case AEX_PROJECT:
+            setAexProject(aexObj as AexProject, state);
+            break;
+        default:
+            throw new Error(`AEX Object Type "${aexObj.type}" is not spported.`);
+    }
 }

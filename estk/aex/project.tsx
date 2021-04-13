@@ -11,3 +11,7 @@ function getAexProject(project: Project, state: AexState): AexProject {
 
     return aexProject;
 }
+
+function setAexProject(aexProject: AexProject, state: AexState) {
+    // TODO
+}
