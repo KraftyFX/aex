@@ -66,7 +66,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItem {
+function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
     const avItemAttributes = _getAVItemAttributes(item);
     const itemSource = item.mainSource;
 

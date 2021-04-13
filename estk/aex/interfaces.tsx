@@ -60,6 +60,7 @@ interface AexProject extends AexObject {
 }
 
 type AexItem = AexComp | AexFootageItem | AexFolderItem;
+type AexFootageItem = AexFileItem | AexSolidItem | AexPlaceholderItem;
 
 interface AexItemBase {
     comment: string;
@@ -80,7 +81,7 @@ interface AexAVItemBase extends AexItemBase {
     width: number;
 }
 
-interface AexFootageItem extends AexAVItemBase {
+interface AexFootageItemBase extends AexAVItemBase {
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -91,16 +92,16 @@ interface AexFootageItem extends AexAVItemBase {
     invertAlpha: boolean;
 }
 
-interface AexFileItem extends AexFootageItem, AexObject {
+interface AexFileItem extends AexFootageItemBase, AexObject {
     /** Path to file */
     file: string;
 }
 
-interface AexSolidItem extends AexFootageItem, AexObject {
+interface AexSolidItem extends AexFootageItemBase, AexObject {
     color: ThreeDColorValue;
 }
 
-interface AexPlaceholderItem extends AexFootageItem, AexObject {}
+interface AexPlaceholderItem extends AexFootageItemBase, AexObject {}
 
 interface AexComp extends AexAVItemBase, AexObject {
     bgColor: ThreeDColorValue;
