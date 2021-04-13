@@ -36,8 +36,6 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
     };
 
     const isUnreadable = isUnreadableProperty(property);
-
-    // zlovatt: Should unreadable properties traverse into the keys?
     aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
 
     if (isUnreadable) {
@@ -91,72 +89,68 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
 function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
-        const keyInfo = key.getKeyInfo();
+        const aexKey = {
+            time: key.getTime(),
+            value: undefined,
+            interpolationType: undefined,
+            temporalEase: undefined,
+            spatialTangent: undefined,
+            temporalAutoBezier: undefined,
+            temporalContinuous: undefined,
+            spatialAutoBezier: undefined,
+            spatialContinuous: undefined,
+            roving: undefined,
+        };
 
-        let value: AEQKeyInfo['value'];
+        if (!isUnreadable) {
+            const keyInfo = key.getKeyInfo();
 
-        if (isUnreadable) {
-            value = undefined;
-        } else {
             if (isTextDocument(property)) {
-                value = getTextDocumentProperties(keyInfo.value);
+                aexKey.value = getTextDocumentProperties(keyInfo.value);
             } else {
-                value = keyInfo.value;
+                aexKey.value = keyInfo.value;
             }
+
+            const keyInterpolationType = keyInfo.interpolationType;
+            aexKey.interpolationType = {
+                inType: getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR),
+                outType: getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR),
+            };
+
+            const keyTemporalEase = keyInfo.temporalEase;
+            aexKey.temporalEase = keyTemporalEase
+                ? {
+                      inEase: getModifiedValue(keyTemporalEase.inEase, [
+                          {
+                              influence: 16.666666667,
+                              speed: 0,
+                          } as KeyframeEase,
+                      ]),
+                      outEase: getModifiedValue(keyTemporalEase.outEase, [
+                          {
+                              influence: 16.666666667,
+                              speed: 0,
+                          } as KeyframeEase,
+                      ]),
+                  }
+                : undefined;
+
+            const keySpatialTangent = keyInfo.spatialTangent;
+            aexKey.spatialTangent = keySpatialTangent
+                ? {
+                      inTangent: getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]),
+                      outTangent: getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]),
+                  }
+                : undefined;
+
+            aexKey.temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
+            aexKey.temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
+            aexKey.spatialAutoBezier = getModifiedValue(keyInfo.spatialAutoBezier, false);
+            aexKey.spatialContinuous = getModifiedValue(keyInfo.spatialContinuous, false);
+            aexKey.roving = getModifiedValue(keyInfo.roving, false);
         }
 
-        const time = keyInfo.time;
-
-        const keyInterpolationType = keyInfo.interpolationType;
-        const interpolationType = {
-            inType: getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR),
-            outType: getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR),
-        };
-
-        const keyTemporalEase = keyInfo.temporalEase;
-        const temporalEase = keyTemporalEase
-            ? {
-                  inEase: getModifiedValue(keyTemporalEase.inEase, [
-                      {
-                          influence: 16.666666667,
-                          speed: 0,
-                      } as KeyframeEase,
-                  ]),
-                  outEase: getModifiedValue(keyTemporalEase.outEase, [
-                      {
-                          influence: 16.666666667,
-                          speed: 0,
-                      } as KeyframeEase,
-                  ]),
-              }
-            : undefined;
-
-        const keySpatialTangent = keyInfo.spatialTangent;
-        const spatialTangent = keySpatialTangent
-            ? {
-                  inTangent: getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]),
-                  outTangent: getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]),
-              }
-            : undefined;
-
-        const temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
-        const temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
-        const spatialAutoBezier = getModifiedValue(keyInfo.spatialAutoBezier, false);
-        const spatialContinuous = getModifiedValue(keyInfo.spatialContinuous, false);
-        const roving = getModifiedValue(keyInfo.roving, false);
-
-        return {
-            value,
-            time,
-            interpolationType,
-            temporalEase,
-            spatialTangent,
-            temporalAutoBezier,
-            temporalContinuous,
-            spatialAutoBezier,
-            spatialContinuous,
-            roving,
-        };
+        return aexKey;
     });
 
     state.stats.keyCount++;
