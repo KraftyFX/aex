@@ -5,7 +5,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
     const displayStartTime = getModifiedValue(comp.displayStartTime, 0);
     const draft3d = getModifiedValue(comp.draft3d, false);
-    const dropFrame = getModifiedValue(comp.dropFrame, true);
+    const dropFrame = getModifiedValue(comp.dropFrame, false);
     const frameBlending = getModifiedValue(comp.frameBlending, false);
     const hideShyLayers = getModifiedValue(comp.hideShyLayers, false);
     const motionBlur = getModifiedValue(comp.motionBlur, false);
