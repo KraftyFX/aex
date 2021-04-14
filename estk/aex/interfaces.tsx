@@ -126,7 +126,10 @@ interface AexComp extends AexAVItemBase, AexObject {
     markers: AexMarkerProperty[];
 }
 
-interface AexLayer {
+type AexLayer = AexAVLayer | AexLightLayer | AexCameraLayer;
+type AexAVLayer = AexShapeLayer | AexFootageLayer | AexTextLayer | AexNullLayer;
+
+interface AexLayerBase {
     name: string;
     label: number;
     comment: string;
@@ -142,7 +145,7 @@ interface AexLayer {
     markers: AexMarkerProperty[];
     transform: AexTransform;
 }
-interface AexAVLayer extends AexLayer, AexObject {
+interface AexAVLayerBase extends AexLayerBase, AexObject {
     adjustmentLayer: boolean;
     audioEnabled: boolean;
     autoOrient: AutoOrientType;
@@ -170,27 +173,27 @@ interface AexAVLayer extends AexLayer, AexObject {
     effects: AexPropertyGroup[];
 }
 
-interface AexLightLayer extends AexLayer, AexObject {
+interface AexLightLayer extends AexLayerBase, AexObject {
     lightType: LightType;
     lightOption: AexPropertyGroup;
 }
 
-interface AexCameraLayer extends AexLayer, AexObject {
+interface AexCameraLayer extends AexLayerBase, AexObject {
     cameraOption: AexPropertyGroup;
 }
 
-interface AexShapeLayer extends AexAVLayer, AexObject {
+interface AexShapeLayer extends AexAVLayerBase, AexObject {
     contents: AexShapePropertyGroup[];
 }
 
-interface AexFootageLayer extends AexAVLayer, AexObject {
+interface AexFootageLayer extends AexAVLayerBase, AexObject {
     source: AexUID;
     trackers: AexPropertyGroup[];
 }
 
 interface AexNullLayer extends AexFootageLayer, AexObject {}
 
-interface AexTextLayer extends AexAVLayer, AexObject {
+interface AexTextLayer extends AexAVLayerBase, AexObject {
     threeDPerChar: boolean;
     sourceText: AexProperty<AexTextDocument>;
     pathOption: AexPropertyGroup;

@@ -1,4 +1,4 @@
-function getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
+function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
     const layerAttributes = getLayerAttributes(layer, state);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
