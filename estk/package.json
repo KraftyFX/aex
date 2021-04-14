@@ -6,11 +6,9 @@
   "repository": "git@github.com:KraftyFX/aex.git",
   "author": "rafikhan@kraftyfx.com",
   "scripts": {
-    "clean": "rm -rf dist/* && yarn build:aeq",
-    "start": "yarn build:aex --watch & yarn build:aeq --watch",
-    "build": "yarn build:aeq && yarn build:aex",
-    "build:aeq": "tsc -p aeq/tsconfig.json",
-    "build:aex": "tsc -p aex/tsconfig.json"
+    "clean": "rm -rf dist/* && yarn build",
+    "start": "yarn build --watch",
+    "build": "tsc -p aex/tsconfig.json"
   },
   "dependencies": {
     "ts-node": "^9.1.1",
