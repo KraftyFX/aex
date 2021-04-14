@@ -1,5 +1,5 @@
 function getAVLayer(layer: AVLayer, state: AexState): AexAVLayer {
-    const layerAttributes = getLayer(layer, state);
+    const layerAttributes = getLayerAttributes(layer, state);
 
     const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
     const audioEnabled = getModifiedValue(layer.audioEnabled, true);

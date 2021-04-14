@@ -18,7 +18,7 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     }
 }
 
-function getLayer(layer: Layer, state: AexState): AexLayer {
+function getLayerAttributes(layer: Layer, state: AexState): AexLayer {
     const containingComp = layer.containingComp;
 
     const { name, label } = layer;

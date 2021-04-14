@@ -1,5 +1,5 @@
 function getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
-    const layerAttributes = getLayer(layer, state);
+    const layerAttributes = getLayerAttributes(layer, state);
     layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
     const lightType = layer.lightType;
 
