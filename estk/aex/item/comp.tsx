@@ -55,7 +55,51 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
 }
 
 function createComp(aexComp: AexComp, state: AexState): void {
+    const comp = aeq.comp.create({
+        name: aexComp.name,
+        width: aexComp.width,
+        height: aexComp.height,
+        pixelAspect: aexComp.pixelAspect,
+        duration: aexComp.duration,
+        frameRate: aexComp.frameRate,
+    });
+
+    _setCompAttributes(comp, aexComp, state);
+
+    createLayers(comp, aexComp.layers, state);
+    createMarkers(comp, aexComp.markers, state);
+}
+
+function createLayers(comp: CompItem, layers: AexLayer[], state: AexState) {
     /** @todo */
+}
+function createMarkers(comp: CompItem, markers: AexMarkerProperty[], state: AexState) {
+    /** @todo */
+}
+
+function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
+    _setItemAttributes(comp, aexComp, state);
+
+    cloneAttributes(comp, {
+        bgColor: aexComp.bgColor,
+        displayStartFrame: aexComp.displayStartFrame,
+        displayStartTime: aexComp.displayStartTime,
+        draft3d: aexComp.draft3d,
+        dropFrame: aexComp.dropFrame,
+        frameBlending: aexComp.frameBlending,
+        hideShyLayers: aexComp.hideShyLayers,
+        motionBlur: aexComp.motionBlur,
+        motionBlurAdaptiveSampleLimit: aexComp.motionBlurAdaptiveSampleLimit,
+        motionBlurSamplesPerFrame: aexComp.motionBlurSamplesPerFrame,
+        preserveNestedFrameRate: aexComp.preserveNestedFrameRate,
+        preserveNestedResolution: aexComp.preserveNestedResolution,
+        renderer: aexComp.renderer,
+        resolutionFactor: aexComp.resolutionFactor,
+        shutterAngle: aexComp.shutterAngle,
+        shutterPhase: aexComp.shutterPhase,
+        workAreaDuration: aexComp.workAreaDuration,
+        workAreaStart: aexComp.workAreaStart,
+    });
 }
 
 function _getAexCompLayers(comp: CompItem, state: AexState) {
