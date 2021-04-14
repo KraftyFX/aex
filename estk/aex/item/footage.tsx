@@ -14,13 +14,6 @@ function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFoota
     const avItemBaseAttributes = getAVItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
-    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
-    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-    const highQualityFieldSeparation = getModifiedValue(itemSource.highQualityFieldSeparation, false);
-    const loop = getModifiedValue(itemSource.loop, 1);
-    const premulColor = getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue);
-    const removePulldown = getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
-
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
 
@@ -29,12 +22,12 @@ function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFoota
     return {
         ...avItemBaseAttributes,
 
-        conformFrameRate,
-        fieldSeparationType,
-        highQualityFieldSeparation,
-        loop,
-        premulColor,
-        removePulldown,
+        conformFrameRate: getModifiedValue(itemSource.conformFrameRate, 0),
+        fieldSeparationType: getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF),
+        highQualityFieldSeparation: getModifiedValue(itemSource.highQualityFieldSeparation, false),
+        loop: getModifiedValue(itemSource.loop, 1),
+        premulColor: getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue),
+        removePulldown: getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF),
         alphaMode,
         invertAlpha,
     };
