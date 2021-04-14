@@ -3,8 +3,8 @@ function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
 
     state.stats.nonCompItemCount++;
     return {
-        type: AEX_FOLDER_ITEM,
         ...itemAttributes,
+        type: AEX_FOLDER_ITEM,
 
         label: getModifiedValue(item.label, 2),
     };

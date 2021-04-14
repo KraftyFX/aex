@@ -2,7 +2,7 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
     if (aeq.isComp(item)) {
         return getAexComp(item as CompItem, state);
     } else if (aeq.isFootageItem(item)) {
-        return _getFootageItem(item, state);
+        return getFootageItem(item, state);
     } else if (aeq.isFolderItem(item)) {
         return _getFolderItem(item, state);
     } else {

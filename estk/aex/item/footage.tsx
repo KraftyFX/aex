@@ -1,5 +1,17 @@
+function getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
+    const itemSource = item.mainSource;
+
+    if (sourceIsFile(itemSource)) {
+        return _getFileItem(item, state);
+    } else if (sourceIsSolid(itemSource)) {
+        return _getSolidItem(item, state);
+    } else if (sourceIsPlaceholder(itemSource)) {
+        return _getPlaceholderItem(item, state);
+    }
+}
+
 function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
-    const avItemBaseAttributes = _getAVItemBaseAttributes(item);
+    const avItemBaseAttributes = getAVItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
     const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
@@ -28,16 +40,8 @@ function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFoota
     };
 }
 
-function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
-    const itemSource = item.mainSource;
-
-    if (sourceIsFile(itemSource)) {
-        return _getFileItem(item, state);
-    } else if (sourceIsSolid(itemSource)) {
-        return _getSolidItem(item, state);
-    } else if (sourceIsPlaceholder(itemSource)) {
-        return _getPlaceholderItem(item, state);
-    }
+function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
+    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
 function _createFootageItem(aexFootage: AexItem, state: AexState): void {
@@ -102,8 +106,4 @@ function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceho
         ...itemAttributes,
         type: AEX_PLACEHOLDER_ITEM,
     };
-}
-
-function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
-    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
