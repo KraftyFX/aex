@@ -100,10 +100,10 @@ function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): 
 }
 
 function _getAexCompLayers(comp: CompItem, state: AexState) {
-    let layers = [] as AexLayer[];
+    const layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
-        let layerData = getAexLayer(layer, state);
+        const layerData = getAexLayer(layer, state);
         layers.push(layerData);
     });
 
