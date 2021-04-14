@@ -18,7 +18,7 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     const { items, comps } = aexProject;
 
     aeq.forEach(items, (item) => {
-        createAexItem(item, state);
+        createItem(item, state);
     });
 
     aeq.forEach(comps, (comp) => {

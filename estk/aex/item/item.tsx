@@ -10,7 +10,7 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
     }
 }
 
-function createAexItem(aexItem: AexItem, state: AexState): void {
+function createItem(aexItem: AexItem, state: AexState): void {
     switch (aexItem.type) {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:
