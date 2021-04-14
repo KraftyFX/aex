@@ -36,8 +36,6 @@ export interface AexLogEntry {
 }
 
 export interface AexObject {
-    items: any[];
-    comps: any[];
     type: string;
 }
 

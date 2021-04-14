@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_COMP_ITEM, AEX_PROJECT } from '../constants';
+import { AEX_COMP_ITEM } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -42,31 +42,25 @@ describe('Comp', function () {
         it(`Can create basic comp attributes`, async () => {
             await openCleanProject();
 
-            const projectData = {
-                comps: [
-                    {
-                        aexid: 'comp 1:1',
-                        duration: 4,
-                        folder: [],
-                        frameRate: 60,
-                        height: 720,
-                        layers: [],
-                        markers: [],
-                        name: 'Comp 1',
-                        pixelAspect: 1,
-                        type: AEX_COMP_ITEM,
-                        width: 1280,
-                    },
-                ],
-                items: [],
-                type: AEX_PROJECT,
+            const compData = {
+                aexid: 'comp 1:1',
+                duration: 4,
+                folder: [],
+                frameRate: 60,
+                height: 720,
+                layers: [],
+                markers: [],
+                name: 'Comp 1',
+                pixelAspect: 1,
+                type: AEX_COMP_ITEM,
+                width: 1280,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().fromAexObject(compData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
-            const project = result.object;
-            assertAreEqual(project, projectData);
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+            assertAreEqual(comp, compData);
         });
     });
 });

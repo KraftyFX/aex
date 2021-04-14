@@ -48,6 +48,8 @@ function createComp(aexComp: AexComp, state: AexState): void {
 
     createLayers(comp, aexComp.layers, state);
     _createCompMarkers(comp, aexComp.markers, state);
+
+    comp.openInViewer();
 }
 
 function createLayers(comp: CompItem, layers: AexLayer[], state: AexState) {
