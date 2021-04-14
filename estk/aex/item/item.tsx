@@ -45,7 +45,9 @@ function _setItemAttributes(item: Item, aexItem: AexItem, state: AexState): void
         name: aexItem.name,
     });
 
-    _setParentFolders(item, aexItem.folder);
+    if (aexItem.folder) {
+        _setParentFolders(item, aexItem.folder, state);
+    }
 }
 
 function _getParentFolders(item: Item): string[] {
@@ -61,13 +63,13 @@ function _getParentFolders(item: Item): string[] {
     return folders;
 }
 
-function _setParentFolders(item: Item, folders: string[]): void {
+function _setParentFolders(item: Item, aexFolders: string[], state: AexState): void {
     let root = app.project.rootFolder;
 
-    folders.reverse();
+    aexFolders.reverse();
 
-    aeq.forEach(folders, (folder) => {
-        const newFolder = aeq.project.getOrCreateFolder(folder, root);
+    aeq.forEach(aexFolders, (aexFolder) => {
+        const newFolder = aeq.project.getOrCreateFolder(aexFolder, root);
         item.parentFolder = newFolder;
 
         root = newFolder;

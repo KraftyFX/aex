@@ -52,10 +52,6 @@ function createComp(aexComp: AexComp, state: AexState): void {
     comp.openInViewer();
 }
 
-function createLayers(comp: CompItem, layers: AexLayer[], state: AexState) {
-    /** @todo */
-}
-
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
     _setItemAttributes(comp, aexComp, state);
 
@@ -92,10 +88,14 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
     return layers;
 }
 
+function createLayers(comp: CompItem, aexLayers: AexLayer[], state: AexState) {
+    /** @todo */
+}
+
 function _getAexCompMarkers(comp: CompItem) {
     return getAexMarkerProperties(comp.markerProperty);
 }
 
-function _createCompMarkers(comp: CompItem, markers: AexMarkerProperty[], state: AexState) {
-    createMarkers(comp.markerProperty, markers, state);
+function _createCompMarkers(comp: CompItem, aexMarkers: AexMarkerProperty[], state: AexState) {
+    createMarkers(comp.markerProperty, aexMarkers, state);
 }
