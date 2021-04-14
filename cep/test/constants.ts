@@ -35,6 +35,12 @@ export interface AexLogEntry {
     message: string;
 }
 
+export interface AexObject {
+    items: any[];
+    comps: any[];
+    type: string;
+}
+
 export type UnsupportedTypeCallback = (log: AexLogEntry) => void;
 
 export interface AexOptions {

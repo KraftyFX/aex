@@ -31,7 +31,15 @@ export async function alert(value: string) {
 }
 
 export async function openProject(projectPath: string) {
-    await getEvalScriptResult(`aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`, null, { ignoreReturn: true });
+    await getEvalScriptResult(
+        `app.project.close(CloseOptions.DO_NOT_SAVE_CHANGES) && aeq.open(aeq.file.joinPath(aeq.getFile($.fileName).parent.fsName, "${projectPath}"))`,
+        null,
+        { ignoreReturn: true }
+    );
+}
+
+export async function openCleanProject() {
+    await getEvalScriptResult(`app.project.close(CloseOptions.DO_NOT_SAVE_CHANGES)`, null, { ignoreReturn: true });
 }
 
 function evalScript(code: string): Promise<void> {

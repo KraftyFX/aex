@@ -89,6 +89,9 @@ function aexToAe(aexObj: AexObject, options: AexOptions): void {
         case AEX_PROJECT:
             setAexProject(aexObj as AexProject, state);
             break;
+        case AEX_COMP_ITEM:
+            setAexComp(aexObj as AexComp, state);
+            break;
         default:
             throw new Error(`AEX Object Type "${aexObj.type}" is not spported.`);
     }
