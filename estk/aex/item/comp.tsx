@@ -54,7 +54,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function createAexComp(aexComp: AexComp, state: AexState): void {
+function createComp(aexComp: AexComp, state: AexState): void {
     /** @todo */
 }
 

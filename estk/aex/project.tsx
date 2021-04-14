@@ -22,7 +22,7 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     });
 
     aeq.forEach(comps, (comp) => {
-        createAexComp(comp, state);
+        createComp(comp, state);
     });
 
     app.endUndoGroup();

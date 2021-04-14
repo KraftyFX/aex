@@ -38,8 +38,13 @@ function _getItemAttributes(item: Item): AexItemBase {
     };
 }
 
-function _setItemAttributes(item: Item, aexItem: AexItem): void {
-    cloneAttributes(item, aexItem);
+function _setItemAttributes(item: Item, aexItem: AexItem, state: AexState): void {
+    cloneAttributes(item, {
+        comment: aexItem.comment,
+        label: aexItem.label,
+        name: aexItem.name,
+    });
+
     _setParentFolders(item, aexItem.folder);
 }
 

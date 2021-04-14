@@ -87,13 +87,17 @@ function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefa
 }
 
 /** @todo Unsure whether this blind approach is the right way to go, vs something intentional */
-function cloneAttributes(item: any, aexItem: AexObject): void {
+function cloneAttributes(item: any, aexItem: any): void {
     for (let key in aexItem) {
         if (!aexItem.hasOwnProperty(key)) {
             continue;
         }
 
         if (!item.hasOwnProperty(key)) {
+            continue;
+        }
+
+        if (aeq.isNullOrUndefined(aexItem[key])) {
             continue;
         }
 
