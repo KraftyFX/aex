@@ -10,14 +10,14 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
     }
 }
 
-function setAexItem(aexItem: AexItem, state: AexState): void {
+function createAexItem(aexItem: AexItem, state: AexState): void {
     switch (aexItem.type) {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
-            return _setFootageItem(aexItem, state);
+            return _createFootageItem(aexItem, state);
         case AEX_FOLDER_ITEM:
-            return _setFolderItem(aexItem, state);
+            return _createFolderItem(aexItem, state);
         default:
             throw new Error(`Unrecognized Item Type ${aexItem.type}`);
     }
@@ -79,7 +79,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function setAexComp(aexComp: AexComp, state: AexState): void {
+function createAexComp(aexComp: AexComp, state: AexState): void {
     /** @todo */
 }
 
@@ -123,6 +123,24 @@ function _getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     } else if (sourceIsPlaceholder(itemSource)) {
         return _getPlaceholderItem(item, state);
     }
+}
+
+function _createFootageItem(aexFootage: AexItem, state: AexState): void {
+    let footageItem;
+
+    switch (aexFootage.type) {
+        case AEX_FILE_FOOTAGE_ITEM:
+            break;
+        case AEX_SOLID_ITEM:
+            footageItem = _createSolid(aexFootage as AexSolidItem, state);
+            break;
+        case AEX_PLACEHOLDER_ITEM:
+            break;
+        default:
+            return;
+    }
+
+    // _setItemAttributes(footageItem, aexFootage);
 }
 
 function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
@@ -171,24 +189,6 @@ function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceho
     };
 }
 
-function _setFootageItem(aexFootage: AexItem, state: AexState): void {
-    let footageItem;
-
-    switch (aexFootage.type) {
-        case AEX_FILE_FOOTAGE_ITEM:
-            break;
-        case AEX_SOLID_ITEM:
-            footageItem = _createSolid(aexFootage as AexSolidItem, state);
-            break;
-        case AEX_PLACEHOLDER_ITEM:
-            break;
-        default:
-            return;
-    }
-
-    // _setItemAttributes(footageItem, aexFootage);
-}
-
 function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     const itemAttributes = _getItemAttributes(item);
 
@@ -201,7 +201,7 @@ function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     };
 }
 
-function _setFolderItem(aexFolder: AexFolderItem, state: AexState): void {
+function _createFolderItem(aexFolder: AexFolderItem, state: AexState): void {
     const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
 
     _setItemAttributes(aeFolder, aexFolder);

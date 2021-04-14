@@ -18,11 +18,11 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     const { items, comps } = aexProject;
 
     aeq.forEach(items, (item) => {
-        setAexItem(item, state);
+        createAexItem(item, state);
     });
 
     aeq.forEach(comps, (comp) => {
-        setAexComp(comp, state);
+        createAexComp(comp, state);
     });
 
     app.endUndoGroup();
