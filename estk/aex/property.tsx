@@ -310,6 +310,38 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
     return markerData;
 }
 
+function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState): void {
+    const markers = aeq.arrayEx();
+
+    aeq.forEach(aexMarkers, (aexMarker) => {
+        const marker = new MarkerValue(aexMarker.comment || '');
+
+        cloneAttributes(marker, {
+            chapter: aexMarker.chapter,
+            url: aexMarker.url,
+            frameTarget: aexMarker.frameTarget,
+            cuePointName: aexMarker.cuePointName,
+            duration: aexMarker.duration,
+            label: aexMarker.label,
+            protectedRegion: aexMarker.protectedRegion,
+            parameters: aexMarker.parameters,
+        });
+
+        markers.push({
+            time: aexMarker.time,
+            marker: marker,
+        });
+    });
+
+    /**
+     * Voodoo: Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
+     * As a result, we need to set each keyframe individually.
+     */
+    markers.forEach((marker) => {
+        markerProperty.setValueAtTime(marker.time, marker.marker);
+    });
+}
+
 function _getMarkerParameters(keyValue: MarkerValue): object {
     const parameters = keyValue.getParameters();
 

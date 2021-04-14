@@ -87,7 +87,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Empty',
-            nullLayer: true,
             transform: {},
             source: 'null 1:50',
             trackers: [],
@@ -119,7 +118,6 @@ describe('Basic Layer Attributes', function () {
             masks: [],
             motionBlur: true,
             name: 'Flags',
-            nullLayer: true,
             samplingQuality: 4813,
             shy: true,
             source: 'null 1:50',
@@ -137,7 +135,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Blend Stretch',
-            nullLayer: true,
             outPoint: 1,
             source: 'null 1:50',
             stretch: 25,
@@ -486,7 +483,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Trackers',
-            nullLayer: true,
             source: 'null 1:50',
             trackers: [
                 {

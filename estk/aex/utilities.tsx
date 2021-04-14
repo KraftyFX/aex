@@ -86,6 +86,25 @@ function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefa
     return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
+/** @todo Unsure whether this blind approach is the right way to go, vs something intentional */
+function cloneAttributes(item: any, aexItem: any): void {
+    for (let key in aexItem) {
+        if (!aexItem.hasOwnProperty(key)) {
+            continue;
+        }
+
+        if (!item.hasOwnProperty(key)) {
+            continue;
+        }
+
+        if (aeq.isNullOrUndefined(aexItem[key])) {
+            continue;
+        }
+
+        item[key] = aexItem[key];
+    }
+}
+
 function sourceIsSolid(source: any): source is SolidSource {
     // @ts-ignore
     return source instanceof SolidSource;
@@ -112,6 +131,22 @@ function isVisibleLayer(layer: Layer): layer is AVLayer | TextLayer | ShapeLayer
 
 function isNullLayer(layer: Layer): layer is AVLayer {
     return layer.nullLayer;
+}
+
+/**
+ * This check is conceptually redundant, however:
+ *
+ * In AEX we're differentiating between the AVLayer base class (both in AEX and AE)
+ * and each of the subclasses (TextLayer, ShapeLayer).
+ *
+ * This is because in AE, non-TextLayer, non-ShapeLayer AVLayers have unique properties,
+ * and so it's cleaner & friendlier to treat AVLayers as three distinct possibilities:
+ *   - TextLayer
+ *   - ShapeLayer
+ *   - FootageLayer
+ */
+function isFootageLayer(layer: Layer): layer is AVLayer {
+    return aeq.isAVLayer(layer);
 }
 
 function isEffectPropertyGroup(property: Property): boolean {

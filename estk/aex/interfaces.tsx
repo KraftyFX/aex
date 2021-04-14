@@ -60,6 +60,7 @@ interface AexProject extends AexObject {
 }
 
 type AexItem = AexComp | AexFootageItem | AexFolderItem;
+type AexFootageItem = AexFileItem | AexSolidItem | AexPlaceholderItem;
 
 interface AexItemBase {
     comment: string;
@@ -80,7 +81,7 @@ interface AexAVItemBase extends AexItemBase {
     width: number;
 }
 
-interface AexFootageItem extends AexAVItemBase, AexObject {
+interface AexFootageItemBase extends AexAVItemBase {
     alphaMode: AlphaMode;
     conformFrameRate: number;
     fieldSeparationType: FieldSeparationType;
@@ -91,14 +92,16 @@ interface AexFootageItem extends AexAVItemBase, AexObject {
     invertAlpha: boolean;
 }
 
-interface AexFileSourceAttributes {
+interface AexFileItem extends AexFootageItemBase, AexObject {
     /** Path to file */
     file: string;
 }
 
-interface AexSolidSourceAttributes {
+interface AexSolidItem extends AexFootageItemBase, AexObject {
     color: ThreeDColorValue;
 }
+
+interface AexPlaceholderItem extends AexFootageItemBase, AexObject {}
 
 interface AexComp extends AexAVItemBase, AexObject {
     bgColor: ThreeDColorValue;
@@ -185,9 +188,7 @@ interface AexFootageLayer extends AexAVLayer, AexObject {
     trackers: AexPropertyGroup[];
 }
 
-interface AexNullLayer extends AexFootageLayer, AexObject {
-    nullLayer: boolean;
-}
+interface AexNullLayer extends AexFootageLayer, AexObject {}
 
 interface AexTextLayer extends AexAVLayer, AexObject {
     threeDPerChar: boolean;

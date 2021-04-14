@@ -1,6 +1,6 @@
 import { AeObject, aex } from './aex';
-import { AEX_FOLDER_ITEM, AEX_SOLID_ITEM } from './constants';
-import { cleanupAex, evalAexIntoEstk, openProject } from './csinterface';
+import { AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } from './constants';
+import { cleanupAex, evalAexIntoEstk, openProject, openCleanProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe('Project', function () {
@@ -15,89 +15,200 @@ describe('Project', function () {
         await cleanupAex();
     });
 
-    it(`Can parse basic project attributes`, async () => {
-        await openProject('testAssets/project_basic.aep');
+    describe('Get', async () => {
+        it(`Can parse basic project attributes`, async () => {
+            await openProject('testAssets/project_basic.aep');
 
-        const result = await aex().fromAeObject(AeObject.Project);
-        const project = result.object;
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
 
-        console.log('project_basic', project);
-        assertAreEqual(project.items, [
-            {
-                aexid: 'solids:37',
-                folder: [],
-                type: AEX_FOLDER_ITEM,
-                name: 'Solids',
-            },
-            {
-                aexid: 'black solid 1:38',
-                duration: 0,
-                folder: ['Solids'],
-                frameRate: 0,
-                height: 500,
-                type: AEX_SOLID_ITEM,
-                name: 'Black Solid 1',
-                pixelAspect: 1,
-                width: 500,
-            },
-        ]);
+            console.log('project_basic', project);
+            assertAreEqual(project.items, [
+                {
+                    aexid: 'solids:37',
+                    folder: [],
+                    type: AEX_FOLDER_ITEM,
+                    name: 'Solids',
+                },
+                {
+                    aexid: 'black solid 1:38',
+                    duration: 0,
+                    folder: ['Solids'],
+                    frameRate: 0,
+                    height: 500,
+                    type: AEX_SOLID_ITEM,
+                    name: 'Black Solid 1',
+                    pixelAspect: 1,
+                    width: 500,
+                },
+            ]);
+        });
+
+        it(`Can parse flat project folders`, async () => {
+            await openProject('testAssets/project_folders-flat.aep');
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            console.log('project_folders-flat', project);
+            assertAreEqual(project.items, [
+                {
+                    aexid: 'folder a:52',
+                    folder: [],
+                    type: AEX_FOLDER_ITEM,
+                    name: 'Folder A',
+                },
+                {
+                    aexid: 'solids:49',
+                    folder: [],
+                    type: AEX_FOLDER_ITEM,
+                    name: 'Solids',
+                },
+            ]);
+        });
+
+        it(`Can parse nested project folders`, async () => {
+            await openProject('testAssets/project_folders-nested.aep');
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            console.log('project_folders-nested', project);
+            assertAreEqual(project.items, [
+                {
+                    aexid: 'solids:49',
+                    folder: [],
+                    name: 'Solids',
+                    type: AEX_FOLDER_ITEM,
+                },
+                {
+                    aexid: 'folder a:52',
+                    folder: ['Solids'],
+                    name: 'Folder A',
+                    type: AEX_FOLDER_ITEM,
+                },
+                {
+                    aexid: 'folder c:55',
+                    folder: ['Folder A', 'Solids'],
+                    name: 'Folder C',
+                    type: AEX_FOLDER_ITEM,
+                },
+                {
+                    aexid: 'folder b:54',
+                    folder: ['Solids'],
+                    name: 'Folder B',
+                    type: AEX_FOLDER_ITEM,
+                },
+            ]);
+        });
     });
 
-    it(`Can parse flat project folders`, async () => {
-        await openProject('testAssets/project_folders-flat.aep');
+    describe('Set', async () => {
+        it(`Can create basic project attributes`, async () => {
+            await openCleanProject();
 
-        const result = await aex().fromAeObject(AeObject.Project);
-        const project = result.object;
+            const projectData = {
+                comps: [],
+                items: [
+                    {
+                        aexid: 'solids:1',
+                        folder: [],
+                        type: AEX_FOLDER_ITEM,
+                        name: 'Solids',
+                    },
+                    {
+                        aexid: 'black solid 1:14',
+                        duration: 0,
+                        folder: ['Solids'],
+                        frameRate: 0,
+                        height: 500,
+                        type: AEX_SOLID_ITEM,
+                        name: 'Black Solid 1',
+                        pixelAspect: 1,
+                        width: 500,
+                    },
+                ],
+                type: AEX_PROJECT,
+            };
 
-        console.log('project_folders-flat', project);
-        assertAreEqual(project.items, [
-            {
-                aexid: 'folder a:52',
-                folder: [],
-                type: AEX_FOLDER_ITEM,
-                name: 'Folder A',
-            },
-            {
-                aexid: 'solids:49',
-                folder: [],
-                type: AEX_FOLDER_ITEM,
-                name: 'Solids',
-            },
-        ]);
-    });
+            await aex().fromAexObject(projectData);
 
-    it(`Can parse nested project folders`, async () => {
-        await openProject('testAssets/project_folders-nested.aep');
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
 
-        const result = await aex().fromAeObject(AeObject.Project);
-        const project = result.object;
+            assertAreEqual(project, projectData);
+        });
 
-        console.log('project_folders-nested', project);
-        assertAreEqual(project.items, [
-            {
-                aexid: 'solids:49',
-                folder: [],
-                name: 'Solids',
-                type: AEX_FOLDER_ITEM,
-            },
-            {
-                aexid: 'folder a:52',
-                folder: ['Solids'],
-                name: 'Folder A',
-                type: AEX_FOLDER_ITEM,
-            },
-            {
-                aexid: 'folder c:55',
-                folder: ['Folder A', 'Solids'],
-                name: 'Folder C',
-                type: AEX_FOLDER_ITEM,
-            },
-            {
-                aexid: 'folder b:54',
-                folder: ['Solids'],
-                name: 'Folder B',
-                type: AEX_FOLDER_ITEM,
-            },
-        ]);
+        it(`Can create flat project folders`, async () => {
+            await openCleanProject();
+
+            const projectData = {
+                comps: [],
+                items: [
+                    {
+                        aexid: 'folder a:1',
+                        folder: [],
+                        type: AEX_FOLDER_ITEM,
+                        name: 'Folder A',
+                    },
+                    {
+                        aexid: 'solids:2',
+                        folder: [],
+                        type: AEX_FOLDER_ITEM,
+                        name: 'Solids',
+                    },
+                ],
+                type: AEX_PROJECT,
+            };
+
+            await aex().fromAexObject(projectData);
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            assertAreEqual(project, projectData);
+        });
+
+        it(`Can create nested project folders`, async () => {
+            await openCleanProject();
+
+            const projectData = {
+                comps: [],
+                items: [
+                    {
+                        aexid: 'solids:1',
+                        folder: [],
+                        name: 'Solids',
+                        type: AEX_FOLDER_ITEM,
+                    },
+                    {
+                        aexid: 'folder a:2',
+                        folder: ['Solids'],
+                        name: 'Folder A',
+                        type: AEX_FOLDER_ITEM,
+                    },
+                    {
+                        aexid: 'folder c:3',
+                        folder: ['Folder A', 'Solids'],
+                        name: 'Folder C',
+                        type: AEX_FOLDER_ITEM,
+                    },
+                    {
+                        aexid: 'folder b:4',
+                        folder: ['Solids'],
+                        name: 'Folder B',
+                        type: AEX_FOLDER_ITEM,
+                    },
+                ],
+                type: AEX_PROJECT,
+            };
+
+            await aex().fromAexObject(projectData);
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            assertAreEqual(project, projectData);
+        });
     });
 });
