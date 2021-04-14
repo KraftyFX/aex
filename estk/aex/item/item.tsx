@@ -11,6 +11,8 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
 }
 
 function createItem(aexItem: AexItem, state: AexState): void {
+    state.stats.nonCompItemCount++;
+
     switch (aexItem.type) {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:

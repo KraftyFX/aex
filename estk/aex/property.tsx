@@ -340,6 +340,8 @@ function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarke
     markers.forEach((marker) => {
         markerProperty.setValueAtTime(marker.time, marker.marker);
     });
+
+    state.stats.propertyCount++;
 }
 
 function _getMarkerParameters(keyValue: MarkerValue): object {

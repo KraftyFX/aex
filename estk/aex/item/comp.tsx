@@ -50,6 +50,8 @@ function createComp(aexComp: AexComp, state: AexState): void {
     _createCompMarkers(comp, aexComp.markers, state);
 
     comp.openInViewer();
+
+    state.stats.compCount++;
 }
 
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
