@@ -86,6 +86,21 @@ function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefa
     return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
+/** @todo Unsure whether this blind approach is the right way to go, vs something intentional */
+function cloneAttributes(item: any, aexItem: AexObject): void {
+    for (let key in aexItem) {
+        if (!aexItem.hasOwnProperty(key)) {
+            continue;
+        }
+
+        if (!item.hasOwnProperty(key)) {
+            continue;
+        }
+
+        item[key] = aexItem[key];
+    }
+}
+
 function sourceIsSolid(source: any): source is SolidSource {
     // @ts-ignore
     return source instanceof SolidSource;

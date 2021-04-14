@@ -10,6 +10,19 @@ function getAexItem(item: Item, state: AexState): AexItemBase {
     }
 }
 
+function setAexItem(aexItem: AexItem, state: AexState): void {
+    switch (aexItem.type) {
+        case AEX_FILE_FOOTAGE_ITEM:
+        case AEX_SOLID_ITEM:
+        case AEX_PLACEHOLDER_ITEM:
+            return _setFootageItem(aexItem, state);
+        case AEX_FOLDER_ITEM:
+            return _setFolderItem(aexItem, state);
+        default:
+            throw new Error(`Unrecognized Item Type ${aexItem.type}`);
+    }
+}
+
 function getAexComp(comp: CompItem, state: AexState): AexComp {
     const avItemAttributes = _getAVItemAttributes(comp);
 
@@ -66,6 +79,10 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
+function setAexComp(aexComp: AexComp, state: AexState): void {
+    /** @todo */
+}
+
 function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
     const avItemAttributes = _getAVItemAttributes(item);
     const itemSource = item.mainSource;
@@ -118,7 +135,18 @@ function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
 
         label: getModifiedValue(item.label, 1),
         color: getModifiedValue(itemSource.color, [0, 0, 0]),
-    }
+    };
+}
+
+function _createSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
+    const tempComp = aeq.comp.create();
+    const solid = tempComp.layers.addSolid([0, 0, 0], aexSolid.name, aexSolid.width, aexSolid.height, aexSolid.pixelAspect, 0);
+
+    const source = solid.source;
+
+    tempComp.remove();
+
+    return source;
 }
 
 function _getFileItem(item: FootageItem, state: AexState): AexFileItem {
@@ -130,8 +158,8 @@ function _getFileItem(item: FootageItem, state: AexState): AexFileItem {
         type: AEX_FILE_FOOTAGE_ITEM,
 
         /** @todo Explore file handling */
-        file: itemSource.file.fsName
-    }
+        file: itemSource.file.fsName,
+    };
 }
 
 function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
@@ -140,7 +168,25 @@ function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceho
     return {
         ...itemAttributes,
         type: AEX_PLACEHOLDER_ITEM,
+    };
+}
+
+function _setFootageItem(aexFootage: AexItem, state: AexState): void {
+    let footageItem;
+
+    switch (aexFootage.type) {
+        case AEX_FILE_FOOTAGE_ITEM:
+            break;
+        case AEX_SOLID_ITEM:
+            footageItem = _createSolid(aexFootage as AexSolidItem, state);
+            break;
+        case AEX_PLACEHOLDER_ITEM:
+            break;
+        default:
+            return;
     }
+
+    // _setItemAttributes(footageItem, aexFootage);
 }
 
 function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
@@ -153,6 +199,12 @@ function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
 
         label: getModifiedValue(item.label, 2),
     };
+}
+
+function _setFolderItem(aexFolder: AexFolderItem, state: AexState): void {
+    const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
+
+    _setItemAttributes(aeFolder, aexFolder);
 }
 
 function _getItemAttributes(item: Item): AexItemBase {
@@ -168,6 +220,11 @@ function _getItemAttributes(item: Item): AexItemBase {
 
         aexid: generateItemUID(item),
     };
+}
+
+function _setItemAttributes(item: Item, aexItem: AexItem): void {
+    cloneAttributes(item, aexItem);
+    _setParentFolders(item, aexItem.folder);
 }
 
 function _getAVItemAttributes(item: AVItem): AexAVItemBase {
@@ -196,6 +253,19 @@ function _getParentFolders(item: Item): string[] {
     }
 
     return folders;
+}
+
+function _setParentFolders(item: Item, folders: string[]): void {
+    let root = app.project.rootFolder;
+
+    folders.reverse();
+
+    aeq.forEach(folders, (folder) => {
+        const newFolder = aeq.project.getOrCreateFolder(folder, root);
+        item.parentFolder = newFolder;
+
+        root = newFolder;
+    });
 }
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {

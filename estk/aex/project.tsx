@@ -13,5 +13,17 @@ function getAexProject(project: Project, state: AexState): AexProject {
 }
 
 function setAexProject(aexProject: AexProject, state: AexState) {
-    // TODO
+    app.beginUndoGroup('Set AEX Project');
+
+    const { items, comps } = aexProject;
+
+    aeq.forEach(items, (item) => {
+        setAexItem(item, state);
+    });
+
+    aeq.forEach(comps, (comp) => {
+        setAexComp(comp, state);
+    });
+
+    app.endUndoGroup();
 }
