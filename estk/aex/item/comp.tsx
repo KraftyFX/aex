@@ -1,5 +1,5 @@
 function getAexComp(comp: CompItem, state: AexState): AexComp {
-    const avItemAttributes = _getAVItemAttributes(comp);
+    const avItemBaseAttributes = _getAVItemBaseAttributes(comp);
 
     const bgColor = getModifiedValue(comp.bgColor, [0, 0, 0] as ThreeDColorValue);
     const displayStartFrame = getModifiedValue(comp.displayStartFrame, 0);
@@ -24,7 +24,7 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
         type: AEX_COMP_ITEM,
 
         /** Item & AVItem attributes */
-        ...avItemAttributes,
+        ...avItemBaseAttributes,
 
         /** Comp internal data */
         bgColor,

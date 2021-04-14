@@ -23,7 +23,7 @@ function createAexItem(aexItem: AexItem, state: AexState): void {
     }
 }
 
-function _getItemAttributes(item: Item): AexItemBase {
+function getItemBaseAttributes(item: Item): AexItemBase {
     /**
      * @todo Add AexOption to preserve project folder structure.
      * For now, just get the immediate parent folder name & assume lives in root

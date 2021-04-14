@@ -1,9 +1,9 @@
-function _getAVItemAttributes(item: AVItem): AexAVItemBase {
+function _getAVItemBaseAttributes(item: AVItem): AexAVItemBase {
+    const itemBaseAttributes = getItemBaseAttributes(item);
     const { duration, frameRate, height, pixelAspect, width } = item;
-    const itemAttributes = _getItemAttributes(item);
 
     return {
-        ...itemAttributes,
+        ...itemBaseAttributes,
 
         duration,
         frameRate,

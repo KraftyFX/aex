@@ -1,5 +1,5 @@
 function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
-    const avItemAttributes = _getAVItemAttributes(item);
+    const avItemBaseAttributes = _getAVItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
     const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, 0);
@@ -15,7 +15,7 @@ function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFoota
     state.stats.nonCompItemCount++;
 
     return {
-        ...avItemAttributes,
+        ...avItemBaseAttributes,
 
         conformFrameRate,
         fieldSeparationType,
