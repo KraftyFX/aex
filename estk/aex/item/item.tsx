@@ -17,7 +17,7 @@ function createItem(aexItem: AexItem, state: AexState): void {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
-            return _createFootageItem(aexItem, state);
+            return _createFootageItem(aexItem as AexFootageItem, state);
         case AEX_FOLDER_ITEM:
             return _createFolderItem(aexItem, state);
         default:

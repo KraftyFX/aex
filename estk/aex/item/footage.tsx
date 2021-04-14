@@ -37,7 +37,7 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
-function _createFootageItem(aexFootage: AexItem, state: AexState): void {
+function _createFootageItem(aexFootage: AexFootageItem, state: AexState): void {
     let footageItem;
 
     switch (aexFootage.type) {
