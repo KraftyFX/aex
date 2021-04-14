@@ -11,11 +11,11 @@ function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
 function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
     const vectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
 
-    const onProperty: OnPropertyCallback<AexShapePropertyGroup> = (propertyGroup, aexPropertyGroup) => {
+    const onGroup: OnShapeGroupCallback = (propertyGroup, aexPropertyGroup) => {
         if (isVectorGroup(propertyGroup)) {
-            aexPropertyGroup.contents = getVectorsGroup(propertyGroup, onProperty, state);
+            aexPropertyGroup.contents = getVectorsGroup(propertyGroup, onGroup, state);
         }
     };
 
-    return getUnnestedPropertyGroup<AexShapePropertyGroup>(vectorsGroups, onProperty, state);
+    return getUnnestedPropertyGroup(vectorsGroups, onGroup, state);
 }

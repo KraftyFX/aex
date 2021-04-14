@@ -1,11 +1,12 @@
-type OnPropertyCallback<T extends AexPropertyGroup = AexPropertyGroup> = (propertyGroup: PropertyGroup, aexPropertyGroup: T) => void;
+type OnGroupCallback<T extends AexPropertyGroup = AexPropertyGroup> = (propertyGroup: PropertyGroup, aexPropertyGroup: T) => void;
+type OnShapeGroupCallback = OnGroupCallback<AexShapePropertyGroup>;
 
 function getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>(
     propertyGroup: PropertyGroup,
-    callback: OnPropertyCallback<T> | null,
+    onGroup: OnGroupCallback<T> | null,
     state: AexState
 ): T[] {
-    callback = callback || (() => {});
+    onGroup = onGroup || (() => {});
     const result: T[] = [];
 
     forEachPropertyInGroup(propertyGroup, (childPropertyGroup: PropertyGroup) => {
@@ -31,7 +32,7 @@ function getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>
          * In cases like masks & effects, this would be false. Otherwise true.
          */
 
-        callback(childPropertyGroup, aexGroup);
+        onGroup(childPropertyGroup, aexGroup);
 
         if (aexGroup.properties === null) {
             const propertyData = getPropertyGroup(childPropertyGroup, state);

@@ -135,7 +135,7 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
 }
 
 function _getEffects(layer: AVLayer, state: AexState) {
-    const onProperty: OnPropertyCallback = (propertyGroup, aexPropertyGroup) => {
+    const onGroup: OnGroupCallback = (propertyGroup, aexPropertyGroup) => {
         /**
          * Voodoo: We need to handle dropdown effects in a unique way
          */
@@ -144,5 +144,5 @@ function _getEffects(layer: AVLayer, state: AexState) {
         }
     };
 
-    return getUnnestedPropertyGroup(layer.effect, onProperty, state);
+    return getUnnestedPropertyGroup(layer.effect, onGroup, state);
 }
