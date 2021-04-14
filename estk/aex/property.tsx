@@ -316,7 +316,7 @@ function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarke
     aeq.forEach(aexMarkers, (aexMarker) => {
         const marker = new MarkerValue(aexMarker.comment || '');
 
-        cloneAttributes(marker, {
+        assignAttributes(marker, {
             chapter: aexMarker.chapter,
             url: aexMarker.url,
             frameTarget: aexMarker.frameTarget,

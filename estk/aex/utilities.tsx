@@ -86,17 +86,20 @@ function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefa
     return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
-/** @todo Unsure whether this blind approach is the right way to go, vs something intentional */
-function cloneAttributes(aeItem: any, aexItem: any): void {
+/** @todo Add type safety to the item and aex item */
+function assignAttributes(aeItem: any, aexItem: any): void {
     for (let key in aexItem) {
+        // Skip the internal JS properties
         if (!aexItem.hasOwnProperty(key)) {
             continue;
         }
 
+        // Skip anything not supported by the current version of AE
         if (!aeItem.hasOwnProperty(key)) {
             continue;
         }
 
+        // Skip anything in the aexItem that has no value
         if (aeq.isNullOrUndefined(aexItem[key])) {
             continue;
         }

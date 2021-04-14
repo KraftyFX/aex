@@ -76,7 +76,7 @@ function createLayers(comp: CompItem, layers: AexLayer[], state: AexState) {
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
     _setItemAttributes(comp, aexComp, state);
 
-    cloneAttributes(comp, {
+    assignAttributes(comp, {
         bgColor: aexComp.bgColor,
         displayStartFrame: aexComp.displayStartFrame,
         displayStartTime: aexComp.displayStartTime,

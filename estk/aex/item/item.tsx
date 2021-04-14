@@ -39,7 +39,7 @@ function getItemBaseAttributes(item: Item): AexItemBase {
 }
 
 function _setItemAttributes(item: Item, aexItem: AexItem, state: AexState): void {
-    cloneAttributes(item, {
+    assignAttributes(item, {
         comment: aexItem.comment,
         label: aexItem.label,
         name: aexItem.name,
