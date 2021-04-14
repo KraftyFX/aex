@@ -67,13 +67,10 @@ function createComp(aexComp: AexComp, state: AexState): void {
     _setCompAttributes(comp, aexComp, state);
 
     createLayers(comp, aexComp.layers, state);
-    createMarkers(comp, aexComp.markers, state);
+    _createCompMarkers(comp, aexComp.markers, state);
 }
 
 function createLayers(comp: CompItem, layers: AexLayer[], state: AexState) {
-    /** @todo */
-}
-function createMarkers(comp: CompItem, markers: AexMarkerProperty[], state: AexState) {
     /** @todo */
 }
 
@@ -115,4 +112,8 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
 
 function _getAexCompMarkers(comp: CompItem) {
     return getAexMarkerProperties(comp.markerProperty);
+}
+
+function _createCompMarkers(comp: CompItem, markers: AexMarkerProperty[], state: AexState) {
+    createMarkers(comp.markerProperty, markers, state);
 }
