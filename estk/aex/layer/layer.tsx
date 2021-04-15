@@ -32,6 +32,8 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
             break;
         case AEX_LIGHT_LAYER:
         case AEX_NULL_LAYER:
+            layer = createNullLayer(comp, aexLayer as AexNullLayer, state);
+            break;
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
@@ -75,6 +77,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
 
 function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState): void {
     assignAttributes(layer, {
+        name: aexLayer.name,
         label: aexLayer.label,
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,

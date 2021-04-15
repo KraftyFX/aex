@@ -6,3 +6,9 @@ function getNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
         type: AEX_NULL_LAYER,
     };
 }
+
+function createNullLayer(comp: CompItem, aexNullLayer: AexNullLayer, state: AexState) {
+    const layer = comp.layers.addNull();
+
+    return layer;
+}
