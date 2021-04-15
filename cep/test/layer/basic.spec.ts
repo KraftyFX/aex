@@ -38,7 +38,15 @@ describe('Basic Layer Attributes', function () {
             label: 4,
             markers: [],
             name: 'Camera',
-            transform: {},
+            transform: {
+                position: {
+                    keys: [],
+                    matchName: 'ADBE Position',
+                    name: 'Position',
+                    type: 'aex:property:threed',
+                    value: [640, 360, -1777.77778],
+                },
+            },
             type: AEX_CAMERA_LAYER,
         });
     });

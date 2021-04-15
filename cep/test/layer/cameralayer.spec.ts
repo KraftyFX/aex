@@ -126,6 +126,13 @@ describe('Camera Layer Attributes', function () {
                     name: 'Point of Interest',
                     value: [100, 200, 300],
                 },
+                position: {
+                    keys: [],
+                    matchName: 'ADBE Position',
+                    name: 'Position',
+                    type: 'aex:property:threed',
+                    value: [640, 360, -1777.77778],
+                },
             },
             type: AEX_CAMERA_LAYER,
         });
