@@ -100,6 +100,11 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
 }
 
 function createLayers(comp: CompItem, aexLayers: AexLayer[], state: AexState) {
+    /** Supports creating sets of layers without targeting a specific comp */
+    if (aeq.isNullOrUndefined(comp)) {
+        comp = _createAEComp();
+    }
+
     /**
      * Voodoo
      *
