@@ -44,12 +44,11 @@ function createComp(aexComp: AexComp, state: AexState): void {
         frameRate: aexComp.frameRate,
     });
 
-    _setCompAttributes(comp, aexComp, state);
-
-    createLayers(comp, aexComp.layers, state);
-    _createCompMarkers(comp, aexComp.markers, state);
-
     comp.openInViewer();
+
+    _setCompAttributes(comp, aexComp, state);
+    _createCompMarkers(comp, aexComp.markers, state);
+    createLayers(comp, aexComp.layers, state);
 
     state.stats.compCount++;
 }
@@ -91,7 +90,19 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
 }
 
 function createLayers(comp: CompItem, aexLayers: AexLayer[], state: AexState) {
-    /** @todo */
+    /**
+     * Voodoo
+     *
+     * New created layers get placed at the top of the stack.
+     *
+     * But because we add to the AexComp.layers array from top -> bottom, we need to reverse
+     * our array to preserve the same layer ordering.
+     */
+    aexLayers.reverse();
+
+    aeq.forEach(aexLayers, (aexLayer: AexLayer) => {
+        createLayer(comp, aexLayer, state);
+    });
 }
 
 function _getAexCompMarkers(comp: CompItem) {

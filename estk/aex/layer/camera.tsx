@@ -16,3 +16,38 @@ function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
         cameraOption: getPropertyGroup(layer.cameraOption, state),
     };
 }
+
+function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState): CameraLayer {
+    const name = aexCameraLayer.name;
+    const layer = comp.layers.addCamera(name, _getCameraCenterPoint(comp, aexCameraLayer));
+
+    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
+
+    if (isOneNode) {
+        layer.autoOrient = AutoOrientType.NO_AUTO_ORIENT;
+    } else {
+        layer.autoOrient = AutoOrientType.CAMERA_OR_POINT_OF_INTEREST;
+    }
+
+    if (aexCameraLayer.cameraOption) {
+        setPropertyGroup(layer.cameraOption, aexCameraLayer.cameraOption, state);
+    }
+
+    return layer;
+}
+
+function _getCameraCenterPoint(comp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {
+    let centerPoint: TwoDPoint;
+
+    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
+
+    if (isOneNode) {
+        centerPoint = [comp.width / 2, comp.height / 2];
+    } else {
+        const pointOfInterest = aexCameraLayer.transform.pointOfInterest.value;
+
+        centerPoint = [pointOfInterest[0], pointOfInterest[1]];
+    }
+
+    return centerPoint;
+}

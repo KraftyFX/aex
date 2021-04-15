@@ -52,6 +52,29 @@ function getProperty(property: Property, state: AexState): AexProperty {
     return aexProperty;
 }
 
+function setProperty(property: Property, aexProperty: AexProperty, state: AexState): void {
+    assignAttributes(property, {
+        enabled: aexProperty.enabled,
+        expression: aexProperty.expression,
+        expressionEnabled: aexProperty.expressionEnabled,
+    });
+
+    /**
+     * We can only set property names if they're a member of a INDEXED_GROUP
+     */
+    if (property.propertyGroup(1).propertyType === PropertyType.INDEXED_GROUP) {
+        property.name = aexProperty.name;
+    }
+
+    if (aexProperty.keys.length > 0) {
+        _setPropertyKeys(property, aexProperty.keys, state);
+    } else {
+        property.setValue(aexProperty.value);
+    }
+
+    state.stats.propertyCount++;
+}
+
 function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
     /**
      * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
@@ -166,6 +189,10 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
     return keys;
 }
 
+function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexState): void {
+    throw new Error('_setPropertyKeys not implemented');
+}
+
 function isUnreadableProperty(property: Property<UnknownPropertyType>) {
     return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
 }
@@ -259,6 +286,18 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
 
         properties: aexProperties,
     };
+}
+
+function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
+    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexProperty | AexPropertyGroup) => {
+        const property = propertyGroup.property(aexProperty.matchName);
+
+        if (property.propertyType == PropertyType.PROPERTY) {
+            setProperty(property as any, aexProperty as AexProperty, state);
+        } else {
+            setPropertyGroup(property as PropertyGroup, aexProperty as AexPropertyGroup, state);
+        }
+    });
 }
 
 function getTextDocumentProperties(text: TextDocument): AexTextDocument {

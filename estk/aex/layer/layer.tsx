@@ -18,6 +18,27 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     }
 }
 
+function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
+    state.stats.layerCount++;
+
+    let layer;
+
+    switch (aexLayer.type) {
+        case AEX_FOOTAGE_LAYER:
+        case AEX_SHAPE_LAYER:
+        case AEX_TEXT_LAYER:
+        case AEX_CAMERA_LAYER:
+            layer = createCameraLayer(comp, aexLayer as AexCameraLayer, state);
+            break;
+        case AEX_LIGHT_LAYER:
+        case AEX_NULL_LAYER:
+        default:
+            throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
+    }
+
+    _setLayerAttributes(layer, aexLayer, state);
+}
+
 function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     const containingComp = layer.containingComp;
 
@@ -47,9 +68,27 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         shy,
         solo,
         parentLayerIndex,
-        markers: getAexMarkerProperties(layer.marker),
+        markers: _getAexLayerMarkers(layer),
         transform: _getTransform(layer, state),
     };
+}
+
+function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState): void {
+    assignAttributes(layer, {
+        label: aexLayer.label,
+        comment: aexLayer.comment,
+        hasVideo: aexLayer.hasVideo,
+        inPoint: aexLayer.inPoint,
+        outPoint: aexLayer.outPoint,
+        startTime: aexLayer.startTime,
+        stretch: aexLayer.stretch,
+        shy: aexLayer.shy,
+        solo: aexLayer.solo,
+        parentLayerIndex: aexLayer.parentLayerIndex,
+    });
+
+    _createLayerMarkers(layer, aexLayer.markers, state);
+    _setTransform(layer, aexLayer.transform, state);
 }
 
 function _getTransform(layer: Layer, state: AexState): AexTransform {
@@ -80,6 +119,15 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
     };
 }
 
+function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
+    aeq.forEach(aexTransform, (xformPropertyName) => {
+        const layerTransformProperty = layer[xformPropertyName];
+        const aexTransformProperty = aexTransform[xformPropertyName];
+
+        setProperty(layerTransformProperty, aexTransformProperty, state);
+    });
+}
+
 /**
  * For 3d layers (or camera/lights), we want to use the zRotation property
  * for 'rotation' instead of the standard 'rotation' property.
@@ -92,4 +140,12 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
     } else {
         return getModifiedProperty(transformGroup.rotation, state);
     }
+}
+
+function _getAexLayerMarkers(layer: Layer) {
+    return getAexMarkerProperties(layer.marker);
+}
+
+function _createLayerMarkers(layer: Layer, aexMarkers: AexMarkerProperty[], state: AexState) {
+    createMarkers(layer.marker, aexMarkers, state);
 }
