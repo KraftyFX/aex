@@ -152,5 +152,9 @@ function _getAexLayerMarkers(layer: Layer) {
 }
 
 function _createLayerMarkers(layer: Layer, aexMarkers: AexMarkerProperty[], state: AexState) {
+    if (aeq.isNullOrUndefined(aexMarkers)) {
+        throw new Error(`${layer.name} missing AexMarkers`);
+    }
+
     createMarkers(layer.marker, aexMarkers, state);
 }
