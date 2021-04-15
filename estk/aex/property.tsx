@@ -20,7 +20,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
      * We need to skip these properties, as their types are NO_VALUE and will
      * otherwise be treated as errors.
      */
-    if (isEffectPropertyGroup(property)) {
+    if (isEffectProperty(property)) {
         return undefined;
     }
 
@@ -231,13 +231,13 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
 }
 
 function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
-    const aexProperties: (AexProperty | AexPropertyGroup)[] = [];
+    const aexProperties: PropertyBase[] = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
         /**
          * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
          */
-        if (_isVectorsGroup(property)) {
+        if (_isVectorsGroup(property as PropertyGroup)) {
             return undefined;
         }
 
@@ -289,7 +289,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
 }
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
-    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexProperty | AexPropertyGroup) => {
+    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexPropertyBase) => {
         const property = propertyGroup.property(aexProperty.matchName);
 
         if (property.propertyType == PropertyType.PROPERTY) {
