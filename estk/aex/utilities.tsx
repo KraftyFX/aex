@@ -181,3 +181,9 @@ function forEachPropertyKeyValue<T>(property: Property, callback: ForEachPropert
 function roundNumber(value: number, precision = 5): number {
     return parseFloat(value.toFixed(precision));
 }
+
+function roundArray(values: number[], precision = 5): number[] {
+    return aeq.arrayEx(values).map((value) => {
+        return parseFloat(value.toFixed(precision));
+    });
+}

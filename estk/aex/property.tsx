@@ -65,6 +65,8 @@ function _getPropertyValue(property: Property, value: any): any {
         return getTextDocumentProperties(value);
     } else if (typeof value === 'number') {
         return roundNumber(value);
+    } else if (value instanceof Array) {
+        return roundArray(value);
     } else {
         return value;
     }
