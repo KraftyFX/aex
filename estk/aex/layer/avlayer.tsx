@@ -61,7 +61,39 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
 }
 
 function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexState): void {
+    assignAttributes(layer, {
+        adjustmentLayer: aexAVLayer.adjustmentLayer,
+        audioEnabled: aexAVLayer.audioEnabled,
+        autoOrient: aexAVLayer.autoOrient,
+        blendingMode: aexAVLayer.blendingMode,
+        collapseTransformation: aexAVLayer.collapseTransformation,
+        effectsActive: aexAVLayer.effectsActive,
+        environmentLayer: aexAVLayer.environmentLayer,
+        frameBlendingType: aexAVLayer.frameBlendingType,
+        guideLayer: aexAVLayer.guideLayer,
+        motionBlur: aexAVLayer.motionBlur,
+        preserveTransparency: aexAVLayer.preserveTransparency,
+        quality: aexAVLayer.quality,
+        samplingQuality: aexAVLayer.samplingQuality,
+        threeDLayer: aexAVLayer.threeDLayer,
+        timeRemapEnabled: aexAVLayer.timeRemapEnabled,
+        isTrackMatte: aexAVLayer.isTrackMatte,
+        trackMatteType: aexAVLayer.trackMatteType,
+    });
+
     _setLayerAttributes(layer, aexAVLayer, state);
+
+    /**
+     * @todo
+     *
+     * - masks
+     * - audio
+     * - timeRemap
+     * - effects
+     * - materialOption
+     * - geometryOption
+     * - layerStyles
+     */
 }
 
 function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
