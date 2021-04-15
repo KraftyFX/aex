@@ -137,7 +137,6 @@ interface AexLayerBase {
     inPoint: number;
     outPoint: number;
     startTime: number;
-    stretch: number;
     shy: boolean;
     solo: boolean;
 

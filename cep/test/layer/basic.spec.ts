@@ -15,7 +15,7 @@ import {
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Basic Layer Attributes', function () {
+describe('Basic Layer Attributes', function () {
     this.slow(500);
     this.timeout(2000);
 
@@ -147,17 +147,15 @@ describe.only('Basic Layer Attributes', function () {
             });
         });
 
-        it(`Can parse Layer blend mode & time stretch`, async () => {
+        it(`Can parse Layer blend mode`, async () => {
             assertAreEqual(comp.layers[5], {
                 blendingMode: 5216,
                 effects: [],
                 label: 1,
                 markers: [],
                 masks: [],
-                name: 'Blend Stretch',
-                outPoint: 1,
+                name: 'Blend Mode',
                 source: 'null 1:50',
-                stretch: 25,
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
@@ -537,7 +535,7 @@ describe.only('Basic Layer Attributes', function () {
         });
     });
 
-    describe.only('Set', async () => {
+    describe('Set', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -686,17 +684,15 @@ describe.only('Basic Layer Attributes', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set Layer blend mode & time stretch`, async () => {
+        it(`Can set Layer blend mode`, async () => {
             const layerData = {
                 blendingMode: 5216,
                 effects: [],
                 label: 1,
                 markers: [],
                 masks: [],
-                name: 'Blend Stretch',
-                outPoint: 1,
+                name: 'Blend Mode',
                 source: 'null 3:81',
-                stretch: 25,
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
