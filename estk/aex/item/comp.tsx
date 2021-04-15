@@ -35,22 +35,32 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
 }
 
 function createComp(aexComp: AexComp, state: AexState): void {
-    const comp = aeq.comp.create({
-        name: aexComp.name,
-        width: aexComp.width,
-        height: aexComp.height,
-        pixelAspect: aexComp.pixelAspect,
-        duration: aexComp.duration,
-        frameRate: aexComp.frameRate,
-    });
-
-    comp.openInViewer();
+    const comp = _createAEComp(aexComp);
 
     _setCompAttributes(comp, aexComp, state);
     _createCompMarkers(comp, aexComp.markers, state);
     createLayers(comp, aexComp.layers, state);
 
     state.stats.compCount++;
+}
+
+function _createAEComp(aexComp?: AexComp): CompItem {
+    let compSettings = aexComp
+        ? {
+              name: aexComp.name,
+              width: aexComp.width,
+              height: aexComp.height,
+              pixelAspect: aexComp.pixelAspect,
+              duration: aexComp.duration,
+              frameRate: aexComp.frameRate,
+          }
+        : undefined;
+
+    const comp = aeq.comp.create(compSettings);
+
+    comp.openInViewer();
+
+    return comp;
 }
 
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
