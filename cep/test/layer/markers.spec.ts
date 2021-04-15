@@ -141,7 +141,6 @@ describe('Layer Markers', function () {
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             comp = result.object;
-            console.log('set_layer_markers', comp);
         });
 
         it(`Can set simple layer markers`, async () => {
