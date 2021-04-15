@@ -25,13 +25,24 @@ function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexS
     const layer = comp.layers.addText();
     _setAVLayerAttributes(layer, aexTextLayer, state);
 
-    /**
-     * @todo
-     *
-     * - threeDPerChar
-     * - sourceText
-     * - pathOption
-     * - moreOption
-     * - animators
-     */
+    assignAttributes(layer, {
+        threeDPerChar: aexTextLayer.threeDPerChar,
+    });
+
+    const text = layer.text;
+    const animators = text.property('ADBE Text Animators') as PropertyGroup;
+
+    setProperty(text.sourceText, aexTextLayer.sourceText, state);
+
+    if (aexTextLayer.pathOption) {
+        setPropertyGroup(text.pathOption, aexTextLayer.pathOption, state);
+    }
+
+    if (aexTextLayer.moreOption) {
+        setPropertyGroup(text.moreOption, aexTextLayer.pathOption, state);
+    }
+
+    if (aexTextLayer.animators) {
+        setPropertyGroup(animators, aexTextLayer.animators, state);
+    }
 }
