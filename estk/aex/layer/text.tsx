@@ -1,5 +1,11 @@
 function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     const avLayerAttributes = getAVLayer(layer, state);
+
+    /**
+     * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
+     */
+    delete avLayerAttributes.collapseTransformation;
+
     const threeDPerChar = getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false);
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;

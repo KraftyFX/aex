@@ -58,7 +58,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Solo Text Layer',
-            collapseTransformation: true,
             sourceText: {
                 type: AEX_TEXTDOCUMENT_PROPERTY,
                 keys: [],
@@ -462,7 +461,6 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             masks: [],
             name: 'Matted Text Layer',
-            collapseTransformation: true,
             sourceText: {
                 type: AEX_TEXTDOCUMENT_PROPERTY,
                 keys: [],
