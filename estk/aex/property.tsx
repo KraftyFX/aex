@@ -24,6 +24,10 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
+    return getProperty(property, state);
+}
+
+function getProperty(property: Property, state: AexState): AexProperty {
     const aexProperty: AexProperty = {
         type: _getPropertyType(property),
         name: property.name,
