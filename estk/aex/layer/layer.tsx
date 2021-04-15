@@ -21,20 +21,24 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
 function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     state.stats.layerCount++;
 
-    let layer;
-
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:
+            createFootageLayer(comp, aexLayer as AexFootageLayer, state);
+            break;
         case AEX_SHAPE_LAYER:
+            createShapeLayer(comp, aexLayer as AexShapeLayer, state);
+            break;
         case AEX_TEXT_LAYER:
+            createTextLayer(comp, aexLayer as AexTextLayer, state);
+            break;
         case AEX_CAMERA_LAYER:
-            layer = createCameraLayer(comp, aexLayer as AexCameraLayer, state);
+            createCameraLayer(comp, aexLayer as AexCameraLayer, state);
             break;
         case AEX_LIGHT_LAYER:
-            layer = createLightLayer(comp, aexLayer as AexLightLayer, state);
+            createLightLayer(comp, aexLayer as AexLightLayer, state);
             break;
         case AEX_NULL_LAYER:
-            layer = createNullLayer(comp, aexLayer as AexNullLayer, state);
+            createNullLayer(comp, aexLayer as AexNullLayer, state);
             break;
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);

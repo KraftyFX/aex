@@ -8,6 +8,17 @@ function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     };
 }
 
+function createShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
+    const layer = comp.layers.addShape();
+    _setAVLayerAttributes(layer, aexShapeLayer, state);
+
+    /**
+     * @todo
+     *
+     * - contents
+     */
+}
+
 function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
     const vectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
 

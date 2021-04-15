@@ -19,7 +19,7 @@ function getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
     };
 }
 
-function createLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: AexState): LightLayer {
+function createLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: AexState) {
     const layer = comp.layers.addLight(aexLightLayer.name, [comp.width / 2, comp.height / 2]);
     _setLayerAttributes(layer, aexLightLayer, state);
 
@@ -28,6 +28,4 @@ function createLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: A
     if (aexLightLayer.lightOption) {
         setPropertyGroup(layer.lightOption, aexLightLayer.lightOption, state);
     }
-
-    return layer;
 }

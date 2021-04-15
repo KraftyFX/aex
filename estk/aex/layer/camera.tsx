@@ -17,7 +17,7 @@ function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
     };
 }
 
-function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState): CameraLayer {
+function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState) {
     const layer = comp.layers.addCamera(aexCameraLayer.name, _getCameraCenterPoint(comp, aexCameraLayer));
     _setLayerAttributes(layer, aexCameraLayer, state);
 
@@ -32,8 +32,6 @@ function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state
     if (aexCameraLayer.cameraOption) {
         setPropertyGroup(layer.cameraOption, aexCameraLayer.cameraOption, state);
     }
-
-    return layer;
 }
 
 function _getCameraCenterPoint(comp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {

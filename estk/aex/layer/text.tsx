@@ -14,3 +14,18 @@ function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
         animators: getPropertyGroup(animators, state),
     };
 }
+
+function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
+    const layer = comp.layers.addText();
+    _setAVLayerAttributes(layer, aexTextLayer, state);
+
+    /**
+     * @todo
+     *
+     * - threeDPerChar
+     * - sourceText
+     * - pathOption
+     * - moreOption
+     * - animators
+     */
+}
