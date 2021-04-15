@@ -31,6 +31,8 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
             layer = createCameraLayer(comp, aexLayer as AexCameraLayer, state);
             break;
         case AEX_LIGHT_LAYER:
+            layer = createLightLayer(comp, aexLayer as AexLightLayer, state);
+            break;
         case AEX_NULL_LAYER:
             layer = createNullLayer(comp, aexLayer as AexNullLayer, state);
             break;

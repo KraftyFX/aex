@@ -110,7 +110,15 @@ describe('Basic Layer Attributes', function () {
             markers: [],
             name: 'Timing Light',
             outPoint: 3.06667,
-            transform: {},
+            transform: {
+                position: {
+                    keys: [],
+                    matchName: 'ADBE Position',
+                    name: 'Position',
+                    type: AEX_THREED_PROPERTY,
+                    value: [600, 500, 400],
+                },
+            },
             type: AEX_LIGHT_LAYER,
         });
     });

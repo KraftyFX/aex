@@ -43,7 +43,15 @@ describe('Layer Transform', function () {
                 lightType: 4414,
                 markers: [],
                 name: 'Light',
-                transform: {},
+                transform: {
+                    position: {
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        type: AEX_THREED_PROPERTY,
+                        value: [693.33333, 306.66667, -444.44444],
+                    },
+                },
                 type: AEX_LIGHT_LAYER,
             },
             {
