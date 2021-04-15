@@ -280,292 +280,301 @@ describe('Layer Transform', function () {
     });
 
     describe('Set', async () => {
-        let project: any;
-
-        const projectData = {
-            comps: [
-                {
-                    layers: [
-                        {
-                            label: 4,
-                            markers: [],
-                            name: 'Camera',
-                            transform: {
-                                position: {
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    type: AEX_THREED_PROPERTY,
-                                    value: [640, 360, -1777.7778],
-                                },
-                            },
-                            type: AEX_CAMERA_LAYER,
-                        },
-                        {
-                            label: 6,
-                            lightType: 4414,
-                            markers: [],
-                            name: 'Light',
-                            transform: {
-                                position: {
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    type: AEX_THREED_PROPERTY,
-                                    value: [693.3333, 306.6667, -444.4444],
-                                },
-                            },
-                            type: AEX_LIGHT_LAYER,
-                        },
-                        {
-                            effects: [],
-                            label: 1,
-                            markers: [],
-                            masks: [],
-                            name: '3d AV Layer',
-                            source: 'null 2:16',
-                            threeDLayer: true,
-                            trackers: [],
-                            transform: {},
-                            type: AEX_NULL_LAYER,
-                        },
-                        {
-                            effects: [],
-                            label: 1,
-                            markers: [],
-                            masks: [],
-                            name: '2d AV Layer',
-                            source: 'null 1:14',
-                            trackers: [],
-                            transform: {},
-                            type: AEX_NULL_LAYER,
-                        },
-                    ],
-                    markers: [],
-                    name: 'Defaults',
-                    type: AEX_COMP_ITEM,
-                },
-                {
-                    layers: [
-                        {
-                            label: 4,
-                            markers: [],
-                            name: 'Camera',
-                            transform: {
-                                orientation: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Orientation',
-                                    name: 'Orientation',
-                                    value: [100, 200, 300],
-                                },
-                                pointOfInterest: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Point of Interest',
-                                    value: [11, 22, 33],
-                                },
-                                position: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, -3],
-                                },
-                                rotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 90,
-                                },
-                                xRotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate X',
-                                    name: 'X Rotation',
-                                    value: -90,
-                                },
-                                yRotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate Y',
-                                    name: 'Y Rotation',
-                                    value: -3600,
-                                },
-                            },
-                            type: AEX_CAMERA_LAYER,
-                        },
-                        {
-                            label: 6,
-                            lightType: 4414,
-                            markers: [],
-                            name: 'Light',
-                            transform: {
-                                position: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [100, 200, 300],
-                                },
-                            },
-                            type: AEX_LIGHT_LAYER,
-                        },
-                        {
-                            effects: [],
-                            label: 1,
-                            markers: [],
-                            masks: [],
-                            name: '3d AV Layer',
-                            threeDLayer: true,
-                            source: 'null 4:34',
-                            trackers: [],
-                            transform: {
-                                anchorPoint: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Anchor Point',
-                                    value: [11, 22, 33],
-                                },
-                                opacity: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Opacity',
-                                    name: 'Opacity',
-                                    value: 50,
-                                },
-                                orientation: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Orientation',
-                                    name: 'Orientation',
-                                    value: [100, 200, 300],
-                                },
-                                position: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, -3],
-                                },
-                                rotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Z Rotation',
-                                    value: 90,
-                                },
-                                scale: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Scale',
-                                    name: 'Scale',
-                                    value: [10, 20, 30],
-                                },
-                                xRotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate X',
-                                    name: 'X Rotation',
-                                    value: -90,
-                                },
-                                yRotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate Y',
-                                    name: 'Y Rotation',
-                                    value: -3600,
-                                },
-                            },
-                            type: AEX_NULL_LAYER,
-                        },
-                        {
-                            effects: [],
-                            label: 1,
-                            markers: [],
-                            masks: [],
-                            name: '2d AV Layer',
-                            source: 'null 3:32',
-                            trackers: [],
-                            transform: {
-                                anchorPoint: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Anchor Point',
-                                    name: 'Anchor Point',
-                                    value: [11, 22, 0],
-                                },
-                                opacity: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Opacity',
-                                    name: 'Opacity',
-                                    value: 50,
-                                },
-                                position: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Position',
-                                    name: 'Position',
-                                    value: [1, 2, 0],
-                                },
-                                rotation: {
-                                    type: AEX_ONED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Rotate Z',
-                                    name: 'Rotation',
-                                    value: 90,
-                                },
-                                scale: {
-                                    type: AEX_THREED_PROPERTY,
-                                    keys: [],
-                                    matchName: 'ADBE Scale',
-                                    name: 'Scale',
-                                    value: [10, 20, 100],
-                                },
-                            },
-                            type: AEX_NULL_LAYER,
-                        },
-                    ],
-                    markers: [],
-                    name: 'Modified',
-                    type: AEX_COMP_ITEM,
-                },
-            ],
-            items: [],
-            type: AEX_PROJECT,
-        };
-
         before(async () => {
             await openCleanProject();
-
-            await aex().fromAexObject(projectData);
-
-            const result = await aex().fromAeObject(AeObject.Project);
-            project = result.object;
         });
 
         it(`Can set default transform data`, async () => {
-            assertAreEqual(projectData.comps[0].layers, project.comps[0].layers);
+            const compData = {
+                layers: [
+                    {
+                        label: 4,
+                        markers: [],
+                        name: 'Camera',
+                        transform: {
+                            position: {
+                                keys: [],
+                                matchName: 'ADBE Position',
+                                name: 'Position',
+                                type: AEX_THREED_PROPERTY,
+                                value: [640, 360, -1777.7778],
+                            },
+                        },
+                        type: AEX_CAMERA_LAYER,
+                    },
+                    {
+                        label: 6,
+                        lightType: 4414,
+                        markers: [],
+                        name: 'Light',
+                        transform: {
+                            position: {
+                                keys: [],
+                                matchName: 'ADBE Position',
+                                name: 'Position',
+                                type: AEX_THREED_PROPERTY,
+                                value: [693.3333, 306.6667, -444.4444],
+                            },
+                        },
+                        type: AEX_LIGHT_LAYER,
+                    },
+                    {
+                        effects: [],
+                        label: 1,
+                        markers: [],
+                        masks: [],
+                        name: '3d AV Layer',
+                        source: 'null 2:16',
+                        threeDLayer: true,
+                        trackers: [],
+                        transform: {},
+                        type: AEX_NULL_LAYER,
+                    },
+                    {
+                        effects: [],
+                        label: 1,
+                        markers: [],
+                        masks: [],
+                        name: '2d AV Layer',
+                        source: 'null 1:14',
+                        trackers: [],
+                        transform: {},
+                        type: AEX_NULL_LAYER,
+                    },
+                ],
+                markers: [],
+                name: 'Defaults',
+                type: AEX_COMP_ITEM,
+            };
+
+            await aex().fromAexObject(compData);
+
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+
+            assertAreEqual(comp.layers, compData.layers);
         });
 
         it(`Can set modified 3d Camera data`, async () => {
-            assertAreEqual(projectData.comps[1].layers[0], project.comps[1].layers[0]);
+            const layerData = {
+                label: 4,
+                markers: [],
+                name: 'Camera',
+                transform: {
+                    orientation: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Orientation',
+                        name: 'Orientation',
+                        value: [100, 200, 300],
+                    },
+                    pointOfInterest: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Point of Interest',
+                        value: [11, 22, 33],
+                    },
+                    position: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, -3],
+                    },
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 90,
+                    },
+                    xRotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate X',
+                        name: 'X Rotation',
+                        value: -90,
+                    },
+                    yRotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate Y',
+                        name: 'Y Rotation',
+                        value: -3600,
+                    },
+                },
+                type: AEX_CAMERA_LAYER,
+            };
+
+            await aex().fromAexObject(layerData);
+
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+
+            assertAreEqual(comp.layers[0], layerData);
         });
 
         it(`Can set modified 3d LightLayer data`, async () => {
-            assertAreEqual(projectData.comps[1].layers[1], project.comps[1].layers[1]);
+            const layerData = {
+                label: 6,
+                lightType: 4414,
+                markers: [],
+                name: 'Light',
+                transform: {
+                    position: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [100, 200, 300],
+                    },
+                },
+                type: AEX_LIGHT_LAYER,
+            };
+
+            await aex().fromAexObject(layerData);
+
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+
+            assertAreEqual(comp.layers[0], layerData);
         });
 
         it(`Can set modified 3d AVLayer Null data`, async () => {
-            assertAreEqual(projectData.comps[1].layers[2], project.comps[1].layers[2]);
+            const layerData = {
+                effects: [],
+                label: 1,
+                markers: [],
+                masks: [],
+                name: '3d AV Layer',
+                threeDLayer: true,
+                source: 'null 3:58',
+                trackers: [],
+                transform: {
+                    anchorPoint: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Anchor Point',
+                        value: [11, 22, 33],
+                    },
+                    opacity: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Opacity',
+                        name: 'Opacity',
+                        value: 50,
+                    },
+                    orientation: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Orientation',
+                        name: 'Orientation',
+                        value: [100, 200, 300],
+                    },
+                    position: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, -3],
+                    },
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 90,
+                    },
+                    scale: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Scale',
+                        name: 'Scale',
+                        value: [10, 20, 30],
+                    },
+                    xRotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate X',
+                        name: 'X Rotation',
+                        value: -90,
+                    },
+                    yRotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate Y',
+                        name: 'Y Rotation',
+                        value: -3600,
+                    },
+                },
+                type: AEX_NULL_LAYER,
+            };
+
+            await aex().fromAexObject(layerData);
+
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+
+            assertAreEqual(comp.layers[0], layerData);
         });
 
         it(`Can set modified 2d AVLayer Null data`, async () => {
-            assertAreEqual(projectData.comps[1].layers[3], project.comps[1].layers[3]);
+            const layerData = {
+                effects: [],
+                label: 1,
+                markers: [],
+                masks: [],
+                name: '2d AV Layer',
+                source: 'null 4:72',
+                trackers: [],
+                transform: {
+                    anchorPoint: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Anchor Point',
+                        name: 'Anchor Point',
+                        value: [11, 22, 0],
+                    },
+                    opacity: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Opacity',
+                        name: 'Opacity',
+                        value: 50,
+                    },
+                    position: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        value: [1, 2, 0],
+                    },
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Rotation',
+                        value: 90,
+                    },
+                    scale: {
+                        type: AEX_THREED_PROPERTY,
+                        keys: [],
+                        matchName: 'ADBE Scale',
+                        name: 'Scale',
+                        value: [10, 20, 100],
+                    },
+                },
+                type: AEX_NULL_LAYER,
+            };
+
+            await aex().fromAexObject(layerData);
+
+            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const comp = result.object;
+
+            assertAreEqual(comp.layers[0], layerData);
         });
     });
 });

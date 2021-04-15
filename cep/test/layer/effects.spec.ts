@@ -1,12 +1,5 @@
 import { AeObject, aex } from '../aex';
-import {
-    AEX_COLOR_PROPERTY,
-    AEX_ONED_PROPERTY,
-    AEX_THREED_PROPERTY,
-    AEX_TWOD_PROPERTY,
-    AEX_CUSTOM_PROPERTY,
-    AEX_DROPDOWN_PROPERTY,
-} from '../constants';
+import { AEX_COLOR_PROPERTY, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, AEX_TWOD_PROPERTY, AEX_DROPDOWN_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
