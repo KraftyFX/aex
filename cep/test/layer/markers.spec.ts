@@ -23,16 +23,16 @@ describe('Layer Markers', function () {
     it('Can parse simple layer markers', async () => {
         assertAreEqual(comp.layers[0].markers, [
             {
-                time: 0.16667,
+                time: 0.1667,
             },
             {
-                time: 0.46667,
+                time: 0.4667,
             },
             {
-                time: 0.78333,
+                time: 0.7833,
             },
             {
-                time: 1.83333,
+                time: 1.8333,
             },
             {
                 time: 3.55,
@@ -44,20 +44,20 @@ describe('Layer Markers', function () {
         assertAreEqual(comp.layers[1].markers, [
             {
                 duration: 0.2,
-                time: 0.16667,
+                time: 0.1667,
             },
             {
                 comment: 'Some Comment',
                 duration: 1,
                 label: 4,
-                time: 0.46667,
+                time: 0.4667,
             },
             {
-                time: 0.78333,
+                time: 0.7833,
             },
             {
                 comment: 'banana',
-                time: 1.83333,
+                time: 1.8333,
             },
             {
                 duration: 0.33333,
