@@ -1,6 +1,11 @@
 function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     const avLayerAttributes = getAVLayer(layer, state);
 
+    /**
+     * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
+     */
+    delete avLayerAttributes.collapseTransformation;
+
     return {
         ...avLayerAttributes,
         type: AEX_SHAPE_LAYER,

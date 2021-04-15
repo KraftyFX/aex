@@ -28,7 +28,6 @@ describe('Shape Layers', function () {
 
     it(`Can parse default shape layers`, async () => {
         assertAreEqual(comp.layers[1], {
-            collapseTransformation: true,
             contents: [
                 {
                     matchName: 'ADBE Vector Group',
@@ -264,7 +263,6 @@ describe('Shape Layers', function () {
 
     it(`Can parse multiple shapes on one layer`, async () => {
         assertAreEqual(comp.layers[3], {
-            collapseTransformation: true,
             contents: [
                 {
                     contents: [
@@ -315,7 +313,6 @@ describe('Shape Layers', function () {
 
     it(`Can parse ungrouped shape items`, async () => {
         assertAreEqual(comp.layers[4], {
-            collapseTransformation: true,
             contents: [
                 {
                     matchName: 'ADBE Vector Shape - Rect',
