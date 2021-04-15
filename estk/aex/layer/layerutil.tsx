@@ -11,11 +11,11 @@ function getUnnestedPropertyGroup<T extends AexPropertyGroup = AexPropertyGroup>
 
     forEachPropertyInGroup(propertyGroup, (childPropertyGroup: PropertyGroup) => {
         const { name, matchName } = childPropertyGroup;
-        const enabled = getModifiedValue(childPropertyGroup.enabled, true);
+
         const aexGroup = {
             name,
             matchName,
-            enabled,
+            enabled: getModifiedValue(childPropertyGroup.enabled, true),
 
             properties: null,
         } as T;
