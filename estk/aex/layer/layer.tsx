@@ -125,6 +125,10 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
 }
 
 function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
+    if (aeq.isNullOrUndefined(aexTransform)) {
+        throw new Error(`${layer.name} missing AexTransform`);
+    }
+
     aeq.forEach(aexTransform, (xformPropertyName) => {
         const layerTransformProperty = layer[xformPropertyName];
         const aexTransformProperty = aexTransform[xformPropertyName];
