@@ -43,7 +43,7 @@ describe('Basic Layer Attributes', function () {
                     keys: [],
                     matchName: 'ADBE Position',
                     name: 'Position',
-                    type: 'aex:property:threed',
+                    type: AEX_THREED_PROPERTY,
                     value: [640, 360, -1777.77778],
                 },
             },
