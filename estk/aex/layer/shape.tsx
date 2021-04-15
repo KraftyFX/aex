@@ -4,6 +4,7 @@ function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     return {
         ...avLayerAttributes,
         type: AEX_SHAPE_LAYER,
+
         contents: _getContents(layer, state),
     };
 }
