@@ -47,33 +47,22 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 
 function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     const containingComp = layer.containingComp;
-
     const { name, label } = layer;
-
-    const comment = getModifiedValue(layer.comment, '');
-    const hasVideo = getModifiedValue(layer.hasVideo, true);
-    const inPoint = getModifiedValue(layer.inPoint, 0);
-    const outPoint = getModifiedValue(layer.outPoint, containingComp.duration);
-    const startTime = getModifiedValue(layer.startTime, 0);
-    const stretch = getModifiedValue(layer.stretch, 100);
-    const shy = getModifiedValue(layer.shy, false);
-    const solo = getModifiedValue(layer.solo, false);
-
-    const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
 
     return {
         name,
         label,
 
-        comment,
-        hasVideo,
-        inPoint,
-        outPoint,
-        startTime,
-        stretch,
-        shy,
-        solo,
-        parentLayerIndex,
+        comment: getModifiedValue(layer.comment, ''),
+        hasVideo: getModifiedValue(layer.hasVideo, true),
+        inPoint: getModifiedValue(layer.inPoint, 0),
+        outPoint: getModifiedValue(layer.outPoint, containingComp.duration),
+        startTime: getModifiedValue(layer.startTime, 0),
+        stretch: getModifiedValue(layer.stretch, 100),
+        shy: getModifiedValue(layer.shy, false),
+        solo: getModifiedValue(layer.solo, false),
+        parentLayerIndex: layer.parent ? layer.parent.index : undefined,
+
         markers: _getAexLayerMarkers(layer),
         transform: _getTransform(layer, state),
     };
@@ -101,28 +90,18 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
 function _getTransform(layer: Layer, state: AexState): AexTransform {
     const transformGroup = layer.transform;
 
-    const anchorPoint = getModifiedProperty(transformGroup.anchorPoint, state);
-    const position = getModifiedProperty(transformGroup.position, state);
-    const scale = getModifiedProperty(transformGroup.scale, state);
-    const opacity = getModifiedProperty(transformGroup.opacity, state);
-
-    // 3d & Camera properties
-    const pointOfInterest = getModifiedProperty(transformGroup.pointOfInterest, state);
-    const orientation = getModifiedProperty(transformGroup.orientation, state);
-    const xRotation = getModifiedProperty(transformGroup.xRotation, state);
-    const yRotation = getModifiedProperty(transformGroup.yRotation, state);
-    const rotation = _getZRotation(layer, transformGroup, state);
-
     return {
-        anchorPoint,
-        position,
-        scale,
-        rotation,
-        opacity,
-        pointOfInterest,
-        orientation,
-        xRotation,
-        yRotation,
+        anchorPoint: getModifiedProperty(transformGroup.anchorPoint, state),
+        position: getModifiedProperty(transformGroup.position, state),
+        scale: getModifiedProperty(transformGroup.scale, state),
+        opacity: getModifiedProperty(transformGroup.opacity, state),
+
+        // 3d & Camera properties
+        pointOfInterest: getModifiedProperty(transformGroup.pointOfInterest, state),
+        orientation: getModifiedProperty(transformGroup.orientation, state),
+        xRotation: getModifiedProperty(transformGroup.xRotation, state),
+        yRotation: getModifiedProperty(transformGroup.yRotation, state),
+        rotation: _getZRotation(layer, transformGroup, state),
     };
 }
 

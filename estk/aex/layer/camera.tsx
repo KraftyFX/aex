@@ -1,6 +1,5 @@
 function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
     const layerAttributes = getLayerAttributes(layer, state);
-    layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
 
     /**
      * Voodoo: Cameras don't have default positions when they're created,
@@ -13,6 +12,8 @@ function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
     return {
         ...layerAttributes,
         type: AEX_CAMERA_LAYER,
+
+        hasVideo: getModifiedValue(layer.hasVideo, false),
         cameraOption: getPropertyGroup(layer.cameraOption, state),
     };
 }

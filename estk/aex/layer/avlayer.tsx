@@ -1,62 +1,36 @@
 function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
     const layerAttributes = getLayerAttributes(layer, state);
 
-    const adjustmentLayer = getModifiedValue(layer.adjustmentLayer, false);
-    const audioEnabled = getModifiedValue(layer.audioEnabled, true);
-    const autoOrient = getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT);
-    const blendingMode = getModifiedValue(layer.blendingMode, BlendingMode.NORMAL);
-    const collapseTransformation = getModifiedValue(layer.collapseTransformation, false);
-    const effectsActive = getModifiedValue(layer.effectsActive, true);
-    const environmentLayer = getModifiedValue(layer.environmentLayer, false);
-    const frameBlendingType = getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND);
-    const guideLayer = getModifiedValue(layer.guideLayer, false);
-    const motionBlur = getModifiedValue(layer.motionBlur, false);
-    const preserveTransparency = getModifiedValue(layer.preserveTransparency, false);
-    const quality = getModifiedValue(layer.quality, LayerQuality.BEST);
-    const samplingQuality = getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR);
-    const threeDLayer = getModifiedValue(layer.threeDLayer, false);
-    const timeRemapEnabled = getModifiedValue(layer.timeRemapEnabled, false);
-    const isTrackMatte = getModifiedValue(layer.isTrackMatte, false);
-    const trackMatteType = getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE);
-
-    const audio = getPropertyGroup(layer.audio, state);
-    const timeRemap = getModifiedProperty(layer.timeRemap, state);
-    const effects = _getEffects(layer, state);
-    const materialOption = getPropertyGroup(layer.materialOption, state);
-    const geometryOption = getPropertyGroup(layer.geometryOption, state);
-
-    const layerStyles = getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined);
-
     return {
         ...layerAttributes,
         type: AEX_FOOTAGE_LAYER,
 
-        adjustmentLayer,
-        audioEnabled,
-        autoOrient,
-        blendingMode,
-        collapseTransformation,
-        effectsActive,
-        environmentLayer,
-        frameBlendingType,
-        guideLayer,
-        motionBlur,
-        preserveTransparency,
-        quality,
-        samplingQuality,
-        threeDLayer,
-        timeRemapEnabled,
-        isTrackMatte,
-        trackMatteType,
+        adjustmentLayer: getModifiedValue(layer.adjustmentLayer, false),
+        audioEnabled: getModifiedValue(layer.audioEnabled, true),
+        autoOrient: getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT),
+        blendingMode: getModifiedValue(layer.blendingMode, BlendingMode.NORMAL),
+        collapseTransformation: getModifiedValue(layer.collapseTransformation, false),
+        effectsActive: getModifiedValue(layer.effectsActive, true),
+        environmentLayer: getModifiedValue(layer.environmentLayer, false),
+        frameBlendingType: getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND),
+        guideLayer: getModifiedValue(layer.guideLayer, false),
+        motionBlur: getModifiedValue(layer.motionBlur, false),
+        preserveTransparency: getModifiedValue(layer.preserveTransparency, false),
+        quality: getModifiedValue(layer.quality, LayerQuality.BEST),
+        samplingQuality: getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR),
+        threeDLayer: getModifiedValue(layer.threeDLayer, false),
+        timeRemapEnabled: getModifiedValue(layer.timeRemapEnabled, false),
+        isTrackMatte: getModifiedValue(layer.isTrackMatte, false),
+        trackMatteType: getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
 
         masks: _getAexLayerMasks(layer, state),
-        audio,
-        timeRemap,
-        effects,
-        materialOption,
-        geometryOption,
+        audio: getPropertyGroup(layer.audio, state),
+        timeRemap: getModifiedProperty(layer.timeRemap, state),
+        effects: _getEffects(layer, state),
+        materialOption: getPropertyGroup(layer.materialOption, state),
+        geometryOption: getPropertyGroup(layer.geometryOption, state),
 
-        layerStyles,
+        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined),
     };
 }
 
@@ -116,14 +90,13 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
             const { name, matchName, enabled } = property;
 
             const propertyData = getPropertyGroup(property as PropertyGroup, state);
-            const properties = propertyData ? propertyData.properties : undefined;
 
             styles.properties.push({
                 name,
                 matchName,
                 enabled,
 
-                properties,
+                properties: propertyData ? propertyData.properties : undefined,
             });
         }
     });
@@ -141,29 +114,20 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
     forEachPropertyInGroup(layer.mask, (mask: MaskPropertyGroup) => {
         const { name, color } = mask;
 
-        const maskMode = getModifiedValue(mask.maskMode, MaskMode.ADD);
-        const inverted = getModifiedValue(mask.inverted, false);
-        const rotoBezier = getModifiedValue(mask.rotoBezier, false);
-        const maskMotionBlur = getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER);
-        const locked = getModifiedValue(mask.locked, false);
-
-        const maskPath = getModifiedProperty(mask.maskPath, state);
-        const maskFeather = getModifiedProperty(mask.maskFeather, state);
-        const maskOpacity = getModifiedProperty(mask.maskOpacity, state);
-        const maskExpansion = getModifiedProperty(mask.maskExpansion, state);
-
         masks.push({
             name,
             color,
-            maskMode,
-            inverted,
-            rotoBezier,
-            maskMotionBlur,
-            locked,
-            maskPath,
-            maskFeather,
-            maskOpacity,
-            maskExpansion,
+
+            maskMode: getModifiedValue(mask.maskMode, MaskMode.ADD),
+            inverted: getModifiedValue(mask.inverted, false),
+            rotoBezier: getModifiedValue(mask.rotoBezier, false),
+            maskMotionBlur: getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER),
+            locked: getModifiedValue(mask.locked, false),
+
+            maskPath: getModifiedProperty(mask.maskPath, state),
+            maskFeather: getModifiedProperty(mask.maskFeather, state),
+            maskOpacity: getModifiedProperty(mask.maskOpacity, state),
+            maskExpansion: getModifiedProperty(mask.maskExpansion, state),
         });
     });
 

@@ -1,7 +1,6 @@
 function getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
     const layerAttributes = getLayerAttributes(layer, state);
-    layerAttributes.hasVideo = getModifiedValue(layer.hasVideo, false);
-    const lightType = layer.lightType;
+    const { lightType } = layer;
 
     /**
      * Voodoo: Lights don't have default positions when they're created,
@@ -14,6 +13,8 @@ function getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
     return {
         ...layerAttributes,
         type: AEX_LIGHT_LAYER,
+
+        hasVideo: getModifiedValue(layer.hasVideo, false),
         lightType,
         lightOption: getPropertyGroup(layer.lightOption, state),
     };
