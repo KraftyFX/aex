@@ -25,48 +25,48 @@ describe('Comp Markers', function () {
             console.log('comp_markers', project);
         });
 
-        it(`Can parse detailed markers`, async () => {
+        it(`Can parse detailed comp markers`, async () => {
             assertAreEqual(project.comps[0].markers, [
                 {
                     duration: 0.2,
-                    time: 0.16666666666667,
+                    time: 0.16667,
                 },
                 {
                     comment: 'Some Comment',
                     duration: 1,
                     label: 4,
                     protectedRegion: true,
-                    time: 0.46666666666667,
+                    time: 0.46667,
                 },
                 {
                     label: 3,
-                    time: 0.78333333333333,
+                    time: 0.78333,
                 },
                 {
                     comment: 'banana',
-                    time: 1.83333333333333,
+                    time: 1.83333,
                 },
                 {
-                    duration: 0.33333333333333,
+                    duration: 0.33333,
                     protectedRegion: true,
                     time: 3.55,
                 },
             ]);
         });
 
-        it(`Can parse simple markers`, async () => {
+        it(`Can parse simple comp markers`, async () => {
             assertAreEqual(project.comps[1].markers, [
                 {
-                    time: 0.16666666666667,
+                    time: 0.16667,
                 },
                 {
-                    time: 0.46666666666667,
+                    time: 0.46667,
                 },
                 {
-                    time: 0.78333333333333,
+                    time: 0.78333,
                 },
                 {
-                    time: 1.83333333333333,
+                    time: 1.83333,
                 },
                 {
                     time: 3.55,
@@ -90,25 +90,25 @@ describe('Comp Markers', function () {
                     markers: [
                         {
                             duration: 0.2,
-                            time: 0.16666666666667,
+                            time: 0.16667,
                         },
                         {
                             comment: 'Some Comment',
                             duration: 1,
                             label: 4,
                             protectedRegion: true,
-                            time: 0.46666666666667,
+                            time: 0.46667,
                         },
                         {
                             label: 3,
-                            time: 0.78333333333333,
+                            time: 0.78333,
                         },
                         {
                             comment: 'banana',
-                            time: 1.83333333333333,
+                            time: 1.83333,
                         },
                         {
-                            duration: 0.33333333333333,
+                            duration: 0.33333,
                             protectedRegion: true,
                             time: 3.55,
                         },
@@ -127,16 +127,16 @@ describe('Comp Markers', function () {
                     layers: [],
                     markers: [
                         {
-                            time: 0.16666666666667,
+                            time: 0.16667,
                         },
                         {
-                            time: 0.46666666666667,
+                            time: 0.46667,
                         },
                         {
-                            time: 0.78333333333333,
+                            time: 0.78333,
                         },
                         {
-                            time: 1.83333333333333,
+                            time: 1.83333,
                         },
                         {
                             time: 3.55,

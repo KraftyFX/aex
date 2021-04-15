@@ -20,19 +20,19 @@ describe('Layer Markers', function () {
         await cleanupAex();
     });
 
-    it('Can parse simple markers', async () => {
+    it('Can parse simple layer markers', async () => {
         assertAreEqual(comp.layers[0].markers, [
             {
-                time: 0.16666666666667,
+                time: 0.16667,
             },
             {
-                time: 0.46666666666667,
+                time: 0.46667,
             },
             {
-                time: 0.78333333333333,
+                time: 0.78333,
             },
             {
-                time: 1.83333333333333,
+                time: 1.83333,
             },
             {
                 time: 3.55,
@@ -40,27 +40,27 @@ describe('Layer Markers', function () {
         ]);
     });
 
-    it('Can parse complicated markers', async () => {
+    it('Can parse complicated layer markers', async () => {
         assertAreEqual(comp.layers[1].markers, [
             {
                 duration: 0.2,
-                time: 0.16666666666667,
+                time: 0.16667,
             },
             {
                 comment: 'Some Comment',
                 duration: 1,
                 label: 4,
-                time: 0.46666666666667,
+                time: 0.46667,
             },
             {
-                time: 0.78333333333333,
+                time: 0.78333,
             },
             {
                 comment: 'banana',
-                time: 1.83333333333333,
+                time: 1.83333,
             },
             {
-                duration: 0.33333333333333,
+                duration: 0.33333,
                 label: 8,
                 time: 3.55,
             },
