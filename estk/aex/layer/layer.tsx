@@ -39,8 +39,6 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
-
-    _setLayerAttributes(layer, aexLayer, state);
 }
 
 function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {

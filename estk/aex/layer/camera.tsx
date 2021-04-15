@@ -18,8 +18,8 @@ function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
 }
 
 function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState): CameraLayer {
-    const name = aexCameraLayer.name;
-    const layer = comp.layers.addCamera(name, _getCameraCenterPoint(comp, aexCameraLayer));
+    const layer = comp.layers.addCamera(aexCameraLayer.name, _getCameraCenterPoint(comp, aexCameraLayer));
+    _setLayerAttributes(layer, aexCameraLayer, state);
 
     const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
 

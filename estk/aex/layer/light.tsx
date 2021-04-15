@@ -20,8 +20,9 @@ function getLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
 }
 
 function createLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: AexState): LightLayer {
-    const name = aexLightLayer.name;
-    const layer = comp.layers.addLight(name, [comp.width / 2, comp.height / 2]);
+    const layer = comp.layers.addLight(aexLightLayer.name, [comp.width / 2, comp.height / 2]);
+    _setLayerAttributes(layer, aexLightLayer, state);
+
     layer.lightType = aexLightLayer.lightType;
 
     if (aexLightLayer.lightOption) {

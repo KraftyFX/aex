@@ -60,6 +60,10 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
     };
 }
 
+function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexState): void {
+    _setLayerAttributes(layer, aexAVLayer, state);
+}
+
 function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     const styles = {
         name: styleGroup.name,
