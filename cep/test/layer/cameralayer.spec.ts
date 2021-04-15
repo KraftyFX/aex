@@ -100,7 +100,7 @@ describe('Camera Layer Attributes', function () {
                     keys: [],
                     matchName: 'ADBE Iris Highlight Threshold',
                     name: 'Highlight Threshold',
-                    value: 0.03921568627451,
+                    value: 0.03922,
                 },
                 {
                     type: AEX_ONED_PROPERTY,

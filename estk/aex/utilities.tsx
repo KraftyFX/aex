@@ -177,3 +177,7 @@ function forEachPropertyKeyValue<T>(property: Property, callback: ForEachPropert
         callback(keyValue as T, ii - 1, il);
     }
 }
+
+function roundNumber(value: number, precision = 5): number {
+    return parseFloat(value.toFixed(precision));
+}

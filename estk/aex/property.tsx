@@ -41,11 +41,7 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
     if (isUnreadable) {
         return getUnsupportedProperty(property, aexProperty, state);
     } else {
-        if (isTextDocument(property)) {
-            aexProperty.value = getTextDocumentProperties(property.value);
-        } else {
-            aexProperty.value = property.value;
-        }
+        aexProperty.value = _getPropertyValue(property, property.value);
     }
 
     state.stats.propertyCount++;
@@ -60,6 +56,17 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
         return !property.canSetExpression;
     } else {
         return !property.isModified;
+    }
+}
+
+/** @todo Add types here */
+function _getPropertyValue(property: Property, value: any): any {
+    if (isTextDocument(property)) {
+        return getTextDocumentProperties(value);
+    } else if (typeof value === 'number') {
+        return roundNumber(value);
+    } else {
+        return value;
     }
 }
 
@@ -105,11 +112,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
         if (!isUnreadable) {
             const keyInfo = key.getKeyInfo();
 
-            if (isTextDocument(property)) {
-                aexKey.value = getTextDocumentProperties(keyInfo.value);
-            } else {
-                aexKey.value = keyInfo.value;
-            }
+            aexKey.value = _getPropertyValue(property, keyInfo.value);
 
             const keyInterpolationType = keyInfo.interpolationType;
             aexKey.interpolationType = {
