@@ -65,7 +65,7 @@ describe('Layer Markers', function () {
                     time: 1.8333,
                 },
                 {
-                    duration: 0.33333,
+                    duration: 0.3333,
                     label: 8,
                     time: 3.55,
                 },
@@ -121,7 +121,7 @@ describe('Layer Markers', function () {
                             time: 1.8333,
                         },
                         {
-                            duration: 0.33333,
+                            duration: 0.3333,
                             label: 8,
                             time: 3.55,
                         },

@@ -47,7 +47,7 @@ describe('Comp Markers', function () {
                     time: 1.8333,
                 },
                 {
-                    duration: 0.33333,
+                    duration: 0.3333,
                     protectedRegion: true,
                     time: 3.55,
                 },
@@ -108,7 +108,7 @@ describe('Comp Markers', function () {
                             time: 1.8333,
                         },
                         {
-                            duration: 0.33333,
+                            duration: 0.3333,
                             protectedRegion: true,
                             time: 3.55,
                         },

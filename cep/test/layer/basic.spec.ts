@@ -44,7 +44,7 @@ describe('Basic Layer Attributes', function () {
                     matchName: 'ADBE Position',
                     name: 'Position',
                     type: AEX_THREED_PROPERTY,
-                    value: [640, 360, -1777.77778],
+                    value: [640, 360, -1777.7778],
                 },
             },
             type: AEX_CAMERA_LAYER,
@@ -66,7 +66,7 @@ describe('Basic Layer Attributes', function () {
                 name: 'Source Text',
                 value: {
                     applyFill: true,
-                    baselineLocs: [-115.33203, 0, 115.33203, 0],
+                    baselineLocs: [-115.332, 0, 115.332, 0],
                     baselineShift: 0,
                     fillColor: [1, 1, 1],
                     font: 'ArialMT',
@@ -109,7 +109,7 @@ describe('Basic Layer Attributes', function () {
             lightType: 4414,
             markers: [],
             name: 'Timing Light',
-            outPoint: 3.06667,
+            outPoint: 3.0667,
             transform: {
                 position: {
                     keys: [],
@@ -470,7 +470,7 @@ describe('Basic Layer Attributes', function () {
                 name: 'Source Text',
                 value: {
                     applyFill: true,
-                    baselineLocs: [-198.25439, 0, 198.25439, 0],
+                    baselineLocs: [-198.2544, 0, 198.2544, 0],
                     baselineShift: 0,
                     fillColor: [1, 1, 1],
                     font: 'ArialMT',

@@ -338,7 +338,7 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
 
     forEachPropertyKeyValue<MarkerValue>(markerProperty, (keyValue, i) => {
         markerData.push({
-            time: roundNumber(markerProperty.keyTime(i + 1), 4), // key indicies are 1-based
+            time: roundNumber(markerProperty.keyTime(i + 1)), // key indicies are 1-based
             comment: getModifiedValue(keyValue.comment, ''),
             chapter: getModifiedValue(keyValue.chapter, ''),
             url: getModifiedValue(keyValue.url, ''),
