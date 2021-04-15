@@ -187,7 +187,6 @@ describe('Basic Layer Attributes', function () {
 
         it(`Can parse 3d layers`, async () => {
             assertAreEqual(comp.layers[7], {
-                collapseTransformation: true,
                 contents: [],
                 effects: [],
                 geometryOption: {
@@ -738,7 +737,6 @@ describe('Basic Layer Attributes', function () {
 
         it(`Can set 3d layers`, async () => {
             const layerData = {
-                collapseTransformation: true,
                 contents: [],
                 effects: [],
                 geometryOption: {
