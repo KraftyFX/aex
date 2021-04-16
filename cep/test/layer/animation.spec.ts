@@ -133,7 +133,6 @@ describe('Layer Animation', function () {
             type: AEX_ONED_PROPERTY,
             keys: [
                 {
-                    interpolationType: {},
                     temporalEase: {
                         inEase: [
                             {
@@ -152,7 +151,6 @@ describe('Layer Animation', function () {
                     value: 0,
                 },
                 {
-                    interpolationType: {},
                     temporalEase: {
                         inEase: [
                             {
@@ -253,7 +251,6 @@ describe('Layer Animation', function () {
                     value: 50,
                 },
                 {
-                    interpolationType: {},
                     temporalEase: {
                         inEase: [
                             {

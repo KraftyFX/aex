@@ -190,7 +190,6 @@ describe('Layer Masks', function () {
             type: AEX_SHAPE_PROPERTY,
             keys: [
                 {
-                    interpolationType: {},
                     temporalEase: {
                         inEase: [{ influence: 16.666666667, speed: 0 }],
                         outEase: [{ influence: 16.666666667, speed: 1 }],
@@ -244,7 +243,6 @@ describe('Layer Masks', function () {
                     },
                 },
                 {
-                    interpolationType: {},
                     temporalEase: {
                         inEase: [{ influence: 16.666666667, speed: 1 }],
                         outEase: [{ influence: 16.666666667, speed: 0 }],
