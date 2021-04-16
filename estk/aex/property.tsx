@@ -273,13 +273,6 @@ function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexS
                 property.setTemporalEaseAtKey(keyIndex, inEase, outEase);
             }
 
-            if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
-                const inType = aeq.setDefault(aexKey.interpolationType.inType, KeyframeInterpolationType.LINEAR);
-                const outType = aeq.setDefault(aexKey.interpolationType.outType, KeyframeInterpolationType.LINEAR);
-
-                property.setInterpolationTypeAtKey(keyIndex, inType, outType);
-            }
-
             if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
                 property.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
                 property.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
@@ -292,6 +285,16 @@ function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexS
                 property.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
                 property.setRovingAtKey(keyIndex, aexKey.roving);
             }
+
+            let inType = KeyframeInterpolationType.LINEAR;
+            let outType = KeyframeInterpolationType.LINEAR;
+
+            if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
+                inType = aeq.setDefault(aexKey.interpolationType.inType, inType);
+                outType = aeq.setDefault(aexKey.interpolationType.outType, outType);
+            }
+
+            property.setInterpolationTypeAtKey(keyIndex, inType, outType);
         });
     }
 }
