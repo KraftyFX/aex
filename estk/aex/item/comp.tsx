@@ -45,22 +45,34 @@ function createComp(aexComp: AexComp, state: AexState): void {
 }
 
 function _createAEComp(aexComp?: AexComp): CompItem {
-    let compSettings = aexComp
-        ? {
-              name: aexComp.name,
-              width: aexComp.width,
-              height: aexComp.height,
-              pixelAspect: aexComp.pixelAspect,
-              duration: aexComp.duration,
-              frameRate: aexComp.frameRate,
-          }
-        : undefined;
+    let compSettings: any;
+
+    if (!aeq.isNullOrUndefined(aexComp)) {
+        assignAttributes(compSettings, {
+            name: aexComp.name,
+            width: aexComp.width,
+            height: aexComp.height,
+            pixelAspect: aexComp.pixelAspect,
+            duration: aexComp.duration,
+            frameRate: aexComp.frameRate,
+        });
+    }
 
     const comp = aeq.comp.create(compSettings);
 
     comp.openInViewer();
 
     return comp;
+}
+
+function getOrCreateAEComp(source: AexFootageSource): CompItem {
+    const existingComp = getItemFromSource(source);
+
+    if (existingComp) {
+        return existingComp as CompItem;
+    } else {
+        return _createAEComp();
+    }
 }
 
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {

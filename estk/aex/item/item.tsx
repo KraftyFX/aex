@@ -17,9 +17,9 @@ function createItem(aexItem: AexItem, state: AexState): void {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
-            return _createFootageItem(aexItem as AexFootageItem, state);
+            _createFootageItem(aexItem as AexFootageItem, state);
         case AEX_FOLDER_ITEM:
-            return _createFolderItem(aexItem, state);
+            _createFolderItem(aexItem, state);
         default:
             throw new Error(`Unrecognized Item Type ${aexItem.type}`);
     }
@@ -81,6 +81,31 @@ function _setParentFolders(item: Item, aexFolders: string[], state: AexState): v
 function generateItemUID(item: Item): string {
     if (!!item) {
         return `${item.name.toLowerCase()}:${item.id}`;
+    } else {
+        return undefined;
+    }
+}
+
+function getItemById(id: AexUID): Item {
+    const items = aeq.getItems().filter((item) => {
+        return !aeq.isFolderItem(item);
+    });
+
+    return items.find((item) => {
+        const idSplit = id.split(':');
+
+        const nameMatch = item.name === idSplit[0];
+        const idMatch = item.id === parseInt(idSplit[1], 10);
+
+        return nameMatch && idMatch;
+    });
+}
+
+function getItemFromSource(source: AexFootageSource): AVItem {
+    const existingItem = getItemById(source.id);
+
+    if (existingItem && getItemType(existingItem) === source.type) {
+        return existingItem as AVItem;
     } else {
         return undefined;
     }
