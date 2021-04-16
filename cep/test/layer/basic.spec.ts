@@ -11,6 +11,7 @@ import {
     AEX_THREED_PROPERTY,
     AEX_TWOD_PROPERTY,
     AEX_COMP_ITEM,
+    AEX_SOLID_ITEM,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -100,7 +101,10 @@ describe('Basic Layer Attributes', function () {
                 masks: [],
                 name: 'Empty',
                 transform: {},
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [],
                 type: AEX_NULL_LAYER,
             });
@@ -140,7 +144,10 @@ describe('Basic Layer Attributes', function () {
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
@@ -155,7 +162,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Blend Mode',
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
@@ -170,7 +180,10 @@ describe('Basic Layer Attributes', function () {
                 masks: [],
                 name: 'Parented Solid',
                 parentLayerIndex: 5,
-                source: 'parented solid:61',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'parented solid:61',
+                },
                 trackers: [],
                 transform: {
                     position: {
@@ -328,7 +341,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'TR Enabled',
-                source: 'precomp:65',
+                source: {
+                    type: AEX_COMP_ITEM,
+                    id: 'precomp:65',
+                },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
                     keys: [
@@ -389,7 +405,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'TR Remapped',
-                source: 'precomp:65',
+                source: {
+                    type: AEX_COMP_ITEM,
+                    id: 'precomp:65',
+                },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
                     keys: [
@@ -451,7 +470,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Matte Solid',
-                source: 'parented solid:61',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'parented solid:61',
+                },
                 trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
@@ -499,7 +521,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Trackers',
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [
                     {
                         name: 'Tracker 1',
@@ -615,7 +640,10 @@ describe('Basic Layer Attributes', function () {
                 masks: [],
                 name: 'Empty',
                 transform: {},
-                source: 'null 1:40',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:40',
+                },
                 trackers: [],
                 type: AEX_NULL_LAYER,
             };
@@ -669,7 +697,10 @@ describe('Basic Layer Attributes', function () {
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                source: 'null 2:67',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 2:67',
+                },
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
@@ -691,7 +722,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Blend Mode',
-                source: 'null 3:81',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 3:81',
+                },
                 trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
@@ -713,7 +747,10 @@ describe('Basic Layer Attributes', function () {
                 masks: [],
                 name: 'Parented Solid',
                 parentLayerIndex: 5,
-                source: 'parented solid:61',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'parented solid:61',
+                },
                 trackers: [],
                 transform: {
                     position: {
@@ -885,7 +922,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'TR Enabled',
-                source: 'precomp:65',
+                source: {
+                    type: AEX_COMP_ITEM,
+                    id: 'precomp:65',
+                },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
                     keys: [
@@ -953,7 +993,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'TR Remapped',
-                source: 'precomp:65',
+                source: {
+                    type: AEX_COMP_ITEM,
+                    id: 'precomp:65',
+                },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
                     keys: [
@@ -1024,7 +1067,10 @@ describe('Basic Layer Attributes', function () {
                         markers: [],
                         masks: [],
                         name: 'Matte Solid',
-                        source: 'parented solid:61',
+                        source: {
+                            type: AEX_SOLID_ITEM,
+                            id: 'parented solid:61',
+                        },
                         trackers: [],
                         transform: {},
                         type: AEX_FOOTAGE_LAYER,
@@ -1083,7 +1129,10 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Trackers',
-                source: 'null 4:157',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 4:157',
+                },
                 trackers: [
                     {
                         name: 'Tracker 1',

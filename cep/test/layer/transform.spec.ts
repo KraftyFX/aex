@@ -1,5 +1,14 @@
 import { AeObject, aex } from '../aex';
-import { AEX_CAMERA_LAYER, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_PROJECT, AEX_THREED_PROPERTY } from '../constants';
+import {
+    AEX_CAMERA_LAYER,
+    AEX_COMP_ITEM,
+    AEX_LIGHT_LAYER,
+    AEX_NULL_LAYER,
+    AEX_ONED_PROPERTY,
+    AEX_PROJECT,
+    AEX_SOLID_ITEM,
+    AEX_THREED_PROPERTY,
+} from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -64,7 +73,10 @@ describe('Layer Transform', function () {
                     markers: [],
                     masks: [],
                     name: '3d AV Layer',
-                    source: 'null 1:50',
+                    source: {
+                        type: AEX_SOLID_ITEM,
+                        id: 'null 1:50',
+                    },
                     threeDLayer: true,
                     trackers: [],
                     transform: {},
@@ -76,7 +88,10 @@ describe('Layer Transform', function () {
                     markers: [],
                     masks: [],
                     name: '2d AV Layer',
-                    source: 'null 1:50',
+                    source: {
+                        type: AEX_SOLID_ITEM,
+                        id: 'null 1:50',
+                    },
                     trackers: [],
                     transform: {},
                     type: AEX_NULL_LAYER,
@@ -164,7 +179,10 @@ describe('Layer Transform', function () {
                 masks: [],
                 name: '3d AV Layer',
                 threeDLayer: true,
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [],
                 transform: {
                     anchorPoint: {
@@ -235,7 +253,10 @@ describe('Layer Transform', function () {
                 markers: [],
                 masks: [],
                 name: '2d AV Layer',
-                source: 'null 1:50',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 1:50',
+                },
                 trackers: [],
                 transform: {
                     anchorPoint: {
@@ -324,7 +345,10 @@ describe('Layer Transform', function () {
                         markers: [],
                         masks: [],
                         name: '3d AV Layer',
-                        source: 'null 2:16',
+                        source: {
+                            type: AEX_SOLID_ITEM,
+                            id: 'null 2:16',
+                        },
                         threeDLayer: true,
                         trackers: [],
                         transform: {},
@@ -336,7 +360,10 @@ describe('Layer Transform', function () {
                         markers: [],
                         masks: [],
                         name: '2d AV Layer',
-                        source: 'null 1:14',
+                        source: {
+                            type: AEX_SOLID_ITEM,
+                            id: 'null 1:14',
+                        },
                         trackers: [],
                         transform: {},
                         type: AEX_NULL_LAYER,
@@ -449,7 +476,10 @@ describe('Layer Transform', function () {
                 masks: [],
                 name: '3d AV Layer',
                 threeDLayer: true,
-                source: 'null 3:58',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 3:58',
+                },
                 trackers: [],
                 transform: {
                     anchorPoint: {
@@ -527,7 +557,10 @@ describe('Layer Transform', function () {
                 markers: [],
                 masks: [],
                 name: '2d AV Layer',
-                source: 'null 4:72',
+                source: {
+                    type: AEX_SOLID_ITEM,
+                    id: 'null 4:72',
+                },
                 trackers: [],
                 transform: {
                     anchorPoint: {
