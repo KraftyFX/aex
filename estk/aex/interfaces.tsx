@@ -191,6 +191,7 @@ interface AexFootageLayer extends AexAVLayerBase, AexObject {
 }
 
 interface AexFootageSource extends AexObject {
+    type: AexAvItemType;
     id: AexUID;
 }
 

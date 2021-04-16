@@ -85,3 +85,23 @@ function generateItemUID(item: Item): string {
         return undefined;
     }
 }
+
+function getItemType(item: Item): AexItemType {
+    if (aeq.isComp(item)) {
+        return AEX_COMP_ITEM;
+    } else if (aeq.isFootageItem(item)) {
+        const mainSource = item.mainSource;
+
+        if (sourceIsFile(mainSource)) {
+            return AEX_FILE_FOOTAGE_ITEM;
+        } else if (sourceIsSolid(mainSource)) {
+            return AEX_SOLID_ITEM;
+        } else if (sourceIsPlaceholder(mainSource)) {
+            return AEX_PLACEHOLDER_ITEM;
+        }
+    } else if (aeq.isFolderItem(item)) {
+        return AEX_FOLDER_ITEM;
+    } else {
+        throw new Error(`Unrecognized Item Type`);
+    }
+}
