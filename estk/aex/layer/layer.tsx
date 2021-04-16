@@ -83,12 +83,12 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
         startTime: aexLayer.startTime,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
-        parentLayerIndex: aexLayer.parentLayerIndex,
     });
 
     if (!aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
         const parentIndex = aexLayer.parentLayerIndex;
         const comp = layer.containingComp;
+
         if (comp.numLayers < parentIndex) {
             throw new Error(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
         }
@@ -96,6 +96,8 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
         if (layer.index === parentIndex) {
             throw new Error(`Can't set layer parent to self.`);
         }
+
+        layer.parent = comp.layer(parentIndex);
     }
 
     _createLayerMarkers(layer, aexLayer.markers, state);

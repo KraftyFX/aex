@@ -561,7 +561,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe.skip('Set', async () => {
+    describe('Set', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -743,36 +743,48 @@ describe('Basic Layer Attributes', function () {
         });
 
         it(`Can set parented layers`, async () => {
-            const layerData = {
-                effects: [],
-                label: 1,
-                markers: [],
-                masks: [],
-                name: 'Parented Solid',
-                parentLayerIndex: 5,
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'parented solid:61',
-                },
-                trackers: [],
-                transform: {
-                    position: {
-                        type: AEX_THREED_PROPERTY,
-                        keys: [],
-                        matchName: 'ADBE Position',
-                        name: 'Position',
-                        value: [0, 0, 0],
+            const compData = {
+                layers: [
+                    {
+                        effects: [],
+                        label: 1,
+                        markers: [],
+                        masks: [],
+                        name: 'Parented Solid',
+                        parentLayerIndex: 2,
+                        source: {
+                            type: AEX_SOLID_ITEM,
+                            id: 'new solid:108',
+                        },
+                        trackers: [],
+                        transform: {
+                            position: {
+                                type: AEX_THREED_PROPERTY,
+                                keys: [],
+                                matchName: 'ADBE Position',
+                                name: 'Position',
+                                value: [0, 0, 0],
+                            },
+                        },
+                        type: AEX_FOOTAGE_LAYER,
                     },
-                },
-                type: AEX_FOOTAGE_LAYER,
+                    {
+                        markers: [],
+                        name: '_Parent Layer',
+                        transform: {},
+                        type: AEX_CAMERA_LAYER,
+                    },
+                ],
+                markers: [],
+                type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().fromAexObject(compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(comp.layers[0], compData.layers[0]);
         });
 
         it(`Can set 3d layers`, async () => {
