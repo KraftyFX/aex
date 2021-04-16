@@ -87,13 +87,16 @@ function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): 
         motionBlurSamplesPerFrame: aexComp.motionBlurSamplesPerFrame,
         preserveNestedFrameRate: aexComp.preserveNestedFrameRate,
         preserveNestedResolution: aexComp.preserveNestedResolution,
-        renderer: aexComp.renderer,
         resolutionFactor: aexComp.resolutionFactor,
         shutterAngle: aexComp.shutterAngle,
         shutterPhase: aexComp.shutterPhase,
         workAreaDuration: aexComp.workAreaDuration,
         workAreaStart: aexComp.workAreaStart,
     });
+
+    if (aexComp.renderer) {
+        setCompRenderer(comp, aexComp.renderer);
+    }
 }
 
 function _getAexCompLayers(comp: CompItem, state: AexState) {
