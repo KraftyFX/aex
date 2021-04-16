@@ -13,17 +13,19 @@ function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
 function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
     const aexSource = aexFootageLayer.source;
 
-    let sourceItem: AVItem;
+    let sourceItem = getItemFromSource(aexSource);
 
-    if (aexSource.type === AEX_COMP_ITEM) {
-        sourceItem = _createAEComp(undefined, state);
-    } else {
-        sourceItem = _createFootageItem(
-            {
-                type: aexSource.type,
-            } as AexFootageItem,
-            state
-        );
+    if (!sourceItem) {
+        if (aexSource.type === AEX_COMP_ITEM) {
+            sourceItem = _createAEComp(undefined, state);
+        } else {
+            sourceItem = _createFootageItem(
+                {
+                    type: aexSource.type,
+                } as AexFootageItem,
+                state
+            );
+        }
     }
 
     const layer = comp.layers.add(sourceItem);
