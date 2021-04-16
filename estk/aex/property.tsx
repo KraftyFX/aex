@@ -114,7 +114,20 @@ function _createAexValue(property: Property, aexObjValue: any, state: AexState):
     if (isTextDocument(property)) {
         aexValue = _createTextDocument(property.value, aexObjValue, state);
     } else {
-        aexValue = aexObjValue;
+        let propertyValue = aexObjValue;
+
+        /**
+         * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
+         */
+        if (property.matchName === 'ADBE Time Remapping') {
+            const propLayer = property.propertyGroup(property.propertyDepth) as AVLayer;
+            const propSource = propLayer.source as AVItem;
+            const propDuration = propSource.duration;
+
+            propertyValue = aexObjValue * propDuration;
+        }
+
+        aexValue = propertyValue;
     }
 
     return aexValue;
