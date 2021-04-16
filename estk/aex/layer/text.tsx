@@ -22,7 +22,15 @@ function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
 }
 
 function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
-    const layer = comp.layers.addText();
+    let layer: TextLayer;
+
+    if (aexTextLayer.sourceText.value.pointText) {
+        layer = comp.layers.addText();
+    } else {
+        const boxSize = aexTextLayer.sourceText.value.boxTextSize;
+        layer = comp.layers.addBoxText(boxSize);
+    }
+
     _setAVLayerAttributes(layer, aexTextLayer, state);
 
     assignAttributes(layer, {

@@ -66,11 +66,10 @@ function setProperty(property: Property, aexProperty: AexProperty, state: AexSta
         property.name = aexProperty.name;
     }
 
-    if (aexProperty.keys.length > 0) {
-        _setPropertyKeys(property, aexProperty.keys, state);
-    } else {
-        property.setValue(aexProperty.value);
-    }
+    let aexValue = _createAexValue(property, aexProperty, state);
+    property.setValue(aexValue);
+
+    _setPropertyKeys(property, aexProperty.keys, state);
 
     state.stats.propertyCount++;
 }
@@ -89,10 +88,22 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
 /** @todo Add types here */
 function _getPropertyValue(property: Property, value: any): any {
     if (isTextDocument(property)) {
-        return getTextDocumentProperties(value);
+        return _getTextDocumentProperties(value);
     } else {
         return getRoundedValue(value);
     }
+}
+
+function _createAexValue(property: Property, aexProperty: AexProperty, state: AexState): any {
+    let aexValue: any;
+
+    if (isTextDocument(property)) {
+        aexValue = _createTextDocument(property.value, aexProperty.value, state);
+    } else {
+        aexValue = aexProperty.value;
+    }
+
+    return aexValue;
 }
 
 function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
@@ -186,7 +197,44 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
 }
 
 function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexState): void {
-    throw new Error('_setPropertyKeys not implemented');
+    const keys = aeq.arrayEx(aexKeys) as AEQArrayEx<AEQKeyInfo>;
+
+    const times = [];
+    const values = [];
+
+    keys.forEach((aexKey) => {
+        times.push(aexKey.time);
+
+        const aexValue = _createAexValue(property, aexKey.value, state);
+        values.push(aexValue);
+    });
+
+    if (keys.length > 0) {
+        property.setValuesAtTimes(times, values);
+
+        keys.forEach((aexKey, ii) => {
+            if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {
+                property.setTemporalEaseAtKey(ii, aexKey.temporalEase[0], aexKey.temporalEase[1]);
+            }
+
+            if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
+                property.setInterpolationTypeAtKey(ii, aexKey.interpolationType[0], aexKey.interpolationType[1]);
+            }
+
+            if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
+                property.setTemporalAutoBezierAtKey(ii, aexKey.temporalAutoBezier);
+                property.setTemporalContinuousAtKey(ii, aexKey.temporalContinuous);
+            }
+
+            if (!aeq.isNullOrUndefined(aexKey.spatialAutoBezier) && !aeq.isNullOrUndefined(aexKey.spatialContinuous)) {
+                property.setSpatialAutoBezierAtKey(ii, aexKey.spatialAutoBezier);
+                property.setSpatialContinuousAtKey(ii, aexKey.spatialContinuous);
+
+                property.setSpatialTangentsAtKey(ii, aexKey.spatialTangent[0], aexKey.spatialTangent[1]);
+                property.setRovingAtKey(ii, aexKey.roving);
+            }
+        });
+    }
 }
 
 function isUnreadableProperty(property: Property<UnknownPropertyType>) {
@@ -296,7 +344,7 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
     });
 }
 
-function getTextDocumentProperties(text: TextDocument): AexTextDocument {
+function _getTextDocumentProperties(text: TextDocument): AexTextDocument {
     const { pointText } = text;
 
     return {
@@ -330,6 +378,62 @@ function getTextDocumentProperties(text: TextDocument): AexTextDocument {
         tsume: getModifiedValue(text.tsume, -1),
         verticalScale: getModifiedValue(text.verticalScale, -1),
     };
+}
+
+function _createTextDocument(textDoc: TextDocument, aexTextDocument: AexTextDocument, state: AexState): TextDocument {
+    textDoc.resetCharStyle();
+
+    /**
+     * These properties are read & serialized, but can't be deserialized:
+     *
+     * textDoc.allCaps = aexTextDocument.allCaps;
+     * textDoc.boxTextPos = aexTextDocument.boxTextPos;
+     * textDoc.fauxBold = aexTextDocument.fauxBold;
+     * textDoc.fauxItalic = aexTextDocument.fauxItalic;
+     * textDoc.fontFamily = aexTextDocument.fontFamily;
+     * textDoc.fontStyle = aexTextDocument.fontStyle;
+     * textDoc.horizontalScale = aexTextDocument.horizontalScale;
+     * textDoc.smallCaps = aexTextDocument.smallCaps;
+     * textDoc.subscript = aexTextDocument.subscript;
+     * textDoc.superscript = aexTextDocument.superscript;
+     * textDoc.tsume = aexTextDocument.tsume;
+     * textDoc.verticalScale = aexTextDocument.verticalScale;
+     * textDoc.baselineLocs = aexTextDocument.baselineLocs;
+     * textDoc.baselineShift = aexTextDocument.baselineShift;
+     */
+    assignAttributes(textDoc, {
+        font: aexTextDocument.font,
+        fontSize: aexTextDocument.fontSize,
+        justification: aexTextDocument.justification,
+        leading: aexTextDocument.leading,
+        text: aexTextDocument.text,
+        tracking: aexTextDocument.tracking,
+    });
+
+    /** If not pointText, then we're using boxText */
+    if (!aexTextDocument.pointText) {
+        assignAttributes(textDoc, {
+            boxTextSize: aexTextDocument.boxTextSize,
+        });
+    }
+
+    if (!aeq.isNullOrUndefined(aexTextDocument.applyFill)) {
+        assignAttributes(textDoc, {
+            applyFill: aexTextDocument.applyFill,
+            fillColor: aexTextDocument.fillColor,
+        });
+    }
+
+    if (!aeq.isNullOrUndefined(aexTextDocument.applyStroke)) {
+        assignAttributes(textDoc, {
+            applyStroke: aexTextDocument.applyStroke,
+            strokeColor: aexTextDocument.strokeColor,
+            strokeOverFill: aexTextDocument.strokeOverFill,
+            strokeWidth: aexTextDocument.strokeWidth,
+        });
+    }
+
+    return textDoc;
 }
 
 function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerProperty[] {
