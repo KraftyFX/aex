@@ -24,5 +24,9 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
 function _getTrackers(layer: AVLayer, state: AexState) {
     const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
 
-    return getUnnestedPropertyGroup(trackers, null, state);
+    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
+        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
+    };
+
+    return getTopLevelPropertyGroups(trackers, fillProperties);
 }
