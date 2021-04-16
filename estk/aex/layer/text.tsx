@@ -24,11 +24,13 @@ function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
 function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
     let layer: TextLayer;
 
+    const textValue = aexTextLayer.sourceText.value.text;
+
     if (aexTextLayer.sourceText.value.pointText) {
-        layer = comp.layers.addText();
+        layer = comp.layers.addText(textValue);
     } else {
         const boxSize = aexTextLayer.sourceText.value.boxTextSize;
-        layer = comp.layers.addBoxText(boxSize);
+        layer = comp.layers.addBoxText(boxSize, textValue);
     }
 
     _setAVLayerAttributes(layer, aexTextLayer, state);
