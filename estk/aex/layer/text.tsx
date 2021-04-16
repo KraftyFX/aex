@@ -49,7 +49,7 @@ function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexS
     }
 
     if (aexTextLayer.moreOption) {
-        setPropertyGroup(text.moreOption, aexTextLayer.pathOption, state);
+        setPropertyGroup(text.moreOption, aexTextLayer.moreOption, state);
     }
 
     if (aexTextLayer.animators) {
