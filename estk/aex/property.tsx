@@ -56,7 +56,12 @@ function setProperty(property: Property, aexProperty: AexProperty, state: AexSta
     }
 
     let aexValue = _createAexValue(property, aexProperty, state);
-    property.setValue(aexValue);
+
+    try {
+        property.setValue(aexValue);
+    } catch (e) {
+        throw e;
+    }
 
     _setPropertyKeys(property, aexProperty.keys, state);
 
