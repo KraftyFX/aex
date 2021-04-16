@@ -55,14 +55,8 @@ function setProperty(property: Property, aexProperty: AexProperty, state: AexSta
         property.name = aexProperty.name;
     }
 
-    let aexValue = _createAexValue(property, aexProperty, state);
-
-    try {
-        property.setValue(aexValue);
-    } catch (e) {
-        throw e;
-    }
-
+    let aexValue = _createAexValue(property, aexProperty.value, state);
+    _setPropertyValue(property, aexValue, state);
     _setPropertyKeys(property, aexProperty.keys, state);
 
     state.stats.propertyCount++;
@@ -101,13 +95,26 @@ function _getPropertyValue(property: Property, value: any): any {
     }
 }
 
-function _createAexValue(property: Property, aexProperty: AexProperty, state: AexState): any {
+/** We can't setValue on an animated property, so back out */
+function _setPropertyValue(property: Property, value: any, state: AexState) {
+    if (property.numKeys > 0) {
+        return;
+    }
+
+    try {
+        property.setValue(value);
+    } catch (e) {
+        throw e;
+    }
+}
+
+function _createAexValue(property: Property, aexObjValue: any, state: AexState): any {
     let aexValue: any;
 
     if (isTextDocument(property)) {
-        aexValue = _createTextDocument(property.value, aexProperty.value, state);
+        aexValue = _createTextDocument(property.value, aexObjValue, state);
     } else {
-        aexValue = aexProperty.value;
+        aexValue = aexObjValue;
     }
 
     return aexValue;
