@@ -18,8 +18,10 @@ function createItem(aexItem: AexItem, state: AexState): void {
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
             _createFootageItem(aexItem as AexFootageItem, state);
+            break;
         case AEX_FOLDER_ITEM:
             _createFolderItem(aexItem, state);
+            break;
         default:
             throw new Error(`Unrecognized Item Type ${aexItem.type}`);
     }
