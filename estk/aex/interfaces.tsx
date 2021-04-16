@@ -225,7 +225,7 @@ interface AexDropdownProperty extends AexProperty {
 }
 
 interface AexPropertyGroup extends AexPropertyBase {
-    properties: (AexProperty | AexPropertyGroup)[];
+    properties: AexPropertyBase[];
 }
 
 interface AexShapePropertyGroup extends AexPropertyGroup {
