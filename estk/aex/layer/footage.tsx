@@ -46,7 +46,7 @@ function _getTrackers(layer: AVLayer, state: AexState) {
 function _getFootageSource(layer: AVLayer): AexFootageSource {
     const source = layer.source as AVItem;
 
-    let type = _getItemType(source) as AexAvItemType;
+    let type = getItemType(source) as AexAvItemType;
 
     return {
         id: generateItemUID(layer.source),
