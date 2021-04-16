@@ -57,6 +57,13 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
 
     _setLayerAttributes(avLayer, aexAVLayer, state);
 
+    if (aexAVLayer.timeRemap) {
+        avLayer.timeRemapEnabled = true;
+        avLayer.timeRemap.removeKey(1);
+
+        setProperty(avLayer.timeRemap, aexAVLayer.timeRemap, state);
+    }
+
     if (aexAVLayer.geometryOption) {
         /**
          * geometryOption only exists if the comp renderer is "Cinema 4D" ("ADBE Ernst")
@@ -81,7 +88,6 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
      *
      * - masks
      * - audio
-     * - timeRemap
      * - effects
      * - layerStyles
      */
