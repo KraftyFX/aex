@@ -142,10 +142,17 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
             aexKey.value = _getPropertyValue(property, keyInfo.value);
 
             const keyInterpolationType = keyInfo.interpolationType;
-            aexKey.interpolationType = {
-                inType: getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR),
-                outType: getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR),
-            };
+            const inInterpolationType = getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR);
+            const outInterpolationType = getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR);
+
+            if (aeq.isNullOrUndefined(inInterpolationType) && aeq.isNullOrUndefined(outInterpolationType)) {
+                aexKey.interpolationType = undefined;
+            } else {
+                aexKey.interpolationType = {
+                    inType: inInterpolationType,
+                    outType: outInterpolationType,
+                };
+            }
 
             const keyTemporalEase = keyInfo.temporalEase;
             aexKey.temporalEase = keyTemporalEase

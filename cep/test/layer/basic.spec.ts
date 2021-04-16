@@ -350,7 +350,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -369,7 +368,6 @@ describe('Basic Layer Attributes', function () {
                             value: 0,
                         },
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -414,7 +412,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -433,7 +430,6 @@ describe('Basic Layer Attributes', function () {
                             value: 0,
                         },
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -933,7 +929,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -952,7 +947,6 @@ describe('Basic Layer Attributes', function () {
                             value: 0,
                         },
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -1004,7 +998,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {
@@ -1023,7 +1016,6 @@ describe('Basic Layer Attributes', function () {
                             value: 0,
                         },
                         {
-                            interpolationType: {},
                             temporalEase: {
                                 inEase: [
                                     {

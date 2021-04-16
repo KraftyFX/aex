@@ -357,7 +357,6 @@ describe('Layer Effects', function () {
                                                                 {
                                                                     value: [15, 14],
                                                                     time: 0,
-                                                                    interpolationType: {},
                                                                     temporalEase: {
                                                                         inEase: [
                                                                             {
@@ -381,7 +380,6 @@ describe('Layer Effects', function () {
                                                                 {
                                                                     value: [15, 254],
                                                                     time: 1.625,
-                                                                    interpolationType: {},
                                                                     temporalEase: {
                                                                         inEase: [
                                                                             {

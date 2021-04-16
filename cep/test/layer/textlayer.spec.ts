@@ -263,7 +263,6 @@ describe('Text Layer Attributes', function () {
                                             {
                                                 value: 0,
                                                 time: 0,
-                                                interpolationType: {},
                                                 temporalEase: {
                                                     inEase: [
                                                         {
@@ -282,7 +281,6 @@ describe('Text Layer Attributes', function () {
                                             {
                                                 value: 100,
                                                 time: 2,
-                                                interpolationType: {},
                                                 temporalEase: {
                                                     inEase: [
                                                         {
