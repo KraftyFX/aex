@@ -155,30 +155,45 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
             }
 
             const keyTemporalEase = keyInfo.temporalEase;
-            aexKey.temporalEase = keyTemporalEase
-                ? {
-                      inEase: getModifiedValue(keyTemporalEase.inEase, [
-                          {
-                              influence: 16.666666667,
-                              speed: 0,
-                          } as KeyframeEase,
-                      ]),
-                      outEase: getModifiedValue(keyTemporalEase.outEase, [
-                          {
-                              influence: 16.666666667,
-                              speed: 0,
-                          } as KeyframeEase,
-                      ]),
-                  }
-                : undefined;
+            if (!aeq.isNullOrUndefined(keyTemporalEase)) {
+                const inTemporalEase = getModifiedValue(keyTemporalEase.inEase, [
+                    {
+                        influence: 16.666666667,
+                        speed: 0,
+                    } as KeyframeEase,
+                ]);
+                const outTemporalEase = getModifiedValue(keyTemporalEase.outEase, [
+                    {
+                        influence: 16.666666667,
+                        speed: 0,
+                    } as KeyframeEase,
+                ]);
+
+                if (aeq.isNullOrUndefined(inTemporalEase) && aeq.isNullOrUndefined(outTemporalEase)) {
+                    aexKey.temporalEase = undefined;
+                } else {
+                    aexKey.temporalEase = {
+                        inEase: inTemporalEase,
+                        outEase: outTemporalEase,
+                    };
+                }
+            }
 
             const keySpatialTangent = keyInfo.spatialTangent;
-            aexKey.spatialTangent = keySpatialTangent
-                ? {
-                      inTangent: getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]),
-                      outTangent: getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]),
-                  }
-                : undefined;
+
+            if (!aeq.isNullOrUndefined(keySpatialTangent)) {
+                const inSpatialTangent = getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]);
+                const outSpatialTangent = getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]);
+
+                if (aeq.isNullOrUndefined(inSpatialTangent) && aeq.isNullOrUndefined(outSpatialTangent)) {
+                    aexKey.spatialTangent = undefined;
+                } else {
+                    aexKey.spatialTangent = {
+                        inTangent: inSpatialTangent,
+                        outTangent: outSpatialTangent,
+                    };
+                }
+            }
 
             aexKey.temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
             aexKey.temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
