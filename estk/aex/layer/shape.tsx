@@ -26,13 +26,35 @@ function createShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: A
 }
 
 function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
-    const vectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
+    const rootVectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
 
-    const onGroup: OnShapeGroupCallback = (propertyGroup, aexPropertyGroup) => {
-        if (isVectorGroup(propertyGroup)) {
-            aexPropertyGroup.contents = getVectorsGroup(propertyGroup, onGroup, state);
+    const fillGroup = (propertyGroup: PropertyGroup, aexPropertyGroup: AexShapePropertyGroup) => {
+        /**
+         * When we find a vector group we want to serialize all of its properties normally
+         * except the vectors group contents so we can clean them up and promote them to the
+         * `contents` property.
+         */
+        if (_isVectorGroup(propertyGroup)) {
+            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state, _isVectorsGroup)?.properties;
+            aexPropertyGroup.contents = _getVectorsGroupContents(propertyGroup, fillGroup);
+        } else {
+            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
         }
     };
 
-    return getUnnestedPropertyGroup(vectorsGroups, onGroup, state);
+    return getTopLevelPropertyGroups(rootVectorsGroups, fillGroup);
+}
+
+function _isVectorGroup(propertyGroup: Property | PropertyGroup) {
+    return propertyGroup.matchName === 'ADBE Vector Group';
+}
+
+function _isVectorsGroup(property: Property | PropertyGroup) {
+    return property.matchName === 'ADBE Vectors Group';
+}
+
+function _getVectorsGroupContents(propertyGroup: PropertyGroup, fillVectorContents: FillShapeCallback) {
+    const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
+
+    return getTopLevelPropertyGroups(vectorsGroup, fillVectorContents);
 }

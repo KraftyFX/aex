@@ -13,17 +13,6 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    /**
-     * Voodoo: Effect Properties can be nested in the Effects UI,
-     * though these 'groups' appear flat when iterating through them.
-     *
-     * We need to skip these properties, as their types are NO_VALUE and will
-     * otherwise be treated as errors.
-     */
-    if (isEffectPropertyGroup(property)) {
-        return undefined;
-    }
-
     return getProperty(property, state);
 }
 
@@ -226,15 +215,14 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
     }
 }
 
-function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPropertyGroup {
-    const aexProperties: (AexProperty | AexPropertyGroup)[] = [];
+function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
+    skip = skip || (() => false);
+
+    const aexProperties: PropertyBase[] = [];
 
     forEachPropertyInGroup(propertyGroup, (property) => {
-        /**
-         * Voodoo: We're handling this property in _getFlatPropertyGroup; skip it here.
-         */
-        if (_isVectorsGroup(property)) {
-            return undefined;
+        if (skip(property)) {
+            return;
         }
 
         let aexProperty;
@@ -242,7 +230,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
         if (property.propertyType == PropertyType.PROPERTY) {
             aexProperty = getModifiedProperty(property as any, state);
         } else {
-            aexProperty = getPropertyGroup(property as PropertyGroup, state);
+            aexProperty = getPropertyGroup(property as PropertyGroup, state, skip);
         }
 
         /**
@@ -285,7 +273,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState): AexPro
 }
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
-    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexProperty | AexPropertyGroup) => {
+    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexPropertyBase) => {
         const property = propertyGroup.property(aexProperty.matchName);
 
         if (property.propertyType == PropertyType.PROPERTY) {
@@ -391,60 +379,4 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
     const parameters = keyValue.getParameters();
 
     return parameters.toSource() === '({})' ? undefined : parameters;
-}
-
-function isDropdownEffect(effect: PropertyGroup, state: AexState): boolean {
-    if (effect.isEffect) {
-        const dropdownProperty = effect.property(1) as Property;
-
-        return dropdownProperty.isDropdownEffect;
-    } else {
-        return false;
-    }
-}
-
-function getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdownProperty {
-    const dropdownProperty = effect.property(1) as Property;
-    let propertyData = getModifiedProperty(dropdownProperty as OneDProperty, state) as AexDropdownProperty;
-
-    if (aeq.isNullOrUndefined(propertyData)) {
-        propertyData = {} as AexDropdownProperty;
-    }
-
-    propertyData.items = _getDropdownPropertyItems(dropdownProperty, state);
-    propertyData.type = AEX_DROPDOWN_PROPERTY;
-
-    return {
-        ...propertyData,
-        items: _getDropdownPropertyItems(dropdownProperty, state),
-    };
-}
-
-function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState): string[] {
-    const propertyItems: string[] = [];
-
-    /**
-     * @todo Replace this with an actual API call when it exists
-     *
-     * Be sure to check AE version and keep this approach for older AE versions.
-     */
-    for (let ii = 0, il = dropdownProperty.maxValue; ii < il; ii++) {
-        propertyItems.push(`Item ${ii + 1}`);
-    }
-
-    return propertyItems;
-}
-
-function isVectorGroup(propertyGroup: Property | PropertyGroup) {
-    return propertyGroup.matchName === 'ADBE Vector Group';
-}
-
-function _isVectorsGroup(property: Property | PropertyGroup) {
-    return property.matchName === 'ADBE Vectors Group';
-}
-
-function getVectorsGroup(propertyGroup: PropertyGroup, onGroup: OnShapeGroupCallback, state: AexState) {
-    const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
-
-    return getUnnestedPropertyGroup(vectorsGroup, onGroup, state);
 }

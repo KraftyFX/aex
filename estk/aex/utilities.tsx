@@ -169,17 +169,11 @@ function isFootageLayer(layer: Layer): layer is AVLayer {
     return aeq.isAVLayer(layer);
 }
 
-function isEffectPropertyGroup(property: Property): boolean {
-    const { propertyDepth, propertyValueType } = property;
+type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: number) => void;
 
-    return propertyValueType === PropertyValueType.NO_VALUE && propertyDepth > 2 && property.propertyGroup(propertyDepth - 2).isEffect;
-}
-
-type ForEachPropertyGroupCallback<T> = (property: Property | T, i: number, length: number) => void;
-
-function forEachPropertyInGroup<T extends PropertyGroup = PropertyGroup>(group: PropertyGroup, callback: ForEachPropertyGroupCallback<T>) {
+function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback) {
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
-        const property = group.property(ii) as Property | T;
+        const property = group.property(ii) as PropertyBase;
 
         callback(property, ii - 1, il);
     }
