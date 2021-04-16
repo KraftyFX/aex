@@ -451,6 +451,10 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
 }
 
 function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState): void {
+    if (aeq.isNullOrUndefined(aexMarkers)) {
+        return;
+    }
+
     const markers = aeq.arrayEx();
 
     aeq.forEach(aexMarkers, (aexMarker) => {

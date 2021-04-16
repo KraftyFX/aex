@@ -124,7 +124,7 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
 
 function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
     if (aeq.isNullOrUndefined(aexTransform)) {
-        throw new Error(`${layer.name} missing AexTransform`);
+        return;
     }
 
     aeq.forEach(aexTransform, (xformPropertyName) => {
@@ -154,9 +154,5 @@ function _getAexLayerMarkers(layer: Layer) {
 }
 
 function _createLayerMarkers(layer: Layer, aexMarkers: AexMarkerProperty[], state: AexState) {
-    if (aeq.isNullOrUndefined(aexMarkers)) {
-        throw new Error(`${layer.name} missing AexMarkers`);
-    }
-
     createMarkers(layer.marker, aexMarkers, state);
 }

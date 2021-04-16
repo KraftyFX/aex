@@ -136,10 +136,6 @@ function _getAexCompMarkers(comp: CompItem) {
 }
 
 function _createCompMarkers(comp: CompItem, aexMarkers: AexMarkerProperty[], state: AexState) {
-    if (aeq.isNullOrUndefined(aexMarkers)) {
-        throw new Error(`${comp.name} missing AexMarkers`);
-    }
-
     createMarkers(comp.markerProperty, aexMarkers, state);
 }
 
