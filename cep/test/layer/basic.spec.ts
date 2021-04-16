@@ -561,7 +561,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe.skip('Set', async () => {
         before(async () => {
             await openCleanProject();
         });
