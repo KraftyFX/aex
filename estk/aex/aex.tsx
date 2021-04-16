@@ -92,6 +92,14 @@ function aexToAe(aexObj: AexObject, options: AexOptions): void {
         case AEX_COMP_ITEM:
             createComp(aexObj as AexComp, state);
             break;
+        case AEX_FOOTAGE_LAYER:
+        case AEX_SHAPE_LAYER:
+        case AEX_LIGHT_LAYER:
+        case AEX_CAMERA_LAYER:
+        case AEX_NULL_LAYER:
+        case AEX_TEXT_LAYER:
+            createLayer(undefined, aexObj as AexLayer, state);
+            break;
         default:
             throw new Error(`AEX Object Type "${aexObj.type}" is not spported.`);
     }

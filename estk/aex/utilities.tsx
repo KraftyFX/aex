@@ -51,6 +51,23 @@ function _isEqual(a: any, b: any): boolean {
     }
 }
 
+function _isNumberArray(array: any[]): boolean {
+    return aeq.arrayEx(array).every((element) => {
+        return typeof element === 'number';
+    });
+}
+
+/** @todo Add types here */
+function getRoundedValue(value: any): any {
+    if (typeof value === 'number') {
+        return roundNumber(value);
+    } else if (value instanceof Array && _isNumberArray(value)) {
+        return roundArray(value);
+    } else {
+        return value;
+    }
+}
+
 /**
  * Gets the value of a property if it's different than the internal AE
  * default. This is useful b/c it helps keep the serialized objects
@@ -66,7 +83,7 @@ function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
         return undefined;
     }
 
-    return _isEqual(value, aeDefaultValue) ? undefined : value;
+    return _isEqual(value, aeDefaultValue) ? undefined : getRoundedValue(value);
 }
 
 /**
@@ -178,12 +195,12 @@ function forEachPropertyKeyValue<T>(property: Property, callback: ForEachPropert
     }
 }
 
-function roundNumber(value: number, precision = 5): number {
+function roundNumber(value: number, precision = 4): number {
     return parseFloat(value.toFixed(precision));
 }
 
-function roundArray(values: number[], precision = 5): number[] {
+function roundArray(values: number[], precision = 4): number[] {
     return aeq.arrayEx(values).map((value) => {
-        return parseFloat(value.toFixed(precision));
+        return roundNumber(value, precision);
     });
 }

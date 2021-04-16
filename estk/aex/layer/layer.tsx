@@ -21,30 +21,38 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
 function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     state.stats.layerCount++;
 
-    let layer;
+    /** Supports creating a layer without targeting a comp */
+    if (aeq.isNullOrUndefined(comp)) {
+        comp = _createAEComp();
+    }
 
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:
+            createFootageLayer(comp, aexLayer as AexFootageLayer, state);
+            break;
         case AEX_SHAPE_LAYER:
-        case AEX_TEXT_LAYER:
-        case AEX_CAMERA_LAYER:
-            layer = createCameraLayer(comp, aexLayer as AexCameraLayer, state);
+            createShapeLayer(comp, aexLayer as AexShapeLayer, state);
             break;
         case AEX_LIGHT_LAYER:
+            createLightLayer(comp, aexLayer as AexLightLayer, state);
+            break;
+        case AEX_CAMERA_LAYER:
+            createCameraLayer(comp, aexLayer as AexCameraLayer, state);
+            break;
         case AEX_NULL_LAYER:
+            createNullLayer(comp, aexLayer as AexNullLayer, state);
+            break;
+        case AEX_TEXT_LAYER:
+            createTextLayer(comp, aexLayer as AexTextLayer, state);
+            break;
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
-
-    _setLayerAttributes(layer, aexLayer, state);
 }
 
 function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     const containingComp = layer.containingComp;
-
     const { name, label } = layer;
-
-    const parentLayerIndex = layer.parent ? layer.parent.index : undefined;
 
     return {
         name,
@@ -55,10 +63,10 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         inPoint: getModifiedValue(layer.inPoint, 0),
         outPoint: getModifiedValue(layer.outPoint, containingComp.duration),
         startTime: getModifiedValue(layer.startTime, 0),
-        stretch: getModifiedValue(layer.stretch, 100),
         shy: getModifiedValue(layer.shy, false),
         solo: getModifiedValue(layer.solo, false),
-        parentLayerIndex,
+        parentLayerIndex: layer.parent ? layer.parent.index : undefined,
+
         markers: _getAexLayerMarkers(layer),
         transform: _getTransform(layer, state),
     };
@@ -66,13 +74,13 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
 
 function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState): void {
     assignAttributes(layer, {
+        name: aexLayer.name,
         label: aexLayer.label,
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,
         inPoint: aexLayer.inPoint,
         outPoint: aexLayer.outPoint,
         startTime: aexLayer.startTime,
-        stretch: aexLayer.stretch,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
         parentLayerIndex: aexLayer.parentLayerIndex,
@@ -101,6 +109,10 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
 }
 
 function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
+    if (aeq.isNullOrUndefined(aexTransform)) {
+        throw new Error(`${layer.name} missing AexTransform`);
+    }
+
     aeq.forEach(aexTransform, (xformPropertyName) => {
         const layerTransformProperty = layer[xformPropertyName];
         const aexTransformProperty = aexTransform[xformPropertyName];
@@ -128,5 +140,9 @@ function _getAexLayerMarkers(layer: Layer) {
 }
 
 function _createLayerMarkers(layer: Layer, aexMarkers: AexMarkerProperty[], state: AexState) {
+    if (aeq.isNullOrUndefined(aexMarkers)) {
+        throw new Error(`${layer.name} missing AexMarkers`);
+    }
+
     createMarkers(layer.marker, aexMarkers, state);
 }

@@ -90,12 +90,8 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
 function _getPropertyValue(property: Property, value: any): any {
     if (isTextDocument(property)) {
         return getTextDocumentProperties(value);
-    } else if (typeof value === 'number') {
-        return roundNumber(value);
-    } else if (value instanceof Array) {
-        return roundArray(value);
     } else {
-        return value;
+        return getRoundedValue(value);
     }
 }
 
@@ -342,7 +338,7 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
 
     forEachPropertyKeyValue<MarkerValue>(markerProperty, (keyValue, i) => {
         markerData.push({
-            time: markerProperty.keyTime(i + 1), // key indicies are 1-based
+            time: roundNumber(markerProperty.keyTime(i + 1)), // key indicies are 1-based
             comment: getModifiedValue(keyValue.comment, ''),
             chapter: getModifiedValue(keyValue.chapter, ''),
             url: getModifiedValue(keyValue.url, ''),

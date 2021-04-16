@@ -22,15 +22,52 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
         timeRemapEnabled: getModifiedValue(layer.timeRemapEnabled, false),
         isTrackMatte: getModifiedValue(layer.isTrackMatte, false),
         trackMatteType: getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
+
+        masks: _getAexLayerMasks(layer, state),
         audio: getPropertyGroup(layer.audio, state),
         timeRemap: getModifiedProperty(layer.timeRemap, state),
         effects: _getEffects(layer, state),
         materialOption: getPropertyGroup(layer.materialOption, state),
         geometryOption: getPropertyGroup(layer.geometryOption, state),
-        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined),
 
-        masks: _getAexLayerMasks(layer, state),
+        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined),
     };
+}
+
+function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexState): void {
+    assignAttributes(layer, {
+        adjustmentLayer: aexAVLayer.adjustmentLayer,
+        audioEnabled: aexAVLayer.audioEnabled,
+        autoOrient: aexAVLayer.autoOrient,
+        blendingMode: aexAVLayer.blendingMode,
+        collapseTransformation: aexAVLayer.collapseTransformation,
+        effectsActive: aexAVLayer.effectsActive,
+        environmentLayer: aexAVLayer.environmentLayer,
+        frameBlendingType: aexAVLayer.frameBlendingType,
+        guideLayer: aexAVLayer.guideLayer,
+        motionBlur: aexAVLayer.motionBlur,
+        preserveTransparency: aexAVLayer.preserveTransparency,
+        quality: aexAVLayer.quality,
+        samplingQuality: aexAVLayer.samplingQuality,
+        threeDLayer: aexAVLayer.threeDLayer,
+        timeRemapEnabled: aexAVLayer.timeRemapEnabled,
+        isTrackMatte: aexAVLayer.isTrackMatte,
+        trackMatteType: aexAVLayer.trackMatteType,
+    });
+
+    _setLayerAttributes(layer, aexAVLayer, state);
+
+    /**
+     * @todo
+     *
+     * - masks
+     * - audio
+     * - timeRemap
+     * - effects
+     * - materialOption
+     * - geometryOption
+     * - layerStyles
+     */
 }
 
 function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
@@ -53,14 +90,13 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
             const { name, matchName, enabled } = property;
 
             const propertyData = getPropertyGroup(property as PropertyGroup, state);
-            const properties = propertyData ? propertyData.properties : undefined;
 
             styles.properties.push({
                 name,
                 matchName,
                 enabled,
 
-                properties,
+                properties: propertyData ? propertyData.properties : undefined,
             });
         }
     });
