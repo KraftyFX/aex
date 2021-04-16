@@ -20,9 +20,9 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
     let sourceItem: AVItem;
 
     if (aexSource.type === AEX_COMP_ITEM) {
-        sourceItem = getOrCreateAEComp(aexSource.id);
+        sourceItem = getOrCreateAEComp(aexSource);
     } else {
-        sourceItem = _createFootageItem(aexSource, state);
+        sourceItem = getOrCreateFootageItem(aexSource, state);
     }
 
     const layer = comp.layers.add(sourceItem);
@@ -46,7 +46,7 @@ function _getTrackers(layer: AVLayer, state: AexState) {
 function _getFootageSource(layer: AVLayer): AexFootageSource {
     const source = layer.source as AVItem;
 
-    let type = _getItemType(source) as AexAvItemType;
+    let type = getItemType(source) as AexAvItemType;
 
     return {
         id: generateItemUID(layer.source),

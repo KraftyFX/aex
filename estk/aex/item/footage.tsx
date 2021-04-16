@@ -37,7 +37,7 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
-function _createFootageItem(aexFootage: AexFootageItem, state: AexState): void {
+function _createFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
     let footageItem;
 
     switch (aexFootage.type) {
@@ -53,6 +53,23 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): void {
     }
 
     // _setItemAttributes(footageItem, aexFootage);
+
+    return footageItem;
+}
+
+function getOrCreateFootageItem(source: AexFootageSource, state: AexState): FootageItem {
+    const existingItem = getItemFromSource(source);
+
+    if (existingItem) {
+        return existingItem as FootageItem;
+    } else {
+        return _createFootageItem(
+            {
+                type: source.type,
+            } as AexFootageItem,
+            state
+        );
+    }
 }
 
 function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
