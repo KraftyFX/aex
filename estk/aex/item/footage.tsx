@@ -69,8 +69,33 @@ function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
 }
 
 function _createSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
+    let solidSettings = {
+        color: [0, 0, 0] as ThreeDColorValue,
+        name: 'New Solid',
+        width: 1920,
+        height: 1080,
+        pixelAspect: 1,
+    };
+
+    if (!aeq.isNullOrUndefined(aexSolid)) {
+        assignAttributes(solidSettings, {
+            color: aexSolid.color,
+            name: aexSolid.name,
+            width: aexSolid.width,
+            height: aexSolid.height,
+            pixelAspect: aexSolid.pixelAspect,
+        });
+    }
+
     const tempComp = aeq.comp.create();
-    const solid = tempComp.layers.addSolid([0, 0, 0], aexSolid.name, aexSolid.width, aexSolid.height, aexSolid.pixelAspect, 0);
+    const solid = tempComp.layers.addSolid(
+        solidSettings.color,
+        solidSettings.name,
+        solidSettings.width,
+        solidSettings.height,
+        solidSettings.pixelAspect,
+        0
+    );
 
     const source = solid.source;
 
