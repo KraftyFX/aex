@@ -13,8 +13,6 @@ function getAexProject(project: Project, state: AexState): AexProject {
 }
 
 function setAexProject(aexProject: AexProject, state: AexState) {
-    app.beginUndoGroup('Set AEX Project');
-
     const { items, comps } = aexProject;
 
     aeq.forEach(items, (item) => {
@@ -24,6 +22,4 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     aeq.forEach(comps, (comp) => {
         createComp(comp, state);
     });
-
-    app.endUndoGroup();
 }

@@ -79,6 +79,8 @@ function aexToAe(aexObj: AexTextLayer, options: AexOptions): void;
 function aexToAe(aexObj: AexObject, options: AexOptions): void {
     assertIsDefined(aexObj, 'aexObj');
 
+    app.beginUndoGroup('AEX to AE');
+
     const state: AexState = {
         options,
         log: [],
@@ -101,6 +103,9 @@ function aexToAe(aexObj: AexObject, options: AexOptions): void {
             createLayer(undefined, aexObj as AexLayer, state);
             break;
         default:
+            app.endUndoGroup();
             throw new Error(`AEX Object Type "${aexObj.type}" is not spported.`);
     }
+
+    app.endUndoGroup();
 }
