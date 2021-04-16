@@ -297,11 +297,12 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
 }
 
 function getTextDocumentProperties(text: TextDocument): AexTextDocument {
-    /**
-     * Voodoo: The ternary properties need that boolean check first.
-     * If we try to access those properties and the boolean is false, an error will be thrown
-     */
+    const { pointText } = text;
+
     return {
+        pointText,
+        text: getModifiedValue(text.text, ''),
+
         allCaps: getModifiedValue(text.allCaps, false),
         applyFill: getModifiedValue(text.applyFill, false),
         applyStroke: getModifiedValue(text.applyStroke, false),
@@ -319,14 +320,12 @@ function getTextDocumentProperties(text: TextDocument): AexTextDocument {
         horizontalScale: getModifiedValue(text.horizontalScale, -1),
         justification: getModifiedValue(text.justification, ParagraphJustification.LEFT_JUSTIFY),
         leading: getModifiedValue(text.leading, -1),
-        pointText: getModifiedValue(text.pointText, true),
         smallCaps: getModifiedValue(text.smallCaps, false),
         strokeColor: getBoundModifiedValue(text.applyStroke, () => text.strokeColor, [0, 0, 0]),
         strokeOverFill: getBoundModifiedValue(text.applyStroke, () => text.strokeOverFill, false),
         strokeWidth: getBoundModifiedValue(text.applyStroke, () => text.strokeWidth, -1),
         subscript: getModifiedValue(text.subscript, false),
         superscript: getModifiedValue(text.superscript, false),
-        text: getModifiedValue(text.text, ''),
         tracking: getModifiedValue(text.tracking, -1),
         tsume: getModifiedValue(text.tsume, -1),
         verticalScale: getModifiedValue(text.verticalScale, -1),
