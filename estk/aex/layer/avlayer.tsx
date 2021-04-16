@@ -34,8 +34,8 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
     };
 }
 
-function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexState): void {
-    assignAttributes(layer, {
+function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: AexState): void {
+    assignAttributes(avLayer, {
         adjustmentLayer: aexAVLayer.adjustmentLayer,
         audioEnabled: aexAVLayer.audioEnabled,
         autoOrient: aexAVLayer.autoOrient,
@@ -55,7 +55,26 @@ function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexS
         trackMatteType: aexAVLayer.trackMatteType,
     });
 
-    _setLayerAttributes(layer, aexAVLayer, state);
+    _setLayerAttributes(avLayer, aexAVLayer, state);
+
+    if (aexAVLayer.geometryOption) {
+        /**
+         * geometryOption only exists if the comp renderer is "Cinema 4D" ("ADBE Ernst")
+         * Thus, if we need to deserialize this, we also need to set the renderer
+         */
+        setCompRenderer(avLayer.containingComp, 'ADBE Ernst');
+        setPropertyGroup(avLayer.geometryOption, aexAVLayer.geometryOption, state);
+    }
+
+    if (aexAVLayer.materialOption) {
+        const compRenderer = getRequiredCompRendererFromProperties(aexAVLayer.materialOption);
+
+        if (compRenderer) {
+            setCompRenderer(avLayer.containingComp, compRenderer);
+        }
+
+        setPropertyGroup(avLayer.materialOption, aexAVLayer.materialOption, state);
+    }
 
     /**
      * @todo
@@ -64,8 +83,6 @@ function _setAVLayerAttributes(layer: Layer, aexAVLayer: AexAVLayer, state: AexS
      * - audio
      * - timeRemap
      * - effects
-     * - materialOption
-     * - geometryOption
      * - layerStyles
      */
 }
