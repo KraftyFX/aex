@@ -234,28 +234,48 @@ function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexS
         property.setValuesAtTimes(times, values);
 
         keys.forEach((aexKey, ii) => {
+            const keyIndex = ii + 1;
+
             if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {
-                property.setTemporalEaseAtKey(ii, aexKey.temporalEase[0], aexKey.temporalEase[1]);
+                const inEase = _createKeyframeEases(aexKey.temporalEase.inEase);
+                const outEase = _createKeyframeEases(aexKey.temporalEase.inEase);
+
+                /** @todo something's broken in types-for-adobe here... */
+                /** @ts-ignore */
+                property.setTemporalEaseAtKey(keyIndex, inEase, outEase);
             }
 
             if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
-                property.setInterpolationTypeAtKey(ii, aexKey.interpolationType[0], aexKey.interpolationType[1]);
+                const inType = aeq.setDefault(aexKey.interpolationType.inType, KeyframeInterpolationType.LINEAR);
+                const outType = aeq.setDefault(aexKey.interpolationType.outType, KeyframeInterpolationType.LINEAR);
+
+                property.setInterpolationTypeAtKey(keyIndex, inType, outType);
             }
 
             if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
-                property.setTemporalAutoBezierAtKey(ii, aexKey.temporalAutoBezier);
-                property.setTemporalContinuousAtKey(ii, aexKey.temporalContinuous);
+                property.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
+                property.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
             }
 
             if (!aeq.isNullOrUndefined(aexKey.spatialAutoBezier) && !aeq.isNullOrUndefined(aexKey.spatialContinuous)) {
-                property.setSpatialAutoBezierAtKey(ii, aexKey.spatialAutoBezier);
-                property.setSpatialContinuousAtKey(ii, aexKey.spatialContinuous);
+                property.setSpatialAutoBezierAtKey(keyIndex, aexKey.spatialAutoBezier);
+                property.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
 
-                property.setSpatialTangentsAtKey(ii, aexKey.spatialTangent[0], aexKey.spatialTangent[1]);
-                property.setRovingAtKey(ii, aexKey.roving);
+                property.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
+                property.setRovingAtKey(keyIndex, aexKey.roving);
             }
         });
     }
+}
+
+function _createKeyframeEases(aexEases: KeyframeEase[]) {
+    const eases = [];
+
+    aeq.forEach(aexEases, function (aexEase) {
+        eases.push(new KeyframeEase(aexEase.speed, aexEase.influence));
+    });
+
+    return eases;
 }
 
 function isUnreadableProperty(property: Property<UnknownPropertyType>) {
