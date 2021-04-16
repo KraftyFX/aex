@@ -75,12 +75,25 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
     }
 }
 
-/** @todo Add types here */
+/** @todo Add type safety */
 function _getPropertyValue(property: Property, value: any): any {
     if (isTextDocument(property)) {
         return getTextDocumentProperties(value);
     } else {
-        return getRoundedValue(value);
+        let propertyValue = value;
+
+        /**
+         * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
+         */
+        if (property.matchName === 'ADBE Time Remapping') {
+            const propLayer = property.propertyGroup(property.propertyDepth) as AVLayer;
+            const propSource = propLayer.source as AVItem;
+            const propDuration = propSource.duration;
+
+            propertyValue = value / propDuration;
+        }
+
+        return getRoundedValue(propertyValue);
     }
 }
 
