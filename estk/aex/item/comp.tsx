@@ -35,17 +35,24 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
 }
 
 function createComp(aexComp: AexComp, state: AexState): void {
-    const comp = _createAEComp(aexComp);
+    const comp = _createAEComp(aexComp, state);
 
     _setCompAttributes(comp, aexComp, state);
     _createCompMarkers(comp, aexComp.markers, state);
     createLayers(comp, aexComp.layers, state);
-
-    state.stats.compCount++;
 }
 
-function _createAEComp(aexComp?: AexComp): CompItem {
-    let compSettings: any;
+function _createAEComp(aexComp: AexComp, state: AexState): CompItem {
+    state.stats.compCount++;
+
+    let compSettings = {
+        name: 'Comp',
+        width: 1920,
+        height: 1080,
+        pixelAspect: 1,
+        duration: 1,
+        frameRate: 24,
+    };
 
     if (!aeq.isNullOrUndefined(aexComp)) {
         assignAttributes(compSettings, {
@@ -59,20 +66,9 @@ function _createAEComp(aexComp?: AexComp): CompItem {
     }
 
     const comp = aeq.comp.create(compSettings);
-
     comp.openInViewer();
 
     return comp;
-}
-
-function getOrCreateAEComp(source: AexFootageSource): CompItem {
-    const existingComp = getItemFromSource(source);
-
-    if (existingComp) {
-        return existingComp as CompItem;
-    } else {
-        return _createAEComp();
-    }
 }
 
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
@@ -114,7 +110,7 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
 function createLayers(comp: CompItem, aexLayers: AexLayer[], state: AexState) {
     /** Supports creating sets of layers without targeting a specific comp */
     if (aeq.isNullOrUndefined(comp)) {
-        comp = _createAEComp();
+        comp = _createAEComp(undefined, state);
     }
 
     /**

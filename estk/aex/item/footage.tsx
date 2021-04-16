@@ -57,21 +57,6 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
     return footageItem;
 }
 
-function getOrCreateFootageItem(source: AexFootageSource, state: AexState): FootageItem {
-    const existingItem = getItemFromSource(source);
-
-    if (existingItem) {
-        return existingItem as FootageItem;
-    } else {
-        return _createFootageItem(
-            {
-                type: source.type,
-            } as AexFootageItem,
-            state
-        );
-    }
-}
-
 function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as SolidSource;

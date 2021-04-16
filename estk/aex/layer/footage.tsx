@@ -16,9 +16,14 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
     let sourceItem: AVItem;
 
     if (aexSource.type === AEX_COMP_ITEM) {
-        sourceItem = getOrCreateAEComp(aexSource);
+        sourceItem = _createAEComp(undefined, state);
     } else {
-        sourceItem = getOrCreateFootageItem(aexSource, state);
+        sourceItem = _createFootageItem(
+            {
+                type: aexSource.type,
+            } as AexFootageItem,
+            state
+        );
     }
 
     const layer = comp.layers.add(sourceItem);

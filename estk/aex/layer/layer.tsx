@@ -23,7 +23,7 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 
     /** Supports creating a layer without targeting a comp */
     if (aeq.isNullOrUndefined(comp)) {
-        comp = _createAEComp();
+        comp = _createAEComp(undefined, state);
     }
 
     switch (aexLayer.type) {
