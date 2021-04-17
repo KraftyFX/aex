@@ -59,7 +59,7 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
 
     if (aexAVLayer.timeRemap) {
         avLayer.timeRemapEnabled = true;
-        avLayer.timeRemap.removeKey(1);
+        avLayer.timeRemap.removeKey(2);
 
         setProperty(avLayer.timeRemap, aexAVLayer.timeRemap, state);
     }
