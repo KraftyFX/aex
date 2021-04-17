@@ -1117,7 +1117,7 @@ describe('Basic Layer Attributes', function () {
                         name: 'Matte Solid',
                         source: {
                             type: AEX_SOLID_ITEM,
-                            id: 'parented solid:61',
+                            id: 'new solid:52',
                         },
                         trackers: [],
                         transform: {},
