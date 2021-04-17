@@ -33,6 +33,10 @@ interface AexOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
+interface ToAeOptions {
+    merge: boolean;
+}
+
 interface AexLogEntry {
     aexProperty: AexProperty;
     message: string;
@@ -40,6 +44,8 @@ interface AexLogEntry {
 
 interface AexState {
     options: AexOptions;
+    toAeOptions: ToAeOptions;
+
     stats: {
         nonCompItemCount: number;
         compCount: number;

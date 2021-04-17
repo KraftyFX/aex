@@ -15,6 +15,19 @@ function getAexProject(project: Project, state: AexState): AexProject {
 function setAexProject(aexProject: AexProject, state: AexState) {
     const { items, comps } = aexProject;
 
+    //
+    // The project is a special case b/c there is only ever one.
+    //
+    // Thoughts:
+    //
+    // If there is no project open, create one or throw?
+    // If merge=false
+    //   - delete everything first.
+    //   - create as you go along.
+    // If merge=true
+    //   - walk the project and overwrite props.
+    //   - collection based objects get tricky. Need a matching policy (index, name, other?)
+
     aeq.forEach(items, (item) => {
         createItem(item, state);
     });

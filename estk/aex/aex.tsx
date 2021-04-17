@@ -40,6 +40,7 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
 
     const state: AexState = {
         options,
+        toAeOptions: null,
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
@@ -67,22 +68,23 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
     };
 }
 
-function aexToAe(aexObj: AexProject, options: AexOptions): void;
-function aexToAe(aexObj: AexComp, options: AexOptions): void;
-function aexToAe(aexObj: AexAVLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexShapeLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexLightLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexCameraLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexFootageLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexNullLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexTextLayer, options: AexOptions): void;
-function aexToAe(aexObj: AexObject, options: AexOptions): void {
+function aexToAe(aexObj: AexProject, options: ToAeOptions): void;
+function aexToAe(aexObj: AexComp, options: ToAeOptions): void;
+function aexToAe(aexObj: AexAVLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexShapeLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexLightLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexCameraLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexFootageLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexNullLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexTextLayer, options: ToAeOptions): void;
+function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
     assertIsDefined(aexObj, 'aexObj');
 
     app.beginUndoGroup('AEX to AE');
 
     const state: AexState = {
-        options,
+        options: null,
+        toAeOptions: options,
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
