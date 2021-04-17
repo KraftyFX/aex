@@ -463,7 +463,6 @@ describe('Basic Layer Attributes', function () {
         it(`Can parse matte and matted layers`, async () => {
             assertAreEqual(comp.layers[10], {
                 effects: [],
-                isTrackMatte: true,
                 label: 9,
                 markers: [],
                 masks: [],
@@ -1112,7 +1111,6 @@ describe('Basic Layer Attributes', function () {
                 layers: [
                     {
                         effects: [],
-                        isTrackMatte: true,
                         label: 9,
                         markers: [],
                         masks: [],

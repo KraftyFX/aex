@@ -20,7 +20,6 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
         samplingQuality: getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR),
         threeDLayer: getModifiedValue(layer.threeDLayer, false),
         timeRemapEnabled: getModifiedValue(layer.timeRemapEnabled, false),
-        isTrackMatte: getModifiedValue(layer.isTrackMatte, false),
         trackMatteType: getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
 
         masks: _getAexLayerMasks(layer, state),
@@ -51,7 +50,6 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         samplingQuality: aexAVLayer.samplingQuality,
         threeDLayer: aexAVLayer.threeDLayer,
         timeRemapEnabled: aexAVLayer.timeRemapEnabled,
-        isTrackMatte: aexAVLayer.isTrackMatte,
         trackMatteType: aexAVLayer.trackMatteType,
     });
 

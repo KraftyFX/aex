@@ -160,7 +160,6 @@ interface AexAVLayerBase extends AexLayerBase, AexObject {
     samplingQuality: LayerSamplingQuality;
     threeDLayer: boolean;
     timeRemapEnabled: boolean;
-    isTrackMatte: boolean;
     trackMatteType: TrackMatteType;
 
     masks: AexMask[];
