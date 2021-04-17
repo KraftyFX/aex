@@ -22,6 +22,7 @@ function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state
     const layer = comp.layers.addCamera(aexCameraLayer.name, _getCameraCenterPoint(comp, aexCameraLayer));
     _setLayerAttributes(layer, aexCameraLayer, state);
 
+    /** We're inferring 'One-Node' vs 'Two-Node' based on whether this property exists, as opposed to serializing an additional property */
     const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
 
     if (isOneNode) {

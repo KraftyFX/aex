@@ -52,6 +52,7 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
             return;
     }
 
+    /** @todo - see whether this vvv makes sense to do here, vs within the specific functions above */
     // _setItemAttributes(footageItem, aexFootage);
 
     return footageItem;

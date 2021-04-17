@@ -30,12 +30,6 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
 
     const layer = comp.layers.add(sourceItem);
     _setAVLayerAttributes(layer, aexFootageLayer, state);
-
-    /**
-     * @todo
-     *
-     * - source
-     */
 }
 
 function _getFootageSource(layer: AVLayer): AexFootageSource {
