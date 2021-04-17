@@ -78,7 +78,6 @@ describe('Layer Transform', function () {
                         id: 'null 1:50',
                     },
                     threeDLayer: true,
-                    trackers: [],
                     transform: {},
                     type: AEX_NULL_LAYER,
                 },
@@ -92,7 +91,6 @@ describe('Layer Transform', function () {
                         type: AEX_SOLID_ITEM,
                         id: 'null 1:50',
                     },
-                    trackers: [],
                     transform: {},
                     type: AEX_NULL_LAYER,
                 },
@@ -183,7 +181,6 @@ describe('Layer Transform', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
-                trackers: [],
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
@@ -257,7 +254,6 @@ describe('Layer Transform', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
-                trackers: [],
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
@@ -350,7 +346,6 @@ describe('Layer Transform', function () {
                             id: 'null 2:16',
                         },
                         threeDLayer: true,
-                        trackers: [],
                         transform: {},
                         type: AEX_NULL_LAYER,
                     },
@@ -364,7 +359,6 @@ describe('Layer Transform', function () {
                             type: AEX_SOLID_ITEM,
                             id: 'null 1:14',
                         },
-                        trackers: [],
                         transform: {},
                         type: AEX_NULL_LAYER,
                     },
@@ -480,7 +474,6 @@ describe('Layer Transform', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 3:58',
                 },
-                trackers: [],
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
@@ -561,7 +554,6 @@ describe('Layer Transform', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 4:72',
                 },
-                trackers: [],
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,

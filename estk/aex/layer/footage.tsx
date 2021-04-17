@@ -6,7 +6,6 @@ function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
         type: AEX_FOOTAGE_LAYER,
 
         source: _getFootageSource(layer),
-        trackers: _getTrackers(layer, state),
     };
 }
 
@@ -15,18 +14,7 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
      * @todo
      *
      * - source
-     * - trackers
      */
-}
-
-function _getTrackers(layer: AVLayer, state: AexState) {
-    const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
-
-    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
-        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
-    };
-
-    return getTopLevelPropertyGroups(trackers, fillProperties);
 }
 
 function _getFootageSource(layer: AVLayer): AexFootageSource {

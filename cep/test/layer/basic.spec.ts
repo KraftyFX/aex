@@ -106,7 +106,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
-                trackers: [],
                 type: AEX_NULL_LAYER,
             });
         });
@@ -149,7 +148,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -167,7 +165,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -185,7 +182,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'parented solid:61',
                 },
-                trackers: [],
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
@@ -391,7 +387,6 @@ describe('Basic Layer Attributes', function () {
                     value: 0.5,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -453,7 +448,6 @@ describe('Basic Layer Attributes', function () {
                     value: 1,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -470,7 +464,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'parented solid:61',
                 },
-                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -508,50 +501,6 @@ describe('Basic Layer Attributes', function () {
                 transform: {},
                 trackMatteType: 5013,
                 type: AEX_TEXT_LAYER,
-            });
-        });
-
-        it(`Can parse layer tracking data`, async () => {
-            assertAreEqual(comp.layers[12], {
-                effects: [],
-                label: 1,
-                markers: [],
-                masks: [],
-                name: 'Trackers',
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 1:50',
-                },
-                trackers: [
-                    {
-                        name: 'Tracker 1',
-                        matchName: 'ADBE MTracker',
-                        properties: [
-                            {
-                                matchName: 'ADBE MTracker Pt',
-                                name: 'Track Point 1',
-                                properties: [
-                                    {
-                                        type: AEX_TWOD_PROPERTY,
-                                        name: 'Feature Size',
-                                        matchName: 'ADBE MTracker Pt Feature Size',
-                                        value: [36, 36],
-                                        keys: [],
-                                    },
-                                    {
-                                        type: AEX_TWOD_PROPERTY,
-                                        name: 'Search Size',
-                                        matchName: 'ADBE MTracker Pt Search Size',
-                                        value: [79, 68],
-                                        keys: [],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-                transform: {},
-                type: AEX_NULL_LAYER,
             });
         });
     });
@@ -642,7 +591,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:40',
                 },
-                trackers: [],
                 type: AEX_NULL_LAYER,
             };
 
@@ -699,7 +647,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 2:67',
                 },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -724,7 +671,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 3:81',
                 },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -749,7 +695,6 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'parented solid:61',
                 },
-                trackers: [],
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
@@ -969,7 +914,6 @@ describe('Basic Layer Attributes', function () {
                     value: 2,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             };
@@ -1038,7 +982,6 @@ describe('Basic Layer Attributes', function () {
                     value: 4,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             };
@@ -1064,7 +1007,6 @@ describe('Basic Layer Attributes', function () {
                             type: AEX_SOLID_ITEM,
                             id: 'parented solid:61',
                         },
-                        trackers: [],
                         transform: {},
                         type: AEX_FOOTAGE_LAYER,
                     },
@@ -1114,57 +1056,6 @@ describe('Basic Layer Attributes', function () {
 
             assertAreEqual(comp.layers[0], compData.layers[0]);
             assertAreEqual(comp.layers[1], compData.layers[1]);
-        });
-
-        it(`Can set layer tracking data`, async () => {
-            const layerData = {
-                effects: [],
-                label: 1,
-                markers: [],
-                masks: [],
-                name: 'Trackers',
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 4:157',
-                },
-                trackers: [
-                    {
-                        name: 'Tracker 1',
-                        matchName: 'ADBE MTracker',
-                        properties: [
-                            {
-                                matchName: 'ADBE MTracker Pt',
-                                name: 'Track Point 1',
-                                properties: [
-                                    {
-                                        type: AEX_TWOD_PROPERTY,
-                                        name: 'Feature Size',
-                                        matchName: 'ADBE MTracker Pt Feature Size',
-                                        value: [36, 36],
-                                        keys: [],
-                                    },
-                                    {
-                                        type: AEX_TWOD_PROPERTY,
-                                        name: 'Search Size',
-                                        matchName: 'ADBE MTracker Pt Search Size',
-                                        value: [79, 68],
-                                        keys: [],
-                                    },
-                                ],
-                            },
-                        ],
-                    },
-                ],
-                transform: {},
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex().fromAexObject(layerData);
-
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
-            const comp = result.object;
-
-            assertAreEqual(comp.layers[0], layerData);
         });
     });
 });
