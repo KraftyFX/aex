@@ -94,12 +94,9 @@ function getItemById(id: AexUID): Item {
     });
 
     return items.find((item) => {
-        const idSplit = id.split(':');
+        const itemID = generateItemUID(item);
 
-        const nameMatch = item.name.toLowerCase() === idSplit[0];
-        const idMatch = item.id === parseInt(idSplit[1], 10);
-
-        return nameMatch && idMatch;
+        return itemID === id;
     });
 }
 
