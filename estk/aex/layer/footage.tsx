@@ -6,7 +6,6 @@ function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
         type: AEX_FOOTAGE_LAYER,
 
         source: _getFootageSource(layer),
-        trackers: _getTrackers(layer, state),
     };
 }
 
@@ -17,7 +16,7 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
 
     if (!sourceItem) {
         if (aexSource.type === AEX_COMP_ITEM) {
-            sourceItem = _createAEComp(undefined, state);
+            sourceItem = _createAEComp(undefined);
             comp.openInViewer();
         } else {
             sourceItem = _createFootageItem(
@@ -35,18 +34,8 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
     /**
      * @todo
      *
-     * - trackers
+     * - source
      */
-}
-
-function _getTrackers(layer: AVLayer, state: AexState) {
-    const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
-
-    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
-        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
-    };
-
-    return getTopLevelPropertyGroups(trackers, fillProperties);
 }
 
 function _getFootageSource(layer: AVLayer): AexFootageSource {
