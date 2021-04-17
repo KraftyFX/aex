@@ -96,6 +96,8 @@ function getItemType(item: Item): AexItemType {
             return AEX_SOLID_ITEM;
         } else if (sourceIsPlaceholder(mainSource)) {
             return AEX_PLACEHOLDER_ITEM;
+        } else {
+            throw new Error(`Unrecognized Footage Type`);
         }
     } else if (aeq.isFolderItem(item)) {
         return AEX_FOLDER_ITEM;
