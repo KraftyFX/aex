@@ -104,20 +104,6 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
     _setTransform(layer, aexLayer.transform, state);
 }
 
-/**
- * For 3d layers (or camera/lights), we want to use the zRotation property
- * for 'rotation' instead of the standard 'rotation' property.
- *
- * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
- */
-function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
-    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
-        return getModifiedProperty(transformGroup.zRotation, state);
-    } else {
-        return getModifiedProperty(transformGroup.rotation, state);
-    }
-}
-
 function _getAexLayerMarkers(layer: Layer) {
     return getAexMarkerProperties(layer.marker);
 }

@@ -16,6 +16,20 @@ function _getTransform(layer: Layer, state: AexState): AexTransform {
     };
 }
 
+/**
+ * For 3d layers (or camera/lights), we want to use the zRotation property
+ * for 'rotation' instead of the standard 'rotation' property.
+ *
+ * AVLayers have a .threeDLayer member, but Camera & Light do not-- hence this check
+ */
+function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
+    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
+        return getModifiedProperty(transformGroup.zRotation, state);
+    } else {
+        return getModifiedProperty(transformGroup.rotation, state);
+    }
+}
+
 function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
     if (aeq.isNullOrUndefined(aexTransform)) {
         return;
