@@ -72,7 +72,7 @@ function _createAEComp(aexComp: AexComp, state: AexState): CompItem {
 }
 
 function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
-    _setItemAttributes(comp, aexComp, state);
+    setItemBaseAttributes(comp, aexComp, state);
 
     assignAttributes(comp, {
         bgColor: aexComp.bgColor,

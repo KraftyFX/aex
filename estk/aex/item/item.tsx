@@ -42,7 +42,7 @@ function getItemBaseAttributes(item: Item): AexItemBase {
     };
 }
 
-function _setItemAttributes(item: Item, aexItem: AexItem, state: AexState): void {
+function setItemBaseAttributes(item: Item, aexItem: AexItem, state: AexState): void {
     assignAttributes(item, {
         comment: aexItem.comment,
         label: aexItem.label,
