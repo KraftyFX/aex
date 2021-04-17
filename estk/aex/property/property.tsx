@@ -1,21 +1,3 @@
-function getModifiedProperty(property: ShapeProperty, state: AexState): AexProperty<Shape> | undefined;
-function getModifiedProperty(property: TextDocumentProperty, state: AexState): AexProperty<AexTextDocument> | undefined;
-function getModifiedProperty(property: OneDProperty, state: AexState): AexProperty<number> | undefined;
-function getModifiedProperty(property: TwoDProperty, state: AexState): AexProperty<TwoDPoint> | undefined;
-function getModifiedProperty(property: ThreeDProperty, state: AexState): AexProperty<ThreeDPoint> | undefined;
-function getModifiedProperty(property: TwoDProperty | ThreeDProperty, state: AexState): AexProperty<TwoDPoint> | AexProperty<ThreeDPoint> | undefined;
-function getModifiedProperty(property: Property, state: AexState): AexProperty | undefined {
-    if (aeq.isNullOrUndefined(property)) {
-        return undefined;
-    }
-
-    if (hasDefaultPropertyValue(property)) {
-        return undefined;
-    }
-
-    return getProperty(property, state);
-}
-
 function getProperty(property: Property, state: AexState): AexProperty {
     const aexProperty: AexProperty = {
         type: _getPropertyType(property),

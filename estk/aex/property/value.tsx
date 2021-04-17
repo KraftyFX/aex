@@ -57,14 +57,3 @@ function _createAexValue(property: Property, aexObjValue: any, state: AexState):
 
     return aexValue;
 }
-
-function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
-    /**
-     * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
-     */
-    if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
-        return !property.canSetExpression;
-    } else {
-        return !property.isModified;
-    }
-}
