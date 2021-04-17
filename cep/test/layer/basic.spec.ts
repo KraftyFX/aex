@@ -12,6 +12,7 @@ import {
     AEX_TWOD_PROPERTY,
     AEX_COMP_ITEM,
     AEX_SOLID_ITEM,
+    AEX_PROJECT,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -927,141 +928,183 @@ describe('Basic Layer Attributes', function () {
         });
 
         it(`Can set time remap enabled (but not modified)`, async () => {
-            const layerData = {
-                effects: [],
-                label: 15,
-                markers: [],
-                masks: [],
-                name: 'TR Enabled',
-                source: {
-                    type: AEX_COMP_ITEM,
-                    id: 'precomp:65',
-                },
-                timeRemap: {
-                    type: AEX_ONED_PROPERTY,
-                    keys: [
-                        {
-                            temporalEase: {
-                                inEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 0,
-                                    },
-                                ],
-                                outEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 1,
-                                    },
-                                ],
+            await openCleanProject();
+
+            const projectData = {
+                items: [],
+                comps: [
+                    {
+                        aexid: 'precomp 1:1',
+                        duration: 4,
+                        layers: [],
+                        name: 'Precomp 1',
+                        type: AEX_COMP_ITEM,
+                    },
+                    {
+                        duration: 4,
+                        layers: [
+                            {
+                                effects: [],
+                                label: 15,
+                                markers: [],
+                                masks: [],
+                                name: 'TR Enabled (and not modified)',
+                                source: {
+                                    type: AEX_COMP_ITEM,
+                                    id: 'precomp 1:1',
+                                },
+                                timeRemap: {
+                                    type: AEX_ONED_PROPERTY,
+                                    keys: [
+                                        {
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 1,
+                                                    },
+                                                ],
+                                            },
+                                            time: 0,
+                                            value: 0,
+                                        },
+                                        {
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 1,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 4,
+                                            value: 1,
+                                        },
+                                    ],
+                                    matchName: 'ADBE Time Remapping',
+                                    name: 'Time Remap',
+                                    value: 0,
+                                },
+                                timeRemapEnabled: true,
+                                trackers: [],
+                                transform: {},
+                                type: AEX_FOOTAGE_LAYER,
                             },
-                            time: 0,
-                            value: 0,
-                        },
-                        {
-                            temporalEase: {
-                                inEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 1,
-                                    },
-                                ],
-                                outEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 0,
-                                    },
-                                ],
-                            },
-                            time: 4,
-                            value: 4,
-                        },
-                    ],
-                    matchName: 'ADBE Time Remapping',
-                    name: 'Time Remap',
-                    value: 2,
-                },
-                timeRemapEnabled: true,
-                trackers: [],
-                transform: {},
-                type: AEX_FOOTAGE_LAYER,
+                        ],
+                        type: AEX_COMP_ITEM,
+                    },
+                ],
+                type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().fromAexObject(projectData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
         });
 
         it(`Can set time remap enabled (and modified)`, async () => {
-            const layerData = {
-                effects: [],
-                label: 15,
-                markers: [],
-                masks: [],
-                name: 'TR Remapped',
-                source: {
-                    type: AEX_COMP_ITEM,
-                    id: 'precomp:65',
-                },
-                timeRemap: {
-                    type: AEX_ONED_PROPERTY,
-                    keys: [
-                        {
-                            temporalEase: {
-                                inEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 0,
-                                    },
-                                ],
-                                outEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 2,
-                                    },
-                                ],
+            await openCleanProject();
+
+            const projectData = {
+                items: [],
+                comps: [
+                    {
+                        aexid: 'precomp 1:1',
+                        duration: 4,
+                        layers: [],
+                        name: 'Precomp 1',
+                        type: AEX_COMP_ITEM,
+                    },
+                    {
+                        duration: 4,
+                        layers: [
+                            {
+                                effects: [],
+                                label: 15,
+                                markers: [],
+                                masks: [],
+                                name: 'TR Enabled (and modified)',
+                                source: {
+                                    type: AEX_COMP_ITEM,
+                                    id: 'precomp 1:1',
+                                },
+                                timeRemap: {
+                                    type: AEX_ONED_PROPERTY,
+                                    keys: [
+                                        {
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 2,
+                                                    },
+                                                ],
+                                            },
+                                            time: 0,
+                                            value: 0,
+                                        },
+                                        {
+                                            temporalEase: {
+                                                inEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 2,
+                                                    },
+                                                ],
+                                                outEase: [
+                                                    {
+                                                        influence: 16.666666667,
+                                                        speed: 0,
+                                                    },
+                                                ],
+                                            },
+                                            time: 2,
+                                            value: 1,
+                                        },
+                                    ],
+                                    matchName: 'ADBE Time Remapping',
+                                    name: 'Time Remap',
+                                    value: 0,
+                                },
+                                timeRemapEnabled: true,
+                                trackers: [],
+                                transform: {},
+                                type: AEX_FOOTAGE_LAYER,
                             },
-                            time: 0,
-                            value: 0,
-                        },
-                        {
-                            temporalEase: {
-                                inEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 2,
-                                    },
-                                ],
-                                outEase: [
-                                    {
-                                        influence: 16.666666667,
-                                        speed: 0,
-                                    },
-                                ],
-                            },
-                            time: 2,
-                            value: 4,
-                        },
-                    ],
-                    matchName: 'ADBE Time Remapping',
-                    name: 'Time Remap',
-                    value: 4,
-                },
-                timeRemapEnabled: true,
-                trackers: [],
-                transform: {},
-                type: AEX_FOOTAGE_LAYER,
+                        ],
+                        type: AEX_COMP_ITEM,
+                    },
+                ],
+                type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().fromAexObject(projectData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
         });
 
         it(`Can set matte and matted layers`, async () => {
