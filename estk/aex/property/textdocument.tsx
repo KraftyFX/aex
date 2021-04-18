@@ -1,3 +1,7 @@
+function isTextDocument(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
+}
+
 function _getTextDocumentProperties(text: TextDocument): AexTextDocument {
     const { pointText } = text;
 

@@ -50,14 +50,6 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
     }
 }
 
-function isUnreadableProperty(property: Property<UnknownPropertyType>) {
-    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
-}
-
-function isTextDocument(property: Property<UnknownPropertyType>) {
-    return property.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
-}
-
 function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
     switch (property.propertyValueType) {
         case PropertyValueType.OneD:

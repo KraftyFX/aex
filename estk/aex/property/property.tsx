@@ -23,6 +23,10 @@ function getProperty(property: Property, state: AexState): AexProperty {
     return aexProperty;
 }
 
+function isUnreadableProperty(property: Property<UnknownPropertyType>) {
+    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
+}
+
 function setProperty(property: Property, aexProperty: AexProperty, state: AexState): void {
     assignAttributes(property, {
         enabled: aexProperty.enabled,
