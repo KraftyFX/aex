@@ -27,6 +27,23 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
     }
 }
 
+/**
+ * Gets the value of a property if and only if another boolean property is set
+ * that dictates if and how it should be read.
+ *
+ * @param shouldRead Property from AfterEffects that decides if the value should be read.
+ * @param callback Function that gets the value that should be serialized
+ * @param aeDefaultValue The expected default value provided by AE for the property
+ * @returns The property value if and only if the property exists and is
+ * set to something other than the default.
+ */
+function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefaultValue: T): T | undefined {
+    /**
+     * @todo Add AexOption for whether to return default values, vs return undefined
+     */
+    return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
+}
+
 function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
     switch (state.options.unspportedPropertyBehavior) {
         case 'skip':
