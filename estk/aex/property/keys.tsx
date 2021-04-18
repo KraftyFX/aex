@@ -2,7 +2,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
     const propertyKeys = aeq.getKeys(property);
     const keys = propertyKeys.map((key) => {
         const aexKey = {
-            time: key.getTime(),
+            time: getRoundedValue(key.getTime()),
             value: undefined,
             interpolationType: undefined,
             temporalEase: undefined,

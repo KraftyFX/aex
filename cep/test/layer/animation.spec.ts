@@ -86,7 +86,7 @@ describe('Layer Animation', function () {
                             },
                         ],
                     },
-                    time: 3.98333333333333,
+                    time: 3.9833,
                     value: 90,
                 },
             ],
@@ -95,6 +95,7 @@ describe('Layer Animation', function () {
             value: 20,
         });
     });
+
     it(`Can parse hold keyframes`, async () => {
         assertAreEqual(project.comps[1].layers[0].transform.rotation, {
             type: AEX_ONED_PROPERTY,
@@ -128,6 +129,7 @@ describe('Layer Animation', function () {
             value: 0,
         });
     });
+
     it(`Can parse linear keyframes`, async () => {
         assertAreEqual(project.comps[2].layers[0].transform.rotation, {
             type: AEX_ONED_PROPERTY,
@@ -165,7 +167,7 @@ describe('Layer Animation', function () {
                             },
                         ],
                     },
-                    time: 3.98333333333333,
+                    time: 3.9833,
                     value: 90,
                 },
             ],
@@ -265,7 +267,7 @@ describe('Layer Animation', function () {
                             },
                         ],
                     },
-                    time: 3.98333333333333,
+                    time: 3.9833,
                     value: 90,
                 },
             ],

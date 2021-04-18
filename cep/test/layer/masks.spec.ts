@@ -247,7 +247,7 @@ describe('Layer Masks', function () {
                         inEase: [{ influence: 16.666666667, speed: 1 }],
                         outEase: [{ influence: 16.666666667, speed: 0 }],
                     },
-                    time: 4.95833333333333,
+                    time: 4.9583,
                     value: {
                         closed: true,
                         featherInterps: [0, 0],
