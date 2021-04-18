@@ -360,14 +360,14 @@ describe('Layer Effects', function () {
                                                                     temporalEase: {
                                                                         inEase: [
                                                                             {
-                                                                                influence: 16.666666667,
+                                                                                influence: 16.6667,
                                                                                 speed: 0,
                                                                             },
                                                                         ],
                                                                         outEase: [
                                                                             {
-                                                                                influence: 16.666666667,
-                                                                                speed: 147.692307692308,
+                                                                                influence: 16.6667,
+                                                                                speed: 147.6923,
                                                                             },
                                                                         ],
                                                                     },
@@ -383,13 +383,13 @@ describe('Layer Effects', function () {
                                                                     temporalEase: {
                                                                         inEase: [
                                                                             {
-                                                                                influence: 16.666666667,
-                                                                                speed: 147.692307692308,
+                                                                                influence: 16.6667,
+                                                                                speed: 147.6923,
                                                                             },
                                                                         ],
                                                                         outEase: [
                                                                             {
-                                                                                influence: 16.666666667,
+                                                                                influence: 16.6667,
                                                                                 speed: 0,
                                                                             },
                                                                         ],

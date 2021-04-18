@@ -266,13 +266,13 @@ describe('Text Layer Attributes', function () {
                                                 temporalEase: {
                                                     inEase: [
                                                         {
-                                                            influence: 16.666666667,
+                                                            influence: 16.6667,
                                                             speed: 0,
                                                         },
                                                     ],
                                                     outEase: [
                                                         {
-                                                            influence: 16.666666667,
+                                                            influence: 16.6667,
                                                             speed: 50,
                                                         },
                                                     ],
@@ -284,13 +284,13 @@ describe('Text Layer Attributes', function () {
                                                 temporalEase: {
                                                     inEase: [
                                                         {
-                                                            influence: 16.666666667,
+                                                            influence: 16.6667,
                                                             speed: 50,
                                                         },
                                                     ],
                                                     outEase: [
                                                         {
-                                                            influence: 16.666666667,
+                                                            influence: 16.6667,
                                                             speed: 0,
                                                         },
                                                     ],

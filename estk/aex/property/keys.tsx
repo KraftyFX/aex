@@ -34,18 +34,8 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
 
             const keyTemporalEase = keyInfo.temporalEase;
             if (!aeq.isNullOrUndefined(keyTemporalEase)) {
-                const inTemporalEase = getModifiedValue(keyTemporalEase.inEase, [
-                    {
-                        influence: 16.666666667,
-                        speed: 0,
-                    } as KeyframeEase,
-                ]);
-                const outTemporalEase = getModifiedValue(keyTemporalEase.outEase, [
-                    {
-                        influence: 16.666666667,
-                        speed: 0,
-                    } as KeyframeEase,
-                ]);
+                const inTemporalEase = _getKeyframeEases(keyTemporalEase.inEase);
+                const outTemporalEase = _getKeyframeEases(keyTemporalEase.outEase);
 
                 if (aeq.isNullOrUndefined(inTemporalEase) && aeq.isNullOrUndefined(outTemporalEase)) {
                     aexKey.temporalEase = undefined;
@@ -139,6 +129,19 @@ function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexS
             property.setInterpolationTypeAtKey(keyIndex, inType, outType);
         });
     }
+}
+
+function _getKeyframeEases(ease: KeyframeEase[]): any {
+    const easeData = [];
+
+    aeq.forEach(ease, (easeDimension) => {
+        easeData.push({
+            influence: roundNumber(easeDimension.influence),
+            speed: roundNumber(easeDimension.speed),
+        });
+    });
+
+    return easeData;
 }
 
 function _createKeyframeEases(aexEases: KeyframeEase[]) {
