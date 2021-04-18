@@ -92,7 +92,7 @@ describe('Layer Animation', function () {
             ],
             matchName: 'ADBE Rotate Z',
             name: 'Z Rotation',
-            value: 20,
+            value: 0,
         });
     });
 
