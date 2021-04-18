@@ -98,7 +98,7 @@ function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexS
 
             if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {
                 const inEase = _createKeyframeEases(aexKey.temporalEase.inEase);
-                const outEase = _createKeyframeEases(aexKey.temporalEase.inEase);
+                const outEase = _createKeyframeEases(aexKey.temporalEase.outEase);
 
                 /** @todo something's broken in types-for-adobe here... */
                 /** @ts-ignore */
