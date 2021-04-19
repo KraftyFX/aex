@@ -57,6 +57,10 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
     _setLayerMasks(avLayer.mask, aexAVLayer.masks, state);
     _setEffects(avLayer.effect, aexAVLayer.effects, state);
 
+    if (aexAVLayer.audio) {
+        setPropertyGroup(avLayer.audio, aexAVLayer.audio, state);
+    }
+
     if (aexAVLayer.timeRemap) {
         avLayer.timeRemapEnabled = true;
         avLayer.timeRemap.removeKey(2);
