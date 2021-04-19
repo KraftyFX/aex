@@ -623,7 +623,7 @@ describe('Layer Styles', function () {
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(comp.layers[0].layerStyles.properties, layerData.layerStyles.properties);
         });
 
         it('Can set specific disabled style', async () => {
@@ -667,20 +667,6 @@ describe('Layer Styles', function () {
                         },
                     ],
                 },
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex().fromAexObject(layerData);
-
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
-            const comp = result.object;
-
-            assertAreEqual(comp.layers[0].layerStyles, layerData.layerStyles);
-        });
-
-        it('Can set no styles', async () => {
-            const layerData = {
-                layerStyles: {},
                 type: AEX_NULL_LAYER,
             };
 

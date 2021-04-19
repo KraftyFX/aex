@@ -33,20 +33,33 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
 }
 
 function _setLayerStyles(layerStyles: PropertyGroup, aexStyleGroup: AexPropertyGroup, state: AexState): void {
-    assignAttributes(layerStyles, { enabled: aexStyleGroup.enabled });
+    let aexBlendGroup;
 
     aeq.arrayEx(aexStyleGroup.properties).forEach((aexStyleProperty: AexPropertyGroup) => {
         const { matchName } = aexStyleProperty;
         let styleGroup: PropertyGroup;
 
+        /**
+         * Voodoo:
+         *
+         * We need to set this group _after_ the other style groups, or else it won't be
+         * accessible to the API.
+         */
         if (matchName === 'ADBE Blend Options Group') {
-            styleGroup = layerStyles.property(1) as PropertyGroup;
+            aexBlendGroup = aexStyleProperty;
         } else {
             styleGroup = _createStyleGroup(layerStyles, aexStyleProperty, state);
-        }
 
-        setPropertyGroup(styleGroup, aexStyleProperty, state);
+            setPropertyGroup(styleGroup, aexStyleProperty, state);
+        }
     });
+
+    if (aexBlendGroup) {
+        const blendGroup = layerStyles.property(1) as PropertyGroup;
+        setPropertyGroup(blendGroup, aexBlendGroup, state);
+    }
+
+    assignAttributes(layerStyles, { enabled: aexStyleGroup.enabled });
 }
 
 /**
@@ -86,8 +99,15 @@ function _createStyleGroup(layerStyles: PropertyGroup, aexStyleProperty: AexProp
 
         if (styleProp.matchName === matchName) {
             if (!styleProp.enabled) {
+                // Add the property
                 app.executeCommand(layerStyleCommandIDs[matchName]);
+
+                // Set enabled, if eligible
+                assignAttributes(styleProp, { enabled: aexStyleProperty.enabled });
+
+                // Reset selected fag
                 layer.selected = layerWasSelected;
+
                 return styleProp;
             }
         }
