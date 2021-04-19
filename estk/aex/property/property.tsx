@@ -76,3 +76,7 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
             throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
     }
 }
+
+function isShapeProperty(property: Property<UnknownPropertyType>): boolean {
+    return property.propertyValueType === PropertyValueType.SHAPE;
+}

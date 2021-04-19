@@ -33,11 +33,33 @@ function _setPropertyValue(property: Property, value: any, state: AexState) {
     }
 }
 
+function _createShape(aexObjValue: Shape): Shape {
+    const shape = new Shape();
+
+    assignAttributes(shape, {
+        closed: aexObjValue.closed,
+        vertices: aexObjValue.vertices,
+        inTangents: aexObjValue.inTangents,
+        outTangents: aexObjValue.outTangents,
+        featherSegLocs: aexObjValue.featherSegLocs,
+        featherRelSegLocs: aexObjValue.featherRelSegLocs,
+        featherRadii: aexObjValue.featherRadii,
+        featherInterps: aexObjValue.featherInterps,
+        featherTensions: aexObjValue.featherTensions,
+        featherTypes: aexObjValue.featherTypes,
+        featherRelCornerAngles: aexObjValue.featherRelCornerAngles,
+    });
+
+    return shape;
+}
+
 function _createAexValue(property: Property, aexObjValue: any, state: AexState): any {
     let aexValue: any;
 
     if (isTextDocument(property)) {
         aexValue = _createTextDocument(property.value, aexObjValue, state);
+    } else if (isShapeProperty(property)) {
+        aexValue = _createShape(aexObjValue);
     } else {
         let propertyValue = aexObjValue;
 

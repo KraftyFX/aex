@@ -16,6 +16,7 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
             rotoBezier: getModifiedValue(mask.rotoBezier, false),
             maskMotionBlur: getModifiedValue(mask.maskMotionBlur, MaskMotionBlur.SAME_AS_LAYER),
             locked: getModifiedValue(mask.locked, false),
+
             maskPath: getModifiedProperty(mask.maskPath, state),
             maskFeather: getModifiedProperty(mask.maskFeather, state),
             maskOpacity: getModifiedProperty(mask.maskOpacity, state),
@@ -24,4 +25,36 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
     });
 
     return masks;
+}
+
+function _setLayerMasks(masks: MaskPropertyGroup, aexMasks: AexMask[], state: AexState) {
+    aeq.arrayEx(aexMasks).forEach((aexMask: AexMask) => {
+        const mask = masks.addProperty('ADBE Mask Atom') as MaskPropertyGroup;
+
+        assignAttributes(mask, {
+            name: aexMask.name,
+            color: aexMask.color,
+            maskMode: aexMask.maskMode,
+            inverted: aexMask.inverted,
+            rotoBezier: aexMask.rotoBezier,
+            maskMotionBlur: aexMask.maskMotionBlur,
+            locked: aexMask.locked,
+        });
+
+        if (!aeq.isNullOrUndefined(aexMask.maskPath)) {
+            setProperty(mask.maskPath, aexMask.maskPath, state);
+        }
+
+        if (!aeq.isNullOrUndefined(aexMask.maskFeather)) {
+            setProperty(mask.maskFeather, aexMask.maskFeather, state);
+        }
+
+        if (!aeq.isNullOrUndefined(aexMask.maskOpacity)) {
+            setProperty(mask.maskOpacity, aexMask.maskOpacity, state);
+        }
+
+        if (!aeq.isNullOrUndefined(aexMask.maskExpansion)) {
+            setProperty(mask.maskExpansion, aexMask.maskExpansion, state);
+        }
+    });
 }
