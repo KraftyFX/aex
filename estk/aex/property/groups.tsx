@@ -57,7 +57,22 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState, skip?: 
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
     aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexPropertyBase) => {
-        const property = propertyGroup.property(aexProperty.matchName);
+        const { matchName } = aexProperty;
+
+        let property: PropertyBase;
+
+        /**
+         * Voodoo: There are cases where a property will exist, but won't be visible in the UI unless we addProperty() it
+         */
+        if (propertyGroup.canAddProperty(matchName)) {
+            property = _createPropertyBase(propertyGroup, aexProperty, state);
+        } else {
+            property = propertyGroup.property(matchName);
+        }
+
+        if (aeq.isNullOrUndefined(property)) {
+            throw new Error(`Can't set property '${matchName}' in group '${propertyGroup.matchName}'`);
+        }
 
         if (property.propertyType == PropertyType.PROPERTY) {
             setProperty(property as any, aexProperty as AexProperty, state);

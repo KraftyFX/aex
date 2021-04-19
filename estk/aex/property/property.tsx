@@ -23,6 +23,21 @@ function getProperty(property: Property, state: AexState): AexProperty {
     return aexProperty;
 }
 
+function _createPropertyBase(propertyGroup: PropertyGroup, aexProperty: AexPropertyBase, state: AexState): PropertyBase {
+    const { matchName } = aexProperty;
+
+    const property = propertyGroup.addProperty(matchName);
+
+    const name = property.parentProperty.propertyType === PropertyType.INDEXED_GROUP ? aexProperty.name : undefined;
+
+    assignAttributes(property, {
+        name,
+        enabled: aexProperty.enabled,
+    });
+
+    return property;
+}
+
 function isUnreadableProperty(property: Property<UnknownPropertyType>) {
     return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
 }
