@@ -56,7 +56,7 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState, skip?: 
 }
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
-    aeq.forEach(aexPropertyGroup.properties, (aexProperty: AexPropertyBase) => {
+    aeq.arrayEx(aexPropertyGroup.properties).forEach((aexProperty: AexPropertyBase) => {
         const { matchName } = aexProperty;
 
         let property: PropertyBase;
