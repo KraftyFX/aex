@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import { AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Styles', function () {
@@ -275,6 +275,10 @@ describe('Layer Styles', function () {
     });
 
     describe('Set', async () => {
+        before(async () => {
+            await openCleanProject();
+        });
+
         it('Can set Drop Shadow style', async () => {
             const layerData = {
                 layerStyles: {
