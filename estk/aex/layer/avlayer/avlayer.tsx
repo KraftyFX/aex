@@ -85,7 +85,6 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
     /**
      * @todo
      *
-     * - masks
      * - audio
      * - effects
      * - layerStyles

@@ -20,8 +20,8 @@ function _getPropertyValue(property: Property, value: any): any {
     }
 }
 
-/** We can't setValue on an animated property, so back out */
 function _setPropertyValue(property: Property, value: any, state: AexState) {
+    /** We can't setValue on an animated property, so back out */
     if (property.numKeys > 0) {
         return;
     }
