@@ -350,13 +350,13 @@ describe('Basic Layer Attributes', function () {
                             temporalEase: {
                                 inEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 0,
                                     },
                                 ],
                                 outEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 1,
                                     },
                                 ],
@@ -368,13 +368,13 @@ describe('Basic Layer Attributes', function () {
                             temporalEase: {
                                 inEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 1,
                                     },
                                 ],
                                 outEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 0,
                                     },
                                 ],
@@ -411,13 +411,13 @@ describe('Basic Layer Attributes', function () {
                             temporalEase: {
                                 inEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 0,
                                     },
                                 ],
                                 outEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 2,
                                     },
                                 ],
@@ -429,13 +429,13 @@ describe('Basic Layer Attributes', function () {
                             temporalEase: {
                                 inEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 2,
                                     },
                                 ],
                                 outEase: [
                                     {
-                                        influence: 16.6667,
+                                        influence: 16.66667,
                                         speed: 0,
                                     },
                                 ],
@@ -904,13 +904,13 @@ describe('Basic Layer Attributes', function () {
                                             temporalEase: {
                                                 inEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 0,
                                                     },
                                                 ],
                                                 outEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 1,
                                                     },
                                                 ],
@@ -922,13 +922,13 @@ describe('Basic Layer Attributes', function () {
                                             temporalEase: {
                                                 inEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 1,
                                                     },
                                                 ],
                                                 outEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 0,
                                                     },
                                                 ],
@@ -993,13 +993,13 @@ describe('Basic Layer Attributes', function () {
                                             temporalEase: {
                                                 inEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 0,
                                                     },
                                                 ],
                                                 outEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 2,
                                                     },
                                                 ],
@@ -1011,13 +1011,13 @@ describe('Basic Layer Attributes', function () {
                                             temporalEase: {
                                                 inEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 2,
                                                     },
                                                 ],
                                                 outEase: [
                                                     {
-                                                        influence: 16.6667,
+                                                        influence: 16.66667,
                                                         speed: 0,
                                                     },
                                                 ],

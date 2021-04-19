@@ -136,8 +136,8 @@ function _getKeyframeEases(ease: KeyframeEase[]): any {
 
     aeq.forEach(ease, (easeDimension) => {
         easeData.push({
-            influence: roundNumber(easeDimension.influence),
-            speed: roundNumber(easeDimension.speed),
+            influence: roundNumber(easeDimension.influence, 5),
+            speed: roundNumber(easeDimension.speed, 5),
         });
     });
 

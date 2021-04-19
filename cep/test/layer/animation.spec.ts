@@ -32,13 +32,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 33.3333,
+                                influence: 33.33333,
                                 speed: 0,
                             },
                         ],
@@ -54,14 +54,14 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 33.3333,
-                                speed: 33.8906,
+                                influence: 33.33333,
+                                speed: 33.89062,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 33.3333,
-                                speed: 33.8906,
+                                influence: 33.33333,
+                                speed: 33.89062,
                             },
                         ],
                     },
@@ -75,13 +75,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 33.3333,
+                                influence: 33.33333,
                                 speed: 0,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
@@ -138,14 +138,14 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 16.6667,
-                                speed: 22.5941,
+                                influence: 16.66667,
+                                speed: 22.59414,
                             },
                         ],
                     },
@@ -156,13 +156,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
-                                speed: 22.5941,
+                                influence: 16.66667,
+                                speed: 22.59414,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
@@ -188,13 +188,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 95.6888,
+                                influence: 95.68875,
                                 speed: 0,
                             },
                         ],
@@ -217,13 +217,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 66.5593,
+                                influence: 66.55934,
                                 speed: 0,
                             },
                         ],
@@ -244,8 +244,8 @@ describe('Layer Animation', function () {
                         ],
                         outEase: [
                             {
-                                influence: 16.6667,
-                                speed: 40.678,
+                                influence: 16.66667,
+                                speed: 40.67797,
                             },
                         ],
                     },
@@ -256,13 +256,13 @@ describe('Layer Animation', function () {
                     temporalEase: {
                         inEase: [
                             {
-                                influence: 16.6667,
-                                speed: 40.678,
+                                influence: 16.66667,
+                                speed: 40.67797,
                             },
                         ],
                         outEase: [
                             {
-                                influence: 16.6667,
+                                influence: 16.66667,
                                 speed: 0,
                             },
                         ],

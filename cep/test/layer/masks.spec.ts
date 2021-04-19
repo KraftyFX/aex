@@ -191,8 +191,8 @@ describe('Layer Masks', function () {
             keys: [
                 {
                     temporalEase: {
-                        inEase: [{ influence: 16.6667, speed: 0 }],
-                        outEase: [{ influence: 16.6667, speed: 1 }],
+                        inEase: [{ influence: 16.66667, speed: 0 }],
+                        outEase: [{ influence: 16.66667, speed: 1 }],
                     },
                     time: 0,
                     value: {
@@ -244,8 +244,8 @@ describe('Layer Masks', function () {
                 },
                 {
                     temporalEase: {
-                        inEase: [{ influence: 16.6667, speed: 1 }],
-                        outEase: [{ influence: 16.6667, speed: 0 }],
+                        inEase: [{ influence: 16.66667, speed: 1 }],
+                        outEase: [{ influence: 16.66667, speed: 0 }],
                     },
                     time: 4.9583,
                     value: {
