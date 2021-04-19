@@ -6,6 +6,7 @@ function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
         type: AEX_FOOTAGE_LAYER,
 
         source: _getFootageSource(layer),
+        trackers: _getTrackers(layer, state),
     };
 }
 
@@ -41,4 +42,14 @@ function _getFootageSource(layer: AVLayer): AexFootageSource {
         id: generateItemUID(layer.source),
         type,
     };
+}
+
+function _getTrackers(layer: AVLayer, state: AexState): AexPropertyGroup[] {
+    const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
+
+    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
+        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
+    };
+
+    return getTopLevelPropertyGroups(trackers, fillProperties);
 }

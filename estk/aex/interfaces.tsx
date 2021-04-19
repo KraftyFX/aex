@@ -192,6 +192,7 @@ interface AexShapeLayer extends AexAVLayerBase, AexObject {
 
 interface AexFootageLayer extends AexAVLayerBase, AexObject {
     source: AexFootageSource;
+    trackers: AexPropertyGroup[];
 }
 
 interface AexFootageSource extends AexObject {

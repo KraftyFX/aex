@@ -102,6 +102,7 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Empty',
+                trackers: [],
                 transform: {},
                 source: {
                     type: AEX_SOLID_ITEM,
@@ -149,6 +150,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -166,6 +168,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:50',
                 },
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -183,6 +186,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'parented solid:61',
                 },
+                trackers: [],
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
@@ -388,6 +392,7 @@ describe('Basic Layer Attributes', function () {
                     value: 0.5,
                 },
                 timeRemapEnabled: true,
+                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -449,6 +454,7 @@ describe('Basic Layer Attributes', function () {
                     value: 1,
                 },
                 timeRemapEnabled: true,
+                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -465,6 +471,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'parented solid:61',
                 },
+                trackers: [],
                 transform: {},
                 type: AEX_FOOTAGE_LAYER,
             });
@@ -587,11 +594,12 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Empty',
-                transform: {},
                 source: {
                     type: AEX_SOLID_ITEM,
                     id: 'null 1:40',
                 },
+                trackers: [],
+                transform: {},
                 type: AEX_NULL_LAYER,
             };
 
@@ -648,6 +656,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 2:67',
                 },
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -672,6 +681,7 @@ describe('Basic Layer Attributes', function () {
                     type: AEX_SOLID_ITEM,
                     id: 'null 3:81',
                 },
+                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -698,6 +708,7 @@ describe('Basic Layer Attributes', function () {
                             type: AEX_SOLID_ITEM,
                             id: 'new solid:108',
                         },
+                        trackers: [],
                         transform: {
                             position: {
                                 type: AEX_THREED_PROPERTY,
@@ -942,6 +953,7 @@ describe('Basic Layer Attributes', function () {
                                     value: 0,
                                 },
                                 timeRemapEnabled: true,
+                                trackers: [],
                                 transform: {},
                                 type: AEX_FOOTAGE_LAYER,
                             },
@@ -1031,6 +1043,7 @@ describe('Basic Layer Attributes', function () {
                                     value: 0,
                                 },
                                 timeRemapEnabled: true,
+                                trackers: [],
                                 transform: {},
                                 type: AEX_FOOTAGE_LAYER,
                             },
@@ -1062,6 +1075,7 @@ describe('Basic Layer Attributes', function () {
                             type: AEX_SOLID_ITEM,
                             id: 'new solid:52',
                         },
+                        trackers: [],
                         transform: {},
                         type: AEX_FOOTAGE_LAYER,
                     },
