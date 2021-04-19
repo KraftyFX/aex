@@ -12,7 +12,7 @@ import {
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Layer Effects', function () {
+describe('Layer Effects', function () {
     this.slow(500);
     this.timeout(3000);
 
@@ -478,7 +478,7 @@ describe.only('Layer Effects', function () {
         });
     });
 
-    describe.only('Set', async () => {
+    describe('Set', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -677,7 +677,6 @@ describe.only('Layer Effects', function () {
                     },
                     {
                         name: 'Dropdown Menu Control',
-                        matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ',
                         properties: [
                             {
                                 items: ['Item 1', 'Item 2', 'Item 3'],
@@ -705,6 +704,9 @@ describe.only('Layer Effects', function () {
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
+
+            const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            delete dropdownEffect.matchName;
 
             assertAreEqual(comp.layers[0].effects, layerData.effects);
         });
@@ -768,12 +770,10 @@ describe.only('Layer Effects', function () {
                             },
                             {
                                 name: 'Dropdown Menu Control',
-                                matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ',
                                 properties: [
                                     {
                                         keys: [],
                                         items: ['Item 1', 'Item 2', 'Item 3'],
-                                        matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ-0001',
                                         name: 'Menu',
                                         type: AEX_DROPDOWN_PROPERTY,
                                         value: 3,
@@ -834,7 +834,10 @@ describe.only('Layer Effects', function () {
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
-            console.log(comp);
+            const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            delete dropdownEffect.matchName;
+            delete dropdownEffect.properties[0].matchName;
+
             assertAreEqual(comp.layers[0].effects, compData.layers[0].effects);
         });
 
