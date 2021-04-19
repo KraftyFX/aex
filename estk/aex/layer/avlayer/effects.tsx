@@ -21,10 +21,50 @@ function getEffects(layer: AVLayer, state: AexState) {
     return getTopLevelPropertyGroups(layer.effect, fillProperties);
 }
 
+function _setEffects(effects: PropertyGroup, aexEffects: AexPropertyGroup[], state: AexState) {
+    aeq.arrayEx(aexEffects).forEach((aexEffect: AexPropertyGroup) => {
+        let effect;
+        const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
+
+        if (isDropdownEffect) {
+            effect = _createDropdownEffect(effects, aexEffect, state) as PropertyGroup;
+        } else {
+            effect = effects.addProperty(aexEffect.matchName) as PropertyGroup;
+        }
+
+        assignAttributes(effect, {
+            name: aexEffect.name,
+            enabled: aexEffect.enabled,
+        });
+
+        if (!isDropdownEffect) {
+            setPropertyGroup(effect, aexEffect, state);
+        }
+    });
+}
+
 function _isUiOnlyEffectProperty(property: Property): boolean {
     const { propertyDepth, propertyValueType } = property;
 
     return propertyValueType === PropertyValueType.NO_VALUE && propertyDepth > 2 && property.propertyGroup(propertyDepth - 2).isEffect;
+}
+
+function _isDropdownAexEffect(aexEffect: AexPropertyGroup, state: AexState): boolean {
+    if (!aexEffect.properties) {
+        return false;
+    }
+
+    if (aexEffect.properties.length !== 1) {
+        return false;
+    }
+
+    const aexProperty = aexEffect.properties[0] as AexProperty;
+
+    if (aexProperty.type === AEX_DROPDOWN_PROPERTY) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function _isDropdownEffect(effect: PropertyGroup, state: AexState): boolean {
@@ -52,6 +92,37 @@ function _getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdo
         ...propertyData,
         items: _getDropdownPropertyItems(dropdownProperty, state),
     };
+}
+
+function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexPropertyGroup, state: AexState): PropertyGroup {
+    const effect = effects.addProperty('ADBE Dropdown Control');
+
+    assignAttributes(effect, {
+        name: aexEffect.name,
+        enabled: aexEffect.enabled,
+    });
+
+    const aexDropdownProperty = aexEffect.properties[0] as AexDropdownProperty;
+    const dropdownProperty = effect.property(1) as Property;
+
+    /**
+     * Voodoo
+     *
+     * Calling this function invalidates the reference to the effect and the property itself
+     * However, it returns a new reference to the property, so we can return that.
+     *
+     * @todo - Types-For-Adobe needs to be updated that this method returns the property
+     */
+    // @ts-ignore
+    const updatedProperty = dropdownProperty.setPropertyParameters(aexDropdownProperty.items) as Property;
+
+    if (aexDropdownProperty.value) {
+        setProperty(updatedProperty as Property, aexDropdownProperty, state);
+    }
+
+    const updatedDropdownEffect = updatedProperty.propertyGroup(1) as PropertyGroup;
+
+    return updatedDropdownEffect;
 }
 
 function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState): string[] {

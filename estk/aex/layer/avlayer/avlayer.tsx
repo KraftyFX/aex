@@ -55,6 +55,7 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
 
     _setLayerAttributes(avLayer, aexAVLayer, state);
     _setLayerMasks(avLayer.mask, aexAVLayer.masks, state);
+    _setEffects(avLayer.effect, aexAVLayer.effects, state);
 
     if (aexAVLayer.timeRemap) {
         avLayer.timeRemapEnabled = true;
@@ -86,7 +87,6 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
      * @todo
      *
      * - audio
-     * - effects
      * - layerStyles
      */
 }
