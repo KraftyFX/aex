@@ -17,12 +17,7 @@ function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
 function createShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const layer = comp.layers.addShape();
     _setAVLayerAttributes(layer, aexShapeLayer, state);
-
-    /**
-     * @todo
-     *
-     * - contents
-     */
+    _setContents(layer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);
 }
 
 function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
@@ -43,6 +38,26 @@ function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup
     };
 
     return getTopLevelPropertyGroups(rootVectorsGroups, fillGroup);
+}
+
+function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGroup[], state: AexState) {
+    aeq.arrayEx(aexContents).forEach((aexContent: AexShapePropertyGroup) => {
+        const { matchName } = aexContent;
+
+        let shapeGroup: PropertyBase;
+
+        if (contents.canAddProperty(matchName)) {
+            shapeGroup = _createPropertyBase(contents, aexContent, state);
+
+            if (matchName === 'ADBE Vector Group') {
+                _setContents(shapeGroup.property('ADBE Vectors Group') as PropertyGroup, aexContent.contents, state);
+            }
+        } else {
+            shapeGroup = contents.property(matchName);
+        }
+
+        setPropertyGroup(shapeGroup as PropertyGroup, aexContent, state);
+    });
 }
 
 function _isVectorGroup(propertyGroup: Property | PropertyGroup) {
