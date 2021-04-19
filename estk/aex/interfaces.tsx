@@ -145,6 +145,7 @@ interface AexLayerBase {
     startTime: number;
     shy: boolean;
     solo: boolean;
+    stretch: number;
 
     parentLayerIndex: number;
     markers: AexMarkerProperty[];

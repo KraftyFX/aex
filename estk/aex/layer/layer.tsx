@@ -65,6 +65,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         startTime: getModifiedValue(layer.startTime, 0),
         shy: getModifiedValue(layer.shy, false),
         solo: getModifiedValue(layer.solo, false),
+        stretch: getModifiedValue(layer.stretch, 100),
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
 
         markers: _getAexLayerMarkers(layer),
