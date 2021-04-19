@@ -92,7 +92,7 @@ function _isNumberArray(array: any[]): boolean {
     });
 }
 
-/** @todo Add types here */
+/** @todo Add type safety */
 function getRoundedValue(value: any): any {
     if (typeof value === 'number') {
         return roundNumber(value);

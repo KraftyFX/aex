@@ -42,11 +42,13 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
 
     switch (aexFootage.type) {
         case AEX_FILE_FOOTAGE_ITEM:
+            /** @todo */
             break;
         case AEX_SOLID_ITEM:
             footageItem = _createSolid(aexFootage as AexSolidItem, state);
             break;
         case AEX_PLACEHOLDER_ITEM:
+            /** @todo */
             break;
         default:
             return;

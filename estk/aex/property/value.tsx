@@ -80,7 +80,7 @@ function _createAexValue(property: Property, aexObjValue: any, state: AexState):
     return aexValue;
 }
 
-/** @todo Add type safety to the item and aex item */
+/** @todo Add type safety */
 function assignAttributes(aeItem: any, aexItem: any): void {
     for (let key in aexItem) {
         // Skip the internal JS properties
