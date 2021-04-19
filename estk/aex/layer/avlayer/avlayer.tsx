@@ -83,10 +83,7 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         setPropertyGroup(avLayer.materialOption, aexAVLayer.materialOption, state);
     }
 
-    /**
-     * @todo
-     *
-     * - audio
-     * - layerStyles
-     */
+    if (aexAVLayer.layerStyles) {
+        _setLayerStyles(avLayer.layerStyle, aexAVLayer.layerStyles, state);
+    }
 }

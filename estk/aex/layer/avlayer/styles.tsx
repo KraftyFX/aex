@@ -31,3 +31,65 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
 
     return styles;
 }
+
+function _setLayerStyles(layerStyles: PropertyGroup, aexStyleGroup: AexPropertyGroup, state: AexState): void {
+    assignAttributes(layerStyles, { enabled: aexStyleGroup.enabled });
+
+    aeq.arrayEx(aexStyleGroup.properties).forEach((aexStyleProperty: AexPropertyGroup) => {
+        const { matchName } = aexStyleProperty;
+        let styleGroup: PropertyGroup;
+
+        if (matchName === 'ADBE Blend Options Group') {
+            styleGroup = layerStyles.property(1) as PropertyGroup;
+        } else {
+            styleGroup = _createStyleGroup(layerStyles, aexStyleProperty, state);
+        }
+
+        setPropertyGroup(styleGroup, aexStyleProperty, state);
+    });
+}
+
+/**
+ * Voodoo:
+ *
+ * Unlike most other groups, we can't group.addProperty(styleMatchName) because they already exist
+ * The only way to "create" them in the UI is to call the commandID revealing it.
+ *
+ * However, this will operate on _all selected layers_, so we need to ensure only this layer is selected beforehad
+ */
+function _createStyleGroup(layerStyles: PropertyGroup, aexStyleProperty: AexPropertyGroup, state: AexState): PropertyGroup {
+    const layerStyleCommandIDs = {
+        'dropShadow/enabled': 9000,
+        'innerShadow/enabled': 9001,
+        'outerGlow/enabled': 9002,
+        'innerGlow/enabled': 9003,
+        'bevelEmboss/enabled': 9004,
+        'chromeFX/enabled': 9005,
+        'solidFill/enabled': 9006,
+        'gradientFill/enabled': 9007,
+        'frameFX/enabled': 9008,
+    };
+
+    const { matchName } = aexStyleProperty;
+
+    const layer = layerStyles.propertyGroup(layerStyles.propertyDepth) as AVLayer;
+    const layerWasSelected = layer.selected;
+
+    // Deselect All
+    app.executeCommand(2004);
+
+    // make sure only this layer is selected
+    layer.selected = true;
+
+    for (let ii = 2; ii <= layerStyles.numProperties; ii++) {
+        const styleProp = layerStyles.property(ii) as PropertyGroup;
+
+        if (styleProp.matchName === matchName) {
+            if (!styleProp.enabled) {
+                app.executeCommand(layerStyleCommandIDs[matchName]);
+                layer.selected = layerWasSelected;
+                return styleProp;
+            }
+        }
+    }
+}
