@@ -623,6 +623,8 @@ declare interface AEQArrayEx<T> extends Array<T> {
     /** Gets first element in array */
     first(): T;
 
+    groupBy(callback: (value: T) => any): { [key: string]: T[] };
+
     /** Returns array element that triggers callback === true */
     find(callback: boolArrayCallback<T>, def?: T): T;
 
