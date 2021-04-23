@@ -1,5 +1,5 @@
-import { AEX_COMP_ITEM, AEX_PROJECT } from '../constants';
 import { AeObject, aex } from '../aex';
+import { AEX_COMP_ITEM, AEX_PROJECT } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -155,7 +155,7 @@ describe('Comp Markers', function () {
         before(async () => {
             await openCleanProject();
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             project = result.object;

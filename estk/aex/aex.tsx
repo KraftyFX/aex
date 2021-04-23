@@ -4,6 +4,7 @@ function aex() {
         prescan,
         fromAe: aeToAex,
         toAe: aexToAe,
+        update,
     };
 }
 
@@ -110,4 +111,45 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
     }
 
     app.endUndoGroup();
+}
+
+function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
+    const state: AexState = {
+        options: null,
+        toAeOptions: {
+            markerMatchBy: 'index',
+        },
+        log: [],
+        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+    };
+
+    if (aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM) {
+        const comp = _createComp2(aexObject as AexComp, state);
+        _update(comp, aexObject as AexComp, state);
+    } else {
+        throw new Error(`Don't know how to create an object of this type.`);
+    }
+}
+
+function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
+    const state: AexState = {
+        options: null,
+        toAeOptions: {
+            markerMatchBy: 'index',
+        },
+        log: [],
+        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+    };
+
+    _update(aeObject, aexObject, state);
+}
+
+function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
+    if (aeObject instanceof Project && aexObject.type === AEX_PROJECT) {
+        setProject2(aeObject as Project, aexObject as AexProject, state);
+    } else if (aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM) {
+        _setComp2(aeObject as CompItem, aexObject as AexComp, state);
+    } else {
+        throw new Error(`Don't know how to create an object of type '${aexObject.type}'.`);
+    }
 }

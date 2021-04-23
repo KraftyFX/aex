@@ -34,7 +34,7 @@ interface AexOptions {
 }
 
 interface ToAeOptions {
-    merge: boolean;
+    markerMatchBy: 'index' | 'time';
 }
 
 interface AexLogEntry {
