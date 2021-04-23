@@ -24,7 +24,7 @@ function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarke
         return;
     }
 
-    const markers = aeq.arrayEx();
+    const markers = aeq.arrayEx<{ time: number; marker: MarkerValue }>();
 
     aeq.forEach(aexMarkers, (aexMarker) => {
         const marker = new MarkerValue(aexMarker.comment || '');
@@ -42,7 +42,7 @@ function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarke
 
         markers.push({
             time: aexMarker.time,
-            marker: marker,
+            marker,
         });
     });
 
@@ -61,4 +61,43 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
     const parameters = keyValue.getParameters();
 
     return parameters.toSource() === '({})' ? undefined : parameters;
+}
+
+function setCompMarkers2(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
+    const onMarkerPair = (aexMarker, aeMarkerValue, i) => {
+        if (!aeMarkerValue) {
+            aeMarkerValue = new MarkerValue(aexMarker.comment || '');
+        }
+
+        // TODO: How do you update the comment and time?
+
+        assignAttributes(aeMarkerValue, {
+            chapter: aexMarker.chapter,
+            url: aexMarker.url,
+            frameTarget: aexMarker.frameTarget,
+            cuePointName: aexMarker.cuePointName,
+            duration: aexMarker.duration,
+            label: aexMarker.label,
+            protectedRegion: aexMarker.protectedRegion,
+            parameters: aexMarker.parameters,
+        });
+
+        aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);
+    };
+
+    const matchBy = state.toAeOptions.markerMatchBy;
+
+    switch (matchBy) {
+        case 'index':
+            forEachPairByIndex(aexMarkers, aeMarkerProperty, onMarkerPair);
+            break;
+        case 'time':
+            const aexMarkersByTime = groupArrayBy(aexMarkers, (v) => v.time);
+            const aeMarkerValuesByTime = groupAeKeysBy(aeMarkerProperty, (v, i) => aeMarkerProperty.keyTime(i + 1));
+
+            forEachPairByGrouping(aexMarkersByTime, aeMarkerValuesByTime, onMarkerPair);
+            break;
+        default:
+            throw new Error(`Unrecognized marker matching method ${matchBy}`);
+    }
 }

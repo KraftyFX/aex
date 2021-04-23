@@ -138,3 +138,54 @@ function _getAexCompMarkers(comp: CompItem) {
 function _createCompMarkers(comp: CompItem, aexMarkers: AexMarkerProperty[], state: AexState) {
     createMarkers(comp.markerProperty, aexMarkers, state);
 }
+
+function _createComp2(aexComp: AexComp, state: AexState): CompItem {
+    state.stats.compCount++;
+
+    const comp = aeq.comp.create({
+        name: aexComp.name,
+        width: aexComp.width,
+        height: aexComp.height,
+        pixelAspect: aexComp.pixelAspect,
+        duration: aexComp.duration,
+        frameRate: aexComp.frameRate,
+    });
+
+    comp.openInViewer();
+
+    return comp;
+}
+
+function _setComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
+    assertIsDefined(comp, 'comp');
+
+    setItemBaseAttributes(comp, aexComp, state);
+
+    assignAttributes(comp, {
+        bgColor: aexComp.bgColor,
+        displayStartFrame: aexComp.displayStartFrame,
+        displayStartTime: aexComp.displayStartTime,
+        draft3d: aexComp.draft3d,
+        dropFrame: aexComp.dropFrame,
+        frameBlending: aexComp.frameBlending,
+        hideShyLayers: aexComp.hideShyLayers,
+        motionBlur: aexComp.motionBlur,
+        motionBlurAdaptiveSampleLimit: aexComp.motionBlurAdaptiveSampleLimit,
+        motionBlurSamplesPerFrame: aexComp.motionBlurSamplesPerFrame,
+        preserveNestedFrameRate: aexComp.preserveNestedFrameRate,
+        preserveNestedResolution: aexComp.preserveNestedResolution,
+        resolutionFactor: aexComp.resolutionFactor,
+        shutterAngle: aexComp.shutterAngle,
+        shutterPhase: aexComp.shutterPhase,
+        workAreaDuration: aexComp.workAreaDuration,
+        workAreaStart: aexComp.workAreaStart,
+    });
+
+    if (aexComp.markers) {
+        setCompMarkers2(comp.markerProperty, aexComp.markers, state);
+    }
+
+    if (aexComp.renderer) {
+        setCompRenderer(comp, aexComp.renderer);
+    }
+}

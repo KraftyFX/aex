@@ -1,4 +1,4 @@
-import { AexOptions, AexResult, AexObject } from './constants';
+import { AexObject, AexOptions, AexResult } from './constants';
 import { getEvalScriptResult } from './csinterface';
 
 export enum AeObject {
@@ -28,6 +28,12 @@ export function aex() {
 
         async fromAexObject(aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
             return await getEvalScriptResult<AexResult>(`aex().toAe(${JSON.stringify(aexObject)}, aex_args)`, options || {}, { ignoreReturn: false });
+        },
+
+        async update(aeObject: AeObject, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
+            return await getEvalScriptResult<AexResult>(`aex().update(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
+                ignoreReturn: false,
+            });
         },
     };
 }

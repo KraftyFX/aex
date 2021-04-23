@@ -61,3 +61,61 @@ function forEachPropertyKeyValue<T>(property: Property, callback: ForEachPropert
         callback(keyValue as T, ii - 1, il);
     }
 }
+
+type GroupByResult<T> = {
+    [key: string]: T[];
+};
+
+function groupArrayBy<T>(arr: T[], callback: (value: T) => unknown) {
+    return aeq.arrayEx(arr).groupBy(callback) as GroupByResult<T>;
+}
+
+function groupAeKeysBy<T extends AnyProperty>(property: T, callback: (value: T['value'], i: number) => any) {
+    const obj: GroupByResult<T['value']> = {};
+
+    forEachPropertyKeyValue(property, (value: T['value'], i) => {
+        const key = callback(value, i);
+        const arr = obj[key] || aeq.arrayEx([]);
+
+        arr.push(value);
+
+        obj[key] = arr;
+    });
+
+    return obj;
+}
+
+function forEachGroup<T>(obj: GroupByResult<T>, callback: (member: keyof T, value: T[]) => void) {
+    for (var m in obj) {
+        if (obj.hasOwnProperty(m)) {
+            callback(m as keyof T, obj[m]);
+        }
+    }
+}
+
+type PropertyPairCallback<V, P extends AnyProperty> = (aexValue: V, aeObject: P['value'], i: number) => void;
+
+function forEachPairByIndex<V, P extends AnyProperty>(aexValues: V[], aeProperty: P, callback: PropertyPairCallback<V, P>) {
+    const aeKeysLength = aeProperty.numKeys;
+
+    aeq.arrayEx(aexValues).forEach((v, i) => {
+        callback(v, i < aeKeysLength ? aeProperty.keyValue(i + 1) : null, i);
+    });
+}
+
+function forEachPairByGrouping<V, P extends AnyProperty>(
+    aexGroupedValues: GroupByResult<V>,
+    aeGroupedValues: GroupByResult<P['value']>,
+    callback: PropertyPairCallback<V, P>
+) {
+    let index = 0;
+
+    forEachGroup(aexGroupedValues, (member, aexValues) => {
+        const aeKeyValues = aeGroupedValues[member as string] || [];
+        const aeKeyValuesLength = aeKeyValues.length;
+
+        aeq.arrayEx(aexValues).forEach((v, i) => {
+            callback(v, i < aeKeyValuesLength ? aeKeyValues[i] : null, index++);
+        });
+    });
+}

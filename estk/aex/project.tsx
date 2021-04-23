@@ -36,3 +36,23 @@ function setAexProject(aexProject: AexProject, state: AexState) {
         createComp(comp, state);
     });
 }
+
+function setProject2(aeProject: Project, aexProject: AexProject, state: AexState) {
+    const { comps: aexComps } = aexProject;
+    const comps = aeq.getComps();
+
+    forEachCompItemPair(aexComps, comps, (aexComp, aeComp) => {
+        aeComp = aeComp || _createComp2(aexComp, state);
+
+        _setComp2(aeComp, aexComp, state);
+    });
+}
+
+function forEachCompItemPair(aexComps: AexComp[], aeComps: CompItem[], callback: (aexComp: AexComp, aeComp: CompItem) => void) {
+    const aexCompsArr = aeq.arrayEx(aexComps) as AEQArrayEx<AexComp>;
+    const aeCompsLength = aeComps.length;
+
+    aexCompsArr.forEach((v, i) => {
+        callback(v, i < aeCompsLength ? aeComps[i] : null);
+    });
+}
