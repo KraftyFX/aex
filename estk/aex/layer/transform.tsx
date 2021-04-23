@@ -35,7 +35,7 @@ function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState
         return;
     }
 
-    aeq.forEach(aexTransform, (xformPropertyName) => {
+    aeq.forEach(aexTransform, (xformPropertyName: string) => {
         const layerTransformProperty = layer[xformPropertyName];
         const aexTransformProperty = aexTransform[xformPropertyName];
 

@@ -9,7 +9,7 @@ function setCompRenderer(comp: CompItem, renderer: string) {
 }
 
 function getRequiredCompRendererFromProperties(aexPropertyGroup: AexPropertyGroup): string {
-    const aeqProps: AEQArrayEx<AexProperty> = aeq.arrayEx(aexPropertyGroup.properties);
+    const aeqProps: AEQArrayEx<AexPropertyBase> = aeq.arrayEx(aexPropertyGroup.properties);
 
     const ernstProps = aeq.arrayEx([
         // AVLayer Material Options

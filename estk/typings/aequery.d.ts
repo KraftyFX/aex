@@ -32,7 +32,7 @@ declare interface AEQuery {
     ui: AEQUIClass;
 
     /** Array with some extensions that mimics modern JavaScript. */
-    arrayEx(items?: Array<any>): AEQArrayEx<any>;
+    arrayEx<T = any>(items?: Array<T>): AEQArrayEx<T>;
 
     /** Converts a CompItem into an aeq.Comp object */
     Comp(comp: CompItem): AEQComp;
@@ -113,32 +113,32 @@ declare interface AEQuery {
     getKeys(prop: Property | Property[]): AEQArrayEx<AEQKey>;
 
     /** Loops through arrays and objects */
-    forEach(obj: any[], callback: forEachArrayCallback<any>, fromIndex?: number): void;
-    forEach(obj: object, callback: forEachArrayCallback<any>, fromIndex?: number): void;
+    forEach<T>(obj: T[], callback: ForEachArrayCallback<T>, fromIndex?: number): void;
+    forEach<T>(obj: object, callback: ForEachArrayCallback<T>, fromIndex?: number): void;
 
     /** Loops through the layers of a comp, array of comps, or all layers in the project, and executes a function for each one. */
-    forEachLayer(obj: CompItem | CompItem[], callback: forEachArrayCallback<any>): AEQuery;
+    forEachLayer(obj: CompItem | CompItem[], callback: ForEachArrayCallback<any>): AEQuery;
 
     /** Loops through the properties of a Comp, Layer, PropertyGroup, or an array of any of them, and executes a function for each one. */
-    forEachProperty(obj: CompItem | Layer | PropertyGroup | any[] | forEachArrayCallback<any>, callback: forEachArrayCallback<any>): AEQuery;
+    forEachProperty(obj: CompItem | Layer | PropertyGroup | any[] | ForEachArrayCallback<any>, callback: ForEachArrayCallback<any>): AEQuery;
 
     /** Loops through the effects in a Comp, or on a Layer, and executes a function for each one.. */
-    forEachEffect(obj: CompItem | Layer | any[], callback: forEachArrayCallback<any>): AEQuery;
+    forEachEffect(obj: CompItem | Layer | any[], callback: ForEachArrayCallback<any>): AEQuery;
 
     /** Loops through the comps in a project and executes a function for each one. */
-    forEachComp(callback: forEachArrayCallback<CompItem>): void;
+    forEachComp(callback: ForEachArrayCallback<CompItem>): void;
 
     /** Loops through the Project items in a project and executes a function for each one. */
-    forEachItem(callback: forEachArrayCallback<Item>): AEQuery;
+    forEachItem(callback: ForEachArrayCallback<Item>): AEQuery;
 
     /** Loops through the items in the renderqueue and executes a function for each one. */
-    forEachRenderQueueItem(callback: forEachArrayCallback<RenderQueueItem>): AEQuery;
+    forEachRenderQueueItem(callback: ForEachArrayCallback<RenderQueueItem>): AEQuery;
 
     /** Loops through the output modules in the renderqueue and executes a function for each one. */
-    forEachOutputModule(callback: forEachArrayCallback<OutputModule>): AEQuery;
+    forEachOutputModule(callback: ForEachArrayCallback<OutputModule>): AEQuery;
 
     /** Runs callback on each element, and returns a new arrayEx of elements that trigger callback === true */
-    filter(obj: any[] | object, callback: boolArrayCallback<any>): AEQArrayEx<any>;
+    filter(obj: any[] | object, callback: PredicateCallback<any>): AEQArrayEx<any>;
 
     /** Returns `true` if argument is null or undefined */
     isNullOrUndefined(o: any): o is undefined;
@@ -325,9 +325,9 @@ declare interface AEQuery {
 
 /** AEQ CALLBACKS **/
 
-declare type forEachArrayCallback<T> = (item: T, index: number, array: Array<T>) => void;
-declare type boolArrayCallback<T> = (item: T, index: number, array: Array<T>) => boolean;
-declare type anyArrayCallback<T> = (item: T, index: number, array: Array<T>) => any;
+declare type ForEachArrayCallback<T> = (item: T, index: number, array: Array<T>) => void;
+declare type PredicateCallback<T> = (item: T, index: number, array: Array<T>) => boolean;
+declare type MapArrayCallback<T, U> = (item: T, index: number, array: Array<T>) => U;
 
 /** AEQ MODULES **/
 
@@ -612,33 +612,34 @@ declare interface AEQSettingsClass {
 
 declare interface AEQArrayEx<T> extends Array<T> {
     /** Loops through the elements in the array and executes a function */
-    forEach(callback: forEachArrayCallback<T>): void;
+    forEach(callback: ForEachArrayCallback<T>): void;
 
     /** Loops through the elements in the array and returns `true` if callback returns true for any element */
-    some(callback: boolArrayCallback<T>): boolean;
+    some(callback: PredicateCallback<T>): boolean;
 
     /** Loops through the elements in the array and returns `true` if callback returns true for all elements */
-    every(callback: boolArrayCallback<T>): boolean;
+    every(callback: PredicateCallback<T>): boolean;
 
     /** Gets first element in array */
     first(): T;
 
-    groupBy(callback: (value: T) => any): { [key: string]: T[] };
+    /** Groups all elements based on a provided key */
+    groupBy(callback: (value: T) => unknown): { [key: string]: T[] };
 
     /** Returns array element that triggers callback === true */
-    find(callback: boolArrayCallback<T>, def?: T): T;
+    find(callback: PredicateCallback<T>, def?: T): T;
 
     /** Returns index of array element that triggers callback === true */
-    findIndex(callback: boolArrayCallback<T>): number;
+    findIndex(callback: PredicateCallback<T>): number;
 
     /** Runs callback on each element, and returns a new arrayEx of elements that trigger callback === true */
-    filter(callback: boolArrayCallback<T>): AEQArrayEx<T>;
+    filter(callback: PredicateCallback<T>): AEQArrayEx<T>;
 
     /** Returns index of searchElement in an array, or -1 if not found */
     indexOf(searchElement: T, fromIndex?: 0): number;
 
     /** Creates a new array with the results of calling a provided function on every element in the calling array */
-    map(callback: anyArrayCallback<T>): AEQArrayEx<any>;
+    map<U>(callback: MapArrayCallback<T, U>): AEQArrayEx<U>;
 
     /** Inserts an element into arrayEx at specified index */
     insertAt(insert: T, index: number): void;
@@ -649,7 +650,7 @@ declare interface AEQComp extends CompItem {
     get(): CompItem;
 
     /** Runs a function on each layer in aeq.Comp object */
-    forEachLayer(callback: forEachArrayCallback<Layer>): void;
+    forEachLayer(callback: ForEachArrayCallback<Layer>): void;
 }
 
 declare interface AEQKey {
@@ -704,7 +705,7 @@ declare interface AEQLayer {
     removeParent(): AEQLayer;
 
     /** Executes a callback function on each effect on this layer */
-    forEachEffect(callback: forEachArrayCallback<Property>): AEQLayer;
+    forEachEffect(callback: ForEachArrayCallback<Property>): AEQLayer;
 
     /** Adds effect to layer by name or matchname */
     addEffect(effectName: string): void;
@@ -766,7 +767,7 @@ declare interface AEQProperty {
     valuesAtTimes(times: number[], values?: typeof PropertyValueType[]): typeof PropertyValueType[] | number[];
 
     /** Runs a function on each key in current property */
-    forEachKey(callback: forEachArrayCallback<AEQKey>): void;
+    forEachKey(callback: ForEachArrayCallback<AEQKey>): void;
 
     /** Returns a aeq.Key object for specific key index */
     key(keyIndex: number): AEQKey;

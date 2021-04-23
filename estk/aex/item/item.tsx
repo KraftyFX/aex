@@ -1,4 +1,4 @@
-function getAexItem(item: Item, state: AexState): AexItemBase {
+function getAexItem(item: Item, state: AexState): AexItem {
     if (aeq.isComp(item)) {
         return getAexComp(item as CompItem, state);
     } else if (aeq.isFootageItem(item)) {

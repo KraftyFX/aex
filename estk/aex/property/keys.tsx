@@ -70,7 +70,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
             aexKey.roving = getModifiedValue(keyInfo.roving, false);
         }
 
-        return aexKey;
+        return aexKey as AEQKeyInfo;
     });
 
     state.stats.keyCount++;
