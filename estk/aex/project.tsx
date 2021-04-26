@@ -28,7 +28,7 @@ function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexSta
     const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
     const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
 
-    forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => _setAeProjectItem2(aexItem, aeItem, state));
+    forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => _setAeProjectItem(aexItem, aeItem, state));
 
     const aexCompsByName = groupArrayBy(aexProject.comps, (v) => v.name);
     const aeCompsByName = groupArrayBy(aeq.getComps(), (v) => v.name);
@@ -36,7 +36,7 @@ function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexSta
     forEachPairByGroup(aexCompsByName, aeCompsByName, (aexComp, aeComp) => _setAeProjectComp(aeComp, aexComp, state));
 }
 
-function _setAeProjectItem2(aexItem: AexItem, aeItem: Item, state: AexState) {
+function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
     switch (aexItem.type) {
         case AEX_SOLID_ITEM:
             if (!aeItem) {
