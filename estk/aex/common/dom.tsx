@@ -103,11 +103,11 @@ function forEachValuePairByIndex<V, P extends AnyProperty>(aexValues: V[], aePro
     });
 }
 
-function forEachPairByIndex<T, U>(aexArray: T[], aeArray: U[], callback: (aexComp: T, aeComp: U) => void) {
+function forEachPairByIndex<T, U>(aexArray: T[], aeArray: U[], callback: (aexObject: T, aeObject: U, i) => void) {
     const aeLength = aeArray.length;
 
     aeq.arrayEx(aexArray).forEach((v, i) => {
-        callback(v, i < aeLength ? aeArray[i] : null);
+        callback(v, i < aeLength ? aeArray[i] : null, i);
     });
 }
 
