@@ -109,6 +109,6 @@ function setAeCompMarkers2(aeComp: CompItem, aexComp: AexComp, state: AexState) 
             forEachPairByGroup<AexMarkerProperty, MarkerValue>(aexMarkersByTime, aeMarkerValuesByTime, onMarkerPair);
             break;
         default:
-            throw new Error(`Unrecognized marker matching method ${matchBy}`);
+            throw new Error(`Unrecognized marker matching method "${matchBy}"`);
     }
 }
