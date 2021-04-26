@@ -190,8 +190,11 @@ function _setAeComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
 
 function _setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
-        aeLayer = aeLayer || createLayer(comp, aexLayer, state);
-        _setLayerAttributes(aeLayer, aexLayer, state);
+        if (!aeLayer) {
+            aeLayer = createLayer(comp, aexLayer, state);
+        } else {
+            _setLayerAttributes(aeLayer, aexLayer, state);
+        }
     };
 
     const matchBy = state.toAeOptions.layerMatchBy;
