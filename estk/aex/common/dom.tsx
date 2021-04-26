@@ -103,14 +103,6 @@ function forEachValuePairByIndex<V, P extends AnyProperty>(aexValues: V[], aePro
     });
 }
 
-function forEachPairByIndex<T, U>(aexArray: T[], aeArray: U[], callback: (aexObject: T, aeObject: U, i) => void) {
-    const aeLength = aeArray.length;
-
-    aeq.arrayEx(aexArray).forEach((v, i) => {
-        callback(v, i < aeLength ? aeArray[i] : null, i);
-    });
-}
-
 function forEachPairByGroup<V, P>(aexGroupedValues: GroupByResult<V>, aeGroupedValues: GroupByResult<P>, callback: PropertyPairCallback<V, P>) {
     let index = 0;
 
