@@ -1,6 +1,6 @@
 import { AeObject, aex } from './aex';
 import { AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } from './constants';
-import { cleanupAex, evalAexIntoEstk, openProject, openCleanProject } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe('Project', function () {
@@ -131,7 +131,7 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
@@ -161,7 +161,7 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
@@ -203,7 +203,7 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;

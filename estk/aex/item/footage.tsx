@@ -109,6 +109,47 @@ function _createSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
     return source;
 }
 
+function _createSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
+    const tempComp = aeq.comp.create();
+
+    const solidSettings = {
+        color: [0, 0, 0] as ThreeDColorValue,
+        name: 'New Solid',
+        width: 1920,
+        height: 1080,
+        pixelAspect: 1,
+        duration: 0,
+    };
+
+    assignAttributes(solidSettings, aexSolid);
+
+    const solid = tempComp.layers.addSolid(
+        solidSettings.color,
+        solidSettings.name,
+        solidSettings.width,
+        solidSettings.height,
+        solidSettings.pixelAspect,
+        solidSettings.duration
+    );
+
+    const source = solid.source;
+
+    tempComp.remove();
+
+    return source;
+}
+
+function setSolid2(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
+    assignAttributes(aeSolid, {
+        color: aexSolid.color,
+        name: aexSolid.name,
+        width: aexSolid.width,
+        height: aexSolid.height,
+        pixelAspect: aexSolid.pixelAspect,
+        duration: aexSolid.duration,
+    });
+}
+
 function _getFileItem(item: FootageItem, state: AexState): AexFileItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as FileSource;

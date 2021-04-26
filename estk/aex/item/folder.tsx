@@ -16,6 +16,14 @@ function _createFolderItem(aexFolder: AexFolderItem, state: AexState): void {
     setItemBaseAttributes(aeFolder, aexFolder, state);
 }
 
+function _createFolderItem2(aexFolder: AexFolderItem, state: AexState): FolderItem {
+    return aeq.project.getOrCreateFolder(aexFolder.name);
+}
+
+function setFolderItem2(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {
+    setItemBaseAttributes(aeFolder, aexFolder, state);
+}
+
 function getParentFolders(item: Item): string[] {
     const folders = [];
 

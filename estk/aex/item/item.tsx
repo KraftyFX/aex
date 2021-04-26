@@ -27,6 +27,26 @@ function createItem(aexItem: AexItem, state: AexState): void {
     }
 }
 
+function setItem2(aexItem: AexItem, aeItem: Item, state: AexState) {
+    switch (aexItem.type) {
+        case AEX_SOLID_ITEM:
+            if (!aeItem) {
+                _createSolid2(aexItem as AexSolidItem, state);
+            } else {
+                setSolid2(aeItem as FootageItem, aexItem as AexSolidItem, state);
+            }
+            break;
+        case AEX_FOLDER_ITEM:
+            aeItem = aeItem || _createFolderItem2(aexItem as AexFolderItem, state);
+            setFolderItem2(aeItem as FolderItem, aexItem as AexFolderItem, state);
+            break;
+        case AEX_COMP_ITEM:
+            throw new Error(`A comp with name "${(aexItem as AexComp).name}" was found in the item list that should only contain non-comp items`);
+        default:
+            throw new Error(`Not supported: Setting of project item type "${aexItem.type}"`);
+    }
+}
+
 function getItemBaseAttributes(item: Item): AexItemBase {
     /**
      * @todo Add AexOption to preserve project folder structure.

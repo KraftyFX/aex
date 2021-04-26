@@ -37,22 +37,19 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     });
 }
 
-function setProject2(aeProject: Project, aexProject: AexProject, state: AexState) {
-    const { comps: aexComps } = aexProject;
+function setAexProject2(aeProject: Project, aexProject: AexProject, state: AexState) {
+    const { comps: aexComps, items: aexItems } = aexProject;
+
+    const aexItemsByName = groupArrayBy(aexItems, (v) => v.name);
+    const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
+
+    forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => setItem2(aexItem, aeItem, state));
+
     const comps = aeq.getComps();
 
-    forEachCompItemPair(aexComps, comps, (aexComp, aeComp) => {
+    forEachPairByIndex(aexComps, comps, (aexComp: AexComp, aeComp: CompItem) => {
         aeComp = aeComp || _createComp2(aexComp, state);
 
         _setComp2(aeComp, aexComp, state);
-    });
-}
-
-function forEachCompItemPair(aexComps: AexComp[], aeComps: CompItem[], callback: (aexComp: AexComp, aeComp: CompItem) => void) {
-    const aexCompsArr = aeq.arrayEx(aexComps) as AEQArrayEx<AexComp>;
-    const aeCompsLength = aeComps.length;
-
-    aexCompsArr.forEach((v, i) => {
-        callback(v, i < aeCompsLength ? aeComps[i] : null);
     });
 }
