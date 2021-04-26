@@ -8,6 +8,20 @@ function setCompRenderer(comp: CompItem, renderer: string) {
     }
 }
 
+function setAeCompRenderer2(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    if (aeq.isNullOrUndefined(aexComp.renderer)) {
+        return;
+    }
+
+    const renderers = aeq.arrayEx(aeComp.renderers);
+
+    if (renderers.indexOf(aexComp.renderer) > -1) {
+        aeComp.renderer = aexComp.renderer;
+    } else {
+        throw new Error(`Can't set renderer on comp ${aexComp.name} to ${aexComp.renderer}.`);
+    }
+}
+
 function getRequiredCompRendererFromProperties(aexPropertyGroup: AexPropertyGroup): string {
     const aeqProps: AEQArrayEx<AexPropertyBase> = aeq.arrayEx(aexPropertyGroup.properties);
 

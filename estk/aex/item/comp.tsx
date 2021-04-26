@@ -181,11 +181,6 @@ function _setAeComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
         workAreaStart: aexComp.workAreaStart,
     });
 
-    if (aexComp.markers) {
-        setCompMarkers2(comp.markerProperty, aexComp.markers, state);
-    }
-
-    if (aexComp.renderer) {
-        setCompRenderer(comp, aexComp.renderer);
-    }
+    setAeCompMarkers2(comp, aexComp, state);
+    setAeCompRenderer2(comp, aexComp, state);
 }

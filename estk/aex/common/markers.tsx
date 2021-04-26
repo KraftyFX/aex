@@ -63,7 +63,14 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
     return parameters.toSource() === '({})' ? undefined : parameters;
 }
 
-function setCompMarkers2(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
+function setAeCompMarkers2(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    if (aeq.isNullOrUndefined(aexComp.markers)) {
+        return;
+    }
+
+    const aexMarkers: AexMarkerProperty[] = aexComp.markers;
+    const aeMarkerProperty: MarkerValueProperty = aeComp.markerProperty;
+
     const onMarkerPair = (aexMarker: AexMarkerProperty, aeMarkerValue: MarkerValue, i) => {
         if (!aeMarkerValue) {
             aeMarkerValue = new MarkerValue(aexMarker.comment || '');
