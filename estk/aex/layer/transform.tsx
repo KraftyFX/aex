@@ -30,13 +30,13 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
     }
 }
 
-function _setTransform(layer: Layer, aexTransform: AexTransform, state: AexState): void {
+function _setTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
     if (aeq.isNullOrUndefined(aexTransform)) {
         return;
     }
 
     aeq.forEach(aexTransform, (xformPropertyName: string) => {
-        const layerTransformProperty = layer[xformPropertyName];
+        const layerTransformProperty = aeLayer[xformPropertyName];
         const aexTransformProperty = aexTransform[xformPropertyName];
 
         setProperty(layerTransformProperty, aexTransformProperty, state);
