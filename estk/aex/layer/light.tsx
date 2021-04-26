@@ -29,4 +29,5 @@ function createLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: A
     if (aexLightLayer.lightOption) {
         setPropertyGroup(layer.lightOption, aexLightLayer.lightOption, state);
     }
+    return layer;
 }

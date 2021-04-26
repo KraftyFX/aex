@@ -55,4 +55,5 @@ function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexS
     if (aexTextLayer.animators) {
         setPropertyGroup(animators, aexTextLayer.animators, state);
     }
+    return layer;
 }

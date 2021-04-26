@@ -34,6 +34,7 @@ function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state
     if (aexCameraLayer.cameraOption) {
         setPropertyGroup(layer.cameraOption, aexCameraLayer.cameraOption, state);
     }
+    return layer;
 }
 
 function _getCameraCenterPoint(comp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {

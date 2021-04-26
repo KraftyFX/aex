@@ -18,6 +18,7 @@ function createShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: A
     const layer = comp.layers.addShape();
     _setAVLayerAttributes(layer, aexShapeLayer, state);
     _setContents(layer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);
+    return layer;
 }
 
 function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
