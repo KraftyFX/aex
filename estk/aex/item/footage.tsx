@@ -51,7 +51,7 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
             /** @todo */
             break;
         default:
-            return;
+            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
 
     /** @todo - see whether this vvv makes sense to do here, vs within the specific functions above */
