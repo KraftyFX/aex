@@ -35,6 +35,7 @@ interface AexOptions {
 
 interface ToAeOptions {
     markerMatchBy: 'index' | 'time';
+    layerMatchBy: 'index' | 'name';
 }
 
 interface AexLogEntry {

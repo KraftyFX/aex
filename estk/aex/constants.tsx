@@ -23,3 +23,11 @@ const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
 const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 const AEX_NONE_PROPERTY = 'aex:property:none';
+
+function isAexLayer(aexObject: AexObject) {
+    return aexObject.type.indexOf('aex:layer') == 0;
+}
+
+function isAexAvLayer(aexObject: AexObject) {
+    return aexObject.type.indexOf('aex:layer:av') == 0;
+}

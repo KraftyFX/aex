@@ -1,18 +1,17 @@
 import { AeObject, aex } from '../aex';
 import {
-    AEX_FOOTAGE_LAYER,
     AEX_CAMERA_LAYER,
+    AEX_COMP_ITEM,
+    AEX_FOOTAGE_LAYER,
     AEX_LIGHT_LAYER,
     AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
+    AEX_PROJECT,
     AEX_SHAPE_LAYER,
+    AEX_SOLID_ITEM,
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
-    AEX_TWOD_PROPERTY,
-    AEX_COMP_ITEM,
-    AEX_SOLID_ITEM,
-    AEX_PROJECT,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -513,12 +512,12 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe.only('Create', async () => {
         before(async () => {
-            await openCleanProject();
+            await openProject('testAssets/comp_basic.aep');
         });
 
-        it(`Can set basic CameraLayer properties`, async () => {
+        it(`Can create a basic CameraLayer`, async () => {
             const layerData = {
                 label: 4,
                 markers: [],
@@ -535,7 +534,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -543,7 +542,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set basic TextLayer properties`, async () => {
+        it(`Can create a basic TextLayer`, async () => {
             const layerData = {
                 effects: [],
                 label: 1,
@@ -579,7 +578,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -587,7 +586,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set basic Null layer properties`, async () => {
+        it(`Can create a basic Null layer`, async () => {
             const layerData = {
                 effects: [],
                 label: 1,
@@ -603,15 +602,18 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
+            layerData.source.id = '';
+            comp.layers[0].source.id = '';
+
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set basic LightLayer properties`, async () => {
+        it(`Can create a basic LightLayer`, async () => {
             const layerData = {
                 inPoint: 0.5,
                 label: 1,
@@ -631,7 +633,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -661,10 +663,13 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
+
+            layerData.source.id = '';
+            comp.layers[0].source.id = '';
 
             assertAreEqual(comp.layers[0], layerData);
         });
@@ -686,12 +691,21 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
+            layerData.source.id = '';
+            comp.layers[0].source.id = '';
+
             assertAreEqual(comp.layers[0], layerData);
+        });
+    });
+
+    describe.only('Set', async () => {
+        before(async () => {
+            await openProject('testAssets/comp_basic.aep');
         });
 
         it(`Can set parented layers`, async () => {
@@ -731,7 +745,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.ActiveComp, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -874,7 +888,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -964,7 +978,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
@@ -1054,7 +1068,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().fromAexObject(projectData);
+            await aex().update(AeObject.Project, projectData);
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
@@ -1118,7 +1132,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.ActiveComp, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

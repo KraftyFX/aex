@@ -85,6 +85,21 @@ function groupAeKeysBy<T extends AnyProperty>(property: T, callback: (value: T['
     return obj;
 }
 
+function groupAeLayersBy(comp: CompItem, callback: (layer: Layer, i: number) => any) {
+    const obj: GroupByResult<Layer> = {};
+
+    aeq.forEachLayer(comp, (layer: Layer, i) => {
+        const key = callback(layer, i);
+        const arr = obj[key] || aeq.arrayEx([]);
+
+        arr.push(layer);
+
+        obj[key] = arr;
+    });
+
+    return obj;
+}
+
 function forEachGroup<T>(obj: GroupByResult<T>, callback: (member: keyof T, value: T[]) => void) {
     for (var m in obj) {
         if (obj.hasOwnProperty(m)) {

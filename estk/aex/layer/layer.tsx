@@ -28,23 +28,17 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:
-            createFootageLayer(comp, aexLayer as AexFootageLayer, state);
-            break;
+            return createFootageLayer(comp, aexLayer as AexFootageLayer, state);
         case AEX_SHAPE_LAYER:
-            createShapeLayer(comp, aexLayer as AexShapeLayer, state);
-            break;
+            return createShapeLayer(comp, aexLayer as AexShapeLayer, state);
         case AEX_LIGHT_LAYER:
-            createLightLayer(comp, aexLayer as AexLightLayer, state);
-            break;
+            return createLightLayer(comp, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
-            createCameraLayer(comp, aexLayer as AexCameraLayer, state);
-            break;
+            return createCameraLayer(comp, aexLayer as AexCameraLayer, state);
         case AEX_NULL_LAYER:
-            createNullLayer(comp, aexLayer as AexNullLayer, state);
-            break;
+            return createNullLayer(comp, aexLayer as AexNullLayer, state);
         case AEX_TEXT_LAYER:
-            createTextLayer(comp, aexLayer as AexTextLayer, state);
-            break;
+            return createTextLayer(comp, aexLayer as AexTextLayer, state);
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
@@ -73,8 +67,12 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     };
 }
 
-function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState): void {
-    assignAttributes(layer, {
+function _getAexLayerMarkers(aeLayer: Layer) {
+    return getAexMarkerProperties(aeLayer.marker);
+}
+
+function _setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState): void {
+    assignAttributes(aeLayer, {
         name: aexLayer.name,
         label: aexLayer.label,
         comment: aexLayer.comment,
@@ -86,34 +84,30 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
         solo: aexLayer.solo,
     });
 
-    _setLayerParent(aexLayer, layer);
-    _createLayerMarkers(layer, aexLayer.markers, state);
-    _setTransform(layer, aexLayer.transform, state);
+    _setLayerParent(aeLayer, aexLayer, state);
+    _setLayerMarkers(aeLayer, aexLayer, state);
+    _setLayerTransform(aeLayer, aexLayer.transform, state);
 }
 
-function _setLayerParent(aexLayer: AexLayer, layer: Layer) {
+function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     if (aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
         return;
     }
 
     const parentIndex = aexLayer.parentLayerIndex;
-    const comp = layer.containingComp;
+    const comp = aeLayer.containingComp;
 
     if (comp.numLayers < parentIndex) {
         throw new Error(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
     }
 
-    if (layer.index === parentIndex) {
+    if (aeLayer.index === parentIndex) {
         throw new Error(`Can't set layer parent to self.`);
     }
 
-    layer.parent = comp.layer(parentIndex);
+    aeLayer.parent = comp.layer(parentIndex);
 }
 
-function _getAexLayerMarkers(layer: Layer) {
-    return getAexMarkerProperties(layer.marker);
-}
-
-function _createLayerMarkers(layer: Layer, aexMarkers: AexMarkerProperty[], state: AexState) {
-    createMarkers(layer.marker, aexMarkers, state);
+function _setLayerMarkers(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
+    createMarkers(aeLayer.marker, aexLayer.markers, state);
 }

@@ -39,7 +39,7 @@ function createComp(aexComp: AexComp, state: AexState): void {
 
     _setCompAttributes(comp, aexComp, state);
     _createCompMarkers(comp, aexComp.markers, state);
-    createLayers(comp, aexComp.layers, state);
+    createLayers(comp, aexComp, state);
 }
 
 function _createAEComp(aexComp: AexComp, state: AexState): CompItem {
@@ -110,11 +110,13 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
     return layers;
 }
 
-function createLayers(comp: CompItem, aexLayers: AexLayer[], state: AexState) {
+function createLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
     /** Supports creating sets of layers without targeting a specific comp */
     if (aeq.isNullOrUndefined(comp)) {
         comp = _createAEComp(undefined, state);
     }
+
+    const aexLayers: AexLayer[] = aexComp.layers;
 
     /**
      * Voodoo
@@ -183,4 +185,36 @@ function _setAeComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
 
     setAeCompMarkers2(comp, aexComp, state);
     setAeCompRenderer2(comp, aexComp, state);
+    _setAeCompLayers(comp, aexComp, state);
+}
+
+function _setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
+    const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
+        aeLayer = aeLayer || createLayer(comp, aexLayer, state);
+        _setLayerAttributes(aeLayer, aexLayer, state);
+    };
+
+    const matchBy = state.toAeOptions.layerMatchBy;
+
+    switch (matchBy) {
+        case 'index':
+            forEachLayerPairByIndex(aexComp.layers, comp, onLayerPair);
+            break;
+        case 'name':
+            const aexLayersByName = groupArrayBy(aexComp.layers, (v) => v.name);
+            const aeLayersByName = groupAeLayersBy(comp, (v) => v.name);
+
+            forEachPairByGroup(aexLayersByName, aeLayersByName, onLayerPair);
+            break;
+        default:
+            throw new Error(`Unrecognized layer matching method "${matchBy}"`);
+    }
+}
+
+function forEachLayerPairByIndex(aexLayers: AexLayer[], aeComp: CompItem, callback: (aexLayer: AexLayer, aeLayer: Layer, i) => void) {
+    const aeLength = aeComp.numLayers;
+
+    aeq.arrayEx(aexLayers).forEach((v, i) => {
+        callback(v, i < aeLength ? aeComp.layer(i + 1) : null, i);
+    });
 }

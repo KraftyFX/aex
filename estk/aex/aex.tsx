@@ -5,6 +5,7 @@ function aex() {
         fromAe: aeToAex,
         toAe: aexToAe,
         update,
+        create,
     };
 }
 
@@ -118,16 +119,24 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         options: null,
         toAeOptions: {
             markerMatchBy: 'index',
+            layerMatchBy: 'index',
         },
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
     if (aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM) {
-        const comp = _createAeComp2(aexObject as AexComp, state);
-        _update(comp, aexObject as AexComp, state);
+        const aexComp = aexObject as AexComp;
+        const aeComp = _createAeComp2(aexComp, state);
+
+        _update(aeComp, aexComp, state);
+    } else if (aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject)) {
+        const aexLayer = aexObject as AexLayer;
+        const aeLayer = createLayer(aeParentObject as CompItem, aexLayer, state);
+
+        _update(aeLayer, aexLayer, state);
     } else {
-        throw new Error(`Don't know how to create an object of this type.`);
+        throw new Error(`Don't know how to create an object of type "${aexObject.type}" in the provided parent.`);
     }
 }
 
@@ -136,6 +145,7 @@ function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
         options: null,
         toAeOptions: {
             markerMatchBy: 'index',
+            layerMatchBy: 'index',
         },
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
@@ -149,7 +159,9 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         setAeProject2(aeObject as Project, aexObject as AexProject, state);
     } else if (aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM) {
         _setAeComp2(aeObject as CompItem, aexObject as AexComp, state);
+    } else if (aeq.isLayer(aeObject) && isAexLayer(aexObject)) {
+        _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
     } else {
-        throw new Error(`Don't know how to create an object of type '${aexObject.type}'.`);
+        throw new Error(`Don't know how to create an object of type '${aexObject.type}' ${aeObject instanceof CameraLayer}.`);
     }
 }

@@ -30,7 +30,7 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
     }
 }
 
-function _setTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
+function _setLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
     if (aeq.isNullOrUndefined(aexTransform)) {
         return;
     }
