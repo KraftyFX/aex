@@ -86,7 +86,6 @@ function groupAeKeysBy<T extends AnyProperty>(property: T, callback: (value: T['
 }
 
 function forEachGroup<T>(obj: GroupByResult<T>, callback: (member: keyof T, value: T[]) => void) {
-    // TODO: Sort the object keys alphabetically to guarantee runtime behavior
     for (var m in obj) {
         if (obj.hasOwnProperty(m)) {
             callback(m as keyof T, obj[m]);
