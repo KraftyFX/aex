@@ -37,7 +37,13 @@ function getParentFolders(item: Item): string[] {
     return folders;
 }
 
-function setParentFolders(item: Item, aexFolders: string[], state: AexState): void {
+function setParentFolders(aeItem: Item, aexItem: AexItem, state: AexState): void {
+    if (aeq.isNullOrUndefined(aexItem.folder)) {
+        return;
+    }
+
+    const aexFolders: string[] = aexItem.folder;
+
     let root = app.project.rootFolder;
 
     // TODO: the folders array should be serialized in a way that does not require this.
@@ -45,7 +51,7 @@ function setParentFolders(item: Item, aexFolders: string[], state: AexState): vo
 
     aeq.forEach(aexFolders, (aexFolder) => {
         const newFolder = aeq.project.getOrCreateFolder(aexFolder, root);
-        item.parentFolder = newFolder;
+        aeItem.parentFolder = newFolder;
 
         root = newFolder;
     });

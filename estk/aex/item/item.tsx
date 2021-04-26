@@ -42,16 +42,14 @@ function getItemBaseAttributes(item: Item): AexItemBase {
     };
 }
 
-function setItemBaseAttributes(item: Item, aexItem: AexItem, state: AexState): void {
-    assignAttributes(item, {
+function setItemBaseAttributes(aeItem: Item, aexItem: AexItem, state: AexState): void {
+    assignAttributes(aeItem, {
         comment: aexItem.comment,
         label: aexItem.label,
         name: aexItem.name,
     });
 
-    if (aexItem.folder) {
-        setParentFolders(item, aexItem.folder, state);
-    }
+    setParentFolders(aeItem, aexItem, state);
 }
 
 function generateItemUID(item: Item): string {
