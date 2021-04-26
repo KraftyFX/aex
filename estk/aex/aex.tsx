@@ -146,9 +146,9 @@ function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
 
 function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
     if (aeObject instanceof Project && aexObject.type === AEX_PROJECT) {
-        setAexProject2(aeObject as Project, aexObject as AexProject, state);
+        setAeProject2(aeObject as Project, aexObject as AexProject, state);
     } else if (aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM) {
-        _setComp2(aeObject as CompItem, aexObject as AexComp, state);
+        _setAeComp2(aeObject as CompItem, aexObject as AexComp, state);
     } else {
         throw new Error(`Don't know how to create an object of type '${aexObject.type}'.`);
     }

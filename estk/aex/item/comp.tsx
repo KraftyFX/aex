@@ -156,7 +156,7 @@ function _createComp2(aexComp: AexComp, state: AexState): CompItem {
     return comp;
 }
 
-function _setComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
+function _setAeComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
     assertIsDefined(comp, 'comp');
 
     setItemBaseAttributes(comp, aexComp, state);

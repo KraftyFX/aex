@@ -109,7 +109,7 @@ function _createSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
     return source;
 }
 
-function _createSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
+function _createAeSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
     const tempComp = aeq.comp.create();
 
     const solidSettings = {
@@ -139,7 +139,7 @@ function _createSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
     return source;
 }
 
-function setSolid2(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
+function setAeSolid2(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
     assignAttributes(aeSolid, {
         color: aexSolid.color,
         name: aexSolid.name,
