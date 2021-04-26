@@ -139,7 +139,7 @@ function _createCompMarkers(comp: CompItem, aexMarkers: AexMarkerProperty[], sta
     createMarkers(comp.markerProperty, aexMarkers, state);
 }
 
-function _createComp2(aexComp: AexComp, state: AexState): CompItem {
+function _createAeComp2(aexComp: AexComp, state: AexState): CompItem {
     state.stats.compCount++;
 
     const comp = aeq.comp.create({

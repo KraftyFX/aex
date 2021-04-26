@@ -124,7 +124,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     };
 
     if (aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM) {
-        const comp = _createComp2(aexObject as AexComp, state);
+        const comp = _createAeComp2(aexObject as AexComp, state);
         _update(comp, aexObject as AexComp, state);
     } else {
         throw new Error(`Don't know how to create an object of this type.`);
