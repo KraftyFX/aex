@@ -32,6 +32,7 @@ function getParentFolders(item: Item): string[] {
 function setParentFolders(item: Item, aexFolders: string[], state: AexState): void {
     let root = app.project.rootFolder;
 
+    // TODO: the folders array should be serialized in a way that does not require this.
     aexFolders.reverse();
 
     aeq.forEach(aexFolders, (aexFolder) => {
