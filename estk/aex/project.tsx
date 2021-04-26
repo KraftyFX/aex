@@ -25,16 +25,15 @@ function setAexProject(aexProject: AexProject, state: AexState) {
 }
 
 function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexState) {
-    const { comps: aexComps, items: aexItems } = aexProject;
-
-    const aexItemsByName = groupArrayBy(aexItems, (v) => v.name);
+    const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
     const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
 
     forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => _setAeProjectItem2(aexItem, aeItem, state));
 
-    const comps = aeq.getComps();
+    const aexCompsByName = groupArrayBy(aexProject.comps, (v) => v.name);
+    const aeCompsByName = groupArrayBy(aeq.getComps(), (v) => v.name);
 
-    forEachPairByIndex(aexComps, comps, (aexComp, aeComp) => _setAeProjectComp(aeComp, aexComp, state));
+    forEachPairByGroup(aexCompsByName, aeCompsByName, (aexComp, aeComp) => _setAeProjectComp(aeComp, aexComp, state));
 }
 
 function _setAeProjectItem2(aexItem: AexItem, aeItem: Item, state: AexState) {
