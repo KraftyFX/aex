@@ -513,7 +513,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     describe.only('Create', async () => {
-        before(async () => {
+        beforeEach(async () => {
             await openProject('testAssets/comp_basic.aep');
         });
 
@@ -704,7 +704,7 @@ describe('Basic Layer Attributes', function () {
     });
 
     describe.only('Set', async () => {
-        before(async () => {
+        beforeEach(async () => {
             await openProject('testAssets/comp_basic.aep');
         });
 
@@ -745,7 +745,7 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.ActiveComp, compData);
+            await aex().update(AeObject.ActiveComp, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
