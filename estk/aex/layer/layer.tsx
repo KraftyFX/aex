@@ -86,23 +86,28 @@ function _setLayerAttributes(layer: Layer, aexLayer: AexLayer, state: AexState):
         solo: aexLayer.solo,
     });
 
-    if (!aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
-        const parentIndex = aexLayer.parentLayerIndex;
-        const comp = layer.containingComp;
-
-        if (comp.numLayers < parentIndex) {
-            throw new Error(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
-        }
-
-        if (layer.index === parentIndex) {
-            throw new Error(`Can't set layer parent to self.`);
-        }
-
-        layer.parent = comp.layer(parentIndex);
-    }
-
+    _setLayerParent(aexLayer, layer);
     _createLayerMarkers(layer, aexLayer.markers, state);
     _setTransform(layer, aexLayer.transform, state);
+}
+
+function _setLayerParent(aexLayer: AexLayer, layer: Layer) {
+    if (aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
+        return;
+    }
+
+    const parentIndex = aexLayer.parentLayerIndex;
+    const comp = layer.containingComp;
+
+    if (comp.numLayers < parentIndex) {
+        throw new Error(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
+    }
+
+    if (layer.index === parentIndex) {
+        throw new Error(`Can't set layer parent to self.`);
+    }
+
+    layer.parent = comp.layer(parentIndex);
 }
 
 function _getAexLayerMarkers(layer: Layer) {
