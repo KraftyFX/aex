@@ -64,7 +64,7 @@ function _getMarkerParameters(keyValue: MarkerValue): object {
 }
 
 function setCompMarkers2(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
-    const onMarkerPair = (aexMarker, aeMarkerValue, i) => {
+    const onMarkerPair = (aexMarker: AexMarkerProperty, aeMarkerValue: MarkerValue, i) => {
         if (!aeMarkerValue) {
             aeMarkerValue = new MarkerValue(aexMarker.comment || '');
         }
@@ -93,13 +93,13 @@ function setCompMarkers2(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
 
     switch (matchBy) {
         case 'index':
-            forEachPairByIndex(aexMarkers, aeMarkerProperty, onMarkerPair);
+            forEachValuePairByIndex(aexMarkers, aeMarkerProperty, onMarkerPair);
             break;
         case 'time':
             const aexMarkersByTime = groupArrayBy(aexMarkers, (v) => v.time);
             const aeMarkerValuesByTime = groupAeKeysBy(aeMarkerProperty, (v, i) => aeMarkerProperty.keyTime(i + 1));
 
-            forEachPairByGrouping(aexMarkersByTime, aeMarkerValuesByTime, onMarkerPair);
+            forEachPairByGroup<AexMarkerProperty, MarkerValue>(aexMarkersByTime, aeMarkerValuesByTime, onMarkerPair);
             break;
         default:
             throw new Error(`Unrecognized marker matching method ${matchBy}`);
