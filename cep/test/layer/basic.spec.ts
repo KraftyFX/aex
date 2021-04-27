@@ -712,6 +712,12 @@ describe('Basic Layer Attributes', function () {
             const compData = {
                 layers: [
                     {
+                        markers: [],
+                        name: '_Parent Layer',
+                        transform: {},
+                        type: AEX_CAMERA_LAYER,
+                    },
+                    {
                         effects: [],
                         label: 1,
                         markers: [],
@@ -720,7 +726,7 @@ describe('Basic Layer Attributes', function () {
                         parentLayerIndex: 2,
                         source: {
                             type: AEX_SOLID_ITEM,
-                            id: 'new solid:108',
+                            id: 'new solid:27',
                         },
                         trackers: [],
                         transform: {
@@ -734,12 +740,6 @@ describe('Basic Layer Attributes', function () {
                         },
                         type: AEX_FOOTAGE_LAYER,
                     },
-                    {
-                        markers: [],
-                        name: '_Parent Layer',
-                        transform: {},
-                        type: AEX_CAMERA_LAYER,
-                    },
                 ],
                 markers: [],
                 type: AEX_COMP_ITEM,
@@ -750,7 +750,7 @@ describe('Basic Layer Attributes', function () {
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
-            assertAreEqual(comp.layers[0], compData.layers[0]);
+            assertAreEqual(comp.layers[0], compData.layers[1]);
         });
 
         it(`Can set 3d layers`, async () => {
