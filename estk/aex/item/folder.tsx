@@ -10,17 +10,11 @@ function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     };
 }
 
-function _createFolderItem(aexFolder: AexFolderItem, state: AexState): void {
-    const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
-
-    setItemBaseAttributes(aeFolder, aexFolder, state);
-}
-
-function _createAeFolderItem2(aexFolder: AexFolderItem, state: AexState): FolderItem {
+function _createAeFolderItem(aexFolder: AexFolderItem, state: AexState): FolderItem {
     return aeq.project.getOrCreateFolder(aexFolder.name);
 }
 
-function setAeFolderItem2(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {
+function setAeFolderItem(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {
     setItemBaseAttributes(aeFolder, aexFolder, state);
 }
 
