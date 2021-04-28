@@ -5,7 +5,7 @@ import { assertAreEqual } from './utils';
 
 describe.skip('Rafi Test Stuff', function () {
     this.slow(500);
-    this.timeout(2000);
+    this.timeout(5000);
 
     let project: any;
 

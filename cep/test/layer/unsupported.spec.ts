@@ -4,7 +4,7 @@ import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 
 describe('Unsupported Properties', function () {
     this.slow(500);
-    this.timeout(2000);
+    this.timeout(5000);
 
     before(async () => {
         await evalAexIntoEstk();

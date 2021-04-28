@@ -14,7 +14,7 @@ import { assertAreEqual } from '../utils';
 
 describe('Layer Effects', function () {
     this.slow(500);
-    this.timeout(3000);
+    this.timeout(5000);
 
     before(async () => {
         await evalAexIntoEstk();
