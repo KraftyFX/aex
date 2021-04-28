@@ -96,10 +96,10 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
 
     switch (aexObj.type) {
         case AEX_PROJECT:
-            setAeProject(undefined, aexObj as AexProject, state);
+            update(app.project, aexObj as AexProject);
             break;
         case AEX_COMP_ITEM:
-            _setAeProjectComp(undefined, aexObj as AexComp, state);
+            create(app.project, aexObj as AexComp);
             break;
         case AEX_FOOTAGE_LAYER:
         case AEX_SHAPE_LAYER:
@@ -107,7 +107,10 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
         case AEX_CAMERA_LAYER:
         case AEX_NULL_LAYER:
         case AEX_TEXT_LAYER:
-            createLayer(undefined, aexObj as AexLayer, state);
+            var newComp = aeq.comp.create();
+            newComp.openInViewer();
+
+            create(newComp, aexObj as AexLayer);
             break;
         default:
             app.endUndoGroup();
@@ -151,7 +154,7 @@ function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObje
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
-function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
+function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
     const state: AexState = {
         options: null,
         toAeOptions: {
