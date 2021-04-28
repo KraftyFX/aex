@@ -132,15 +132,23 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     };
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Comp to Project');
+
         const aexComp = aexObject as AexComp;
         const aeComp = _createAeComp(aexComp, state);
 
         _update(aeComp, aexComp, state);
+
+        app.endUndoGroup();
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Layer to Comp');
+
         const aexLayer = aexObject as AexLayer;
         const aeLayer = createLayer(aeParentObject as CompItem, aexLayer, state);
 
         _update(aeLayer, aexLayer, state);
+
+        app.endUndoGroup();
     } else {
         throw new Error(`Creating a '${aexObject.type}' under a '${getAeType(aeParentObject)}' is not supported.`);
     }
@@ -170,11 +178,17 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
 
 function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
     if (isUpdatingProject(aeObject, aexObject)) {
+        app.beginUndoGroup('AEX: Update Project');
         setAeProject(aeObject as Project, aexObject as AexProject, state);
+        app.endUndoGroup();
     } else if (isUpdatingComp(aeObject, aexObject)) {
+        app.beginUndoGroup('AEX: Update Comp');
         _setAeComp(aeObject as CompItem, aexObject as AexComp, state);
+        app.endUndoGroup();
     } else if (isUpdatingLayer(aeObject, aexObject)) {
+        app.beginUndoGroup('AEX: Update Layer');
         _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
+        app.endUndoGroup();
     } else {
         throw new Error(`Updating a '${getAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
