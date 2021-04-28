@@ -199,6 +199,16 @@ function _setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
 
     const matchBy = state.toAeOptions.layerMatchBy;
 
+    /**
+     * Voodoo
+     *
+     * New created layers get placed at the top of the stack.
+     *
+     * But because we add to the AexComp.layers array from top -> bottom, we need to reverse
+     * our array to preserve the same layer ordering.
+     */
+    aexComp.layers.reverse();
+
     switch (matchBy) {
         case 'index':
             forEachLayerPairByIndex(aexComp.layers, comp, onLayerPair);
