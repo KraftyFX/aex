@@ -93,7 +93,7 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
 
     switch (aexObj.type) {
         case AEX_PROJECT:
-            setAexProject(aexObj as AexProject, state);
+            setAeProject(undefined, aexObj as AexProject, state);
             break;
         case AEX_COMP_ITEM:
             createComp(aexObj as AexComp, state);
@@ -164,7 +164,7 @@ function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
 
 function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
     if (isUpdatingProject(aeObject, aexObject)) {
-        setAeProject2(aeObject as Project, aexObject as AexProject, state);
+        setAeProject(aeObject as Project, aexObject as AexProject, state);
     } else if (isUpdatingComp(aeObject, aexObject)) {
         _setAeComp2(aeObject as CompItem, aexObject as AexComp, state);
     } else if (isUpdatingLayer(aeObject, aexObject)) {

@@ -12,19 +12,7 @@ function getAexProject(project: Project, state: AexState): AexProject {
     return aexProject;
 }
 
-function setAexProject(aexProject: AexProject, state: AexState) {
-    const { items, comps } = aexProject;
-
-    aeq.forEach(items, (item) => {
-        _setAeProjectItem(item, undefined, state);
-    });
-
-    aeq.forEach(comps, (comp) => {
-        createComp(comp, state);
-    });
-}
-
-function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexState) {
+function setAeProject(aeProject: Project, aexProject: AexProject, state: AexState) {
     const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
     const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
 
