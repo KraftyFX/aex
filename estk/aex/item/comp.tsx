@@ -113,7 +113,7 @@ function _setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
     });
 
     setAeCompMarkers(comp, aexComp, state);
-    setAeCompRenderer2(comp, aexComp, state);
+    setAeCompRenderer(comp, aexComp, state);
     _setAeCompLayers(comp, aexComp, state);
 }
 
