@@ -109,5 +109,9 @@ function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
 }
 
 function _setLayerMarkers(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
-    createMarkers(aeLayer.marker, aexLayer.markers, state);
+    if (aeq.isNullOrUndefined(aexLayer.markers)) {
+        return;
+    }
+
+    setAeMarkers(aeLayer.marker, aexLayer.markers, state);
 }

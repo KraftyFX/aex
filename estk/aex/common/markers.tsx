@@ -19,58 +19,13 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
     return markerData;
 }
 
-function createMarkers(markerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState): void {
-    if (aeq.isNullOrUndefined(aexMarkers)) {
-        return;
-    }
-
-    const markers = aeq.arrayEx<{ time: number; marker: MarkerValue }>();
-
-    aeq.forEach(aexMarkers, (aexMarker) => {
-        const marker = new MarkerValue(aexMarker.comment || '');
-
-        assignAttributes(marker, {
-            chapter: aexMarker.chapter,
-            url: aexMarker.url,
-            frameTarget: aexMarker.frameTarget,
-            cuePointName: aexMarker.cuePointName,
-            duration: aexMarker.duration,
-            label: aexMarker.label,
-            protectedRegion: aexMarker.protectedRegion,
-            parameters: aexMarker.parameters,
-        });
-
-        markers.push({
-            time: aexMarker.time,
-            marker,
-        });
-    });
-
-    /**
-     * Voodoo: Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
-     * As a result, we need to set each keyframe individually.
-     */
-    markers.forEach((marker) => {
-        markerProperty.setValueAtTime(marker.time, marker.marker);
-    });
-
-    state.stats.propertyCount++;
-}
-
 function _getMarkerParameters(keyValue: MarkerValue): object {
     const parameters = keyValue.getParameters();
 
     return parameters.toSource() === '({})' ? undefined : parameters;
 }
 
-function setAeCompMarkers2(aeComp: CompItem, aexComp: AexComp, state: AexState) {
-    if (aeq.isNullOrUndefined(aexComp.markers)) {
-        return;
-    }
-
-    const aexMarkers: AexMarkerProperty[] = aexComp.markers;
-    const aeMarkerProperty: MarkerValueProperty = aeComp.markerProperty;
-
+function setAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
     const onMarkerPair = (aexMarker: AexMarkerProperty, aeMarkerValue: MarkerValue, i) => {
         if (!aeMarkerValue) {
             aeMarkerValue = new MarkerValue(aexMarker.comment || '');

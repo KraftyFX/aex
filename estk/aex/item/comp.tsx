@@ -49,6 +49,14 @@ function _getAexCompMarkers(comp: CompItem) {
     return getAexMarkerProperties(comp.markerProperty);
 }
 
+function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    if (aeq.isNullOrUndefined(aexComp.markers)) {
+        return;
+    }
+
+    setAeMarkers(aeComp.markerProperty, aexComp.markers, state);
+}
+
 function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
     state.stats.compCount++;
 
@@ -104,7 +112,7 @@ function _setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
         workAreaStart: aexComp.workAreaStart,
     });
 
-    setAeCompMarkers2(comp, aexComp, state);
+    setAeCompMarkers(comp, aexComp, state);
     setAeCompRenderer2(comp, aexComp, state);
     _setAeCompLayers(comp, aexComp, state);
 }
