@@ -48,7 +48,7 @@ function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
 }
 
 function _setAeProjectComp(aeComp: CompItem, aexComp: AexComp, state: AexState) {
-    aeComp = aeComp || _createAeComp2(aexComp, state);
+    aeComp = aeComp || _createAeComp(aexComp, state);
 
-    _setAeComp2(aeComp, aexComp, state);
+    _setAeComp(aeComp, aexComp, state);
 }

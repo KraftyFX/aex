@@ -86,7 +86,10 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
 
     const state: AexState = {
         options: null,
-        toAeOptions: options,
+        toAeOptions: {
+            markerMatchBy: 'index',
+            layerMatchBy: 'index',
+        },
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
@@ -96,7 +99,7 @@ function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
             setAeProject(undefined, aexObj as AexProject, state);
             break;
         case AEX_COMP_ITEM:
-            createComp(aexObj as AexComp, state);
+            _setAeProjectComp(undefined, aexObj as AexComp, state);
             break;
         case AEX_FOOTAGE_LAYER:
         case AEX_SHAPE_LAYER:
@@ -127,7 +130,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
         const aexComp = aexObject as AexComp;
-        const aeComp = _createAeComp2(aexComp, state);
+        const aeComp = _createAeComp(aexComp, state);
 
         _update(aeComp, aexComp, state);
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
@@ -166,7 +169,7 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
     if (isUpdatingProject(aeObject, aexObject)) {
         setAeProject(aeObject as Project, aexObject as AexProject, state);
     } else if (isUpdatingComp(aeObject, aexObject)) {
-        _setAeComp2(aeObject as CompItem, aexObject as AexComp, state);
+        _setAeComp(aeObject as CompItem, aexObject as AexComp, state);
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
     } else {

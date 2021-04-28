@@ -17,7 +17,7 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
 
     if (!sourceItem) {
         if (aexSource.type === AEX_COMP_ITEM) {
-            sourceItem = _createAEComp(undefined, state);
+            sourceItem = _createAeComp(undefined, state);
             comp.openInViewer();
         } else {
             sourceItem = _createAeFootageItem(

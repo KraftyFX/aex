@@ -34,15 +34,22 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function createComp(aexComp: AexComp, state: AexState): void {
-    const comp = _createAEComp(aexComp, state);
+function _getAexCompLayers(comp: CompItem, state: AexState) {
+    const layers = [] as AexLayer[];
 
-    _setCompAttributes(comp, aexComp, state);
-    _createCompMarkers(comp, aexComp.markers, state);
-    createLayers(comp, aexComp, state);
+    aeq.forEachLayer(comp, (layer: Layer) => {
+        const layerData = getAexLayer(layer, state);
+        layers.push(layerData);
+    });
+
+    return layers;
 }
 
-function _createAEComp(aexComp: AexComp, state: AexState): CompItem {
+function _getAexCompMarkers(comp: CompItem) {
+    return getAexMarkerProperties(comp.markerProperty);
+}
+
+function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
     state.stats.compCount++;
 
     let compSettings = {
@@ -66,99 +73,13 @@ function _createAEComp(aexComp: AexComp, state: AexState): CompItem {
     }
 
     const comp = aeq.comp.create(compSettings);
-    comp.openInViewer();
-
-    return comp;
-}
-
-function _setCompAttributes(comp: CompItem, aexComp: AexComp, state: AexState): void {
-    setItemBaseAttributes(comp, aexComp, state);
-
-    assignAttributes(comp, {
-        bgColor: aexComp.bgColor,
-        displayStartFrame: aexComp.displayStartFrame,
-        displayStartTime: aexComp.displayStartTime,
-        draft3d: aexComp.draft3d,
-        dropFrame: aexComp.dropFrame,
-        frameBlending: aexComp.frameBlending,
-        hideShyLayers: aexComp.hideShyLayers,
-        motionBlur: aexComp.motionBlur,
-        motionBlurAdaptiveSampleLimit: aexComp.motionBlurAdaptiveSampleLimit,
-        motionBlurSamplesPerFrame: aexComp.motionBlurSamplesPerFrame,
-        preserveNestedFrameRate: aexComp.preserveNestedFrameRate,
-        preserveNestedResolution: aexComp.preserveNestedResolution,
-        resolutionFactor: aexComp.resolutionFactor,
-        shutterAngle: aexComp.shutterAngle,
-        shutterPhase: aexComp.shutterPhase,
-        workAreaDuration: aexComp.workAreaDuration,
-        workAreaStart: aexComp.workAreaStart,
-    });
-
-    if (aexComp.renderer) {
-        setCompRenderer(comp, aexComp.renderer);
-    }
-}
-
-function _getAexCompLayers(comp: CompItem, state: AexState) {
-    const layers = [] as AexLayer[];
-
-    aeq.forEachLayer(comp, (layer: Layer) => {
-        const layerData = getAexLayer(layer, state);
-        layers.push(layerData);
-    });
-
-    return layers;
-}
-
-function createLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
-    /** Supports creating sets of layers without targeting a specific comp */
-    if (aeq.isNullOrUndefined(comp)) {
-        comp = _createAEComp(undefined, state);
-    }
-
-    const aexLayers: AexLayer[] = aexComp.layers;
-
-    /**
-     * Voodoo
-     *
-     * New created layers get placed at the top of the stack.
-     *
-     * But because we add to the AexComp.layers array from top -> bottom, we need to reverse
-     * our array to preserve the same layer ordering.
-     */
-    aexLayers.reverse();
-
-    aeq.forEach(aexLayers, (aexLayer: AexLayer) => {
-        createLayer(comp, aexLayer, state);
-    });
-}
-
-function _getAexCompMarkers(comp: CompItem) {
-    return getAexMarkerProperties(comp.markerProperty);
-}
-
-function _createCompMarkers(comp: CompItem, aexMarkers: AexMarkerProperty[], state: AexState) {
-    createMarkers(comp.markerProperty, aexMarkers, state);
-}
-
-function _createAeComp2(aexComp: AexComp, state: AexState): CompItem {
-    state.stats.compCount++;
-
-    const comp = aeq.comp.create({
-        name: aexComp.name,
-        width: aexComp.width,
-        height: aexComp.height,
-        pixelAspect: aexComp.pixelAspect,
-        duration: aexComp.duration,
-        frameRate: aexComp.frameRate,
-    });
 
     comp.openInViewer();
 
     return comp;
 }
 
-function _setAeComp2(comp: CompItem, aexComp: AexComp, state: AexState): void {
+function _setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
     assertIsDefined(comp, 'comp');
 
     setItemBaseAttributes(comp, aexComp, state);
