@@ -10,6 +10,41 @@ function getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     }
 }
 
+function setAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
+    switch (aexFootage.type) {
+        case AEX_SOLID_ITEM:
+            setAeSolid(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
+            break;
+        case AEX_PLACEHOLDER_ITEM:
+            setAePlaceholder(aeFootage as PlaceholderItem, aexFootage as AexPlaceholderItem, state);
+            break;
+        case AEX_FILE_FOOTAGE_ITEM:
+        default:
+            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
+    }
+}
+
+function _createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
+    let footageItem;
+
+    switch (aexFootage.type) {
+        case AEX_SOLID_ITEM:
+            footageItem = _createAeSolid(aexFootage as AexSolidItem, state);
+            break;
+        case AEX_PLACEHOLDER_ITEM:
+            footageItem = _createAePlaceholder(aexFootage as AexPlaceholderItem, state);
+            break;
+        case AEX_FILE_FOOTAGE_ITEM:
+        default:
+            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
+    }
+
+    /** @todo - see whether this vvv makes sense to do here, vs within the specific functions above */
+    // _setItemAttributes(footageItem, aexFootage);
+
+    return footageItem;
+}
+
 function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
     const avItemBaseAttributes = getAVItemBaseAttributes(item);
     const itemSource = item.mainSource;
@@ -37,41 +72,6 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
-function _createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
-    let footageItem;
-
-    switch (aexFootage.type) {
-        case AEX_SOLID_ITEM:
-            footageItem = _createAeSolid2(aexFootage as AexSolidItem, state);
-            break;
-        case AEX_PLACEHOLDER_ITEM:
-            footageItem = _createAePlaceholder(aexFootage as AexPlaceholderItem, state);
-            break;
-        case AEX_FILE_FOOTAGE_ITEM:
-        default:
-            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
-    }
-
-    /** @todo - see whether this vvv makes sense to do here, vs within the specific functions above */
-    // _setItemAttributes(footageItem, aexFootage);
-
-    return footageItem;
-}
-
-function setAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
-    switch (aexFootage.type) {
-        case AEX_SOLID_ITEM:
-            setAeSolid2(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
-            break;
-        case AEX_PLACEHOLDER_ITEM:
-            setAePlaceholder(aeFootage as PlaceholderItem, aexFootage as AexPlaceholderItem, state);
-            break;
-        case AEX_FILE_FOOTAGE_ITEM:
-        default:
-            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
-    }
-}
-
 function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as SolidSource;
@@ -85,43 +85,7 @@ function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     };
 }
 
-function _createSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
-    let solidSettings = {
-        color: [0, 0, 0] as ThreeDColorValue,
-        name: 'New Solid',
-        width: 1920,
-        height: 1080,
-        pixelAspect: 1,
-    };
-
-    if (!aeq.isNullOrUndefined(aexSolid)) {
-        assignAttributes(solidSettings, {
-            color: aexSolid.color,
-            name: aexSolid.name,
-            width: aexSolid.width,
-            height: aexSolid.height,
-            pixelAspect: aexSolid.pixelAspect,
-        });
-    }
-
-    const tempComp = aeq.comp.create();
-    const solid = tempComp.layers.addSolid(
-        solidSettings.color,
-        solidSettings.name,
-        solidSettings.width,
-        solidSettings.height,
-        solidSettings.pixelAspect,
-        0
-    );
-
-    const source = solid.source;
-
-    tempComp.remove();
-
-    return source;
-}
-
-function _createAeSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
+function _createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
     const tempComp = aeq.comp.create();
 
     const solidSettings = {
@@ -151,7 +115,7 @@ function _createAeSolid2(aexSolid: AexSolidItem, state: AexState): FootageItem {
     return source;
 }
 
-function setAeSolid2(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
+function setAeSolid(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
     assignAttributes(aeSolid, {
         color: aexSolid.color,
         name: aexSolid.name,

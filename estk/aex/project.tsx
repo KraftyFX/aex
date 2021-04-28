@@ -16,7 +16,7 @@ function setAexProject(aexProject: AexProject, state: AexState) {
     const { items, comps } = aexProject;
 
     aeq.forEach(items, (item) => {
-        createItem(item, state);
+        _setAeProjectItem(item, undefined, state);
     });
 
     aeq.forEach(comps, (comp) => {
@@ -36,6 +36,7 @@ function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexSta
     forEachPairByGroup(aexCompsByName, aeCompsByName, (aexComp, aeComp) => _setAeProjectComp(aeComp, aexComp, state));
 }
 
+/** Should this live in aex/item/item.tsx ? */
 function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
     switch (aexItem.type) {
         case AEX_FILE_FOOTAGE_ITEM:

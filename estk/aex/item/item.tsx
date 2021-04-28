@@ -10,23 +10,6 @@ function getAexItem(item: Item, state: AexState): AexItem {
     }
 }
 
-function createItem(aexItem: AexItem, state: AexState): void {
-    state.stats.nonCompItemCount++;
-
-    switch (aexItem.type) {
-        case AEX_FILE_FOOTAGE_ITEM:
-        case AEX_SOLID_ITEM:
-        case AEX_PLACEHOLDER_ITEM:
-            _createAeFootageItem(aexItem as AexFootageItem, state);
-            break;
-        case AEX_FOLDER_ITEM:
-            _createFolderItem(aexItem, state);
-            break;
-        default:
-            throw new Error(`Unrecognized Item Type ${aexItem.type}`);
-    }
-}
-
 function getItemBaseAttributes(item: Item): AexItemBase {
     /**
      * @todo Add AexOption to preserve project folder structure.
