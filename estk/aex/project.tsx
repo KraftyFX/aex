@@ -38,18 +38,13 @@ function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexSta
 
 function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
     switch (aexItem.type) {
+        case AEX_FILE_FOOTAGE_ITEM:
+        case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
             if (!aeItem) {
-                _createAePlaceholder(aexItem as AexPlaceholderItem, state);
+                _createAeFootageItem(aexItem as AexFootageItem, state);
             } else {
-                setAePlaceholder(aeItem as PlaceholderItem, aexItem as AexPlaceholderItem, state);
-            }
-            break;
-        case AEX_SOLID_ITEM:
-            if (!aeItem) {
-                _createAeSolid2(aexItem as AexSolidItem, state);
-            } else {
-                setAeSolid2(aeItem as FootageItem, aexItem as AexSolidItem, state);
+                setAeFootageItem(aeItem as FootageItem, aexItem as AexFootageItem, state);
             }
             break;
         case AEX_FOLDER_ITEM:

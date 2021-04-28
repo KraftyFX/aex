@@ -20,7 +20,7 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
             sourceItem = _createAEComp(undefined, state);
             comp.openInViewer();
         } else {
-            sourceItem = _createFootageItem(
+            sourceItem = _createAeFootageItem(
                 {
                     type: aexSource.type,
                 } as AexFootageItem,

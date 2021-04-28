@@ -37,19 +37,17 @@ function _getInvertAlphaValue(itemSource: FileSource | SolidSource | Placeholder
     return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
 }
 
-function _createFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
+function _createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
     let footageItem;
 
     switch (aexFootage.type) {
-        case AEX_FILE_FOOTAGE_ITEM:
-            /** @todo */
-            break;
         case AEX_SOLID_ITEM:
-            footageItem = _createSolid(aexFootage as AexSolidItem, state);
+            footageItem = _createAeSolid2(aexFootage as AexSolidItem, state);
             break;
         case AEX_PLACEHOLDER_ITEM:
             footageItem = _createAePlaceholder(aexFootage as AexPlaceholderItem, state);
             break;
+        case AEX_FILE_FOOTAGE_ITEM:
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
@@ -58,6 +56,20 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
     // _setItemAttributes(footageItem, aexFootage);
 
     return footageItem;
+}
+
+function setAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
+    switch (aexFootage.type) {
+        case AEX_SOLID_ITEM:
+            setAeSolid2(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
+            break;
+        case AEX_PLACEHOLDER_ITEM:
+            setAePlaceholder(aeFootage as PlaceholderItem, aexFootage as AexPlaceholderItem, state);
+            break;
+        case AEX_FILE_FOOTAGE_ITEM:
+        default:
+            throw new Error(`Unsupported footage type: ${aexFootage.type}`);
+    }
 }
 
 function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
