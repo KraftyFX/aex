@@ -48,7 +48,7 @@ function _createFootageItem(aexFootage: AexFootageItem, state: AexState): Footag
             footageItem = _createSolid(aexFootage as AexSolidItem, state);
             break;
         case AEX_PLACEHOLDER_ITEM:
-            /** @todo */
+            footageItem = _createAePlaceholder(aexFootage as AexPlaceholderItem, state);
             break;
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
@@ -170,4 +170,36 @@ function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceho
         ...itemAttributes,
         type: AEX_PLACEHOLDER_ITEM,
     };
+}
+
+function _createAePlaceholder(aexPlaceholder: AexPlaceholderItem, state: AexState): PlaceholderItem {
+    const placeholderSettings = {
+        name: 'New Placeholder',
+        width: 1920,
+        height: 1080,
+        frameRate: 30,
+        duration: 0,
+    };
+
+    assignAttributes(placeholderSettings, aexPlaceholder);
+
+    const aePlaceholder = app.project.importPlaceholder(
+        placeholderSettings.name,
+        placeholderSettings.width,
+        placeholderSettings.height,
+        placeholderSettings.frameRate,
+        placeholderSettings.duration
+    );
+
+    return aePlaceholder;
+}
+
+function setAePlaceholder(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
+    assignAttributes(aePlaceholder, {
+        name: aexPlaceholder.name,
+        width: aexPlaceholder.width,
+        height: aexPlaceholder.height,
+        frameRate: aexPlaceholder.frameRate,
+        duration: aexPlaceholder.duration,
+    });
 }

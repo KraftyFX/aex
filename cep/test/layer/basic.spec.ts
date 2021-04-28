@@ -512,7 +512,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe.only('Create', async () => {
+    describe('Create', async () => {
         beforeEach(async () => {
             await openProject('testAssets/comp_basic.aep');
         });
@@ -703,7 +703,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe.only('Set', async () => {
+    describe('Set', async () => {
         beforeEach(async () => {
             await openProject('testAssets/comp_basic.aep');
         });

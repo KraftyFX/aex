@@ -38,6 +38,13 @@ function setAeProject2(aeProject: Project, aexProject: AexProject, state: AexSta
 
 function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
     switch (aexItem.type) {
+        case AEX_PLACEHOLDER_ITEM:
+            if (!aeItem) {
+                _createAePlaceholder(aexItem as AexPlaceholderItem, state);
+            } else {
+                setAePlaceholder(aeItem as PlaceholderItem, aexItem as AexPlaceholderItem, state);
+            }
+            break;
         case AEX_SOLID_ITEM:
             if (!aeItem) {
                 _createAeSolid2(aexItem as AexSolidItem, state);

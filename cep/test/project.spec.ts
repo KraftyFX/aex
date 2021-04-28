@@ -1,5 +1,5 @@
 import { AeObject, aex } from './aex';
-import { AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } from './constants';
+import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } from './constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -24,6 +24,19 @@ describe('Project', function () {
 
             console.log('project_basic', project);
             assertAreEqual(project.items, [
+                {
+                    aexid: 'placeholder:40',
+                    conformFrameRate: 30,
+                    duration: 5,
+                    folder: [],
+                    frameRate: 30,
+                    height: 1080,
+                    label: 3,
+                    name: 'Placeholder',
+                    pixelAspect: 1,
+                    type: AEX_PLACEHOLDER_ITEM,
+                    width: 1920,
+                },
                 {
                     aexid: 'solids:37',
                     folder: [],
@@ -111,6 +124,19 @@ describe('Project', function () {
                 comps: [],
                 items: [
                     {
+                        aexid: 'placeholder:40',
+                        conformFrameRate: 30,
+                        duration: 5,
+                        folder: [],
+                        frameRate: 30,
+                        height: 1080,
+                        label: 3,
+                        name: 'Placeholder',
+                        pixelAspect: 1,
+                        type: AEX_PLACEHOLDER_ITEM,
+                        width: 1920,
+                    },
+                    {
                         aexid: 'solids:1',
                         folder: [],
                         type: AEX_FOLDER_ITEM,
@@ -135,6 +161,15 @@ describe('Project', function () {
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
+
+            projectData.items[0].aexid = '';
+            project.items[0].aexid = '';
+
+            projectData.items[1].aexid = '';
+            project.items[1].aexid = '';
+
+            projectData.items[2].aexid = '';
+            project.items[2].aexid = '';
 
             assertAreEqual(project, projectData);
         });
