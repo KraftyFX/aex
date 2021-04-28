@@ -125,19 +125,27 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
-    if (aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM) {
+    if (isAddingCompToProject(aeParentObject, aexObject)) {
         const aexComp = aexObject as AexComp;
         const aeComp = _createAeComp2(aexComp, state);
 
         _update(aeComp, aexComp, state);
-    } else if (aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject)) {
+    } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         const aexLayer = aexObject as AexLayer;
         const aeLayer = createLayer(aeParentObject as CompItem, aexLayer, state);
 
         _update(aeLayer, aexLayer, state);
     } else {
-        throw new Error(`Don't know how to create an object of type "${aexObject.type}" in the provided parent.`);
+        throw new Error(`Creating a '${aexObject.type}' under a '${getAeType(aeParentObject)}' is not supported.`);
     }
+}
+
+function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
+}
+
+function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
 function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
@@ -155,13 +163,53 @@ function update(aeObject: CompItem | Layer, aexObject: AexComp | AexLayer) {
 }
 
 function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
-    if (aeObject instanceof Project && aexObject.type === AEX_PROJECT) {
+    if (isUpdatingProject(aeObject, aexObject)) {
         setAeProject2(aeObject as Project, aexObject as AexProject, state);
-    } else if (aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM) {
+    } else if (isUpdatingComp(aeObject, aexObject)) {
         _setAeComp2(aeObject as CompItem, aexObject as AexComp, state);
-    } else if (aeq.isLayer(aeObject) && isAexLayer(aexObject)) {
+    } else if (isUpdatingLayer(aeObject, aexObject)) {
         _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
     } else {
-        throw new Error(`Don't know how to create an object of type '${aexObject.type}' ${aeObject instanceof CameraLayer}.`);
+        throw new Error(`Updating a '${getAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
+    }
+}
+
+function isUpdatingLayer(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
+    return aeq.isLayer(aeObject) && isAexLayer(aexObject);
+}
+
+function isUpdatingComp(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
+    return aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM;
+}
+
+function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
+    return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
+}
+
+function getAeType(obj: Project | Item | Layer | PropertyBase) {
+    if (obj instanceof Project) {
+        return 'project';
+    } else if (aeq.isProperty(obj)) {
+        return 'property';
+    } else if (aeq.isTextLayer(obj)) {
+        return 'textlayer';
+    } else if (aeq.isLightLayer(obj)) {
+        return 'lightlayer';
+    } else if (aeq.isShapeLayer(obj)) {
+        return 'shapelayer';
+    } else if (aeq.isCameraLayer(obj)) {
+        return 'cameralayer';
+    } else if (aeq.isAVLayer(obj)) {
+        return 'avlayer';
+    } else if (aeq.isPrecomp(obj)) {
+        return 'precomplayer';
+    } else if (aeq.isFootageItem(obj)) {
+        return 'footageitem';
+    } else if (aeq.isFolderItem(obj)) {
+        return 'folderitem';
+    } else if (aeq.isComp(obj)) {
+        return 'folderitem';
+    } else {
+        return 'unknown';
     }
 }
