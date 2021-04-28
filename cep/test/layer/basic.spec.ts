@@ -712,12 +712,6 @@ describe('Basic Layer Attributes', function () {
             const compData = {
                 layers: [
                     {
-                        markers: [],
-                        name: '_Parent Layer',
-                        transform: {},
-                        type: AEX_CAMERA_LAYER,
-                    },
-                    {
                         effects: [],
                         label: 1,
                         markers: [],
@@ -726,7 +720,7 @@ describe('Basic Layer Attributes', function () {
                         parentLayerIndex: 2,
                         source: {
                             type: AEX_SOLID_ITEM,
-                            id: 'new solid:27',
+                            id: 'new solid:108',
                         },
                         trackers: [],
                         transform: {
@@ -740,6 +734,12 @@ describe('Basic Layer Attributes', function () {
                         },
                         type: AEX_FOOTAGE_LAYER,
                     },
+                    {
+                        markers: [],
+                        name: '_Parent Layer',
+                        transform: {},
+                        type: AEX_CAMERA_LAYER,
+                    },
                 ],
                 markers: [],
                 type: AEX_COMP_ITEM,
@@ -750,7 +750,10 @@ describe('Basic Layer Attributes', function () {
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
 
-            assertAreEqual(comp.layers[0], compData.layers[1]);
+            compData.layers[0].source!.id = '';
+            comp.layers[0].source.id = '';
+
+            assertAreEqual(comp.layers[0], compData.layers[0]);
         });
 
         it(`Can set 3d layers`, async () => {
@@ -1132,10 +1135,13 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.ActiveComp, compData);
+            await aex().create(AeObject.Project, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
+
+            compData.layers[0].source!.id = '';
+            comp.layers[0].source.id = '';
 
             assertAreEqual(comp.layers[0], compData.layers[0]);
             assertAreEqual(comp.layers[1], compData.layers[1]);
