@@ -300,12 +300,12 @@ describe('Layer Transform', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can set default transform data`, async () => {
+        it(`Can create default transform data`, async () => {
             const compData = {
                 layers: [
                     {
@@ -374,7 +374,7 @@ describe('Layer Transform', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.Project, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -382,7 +382,7 @@ describe('Layer Transform', function () {
             assertAreEqual(comp.layers, compData.layers);
         });
 
-        it(`Can set modified 3d Camera data`, async () => {
+        it(`Can create modified 3d Camera data`, async () => {
             const layerData = {
                 label: 4,
                 markers: [],
@@ -434,7 +434,8 @@ describe('Layer Transform', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -442,7 +443,7 @@ describe('Layer Transform', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set modified 3d LightLayer data`, async () => {
+        it(`Can create modified 3d LightLayer data`, async () => {
             const layerData = {
                 label: 6,
                 lightType: 4414,
@@ -460,7 +461,8 @@ describe('Layer Transform', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -468,7 +470,7 @@ describe('Layer Transform', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set modified 3d AVLayer Null data`, async () => {
+        it(`Can create modified 3d AVLayer Null data`, async () => {
             const layerData = {
                 effects: [],
                 label: 1,
@@ -542,7 +544,8 @@ describe('Layer Transform', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -550,7 +553,7 @@ describe('Layer Transform', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it(`Can set modified 2d AVLayer Null data`, async () => {
+        it(`Can create modified 2d AVLayer Null data`, async () => {
             const layerData = {
                 effects: [],
                 label: 1,
@@ -602,7 +605,8 @@ describe('Layer Transform', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

@@ -143,12 +143,12 @@ describe('Camera Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can set camera options`, async () => {
+        it(`Can create camera options`, async () => {
             const layerData = {
                 cameraOption: {
                     matchName: 'ADBE Camera Options Group',
@@ -246,7 +246,8 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -254,7 +255,7 @@ describe('Camera Layer Attributes', function () {
             assertAreEqual(comp.layers[0].cameraOption, layerData.cameraOption);
         });
 
-        it(`Can set 2-point cameras`, async () => {
+        it(`Can create 2-point cameras`, async () => {
             const layerData = {
                 label: 4,
                 markers: [],
@@ -278,7 +279,8 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

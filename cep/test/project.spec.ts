@@ -116,8 +116,8 @@ describe('Project', function () {
         });
     });
 
-    describe('Set', async () => {
-        it(`Can create basic project attributes`, async () => {
+    describe('Update', async () => {
+        it(`Can update project with basic project attributes`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -174,7 +174,7 @@ describe('Project', function () {
             assertAreEqual(project, projectData);
         });
 
-        it(`Can create flat project folders`, async () => {
+        it(`Can update project with flat project folders`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -204,7 +204,7 @@ describe('Project', function () {
             assertAreEqual(project, projectData);
         });
 
-        it(`Can create nested project folders`, async () => {
+        it(`Can update project with nested project folders`, async () => {
             await openCleanProject();
 
             const projectData = {

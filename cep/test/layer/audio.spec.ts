@@ -43,12 +43,12 @@ describe('Layer Audio', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can parse layer audio`, async () => {
+        it(`Can create layer audio`, async () => {
             const layerData = {
                 effects: [
                     {
@@ -72,7 +72,8 @@ describe('Layer Audio', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

@@ -38,7 +38,7 @@ describe('Comp', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         it(`Can create basic comp attributes`, async () => {
             await openCleanProject();
 
@@ -56,7 +56,7 @@ describe('Comp', function () {
                 width: 1280,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.Project, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

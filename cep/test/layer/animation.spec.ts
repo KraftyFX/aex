@@ -282,12 +282,12 @@ describe('Layer Animation', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can set eased keyframes`, async () => {
+        it(`Can create eased keyframes`, async () => {
             const layerData = {
                 threeDLayer: true,
                 transform: {
@@ -367,7 +367,8 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -375,7 +376,7 @@ describe('Layer Animation', function () {
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
         });
 
-        it(`Can set hold keyframes`, async () => {
+        it(`Can create hold keyframes`, async () => {
             const layerData = {
                 threeDLayer: true,
                 transform: {
@@ -414,7 +415,8 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -422,7 +424,7 @@ describe('Layer Animation', function () {
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
         });
 
-        it(`Can set linear keyframes`, async () => {
+        it(`Can create linear keyframes`, async () => {
             const layerData = {
                 threeDLayer: true,
                 transform: {
@@ -474,7 +476,8 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -482,7 +485,7 @@ describe('Layer Animation', function () {
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
         });
 
-        it(`Can set mixed easing keyframes`, async () => {
+        it(`Can create mixed easing keyframes`, async () => {
             const layerData = {
                 threeDLayer: true,
                 transform: {
@@ -587,7 +590,8 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

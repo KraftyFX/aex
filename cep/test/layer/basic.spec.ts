@@ -703,7 +703,7 @@ describe('Basic Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Update', async () => {
         beforeEach(async () => {
             await openProject('testAssets/comp_basic.aep');
         });

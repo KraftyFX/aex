@@ -75,7 +75,7 @@ describe('Comp Markers', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         let project: any;
 
         const projectData = {

@@ -106,12 +106,12 @@ describe('Light Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can set light layer attributes`, async () => {
+        it(`Can create light layer attributes`, async () => {
             const layerData = {
                 label: 6,
                 lightOption: {
@@ -175,7 +175,8 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -183,7 +184,7 @@ describe('Light Layer Attributes', function () {
             assertAreEqual(comp.layers[0].lightOption, layerData.lightOption);
         });
 
-        it(`Can set light layer types`, async () => {
+        it(`Can create light layer types`, async () => {
             const compData = {
                 layers: [
                     {
@@ -212,7 +213,7 @@ describe('Light Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.Project, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

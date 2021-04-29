@@ -73,12 +73,12 @@ describe('Layer Markers', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can set simple layer markers`, async () => {
+        it(`Can create simple layer markers`, async () => {
             const layerData = {
                 label: 4,
                 markers: [
@@ -102,7 +102,8 @@ describe('Layer Markers', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -110,7 +111,7 @@ describe('Layer Markers', function () {
             assertAreEqual(comp.layers[0].markers, layerData.markers);
         });
 
-        it(`Can set complicated layer markers`, async () => {
+        it(`Can create complicated layer markers`, async () => {
             const layerData = {
                 label: 4,
                 markers: [
@@ -141,7 +142,8 @@ describe('Layer Markers', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

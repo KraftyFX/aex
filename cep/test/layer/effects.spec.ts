@@ -478,12 +478,12 @@ describe('Layer Effects', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it('Can set simple unmodified effect', async () => {
+        it('Can create simple unmodified effect', async () => {
             const layerData = {
                 effects: [
                     {
@@ -494,7 +494,8 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -502,7 +503,7 @@ describe('Layer Effects', function () {
             assertAreEqual(comp.layers[0].effects, layerData.effects);
         });
 
-        it('Can set simple modified effect', async () => {
+        it('Can create simple modified effect', async () => {
             const layerData = {
                 effects: [
                     {
@@ -557,7 +558,8 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -565,7 +567,7 @@ describe('Layer Effects', function () {
             assertAreEqual(comp.layers[0].effects, layerData.effects);
         });
 
-        it('Can set effect compositing options', async () => {
+        it('Can create effect compositing options', async () => {
             const layerData = {
                 effects: [
                     {
@@ -648,7 +650,8 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -656,7 +659,7 @@ describe('Layer Effects', function () {
             assertAreEqual(comp.layers[0].effects, layerData.effects);
         });
 
-        it('Can set default expression controls', async () => {
+        it('Can create default expression controls', async () => {
             const layerData = {
                 effects: [
                     {
@@ -700,7 +703,8 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -711,7 +715,7 @@ describe('Layer Effects', function () {
             assertAreEqual(comp.layers[0].effects, layerData.effects);
         });
 
-        it('Can set modified expression controls', async () => {
+        it('Can create modified expression controls', async () => {
             const compData = {
                 layers: [
                     {
@@ -829,7 +833,7 @@ describe('Layer Effects', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().fromAexObject(compData);
+            await aex().create(AeObject.Project, compData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -841,7 +845,7 @@ describe('Layer Effects', function () {
             assertAreEqual(comp.layers[0].effects, compData.layers[0].effects);
         });
 
-        it('Can set nested effect groups', async () => {
+        it('Can create nested effect groups', async () => {
             const layerData = {
                 effects: [
                     {
@@ -861,7 +865,8 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

@@ -505,18 +505,19 @@ describe('Shape Layers', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it(`Can parse empty shape layers`, async () => {
+        it(`Can create empty shape layers`, async () => {
             const layerData = {
                 contents: [],
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -524,7 +525,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse default shape layers`, async () => {
+        it(`Can create default shape layers`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -549,7 +550,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -557,7 +559,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse modified shape layers`, async () => {
+        it(`Can create modified shape layers`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -764,7 +766,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -772,7 +775,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse multiple shapes on one layer`, async () => {
+        it(`Can create multiple shapes on one layer`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -815,7 +818,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -823,7 +827,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse ungrouped shape items`, async () => {
+        it(`Can create ungrouped shape items`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -842,7 +846,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -850,7 +855,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse stroke dashes`, async () => {
+        it(`Can create stroke dashes`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -892,7 +897,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -900,7 +906,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse all stroke dashes`, async () => {
+        it(`Can create all stroke dashes`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -977,7 +983,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -985,7 +992,7 @@ describe('Shape Layers', function () {
             assertAreEqual(comp.layers[0].contents, layerData.contents);
         });
 
-        it(`Can parse modified stroke dashes`, async () => {
+        it(`Can create modified stroke dashes`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -1041,7 +1048,8 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

@@ -403,12 +403,12 @@ describe('Text Layer Attributes', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it('Can set per-character 3d', async () => {
+        it('Can create per-character 3d', async () => {
             const layerData = {
                 threeDPerChar: true,
                 sourceText: {
@@ -438,7 +438,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -446,7 +447,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].threeDPerChar, layerData.threeDPerChar);
         });
 
-        it('Can set Text Path Options', async () => {
+        it('Can create Text Path Options', async () => {
             const layerData = {
                 masks: [
                     {
@@ -555,7 +556,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -563,7 +565,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].pathOption, layerData.pathOption);
         });
 
-        it('Can set Text More Options', async () => {
+        it('Can create Text More Options', async () => {
             const layerData = {
                 moreOption: {
                     matchName: 'ADBE Text More Options',
@@ -625,7 +627,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -633,7 +636,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].moreOption, layerData.moreOption);
         });
 
-        it('Can set multiple Text Animators on one layer', async () => {
+        it('Can create multiple Text Animators on one layer', async () => {
             const layerData = {
                 animators: {
                     matchName: 'ADBE Text Animators',
@@ -752,7 +755,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -760,7 +764,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].animators, layerData.animators);
         });
 
-        it('Can set multiple Text Animator Selectors on one layer', async () => {
+        it('Can create multiple Text Animator Selectors on one layer', async () => {
             const layerData = {
                 animators: {
                     matchName: 'ADBE Text Animators',
@@ -831,7 +835,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -839,7 +844,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].animators, layerData.animators);
         });
 
-        it('Can set Text Animator with animated Range Selector', async () => {
+        it('Can create Text Animator with animated Range Selector', async () => {
             const layerData = {
                 animators: {
                     matchName: 'ADBE Text Animators',
@@ -946,7 +951,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -954,7 +960,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].animators, layerData.animators);
         });
 
-        it('Can set Text Animator with Expression Selector', async () => {
+        it('Can create Text Animator with Expression Selector', async () => {
             const layerData = {
                 animators: {
                     matchName: 'ADBE Text Animators',
@@ -1014,7 +1020,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -1022,7 +1029,7 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(comp.layers[0].animators, layerData.animators);
         });
 
-        it('Can set Text Animator with Wiggle Selector', async () => {
+        it('Can create Text Animator with Wiggle Selector', async () => {
             const layerData = {
                 animators: {
                     matchName: 'ADBE Text Animators',
@@ -1092,7 +1099,8 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;

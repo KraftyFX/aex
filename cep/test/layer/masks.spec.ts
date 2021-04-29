@@ -376,12 +376,12 @@ describe('Layer Masks', function () {
         });
     });
 
-    describe('Set', async () => {
+    describe('Create', async () => {
         before(async () => {
             await openCleanProject();
         });
 
-        it('Can set simple mask paths', async () => {
+        it('Can create simple mask paths', async () => {
             const layerData = {
                 masks: [
                     {
@@ -426,7 +426,8 @@ describe('Layer Masks', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -434,7 +435,7 @@ describe('Layer Masks', function () {
             assertAreEqual(comp.layers[0].masks, layerData.masks);
         });
 
-        it('Can set simple mask attributes', async () => {
+        it('Can create simple mask attributes', async () => {
             const layerData = {
                 masks: [
                     {
@@ -520,7 +521,8 @@ describe('Layer Masks', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -528,7 +530,7 @@ describe('Layer Masks', function () {
             assertAreEqual(comp.layers[0].masks, layerData.masks);
         });
 
-        it('Can set detailed masks with feather', async () => {
+        it('Can create detailed masks with feather', async () => {
             const layerData = {
                 masks: [
                     {
@@ -573,7 +575,8 @@ describe('Layer Masks', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
@@ -581,7 +584,7 @@ describe('Layer Masks', function () {
             assertAreEqual(comp.layers[0].masks, layerData.masks);
         });
 
-        it('Can set animated masks', async () => {
+        it('Can create animated masks', async () => {
             const layerData = {
                 masks: [
                     {
@@ -771,7 +774,8 @@ describe('Layer Masks', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().fromAexObject(layerData);
+            await aex().createTestComp();
+            await aex().create(AeObject.ActiveComp, layerData);
 
             const result = await aex().fromAeObject(AeObject.ActiveComp);
             const comp = result.object;
