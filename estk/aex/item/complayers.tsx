@@ -9,7 +9,7 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
     return layers;
 }
 
-function _setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
+function setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
         if (!aeLayer) {
             aeLayer = createLayer(comp, aexLayer, state);

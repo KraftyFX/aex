@@ -105,5 +105,5 @@ function setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
 
     setAeCompMarkers(comp, aexComp, state);
     setAeCompRenderer(comp, aexComp, state);
-    _setAeCompLayers(comp, aexComp, state);
+    setAeCompLayers(comp, aexComp, state);
 }
