@@ -61,7 +61,24 @@ interface AexObject {
     type: AexObjectType;
 }
 
-interface AexProject extends AexObject {
+interface AexProjectBase {
+    bitsPerChannel: number;
+    displayStartFrame: number;
+    expressionEngine: string;
+    feetFramesFilmType: number;
+    footageTimecodeDisplayStartType: number;
+    framesCountType: number;
+    framesUseFeetFrames: boolean;
+    gpuAccelType: number;
+    linearBlending: boolean;
+    linearizeWorkingSpace: boolean;
+    timeDisplayType: number;
+    transparencyGridThumbnails: boolean;
+    workingGamma: number;
+    workingSpace: string;
+}
+
+interface AexProject extends AexProjectBase, AexObject {
     items: AexItem[];
     comps: AexComp[];
 }
