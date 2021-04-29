@@ -14,7 +14,7 @@ function _setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
         if (!aeLayer) {
             aeLayer = createLayer(comp, aexLayer, state);
         } else {
-            _setLayerAttributes(aeLayer, aexLayer, state);
+            setAeLayer(aeLayer, aexLayer, state);
         }
     };
 

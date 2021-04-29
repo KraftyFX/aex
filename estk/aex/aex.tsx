@@ -126,7 +126,7 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         app.endUndoGroup();
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Layer');
-        _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
+        setAeLayer(aeObject as Layer, aexObject as AexLayer, state);
         app.endUndoGroup();
     } else {
         throw new Error(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
