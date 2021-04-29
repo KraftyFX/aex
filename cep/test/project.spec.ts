@@ -3,7 +3,7 @@ import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } fr
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe.only('Project', function () {
+describe('Project', function () {
     this.slow(500);
     this.timeout(5000);
 
@@ -16,6 +16,30 @@ describe.only('Project', function () {
     });
 
     describe('Get', async () => {
+        it(`Can parse basic project attributes`, async () => {
+            await openProject('testAssets/project_basic.aep');
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            console.log('project_basic', project);
+            assertAreEqual(project, {
+                bitsPerChannel: 16,
+                comps: [],
+                displayStartFrame: 1,
+                expressionEngine: 'extendscript',
+                feetFramesFilmType: 2412,
+                footageTimecodeDisplayStartType: 2213,
+                framesCountType: 2613,
+                gpuAccelType: 1816,
+                items: [],
+                linearizeWorkingSpace: true,
+                timeDisplayType: 2013,
+                type: AEX_PROJECT,
+                workingSpace: 'Apple RGB',
+            });
+        });
+
         it(`Can parse basic project items`, async () => {
             await openProject('testAssets/project_basic_items.aep');
 
@@ -117,6 +141,33 @@ describe.only('Project', function () {
     });
 
     describe('Update', async () => {
+        it(`Can update project with basic project attributes`, async () => {
+            await openCleanProject();
+
+            const projectData = {
+                bitsPerChannel: 16,
+                comps: [],
+                displayStartFrame: 1,
+                expressionEngine: 'extendscript',
+                feetFramesFilmType: 2412,
+                footageTimecodeDisplayStartType: 2213,
+                framesCountType: 2613,
+                gpuAccelType: 1816,
+                items: [],
+                linearizeWorkingSpace: true,
+                timeDisplayType: 2013,
+                type: AEX_PROJECT,
+                workingSpace: 'Apple RGB',
+            };
+
+            await aex().update(AeObject.Project, projectData);
+
+            const result = await aex().fromAeObject(AeObject.Project);
+            const project = result.object;
+
+            assertAreEqual(project, projectData);
+        });
+
         it(`Can update project with basic project items`, async () => {
             await openCleanProject();
 
@@ -171,7 +222,7 @@ describe.only('Project', function () {
             projectData.items[2].aexid = '';
             project.items[2].aexid = '';
 
-            assertAreEqual(project, projectData);
+            assertAreEqual(project.items, projectData.items);
         });
 
         it(`Can update project with flat project folders`, async () => {
@@ -201,7 +252,7 @@ describe.only('Project', function () {
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
 
-            assertAreEqual(project, projectData);
+            assertAreEqual(project.items, projectData.items);
         });
 
         it(`Can update project with nested project folders`, async () => {
@@ -243,7 +294,7 @@ describe.only('Project', function () {
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
 
-            assertAreEqual(project, projectData);
+            assertAreEqual(project.items, projectData.items);
         });
     });
 });

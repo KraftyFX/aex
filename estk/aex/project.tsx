@@ -16,6 +16,8 @@ function getAexProject(project: Project, state: AexState): AexProject {
 }
 
 function setAeProject(aeProject: Project, aexProject: AexProject, state: AexState) {
+    _setProjectBaseAttributes(aeProject, aexProject);
+
     const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
     const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
 
@@ -76,4 +78,23 @@ function _getProjectBaseAttributes(project: Project): AexProjectBase {
         workingGamma: getModifiedValue(project.workingGamma, 2.4),
         workingSpace: getModifiedValue(project.workingSpace, 'None'),
     };
+}
+
+function _setProjectBaseAttributes(project: Project, aexProject: AexProject) {
+    assignAttributes(project, {
+        bitsPerChannel: aexProject.bitsPerChannel,
+        displayStartFrame: aexProject.displayStartFrame,
+        expressionEngine: aexProject.expressionEngine,
+        feetFramesFilmType: aexProject.feetFramesFilmType,
+        footageTimecodeDisplayStartType: aexProject.footageTimecodeDisplayStartType,
+        framesCountType: aexProject.framesCountType,
+        framesUseFeetFrames: aexProject.framesUseFeetFrames,
+        gpuAccelType: aexProject.gpuAccelType,
+        linearBlending: aexProject.linearBlending,
+        linearizeWorkingSpace: aexProject.linearizeWorkingSpace,
+        timeDisplayType: aexProject.timeDisplayType,
+        transparencyGridThumbnails: aexProject.transparencyGridThumbnails,
+        workingGamma: aexProject.workingGamma,
+        workingSpace: aexProject.workingSpace,
+    });
 }
