@@ -53,9 +53,11 @@ function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
 }
 
 function _setAeProjectComp(aeComp: CompItem, aexComp: AexComp, state: AexState) {
-    aeComp = aeComp || createAeComp(aexComp, state);
-
-    setAeComp(aeComp, aexComp, state);
+    if (!aeComp) {
+        aeComp = createAeComp(aexComp, state);
+    } else {
+        setAeComp(aeComp, aexComp, state);
+    }
 }
 
 function _getProjectBaseAttributes(project: Project): AexProjectBase {

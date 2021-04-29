@@ -73,6 +73,8 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
 
     comp.openInViewer();
 
+    setAeComp(comp, aexComp, state);
+
     return comp;
 }
 

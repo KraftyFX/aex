@@ -82,21 +82,11 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Comp to Project');
-
-        const aexComp = aexObject as AexComp;
-        const aeComp = createAeComp(aexComp, state);
-
-        _update(aeComp, aexComp, state);
-
+        createAeComp(aexObject as AexComp, state);
         app.endUndoGroup();
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
-
-        const aexLayer = aexObject as AexLayer;
-        const aeLayer = createLayer(aeParentObject as CompItem, aexLayer, state);
-
-        // _update(aeLayer, aexLayer, state);
-
+        createLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
         app.endUndoGroup();
     } else {
         throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
