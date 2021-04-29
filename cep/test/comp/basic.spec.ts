@@ -19,7 +19,7 @@ describe('Comp', function () {
         it(`Can parse basic comp attributes`, async () => {
             await openProject('testAssets/comp_basic.aep');
 
-            const { object: comp } = await aex().fromAeObject(AeObject.ActiveComp);
+            const { object: comp } = await aex().get(AeObject.ActiveComp);
 
             console.log('comp_basic', comp);
             assertAreEqual(comp, {
@@ -58,7 +58,7 @@ describe('Comp', function () {
 
             await aex().create(AeObject.Project, compData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
             assertAreEqual(comp, compData);
         });

@@ -21,7 +21,7 @@ describe('Layer Styles', function () {
 
         before(async () => {
             await openProject('testAssets/layer_styles.aep');
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_styles', comp);
         });
@@ -301,7 +301,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties, layerData.layerStyles.properties);
@@ -324,7 +324,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -347,7 +347,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -370,7 +370,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -393,7 +393,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -416,7 +416,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -439,7 +439,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -462,7 +462,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -485,7 +485,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -634,7 +634,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties, layerData.layerStyles.properties);
@@ -657,7 +657,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -688,7 +688,7 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles, layerData.layerStyles);

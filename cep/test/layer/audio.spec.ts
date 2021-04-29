@@ -21,7 +21,7 @@ describe('Layer Audio', function () {
 
         before(async () => {
             await openProject('testAssets/layer_audio.aep');
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_audio', comp);
         });
@@ -75,7 +75,7 @@ describe('Layer Audio', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].audio, layerData.audio);

@@ -33,7 +33,7 @@ describe('Basic Layer Attributes', function () {
 
         before(async () => {
             await openProject('testAssets/layer_basic.aep');
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_basic', comp);
         });
@@ -536,7 +536,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0], layerData);
@@ -580,7 +580,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0], layerData);
@@ -604,7 +604,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             layerData.source.id = '';
@@ -635,7 +635,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0], layerData);
@@ -665,7 +665,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             layerData.source.id = '';
@@ -693,7 +693,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             layerData.source.id = '';
@@ -747,7 +747,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().update(AeObject.ActiveComp, compData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             compData.layers[0].source!.id = '';
@@ -893,7 +893,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0], layerData);
@@ -983,7 +983,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
@@ -1073,7 +1073,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
@@ -1137,7 +1137,7 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.Project, compData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             compData.layers[0].source!.id = '';

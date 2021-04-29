@@ -18,15 +18,11 @@ export function aex() {
             return await getEvalScriptResult(`aex().benchmark(aex_args)`, options, { ignoreReturn: false });
         },
 
-        async fromAe(item: any, options?: AexOptions): Promise<AexResult> {
-            return await getEvalScriptResult<AexResult>(`aex().fromAe(${item || 'undefined'})`, options || {}, { ignoreReturn: false });
-        },
-
-        async fromAeObject(aeObject: AeObject, options?: AexOptions): Promise<AexResult> {
+        async get(aeObject: AeObject, options?: AexOptions): Promise<AexResult> {
             switch (aeObject) {
                 case AeObject.ActiveComp:
                 case AeObject.Project:
-                    return await getEvalScriptResult<AexResult>(`aex().fromAe(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
+                    return await getEvalScriptResult<AexResult>(`aex().get(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
                 default:
                     throw new Error(`Unrecognized AE Object - ${aeObject}`);
             }

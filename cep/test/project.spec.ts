@@ -19,7 +19,7 @@ describe('Project', function () {
         it(`Can parse basic project attributes`, async () => {
             await openProject('testAssets/project_basic.aep');
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_basic', project);
@@ -43,7 +43,7 @@ describe('Project', function () {
         it(`Can parse basic project items`, async () => {
             await openProject('testAssets/project_basic_items.aep');
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_basic_items', project);
@@ -84,7 +84,7 @@ describe('Project', function () {
         it(`Can parse flat project folders`, async () => {
             await openProject('testAssets/project_folders-flat.aep');
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_folders-flat', project);
@@ -107,7 +107,7 @@ describe('Project', function () {
         it(`Can parse nested project folders`, async () => {
             await openProject('testAssets/project_folders-nested.aep');
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_folders-nested', project);
@@ -162,7 +162,7 @@ describe('Project', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project, projectData);
@@ -210,7 +210,7 @@ describe('Project', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             projectData.items[0].aexid = '';
@@ -249,7 +249,7 @@ describe('Project', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.items, projectData.items);
@@ -291,7 +291,7 @@ describe('Project', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.items, projectData.items);

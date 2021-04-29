@@ -1,5 +1,5 @@
-import { AEX_NULL_LAYER } from '../constants';
 import { AeObject, aex } from '../aex';
+import { AEX_NULL_LAYER } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -20,7 +20,7 @@ describe('Layer Markers', function () {
 
         before(async () => {
             await openProject('testAssets/layer_markers.aep');
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_markers', comp);
         });
@@ -105,7 +105,7 @@ describe('Layer Markers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].markers, layerData.markers);
@@ -145,7 +145,7 @@ describe('Layer Markers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].markers, layerData.markers);

@@ -20,7 +20,7 @@ describe('Comp Markers', function () {
 
         before(async () => {
             await openProject('testAssets/comp_markers.aep');
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('comp_markers', project);
         });
@@ -157,7 +157,7 @@ describe('Comp Markers', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             project = result.object;
         });
 

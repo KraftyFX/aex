@@ -20,7 +20,7 @@ describe('Layer Animation', function () {
 
         before(async () => {
             await openProject('testAssets/property_animated.aep');
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('property_animated', project);
         });
@@ -370,7 +370,7 @@ describe('Layer Animation', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
@@ -418,7 +418,7 @@ describe('Layer Animation', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
@@ -479,7 +479,7 @@ describe('Layer Animation', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);
@@ -593,7 +593,7 @@ describe('Layer Animation', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].transform.rotation, layerData.transform.rotation);

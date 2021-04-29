@@ -16,7 +16,7 @@ describe('Unsupported Properties', function () {
     });
 
     it(`Can get log of serialization failures`, async () => {
-        const result = await aex().fromAeObject(AeObject.ActiveComp, {
+        const result = await aex().get(AeObject.ActiveComp, {
             unspportedPropertyBehavior: 'log',
         });
 
@@ -27,7 +27,7 @@ describe('Unsupported Properties', function () {
     });
 
     it(`Can skip serialization failures`, async () => {
-        const result = await aex().fromAeObject(AeObject.ActiveComp, {
+        const result = await aex().get(AeObject.ActiveComp, {
             unspportedPropertyBehavior: 'skip',
         });
 
@@ -39,7 +39,7 @@ describe('Unsupported Properties', function () {
 
     it(`Can throw on serialization failures`, async () => {
         try {
-            await aex().fromAeObject(AeObject.ActiveComp, {
+            await aex().get(AeObject.ActiveComp, {
                 unspportedPropertyBehavior: 'throw',
             });
 
@@ -53,7 +53,7 @@ describe('Unsupported Properties', function () {
     });
 
     it(`Can get metadata on serialization failures`, async () => {
-        const result = await aex().fromAeObject(AeObject.ActiveComp, {
+        const result = await aex().get(AeObject.ActiveComp, {
             unspportedPropertyBehavior: 'metadata',
         });
 

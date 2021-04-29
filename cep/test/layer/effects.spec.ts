@@ -1,13 +1,13 @@
 import { AeObject, aex } from '../aex';
 import {
     AEX_COLOR_PROPERTY,
-    AEX_ONED_PROPERTY,
-    AEX_THREED_PROPERTY,
-    AEX_TWOD_PROPERTY,
+    AEX_COMP_ITEM,
     AEX_DROPDOWN_PROPERTY,
     AEX_NULL_LAYER,
+    AEX_ONED_PROPERTY,
     AEX_SHAPE_PROPERTY,
-    AEX_COMP_ITEM,
+    AEX_THREED_PROPERTY,
+    AEX_TWOD_PROPERTY,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -32,7 +32,7 @@ describe('Layer Effects', function () {
         before(async () => {
             await openProject('testAssets/layer_effects.aep');
 
-            const result = await aex().fromAeObject(AeObject.Project);
+            const result = await aex().get(AeObject.Project);
             const project = result.object;
             puppetComp = project.comps.find((comp: any) => comp.name === 'Puppet Pins');
             simpleComp = project.comps.find((comp: any) => comp.name === 'Simple');
@@ -497,7 +497,7 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].effects, layerData.effects);
@@ -561,7 +561,7 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].effects, layerData.effects);
@@ -653,7 +653,7 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].effects, layerData.effects);
@@ -706,7 +706,7 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
@@ -835,7 +835,7 @@ describe('Layer Effects', function () {
 
             await aex().create(AeObject.Project, compData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
@@ -868,7 +868,7 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].effects, layerData.effects);

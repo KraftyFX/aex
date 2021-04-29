@@ -2,7 +2,7 @@ function aex() {
     return {
         benchmark,
         prescan,
-        fromAe: aeToAex,
+        get,
         update,
         create,
     };
@@ -30,13 +30,13 @@ interface ToAexResult<T extends AexSerialized> {
 function benchmark(options: any) {
     options.callback(true);
 
-    // aex().fromAe(app.project as Project, {} as any);
+    // aex().get(app.project as Project, {} as any);
 }
 
-function aeToAex(aeObj: Project, options: AexOptions): void;
-function aeToAex(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
-function aeToAex(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
-function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
+function get(aeObj: Project, options: AexOptions): void;
+function get(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
+function get(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
+function get(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
     const state: AexState = {

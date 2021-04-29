@@ -21,7 +21,7 @@ describe('Light Layer Attributes', function () {
 
         before(async () => {
             await openProject('testAssets/layer_light.aep');
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_light', comp);
         });
@@ -178,7 +178,7 @@ describe('Light Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].lightOption, layerData.lightOption);
@@ -215,7 +215,7 @@ describe('Light Layer Attributes', function () {
 
             await aex().create(AeObject.Project, compData);
 
-            const result = await aex().fromAeObject(AeObject.ActiveComp);
+            const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
 
             expect(comp.layers[0].lightType).to.eql(compData.layers[0].lightType);

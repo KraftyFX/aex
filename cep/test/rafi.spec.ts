@@ -89,7 +89,7 @@ describe.skip('Rafi Test Stuff', function () {
 
         await aex().update(AeObject.Project, projectData);
 
-        const result = await aex().fromAeObject(AeObject.Project);
+        const result = await aex().get(AeObject.Project);
         project = result.object;
     });
 
