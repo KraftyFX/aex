@@ -95,7 +95,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         const aexLayer = aexObject as AexLayer;
         const aeLayer = createLayer(aeParentObject as CompItem, aexLayer, state);
 
-        _update(aeLayer, aexLayer, state);
+        // _update(aeLayer, aexLayer, state);
 
         app.endUndoGroup();
     } else {
@@ -156,6 +156,10 @@ function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexP
 }
 
 function getDebugStringForAeType(obj: Project | Item | Layer | PropertyBase) {
+    if (aeq.isNullOrUndefined(obj)) {
+        return 'null or undefined';
+    }
+
     if (obj instanceof Project) {
         return 'project';
     } else if (aeq.isProperty(obj)) {
