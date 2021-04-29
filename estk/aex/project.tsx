@@ -1,8 +1,11 @@
 function getAexProject(project: Project, state: AexState): AexProject {
+    const projectBaseAttributes = _getProjectBaseAttributes(project);
+
     const items = aeq.getItems().filter((item) => !aeq.isComp(item));
     const comps = aeq.getComps();
 
     const aexProject: AexProject = {
+        ...projectBaseAttributes,
         type: AEX_PROJECT,
 
         items: items.map((item) => getAexItem(item, state)),
@@ -51,4 +54,26 @@ function _setAeProjectComp(aeComp: CompItem, aexComp: AexComp, state: AexState) 
     aeComp = aeComp || _createAeComp(aexComp, state);
 
     _setAeComp(aeComp, aexComp, state);
+}
+
+function _getProjectBaseAttributes(project: Project): AexProjectBase {
+    return {
+        bitsPerChannel: getModifiedValue(project.bitsPerChannel, 8),
+        displayStartFrame: getModifiedValue(project.displayStartFrame, 0),
+        expressionEngine: getModifiedValue(project.expressionEngine, 'javascript-1.0'),
+        feetFramesFilmType: getModifiedValue(project.feetFramesFilmType, FeetFramesFilmType.MM35),
+        footageTimecodeDisplayStartType: getModifiedValue(
+            project.footageTimecodeDisplayStartType,
+            FootageTimecodeDisplayStartType.FTCS_USE_SOURCE_MEDIA
+        ),
+        framesCountType: getModifiedValue(project.framesCountType, FramesCountType.FC_TIMECODE_CONVERSION),
+        framesUseFeetFrames: getModifiedValue(project.framesUseFeetFrames, false),
+        gpuAccelType: getModifiedValue(project.gpuAccelType, GpuAccelType.CUDA),
+        linearBlending: getModifiedValue(project.linearBlending, false),
+        linearizeWorkingSpace: getModifiedValue(project.linearizeWorkingSpace, false),
+        timeDisplayType: getModifiedValue(project.timeDisplayType, TimeDisplayType.TIMECODE),
+        transparencyGridThumbnails: getModifiedValue(project.transparencyGridThumbnails, false),
+        workingGamma: getModifiedValue(project.workingGamma, 2.4),
+        workingSpace: getModifiedValue(project.workingSpace, 'None'),
+    };
 }
