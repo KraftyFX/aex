@@ -57,7 +57,7 @@ function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
     setAeMarkers(aeComp.markerProperty, aexComp.markers, state);
 }
 
-function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
+function createAeComp(aexComp: AexComp, state: AexState): CompItem {
     assertIsDefined(aexComp, 'aexComp');
 
     state.stats.compCount++;
@@ -87,7 +87,7 @@ function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
     return comp;
 }
 
-function _setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
+function setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
     assertIsDefined(comp, 'comp');
 
     setItemBaseAttributes(comp, aexComp, state);

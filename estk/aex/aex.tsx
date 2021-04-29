@@ -84,7 +84,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         app.beginUndoGroup('AEX: Add Comp to Project');
 
         const aexComp = aexObject as AexComp;
-        const aeComp = _createAeComp(aexComp, state);
+        const aeComp = createAeComp(aexComp, state);
 
         _update(aeComp, aexComp, state);
 
@@ -132,7 +132,7 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         app.endUndoGroup();
     } else if (isUpdatingComp(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Comp');
-        _setAeComp(aeObject as CompItem, aexObject as AexComp, state);
+        setAeComp(aeObject as CompItem, aexObject as AexComp, state);
         app.endUndoGroup();
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Layer');
