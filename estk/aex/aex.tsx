@@ -99,7 +99,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
 
         app.endUndoGroup();
     } else {
-        throw new Error(`Creating a '${aexObject.type}' under a '${getAeType(aeParentObject)}' is not supported.`);
+        throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
     }
 }
 
@@ -139,7 +139,7 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         _setLayerAttributes(aeObject as Layer, aexObject as AexLayer, state);
         app.endUndoGroup();
     } else {
-        throw new Error(`Updating a '${getAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
+        throw new Error(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
 }
 
@@ -155,7 +155,7 @@ function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexP
     return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
 }
 
-function getAeType(obj: Project | Item | Layer | PropertyBase) {
+function getDebugStringForAeType(obj: Project | Item | Layer | PropertyBase) {
     if (obj instanceof Project) {
         return 'project';
     } else if (aeq.isProperty(obj)) {
@@ -177,7 +177,7 @@ function getAeType(obj: Project | Item | Layer | PropertyBase) {
     } else if (aeq.isFolderItem(obj)) {
         return 'folderitem';
     } else if (aeq.isComp(obj)) {
-        return 'folderitem';
+        return 'comp';
     } else {
         return 'unknown';
     }
