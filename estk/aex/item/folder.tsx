@@ -31,7 +31,7 @@ function getParentFolders(item: Item): string[] {
     return folders;
 }
 
-function setParentFolders(aeItem: Item, aexItem: AexItem, state: AexState): void {
+function setParentFolders(aeItem: Item, aexItem: AexItemBase, state: AexState): void {
     if (aeq.isNullOrUndefined(aexItem.folder)) {
         return;
     }
