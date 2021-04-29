@@ -3,7 +3,7 @@ import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } fr
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe('Project', function () {
+describe.only('Project', function () {
     this.slow(500);
     this.timeout(5000);
 
@@ -16,13 +16,13 @@ describe('Project', function () {
     });
 
     describe('Get', async () => {
-        it(`Can parse basic project attributes`, async () => {
-            await openProject('testAssets/project_basic.aep');
+        it(`Can parse basic project items`, async () => {
+            await openProject('testAssets/project_basic_items.aep');
 
             const result = await aex().fromAeObject(AeObject.Project);
             const project = result.object;
 
-            console.log('project_basic', project);
+            console.log('project_basic_items', project);
             assertAreEqual(project.items, [
                 {
                     aexid: 'placeholder:40',
@@ -117,7 +117,7 @@ describe('Project', function () {
     });
 
     describe('Update', async () => {
-        it(`Can update project with basic project attributes`, async () => {
+        it(`Can update project with basic project items`, async () => {
             await openCleanProject();
 
             const projectData = {
