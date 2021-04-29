@@ -58,6 +58,8 @@ function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
 }
 
 function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
+    assertIsDefined(aexComp, 'aexComp');
+
     state.stats.compCount++;
 
     let compSettings = {
@@ -69,16 +71,14 @@ function _createAeComp(aexComp: AexComp, state: AexState): CompItem {
         frameRate: 24,
     };
 
-    if (!aeq.isNullOrUndefined(aexComp)) {
-        assignAttributes(compSettings, {
-            name: aexComp.name,
-            width: aexComp.width,
-            height: aexComp.height,
-            pixelAspect: aexComp.pixelAspect,
-            duration: aexComp.duration,
-            frameRate: aexComp.frameRate,
-        });
-    }
+    assignAttributes(compSettings, {
+        name: aexComp.name,
+        width: aexComp.width,
+        height: aexComp.height,
+        pixelAspect: aexComp.pixelAspect,
+        duration: aexComp.duration,
+        frameRate: aexComp.frameRate,
+    });
 
     const comp = aeq.comp.create(compSettings);
 

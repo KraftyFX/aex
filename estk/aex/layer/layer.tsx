@@ -19,12 +19,9 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
 }
 
 function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
-    state.stats.layerCount++;
+    assertIsDefined(comp);
 
-    /** Supports creating a layer without targeting a comp */
-    if (aeq.isNullOrUndefined(comp)) {
-        comp = _createAeComp(undefined, state);
-    }
+    state.stats.layerCount++;
 
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:

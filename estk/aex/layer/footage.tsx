@@ -17,8 +17,9 @@ function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, st
 
     if (!sourceItem) {
         if (aexSource.type === AEX_COMP_ITEM) {
-            sourceItem = _createAeComp(undefined, state);
-            comp.openInViewer();
+            throw new Error(`TODO: Precomp deserialization`);
+            // sourceItem = _createAeComp(undefined, state);
+            // comp.openInViewer();
         } else {
             sourceItem = _createAeFootageItem(
                 {
