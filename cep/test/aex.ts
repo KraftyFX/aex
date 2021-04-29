@@ -8,6 +8,12 @@ export enum AeObject {
 
 export function aex() {
     return {
+        async createTestComp(): Promise<AexResult> {
+            return await getEvalScriptResult<AexResult>(`aeq.comp.create().openInViewer()`, undefined, {
+                ignoreReturn: false,
+            });
+        },
+
         async benchmark(options: { callback: (result: boolean) => void }): Promise<any> {
             return await getEvalScriptResult(`aex().benchmark(aex_args)`, options, { ignoreReturn: false });
         },
