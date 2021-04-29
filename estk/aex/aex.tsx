@@ -3,7 +3,6 @@ function aex() {
         benchmark,
         prescan,
         fromAe: aeToAex,
-        toAe: aexToAe,
         update,
         create,
     };
@@ -68,56 +67,6 @@ function aeToAex(aeObj: Serializable, options: AexOptions): ToAexResult<AexSeria
         object,
         log: state.log,
     };
-}
-
-function aexToAe(aexObj: AexProject, options: ToAeOptions): void;
-function aexToAe(aexObj: AexComp, options: ToAeOptions): void;
-function aexToAe(aexObj: AexAVLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexShapeLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexLightLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexCameraLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexFootageLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexNullLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexTextLayer, options: ToAeOptions): void;
-function aexToAe(aexObj: AexObject, options: ToAeOptions): void {
-    assertIsDefined(aexObj, 'aexObj');
-
-    app.beginUndoGroup('AEX to AE');
-
-    const state: AexState = {
-        options: null,
-        toAeOptions: {
-            markerMatchBy: 'index',
-            layerMatchBy: 'index',
-        },
-        log: [],
-        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
-    };
-
-    switch (aexObj.type) {
-        case AEX_PROJECT:
-            update(app.project, aexObj as AexProject);
-            break;
-        case AEX_COMP_ITEM:
-            create(app.project, aexObj as AexComp);
-            break;
-        case AEX_FOOTAGE_LAYER:
-        case AEX_SHAPE_LAYER:
-        case AEX_LIGHT_LAYER:
-        case AEX_CAMERA_LAYER:
-        case AEX_NULL_LAYER:
-        case AEX_TEXT_LAYER:
-            var newComp = aeq.comp.create();
-            newComp.openInViewer();
-
-            create(newComp, aexObj as AexLayer);
-            break;
-        default:
-            app.endUndoGroup();
-            throw new Error(`AEX Object Type "${aexObj.type}" is not spported.`);
-    }
-
-    app.endUndoGroup();
 }
 
 function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {

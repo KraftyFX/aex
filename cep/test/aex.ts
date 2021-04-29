@@ -32,10 +32,6 @@ export function aex() {
             }
         },
 
-        async fromAexObject(aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
-            return await getEvalScriptResult<AexResult>(`aex().toAe(${JSON.stringify(aexObject)}, aex_args)`, options || {}, { ignoreReturn: false });
-        },
-
         async create(aeObject: AeObject, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
             return await getEvalScriptResult<AexResult>(`aex().create(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
                 ignoreReturn: false,
