@@ -118,7 +118,7 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
 function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
     if (isUpdatingProject(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Project');
-        setAeProject(aeObject as Project, aexObject as AexProject, state);
+        updateAeProject(aeObject as Project, aexObject as AexProject, state);
         app.endUndoGroup();
     } else if (isUpdatingComp(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Comp');

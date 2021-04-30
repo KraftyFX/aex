@@ -15,7 +15,7 @@ function getAexProject(project: Project, state: AexState): AexProject {
     return aexProject;
 }
 
-function setAeProject(aeProject: Project, aexProject: AexProject, state: AexState) {
+function updateAeProject(aeProject: Project, aexProject: AexProject, state: AexState) {
     _setProjectBaseAttributes(aeProject, aexProject);
 
     const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
