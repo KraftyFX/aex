@@ -18,7 +18,7 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     }
 }
 
-function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
+function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     assertIsDefined(comp);
 
     state.stats.layerCount++;

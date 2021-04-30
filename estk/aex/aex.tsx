@@ -86,7 +86,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         app.endUndoGroup();
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
-        createLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
+        createAeLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
         app.endUndoGroup();
     } else {
         throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
