@@ -1,4 +1,4 @@
-function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
+function getAexLayer(layer: Layer, state: AexState): AexLayer {
     state.stats.layerCount++;
 
     if (aeq.isTextLayer(layer)) {
