@@ -1,4 +1,4 @@
-function getFootageItem(item: FootageItem, state: AexState): AexFootageItem {
+function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     const itemSource = item.mainSource;
 
     if (sourceIsFile(itemSource)) {

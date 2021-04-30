@@ -2,9 +2,9 @@ function getAexItem(item: Item, state: AexState): AexItem {
     if (aeq.isComp(item)) {
         return getAexComp(item as CompItem, state);
     } else if (aeq.isFootageItem(item)) {
-        return getFootageItem(item, state);
+        return getAexFootageItem(item, state);
     } else if (aeq.isFolderItem(item)) {
-        return _getFolderItem(item, state);
+        return _getAexFolderItem(item, state);
     } else {
         throw new Error(`Unrecognized Item Type`);
     }

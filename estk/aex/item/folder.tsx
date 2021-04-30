@@ -1,4 +1,4 @@
-function _getFolderItem(item: FolderItem, state: AexState): AexFolderItem {
+function _getAexFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     const itemAttributes = getItemBaseAttributes(item);
 
     state.stats.nonCompItemCount++;
