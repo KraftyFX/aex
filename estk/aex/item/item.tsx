@@ -1,6 +1,6 @@
 function getAexItem(item: Item, state: AexState): AexItem {
     if (aeq.isComp(item)) {
-        return getAexComp(item as CompItem, state);
+        throw new Error(`Not supported: Getting a comp from getAexItem().  Use getAexComp() instead.`);
     } else if (aeq.isFootageItem(item)) {
         return getAexFootageItem(item, state);
     } else if (aeq.isFolderItem(item)) {
