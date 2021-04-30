@@ -41,7 +41,7 @@ function createLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     }
 }
 
-function setAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
+function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     // Go through all the different layer types, create setters for them
     // and call it here just like in the getAexLayer function
     throw new Error(`TODO: Zack`);
