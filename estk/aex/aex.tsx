@@ -122,7 +122,7 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         app.endUndoGroup();
     } else if (isUpdatingComp(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Comp');
-        setAeComp(aeObject as CompItem, aexObject as AexComp, state);
+        updateAeComp(aeObject as CompItem, aexObject as AexComp, state);
         app.endUndoGroup();
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Layer');

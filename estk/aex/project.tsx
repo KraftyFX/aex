@@ -56,7 +56,7 @@ function _setAeProjectComp(aeComp: CompItem, aexComp: AexComp, state: AexState) 
     if (!aeComp) {
         aeComp = createAeComp(aexComp, state);
     } else {
-        setAeComp(aeComp, aexComp, state);
+        updateAeComp(aeComp, aexComp, state);
     }
 }
 

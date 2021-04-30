@@ -73,12 +73,12 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
 
     comp.openInViewer();
 
-    setAeComp(comp, aexComp, state);
+    updateAeComp(comp, aexComp, state);
 
     return comp;
 }
 
-function setAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
+function updateAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
     assertIsDefined(comp, 'comp');
 
     setItemBaseAttributes(comp, aexComp, state);
