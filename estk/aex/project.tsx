@@ -29,29 +29,6 @@ function updateAeProject(aeProject: Project, aexProject: AexProject, state: AexS
     forEachPairByGroup(aexCompsByName, aeCompsByName, (aexComp, aeComp) => _setAeProjectComp(aeComp, aexComp, state));
 }
 
-/** Should this live in aex/item/item.tsx ? */
-function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
-    switch (aexItem.type) {
-        case AEX_FILE_FOOTAGE_ITEM:
-        case AEX_SOLID_ITEM:
-        case AEX_PLACEHOLDER_ITEM:
-            if (!aeItem) {
-                _createAeFootageItem(aexItem as AexFootageItem, state);
-            } else {
-                setAeFootageItem(aeItem as FootageItem, aexItem as AexFootageItem, state);
-            }
-            break;
-        case AEX_FOLDER_ITEM:
-            aeItem = aeItem || _createAeFolderItem(aexItem as AexFolderItem, state);
-            setAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
-            break;
-        case AEX_COMP_ITEM:
-            throw new Error(`A comp with name "${(aexItem as AexComp).name}" was found in the item list that should only contain non-comp items`);
-        default:
-            throw new Error(`Not supported: Setting of project item type "${aexItem.type}"`);
-    }
-}
-
 function _setAeProjectComp(aeComp: CompItem, aexComp: AexComp, state: AexState) {
     if (!aeComp) {
         aeComp = createAeComp(aexComp, state);
