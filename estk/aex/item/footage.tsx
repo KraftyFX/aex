@@ -10,7 +10,7 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     }
 }
 
-function setAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
+function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
     switch (aexFootage.type) {
         case AEX_SOLID_ITEM:
             setAeSolid(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
@@ -24,7 +24,7 @@ function setAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, st
     }
 }
 
-function _createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
+function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
     let footageItem;
 
     switch (aexFootage.type) {

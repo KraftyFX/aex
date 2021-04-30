@@ -16,16 +16,16 @@ function updateAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
             if (!aeItem) {
-                aeItem = _createAeFootageItem(aexItem as AexFootageItem, state);
+                aeItem = createAeFootageItem(aexItem as AexFootageItem, state);
             } else {
-                setAeFootageItem(aeItem as FootageItem, aexItem as AexFootageItem, state);
+                updateAeFootageItem(aeItem as FootageItem, aexItem as AexFootageItem, state);
             }
             break;
         case AEX_FOLDER_ITEM:
             if (!aeItem) {
-                aeItem = _createAeFolderItem(aexItem as AexFolderItem, state);
+                aeItem = createAeFolderItem(aexItem as AexFolderItem, state);
             } else {
-                setAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
+                updateAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
             }
             break;
         case AEX_COMP_ITEM:

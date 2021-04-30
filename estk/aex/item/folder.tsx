@@ -10,13 +10,13 @@ function _getAexFolderItem(item: FolderItem, state: AexState): AexFolderItem {
     };
 }
 
-function _createAeFolderItem(aexFolder: AexFolderItem, state: AexState): FolderItem {
+function createAeFolderItem(aexFolder: AexFolderItem, state: AexState): FolderItem {
     const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
-    setAeFolderItem(aeFolder, aexFolder, state);
+    updateAeFolderItem(aeFolder, aexFolder, state);
     return aeFolder;
 }
 
-function setAeFolderItem(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {
+function updateAeFolderItem(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {
     setItemBaseAttributes(aeFolder, aexFolder, state);
 }
 
