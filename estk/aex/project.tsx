@@ -21,7 +21,7 @@ function updateAeProject(aeProject: Project, aexProject: AexProject, state: AexS
     const aexItemsByName = groupArrayBy(aexProject.items, (v) => v.name);
     const aeItemsByName = groupArrayBy(aeq.getItems(), (v) => v.name);
 
-    forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => _setAeProjectItem(aexItem, aeItem, state));
+    forEachPairByGroup(aexItemsByName, aeItemsByName, (aexItem, aeItem) => updateAeProjectItem(aexItem, aeItem, state));
 
     const aexCompsByName = groupArrayBy(aexProject.comps, (v) => v.name);
     const aeCompsByName = groupArrayBy(aeq.getComps(), (v) => v.name);

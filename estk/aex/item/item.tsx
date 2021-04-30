@@ -10,7 +10,7 @@ function getAexItem(item: Item, state: AexState): AexItem {
     }
 }
 
-function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
+function updateAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
     switch (aexItem.type) {
         case AEX_FILE_FOOTAGE_ITEM:
         case AEX_SOLID_ITEM:
