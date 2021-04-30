@@ -34,18 +34,6 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
     return aexComp;
 }
 
-function _getAexCompMarkers(comp: CompItem) {
-    return getAexMarkerProperties(comp.markerProperty);
-}
-
-function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
-    if (aeq.isNullOrUndefined(aexComp.markers)) {
-        return;
-    }
-
-    setAeMarkers(aeComp.markerProperty, aexComp.markers, state);
-}
-
 function createAeComp(aexComp: AexComp, state: AexState): CompItem {
     assertIsDefined(aexComp, 'aexComp');
 
@@ -106,4 +94,16 @@ function updateAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
     setAeCompMarkers(comp, aexComp, state);
     setAeCompRenderer(comp, aexComp, state);
     setAeCompLayers(comp, aexComp, state);
+}
+
+function _getAexCompMarkers(comp: CompItem) {
+    return getAexMarkerProperties(comp.markerProperty);
+}
+
+function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    if (aeq.isNullOrUndefined(aexComp.markers)) {
+        return;
+    }
+
+    setAeMarkers(aeComp.markerProperty, aexComp.markers, state);
 }
