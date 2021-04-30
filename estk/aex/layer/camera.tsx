@@ -1,4 +1,4 @@
-function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
+function getAexCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
     const layerAttributes = getLayerAttributes(layer, state);
 
     /**
@@ -18,7 +18,7 @@ function getCameraLayer(layer: CameraLayer, state: AexState): AexCameraLayer {
     };
 }
 
-function createCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState) {
+function createAeCameraLayer(comp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState) {
     const layer = comp.layers.addCamera(aexCameraLayer.name, _getCameraCenterPoint(comp, aexCameraLayer));
     _setLayerAttributes(layer, aexCameraLayer, state);
 

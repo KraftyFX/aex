@@ -1,4 +1,4 @@
-function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
+function getAexTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     const avLayerAttributes = getAVLayer(layer, state);
 
     /**
@@ -21,7 +21,7 @@ function getTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     };
 }
 
-function createTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
+function createAeTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
     let layer: TextLayer;
 
     const textValue = aexTextLayer.sourceText.value.text;

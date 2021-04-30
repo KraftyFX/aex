@@ -1,4 +1,4 @@
-function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
+function getAexShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     const avLayerAttributes = getAVLayer(layer, state);
 
     /**
@@ -14,7 +14,7 @@ function getShapeLayer(layer: ShapeLayer, state: AexState): AexShapeLayer {
     };
 }
 
-function createShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
+function createAeShapeLayer(comp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const layer = comp.layers.addShape();
     _setAVLayerAttributes(layer, aexShapeLayer, state);
     _setContents(layer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);

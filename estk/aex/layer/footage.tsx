@@ -1,4 +1,4 @@
-function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
+function getAexFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = getAVLayer(layer, state);
 
     return {
@@ -10,7 +10,7 @@ function getFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
     };
 }
 
-function createFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
+function createAeFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
     const aexSource = aexFootageLayer.source;
 
     let sourceItem = getItemFromSource(aexSource);

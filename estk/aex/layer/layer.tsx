@@ -2,17 +2,17 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer & AexObject {
     state.stats.layerCount++;
 
     if (aeq.isTextLayer(layer)) {
-        return getTextLayer(layer, state);
+        return getAexTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {
-        return getShapeLayer(layer, state);
+        return getAexShapeLayer(layer, state);
     } else if (isNullLayer(layer)) {
-        return getNullLayer(layer, state);
+        return getAexNullLayer(layer, state);
     } else if (isFootageLayer(layer)) {
-        return getFootageLayer(layer, state);
+        return getAexFootageLayer(layer, state);
     } else if (aeq.isLightLayer(layer)) {
-        return getLightLayer(layer, state);
+        return getAexLightLayer(layer, state);
     } else if (aeq.isCameraLayer(layer)) {
-        return getCameraLayer(layer, state);
+        return getAexCameraLayer(layer, state);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
@@ -25,17 +25,17 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:
-            return createFootageLayer(comp, aexLayer as AexFootageLayer, state);
+            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
         case AEX_SHAPE_LAYER:
-            return createShapeLayer(comp, aexLayer as AexShapeLayer, state);
+            return createAeShapeLayer(comp, aexLayer as AexShapeLayer, state);
         case AEX_LIGHT_LAYER:
-            return createLightLayer(comp, aexLayer as AexLightLayer, state);
+            return createAeLightLayer(comp, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
-            return createCameraLayer(comp, aexLayer as AexCameraLayer, state);
+            return createAeCameraLayer(comp, aexLayer as AexCameraLayer, state);
         case AEX_NULL_LAYER:
-            return createNullLayer(comp, aexLayer as AexNullLayer, state);
+            return createAeNullLayer(comp, aexLayer as AexNullLayer, state);
         case AEX_TEXT_LAYER:
-            return createTextLayer(comp, aexLayer as AexTextLayer, state);
+            return createAeTextLayer(comp, aexLayer as AexTextLayer, state);
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
