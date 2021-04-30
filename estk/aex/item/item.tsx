@@ -16,7 +16,7 @@ function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
         case AEX_SOLID_ITEM:
         case AEX_PLACEHOLDER_ITEM:
             if (!aeItem) {
-                _createAeFootageItem(aexItem as AexFootageItem, state);
+                aeItem = _createAeFootageItem(aexItem as AexFootageItem, state);
             } else {
                 setAeFootageItem(aeItem as FootageItem, aexItem as AexFootageItem, state);
             }
