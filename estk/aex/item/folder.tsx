@@ -11,7 +11,9 @@ function _getAexFolderItem(item: FolderItem, state: AexState): AexFolderItem {
 }
 
 function _createAeFolderItem(aexFolder: AexFolderItem, state: AexState): FolderItem {
-    return aeq.project.getOrCreateFolder(aexFolder.name);
+    const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
+    setAeFolderItem(aeFolder, aexFolder, state);
+    return aeFolder;
 }
 
 function setAeFolderItem(aeFolder: FolderItem, aexFolder: AexFolderItem, state: AexState): void {

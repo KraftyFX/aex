@@ -22,8 +22,11 @@ function _setAeProjectItem(aexItem: AexItem, aeItem: Item, state: AexState) {
             }
             break;
         case AEX_FOLDER_ITEM:
-            aeItem = aeItem || _createAeFolderItem(aexItem as AexFolderItem, state);
-            setAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
+            if (!aeItem) {
+                aeItem = _createAeFolderItem(aexItem as AexFolderItem, state);
+            } else {
+                setAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
+            }
             break;
         case AEX_COMP_ITEM:
             throw new Error(`A comp with name "${(aexItem as AexComp).name}" was found in the item list that should only contain non-comp items`);
