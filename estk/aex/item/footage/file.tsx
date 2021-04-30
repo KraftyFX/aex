@@ -1,4 +1,4 @@
-function _getFileItem(item: FootageItem, state: AexState): AexFileItem {
+function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as FileSource;
 

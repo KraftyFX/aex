@@ -1,4 +1,4 @@
-function _getSolidItem(item: FootageItem, state: AexState): AexSolidItem {
+function getAexSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as SolidSource;
 
@@ -25,7 +25,7 @@ function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
 
     assignAttributes(solidSettings, aexSolid);
 
-    const solid = tempComp.layers.addSolid(
+    const aeSolid = tempComp.layers.addSolid(
         solidSettings.color,
         solidSettings.name,
         solidSettings.width,
@@ -34,7 +34,7 @@ function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
         solidSettings.duration
     );
 
-    const source = solid.source;
+    const source = aeSolid.source;
 
     tempComp.remove();
 

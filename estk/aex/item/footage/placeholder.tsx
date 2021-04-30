@@ -1,4 +1,4 @@
-function _getPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
+function getAexPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
 
     return {

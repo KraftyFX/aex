@@ -2,11 +2,11 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
     const itemSource = item.mainSource;
 
     if (sourceIsFile(itemSource)) {
-        return _getFileItem(item, state);
+        return getAexFileItem(item, state);
     } else if (sourceIsSolid(itemSource)) {
-        return _getSolidItem(item, state);
+        return getAexSolidItem(item, state);
     } else if (sourceIsPlaceholder(itemSource)) {
-        return _getPlaceholderItem(item, state);
+        return getAexPlaceholderItem(item, state);
     }
 }
 

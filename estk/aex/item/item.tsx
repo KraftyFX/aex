@@ -4,7 +4,7 @@ function getAexItem(item: Item, state: AexState): AexItem {
     } else if (aeq.isFootageItem(item)) {
         return getAexFootageItem(item, state);
     } else if (aeq.isFolderItem(item)) {
-        return _getAexFolderItem(item, state);
+        return getAexFolderItem(item, state);
     } else {
         throw new Error(`Unrecognized Item Type`);
     }
