@@ -84,10 +84,14 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
         app.beginUndoGroup('AEX: Add Comp to Project');
         createAeComp(aexObject as AexComp, state);
         app.endUndoGroup();
+    } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
+        throw new Error(`TODO: Add Item to Project`);
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
         createAeLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
         app.endUndoGroup();
+    } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
+        throw new Error(`TODO: Add Property to Layer`);
     } else {
         throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
     }
@@ -95,6 +99,14 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
 
 function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
     return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
+}
+
+function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
+}
+
+function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
 }
 
 function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
