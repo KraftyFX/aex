@@ -88,7 +88,5 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         setPropertyGroup(avLayer.materialOption, aexAVLayer.materialOption, state);
     }
 
-    if (aexAVLayer.layerStyles) {
-        _setLayerStyles(avLayer.layerStyle, aexAVLayer.layerStyles, state);
-    }
+    _setLayerStyles(avLayer, aexAVLayer, state);
 }

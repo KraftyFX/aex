@@ -32,7 +32,14 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     return styles;
 }
 
-function _setLayerStyles(layerStyles: PropertyGroup, aexStyleGroup: AexPropertyGroup, state: AexState): void {
+function _setLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
+    const layerStyles: PropertyGroup = aeAvLayer.layerStyle;
+    const aexStyleGroup: AexPropertyGroup = aexAvLayer.layerStyles;
+
+    if (aeq.isNullOrUndefined(aexStyleGroup)) {
+        return;
+    }
+
     let aexBlendGroup;
 
     aeq.arrayEx(aexStyleGroup.properties).forEach((aexStyleProperty: AexPropertyGroup) => {
