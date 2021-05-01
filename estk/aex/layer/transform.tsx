@@ -16,6 +16,19 @@ function getAexTransform(layer: Layer, state: AexState): AexTransform {
     };
 }
 
+function updateLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
+    if (aeq.isNullOrUndefined(aexTransform)) {
+        return;
+    }
+
+    aeq.forEach(aexTransform, (xformPropertyName: string) => {
+        const layerTransformProperty = aeLayer[xformPropertyName];
+        const aexTransformProperty = aexTransform[xformPropertyName];
+
+        setProperty(layerTransformProperty, aexTransformProperty, state);
+    });
+}
+
 /**
  * For 3d layers (or camera/lights), we want to use the zRotation property
  * for 'rotation' instead of the standard 'rotation' property.
@@ -28,17 +41,4 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
     } else {
         return getModifiedProperty(transformGroup.rotation, state);
     }
-}
-
-function updateLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
-    if (aeq.isNullOrUndefined(aexTransform)) {
-        return;
-    }
-
-    aeq.forEach(aexTransform, (xformPropertyName: string) => {
-        const layerTransformProperty = aeLayer[xformPropertyName];
-        const aexTransformProperty = aexTransform[xformPropertyName];
-
-        setProperty(layerTransformProperty, aexTransformProperty, state);
-    });
 }
