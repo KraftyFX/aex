@@ -101,6 +101,7 @@ function groupAeLayersBy(comp: CompItem, callback: (layer: Layer, i: number) => 
 }
 
 function forEachGroup<T>(obj: GroupByResult<T>, callback: (member: keyof T, value: T[]) => void) {
+    // TODO: Make sure to traverse all members alphabetically.
     for (var m in obj) {
         if (obj.hasOwnProperty(m)) {
             callback(m as keyof T, obj[m]);
