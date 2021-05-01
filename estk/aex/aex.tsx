@@ -136,10 +136,14 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
         app.beginUndoGroup('AEX: Update Comp');
         updateAeComp(aeObject as CompItem, aexObject as AexComp, state);
         app.endUndoGroup();
+    } else if (isUpdatingNonCompItem(aeObject, aexObject)) {
+        throw new Error(`TODO: Add Item to Project`);
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Layer');
         updateAeLayer(aeObject as Layer, aexObject as AexLayer, state);
         app.endUndoGroup();
+    } else if (isUpdatingProperty(aeObject, aexObject)) {
+        throw new Error(`TODO: Add Item to Project`);
     } else {
         throw new Error(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
@@ -151,6 +155,16 @@ function isUpdatingLayer(aeObject: Project | CompItem | Layer, aexObject: AexCom
 
 function isUpdatingComp(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
     return aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM;
+}
+
+function isUpdatingNonCompItem(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
+    return (
+        aeObject instanceof Item && !(aeObject instanceof CompItem) && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0
+    );
+}
+
+function isUpdatingProperty(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
+    return aeObject instanceof PropertyBase && isAexLayer(aexObject as AexObject);
 }
 
 function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
