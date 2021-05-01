@@ -34,11 +34,11 @@ function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
         solidSettings.duration
     );
 
-    const source = aeSolid.source;
+    const source = aeSolid.source; // Types for adobe needs to be AVItem
 
     tempComp.remove();
 
-    return source;
+    return source as FootageItem;
 }
 
 function updateAeSolid(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {

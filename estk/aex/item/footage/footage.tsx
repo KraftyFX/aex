@@ -11,24 +11,16 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
 }
 
 function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
-    let footageItem;
-
     switch (aexFootage.type) {
         case AEX_SOLID_ITEM:
-            footageItem = createAeSolid(aexFootage as AexSolidItem, state);
-            break;
+            return createAeSolid(aexFootage as AexSolidItem, state);
         case AEX_PLACEHOLDER_ITEM:
-            footageItem = createAePlaceholder(aexFootage as AexPlaceholderItem, state);
-            break;
+            return createAePlaceholder(aexFootage as AexPlaceholderItem, state);
         case AEX_FILE_FOOTAGE_ITEM:
+            throw new Error(`TODO: Rafi`);
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
-
-    /** @todo - see whether this vvv makes sense to do here, vs within the specific functions above */
-    // _setItemAttributes(footageItem, aexFootage);
-
-    return footageItem;
 }
 
 function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
@@ -37,9 +29,10 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
             updateAeSolid(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
             break;
         case AEX_PLACEHOLDER_ITEM:
-            updateAePlaceholder(aeFootage as PlaceholderItem, aexFootage as AexPlaceholderItem, state);
+            updateAePlaceholder(aeFootage, aexFootage as AexPlaceholderItem, state);
             break;
         case AEX_FILE_FOOTAGE_ITEM:
+            throw new Error(`TODO: Rafi`);
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
