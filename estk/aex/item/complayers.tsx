@@ -3,6 +3,9 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
 
     aeq.forEachLayer(comp, (layer: Layer) => {
         const layerData = getAexLayer(layer, state);
+
+        // TODO: Insert the layers in the front, update the tests and get rid of
+        // the voodoo during deserialization
         layers.push(layerData);
     });
 
