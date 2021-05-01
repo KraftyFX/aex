@@ -1,4 +1,4 @@
-function _getTransform(layer: Layer, state: AexState): AexTransform {
+function getAexTransform(layer: Layer, state: AexState): AexTransform {
     const transformGroup = layer.transform;
 
     return {
@@ -30,7 +30,7 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
     }
 }
 
-function _setLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
+function updateLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state: AexState): void {
     if (aeq.isNullOrUndefined(aexTransform)) {
         return;
     }

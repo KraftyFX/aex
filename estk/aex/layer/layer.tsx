@@ -66,7 +66,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
 
         markers: _getAexLayerMarkers(layer),
-        transform: _getTransform(layer, state),
+        transform: getAexTransform(layer, state),
     };
 }
 
@@ -89,7 +89,7 @@ function _setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState
 
     _setLayerParent(aeLayer, aexLayer, state);
     _setLayerMarkers(aeLayer, aexLayer, state);
-    _setLayerTransform(aeLayer, aexLayer.transform, state);
+    updateLayerTransform(aeLayer, aexLayer.transform, state);
 }
 
 function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
