@@ -39,7 +39,7 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
 
     state.stats.compCount++;
 
-    let compSettings = {
+    const compSettings = {
         name: 'Comp',
         width: 1920,
         height: 1080,
