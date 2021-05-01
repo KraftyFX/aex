@@ -1,3 +1,11 @@
+function setAeCompRenderer(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    if (aeq.isNullOrUndefined(aexComp.renderer)) {
+        return;
+    }
+
+    setCompRenderer(aeComp, aexComp.renderer);
+}
+
 function setCompRenderer(comp: CompItem, renderer: string) {
     const renderers = aeq.arrayEx(comp.renderers);
 
@@ -6,14 +14,6 @@ function setCompRenderer(comp: CompItem, renderer: string) {
     } else {
         throw new Error(`Can't set comp renderer to ${renderer}`);
     }
-}
-
-function setAeCompRenderer(aeComp: CompItem, aexComp: AexComp, state: AexState) {
-    if (aeq.isNullOrUndefined(aexComp.renderer)) {
-        return;
-    }
-
-    setCompRenderer(aeComp, aexComp.renderer);
 }
 
 function getRequiredCompRendererFromProperties(aexPropertyGroup: AexPropertyGroup): string {
