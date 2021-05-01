@@ -1,92 +1,92 @@
-function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
-    const layerAttributes = getLayerAttributes(layer, state);
+function getAVLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
+    const layerAttributes = getLayerAttributes(aeAvLayer, state);
 
     return {
         ...layerAttributes,
         type: AEX_FOOTAGE_LAYER,
 
-        adjustmentLayer: getModifiedValue(layer.adjustmentLayer, false),
-        audioEnabled: getModifiedValue(layer.audioEnabled, true),
-        autoOrient: getModifiedValue(layer.autoOrient, AutoOrientType.NO_AUTO_ORIENT),
-        blendingMode: getModifiedValue(layer.blendingMode, BlendingMode.NORMAL),
-        collapseTransformation: getModifiedValue(layer.collapseTransformation, false),
-        effectsActive: getModifiedValue(layer.effectsActive, true),
-        environmentLayer: getModifiedValue(layer.environmentLayer, false),
-        frameBlendingType: getModifiedValue(layer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND),
-        guideLayer: getModifiedValue(layer.guideLayer, false),
-        motionBlur: getModifiedValue(layer.motionBlur, false),
-        preserveTransparency: getModifiedValue(layer.preserveTransparency, false),
-        quality: getModifiedValue(layer.quality, LayerQuality.BEST),
-        samplingQuality: getModifiedValue(layer.samplingQuality, LayerSamplingQuality.BILINEAR),
-        threeDLayer: getModifiedValue(layer.threeDLayer, false),
-        timeRemapEnabled: getModifiedValue(layer.timeRemapEnabled, false),
-        trackMatteType: getModifiedValue(layer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
+        adjustmentLayer: getModifiedValue(aeAvLayer.adjustmentLayer, false),
+        audioEnabled: getModifiedValue(aeAvLayer.audioEnabled, true),
+        autoOrient: getModifiedValue(aeAvLayer.autoOrient, AutoOrientType.NO_AUTO_ORIENT),
+        blendingMode: getModifiedValue(aeAvLayer.blendingMode, BlendingMode.NORMAL),
+        collapseTransformation: getModifiedValue(aeAvLayer.collapseTransformation, false),
+        effectsActive: getModifiedValue(aeAvLayer.effectsActive, true),
+        environmentLayer: getModifiedValue(aeAvLayer.environmentLayer, false),
+        frameBlendingType: getModifiedValue(aeAvLayer.frameBlendingType, FrameBlendingType.NO_FRAME_BLEND),
+        guideLayer: getModifiedValue(aeAvLayer.guideLayer, false),
+        motionBlur: getModifiedValue(aeAvLayer.motionBlur, false),
+        preserveTransparency: getModifiedValue(aeAvLayer.preserveTransparency, false),
+        quality: getModifiedValue(aeAvLayer.quality, LayerQuality.BEST),
+        samplingQuality: getModifiedValue(aeAvLayer.samplingQuality, LayerSamplingQuality.BILINEAR),
+        threeDLayer: getModifiedValue(aeAvLayer.threeDLayer, false),
+        timeRemapEnabled: getModifiedValue(aeAvLayer.timeRemapEnabled, false),
+        trackMatteType: getModifiedValue(aeAvLayer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
 
-        masks: _getAexLayerMasks(layer, state),
-        audio: getPropertyGroup(layer.audio, state),
-        timeRemap: getModifiedProperty(layer.timeRemap, state),
-        effects: getEffects(layer, state),
-        materialOption: getPropertyGroup(layer.materialOption, state),
-        geometryOption: getPropertyGroup(layer.geometryOption, state),
+        masks: _getAexLayerMasks(aeAvLayer, state),
+        audio: getPropertyGroup(aeAvLayer.audio, state),
+        timeRemap: getModifiedProperty(aeAvLayer.timeRemap, state),
+        effects: getAexAvLayerEffects(aeAvLayer, state),
+        materialOption: getPropertyGroup(aeAvLayer.materialOption, state),
+        geometryOption: getPropertyGroup(aeAvLayer.geometryOption, state),
 
-        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getAvLayerStyles(layer.layerStyle, state), undefined),
+        layerStyles: getBoundModifiedValue(aeAvLayer.layerStyle.canSetEnabled, () => _getAvLayerStyles(aeAvLayer.layerStyle, state), undefined),
     };
 }
 
-function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: AexState): void {
-    assignAttributes(avLayer, {
-        adjustmentLayer: aexAVLayer.adjustmentLayer,
-        audioEnabled: aexAVLayer.audioEnabled,
-        autoOrient: aexAVLayer.autoOrient,
-        blendingMode: aexAVLayer.blendingMode,
-        collapseTransformation: aexAVLayer.collapseTransformation,
-        effectsActive: aexAVLayer.effectsActive,
-        environmentLayer: aexAVLayer.environmentLayer,
-        frameBlendingType: aexAVLayer.frameBlendingType,
-        guideLayer: aexAVLayer.guideLayer,
-        motionBlur: aexAVLayer.motionBlur,
-        preserveTransparency: aexAVLayer.preserveTransparency,
-        quality: aexAVLayer.quality,
-        samplingQuality: aexAVLayer.samplingQuality,
-        threeDLayer: aexAVLayer.threeDLayer,
-        timeRemapEnabled: aexAVLayer.timeRemapEnabled,
-        trackMatteType: aexAVLayer.trackMatteType,
+function _setAVLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
+    assignAttributes(aeAvLayer, {
+        adjustmentLayer: aexAvLayer.adjustmentLayer,
+        audioEnabled: aexAvLayer.audioEnabled,
+        autoOrient: aexAvLayer.autoOrient,
+        blendingMode: aexAvLayer.blendingMode,
+        collapseTransformation: aexAvLayer.collapseTransformation,
+        effectsActive: aexAvLayer.effectsActive,
+        environmentLayer: aexAvLayer.environmentLayer,
+        frameBlendingType: aexAvLayer.frameBlendingType,
+        guideLayer: aexAvLayer.guideLayer,
+        motionBlur: aexAvLayer.motionBlur,
+        preserveTransparency: aexAvLayer.preserveTransparency,
+        quality: aexAvLayer.quality,
+        samplingQuality: aexAvLayer.samplingQuality,
+        threeDLayer: aexAvLayer.threeDLayer,
+        timeRemapEnabled: aexAvLayer.timeRemapEnabled,
+        trackMatteType: aexAvLayer.trackMatteType,
     });
 
     // TODO: Find out why setting layer attributes higher up in this function causes "Can create modified 3d AVLayer Null data" test
-    setLayerAttributes(avLayer, aexAVLayer, state);
-    _setAvLayerMasks(avLayer, aexAVLayer, state);
-    _setAvLayerEffects(avLayer, aexAVLayer, state);
+    setLayerAttributes(aeAvLayer, aexAvLayer, state);
+    setAvLayerMasks(aeAvLayer, aexAvLayer, state);
+    setAvLayerEffects(aeAvLayer, aexAvLayer, state);
 
-    if (aexAVLayer.audio) {
-        setPropertyGroup(avLayer.audio, aexAVLayer.audio, state);
+    if (aexAvLayer.audio) {
+        setPropertyGroup(aeAvLayer.audio, aexAvLayer.audio, state);
     }
 
-    if (aexAVLayer.timeRemap) {
-        avLayer.timeRemapEnabled = true;
-        avLayer.timeRemap.removeKey(2);
+    if (aexAvLayer.timeRemap) {
+        aeAvLayer.timeRemapEnabled = true;
+        aeAvLayer.timeRemap.removeKey(2);
 
-        setProperty(avLayer.timeRemap, aexAVLayer.timeRemap, state);
+        setProperty(aeAvLayer.timeRemap, aexAvLayer.timeRemap, state);
     }
 
-    if (aexAVLayer.geometryOption) {
+    if (aexAvLayer.geometryOption) {
         /**
          * geometryOption only exists if the comp renderer is "Cinema 4D" ("ADBE Ernst")
          * Thus, if we need to deserialize this, we also need to set the renderer
          */
-        setCompRenderer(avLayer.containingComp, 'ADBE Ernst');
-        setPropertyGroup(avLayer.geometryOption, aexAVLayer.geometryOption, state);
+        setCompRenderer(aeAvLayer.containingComp, 'ADBE Ernst');
+        setPropertyGroup(aeAvLayer.geometryOption, aexAvLayer.geometryOption, state);
     }
 
-    if (aexAVLayer.materialOption) {
-        const compRenderer = getRequiredCompRendererFromProperties(aexAVLayer.materialOption);
+    if (aexAvLayer.materialOption) {
+        const compRenderer = getRequiredCompRendererFromProperties(aexAvLayer.materialOption);
 
         if (compRenderer) {
-            setCompRenderer(avLayer.containingComp, compRenderer);
+            setCompRenderer(aeAvLayer.containingComp, compRenderer);
         }
 
-        setPropertyGroup(avLayer.materialOption, aexAVLayer.materialOption, state);
+        setPropertyGroup(aeAvLayer.materialOption, aexAvLayer.materialOption, state);
     }
 
-    _setAvLayerStyles(avLayer, aexAVLayer, state);
+    _setAvLayerStyles(aeAvLayer, aexAvLayer, state);
 }

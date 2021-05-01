@@ -1,4 +1,4 @@
-function getEffects(layer: AVLayer, state: AexState) {
+function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
     const fillProperties = (effectGroup: PropertyGroup, aexEffectGroup: AexPropertyGroup) => {
         /**
          * VOODOO: AE supports user defined dropdowns which only appear inside of Layer.effect
@@ -18,21 +18,21 @@ function getEffects(layer: AVLayer, state: AexState) {
         }
     };
 
-    return getTopLevelPropertyGroups(layer.effect, fillProperties);
+    return getTopLevelPropertyGroups(aeAvLayer.effect, fillProperties);
 }
 
-function _setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
-    const effects: PropertyGroup = aeAvLayer.effect;
-    const aexEffects: AexPropertyGroup[] = aexAvLayer.effects;
+function setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
+    const aeAvEffect: PropertyGroup = aeAvLayer.effect;
+    const aexAvEffects: AexPropertyGroup[] = aexAvLayer.effects;
 
-    aeq.arrayEx(aexEffects).forEach((aexEffect: AexPropertyGroup) => {
+    aeq.arrayEx(aexAvEffects).forEach((aexEffect: AexPropertyGroup) => {
         let effect;
         const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
 
         if (isDropdownEffect) {
-            effect = _createDropdownEffect(effects, aexEffect, state) as PropertyGroup;
+            effect = _createDropdownEffect(aeAvEffect, aexEffect, state) as PropertyGroup;
         } else {
-            effect = effects.addProperty(aexEffect.matchName) as PropertyGroup;
+            effect = aeAvEffect.addProperty(aexEffect.matchName) as PropertyGroup;
         }
 
         assignAttributes(effect, {
