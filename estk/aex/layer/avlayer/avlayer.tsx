@@ -55,8 +55,8 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
 
     // TODO: Find out why setting layer attributes higher up in this function causes "Can create modified 3d AVLayer Null data" test
     setLayerAttributes(avLayer, aexAVLayer, state);
-    _setLayerMasks(avLayer.mask, aexAVLayer.masks, state);
-    _setEffects(avLayer.effect, aexAVLayer.effects, state);
+    _setLayerMasks(avLayer, aexAVLayer, state);
+    _setLayerEffects(avLayer, aexAVLayer, state);
 
     if (aexAVLayer.audio) {
         setPropertyGroup(avLayer.audio, aexAVLayer.audio, state);

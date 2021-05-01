@@ -27,7 +27,10 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
     return masks;
 }
 
-function _setLayerMasks(masks: MaskPropertyGroup, aexMasks: AexMask[], state: AexState) {
+function _setLayerMasks(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
+    const masks: MaskPropertyGroup = aeAvLayer.mask;
+    const aexMasks: AexMask[] = aexAvLayer.masks;
+
     aeq.arrayEx(aexMasks).forEach((aexMask: AexMask) => {
         const mask = masks.addProperty('ADBE Mask Atom') as MaskPropertyGroup;
 

@@ -21,7 +21,10 @@ function getEffects(layer: AVLayer, state: AexState) {
     return getTopLevelPropertyGroups(layer.effect, fillProperties);
 }
 
-function _setEffects(effects: PropertyGroup, aexEffects: AexPropertyGroup[], state: AexState) {
+function _setLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
+    const effects: PropertyGroup = aeAvLayer.effect;
+    const aexEffects: AexPropertyGroup[] = aexAvLayer.effects;
+
     aeq.arrayEx(aexEffects).forEach((aexEffect: AexPropertyGroup) => {
         let effect;
         const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
