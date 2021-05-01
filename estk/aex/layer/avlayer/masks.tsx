@@ -27,7 +27,7 @@ function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
     return masks;
 }
 
-function _setLayerMasks(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
+function _setAvLayerMasks(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
     const masks: MaskPropertyGroup = aeAvLayer.mask;
     const aexMasks: AexMask[] = aexAvLayer.masks;
 

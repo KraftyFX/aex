@@ -29,7 +29,7 @@ function getAVLayer(layer: AVLayer, state: AexState): AexAVLayerBase {
         materialOption: getPropertyGroup(layer.materialOption, state),
         geometryOption: getPropertyGroup(layer.geometryOption, state),
 
-        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getLayerStyles(layer.layerStyle, state), undefined),
+        layerStyles: getBoundModifiedValue(layer.layerStyle.canSetEnabled, () => _getAvLayerStyles(layer.layerStyle, state), undefined),
     };
 }
 
@@ -55,8 +55,8 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
 
     // TODO: Find out why setting layer attributes higher up in this function causes "Can create modified 3d AVLayer Null data" test
     setLayerAttributes(avLayer, aexAVLayer, state);
-    _setLayerMasks(avLayer, aexAVLayer, state);
-    _setLayerEffects(avLayer, aexAVLayer, state);
+    _setAvLayerMasks(avLayer, aexAVLayer, state);
+    _setAvLayerEffects(avLayer, aexAVLayer, state);
 
     if (aexAVLayer.audio) {
         setPropertyGroup(avLayer.audio, aexAVLayer.audio, state);
@@ -88,5 +88,5 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         setPropertyGroup(avLayer.materialOption, aexAVLayer.materialOption, state);
     }
 
-    _setLayerStyles(avLayer, aexAVLayer, state);
+    _setAvLayerStyles(avLayer, aexAVLayer, state);
 }

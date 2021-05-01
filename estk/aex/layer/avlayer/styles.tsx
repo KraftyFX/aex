@@ -1,4 +1,4 @@
-function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
+function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     const styles = {
         name: styleGroup.name,
         matchName: styleGroup.matchName,
@@ -32,7 +32,7 @@ function _getLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     return styles;
 }
 
-function _setLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
+function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
     const layerStyles: PropertyGroup = aeAvLayer.layerStyle;
     const aexStyleGroup: AexPropertyGroup = aexAvLayer.layerStyles;
 

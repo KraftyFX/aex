@@ -21,7 +21,7 @@ function getEffects(layer: AVLayer, state: AexState) {
     return getTopLevelPropertyGroups(layer.effect, fillProperties);
 }
 
-function _setLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
+function _setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
     const effects: PropertyGroup = aeAvLayer.effect;
     const aexEffects: AexPropertyGroup[] = aexAvLayer.effects;
 
