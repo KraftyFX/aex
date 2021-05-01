@@ -1,4 +1,4 @@
-function _getAexCompLayers(comp: CompItem, state: AexState) {
+function getAexCompLayers(comp: CompItem, state: AexState) {
     const layers = [] as AexLayer[];
 
     aeq.forEachLayer(comp, (layer: Layer) => {
@@ -12,7 +12,7 @@ function _getAexCompLayers(comp: CompItem, state: AexState) {
     return layers;
 }
 
-function setAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
+function updateAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
         if (!aeLayer) {
             aeLayer = createAeLayer(comp, aexLayer, state);

@@ -26,8 +26,8 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
         workAreaStart: getModifiedValue(comp.workAreaStart, 0),
         workAreaDuration: getModifiedValue(comp.workAreaDuration, comp.duration),
 
-        markers: _getAexCompMarkers(comp),
-        layers: _getAexCompLayers(comp, state),
+        markers: getAexCompMarkers(comp),
+        layers: getAexCompLayers(comp, state),
     };
 
     state.stats.compCount++;
@@ -93,10 +93,10 @@ function updateAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
 
     setAeCompMarkers(comp, aexComp, state);
     setAeCompRenderer(comp, aexComp, state);
-    setAeCompLayers(comp, aexComp, state);
+    updateAeCompLayers(comp, aexComp, state);
 }
 
-function _getAexCompMarkers(comp: CompItem) {
+function getAexCompMarkers(comp: CompItem) {
     return getAexMarkerProperties(comp.markerProperty);
 }
 
