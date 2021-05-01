@@ -53,7 +53,7 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         trackMatteType: aexAVLayer.trackMatteType,
     });
 
-    _setLayerAttributes(avLayer, aexAVLayer, state);
+    setLayerAttributes(avLayer, aexAVLayer, state);
     _setLayerMasks(avLayer.mask, aexAVLayer.masks, state);
     _setEffects(avLayer.effect, aexAVLayer.effects, state);
 

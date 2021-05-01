@@ -74,7 +74,7 @@ function _getAexLayerMarkers(aeLayer: Layer) {
     return getAexMarkerProperties(aeLayer.marker);
 }
 
-function _setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState): void {
+function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState): void {
     assignAttributes(aeLayer, {
         name: aexLayer.name,
         label: aexLayer.label,
