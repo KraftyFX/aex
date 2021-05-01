@@ -53,6 +53,7 @@ function _setAVLayerAttributes(avLayer: AVLayer, aexAVLayer: AexAVLayer, state: 
         trackMatteType: aexAVLayer.trackMatteType,
     });
 
+    // TODO: Find out why setting layer attributes higher up in this function causes "Can create modified 3d AVLayer Null data" test
     setLayerAttributes(avLayer, aexAVLayer, state);
     _setLayerMasks(avLayer.mask, aexAVLayer.masks, state);
     _setEffects(avLayer.effect, aexAVLayer.effects, state);
