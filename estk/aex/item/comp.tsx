@@ -105,5 +105,5 @@ function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
         return;
     }
 
-    setAeMarkers(aeComp.markerProperty, aexComp.markers, state);
+    updateAeMarkers(aeComp.markerProperty, aexComp.markers, state);
 }

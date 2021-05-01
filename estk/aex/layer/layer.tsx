@@ -116,5 +116,5 @@ function _setLayerMarkers(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
         return;
     }
 
-    setAeMarkers(aeLayer.marker, aexLayer.markers, state);
+    updateAeMarkers(aeLayer.marker, aexLayer.markers, state);
 }

@@ -19,36 +19,13 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
     return markerData;
 }
 
-function _getMarkerParameters(keyValue: MarkerValue): object {
-    const parameters = keyValue.getParameters();
-
-    return parameters.toSource() === '({})' ? undefined : parameters;
-}
-
-function setAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
+function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMarkerProperty[], state: AexState) {
     const onMarkerPair = (aexMarker: AexMarkerProperty, aeMarkerValue: MarkerValue, i) => {
         if (!aeMarkerValue) {
-            aeMarkerValue = new MarkerValue(aexMarker.comment || '');
+            aeMarkerValue = createAeMarker(aeMarkerProperty, aexMarker, state);
+        } else {
+            updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
         }
-
-        // TODO: How do you update the comment and time?
-
-        assignAttributes(aeMarkerValue, {
-            chapter: aexMarker.chapter,
-            url: aexMarker.url,
-            frameTarget: aexMarker.frameTarget,
-            cuePointName: aexMarker.cuePointName,
-            duration: aexMarker.duration,
-            label: aexMarker.label,
-            protectedRegion: aexMarker.protectedRegion,
-            parameters: aexMarker.parameters,
-        });
-
-        /**
-         * Voodoo: Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
-         * As a result, we need to set each keyframe individually.
-         */
-        aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);
     };
 
     const matchBy = state.toAeOptions.markerMatchBy;
@@ -66,4 +43,35 @@ function setAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexMark
         default:
             throw new Error(`Unrecognized marker matching method "${matchBy}"`);
     }
+}
+
+function createAeMarker(aeMarkerProperty: MarkerValueProperty, aexMarker: AexMarkerProperty, state: AexState): MarkerValue {
+    const aeMarkerValue = new MarkerValue(aexMarker.comment || '');
+    updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
+    return aeMarkerValue;
+}
+
+function updateAeMarker(aeMarkerProperty: MarkerValueProperty, aeMarkerValue: MarkerValue, aexMarker: AexMarkerProperty, state: AexState) {
+    assignAttributes(aeMarkerValue, {
+        chapter: aexMarker.chapter,
+        url: aexMarker.url,
+        frameTarget: aexMarker.frameTarget,
+        cuePointName: aexMarker.cuePointName,
+        duration: aexMarker.duration,
+        label: aexMarker.label,
+        protectedRegion: aexMarker.protectedRegion,
+        parameters: aexMarker.parameters,
+    });
+
+    /**
+     * Voodoo: Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
+     * As a result, we need to set each keyframe individually.
+     */
+    aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);
+}
+
+function _getMarkerParameters(keyValue: MarkerValue): object {
+    const parameters = keyValue.getParameters();
+
+    return parameters.toSource() === '({})' ? undefined : parameters;
 }
