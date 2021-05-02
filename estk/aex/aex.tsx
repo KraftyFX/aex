@@ -33,10 +33,10 @@ function benchmark(options: any) {
     // aex().get(app.project as Project, {} as any);
 }
 
-function get(aeObj: Project, options: GetOptions): GetResult<AexProject>;
-function get(aeObj: CompItem, options: GetOptions): GetResult<AexComp>;
-function get(aeObj: Layer, options: GetOptions): GetResult<AexLayer>;
-function get(aeObj: Serializable, options: GetOptions): GetResult<AexSerialized> {
+function get(aeObj: Project, options?: GetOptions): GetResult<AexProject>;
+function get(aeObj: CompItem, options?: GetOptions): GetResult<AexComp>;
+function get(aeObj: Layer, options?: GetOptions): GetResult<AexLayer>;
+function get(aeObj: Serializable, options?: GetOptions): GetResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
     const state: AexState = {
@@ -48,7 +48,7 @@ function get(aeObj: Serializable, options: GetOptions): GetResult<AexSerialized>
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
-    assignAttributes(state.getOptions, options);
+    assignAttributes(state.getOptions, options || {});
 
     let object: AexSerialized;
 
