@@ -77,8 +77,8 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
     return keys;
 }
 
-function _setPropertyKeys(property: Property, aexKeys: AEQKeyInfo[], state: AexState): void {
-    const keys = aeq.arrayEx(aexKeys) as AEQArrayEx<AEQKeyInfo>;
+function _setPropertyKeys(property: Property, aexProperty: AexProperty, state: AexState): void {
+    const keys = aeq.arrayEx(aexProperty.keys) as AEQArrayEx<AEQKeyInfo>;
 
     const times = [];
     const values = [];
