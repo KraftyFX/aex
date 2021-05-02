@@ -28,7 +28,7 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
         }
     };
 
-    const matchBy = state.toAeOptions.markerMatchBy;
+    const matchBy = state.updateOptions.markerMatchBy;
 
     switch (matchBy) {
         case 'index':

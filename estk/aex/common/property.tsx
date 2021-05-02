@@ -28,7 +28,7 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
 }
 
 function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
-    switch (state.options.unspportedPropertyBehavior) {
+    switch (state.getOptions.unspportedPropertyBehavior) {
         case 'skip':
             return undefined;
         case 'log':
@@ -42,7 +42,7 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
         case 'metadata':
             return aexProperty;
         default:
-            state.options.unspportedPropertyBehavior({
+            state.getOptions.unspportedPropertyBehavior({
                 aexProperty,
                 message: `Property "${property.matchName}" is unsupported. Skipping.`,
             });

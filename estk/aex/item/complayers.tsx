@@ -21,7 +21,7 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
         }
     };
 
-    const matchBy = state.toAeOptions.layerMatchBy;
+    const matchBy = state.updateOptions.layerMatchBy;
 
     /**
      * Voodoo

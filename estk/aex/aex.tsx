@@ -15,7 +15,7 @@ interface AexPrescanResult {
     estimatedTotal: number;
 }
 
-function prescan(aeObject: Serializable, options: AexOptions): AexPrescanResult {
+function prescan(aeObject: Serializable, options: GetOptions): AexPrescanResult {
     return {
         aeObject,
         estimatedTotal: 0,
@@ -33,22 +33,22 @@ function benchmark(options: any) {
     // aex().get(app.project as Project, {} as any);
 }
 
-function get(aeObj: Project, options: AexOptions): GetResult<AexProject>;
-function get(aeObj: CompItem, options: AexOptions): GetResult<AexComp>;
-function get(aeObj: Layer, options: AexOptions): GetResult<AexLayer>;
-function get(aeObj: Serializable, options: AexOptions): GetResult<AexSerialized> {
+function get(aeObj: Project, options: GetOptions): GetResult<AexProject>;
+function get(aeObj: CompItem, options: GetOptions): GetResult<AexComp>;
+function get(aeObj: Layer, options: GetOptions): GetResult<AexLayer>;
+function get(aeObj: Serializable, options: GetOptions): GetResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
     const state: AexState = {
-        options,
-        toAeOptions: null,
+        getOptions: options,
+        updateOptions: null,
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
     // TODO: Make a helper function to deal with this
-    state.options = state.options || { unspportedPropertyBehavior: 'skip' };
-    state.options.unspportedPropertyBehavior = state.options.unspportedPropertyBehavior || 'skip';
+    state.getOptions = state.getOptions || { unspportedPropertyBehavior: 'skip' };
+    state.getOptions.unspportedPropertyBehavior = state.getOptions.unspportedPropertyBehavior || 'skip';
 
     let object: AexSerialized;
 
@@ -74,8 +74,8 @@ function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
 function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
     const state: AexState = {
-        options: null,
-        toAeOptions: {
+        getOptions: null,
+        updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
@@ -105,8 +105,8 @@ function update(aeObject: CompItem, aexObject: AexComp);
 function update(aeObject: Layer, aexObject: AexLayer);
 function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
     const state: AexState = {
-        options: null,
-        toAeOptions: {
+        getOptions: null,
+        updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },

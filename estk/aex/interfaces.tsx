@@ -29,11 +29,11 @@ type AexUID = string;
 
 type UnsupportedTypeCallback = (log: AexLogEntry) => void;
 
-interface AexOptions {
+interface GetOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
-interface ToAeOptions {
+interface UpdateOptions {
     markerMatchBy: 'index' | 'time';
     layerMatchBy: 'index' | 'name';
 }
@@ -44,8 +44,8 @@ interface AexLogEntry {
 }
 
 interface AexState {
-    options: AexOptions;
-    toAeOptions: ToAeOptions;
+    getOptions: GetOptions;
+    updateOptions: UpdateOptions;
 
     stats: {
         nonCompItemCount: number;
