@@ -131,3 +131,35 @@ function forEachPairByGroup<V, P>(aexGroupedValues: GroupByResult<V>, aeGroupedV
         });
     });
 }
+
+function getDebugStringForAeType(obj: Project | Item | Layer | PropertyBase) {
+    if (aeq.isNullOrUndefined(obj)) {
+        return 'null or undefined';
+    }
+
+    if (obj instanceof Project) {
+        return 'project';
+    } else if (aeq.isProperty(obj)) {
+        return 'property';
+    } else if (aeq.isTextLayer(obj)) {
+        return 'textlayer';
+    } else if (aeq.isLightLayer(obj)) {
+        return 'lightlayer';
+    } else if (aeq.isShapeLayer(obj)) {
+        return 'shapelayer';
+    } else if (aeq.isCameraLayer(obj)) {
+        return 'cameralayer';
+    } else if (aeq.isAVLayer(obj)) {
+        return 'avlayer';
+    } else if (aeq.isPrecomp(obj)) {
+        return 'precomplayer';
+    } else if (aeq.isFootageItem(obj)) {
+        return 'footageitem';
+    } else if (aeq.isFolderItem(obj)) {
+        return 'folderitem';
+    } else if (aeq.isComp(obj)) {
+        return 'comp';
+    } else {
+        return 'unknown';
+    }
+}

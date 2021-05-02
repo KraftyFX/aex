@@ -105,12 +105,12 @@ function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer
     return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
 }
 
-function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
-    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
-}
-
 function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
+}
+
+function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
 }
 
 function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
@@ -149,8 +149,8 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
     }
 }
 
-function isUpdatingLayer(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
-    return aeq.isLayer(aeObject) && isAexLayer(aexObject);
+function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
+    return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
 }
 
 function isUpdatingComp(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
@@ -163,42 +163,10 @@ function isUpdatingNonCompItem(aeObject: Project | CompItem | Layer, aexObject: 
     );
 }
 
+function isUpdatingLayer(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
+    return aeq.isLayer(aeObject) && isAexLayer(aexObject);
+}
+
 function isUpdatingProperty(aeObject: Project | CompItem | Layer, aexObject: AexComp | AexLayer | AexProject) {
     return aeObject instanceof PropertyBase && isAexLayer(aexObject as AexObject);
-}
-
-function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
-    return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
-}
-
-function getDebugStringForAeType(obj: Project | Item | Layer | PropertyBase) {
-    if (aeq.isNullOrUndefined(obj)) {
-        return 'null or undefined';
-    }
-
-    if (obj instanceof Project) {
-        return 'project';
-    } else if (aeq.isProperty(obj)) {
-        return 'property';
-    } else if (aeq.isTextLayer(obj)) {
-        return 'textlayer';
-    } else if (aeq.isLightLayer(obj)) {
-        return 'lightlayer';
-    } else if (aeq.isShapeLayer(obj)) {
-        return 'shapelayer';
-    } else if (aeq.isCameraLayer(obj)) {
-        return 'cameralayer';
-    } else if (aeq.isAVLayer(obj)) {
-        return 'avlayer';
-    } else if (aeq.isPrecomp(obj)) {
-        return 'precomplayer';
-    } else if (aeq.isFootageItem(obj)) {
-        return 'footageitem';
-    } else if (aeq.isFolderItem(obj)) {
-        return 'folderitem';
-    } else if (aeq.isComp(obj)) {
-        return 'comp';
-    } else {
-        return 'unknown';
-    }
 }
