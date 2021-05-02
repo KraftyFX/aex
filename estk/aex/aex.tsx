@@ -33,7 +33,7 @@ function benchmark(options: any) {
     // aex().get(app.project as Project, {} as any);
 }
 
-function get(aeObj: Project, options: AexOptions): void;
+function get(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;
 function get(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
 function get(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
 function get(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
@@ -144,6 +144,10 @@ function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer
 }
 
 function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
+}
+
+function isAddingLayersToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
