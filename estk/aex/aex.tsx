@@ -40,15 +40,15 @@ function get(aeObj: Serializable, options: GetOptions): GetResult<AexSerialized>
     assertIsDefined(aeObj, 'aeObj');
 
     const state: AexState = {
-        getOptions: options,
+        getOptions: {
+            unspportedPropertyBehavior: 'skip',
+        },
         updateOptions: null,
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
-    // TODO: Make a helper function to deal with this
-    state.getOptions = state.getOptions || { unspportedPropertyBehavior: 'skip' };
-    state.getOptions.unspportedPropertyBehavior = state.getOptions.unspportedPropertyBehavior || 'skip';
+    assignAttributes(state.getOptions, options);
 
     let object: AexSerialized;
 
