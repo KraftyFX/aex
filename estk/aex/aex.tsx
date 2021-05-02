@@ -22,7 +22,7 @@ function prescan(aeObject: Serializable, options: AexOptions): AexPrescanResult 
     };
 }
 
-interface ToAexResult<T extends AexSerialized> {
+interface GetResult<T extends AexSerialized> {
     object: T;
     log: AexLogEntry[];
 }
@@ -33,10 +33,10 @@ function benchmark(options: any) {
     // aex().get(app.project as Project, {} as any);
 }
 
-function get(aeObj: Project, options: AexOptions): ToAexResult<AexProject>;
-function get(aeObj: CompItem, options: AexOptions): ToAexResult<AexComp>;
-function get(aeObj: Layer, options: AexOptions): ToAexResult<AexLayer>;
-function get(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialized> {
+function get(aeObj: Project, options: AexOptions): GetResult<AexProject>;
+function get(aeObj: CompItem, options: AexOptions): GetResult<AexComp>;
+function get(aeObj: Layer, options: AexOptions): GetResult<AexLayer>;
+function get(aeObj: Serializable, options: AexOptions): GetResult<AexSerialized> {
     assertIsDefined(aeObj, 'aeObj');
 
     const state: AexState = {
