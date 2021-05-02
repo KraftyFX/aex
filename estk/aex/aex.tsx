@@ -69,6 +69,9 @@ function get(aeObj: Serializable, options: AexOptions): ToAexResult<AexSerialize
     };
 }
 
+function create(aeParentObject: Project, aexObject: AexItem | AexComp);
+function create(aeParentObject: CompItem, aexObject: AexLayer);
+function create(aeParentObject: Layer, aexObject: AexProperty);
 function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
     const state: AexState = {
         options: null,
@@ -97,22 +100,9 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     }
 }
 
-function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
-    return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
-}
-
-function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
-    return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
-}
-
-function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
-    return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
-}
-
-function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
-    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
-}
-
+function update(aeObject: Project, aexObject: AexProject);
+function update(aeObject: CompItem, aexObject: AexComp);
+function update(aeObject: Layer, aexObject: AexLayer);
 function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
     const state: AexState = {
         options: null,
@@ -124,10 +114,6 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
 
-    _update(aeObject, aexObject, state);
-}
-
-function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, state: AexState) {
     if (isUpdatingProject(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Project');
         updateAeProject(aeObject as Project, aexObject as AexProject, state);
@@ -147,6 +133,22 @@ function _update(aeObject: Project | CompItem | Layer, aexObject: AexProject | A
     } else {
         throw new Error(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
+}
+
+function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
+}
+
+function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
+}
+
+function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
+}
+
+function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
 }
 
 function isUpdatingProject(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
