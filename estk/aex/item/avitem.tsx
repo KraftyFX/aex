@@ -1,6 +1,6 @@
-function getAVItemBaseAttributes(item: AVItem): AexAVItemBase {
-    const itemBaseAttributes = getItemBaseAttributes(item);
-    const { duration, frameRate, height, pixelAspect, width } = item;
+function getAvItemBaseAttributes(aeAvItem: AVItem): AexAVItemBase {
+    const itemBaseAttributes = getItemBaseAttributes(aeAvItem);
+    const { duration, frameRate, height, pixelAspect, width } = aeAvItem;
 
     return {
         ...itemBaseAttributes,

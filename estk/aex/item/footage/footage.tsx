@@ -39,7 +39,7 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
 }
 
 function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
-    const avItemBaseAttributes = getAVItemBaseAttributes(item);
+    const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
     const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);

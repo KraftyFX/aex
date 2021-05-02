@@ -1,18 +1,18 @@
-function getAexFolderItem(item: FolderItem, state: AexState): AexFolderItem {
-    const itemAttributes = getItemBaseAttributes(item);
+function getAexFolderItem(aeFolderItem: FolderItem, state: AexState): AexFolderItem {
+    const itemAttributes = getItemBaseAttributes(aeFolderItem);
 
     state.stats.nonCompItemCount++;
     return {
         ...itemAttributes,
         type: AEX_FOLDER_ITEM,
 
-        label: getModifiedValue(item.label, 2),
+        label: getModifiedValue(aeFolderItem.label, 2),
     };
 }
 
-function createAeFolderItem(aexFolder: AexFolderItem, state: AexState): FolderItem {
-    const aeFolder = aeq.project.getOrCreateFolder(aexFolder.name);
-    updateAeFolderItem(aeFolder, aexFolder, state);
+function createAeFolderItem(aexFolderItem: AexFolderItem, state: AexState): FolderItem {
+    const aeFolder = aeq.project.getOrCreateFolder(aexFolderItem.name);
+    updateAeFolderItem(aeFolder, aexFolderItem, state);
     return aeFolder;
 }
 
@@ -20,10 +20,10 @@ function updateAeFolderItem(aeFolder: FolderItem, aexFolder: AexFolderItem, stat
     setItemBaseAttributes(aeFolder, aexFolder, state);
 }
 
-function getParentFolders(item: Item): string[] {
+function getParentFolders(aeItem: Item): string[] {
     const folders = [];
 
-    let parent = item.parentFolder;
+    let parent = aeItem.parentFolder;
 
     while (parent !== app.project.rootFolder) {
         folders.push(parent.name);

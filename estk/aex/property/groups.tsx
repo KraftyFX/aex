@@ -1,9 +1,9 @@
-function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
+function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
     skip = skip || (() => false);
 
     const aexProperties: PropertyBase[] = [];
 
-    forEachPropertyInGroup(propertyGroup, (property) => {
+    forEachPropertyInGroup(aePropertyGroup, (property) => {
         if (skip(property)) {
             return;
         }
@@ -37,17 +37,17 @@ function getPropertyGroup(propertyGroup: PropertyGroup, state: AexState, skip?: 
      * If this property group is in an INDEXED_GROUP, the user can specify its name
      * There's no way to check "isModified" for these names, so we'll dump them no matter what
      */
-    const name = propertyGroup.parentProperty.propertyType === PropertyType.INDEXED_GROUP ? propertyGroup.name : undefined;
+    const name = aePropertyGroup.parentProperty.propertyType === PropertyType.INDEXED_GROUP ? aePropertyGroup.name : undefined;
 
     /**
      * Some property groups can be enabled/disabled; if this is one, get the value if it's not false.
      *
      * We need the ternary check to avoid throwing an error when querying 'enabled'.
      */
-    const enabled = getBoundModifiedValue(propertyGroup.canSetEnabled, () => propertyGroup.enabled, true);
+    const enabled = getBoundModifiedValue(aePropertyGroup.canSetEnabled, () => aePropertyGroup.enabled, true);
 
     return {
-        matchName: propertyGroup.matchName,
+        matchName: aePropertyGroup.matchName,
         name,
         enabled,
 

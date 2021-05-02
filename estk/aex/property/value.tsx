@@ -1,6 +1,6 @@
 /** @todo Add type safety */
-function _getPropertyValue(property: Property, value: any): any {
-    if (isTextDocument(property)) {
+function _getPropertyValue(aeProperty: Property, value: any): any {
+    if (isTextDocument(aeProperty)) {
         return _getTextDocumentProperties(value);
     } else {
         let propertyValue = value;
@@ -8,8 +8,8 @@ function _getPropertyValue(property: Property, value: any): any {
         /**
          * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
          */
-        if (property.matchName === 'ADBE Time Remapping') {
-            const propLayer = property.propertyGroup(property.propertyDepth) as AVLayer;
+        if (aeProperty.matchName === 'ADBE Time Remapping') {
+            const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
             const propSource = propLayer.source as AVItem;
             const propDuration = propSource.duration;
 
@@ -20,14 +20,14 @@ function _getPropertyValue(property: Property, value: any): any {
     }
 }
 
-function _setPropertyValue(property: Property, value: any, state: AexState) {
+function _setPropertyValue(aeProperty: Property, value: any, state: AexState) {
     /** We can't setValue on an animated property, so back out */
-    if (property.numKeys > 0) {
+    if (aeProperty.numKeys > 0) {
         return;
     }
 
     try {
-        property.setValue(value);
+        aeProperty.setValue(value);
     } catch (e) {
         throw e;
     }
@@ -53,12 +53,12 @@ function _createShape(aexObjValue: Shape): Shape {
     return shape;
 }
 
-function _createAexValue(property: Property, aexObjValue: any, state: AexState): any {
+function _createAexValue(aeProperty: Property, aexObjValue: any, state: AexState): any {
     let aexValue: any;
 
-    if (isTextDocument(property)) {
-        aexValue = _createTextDocument(property.value, aexObjValue, state);
-    } else if (isShapeProperty(property)) {
+    if (isTextDocument(aeProperty)) {
+        aexValue = _createTextDocument(aeProperty.value, aexObjValue, state);
+    } else if (isShapeProperty(aeProperty)) {
         aexValue = _createShape(aexObjValue);
     } else {
         let propertyValue = aexObjValue;
@@ -66,8 +66,8 @@ function _createAexValue(property: Property, aexObjValue: any, state: AexState):
         /**
          * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
          */
-        if (property.matchName === 'ADBE Time Remapping') {
-            const propLayer = property.propertyGroup(property.propertyDepth) as AVLayer;
+        if (aeProperty.matchName === 'ADBE Time Remapping') {
+            const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
             const propSource = propLayer.source as AVItem;
             const propDuration = propSource.duration;
 

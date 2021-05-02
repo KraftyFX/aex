@@ -1,32 +1,32 @@
-function getProperty(property: Property, state: AexState): AexProperty {
+function getProperty(aeProperty: Property, state: AexState): AexProperty {
     const aexProperty: AexProperty = {
-        type: _getPropertyType(property),
-        name: property.name,
-        matchName: property.matchName,
+        type: _getPropertyType(aeProperty),
+        name: aeProperty.name,
+        matchName: aeProperty.matchName,
         value: undefined,
-        enabled: getModifiedValue(property.enabled, true),
-        expression: getModifiedValue(property.expression, ''),
-        expressionEnabled: getModifiedValue(property.expressionEnabled, false),
+        enabled: getModifiedValue(aeProperty.enabled, true),
+        expression: getModifiedValue(aeProperty.expression, ''),
+        expressionEnabled: getModifiedValue(aeProperty.expressionEnabled, false),
         keys: undefined,
     };
 
-    const isUnreadable = isUnreadableProperty(property);
-    aexProperty.keys = _getPropertyKeys(property, isUnreadable, state);
+    const isUnreadable = isUnreadableProperty(aeProperty);
+    aexProperty.keys = _getPropertyKeys(aeProperty, isUnreadable, state);
 
     if (isUnreadable) {
-        return getUnsupportedProperty(property, aexProperty, state);
+        return getUnsupportedProperty(aeProperty, aexProperty, state);
     } else {
-        aexProperty.value = _getPropertyValue(property, property.value);
+        aexProperty.value = _getPropertyValue(aeProperty, aeProperty.value);
     }
 
     state.stats.propertyCount++;
     return aexProperty;
 }
 
-function _createPropertyBase(propertyGroup: PropertyGroup, aexProperty: AexPropertyBase, state: AexState): PropertyBase {
+function _createPropertyBase(aePropertyGroup: PropertyGroup, aexProperty: AexPropertyBase, state: AexState): PropertyBase {
     const { matchName } = aexProperty;
 
-    const property = propertyGroup.addProperty(matchName);
+    const property = aePropertyGroup.addProperty(matchName);
 
     const name = property.parentProperty.propertyType === PropertyType.INDEXED_GROUP ? aexProperty.name : undefined;
 
@@ -38,12 +38,12 @@ function _createPropertyBase(propertyGroup: PropertyGroup, aexProperty: AexPrope
     return property;
 }
 
-function isUnreadableProperty(property: Property<UnknownPropertyType>) {
-    return property.propertyValueType == PropertyValueType.NO_VALUE || property.propertyValueType === PropertyValueType.CUSTOM_VALUE;
+function isUnreadableProperty(aeProperty: Property<UnknownPropertyType>) {
+    return aeProperty.propertyValueType == PropertyValueType.NO_VALUE || aeProperty.propertyValueType === PropertyValueType.CUSTOM_VALUE;
 }
 
-function setProperty(property: Property, aexProperty: AexProperty, state: AexState): void {
-    assignAttributes(property, {
+function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexState): void {
+    assignAttributes(aeProperty, {
         enabled: aexProperty.enabled,
         expression: aexProperty.expression,
         expressionEnabled: aexProperty.expressionEnabled,
@@ -52,19 +52,19 @@ function setProperty(property: Property, aexProperty: AexProperty, state: AexSta
     /**
      * We can only set property names if they're a member of a INDEXED_GROUP
      */
-    if (property.propertyGroup(1).propertyType === PropertyType.INDEXED_GROUP) {
-        property.name = aexProperty.name;
+    if (aeProperty.propertyGroup(1).propertyType === PropertyType.INDEXED_GROUP) {
+        aeProperty.name = aexProperty.name;
     }
 
-    let aexValue = _createAexValue(property, aexProperty.value, state);
-    _setPropertyValue(property, aexValue, state);
-    _setPropertyKeys(property, aexProperty, state);
+    let aexValue = _createAexValue(aeProperty, aexProperty.value, state);
+    _setPropertyValue(aeProperty, aexValue, state);
+    _setPropertyKeys(aeProperty, aexProperty, state);
 
     state.stats.propertyCount++;
 }
 
-function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyType {
-    switch (property.propertyValueType) {
+function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropertyType {
+    switch (aeProperty.propertyValueType) {
         case PropertyValueType.OneD:
         case PropertyValueType.MASK_INDEX:
         case PropertyValueType.LAYER_INDEX:
@@ -88,10 +88,10 @@ function _getPropertyType(property: Property<UnknownPropertyType>): AexPropertyT
         case PropertyValueType.CUSTOM_VALUE:
             return AEX_CUSTOM_PROPERTY;
         default:
-            throw new Error(`Unsupported property type "${property.name}" ${property.propertyValueType}`);
+            throw new Error(`Unsupported property type "${aeProperty.name}" ${aeProperty.propertyValueType}`);
     }
 }
 
-function isShapeProperty(property: Property<UnknownPropertyType>): boolean {
-    return property.propertyValueType === PropertyValueType.SHAPE;
+function isShapeProperty(aeProperty: Property<UnknownPropertyType>): boolean {
+    return aeProperty.propertyValueType === PropertyValueType.SHAPE;
 }

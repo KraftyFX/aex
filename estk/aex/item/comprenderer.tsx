@@ -6,11 +6,11 @@ function setAeCompRenderer(aeComp: CompItem, aexComp: AexComp, state: AexState) 
     setCompRenderer(aeComp, aexComp.renderer);
 }
 
-function setCompRenderer(comp: CompItem, renderer: string) {
-    const renderers = aeq.arrayEx(comp.renderers);
+function setCompRenderer(aeComp: CompItem, renderer: string) {
+    const renderers = aeq.arrayEx(aeComp.renderers);
 
     if (renderers.indexOf(renderer) > -1) {
-        comp.renderer = renderer;
+        aeComp.renderer = renderer;
     } else {
         throw new Error(`Can't set comp renderer to ${renderer}`);
     }

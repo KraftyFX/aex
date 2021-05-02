@@ -1,5 +1,5 @@
-function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
-    const propertyKeys = aeq.getKeys(property);
+function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
+    const propertyKeys = aeq.getKeys(aeProperty);
     const keys = propertyKeys.map((key) => {
         const aexKey = {
             time: getRoundedValue(key.getTime()),
@@ -17,7 +17,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
         if (!isUnreadable) {
             const keyInfo = key.getKeyInfo();
 
-            aexKey.value = _getPropertyValue(property, keyInfo.value);
+            aexKey.value = _getPropertyValue(aeProperty, keyInfo.value);
 
             const keyInterpolationType = keyInfo.interpolationType;
             const inInterpolationType = getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR);
@@ -77,7 +77,7 @@ function _getPropertyKeys(property: Property, isUnreadable: boolean, state: AexS
     return keys;
 }
 
-function _setPropertyKeys(property: Property, aexProperty: AexProperty, state: AexState): void {
+function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state: AexState): void {
     const keys = aeq.arrayEx(aexProperty.keys) as AEQArrayEx<AEQKeyInfo>;
 
     const times = [];
@@ -86,12 +86,12 @@ function _setPropertyKeys(property: Property, aexProperty: AexProperty, state: A
     keys.forEach((aexKey) => {
         times.push(aexKey.time);
 
-        const aexValue = _createAexValue(property, aexKey.value, state);
+        const aexValue = _createAexValue(aeProperty, aexKey.value, state);
         values.push(aexValue);
     });
 
     if (keys.length > 0) {
-        property.setValuesAtTimes(times, values);
+        aeProperty.setValuesAtTimes(times, values);
 
         keys.forEach((aexKey, ii) => {
             const keyIndex = ii + 1;
@@ -102,20 +102,20 @@ function _setPropertyKeys(property: Property, aexProperty: AexProperty, state: A
 
                 /** @todo something's broken in types-for-adobe here... */
                 /** @ts-ignore */
-                property.setTemporalEaseAtKey(keyIndex, inEase, outEase);
+                aeProperty.setTemporalEaseAtKey(keyIndex, inEase, outEase);
             }
 
             if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
-                property.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
-                property.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
+                aeProperty.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
+                aeProperty.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
             }
 
             if (!aeq.isNullOrUndefined(aexKey.spatialAutoBezier) && !aeq.isNullOrUndefined(aexKey.spatialContinuous)) {
-                property.setSpatialAutoBezierAtKey(keyIndex, aexKey.spatialAutoBezier);
-                property.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
+                aeProperty.setSpatialAutoBezierAtKey(keyIndex, aexKey.spatialAutoBezier);
+                aeProperty.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
 
-                property.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
-                property.setRovingAtKey(keyIndex, aexKey.roving);
+                aeProperty.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
+                aeProperty.setRovingAtKey(keyIndex, aexKey.roving);
             }
 
             let inType = KeyframeInterpolationType.LINEAR;
@@ -126,7 +126,7 @@ function _setPropertyKeys(property: Property, aexProperty: AexProperty, state: A
                 outType = aeq.setDefault(aexKey.interpolationType.outType, outType);
             }
 
-            property.setInterpolationTypeAtKey(keyIndex, inType, outType);
+            aeProperty.setInterpolationTypeAtKey(keyIndex, inType, outType);
         });
     }
 }

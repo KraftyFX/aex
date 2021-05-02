@@ -1,21 +1,21 @@
-function getAexCompLayers(comp: CompItem, state: AexState) {
-    const layers = [] as AexLayer[];
+function getAexCompLayers(aeComp: CompItem, state: AexState) {
+    const aexLayers = [] as AexLayer[];
 
-    aeq.forEachLayer(comp, (layer: Layer) => {
+    aeq.forEachLayer(aeComp, (layer: Layer) => {
         const layerData = getAexLayer(layer, state);
 
         // TODO: Insert the layers in the front, update the tests and get rid of
         // the voodoo during deserialization
-        layers.push(layerData);
+        aexLayers.push(layerData);
     });
 
-    return layers;
+    return aexLayers;
 }
 
-function updateAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
+function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
         if (!aeLayer) {
-            aeLayer = createAeLayer(comp, aexLayer, state);
+            aeLayer = createAeLayer(aeComp, aexLayer, state);
         } else {
             updateAeLayer(aeLayer, aexLayer, state);
         }
@@ -35,11 +35,11 @@ function updateAeCompLayers(comp: CompItem, aexComp: AexComp, state: AexState) {
 
     switch (matchBy) {
         case 'index':
-            forEachLayerPairByIndex(aexComp.layers, comp, onLayerPair);
+            forEachLayerPairByIndex(aexComp.layers, aeComp, onLayerPair);
             break;
         case 'name':
             const aexLayersByName = groupArrayBy(aexComp.layers, (v) => v.name);
-            const aeLayersByName = groupAeLayersBy(comp, (v) => v.name);
+            const aeLayersByName = groupAeLayersBy(aeComp, (v) => v.name);
 
             forEachPairByGroup(aexLayersByName, aeLayersByName, onLayerPair);
             break;

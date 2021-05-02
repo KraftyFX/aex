@@ -1,5 +1,5 @@
-function getAexComp(comp: CompItem, state: AexState): AexComp {
-    const avItemBaseAttributes = getAVItemBaseAttributes(comp);
+function getAexComp(aeComp: CompItem, state: AexState): AexComp {
+    const avItemBaseAttributes = getAvItemBaseAttributes(aeComp);
 
     const aexComp: AexComp = {
         /** Item & AVItem attributes */
@@ -7,27 +7,27 @@ function getAexComp(comp: CompItem, state: AexState): AexComp {
         type: AEX_COMP_ITEM,
 
         /** Comp internal data */
-        bgColor: getModifiedValue(comp.bgColor, [0, 0, 0] as ThreeDColorValue),
-        displayStartFrame: getModifiedValue(comp.displayStartFrame, 0),
-        displayStartTime: getModifiedValue(comp.displayStartTime, 0),
-        draft3d: getModifiedValue(comp.draft3d, false),
-        dropFrame: getModifiedValue(comp.dropFrame, false),
-        frameBlending: getModifiedValue(comp.frameBlending, false),
-        hideShyLayers: getModifiedValue(comp.hideShyLayers, false),
-        motionBlur: getModifiedValue(comp.motionBlur, false),
-        motionBlurAdaptiveSampleLimit: getModifiedValue(comp.motionBlurAdaptiveSampleLimit, 128),
-        motionBlurSamplesPerFrame: getModifiedValue(comp.motionBlurSamplesPerFrame, 16),
-        preserveNestedFrameRate: getModifiedValue(comp.preserveNestedFrameRate, false),
-        preserveNestedResolution: getModifiedValue(comp.preserveNestedResolution, false),
-        renderer: getModifiedValue(comp.renderer, 'ADBE Advanced 3d'),
-        resolutionFactor: getModifiedValue(comp.resolutionFactor, [1, 1]),
-        shutterAngle: getModifiedValue(comp.shutterAngle, 180),
-        shutterPhase: getModifiedValue(comp.shutterPhase, 0),
-        workAreaStart: getModifiedValue(comp.workAreaStart, 0),
-        workAreaDuration: getModifiedValue(comp.workAreaDuration, comp.duration),
+        bgColor: getModifiedValue(aeComp.bgColor, [0, 0, 0] as ThreeDColorValue),
+        displayStartFrame: getModifiedValue(aeComp.displayStartFrame, 0),
+        displayStartTime: getModifiedValue(aeComp.displayStartTime, 0),
+        draft3d: getModifiedValue(aeComp.draft3d, false),
+        dropFrame: getModifiedValue(aeComp.dropFrame, false),
+        frameBlending: getModifiedValue(aeComp.frameBlending, false),
+        hideShyLayers: getModifiedValue(aeComp.hideShyLayers, false),
+        motionBlur: getModifiedValue(aeComp.motionBlur, false),
+        motionBlurAdaptiveSampleLimit: getModifiedValue(aeComp.motionBlurAdaptiveSampleLimit, 128),
+        motionBlurSamplesPerFrame: getModifiedValue(aeComp.motionBlurSamplesPerFrame, 16),
+        preserveNestedFrameRate: getModifiedValue(aeComp.preserveNestedFrameRate, false),
+        preserveNestedResolution: getModifiedValue(aeComp.preserveNestedResolution, false),
+        renderer: getModifiedValue(aeComp.renderer, 'ADBE Advanced 3d'),
+        resolutionFactor: getModifiedValue(aeComp.resolutionFactor, [1, 1]),
+        shutterAngle: getModifiedValue(aeComp.shutterAngle, 180),
+        shutterPhase: getModifiedValue(aeComp.shutterPhase, 0),
+        workAreaStart: getModifiedValue(aeComp.workAreaStart, 0),
+        workAreaDuration: getModifiedValue(aeComp.workAreaDuration, aeComp.duration),
 
-        markers: getAexCompMarkers(comp),
-        layers: getAexCompLayers(comp, state),
+        markers: getAexCompMarkers(aeComp),
+        layers: getAexCompLayers(aeComp, state),
     };
 
     state.stats.compCount++;
@@ -66,12 +66,12 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
     return comp;
 }
 
-function updateAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
-    assertIsDefined(comp, 'comp');
+function updateAeComp(aeComp: CompItem, aexComp: AexComp, state: AexState): void {
+    assertIsDefined(aeComp, 'aeComp');
 
-    setItemBaseAttributes(comp, aexComp, state);
+    setItemBaseAttributes(aeComp, aexComp, state);
 
-    assignAttributes(comp, {
+    assignAttributes(aeComp, {
         bgColor: aexComp.bgColor,
         displayStartFrame: aexComp.displayStartFrame,
         displayStartTime: aexComp.displayStartTime,
@@ -91,13 +91,13 @@ function updateAeComp(comp: CompItem, aexComp: AexComp, state: AexState): void {
         workAreaStart: aexComp.workAreaStart,
     });
 
-    setAeCompMarkers(comp, aexComp, state);
-    setAeCompRenderer(comp, aexComp, state);
-    updateAeCompLayers(comp, aexComp, state);
+    setAeCompMarkers(aeComp, aexComp, state);
+    setAeCompRenderer(aeComp, aexComp, state);
+    updateAeCompLayers(aeComp, aexComp, state);
 }
 
-function getAexCompMarkers(comp: CompItem) {
-    return getAexMarkerProperties(comp.markerProperty);
+function getAexCompMarkers(aeComp: CompItem) {
+    return getAexMarkerProperties(aeComp.markerProperty);
 }
 
 function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {

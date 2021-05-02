@@ -1,10 +1,10 @@
-function getAexItem(item: Item, state: AexState): AexItem {
-    if (aeq.isComp(item)) {
+function getAexItem(aeItem: Item, state: AexState): AexItem {
+    if (aeq.isComp(aeItem)) {
         throw new Error(`Not supported: Getting a comp from getAexItem().  Use getAexComp() instead.`);
-    } else if (aeq.isFootageItem(item)) {
-        return getAexFootageItem(item, state);
-    } else if (aeq.isFolderItem(item)) {
-        return getAexFolderItem(item, state);
+    } else if (aeq.isFootageItem(aeItem)) {
+        return getAexFootageItem(aeItem, state);
+    } else if (aeq.isFolderItem(aeItem)) {
+        return getAexFolderItem(aeItem, state);
     } else {
         throw new Error(`Unrecognized Item Type`);
     }
@@ -42,18 +42,18 @@ function updateAeItem(aeItem: Item, aexItem: AexItem, state: AexState) {
     }
 }
 
-function getItemBaseAttributes(item: Item): AexItemBase {
+function getItemBaseAttributes(aeItem: Item): AexItemBase {
     /**
      * @todo Add AexOption to preserve project folder structure.
      * For now, just get the immediate parent folder name & assume lives in root
      */
     return {
-        name: item.name,
-        comment: getModifiedValue(item.comment, ''),
-        label: getModifiedValue(item.label, 15),
-        folder: getParentFolders(item),
+        name: aeItem.name,
+        comment: getModifiedValue(aeItem.comment, ''),
+        label: getModifiedValue(aeItem.label, 15),
+        folder: getParentFolders(aeItem),
 
-        aexid: generateItemUID(item),
+        aexid: generateItemUID(aeItem),
     };
 }
 
@@ -67,9 +67,9 @@ function setItemBaseAttributes(aeItem: Item, aexItem: AexItemBase, state: AexSta
     setParentFolders(aeItem, aexItem, state);
 }
 
-function generateItemUID(item: Item): string {
-    if (!!item) {
-        return `${item.name.toLowerCase()}:${item.id}`;
+function generateItemUID(aeItem: Item): string {
+    if (!!aeItem) {
+        return `${aeItem.name.toLowerCase()}:${aeItem.id}`;
     } else {
         return undefined;
     }
@@ -87,21 +87,21 @@ function getItemById(id: AexUID): Item {
     });
 }
 
-function getItemFromSource(source: AexFootageSource): AVItem {
-    const existingItem = getItemById(source.id);
+function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
+    const existingItem = getItemById(aexFootageSource.id);
 
-    if (existingItem && getItemType(existingItem) === source.type) {
+    if (existingItem && getItemType(existingItem) === aexFootageSource.type) {
         return existingItem as AVItem;
     } else {
         return undefined;
     }
 }
 
-function getItemType(item: Item): AexItemType {
-    if (aeq.isComp(item)) {
+function getItemType(aeItem: Item): AexItemType {
+    if (aeq.isComp(aeItem)) {
         return AEX_COMP_ITEM;
-    } else if (aeq.isFootageItem(item)) {
-        const mainSource = item.mainSource;
+    } else if (aeq.isFootageItem(aeItem)) {
+        const mainSource = aeItem.mainSource;
 
         if (sourceIsFile(mainSource)) {
             return AEX_FILE_FOOTAGE_ITEM;
@@ -112,7 +112,7 @@ function getItemType(item: Item): AexItemType {
         } else {
             throw new Error(`Unrecognized Footage Type`);
         }
-    } else if (aeq.isFolderItem(item)) {
+    } else if (aeq.isFolderItem(aeItem)) {
         return AEX_FOLDER_ITEM;
     } else {
         throw new Error(`Unrecognized Item Type`);
