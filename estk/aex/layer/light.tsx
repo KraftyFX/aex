@@ -1,33 +1,34 @@
-function getAexLightLayer(layer: LightLayer, state: AexState): AexLightLayer {
-    const layerAttributes = getLayerAttributes(layer, state);
-    const { lightType } = layer;
+function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLayer {
+    const layerAttributes = getLayerAttributes(aeLightLayer, state);
+    const { lightType } = aeLightLayer;
 
     /**
      * Voodoo: Lights don't have default positions when they're created,
      * so we need to get them explicitly if they're not modified
      */
     if (!layerAttributes.transform.position) {
-        layerAttributes.transform.position = getProperty(layer.transform.position, state);
+        layerAttributes.transform.position = getProperty(aeLightLayer.transform.position, state);
     }
 
     return {
         ...layerAttributes,
         type: AEX_LIGHT_LAYER,
 
-        hasVideo: getModifiedValue(layer.hasVideo, false),
+        hasVideo: getModifiedValue(aeLightLayer.hasVideo, false),
         lightType,
-        lightOption: getPropertyGroup(layer.lightOption, state),
+        lightOption: getPropertyGroup(aeLightLayer.lightOption, state),
     };
 }
 
-function createAeLightLayer(comp: CompItem, aexLightLayer: AexLightLayer, state: AexState) {
-    const layer = comp.layers.addLight(aexLightLayer.name, [comp.width / 2, comp.height / 2]);
-    setLayerAttributes(layer, aexLightLayer, state);
+function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, state: AexState) {
+    const aeLightLayer = aeComp.layers.addLight(aexLightLayer.name, [aeComp.width / 2, aeComp.height / 2]);
+    setLayerAttributes(aeLightLayer, aexLightLayer, state);
 
-    layer.lightType = aexLightLayer.lightType;
+    aeLightLayer.lightType = aexLightLayer.lightType;
 
     if (aexLightLayer.lightOption) {
-        setPropertyGroup(layer.lightOption, aexLightLayer.lightOption, state);
+        setPropertyGroup(aeLightLayer.lightOption, aexLightLayer.lightOption, state);
     }
-    return layer;
+
+    return aeLightLayer;
 }

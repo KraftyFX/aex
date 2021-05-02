@@ -1,5 +1,5 @@
-function getAexNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
-    const layerAttributes = getAexFootageLayer(layer, state);
+function getAexNullLayer(aeAvLayer: AVLayer, state: AexState): AexNullLayer {
+    const layerAttributes = getAexFootageLayer(aeAvLayer, state);
 
     return {
         ...layerAttributes,
@@ -7,8 +7,8 @@ function getAexNullLayer(layer: AVLayer, state: AexState): AexNullLayer {
     };
 }
 
-function createAeNullLayer(comp: CompItem, aexNullLayer: AexNullLayer, state: AexState) {
-    const layer = comp.layers.addNull();
-    _setAVLayerAttributes(layer, aexNullLayer, state);
-    return layer;
+function createAeNullLayer(aeComp: CompItem, aexNullLayer: AexNullLayer, state: AexState) {
+    const aeNullLayer = aeComp.layers.addNull();
+    _setAVLayerAttributes(aeNullLayer, aexNullLayer, state);
+    return aeNullLayer;
 }

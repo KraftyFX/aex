@@ -1,16 +1,16 @@
-function getAexFootageLayer(layer: AVLayer, state: AexState): AexFootageLayer {
-    const layerAttributes = getAVLayer(layer, state);
+function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
+    const layerAttributes = getAVLayer(aeAvLayer, state);
 
     return {
         ...layerAttributes,
         type: AEX_FOOTAGE_LAYER,
 
-        source: _getFootageSource(layer),
-        trackers: _getTrackers(layer, state),
+        source: _getFootageSource(aeAvLayer),
+        trackers: _getTrackers(aeAvLayer, state),
     };
 }
 
-function createAeFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
+function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
     const aexSource = aexFootageLayer.source;
 
     let sourceItem = getItemFromSource(aexSource);
@@ -30,24 +30,24 @@ function createAeFootageLayer(comp: CompItem, aexFootageLayer: AexFootageLayer, 
         }
     }
 
-    const layer = comp.layers.add(sourceItem);
-    _setAVLayerAttributes(layer, aexFootageLayer, state);
-    return layer;
+    const aeFootageLayer = aeComp.layers.add(sourceItem);
+    _setAVLayerAttributes(aeFootageLayer, aexFootageLayer, state);
+    return aeFootageLayer;
 }
 
-function _getFootageSource(layer: AVLayer): AexFootageSource {
-    const source = layer.source as AVItem;
+function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
+    const source = aeAvLayer.source as AVItem;
 
     let type = getItemType(source) as AexAvItemType;
 
     return {
-        id: generateItemUID(layer.source),
+        id: generateItemUID(aeAvLayer.source),
         type,
     };
 }
 
-function _getTrackers(layer: AVLayer, state: AexState): AexPropertyGroup[] {
-    const trackers = layer.property('ADBE MTrackers') as PropertyGroup;
+function _getTrackers(aeAvLayer: AVLayer, state: AexState): AexPropertyGroup[] {
+    const trackers = aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
 
     const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
         aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;

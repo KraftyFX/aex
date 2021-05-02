@@ -1,19 +1,19 @@
-function getAexTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
-    const avLayerAttributes = getAVLayer(layer, state);
+function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer {
+    const avLayerAttributes = getAVLayer(aeTextLayer, state);
 
     /**
      * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
      */
     delete avLayerAttributes.collapseTransformation;
 
-    const text = layer.text;
+    const text = aeTextLayer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
     return {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
 
-        threeDPerChar: getBoundModifiedValue(layer.threeDLayer, () => layer.threeDPerChar, false),
+        threeDPerChar: getBoundModifiedValue(aeTextLayer.threeDLayer, () => aeTextLayer.threeDPerChar, false),
         sourceText: getModifiedProperty(text.sourceText, state),
         pathOption: getPropertyGroup(text.pathOption, state),
         moreOption: getPropertyGroup(text.moreOption, state),
@@ -21,16 +21,16 @@ function getAexTextLayer(layer: TextLayer, state: AexState): AexTextLayer {
     };
 }
 
-function createAeTextLayer(comp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
+function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
     let layer: TextLayer;
 
     const textValue = aexTextLayer.sourceText.value.text;
 
     if (aexTextLayer.sourceText.value.pointText) {
-        layer = comp.layers.addText(textValue);
+        layer = aeComp.layers.addText(textValue);
     } else {
         const boxSize = aexTextLayer.sourceText.value.boxTextSize;
-        layer = comp.layers.addBoxText(boxSize, textValue);
+        layer = aeComp.layers.addBoxText(boxSize, textValue);
     }
 
     _setAVLayerAttributes(layer, aexTextLayer, state);
