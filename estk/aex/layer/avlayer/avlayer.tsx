@@ -1,4 +1,4 @@
-function getAVLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
+function getAvLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
     const layerAttributes = getLayerAttributes(aeAvLayer, state);
 
     return {
@@ -33,7 +33,7 @@ function getAVLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
     };
 }
 
-function _setAVLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
+function _setAvLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
     assignAttributes(aeAvLayer, {
         adjustmentLayer: aexAvLayer.adjustmentLayer,
         audioEnabled: aexAvLayer.audioEnabled,

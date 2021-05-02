@@ -1,5 +1,5 @@
 function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLayer {
-    const avLayerAttributes = getAVLayer(aeShapeLayer, state);
+    const avLayerAttributes = getAvLayer(aeShapeLayer, state);
 
     /**
      * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
@@ -16,7 +16,7 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
 
 function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const aeShapeLayer = aeComp.layers.addShape();
-    _setAVLayerAttributes(aeShapeLayer, aexShapeLayer, state);
+    _setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
     _setContents(aeShapeLayer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);
     return aeShapeLayer;
 }

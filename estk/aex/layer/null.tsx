@@ -9,6 +9,6 @@ function getAexNullLayer(aeAvLayer: AVLayer, state: AexState): AexNullLayer {
 
 function createAeNullLayer(aeComp: CompItem, aexNullLayer: AexNullLayer, state: AexState) {
     const aeNullLayer = aeComp.layers.addNull();
-    _setAVLayerAttributes(aeNullLayer, aexNullLayer, state);
+    _setAvLayerAttributes(aeNullLayer, aexNullLayer, state);
     return aeNullLayer;
 }

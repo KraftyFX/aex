@@ -1,5 +1,5 @@
 function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer {
-    const avLayerAttributes = getAVLayer(aeTextLayer, state);
+    const avLayerAttributes = getAvLayer(aeTextLayer, state);
 
     /**
      * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
@@ -33,7 +33,7 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
         layer = aeComp.layers.addBoxText(boxSize, textValue);
     }
 
-    _setAVLayerAttributes(layer, aexTextLayer, state);
+    _setAvLayerAttributes(layer, aexTextLayer, state);
 
     assignAttributes(layer, {
         threeDPerChar: aexTextLayer.threeDPerChar,
