@@ -2,21 +2,17 @@
 function _getPropertyValue(aeProperty: Property, value: any): any {
     if (isTextDocument(aeProperty)) {
         return _getTextDocumentProperties(value);
-    } else {
-        let propertyValue = value;
-
+    } else if (_isTimeRemapProperty(aeProperty)) {
         /**
          * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
          */
-        if (aeProperty.matchName === 'ADBE Time Remapping') {
-            const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
-            const propSource = propLayer.source as AVItem;
-            const propDuration = propSource.duration;
+        const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
+        const propSource = propLayer.source as AVItem;
+        const propDuration = propSource.duration;
 
-            propertyValue = value / propDuration;
-        }
-
-        return getRoundedValue(propertyValue);
+        return getRoundedValue(value / propDuration);
+    } else {
+        return getRoundedValue(value);
     }
 }
 
