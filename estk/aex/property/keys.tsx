@@ -90,7 +90,7 @@ function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state:
     aexKeys.forEach((aexKey) => {
         times.push(aexKey.time);
 
-        const aexValue = getAexValue(aeProperty, aexKey.value, state);
+        const aexValue = getAeValue(aeProperty, aexKey.value, state);
         values.push(aexValue);
     });
 
