@@ -56,7 +56,7 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         aeProperty.name = aexProperty.name;
     }
 
-    let aexValue = _createAexValue(aeProperty, aexProperty.value, state);
+    let aexValue = getAexValue(aeProperty, aexProperty.value, state);
     _setPropertyValue(aeProperty, aexValue, state);
     _setPropertyKeys(aeProperty, aexProperty, state);
 

@@ -53,7 +53,7 @@ function _createShape(aexObjValue: Shape): Shape {
     return shape;
 }
 
-function _createAexValue(aeProperty: Property, aexObjValue: any, state: AexState): any {
+function getAexValue(aeProperty: Property, aexObjValue: any, state: AexState): any {
     let aexValue: any;
 
     if (isTextDocument(aeProperty)) {

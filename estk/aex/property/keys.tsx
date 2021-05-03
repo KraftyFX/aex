@@ -86,7 +86,7 @@ function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state:
     keys.forEach((aexKey) => {
         times.push(aexKey.time);
 
-        const aexValue = _createAexValue(aeProperty, aexKey.value, state);
+        const aexValue = getAexValue(aeProperty, aexKey.value, state);
         values.push(aexValue);
     });
 
