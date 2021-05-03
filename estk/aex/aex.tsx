@@ -100,10 +100,10 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     }
 }
 
-function update(aeObject: Project, aexObject: AexProject);
-function update(aeObject: CompItem, aexObject: AexComp);
-function update(aeObject: Layer, aexObject: AexLayer);
-function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer) {
+function update(aeObject: Project, aexObject: AexProject, options?: UpdateOptions);
+function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions);
+function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions);
+function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, options?: UpdateOptions) {
     const state: AexState = {
         getOptions: null,
         updateOptions: {
@@ -113,6 +113,8 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
         log: [],
         stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
     };
+
+    assignAttributes(state.updateOptions, options);
 
     if (isUpdatingProject(aeObject, aexObject)) {
         app.beginUndoGroup('AEX: Update Project');
