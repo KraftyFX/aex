@@ -29,7 +29,7 @@ function _setPropertyValue(aeProperty: Property, aexProperty: AexProperty, state
         return;
     }
 
-    const aexValue = getAexValue(aeProperty, aexProperty.value, state);
+    const aexValue = getAeValue(aeProperty, aexProperty.value, state);
 
     try {
         aeProperty.setValue(aexValue);
@@ -58,31 +58,27 @@ function _createShape(aexObjValue: Shape): Shape {
     return shape;
 }
 
-function getAexValue(aeProperty: Property, aexObjValue: any, state: AexState): any {
-    let aexValue: any;
-
+function getAeValue(aeProperty: Property, aexObjValue: any, state: AexState): any {
     if (isTextDocument(aeProperty)) {
-        aexValue = _createTextDocument(aeProperty.value, aexObjValue, state);
+        return _createTextDocument(aeProperty.value, aexObjValue, state);
     } else if (isShapeProperty(aeProperty)) {
-        aexValue = _createShape(aexObjValue);
-    } else {
-        let propertyValue = aexObjValue;
-
+        return _createShape(aexObjValue);
+    } else if (_isTimeRemapProperty(aeProperty)) {
         /**
          * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
          */
-        if (aeProperty.matchName === 'ADBE Time Remapping') {
-            const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
-            const propSource = propLayer.source as AVItem;
-            const propDuration = propSource.duration;
+        const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
+        const propSource = propLayer.source as AVItem;
+        const propDuration = propSource.duration;
 
-            propertyValue = aexObjValue * propDuration;
-        }
-
-        aexValue = propertyValue;
+        return aexObjValue * propDuration;
+    } else {
+        return aexObjValue;
     }
+}
 
-    return aexValue;
+function _isTimeRemapProperty(aeProperty: Property<UnknownPropertyType>) {
+    return aeProperty.matchName === 'ADBE Time Remapping';
 }
 
 /** @todo Add type safety */
