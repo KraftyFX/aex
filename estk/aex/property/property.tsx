@@ -56,8 +56,7 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         aeProperty.name = aexProperty.name;
     }
 
-    let aexValue = getAexValue(aeProperty, aexProperty.value, state);
-    _setPropertyValue(aeProperty, aexValue, state);
+    _setPropertyValue(aeProperty, aexProperty, state);
     _setPropertyKeys(aeProperty, aexProperty, state);
 
     state.stats.propertyCount++;

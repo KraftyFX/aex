@@ -20,14 +20,16 @@ function _getPropertyValue(aeProperty: Property, value: any): any {
     }
 }
 
-function _setPropertyValue(aeProperty: Property, value: any, state: AexState) {
+function _setPropertyValue(aeProperty: Property, aexProperty: AexProperty, state: AexState) {
     /** We can't setValue on an animated property, so back out */
     if (aeProperty.numKeys > 0) {
         return;
     }
 
+    const aexValue = getAexValue(aeProperty, aexProperty.value, state);
+
     try {
-        aeProperty.setValue(value);
+        aeProperty.setValue(aexValue);
     } catch (e) {
         throw e;
     }
