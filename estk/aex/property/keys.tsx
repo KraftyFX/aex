@@ -78,57 +78,59 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
 }
 
 function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state: AexState): void {
-    const keys = aeq.arrayEx(aexProperty.keys) as AEQArrayEx<AEQKeyInfo>;
+    if (aexProperty.keys.length == 0) {
+        return;
+    }
+
+    const aexKeys = aeq.arrayEx(aexProperty.keys) as AEQArrayEx<AEQKeyInfo>;
 
     const times = [];
     const values = [];
 
-    keys.forEach((aexKey) => {
+    aexKeys.forEach((aexKey) => {
         times.push(aexKey.time);
 
         const aexValue = getAexValue(aeProperty, aexKey.value, state);
         values.push(aexValue);
     });
 
-    if (keys.length > 0) {
-        aeProperty.setValuesAtTimes(times, values);
+    aeProperty.setValuesAtTimes(times, values);
 
-        keys.forEach((aexKey, ii) => {
-            const keyIndex = ii + 1;
+    aexKeys.forEach((aexKey, ii) => {
+        const keyIndex = ii + 1;
 
-            if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {
-                const inEase = _createKeyframeEases(aexKey.temporalEase.inEase);
-                const outEase = _createKeyframeEases(aexKey.temporalEase.outEase);
+        if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {
+            const inEase = _createKeyframeEases(aexKey.temporalEase.inEase);
+            const outEase = _createKeyframeEases(aexKey.temporalEase.outEase);
 
-                /** @todo something's broken in types-for-adobe here... */
-                /** @ts-ignore */
-                aeProperty.setTemporalEaseAtKey(keyIndex, inEase, outEase);
-            }
+            /** @todo something's broken in types-for-adobe here... */
+            /** @ts-ignore */
+            aeProperty.setTemporalEaseAtKey(keyIndex, inEase, outEase);
+        }
 
-            if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
-                aeProperty.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
-                aeProperty.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
-            }
+        if (!aeq.isNullOrUndefined(aexKey.temporalAutoBezier) && !aeq.isNullOrUndefined(aexKey.temporalContinuous)) {
+            aeProperty.setTemporalAutoBezierAtKey(keyIndex, aexKey.temporalAutoBezier);
+            aeProperty.setTemporalContinuousAtKey(keyIndex, aexKey.temporalContinuous);
+        }
 
-            if (!aeq.isNullOrUndefined(aexKey.spatialAutoBezier) && !aeq.isNullOrUndefined(aexKey.spatialContinuous)) {
-                aeProperty.setSpatialAutoBezierAtKey(keyIndex, aexKey.spatialAutoBezier);
-                aeProperty.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
+        if (!aeq.isNullOrUndefined(aexKey.spatialAutoBezier) && !aeq.isNullOrUndefined(aexKey.spatialContinuous)) {
+            aeProperty.setSpatialAutoBezierAtKey(keyIndex, aexKey.spatialAutoBezier);
+            aeProperty.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
 
-                aeProperty.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
-                aeProperty.setRovingAtKey(keyIndex, aexKey.roving);
-            }
+            aeProperty.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
+            aeProperty.setRovingAtKey(keyIndex, aexKey.roving);
+        }
 
-            let inType = KeyframeInterpolationType.LINEAR;
-            let outType = KeyframeInterpolationType.LINEAR;
+        let inType = KeyframeInterpolationType.LINEAR;
+        let outType = KeyframeInterpolationType.LINEAR;
 
-            if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
-                inType = aeq.setDefault(aexKey.interpolationType.inType, inType);
-                outType = aeq.setDefault(aexKey.interpolationType.outType, outType);
-            }
+        if (!aeq.isNullOrUndefined(aexKey.interpolationType)) {
+            inType = aeq.setDefault(aexKey.interpolationType.inType, inType);
+            outType = aeq.setDefault(aexKey.interpolationType.outType, outType);
+        }
 
-            aeProperty.setInterpolationTypeAtKey(keyIndex, inType, outType);
-        });
-    }
+        aeProperty.setInterpolationTypeAtKey(keyIndex, inType, outType);
+    });
 }
 
 function _getKeyframeEases(ease: KeyframeEase[]): any {
