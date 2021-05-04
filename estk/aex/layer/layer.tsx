@@ -1,6 +1,4 @@
 function getAexLayer(layer: Layer, state: AexState): AexLayer {
-    state.stats.layerCount++;
-
     if (aeq.isTextLayer(layer)) {
         return getAexTextLayer(layer, state);
     } else if (aeq.isShapeLayer(layer)) {

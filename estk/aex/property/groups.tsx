@@ -1,13 +1,14 @@
 function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
     skip = skip || (() => false);
 
+    state.stats.propertyCount++;
+
     const aexProperties: PropertyBase[] = [];
 
     forEachPropertyInGroup(
         aePropertyGroup,
         (property) => {
             if (skip(property)) {
-                state.stats.propertyCount--;
                 return;
             }
 

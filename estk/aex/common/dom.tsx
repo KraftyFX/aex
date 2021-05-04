@@ -47,8 +47,6 @@ type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: 
 function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback, state: AexState) {
     const len = group.numProperties;
 
-    state.stats.propertyCount += len;
-
     for (let ii = 1, il = len; ii <= il; ii++) {
         const property = group.property(ii) as PropertyBase;
 

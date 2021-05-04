@@ -9,9 +9,8 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
         return undefined;
     }
 
-    state.stats.propertyCount++;
-
     if (hasDefaultPropertyValue(property)) {
+        state.stats.propertyCount++;
         return undefined;
     } else {
         return getProperty(property, state);
