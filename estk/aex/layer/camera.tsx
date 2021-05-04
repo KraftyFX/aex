@@ -9,6 +9,8 @@ function getAexCameraLayer(aeCameraLayer: CameraLayer, state: AexState): AexCame
         layerAttributes.transform.position = getProperty(aeCameraLayer.transform.position, state);
     }
 
+    state.stats.layerCount++;
+
     return {
         ...layerAttributes,
         type: AEX_CAMERA_LAYER,
@@ -34,6 +36,8 @@ function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, s
     if (aexCameraLayer.cameraOption) {
         setPropertyGroup(aeCameraLayer.cameraOption, aexCameraLayer.cameraOption, state);
     }
+
+    state.stats.layerCount++;
 
     return aeCameraLayer;
 }

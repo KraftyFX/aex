@@ -10,6 +10,8 @@ function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLa
         layerAttributes.transform.position = getProperty(aeLightLayer.transform.position, state);
     }
 
+    state.stats.layerCount++;
+
     return {
         ...layerAttributes,
         type: AEX_LIGHT_LAYER,
@@ -29,6 +31,8 @@ function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, stat
     if (aexLightLayer.lightOption) {
         setPropertyGroup(aeLightLayer.lightOption, aexLightLayer.lightOption, state);
     }
+
+    state.stats.layerCount++;
 
     return aeLightLayer;
 }

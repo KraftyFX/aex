@@ -21,8 +21,6 @@ function getAexLayer(layer: Layer, state: AexState): AexLayer {
 function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     assertIsDefined(comp);
 
-    state.stats.layerCount++;
-
     switch (aexLayer.type) {
         case AEX_FOOTAGE_LAYER:
             return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
@@ -43,7 +41,10 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 
 function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     // Go through all the different layer types, create setters for them
-    // and call it here just like in the getAexLayer function
+    // and call it here just like in the getAexLayer function. For each
+    // update function make sure to count the stats and double check that
+    // it's not being double counted during created.
+
     throw new Error(`TODO: Zack`);
 }
 
@@ -65,13 +66,13 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         stretch: getModifiedValue(layer.stretch, 100),
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
 
-        markers: _getAexLayerMarkers(layer),
+        markers: _getAexLayerMarkers(layer, state),
         transform: getAexTransform(layer, state),
     };
 }
 
-function _getAexLayerMarkers(aeLayer: Layer) {
-    return getAexMarkerProperties(aeLayer.marker);
+function _getAexLayerMarkers(aeLayer: Layer, state: AexState) {
+    return getAexMarkerProperties(aeLayer.marker, state);
 }
 
 function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState): void {

@@ -1,4 +1,4 @@
-function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerProperty[] {
+function getAexMarkerProperties(markerProperty: MarkerValueProperty, state: AexState): AexMarkerProperty[] {
     const markerData = [] as AexMarkerProperty[];
 
     forEachPropertyKeyValue<MarkerValue>(markerProperty, (keyValue, i) => {
@@ -15,6 +15,8 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty): AexMarkerP
             parameters: _getMarkerParameters(keyValue),
         });
     });
+
+    state.stats.propertyCount++;
 
     return markerData;
 }
@@ -48,6 +50,7 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
 function createAeMarker(aeMarkerProperty: MarkerValueProperty, aexMarker: AexMarkerProperty, state: AexState): MarkerValue {
     const aeMarkerValue = new MarkerValue(aexMarker.comment || '');
     updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
+    state.stats.propertyCount++;
     return aeMarkerValue;
 }
 
@@ -68,6 +71,8 @@ function updateAeMarker(aeMarkerProperty: MarkerValueProperty, aeMarkerValue: Ma
      * As a result, we need to set each keyframe individually.
      */
     aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);
+
+    state.stats.propertyCount++;
 }
 
 function _getMarkerParameters(keyValue: MarkerValue): object {

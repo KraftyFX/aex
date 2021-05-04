@@ -2,6 +2,8 @@ function getAexSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as SolidSource;
 
+    state.stats.nonCompItemCount++;
+
     return {
         ...itemAttributes,
         type: AEX_SOLID_ITEM,
@@ -38,10 +40,14 @@ function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
 
     tempComp.remove();
 
+    state.stats.nonCompItemCount++;
+
     return source as FootageItem;
 }
 
 function updateAeSolid(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
+    state.stats.nonCompItemCount++;
+
     assignAttributes(aeSolid, {
         color: aexSolid.color,
         name: aexSolid.name,

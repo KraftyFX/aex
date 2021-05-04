@@ -1,6 +1,8 @@
 function getAexPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
     const itemAttributes = _getFootageItemAttributes(item, state);
 
+    state.stats.nonCompItemCount++;
+
     return {
         ...itemAttributes,
         type: AEX_PLACEHOLDER_ITEM,
@@ -26,10 +28,14 @@ function createAePlaceholder(aexPlaceholder: AexPlaceholderItem, state: AexState
         placeholderSettings.duration
     );
 
+    state.stats.nonCompItemCount++;
+
     return aePlaceholder;
 }
 
 function updateAePlaceholder(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
+    state.stats.nonCompItemCount++;
+
     assignAttributes(aePlaceholder, {
         name: aexPlaceholder.name,
         width: aexPlaceholder.width,

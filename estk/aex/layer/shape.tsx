@@ -6,6 +6,8 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
      */
     delete avLayerAttributes.collapseTransformation;
 
+    state.stats.layerCount++;
+
     return {
         ...avLayerAttributes,
         type: AEX_SHAPE_LAYER,
@@ -18,6 +20,9 @@ function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, stat
     const aeShapeLayer = aeComp.layers.addShape();
     _setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
     _setContents(aeShapeLayer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);
+
+    state.stats.layerCount++;
+
     return aeShapeLayer;
 }
 

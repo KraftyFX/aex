@@ -63,6 +63,9 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
 
     updateAeComp(comp, aexComp, state);
 
+    // Note: We do not count the comp in the stats
+    // because it already counted during update.
+
     return comp;
 }
 
@@ -94,10 +97,12 @@ function updateAeComp(aeComp: CompItem, aexComp: AexComp, state: AexState): void
     setAeCompMarkers(aeComp, aexComp, state);
     setAeCompRenderer(aeComp, aexComp, state);
     updateAeCompLayers(aeComp, aexComp, state);
+
+    state.stats.compCount++;
 }
 
-function getAexCompMarkers(aeComp: CompItem) {
-    return getAexMarkerProperties(aeComp.markerProperty);
+function getAexCompMarkers(aeComp: CompItem, state: AexState) {
+    return getAexMarkerProperties(aeComp.markerProperty, state);
 }
 
 function setAeCompMarkers(aeComp: CompItem, aexComp: AexComp, state: AexState) {

@@ -1,6 +1,8 @@
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = getAvLayer(aeAvLayer, state);
 
+    state.stats.layerCount++;
+
     return {
         ...layerAttributes,
         type: AEX_FOOTAGE_LAYER,
@@ -32,6 +34,9 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
 
     const aeFootageLayer = aeComp.layers.add(sourceItem);
     _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
+
+    state.stats.layerCount++;
+
     return aeFootageLayer;
 }
 

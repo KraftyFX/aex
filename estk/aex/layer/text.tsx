@@ -9,6 +9,8 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
     const text = aeTextLayer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
+    state.stats.layerCount++;
+
     return {
         ...avLayerAttributes,
         type: AEX_TEXT_LAYER,
@@ -55,5 +57,8 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
     if (aexTextLayer.animators) {
         setPropertyGroup(animators, aexTextLayer.animators, state);
     }
+
+    state.stats.layerCount++;
+
     return layer;
 }
