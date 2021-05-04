@@ -17,6 +17,7 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty, state: AexS
     });
 
     state.stats.propertyCount++;
+    state.stats.keyCount += markerData.length;
 
     return markerData;
 }
@@ -28,6 +29,8 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
         } else {
             updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
         }
+
+        state.stats.keyCount++;
     };
 
     const matchBy = state.updateOptions.markerMatchBy;
@@ -45,12 +48,13 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
         default:
             throw new Error(`Unrecognized marker matching method "${matchBy}"`);
     }
+
+    state.stats.propertyCount++;
 }
 
 function createAeMarker(aeMarkerProperty: MarkerValueProperty, aexMarker: AexMarkerProperty, state: AexState): MarkerValue {
     const aeMarkerValue = new MarkerValue(aexMarker.comment || '');
     updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
-    state.stats.propertyCount++;
     return aeMarkerValue;
 }
 
@@ -71,8 +75,6 @@ function updateAeMarker(aeMarkerProperty: MarkerValueProperty, aeMarkerValue: Ma
      * As a result, we need to set each keyframe individually.
      */
     aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);
-
-    state.stats.propertyCount++;
 }
 
 function _getMarkerParameters(keyValue: MarkerValue): object {

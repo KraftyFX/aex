@@ -10,10 +10,11 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
     }
 
     if (hasDefaultPropertyValue(property)) {
+        state.stats.propertyCount++;
         return undefined;
+    } else {
+        return getProperty(property, state);
     }
-
-    return getProperty(property, state);
 }
 
 function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
