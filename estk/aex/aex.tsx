@@ -73,6 +73,9 @@ function create(aeParentObject: Project, aexObject: AexItem | AexComp);
 function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
 function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
+    assertIsDefined(aeParentObject, 'aeParentObject');
+    assertIsDefined(aexObject, 'aexObject');
+
     const state: AexState = {
         getOptions: null,
         updateOptions: {
@@ -104,6 +107,9 @@ function update(aeObject: Project, aexObject: AexProject, options?: UpdateOption
 function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions);
 function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions);
 function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, options?: UpdateOptions) {
+    assertIsDefined(aeObject, 'aeObject');
+    assertIsDefined(aexObject, 'aexObject');
+
     const state: AexState = {
         getOptions: null,
         updateOptions: {
