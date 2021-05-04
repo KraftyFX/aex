@@ -16,7 +16,7 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
     if (isUnreadable) {
         return getUnsupportedProperty(aeProperty, aexProperty, state);
     } else {
-        aexProperty.value = _getPropertyValue(aeProperty, aeProperty.value);
+        aexProperty.value = _getPropertyValue(aeProperty);
     }
 
     state.stats.propertyCount++;

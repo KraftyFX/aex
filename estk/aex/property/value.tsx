@@ -1,5 +1,8 @@
 /** @todo Add type safety */
-function _getPropertyValue(aeProperty: Property, value: any): any {
+function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
+    // Todo: Assert key belongs to property
+    const value = keyInfo?.value || aeProperty.value;
+
     if (isTextDocument(aeProperty)) {
         return _getTextDocumentProperties(value);
     } else if (_isTimeRemapProperty(aeProperty)) {

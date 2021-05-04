@@ -17,7 +17,7 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
         if (!isUnreadable) {
             const keyInfo = key.getKeyInfo();
 
-            aexKey.value = _getPropertyValue(aeProperty, keyInfo.value);
+            aexKey.value = _getPropertyValue(aeProperty, keyInfo);
 
             const keyInterpolationType = keyInfo.interpolationType;
             const inInterpolationType = getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR);
