@@ -29,8 +29,6 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
         } else {
             updateAeMarker(aeMarkerProperty, aeMarkerValue, aexMarker, state);
         }
-
-        state.stats.keyCount++;
     };
 
     const matchBy = state.updateOptions.markerMatchBy;
@@ -50,6 +48,7 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
     }
 
     state.stats.propertyCount++;
+    state.stats.keyCount += aexMarkers.length;
 }
 
 function createAeMarker(aeMarkerProperty: MarkerValueProperty, aexMarker: AexMarkerProperty, state: AexState): MarkerValue {

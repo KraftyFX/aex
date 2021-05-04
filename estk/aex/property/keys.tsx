@@ -74,7 +74,7 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
         return aexKey as AEQKeyInfo;
     });
 
-    state.stats.keyCount++;
+    state.stats.keyCount += keys.length;
     return keys;
 }
 
