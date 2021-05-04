@@ -18,7 +18,7 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
         }
     };
 
-    return getTopLevelPropertyGroups(aeAvLayer.effect, fillProperties);
+    return getTopLevelPropertyGroups(aeAvLayer.effect, fillProperties, state);
 }
 
 function setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {

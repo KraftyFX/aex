@@ -13,24 +13,29 @@ type FillShapeCallback = FillCallback<AexShapePropertyGroup>;
  */
 function getTopLevelPropertyGroups<T extends AexPropertyGroup = AexPropertyGroup>(
     propertyGroup: PropertyGroup,
-    fillPropertyGroup: FillCallback<T>
+    fillPropertyGroup: FillCallback<T>,
+    state: AexState
 ): T[] {
     const result: T[] = [];
 
-    forEachPropertyInGroup(propertyGroup, (childPropertyGroup: PropertyGroup) => {
-        const { name, matchName } = childPropertyGroup;
+    forEachPropertyInGroup(
+        propertyGroup,
+        (childPropertyGroup: PropertyGroup) => {
+            const { name, matchName } = childPropertyGroup;
 
-        const aexPropertyGroup = {
-            name,
-            matchName,
-            enabled: getModifiedValue(childPropertyGroup.enabled, true),
-            properties: null,
-        } as T;
+            const aexPropertyGroup = {
+                name,
+                matchName,
+                enabled: getModifiedValue(childPropertyGroup.enabled, true),
+                properties: null,
+            } as T;
 
-        fillPropertyGroup(childPropertyGroup, aexPropertyGroup);
+            fillPropertyGroup(childPropertyGroup, aexPropertyGroup);
 
-        result.push(aexPropertyGroup);
-    });
+            result.push(aexPropertyGroup);
+        },
+        state
+    );
 
     return result;
 }

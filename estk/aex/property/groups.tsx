@@ -3,27 +3,31 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
 
     const aexProperties: PropertyBase[] = [];
 
-    forEachPropertyInGroup(aePropertyGroup, (property) => {
-        if (skip(property)) {
-            return;
-        }
+    forEachPropertyInGroup(
+        aePropertyGroup,
+        (property) => {
+            if (skip(property)) {
+                return;
+            }
 
-        let aexProperty;
+            let aexProperty;
 
-        if (property.propertyType == PropertyType.PROPERTY) {
-            aexProperty = getModifiedProperty(property as any, state);
-        } else {
-            aexProperty = getPropertyGroup(property as PropertyGroup, state, skip);
-        }
+            if (property.propertyType == PropertyType.PROPERTY) {
+                aexProperty = getModifiedProperty(property as any, state);
+            } else {
+                aexProperty = getPropertyGroup(property as PropertyGroup, state, skip);
+            }
 
-        /**
-         * If we haven't retrieved any data, don't store the property
-         * This helps prevent a _ton_ of objects with empty arrays
-         */
-        if (!aeq.isNullOrUndefined(aexProperty)) {
-            aexProperties.push(aexProperty);
-        }
-    });
+            /**
+             * If we haven't retrieved any data, don't store the property
+             * This helps prevent a _ton_ of objects with empty arrays
+             */
+            if (!aeq.isNullOrUndefined(aexProperty)) {
+                aexProperties.push(aexProperty);
+            }
+        },
+        state
+    );
 
     /**
      * If there are no properties at all in this group,
@@ -56,7 +60,11 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
 }
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
-    aeq.arrayEx(aexPropertyGroup.properties).forEach((aexProperty: AexPropertyBase) => {
+    const aexProperties = aeq.arrayEx(aexPropertyGroup.properties);
+
+    state.stats.propertyCount += aexProperties.length;
+
+    aexProperties.forEach((aexProperty: AexPropertyBase) => {
         const { matchName } = aexProperty;
 
         let property: PropertyBase;

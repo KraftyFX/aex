@@ -6,28 +6,32 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
         properties: [],
     };
 
-    forEachPropertyInGroup(styleGroup, (property: Property | PropertyGroup, ii) => {
-        /**
-         * Voodoo: We always want to parse the first property in this group
-         *   (it's a general property that affects all the others)
-         *
-         * After that, however, layer styles only really exist in the aep if
-         * 'canSetEnabled' is true.
-         */
-        if (ii == 0 || property.canSetEnabled) {
-            const { name, matchName, enabled } = property;
+    forEachPropertyInGroup(
+        styleGroup,
+        (property: Property | PropertyGroup, ii) => {
+            /**
+             * Voodoo: We always want to parse the first property in this group
+             *   (it's a general property that affects all the others)
+             *
+             * After that, however, layer styles only really exist in the aep if
+             * 'canSetEnabled' is true.
+             */
+            if (ii == 0 || property.canSetEnabled) {
+                const { name, matchName, enabled } = property;
 
-            const propertyData = getPropertyGroup(property as PropertyGroup, state);
+                const propertyData = getPropertyGroup(property as PropertyGroup, state);
 
-            styles.properties.push({
-                name,
-                matchName,
-                enabled,
+                styles.properties.push({
+                    name,
+                    matchName,
+                    enabled,
 
-                properties: propertyData ? propertyData.properties : undefined,
-            });
-        }
-    });
+                    properties: propertyData ? propertyData.properties : undefined,
+                });
+            }
+        },
+        state
+    );
 
     return styles;
 }

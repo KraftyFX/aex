@@ -58,5 +58,5 @@ function _getTrackers(aeAvLayer: AVLayer, state: AexState): AexPropertyGroup[] {
         aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
     };
 
-    return getTopLevelPropertyGroups(trackers, fillProperties);
+    return getTopLevelPropertyGroups(trackers, fillProperties, state);
 }

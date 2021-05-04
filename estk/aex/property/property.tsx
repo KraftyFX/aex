@@ -19,7 +19,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
         aexProperty.value = _getPropertyValue(aeProperty);
     }
 
-    state.stats.propertyCount++;
     return aexProperty;
 }
 

@@ -37,13 +37,13 @@ function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup
          */
         if (_isVectorGroup(propertyGroup)) {
             aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state, _isVectorsGroup)?.properties;
-            aexPropertyGroup.contents = _getVectorsGroupContents(propertyGroup, fillGroup);
+            aexPropertyGroup.contents = _getVectorsGroupContents(propertyGroup, fillGroup, state);
         } else {
             aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
         }
     };
 
-    return getTopLevelPropertyGroups(rootVectorsGroups, fillGroup);
+    return getTopLevelPropertyGroups(rootVectorsGroups, fillGroup, state);
 }
 
 function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGroup[], state: AexState) {
@@ -75,8 +75,8 @@ function _isVectorsGroup(property: Property | PropertyGroup) {
     return property.matchName === 'ADBE Vectors Group';
 }
 
-function _getVectorsGroupContents(propertyGroup: PropertyGroup, fillVectorContents: FillShapeCallback) {
+function _getVectorsGroupContents(propertyGroup: PropertyGroup, fillVectorContents: FillShapeCallback, state: AexState) {
     const vectorsGroup = propertyGroup.property('ADBE Vectors Group') as PropertyGroup;
 
-    return getTopLevelPropertyGroups(vectorsGroup, fillVectorContents);
+    return getTopLevelPropertyGroups(vectorsGroup, fillVectorContents, state);
 }
