@@ -33,11 +33,11 @@ function benchmark(options: any) {
     // aex().get(app.project as Project, {} as any);
 }
 
-function get(aeObj: Project, options?: GetOptions): GetResult<AexProject>;
-function get(aeObj: CompItem, options?: GetOptions): GetResult<AexComp>;
-function get(aeObj: Layer, options?: GetOptions): GetResult<AexLayer>;
-function get(aeObj: Serializable, options?: GetOptions): GetResult<AexSerialized> {
-    assertIsDefined(aeObj, 'aeObj');
+function get(aeObject: Project, options?: GetOptions): GetResult<AexProject>;
+function get(aeObject: CompItem, options?: GetOptions): GetResult<AexComp>;
+function get(aeObject: Layer, options?: GetOptions): GetResult<AexLayer>;
+function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSerialized> {
+    assertIsDefined(aeObject, 'aeObj');
 
     const state: AexState = {
         getOptions: {
@@ -53,14 +53,14 @@ function get(aeObj: Serializable, options?: GetOptions): GetResult<AexSerialized
     let object: AexSerialized;
 
     // TODO: Cover collection types.
-    if (isProject(aeObj)) {
-        object = getAexProject(aeObj as Project, state);
-    } else if (aeq.isComp(aeObj)) {
-        object = getAexComp(aeObj as CompItem, state);
-    } else if (aeq.isLayer(aeObj)) {
-        object = getAexLayer(aeObj as Layer, state);
+    if (isProject(aeObject)) {
+        object = getAexProject(aeObject as Project, state);
+    } else if (aeq.isComp(aeObject)) {
+        object = getAexComp(aeObject as CompItem, state);
+    } else if (aeq.isLayer(aeObject)) {
+        object = getAexLayer(aeObject as Layer, state);
     } else {
-        throw new Error(`Unrecognized item type`);
+        throw new Error(`Getting a '${getDebugStringForAeType(aeObject)}' is not supported.`);
     }
 
     return {
