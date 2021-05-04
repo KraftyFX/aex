@@ -7,6 +7,7 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
         aePropertyGroup,
         (property) => {
             if (skip(property)) {
+                state.stats.propertyCount--;
                 return;
             }
 
