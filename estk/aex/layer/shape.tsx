@@ -55,6 +55,7 @@ function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGrou
         if (contents.canAddProperty(matchName)) {
             shapeGroup = _createPropertyBase(contents, aexContent, state);
 
+            // TODO: use isVectorGroup function for this
             if (matchName === 'ADBE Vector Group') {
                 _setContents(shapeGroup.property('ADBE Vectors Group') as PropertyGroup, aexContent.contents, state);
             }
