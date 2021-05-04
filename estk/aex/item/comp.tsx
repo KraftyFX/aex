@@ -26,7 +26,7 @@ function getAexComp(aeComp: CompItem, state: AexState): AexComp {
         workAreaStart: getModifiedValue(aeComp.workAreaStart, 0),
         workAreaDuration: getModifiedValue(aeComp.workAreaDuration, aeComp.duration),
 
-        markers: getAexCompMarkers(aeComp),
+        markers: getAexCompMarkers(aeComp, state),
         layers: getAexCompLayers(aeComp, state),
     };
 
