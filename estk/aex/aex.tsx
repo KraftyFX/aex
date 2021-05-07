@@ -26,7 +26,7 @@ interface GetResult<T extends AexSerialized> {
     object: T;
     stats: AexStats;
     profile: {
-        [key: string]: number[];
+        [key: string]: { elapsed: number; meta: string }[];
     };
     log: AexLogEntry[];
 }
