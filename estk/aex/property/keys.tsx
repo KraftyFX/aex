@@ -1,81 +1,96 @@
 function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
-    const propertyKeys = aeq.getKeys(aeProperty);
-    const keys = propertyKeys.map((key) => {
-        const aexKey = {
-            time: getRoundedValue(key.getTime()),
-            value: undefined,
-            interpolationType: undefined,
-            temporalEase: undefined,
-            spatialTangent: undefined,
-            temporalAutoBezier: undefined,
-            temporalContinuous: undefined,
-            spatialAutoBezier: undefined,
-            spatialContinuous: undefined,
-            roving: undefined,
-        };
-
-        // TODO: Refactor this block w.r.t. readability testing
-        if (!isUnreadable) {
-            const keyInfo = key.getKeyInfo();
-
-            aexKey.value = _getPropertyValue(aeProperty, keyInfo);
-
-            const keyInterpolationType = keyInfo.interpolationType;
-            const inInterpolationType = getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR);
-            const outInterpolationType = getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR);
-
-            if (aeq.isNullOrUndefined(inInterpolationType) && aeq.isNullOrUndefined(outInterpolationType)) {
-                aexKey.interpolationType = undefined;
-            } else {
-                aexKey.interpolationType = {
-                    inType: inInterpolationType,
-                    outType: outInterpolationType,
+    return profile(
+        'getPropertyKeys',
+        () => {
+            const propertyKeys = aeq.getKeys(aeProperty);
+            const keys = propertyKeys.map((key, i) => {
+                const aexKey = {
+                    time: getRoundedValue(key.getTime()),
+                    value: undefined,
+                    interpolationType: undefined,
+                    temporalEase: undefined,
+                    spatialTangent: undefined,
+                    temporalAutoBezier: undefined,
+                    temporalContinuous: undefined,
+                    spatialAutoBezier: undefined,
+                    spatialContinuous: undefined,
+                    roving: undefined,
                 };
-            }
 
-            const keyTemporalEase = keyInfo.temporalEase;
-            if (!aeq.isNullOrUndefined(keyTemporalEase)) {
-                const inTemporalEase = _getKeyframeEases(keyTemporalEase.inEase);
-                const outTemporalEase = _getKeyframeEases(keyTemporalEase.outEase);
+                // TODO: Refactor this block w.r.t. readability testing
+                if (!isUnreadable) {
+                    profile(
+                        'getPropertyKey',
+                        () => {
+                            const keyInfo = key.getKeyInfo();
 
-                if (aeq.isNullOrUndefined(inTemporalEase) && aeq.isNullOrUndefined(outTemporalEase)) {
-                    aexKey.temporalEase = undefined;
-                } else {
-                    aexKey.temporalEase = {
-                        inEase: inTemporalEase,
-                        outEase: outTemporalEase,
-                    };
+                            aexKey.value = _getPropertyValue(aeProperty, keyInfo);
+
+                            const keyInterpolationType = keyInfo.interpolationType;
+                            const inInterpolationType = getModifiedValue(keyInterpolationType.inType, KeyframeInterpolationType.LINEAR);
+                            const outInterpolationType = getModifiedValue(keyInterpolationType.outType, KeyframeInterpolationType.LINEAR);
+
+                            if (aeq.isNullOrUndefined(inInterpolationType) && aeq.isNullOrUndefined(outInterpolationType)) {
+                                aexKey.interpolationType = undefined;
+                            } else {
+                                aexKey.interpolationType = {
+                                    inType: inInterpolationType,
+                                    outType: outInterpolationType,
+                                };
+                            }
+
+                            const keyTemporalEase = keyInfo.temporalEase;
+                            if (!aeq.isNullOrUndefined(keyTemporalEase)) {
+                                const inTemporalEase = _getKeyframeEases(keyTemporalEase.inEase);
+                                const outTemporalEase = _getKeyframeEases(keyTemporalEase.outEase);
+
+                                if (aeq.isNullOrUndefined(inTemporalEase) && aeq.isNullOrUndefined(outTemporalEase)) {
+                                    aexKey.temporalEase = undefined;
+                                } else {
+                                    aexKey.temporalEase = {
+                                        inEase: inTemporalEase,
+                                        outEase: outTemporalEase,
+                                    };
+                                }
+                            }
+
+                            const keySpatialTangent = keyInfo.spatialTangent;
+
+                            if (!aeq.isNullOrUndefined(keySpatialTangent)) {
+                                const inSpatialTangent = getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]);
+                                const outSpatialTangent = getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]);
+
+                                if (aeq.isNullOrUndefined(inSpatialTangent) && aeq.isNullOrUndefined(outSpatialTangent)) {
+                                    aexKey.spatialTangent = undefined;
+                                } else {
+                                    aexKey.spatialTangent = {
+                                        inTangent: inSpatialTangent,
+                                        outTangent: outSpatialTangent,
+                                    };
+                                }
+                            }
+
+                            aexKey.temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
+                            aexKey.temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
+                            aexKey.spatialAutoBezier = getModifiedValue(keyInfo.spatialAutoBezier, false);
+                            aexKey.spatialContinuous = getModifiedValue(keyInfo.spatialContinuous, false);
+                            aexKey.roving = getModifiedValue(keyInfo.roving, false);
+                        },
+                        state,
+                        aeProperty.name
+                    );
                 }
-            }
 
-            const keySpatialTangent = keyInfo.spatialTangent;
+                return aexKey as AEQKeyInfo;
+            });
 
-            if (!aeq.isNullOrUndefined(keySpatialTangent)) {
-                const inSpatialTangent = getModifiedValue(keySpatialTangent.inTangent, [0, 0, 0]);
-                const outSpatialTangent = getModifiedValue(keySpatialTangent.outTangent, [0, 0, 0]);
+            state.stats.keyCount += keys.length;
 
-                if (aeq.isNullOrUndefined(inSpatialTangent) && aeq.isNullOrUndefined(outSpatialTangent)) {
-                    aexKey.spatialTangent = undefined;
-                } else {
-                    aexKey.spatialTangent = {
-                        inTangent: inSpatialTangent,
-                        outTangent: outSpatialTangent,
-                    };
-                }
-            }
-
-            aexKey.temporalAutoBezier = getModifiedValue(keyInfo.temporalAutoBezier, false);
-            aexKey.temporalContinuous = getModifiedValue(keyInfo.temporalContinuous, false);
-            aexKey.spatialAutoBezier = getModifiedValue(keyInfo.spatialAutoBezier, false);
-            aexKey.spatialContinuous = getModifiedValue(keyInfo.spatialContinuous, false);
-            aexKey.roving = getModifiedValue(keyInfo.roving, false);
-        }
-
-        return aexKey as AEQKeyInfo;
-    });
-
-    state.stats.keyCount += keys.length;
-    return keys;
+            return keys;
+        },
+        state,
+        aeProperty.name
+    );
 }
 
 function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state: AexState): void {

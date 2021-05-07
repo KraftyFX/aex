@@ -1,3 +1,9 @@
+function prescanCompLayers(aeComp: CompItem, state: AexState) {
+    aeq.forEachLayer(aeComp, (layer: Layer) => {
+        prescanLayer(layer, state);
+    });
+}
+
 function getAexCompLayers(aeComp: CompItem, state: AexState) {
     const aexLayers = [] as AexLayer[];
 

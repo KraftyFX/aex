@@ -1,11 +1,12 @@
 import { AeObject, aex } from './aex';
 import { AEX_COMP_ITEM, AEX_PROJECT } from './constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { cleanupAex, evalAexIntoEstk, IPCStats, openProject, setOnResult } from './csinterface';
 
-describe.skip('Rafi Test Stuff', function () {
+const cepfs = (window as any).cep.fs;
+
+describe.only('Rafi Test Stuff', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(30000);
 
     let project: any;
 
@@ -85,24 +86,49 @@ describe.skip('Rafi Test Stuff', function () {
 
     before(async () => {
         await evalAexIntoEstk();
-        await openCleanProject();
-
-        await aex().update(AeObject.Project, projectData);
-
-        const result = await aex().get(AeObject.Project);
-        project = result.object;
+        await openProject('testAssets/prescan_1_flat_project.aep');
     });
 
     after(async () => {
         await cleanupAex();
+        setOnResult();
     });
 
     it(`Deserialize Simple`, async () => {
-        assertAreEqual(project.comps[1].markers, projectData.comps[1].markers);
-    });
+        const runtimes: number[] = [];
 
-    it(`Deserialize Complex`, async () => {
-        assertAreEqual(project.comps[0].markers, projectData.comps[0].markers);
+        setOnResult((stats: IPCStats) => runtimes.push(stats.func));
+
+        const res = await aex().get(AeObject.Project);
+        const total = runtimes.reduce((p, c) => c + p, 0);
+
+        res.stats.total = total / runtimes.length + 0;
+
+        const profile: any = {};
+
+        const path = '/Users/rafikhan/kraftyfx/aex/cep/_build/stats.csv';
+        const lines: string[] = [];
+
+        Object.keys(res.profile).forEach((m) => {
+            const data = res.profile[m];
+
+            lines.push(data.map((v) => [m, v.elapsed, v.meta].join(',')).join('\n'));
+
+            const count = data.length;
+            const total = data.reduce((p, c) => c.elapsed + p, 0);
+            const avg = Math.ceil(total / count);
+
+            profile[m] = { count, avg, total };
+        });
+
+        cepfs.writeFile(path, lines.join('\n'));
+
+        const stats = {
+            total,
+            profile,
+        };
+
+        alert(JSON.stringify(stats, null, 3));
     });
 
     /*

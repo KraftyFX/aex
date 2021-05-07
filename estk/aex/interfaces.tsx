@@ -43,16 +43,21 @@ interface AexLogEntry {
     message: string;
 }
 
+interface AexStats {
+    nonCompItemCount: number;
+    compCount: number;
+    layerCount: number;
+    propertyCount: number;
+    keyCount: number;
+}
+
 interface AexState {
     getOptions: GetOptions;
     updateOptions: UpdateOptions;
 
-    stats: {
-        nonCompItemCount: number;
-        compCount: number;
-        layerCount: number;
-        propertyCount: number;
-        keyCount: number;
+    stats: AexStats;
+    profile: {
+        [key: string]: { elapsed: number; meta: string }[];
     };
     log: AexLogEntry[];
 }

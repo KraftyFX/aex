@@ -12,7 +12,7 @@ declare var CSXSEvent: any;
 
         convertCallbacks(id, ipcOptions);
 
-        funcStart = new Date().valueOf();
+        funcStart = time();
         const result = func(ipcOptions.aex_args);
 
         if (ipcOptions.ignoreReturn) {
@@ -39,14 +39,14 @@ declare var CSXSEvent: any;
     } finally {
         ipcResponse.ipcStats = {
             funcStart,
-            funcEnd: new Date().valueOf(),
+            funcEnd: time(),
             jsonEnd: 'aex:jsonEnd',
         };
 
         const eventObj = new CSXSEvent();
         eventObj.type = 'aex_result';
 
-        eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', new Date().valueOf().toString());
+        eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', time().toString());
 
         eventObj.dispatch();
     }

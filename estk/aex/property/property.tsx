@@ -1,26 +1,34 @@
 function getProperty(aeProperty: Property, state: AexState): AexProperty {
-    const aexProperty: AexProperty = {
-        type: _getPropertyType(aeProperty),
-        name: aeProperty.name,
-        matchName: aeProperty.matchName,
-        value: undefined,
-        enabled: getModifiedValue(aeProperty.enabled, true),
-        expression: getModifiedValue(aeProperty.expression, ''),
-        expressionEnabled: getModifiedValue(aeProperty.expressionEnabled, false),
-        keys: undefined,
-    };
+    return profile(
+        'getProperty',
+        () => {
+            const aexProperty: AexProperty = {
+                type: _getPropertyType(aeProperty),
+                name: aeProperty.name,
+                matchName: aeProperty.matchName,
+                value: undefined,
+                enabled: getModifiedValue(aeProperty.enabled, true),
+                expression: getModifiedValue(aeProperty.expression, ''),
+                expressionEnabled: getModifiedValue(aeProperty.expressionEnabled, false),
+                keys: undefined,
+            };
 
-    const isUnreadable = isUnreadableProperty(aeProperty);
-    aexProperty.keys = _getPropertyKeys(aeProperty, isUnreadable, state);
+            const isUnreadable = isUnreadableProperty(aeProperty);
+            aexProperty.keys = _getPropertyKeys(aeProperty, isUnreadable, state);
 
-    if (isUnreadable) {
-        return getUnsupportedProperty(aeProperty, aexProperty, state);
-    } else {
-        aexProperty.value = _getPropertyValue(aeProperty);
-    }
+            if (isUnreadable) {
+                return getUnsupportedProperty(aeProperty, aexProperty, state);
+            } else {
+                aexProperty.value = _getPropertyValue(aeProperty);
+            }
 
-    state.stats.propertyCount++;
-    return aexProperty;
+            state.stats.propertyCount++;
+
+            return aexProperty;
+        },
+        state,
+        aeProperty.name
+    );
 }
 
 // TODO: rename this function

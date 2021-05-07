@@ -1,3 +1,7 @@
+function prescanNonCompItem(aeItem: Item, state: AexState) {
+    state.stats.nonCompItemCount++;
+}
+
 function getAexItem(aeItem: Item, state: AexState): AexItem {
     if (aeq.isComp(aeItem)) {
         throw new Error(`Not supported: Getting a comp from getAexItem().  Use getAexComp() instead.`);

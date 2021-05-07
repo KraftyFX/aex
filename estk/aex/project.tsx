@@ -1,3 +1,11 @@
+function prescanProject(aeProject: Project, state: AexState) {
+    const items = aeq.getItems().filter((item) => !aeq.isComp(item));
+    const comps = aeq.getComps();
+
+    items.forEach((item) => prescanNonCompItem(item, state));
+    comps.forEach((comp) => prescanComp(comp, state));
+}
+
 function getAexProject(project: Project, state: AexState): AexProject {
     const projectBaseAttributes = _getProjectBaseAttributes(project);
 
@@ -9,7 +17,8 @@ function getAexProject(project: Project, state: AexState): AexProject {
         type: AEX_PROJECT,
 
         items: items.map((item) => getAexItem(item, state)),
-        comps: comps.map((comp) => getAexComp(comp, state)),
+        comps: [getAexComp(comps[2], state)],
+        // comps: comps.map((comp) => getAexComp(comp, state)),
     };
 
     return aexProject;

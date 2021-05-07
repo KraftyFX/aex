@@ -29,6 +29,10 @@ export interface AexResult {
     log: {
         message: string;
     }[];
+    stats: any;
+    profile: {
+        [key: string]: { elapsed: number; meta: string }[];
+    };
 }
 export interface AexLogEntry {
     aexProperty: any;

@@ -15,7 +15,7 @@ interface AexPrescanResult {
     estimatedTotal: number;
 }
 
-function prescan(aeObject: Serializable, options: GetOptions): AexPrescanResult {
+function prescan(aeObject: Serializable, options: AexPrescanOptions): AexPrescanResult {
     return {
         aeObject,
         estimatedTotal: 0,
@@ -24,6 +24,10 @@ function prescan(aeObject: Serializable, options: GetOptions): AexPrescanResult 
 
 interface GetResult<T extends AexSerialized> {
     object: T;
+    stats: AexStats;
+    profile: {
+        [key: string]: number[];
+    };
     log: AexLogEntry[];
 }
 
@@ -45,7 +49,14 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         },
         updateOptions: null,
         log: [],
-        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+        stats: {
+            nonCompItemCount: 0,
+            compCount: 0,
+            layerCount: 0,
+            propertyCount: 0,
+            keyCount: 0,
+        },
+        profile: {},
     };
 
     assignAttributes(state.getOptions, options || {});
@@ -65,6 +76,8 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
 
     return {
         object,
+        stats: state.stats,
+        profile: state.profile,
         log: state.log,
     };
 }
@@ -83,7 +96,14 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
             layerMatchBy: 'index',
         },
         log: [],
-        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+        stats: {
+            nonCompItemCount: 0,
+            compCount: 0,
+            layerCount: 0,
+            propertyCount: 0,
+            keyCount: 0,
+        },
+        profile: {},
     };
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
@@ -117,7 +137,14 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
             layerMatchBy: 'index',
         },
         log: [],
-        stats: { nonCompItemCount: 0, compCount: 0, layerCount: 0, propertyCount: 0, keyCount: 0 },
+        stats: {
+            nonCompItemCount: 0,
+            compCount: 0,
+            layerCount: 0,
+            propertyCount: 0,
+            keyCount: 0,
+        },
+        profile: {},
     };
 
     assignAttributes(state.updateOptions, options);

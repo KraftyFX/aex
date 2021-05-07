@@ -16,9 +16,6 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty, state: AexS
         });
     });
 
-    state.stats.propertyCount++;
-    state.stats.keyCount += markerData.length;
-
     return markerData;
 }
 
@@ -46,9 +43,6 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
         default:
             throw new Error(`Unrecognized marker matching method "${matchBy}"`);
     }
-
-    state.stats.propertyCount++;
-    state.stats.keyCount += aexMarkers.length;
 }
 
 function createAeMarker(aeMarkerProperty: MarkerValueProperty, aexMarker: AexMarkerProperty, state: AexState): MarkerValue {

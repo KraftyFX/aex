@@ -1,3 +1,7 @@
+function prescanTextLayer(aeTextLayer: TextLayer, state: AexState) {
+    state.stats.layerCount++;
+}
+
 function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer {
     const avLayerAttributes = getAvLayer(aeTextLayer, state);
 

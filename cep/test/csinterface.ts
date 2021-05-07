@@ -23,7 +23,10 @@ export async function evalAexIntoEstk() {
 }
 
 export async function cleanupAex() {
+    await getEvalScriptResult('delete aeq', null, { ignoreReturn: true });
+    await getEvalScriptResult('delete JSON', null, { ignoreReturn: true });
     await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
+    await getEvalScriptResult('$.gc()', null, { ignoreReturn: true });
 }
 
 export async function alert(value: string) {
@@ -113,6 +116,21 @@ cs.addEventListener('aex_callback', function (event: any) {
     requests[id].callbacks[callbackId](args);
 });
 
+export interface IPCStats {
+    func: number;
+    json: number;
+    total: number;
+}
+
+type CB = (stats: IPCStats) => void;
+let onResult: CB | undefined = () => {};
+
+function setOnResult(value?: CB) {
+    onResult = value;
+}
+
+export { setOnResult };
+
 cs.addEventListener('aex_result', function (event: any) {
     const now = new Date().valueOf();
     const data = event.data;
@@ -127,6 +145,10 @@ cs.addEventListener('aex_result', function (event: any) {
     ipcStats.json = ipcStats.jsonEnd - ipcStats.funcEnd;
     ipcStats.exit = now - ipcStats.jsonEnd;
     ipcStats.total = now - request.cepStart;
+
+    if (onResult) {
+        onResult(ipcStats);
+    }
 
     // TODO: Expose logging hook
 
