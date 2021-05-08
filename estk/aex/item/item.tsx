@@ -71,6 +71,7 @@ function setItemBaseAttributes(aeItem: Item, aexItem: AexItemBase, state: AexSta
     setParentFolders(aeItem, aexItem, state);
 }
 
+// TODO: Rename this to getItemUid
 function generateItemUID(aeItem: Item): string {
     if (!!aeItem) {
         return `${aeItem.name.toLowerCase()}:${aeItem.id}`;

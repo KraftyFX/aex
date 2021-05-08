@@ -24,9 +24,9 @@ export async function evalAexIntoEstk() {
 
 export async function cleanupAex() {
     await getEvalScriptResult('delete aeq', null, { ignoreReturn: true });
-    await getEvalScriptResult('delete JSON', null, { ignoreReturn: true });
-    await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
-    await getEvalScriptResult('$.gc()', null, { ignoreReturn: true });
+    // await getEvalScriptResult('delete JSON', null, { ignoreReturn: true });
+    // await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
+    // await getEvalScriptResult('$.gc()', null, { ignoreReturn: true });
 }
 
 export async function alert(value: string) {

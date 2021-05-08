@@ -1,3 +1,10 @@
+function prescanShapeLayer(aeShapeLayer: ShapeLayer, state: AexState) {
+    state.stats.layerCount++;
+
+    prescanAvLayer(aeShapeLayer, state);
+    prescanPropertyGroup(_getRootVectorsGroup(aeShapeLayer), state);
+}
+
 function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLayer {
     const avLayerAttributes = getAvLayer(aeShapeLayer, state);
 
@@ -19,15 +26,13 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
 function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const aeShapeLayer = aeComp.layers.addShape();
     _setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
-    _setContents(aeShapeLayer.property('ADBE Root Vectors Group') as PropertyGroup, aexShapeLayer.contents, state);
-
-    state.stats.layerCount++;
+    _setContents(_getRootVectorsGroup(aeShapeLayer), aexShapeLayer.contents, state);
 
     return aeShapeLayer;
 }
 
-function _getContents(layer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
-    const rootVectorsGroups = layer.property('ADBE Root Vectors Group') as PropertyGroup;
+function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
+    const rootVectorsGroups = _getRootVectorsGroup(aeShapeLayer);
 
     const fillGroup = (propertyGroup: PropertyGroup, aexPropertyGroup: AexShapePropertyGroup) => {
         /**
@@ -65,6 +70,10 @@ function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGrou
 
         setPropertyGroup(shapeGroup as PropertyGroup, aexContent, state);
     });
+}
+
+function _getRootVectorsGroup(aeShapeLayer: ShapeLayer): PropertyGroup {
+    return aeShapeLayer.property('ADBE Root Vectors Group') as PropertyGroup;
 }
 
 function _isVectorGroup(propertyGroup: Property | PropertyGroup) {

@@ -1,16 +1,19 @@
 function prescanLayer(aeLayer: Layer, state: AexState) {
+    prescanMarkerProperties(aeLayer.marker, state);
+    prescanTransform(aeLayer, state);
+
     if (aeq.isTextLayer(aeLayer)) {
-        return getAexTextLayer(aeLayer, state);
+        return prescanTextLayer(aeLayer, state);
     } else if (aeq.isShapeLayer(aeLayer)) {
-        return getAexShapeLayer(aeLayer, state);
+        return prescanShapeLayer(aeLayer, state);
     } else if (isNullLayer(aeLayer)) {
-        return getAexNullLayer(aeLayer, state);
+        return prescanNullLayer(aeLayer, state);
     } else if (isFootageLayer(aeLayer)) {
-        return getAexFootageLayer(aeLayer, state);
+        return prescanFootageLayer(aeLayer, state);
     } else if (aeq.isLightLayer(aeLayer)) {
-        return getAexLightLayer(aeLayer, state);
+        return prescanLightLayer(aeLayer, state);
     } else if (aeq.isCameraLayer(aeLayer)) {
-        return getAexCameraLayer(aeLayer, state);
+        return prescanCameraLayer(aeLayer, state);
     } else {
         throw new Error(`Unrecognized Layer Type`);
     }
@@ -89,13 +92,9 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         stretch: getModifiedValue(layer.stretch, 100),
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
 
-        markers: _getAexLayerMarkers(layer, state),
+        markers: getAexMarkerProperties(layer.marker, state),
         transform: getAexTransform(layer, state),
     };
-}
-
-function _getAexLayerMarkers(aeLayer: Layer, state: AexState) {
-    return getAexMarkerProperties(aeLayer.marker, state);
 }
 
 function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState): void {

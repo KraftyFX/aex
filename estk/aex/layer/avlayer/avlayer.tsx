@@ -1,3 +1,11 @@
+function prescanAvLayer(aeAvLayer: AVLayer, state: AexState) {
+    prescanPropertyGroup(aeAvLayer.audio, state);
+    prescanProperty(aeAvLayer.timeRemap, state);
+    prescanPropertyGroup(aeAvLayer.effect, state);
+    prescanPropertyGroup(aeAvLayer.materialOption, state);
+    prescanPropertyGroup(aeAvLayer.geometryOption, state);
+}
+
 function getAvLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
     const layerAttributes = getLayerAttributes(aeAvLayer, state);
 

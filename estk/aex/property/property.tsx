@@ -1,3 +1,11 @@
+function prescanProperty(aeProperty: Property, state: AexState) {
+    if (aeq.isNullOrUndefined(aeProperty)) {
+        return;
+    }
+
+    prescanPropertyKeys(aeProperty, state);
+}
+
 function getProperty(aeProperty: Property, state: AexState): AexProperty {
     return profile(
         'getProperty',
@@ -17,12 +25,10 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
             aexProperty.keys = _getPropertyKeys(aeProperty, isUnreadable, state);
 
             if (isUnreadable) {
-                return getUnsupportedProperty(aeProperty, aexProperty, state);
+                getUnsupportedProperty(aeProperty, aexProperty, state);
             } else {
                 aexProperty.value = _getPropertyValue(aeProperty);
             }
-
-            state.stats.propertyCount++;
 
             return aexProperty;
         },
@@ -67,8 +73,6 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
 
     _setPropertyValue(aeProperty, aexProperty, state);
     _setPropertyKeys(aeProperty, aexProperty, state);
-
-    state.stats.propertyCount++;
 }
 
 function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropertyType {

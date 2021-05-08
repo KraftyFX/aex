@@ -1,3 +1,9 @@
+function prescanNullLayer(aeNullLayer: Layer, state: AexState) {
+    state.stats.layerCount++;
+
+    prescanFootageLayer(aeNullLayer as AVLayer, state);
+}
+
 function getAexNullLayer(aeAvLayer: AVLayer, state: AexState): AexNullLayer {
     const layerAttributes = getAexFootageLayer(aeAvLayer, state);
 
@@ -12,7 +18,6 @@ function getAexNullLayer(aeAvLayer: AVLayer, state: AexState): AexNullLayer {
 function createAeNullLayer(aeComp: CompItem, aexNullLayer: AexNullLayer, state: AexState) {
     const aeNullLayer = aeComp.layers.addNull();
     _setAvLayerAttributes(aeNullLayer, aexNullLayer, state);
-    state.stats.layerCount++;
 
     return aeNullLayer;
 }

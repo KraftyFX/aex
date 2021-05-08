@@ -1,5 +1,17 @@
 function prescanTextLayer(aeTextLayer: TextLayer, state: AexState) {
     state.stats.layerCount++;
+
+    prescanAvLayer(aeTextLayer, state);
+
+    const text = aeTextLayer.text;
+
+    prescanPropertyGroup(text.pathOption, state);
+    prescanPropertyGroup(text.moreOption, state);
+    prescanPropertyGroup(_getAnimatorsProperty(aeTextLayer), state);
+}
+
+function _getAnimatorsProperty(aeTextLayer: TextLayer): PropertyGroup {
+    return aeTextLayer.text.property('ADBE Text Animators') as PropertyGroup;
 }
 
 function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer {
@@ -11,7 +23,6 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
     delete avLayerAttributes.collapseTransformation;
 
     const text = aeTextLayer.text;
-    const animators = text.property('ADBE Text Animators') as PropertyGroup;
 
     state.stats.layerCount++;
 
@@ -23,7 +34,7 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
         sourceText: getModifiedProperty(text.sourceText, state),
         pathOption: getPropertyGroup(text.pathOption, state),
         moreOption: getPropertyGroup(text.moreOption, state),
-        animators: getPropertyGroup(animators, state),
+        animators: getPropertyGroup(_getAnimatorsProperty(aeTextLayer), state),
     };
 }
 
@@ -61,8 +72,6 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
     if (aexTextLayer.animators) {
         setPropertyGroup(animators, aexTextLayer.animators, state);
     }
-
-    state.stats.layerCount++;
 
     return layer;
 }

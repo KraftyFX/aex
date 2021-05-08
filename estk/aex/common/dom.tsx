@@ -45,9 +45,12 @@ function isFootageLayer(layer: Layer): layer is AVLayer {
 type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: number) => void;
 
 function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback, state: AexState) {
+    state.stats.propertyCount++;
+
     for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
         const property = group.property(ii) as PropertyBase;
 
+        state.stats.propertyCount++;
         callback(property, ii - 1, il);
     }
 }

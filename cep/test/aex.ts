@@ -1,4 +1,4 @@
-import { AexObject, AexOptions, AexResult } from './constants';
+import { AexObject, AexOptions, AexPrescanResult, AexResult } from './constants';
 import { getEvalScriptResult } from './csinterface';
 
 export enum AeObject {
@@ -16,6 +16,12 @@ export function aex() {
 
         async benchmark(options: { callback: (result: boolean) => void }): Promise<any> {
             return await getEvalScriptResult(`aex().benchmark(aex_args)`, options, { ignoreReturn: false });
+        },
+
+        async prescan(aeObject: AeObject, options?: AexOptions): Promise<AexPrescanResult> {
+            return await getEvalScriptResult<AexPrescanResult>(`aex().prescan(${aeObject}, aex_args)`, options || {}, {
+                ignoreReturn: false,
+            });
         },
 
         async get(aeObject: AeObject, options?: AexOptions): Promise<AexResult> {

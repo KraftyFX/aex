@@ -1,3 +1,10 @@
+function prescanCameraLayer(aeCameraLayer: CameraLayer, state: AexState) {
+    state.stats.layerCount++;
+
+    prescanProperty(aeCameraLayer.transform.position, state);
+    prescanPropertyGroup(aeCameraLayer.cameraOption, state);
+}
+
 function getAexCameraLayer(aeCameraLayer: CameraLayer, state: AexState): AexCameraLayer {
     const layerAttributes = getLayerAttributes(aeCameraLayer, state);
 
@@ -36,8 +43,6 @@ function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, s
     if (aexCameraLayer.cameraOption) {
         setPropertyGroup(aeCameraLayer.cameraOption, aexCameraLayer.cameraOption, state);
     }
-
-    state.stats.layerCount++;
 
     return aeCameraLayer;
 }

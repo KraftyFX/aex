@@ -1,7 +1,13 @@
+function prescanPropertyKeys(aeProperty: Property, state: AexState) {
+    state.stats.keyCount += aeProperty.numKeys;
+}
+
 function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
     return profile(
         'getPropertyKeys',
         () => {
+            state.stats.keyCount += aeProperty.numKeys;
+
             const propertyKeys = aeq.getKeys(aeProperty);
             const keys = propertyKeys.map((key, i) => {
                 const aexKey = {
@@ -83,8 +89,6 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
 
                 return aexKey as AEQKeyInfo;
             });
-
-            state.stats.keyCount += keys.length;
 
             return keys;
         },

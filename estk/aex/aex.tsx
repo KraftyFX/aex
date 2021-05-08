@@ -8,17 +8,42 @@ function aex() {
     };
 }
 
-interface AexPrescanOptions {}
+function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResult {
+    assertIsDefined(aeObject, 'aeObj');
 
-interface AexPrescanResult {
-    aeObject: Serializable;
-    estimatedTotal: number;
-}
+    const state: AexState = {
+        prescanOptions: {},
+        getOptions: null,
+        updateOptions: null,
+        log: [],
+        stats: {
+            nonCompItemCount: 0,
+            compCount: 0,
+            layerCount: 0,
+            propertyCount: 0,
+            keyCount: 0,
+        },
+        profile: {},
+    };
 
-function prescan(aeObject: Serializable, options: AexPrescanOptions): AexPrescanResult {
+    assignAttributes(state.getOptions, options || {});
+
+    // TODO: Cover collection types.
+    if (isProject(aeObject)) {
+        prescanProject(aeObject as Project, state);
+    } else if (aeq.isComp(aeObject)) {
+        prescanComp(aeObject as CompItem, state);
+    } else if (aeq.isLayer(aeObject)) {
+        prescanLayer(aeObject as Layer, state);
+    } else {
+        throw new Error(`Prescanning a '${getDebugStringForAeType(aeObject)}' is not supported.`);
+    }
+
+    const { stats, log } = state;
+
     return {
-        aeObject,
-        estimatedTotal: 0,
+        stats,
+        log,
     };
 }
 
@@ -44,6 +69,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     assertIsDefined(aeObject, 'aeObj');
 
     const state: AexState = {
+        prescanOptions: null,
         getOptions: {
             unspportedPropertyBehavior: 'skip',
         },
@@ -90,6 +116,7 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     assertIsDefined(aexObject, 'aexObject');
 
     const state: AexState = {
+        prescanOptions: null,
         getOptions: null,
         updateOptions: {
             markerMatchBy: 'index',
@@ -131,6 +158,7 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
     assertIsDefined(aexObject, 'aexObject');
 
     const state: AexState = {
+        prescanOptions: null,
         getOptions: null,
         updateOptions: {
             markerMatchBy: 'index',

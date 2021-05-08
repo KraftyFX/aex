@@ -10,7 +10,6 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
     }
 
     if (hasDefaultPropertyValue(property)) {
-        state.stats.propertyCount++;
         return undefined;
     } else {
         return getProperty(property, state);
@@ -41,12 +40,12 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
         case 'throw':
             throw new Error(`Property "${property.matchName}" is unsupported.`);
         case 'metadata':
-            return aexProperty;
+            return;
         default:
             state.getOptions.unspportedPropertyBehavior({
                 aexProperty,
                 message: `Property "${property.matchName}" is unsupported. Skipping.`,
             });
-            return aexProperty;
+            return;
     }
 }

@@ -29,6 +29,13 @@ type AexUID = string;
 
 type UnsupportedTypeCallback = (log: AexLogEntry) => void;
 
+interface PrescanOptions {}
+
+interface PrescanResult {
+    stats: AexStats;
+    log: AexLogEntry[];
+}
+
 interface GetOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
@@ -52,6 +59,7 @@ interface AexStats {
 }
 
 interface AexState {
+    prescanOptions: PrescanOptions;
     getOptions: GetOptions;
     updateOptions: UpdateOptions;
 

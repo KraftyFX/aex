@@ -24,6 +24,12 @@ export const AEX_SHAPE_PROPERTY = 'aex:property:shape';
 export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
+export interface AexPrescanResult {
+    log: {
+        message: string;
+    }[];
+    stats: any;
+}
 export interface AexResult {
     object: any;
     log: {

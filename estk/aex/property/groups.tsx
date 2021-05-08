@@ -1,7 +1,23 @@
+function prescanPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState) {
+    if (aeq.isNullOrUndefined(aePropertyGroup)) {
+        return;
+    }
+
+    forEachPropertyInGroup(
+        aePropertyGroup,
+        (property) => {
+            if (property.propertyType == PropertyType.PROPERTY) {
+                prescanProperty(property as Property, state);
+            } else {
+                prescanPropertyGroup(property as PropertyGroup, state);
+            }
+        },
+        state
+    );
+}
+
 function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
     skip = skip || (() => false);
-
-    state.stats.propertyCount++;
 
     const aexProperties: PropertyBase[] = [];
 
@@ -63,8 +79,6 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
 
 function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup, state: AexState): void {
     const aexProperties = aeq.arrayEx(aexPropertyGroup.properties);
-
-    state.stats.propertyCount += aexProperties.length;
 
     aexProperties.forEach((aexProperty: AexPropertyBase) => {
         const { matchName } = aexProperty;

@@ -1,3 +1,20 @@
+function prescanTransform(layer: Layer, state: AexState) {
+    const transformGroup = layer.transform;
+
+    prescanProperty(transformGroup.anchorPoint, state);
+    prescanProperty(transformGroup.position, state);
+    prescanProperty(transformGroup.scale, state);
+    prescanProperty(transformGroup.opacity, state);
+
+    // 3d & Camera properties
+    prescanProperty(transformGroup.pointOfInterest, state);
+    prescanProperty(transformGroup.orientation, state);
+    prescanProperty(transformGroup.xRotation, state);
+    prescanProperty(transformGroup.yRotation, state);
+
+    prescanZRotation(layer, transformGroup, state);
+}
+
 function getAexTransform(layer: Layer, state: AexState): AexTransform {
     const transformGroup = layer.transform;
 
@@ -40,5 +57,13 @@ function _getZRotation(layer: Layer, transformGroup: _TransformGroup, state: Aex
         return getModifiedProperty(transformGroup.zRotation, state);
     } else {
         return getModifiedProperty(transformGroup.rotation, state);
+    }
+}
+
+function prescanZRotation(layer: Layer, transformGroup: _TransformGroup, state: AexState) {
+    if (aeq.isCamera(layer) || aeq.isLight(layer) || (aeq.isAVLayer(layer) && layer.threeDLayer)) {
+        prescanProperty(transformGroup.zRotation, state);
+    } else {
+        prescanProperty(transformGroup.rotation, state);
     }
 }

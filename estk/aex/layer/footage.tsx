@@ -1,3 +1,10 @@
+function prescanFootageLayer(aeAvLayer: AVLayer, state: AexState) {
+    state.stats.layerCount++;
+
+    prescanAvLayer(aeAvLayer, state);
+    prescanPropertyGroup(_getTrackersProperty(aeAvLayer), state);
+}
+
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
     const layerAttributes = getAvLayer(aeAvLayer, state);
 
@@ -35,8 +42,6 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
     const aeFootageLayer = aeComp.layers.add(sourceItem);
     _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
 
-    state.stats.layerCount++;
-
     return aeFootageLayer;
 }
 
@@ -52,11 +57,15 @@ function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
 }
 
 function _getTrackers(aeAvLayer: AVLayer, state: AexState): AexPropertyGroup[] {
-    const trackers = aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
+    const trackers = _getTrackersProperty(aeAvLayer);
 
     const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
         aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
     };
 
     return getTopLevelPropertyGroups(trackers, fillProperties, state);
+}
+
+function _getTrackersProperty(aeAvLayer: AVLayer) {
+    return aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
 }

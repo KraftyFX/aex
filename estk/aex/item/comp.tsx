@@ -1,11 +1,16 @@
 function prescanComp(aeComp: CompItem, state: AexState) {
     state.stats.compCount++;
+
+    prescanCompMarkers(aeComp, state);
+    prescanCompLayers(aeComp, state);
 }
 
 function getAexComp(aeComp: CompItem, state: AexState): AexComp {
     return profile(
         'getAexComp',
         () => {
+            state.stats.compCount++;
+
             const avItemBaseAttributes = getAvItemBaseAttributes(aeComp);
 
             const aexComp: AexComp = {
@@ -112,7 +117,7 @@ function updateAeComp(aeComp: CompItem, aexComp: AexComp, state: AexState): void
 }
 
 function prescanCompMarkers(aeComp: CompItem, state: AexState) {
-    state.stats.propertyCount += aeComp.markerProperty.numKeys;
+    prescanProperty(aeComp.markerProperty, state);
 }
 
 function getAexCompMarkers(aeComp: CompItem, state: AexState) {

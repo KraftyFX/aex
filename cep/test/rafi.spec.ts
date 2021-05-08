@@ -94,15 +94,35 @@ describe.only('Rafi Test Stuff', function () {
         setOnResult();
     });
 
-    it(`Deserialize Simple`, async () => {
+    it(`Prescan`, async () => {
+        const runtimes: number[] = [];
+
+        setOnResult((stats: IPCStats) => runtimes.push(stats.func));
+
+        const res = await aex().prescan(AeObject.Project);
+
+        const results = {
+            stats: res.stats,
+        };
+
+        results.stats.totalCount =
+            res.stats.compCount + res.stats.nonCompItemCount + res.stats.layerCount + res.stats.propertyCount + res.stats.keyCount;
+
+        const err = new Error();
+        err.name = 'Prescan\n';
+        err.stack = JSON.stringify(res, null, 3);
+        throw err;
+    });
+
+    it(`Get`, async () => {
         const runtimes: number[] = [];
 
         setOnResult((stats: IPCStats) => runtimes.push(stats.func));
 
         const res = await aex().get(AeObject.Project);
-        const total = runtimes.reduce((p, c) => c + p, 0);
+        const totalMs = runtimes.reduce((p, c) => c + p, 0);
 
-        res.stats.total = total / runtimes.length + 0;
+        // res.stats.totalMs = res.stats.compCount + res.stats.nonCompItemCount + res.stats.layerCount + res.stats.propertyCount + res.stats.keyCount;
 
         const profile: any = {};
 
@@ -123,12 +143,19 @@ describe.only('Rafi Test Stuff', function () {
 
         cepfs.writeFile(path, lines.join('\n'));
 
-        const stats = {
-            total,
+        const results = {
+            stats: res.stats,
             profile,
         };
 
-        alert(JSON.stringify(stats, null, 3));
+        results.stats.totalCount =
+            res.stats.compCount + res.stats.nonCompItemCount + res.stats.layerCount + res.stats.propertyCount + res.stats.keyCount;
+        results.profile.totalMs = totalMs;
+
+        const err = new Error();
+        err.name = 'Get\n';
+        err.stack = JSON.stringify(results, null, 3);
+        throw err;
     });
 
     /*

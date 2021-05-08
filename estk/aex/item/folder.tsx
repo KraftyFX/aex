@@ -2,6 +2,7 @@ function getAexFolderItem(aeFolderItem: FolderItem, state: AexState): AexFolderI
     const itemAttributes = getItemBaseAttributes(aeFolderItem);
 
     state.stats.nonCompItemCount++;
+
     return {
         ...itemAttributes,
         type: AEX_FOLDER_ITEM,

@@ -1,3 +1,10 @@
+function prescanLightLayer(aeLightLayer: LightLayer, state: AexState) {
+    state.stats.layerCount++;
+
+    prescanProperty(aeLightLayer.transform.position, state);
+    prescanPropertyGroup(aeLightLayer.lightOption, state);
+}
+
 function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLayer {
     const layerAttributes = getLayerAttributes(aeLightLayer, state);
     const { lightType } = aeLightLayer;
@@ -31,8 +38,6 @@ function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, stat
     if (aexLightLayer.lightOption) {
         setPropertyGroup(aeLightLayer.lightOption, aexLightLayer.lightOption, state);
     }
-
-    state.stats.layerCount++;
 
     return aeLightLayer;
 }
