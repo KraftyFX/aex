@@ -9,7 +9,7 @@ function aex() {
 }
 
 function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResult {
-    assertIsDefined(aeObject, 'aeObj');
+    assertIsDefined(aeObject, 'aeObject');
 
     const state: AexState = {
         prescanOptions: {},
@@ -47,15 +47,6 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
     };
 }
 
-interface GetResult<T extends AexSerialized> {
-    object: T;
-    stats: AexStats;
-    profile: {
-        [key: string]: { elapsed: number; meta: string }[];
-    };
-    log: AexLogEntry[];
-}
-
 function benchmark(options: any) {
     options.callback(true);
 
@@ -66,7 +57,7 @@ function get(aeObject: Project, options?: GetOptions): GetResult<AexProject>;
 function get(aeObject: CompItem, options?: GetOptions): GetResult<AexComp>;
 function get(aeObject: Layer, options?: GetOptions): GetResult<AexLayer>;
 function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSerialized> {
-    assertIsDefined(aeObject, 'aeObj');
+    assertIsDefined(aeObject, 'aeObject');
 
     const state: AexState = {
         prescanOptions: null,
@@ -148,12 +139,19 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     } else {
         throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
     }
+
+    const { stats, log } = state;
+
+    return {
+        stats,
+        log,
+    };
 }
 
-function update(aeObject: Project, aexObject: AexProject, options?: UpdateOptions);
-function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions);
-function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions);
-function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, options?: UpdateOptions) {
+function update(aeObject: Project, aexObject: AexProject, options?: UpdateOptions): UpdateResult;
+function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions): UpdateResult;
+function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions): UpdateResult;
+function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | AexComp | AexLayer, options?: UpdateOptions): UpdateResult {
     assertIsDefined(aeObject, 'aeObject');
     assertIsDefined(aexObject, 'aexObject');
 
@@ -196,6 +194,13 @@ function update(aeObject: Project | CompItem | Layer, aexObject: AexProject | Ae
     } else {
         throw new Error(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
+
+    const { stats, log } = state;
+
+    return {
+        stats,
+        log,
+    };
 }
 
 function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {

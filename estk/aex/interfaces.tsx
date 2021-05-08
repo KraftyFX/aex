@@ -40,9 +40,23 @@ interface GetOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
+interface GetResult<T extends AexSerialized> {
+    object: T;
+    stats: AexStats;
+    profile: {
+        [key: string]: { elapsed: number; meta: string }[];
+    };
+    log: AexLogEntry[];
+}
+
 interface UpdateOptions {
     markerMatchBy: 'index' | 'time';
     layerMatchBy: 'index' | 'name';
+}
+
+interface UpdateResult {
+    stats: AexStats;
+    log: AexLogEntry[];
 }
 
 interface AexLogEntry {
