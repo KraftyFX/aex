@@ -3,7 +3,7 @@ function prescanPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState) {
         return;
     }
 
-    forEachPropertyInGroup(
+    return forEachPropertyInGroup(
         aePropertyGroup,
         (property) => {
             if (property.propertyType == PropertyType.PROPERTY) {

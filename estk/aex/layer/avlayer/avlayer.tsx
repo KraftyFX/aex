@@ -1,4 +1,5 @@
 function prescanAvLayer(aeAvLayer: AVLayer, state: AexState) {
+    prescanAvLayerMask(aeAvLayer, state);
     prescanPropertyGroup(aeAvLayer.audio, state);
     prescanProperty(aeAvLayer.timeRemap, state);
     prescanPropertyGroup(aeAvLayer.effect, state);

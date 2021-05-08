@@ -1,4 +1,5 @@
 function prescanMarkerProperties(markerProperty: MarkerValueProperty, state: AexState) {
+    state.stats.propertyCount++;
     state.stats.keyCount += markerProperty.numKeys;
 }
 

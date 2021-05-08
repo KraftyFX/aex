@@ -1,4 +1,8 @@
-function _getAexLayerMasks(layer: Layer, state: AexState): AexMask[] {
+function prescanAvLayerMask(aeAvLayer: AVLayer, state: AexState) {
+    state.stats.propertyCount += prescanPropertyGroup(aeAvLayer.mask, state) * 4;
+}
+
+function _getAexLayerMasks(layer: AVLayer, state: AexState): AexMask[] {
     const masks = [];
 
     if (!isVisibleLayer(layer)) {

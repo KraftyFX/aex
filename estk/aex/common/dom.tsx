@@ -47,12 +47,16 @@ type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: 
 function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback, state: AexState) {
     state.stats.propertyCount++;
 
-    for (let ii = 1, il = group.numProperties; ii <= il; ii++) {
+    const il = group.numProperties;
+    state.stats.propertyCount += il;
+
+    for (let ii = 1; ii <= il; ii++) {
         const property = group.property(ii) as PropertyBase;
 
-        state.stats.propertyCount++;
         callback(property, ii - 1, il);
     }
+
+    return il;
 }
 
 type ForEachPropertyKeyValueCallback<T> = (value: T, i: number, length: number) => void;
