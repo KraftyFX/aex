@@ -4,7 +4,7 @@ import { cleanupAex, evalAexIntoEstk, IPCStats, openProject, setOnResult } from 
 
 const cepfs = (window as any).cep.fs;
 
-describe.only('Rafi Test Stuff', function () {
+describe.skip('Rafi Test Stuff', function () {
     this.slow(500);
     this.timeout(30000);
 
