@@ -2,7 +2,7 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
     assertIsDefined(aeObject, 'aeObject');
 
     const state: AexState = {
-        prescanOptions: {},
+        prescanOptions: options,
         getOptions: null,
         updateOptions: null,
         log: [],
