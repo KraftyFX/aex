@@ -1,6 +1,5 @@
 function aex() {
     return {
-        benchmark,
         prescan,
         get,
         update,
@@ -45,12 +44,6 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
         stats,
         log,
     };
-}
-
-function benchmark(options: any) {
-    options.callback(true);
-
-    // aex().get(app.project as Project, {} as any);
 }
 
 function get(aeObject: Project, options?: GetOptions): GetResult<AexProject>;
