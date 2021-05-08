@@ -1,4 +1,4 @@
-type Serializable = Project | CompItem | Layer | Property;
+type Serializable = Project | CompItem | Layer;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType;

@@ -1,7 +1,7 @@
 function create(aeParentObject: Project, aexObject: AexItem | AexComp);
 function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
-function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
+function create(aeParentObject: Serializable, aexObject: AexItem | AexComp | AexLayer | AexProperty) {
     assertIsDefined(aeParentObject, 'aeParentObject');
     assertIsDefined(aexObject, 'aexObject');
 
@@ -47,22 +47,22 @@ function create(aeParentObject: Project | CompItem | Layer, aexObject: AexItem |
     };
 }
 
-function isAddingCompToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+function isAddingCompToProject(aeParentObject: Serializable, aexObject: AexItem | AexLayer | AexProperty) {
     return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
 }
 
-function isAddingNonCompItemToProject(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+function isAddingNonCompItemToProject(aeParentObject: Serializable, aexObject: AexItem | AexLayer | AexProperty) {
     return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
 }
 
-function isAddingLayerToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+function isAddingLayerToComp(aeParentObject: Serializable, aexObject: AexItem | AexLayer | AexProperty) {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
-function isAddingLayersToComp(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+function isAddingLayersToComp(aeParentObject: Serializable, aexObject: AexItem | AexLayer | AexProperty) {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
-function isAddingPropertyToLayer(aeParentObject: Project | CompItem | Layer, aexObject: AexItem | AexLayer | AexProperty<any>) {
+function isAddingPropertyToLayer(aeParentObject: Serializable, aexObject: AexItem | AexLayer | AexProperty) {
     return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
 }
