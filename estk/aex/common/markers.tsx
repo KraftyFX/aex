@@ -4,6 +4,7 @@ function prescanMarkerProperties(markerProperty: MarkerValueProperty, state: Aex
 }
 
 function getAexMarkerProperties(markerProperty: MarkerValueProperty, state: AexState): AexMarkerProperty[] {
+    state.stats.propertyCount++;
     state.stats.keyCount += markerProperty.numKeys;
 
     const markerData = [] as AexMarkerProperty[];
