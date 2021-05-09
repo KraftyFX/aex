@@ -7,6 +7,8 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
         return getAexSolidItem(item, state);
     } else if (sourceIsPlaceholder(itemSource)) {
         return getAexPlaceholderItem(item, state);
+    } else {
+        throw new Error(`Unrecognized footage type`);
     }
 }
 
