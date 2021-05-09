@@ -80,15 +80,7 @@ function getItemUid(aeItem: Item): string {
 }
 
 function _tryGetItemById(id: AexUID): Item {
-    const items = aeq.getItems().filter((item) => {
-        return !aeq.isFolderItem(item);
-    });
-
-    return items.find((item) => {
-        const itemID = getItemUid(item);
-
-        return itemID === id;
-    });
+    return aeq.getItems().find((item) => getItemUid(item) === id);
 }
 
 function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
