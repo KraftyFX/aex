@@ -48,18 +48,18 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
     assertIsDefined(comp);
 
     switch (aexLayer.type) {
-        case AEX_FOOTAGE_LAYER:
-            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
+        case AEX_TEXT_LAYER:
+            return createAeTextLayer(comp, aexLayer as AexTextLayer, state);
         case AEX_SHAPE_LAYER:
             return createAeShapeLayer(comp, aexLayer as AexShapeLayer, state);
+        case AEX_NULL_LAYER:
+            return createAeNullLayer(comp, aexLayer as AexNullLayer, state);
+        case AEX_FOOTAGE_LAYER:
+            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
         case AEX_LIGHT_LAYER:
             return createAeLightLayer(comp, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
             return createAeCameraLayer(comp, aexLayer as AexCameraLayer, state);
-        case AEX_NULL_LAYER:
-            return createAeNullLayer(comp, aexLayer as AexNullLayer, state);
-        case AEX_TEXT_LAYER:
-            return createAeTextLayer(comp, aexLayer as AexTextLayer, state);
         default:
             throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
     }
