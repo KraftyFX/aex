@@ -48,11 +48,9 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
 function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
     const source = aeAvLayer.source as AVItem;
 
-    let type = getItemType(source) as AexAvItemType;
-
     return {
-        id: generateItemUID(aeAvLayer.source),
-        type,
+        id: getItemUid(aeAvLayer.source),
+        type: getAexItemType(source) as AexAvItemType,
     };
 }
 

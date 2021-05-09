@@ -57,7 +57,7 @@ function getItemBaseAttributes(aeItem: Item): AexItemBase {
         label: getModifiedValue(aeItem.label, 15),
         folder: getParentFolders(aeItem),
 
-        aexid: generateItemUID(aeItem),
+        aexid: getItemUid(aeItem),
     };
 }
 
@@ -71,8 +71,7 @@ function setItemBaseAttributes(aeItem: Item, aexItem: AexItemBase, state: AexSta
     setParentFolders(aeItem, aexItem, state);
 }
 
-// TODO: Rename this to getItemUid
-function generateItemUID(aeItem: Item): string {
+function getItemUid(aeItem: Item): string {
     if (!!aeItem) {
         return `${aeItem.name.toLowerCase()}:${aeItem.id}`;
     } else {
@@ -86,7 +85,7 @@ function getItemById(id: AexUID): Item {
     });
 
     return items.find((item) => {
-        const itemID = generateItemUID(item);
+        const itemID = getItemUid(item);
 
         return itemID === id;
     });
@@ -95,14 +94,14 @@ function getItemById(id: AexUID): Item {
 function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
     const existingItem = getItemById(aexFootageSource.id);
 
-    if (existingItem && getItemType(existingItem) === aexFootageSource.type) {
+    if (existingItem && getAexItemType(existingItem) === aexFootageSource.type) {
         return existingItem as AVItem;
     } else {
         return undefined;
     }
 }
 
-function getItemType(aeItem: Item): AexItemType {
+function getAexItemType(aeItem: Item): AexItemType {
     if (aeq.isComp(aeItem)) {
         return AEX_COMP_ITEM;
     } else if (aeq.isFootageItem(aeItem)) {
