@@ -1,5 +1,5 @@
 function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
-    const itemAttributes = _getFootageItemAttributes(item, state);
+    const itemAttributes = getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as FileSource;
 
     state.stats.nonCompItemCount++;

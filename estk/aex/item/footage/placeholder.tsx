@@ -1,5 +1,5 @@
 function getAexPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlaceholderItem {
-    const itemAttributes = _getFootageItemAttributes(item, state);
+    const itemAttributes = getFootageItemAttributes(item, state);
 
     state.stats.nonCompItemCount++;
 

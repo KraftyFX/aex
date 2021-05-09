@@ -40,7 +40,7 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
     }
 }
 
-function _getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
+function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 

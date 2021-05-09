@@ -1,5 +1,5 @@
 function getAexSolidItem(item: FootageItem, state: AexState): AexSolidItem {
-    const itemAttributes = _getFootageItemAttributes(item, state);
+    const itemAttributes = getFootageItemAttributes(item, state);
     const itemSource = item.mainSource as SolidSource;
 
     state.stats.nonCompItemCount++;
