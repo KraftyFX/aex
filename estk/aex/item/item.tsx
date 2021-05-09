@@ -79,7 +79,7 @@ function getItemUid(aeItem: Item): string {
     }
 }
 
-function getItemById(id: AexUID): Item {
+function _tryGetItemById(id: AexUID): Item {
     const items = aeq.getItems().filter((item) => {
         return !aeq.isFolderItem(item);
     });
@@ -92,10 +92,10 @@ function getItemById(id: AexUID): Item {
 }
 
 function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
-    const existingItem = getItemById(aexFootageSource.id);
+    const item = _tryGetItemById(aexFootageSource.id);
 
-    if (existingItem && getAexItemType(existingItem) === aexFootageSource.type) {
-        return existingItem as AVItem;
+    if (item && getAexItemType(item) === aexFootageSource.type) {
+        return item as AVItem;
     } else {
         return undefined;
     }
