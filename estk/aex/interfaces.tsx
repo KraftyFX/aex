@@ -40,7 +40,7 @@ interface GetOptions {
     unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }
 
-interface GetResult<T extends AexSerialized> {
+interface GetResult<T = AexSerialized> {
     object: T;
     stats: AexStats;
     profile: {
@@ -75,8 +75,8 @@ interface AexStats {
 interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
+    getComps: CompItem[];
     updateOptions: UpdateOptions;
-
     stats: AexStats;
     profile: {
         [key: string]: { elapsed: number; meta: string }[];

@@ -9,6 +9,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         getOptions: {
             unspportedPropertyBehavior: 'skip',
         },
+        getComps: [],
         updateOptions: null,
         log: [],
         stats: {

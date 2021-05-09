@@ -12,6 +12,7 @@ function create(aeParentObject: Serializable, aexObject: AexItem | AexComp | Aex
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
+        getComps: [],
         log: [],
         stats: {
             nonCompItemCount: 0,

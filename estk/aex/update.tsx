@@ -12,6 +12,7 @@ function update(aeObject: Serializable, aexObject: AexSerialized, options?: Upda
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
+        getComps: [],
         log: [],
         stats: {
             nonCompItemCount: 0,

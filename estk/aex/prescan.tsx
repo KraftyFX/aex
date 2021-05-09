@@ -5,7 +5,7 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
         prescanOptions: options,
         getOptions: null,
         updateOptions: null,
-        log: [],
+        getComps: [],
         stats: {
             nonCompItemCount: 0,
             compCount: 0,
@@ -14,6 +14,7 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
             keyCount: 0,
         },
         profile: {},
+        log: [],
     };
 
     assignAttributes(state.getOptions, options || {});
