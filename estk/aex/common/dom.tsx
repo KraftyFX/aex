@@ -22,26 +22,6 @@ function isVisibleLayer(layer: Layer): layer is AVLayer | TextLayer | ShapeLayer
     return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
 }
 
-function isNullLayer(layer: Layer): layer is AVLayer {
-    return layer.nullLayer;
-}
-
-/**
- * This check is conceptually redundant, however:
- *
- * In AEX we're differentiating between the AVLayer base class (both in AEX and AE)
- * and each of the subclasses (TextLayer, ShapeLayer).
- *
- * This is because in AE, non-TextLayer, non-ShapeLayer AVLayers have unique properties,
- * and so it's cleaner & friendlier to treat AVLayers as three distinct possibilities:
- *   - TextLayer
- *   - ShapeLayer
- *   - FootageLayer
- */
-function isFootageLayer(layer: Layer): layer is AVLayer {
-    return aeq.isAVLayer(layer);
-}
-
 type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: number) => void;
 
 function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback, state: AexState) {

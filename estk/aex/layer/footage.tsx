@@ -6,23 +6,23 @@ function prescanFootageLayer(aeAvLayer: AVLayer, state: AexState) {
 }
 
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
-    const layerAttributes = getAvLayer(aeAvLayer, state);
+    const type = getAexAvLayerType(aeAvLayer);
+    const layerAttributes = getAvLayerAttributes(aeAvLayer, type, state);
 
     state.stats.layerCount++;
 
     return {
         ...layerAttributes,
-        type: AEX_FOOTAGE_LAYER,
 
         source: _getFootageSource(aeAvLayer),
         trackers: _getTrackers(aeAvLayer, state),
     };
 }
 
-function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
+function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, type: AexAvLayerType, state: AexState) {
     const aexSource = aexFootageLayer.source;
 
-    let sourceItem = getItemFromSource(aexSource);
+    let sourceItem = tryGetExistingItemFromSource(aexSource);
 
     if (!sourceItem) {
         if (aexSource.type === AEX_COMP_ITEM) {
@@ -66,4 +66,30 @@ function _getTrackers(aeAvLayer: AVLayer, state: AexState): AexPropertyGroup[] {
 
 function _getTrackersProperty(aeAvLayer: AVLayer) {
     return aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
+}
+
+function getAexAvLayerType(aeAvLayer: AVLayer): AexAvLayerType {
+    const aeItem = aeAvLayer.source;
+
+    if (aeq.isComp(aeItem)) {
+        return AEX_COMP_LAYER;
+    } else if (aeq.isFootageItem(aeItem)) {
+        const { mainSource } = aeItem;
+
+        if (sourceIsFile(mainSource)) {
+            return AEX_FILE_LAYER;
+        } else if (sourceIsSolid(mainSource)) {
+            if (aeAvLayer.nullLayer) {
+                return AEX_NULL_LAYER;
+            } else {
+                return AEX_SOLID_LAYER;
+            }
+        } else if (sourceIsPlaceholder(mainSource)) {
+            return AEX_PLACEHOLDER_LAYER;
+        } else {
+            throw new Error(`Unrecognized Footage Layer Type`);
+        }
+    } else {
+        throw new Error(`Unrecognized AVLayer Footage Source Type`);
+    }
 }

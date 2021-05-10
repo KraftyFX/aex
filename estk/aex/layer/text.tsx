@@ -15,7 +15,7 @@ function _getAnimatorsProperty(aeTextLayer: TextLayer): PropertyGroup {
 }
 
 function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer {
-    const avLayerAttributes = getAvLayer(aeTextLayer, state);
+    const avLayerAttributes = getAvLayerAttributes(aeTextLayer, AEX_TEXT_LAYER, state);
 
     /**
      * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.

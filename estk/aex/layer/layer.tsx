@@ -2,20 +2,24 @@ function prescanLayer(aeLayer: Layer, state: AexState) {
     prescanMarkerProperties(aeLayer.marker, state);
     prescanTransform(aeLayer, state);
 
-    if (aeq.isTextLayer(aeLayer)) {
-        return prescanTextLayer(aeLayer, state);
-    } else if (aeq.isShapeLayer(aeLayer)) {
-        return prescanShapeLayer(aeLayer, state);
-    } else if (isNullLayer(aeLayer)) {
-        return prescanNullLayer(aeLayer, state);
-    } else if (isFootageLayer(aeLayer)) {
-        return prescanFootageLayer(aeLayer, state);
-    } else if (aeq.isLightLayer(aeLayer)) {
-        return prescanLightLayer(aeLayer, state);
-    } else if (aeq.isCameraLayer(aeLayer)) {
-        return prescanCameraLayer(aeLayer, state);
-    } else {
-        throw new Error(`Unrecognized Layer Type`);
+    switch (getAexLayerType(aeLayer)) {
+        case AEX_TEXT_LAYER:
+            return prescanTextLayer(aeLayer as TextLayer, state);
+        case AEX_SHAPE_LAYER:
+            return prescanShapeLayer(aeLayer as ShapeLayer, state);
+        case AEX_NULL_LAYER:
+            return prescanNullLayer(aeLayer as AVLayer, state);
+        case AEX_FILE_LAYER:
+        case AEX_PLACEHOLDER_LAYER:
+        case AEX_FILE_LAYER:
+        case AEX_COMP_LAYER:
+            return prescanFootageLayer(aeLayer as AVLayer, state);
+        case AEX_LIGHT_LAYER:
+            return prescanLightLayer(aeLayer as LightLayer, state);
+        case AEX_CAMERA_LAYER:
+            return prescanCameraLayer(aeLayer as CameraLayer, state);
+        default:
+            throw new Error(`Unrecognized Layer Type`);
     }
 }
 
@@ -23,20 +27,24 @@ function getAexLayer(aeLayer: Layer, state: AexState): AexLayer {
     return profile(
         'getAexLayer',
         () => {
-            if (aeq.isTextLayer(aeLayer)) {
-                return getAexTextLayer(aeLayer, state);
-            } else if (aeq.isShapeLayer(aeLayer)) {
-                return getAexShapeLayer(aeLayer, state);
-            } else if (isNullLayer(aeLayer)) {
-                return getAexNullLayer(aeLayer, state);
-            } else if (isFootageLayer(aeLayer)) {
-                return getAexFootageLayer(aeLayer, state);
-            } else if (aeq.isLightLayer(aeLayer)) {
-                return getAexLightLayer(aeLayer, state);
-            } else if (aeq.isCameraLayer(aeLayer)) {
-                return getAexCameraLayer(aeLayer, state);
-            } else {
-                throw new Error(`Unrecognized Layer Type`);
+            switch (getAexLayerType(aeLayer)) {
+                case AEX_TEXT_LAYER:
+                    return getAexTextLayer(aeLayer as TextLayer, state);
+                case AEX_SHAPE_LAYER:
+                    return getAexShapeLayer(aeLayer as ShapeLayer, state);
+                case AEX_NULL_LAYER:
+                    return getAexNullLayer(aeLayer as AVLayer, state);
+                case AEX_FILE_LAYER:
+                case AEX_PLACEHOLDER_LAYER:
+                case AEX_SOLID_LAYER:
+                case AEX_COMP_LAYER:
+                    return getAexFootageLayer(aeLayer as AVLayer, state);
+                case AEX_LIGHT_LAYER:
+                    return getAexLightLayer(aeLayer as LightLayer, state);
+                case AEX_CAMERA_LAYER:
+                    return getAexCameraLayer(aeLayer as CameraLayer, state);
+                default:
+                    throw new Error(`Unrecognized Layer Type`);
             }
         },
         state,
@@ -54,8 +62,11 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
             return createAeShapeLayer(comp, aexLayer as AexShapeLayer, state);
         case AEX_NULL_LAYER:
             return createAeNullLayer(comp, aexLayer as AexNullLayer, state);
-        case AEX_FOOTAGE_LAYER:
-            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
+        case AEX_FILE_LAYER:
+        case AEX_PLACEHOLDER_LAYER:
+        case AEX_SOLID_LAYER:
+        case AEX_COMP_LAYER:
+            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, aexLayer.type, state);
         case AEX_LIGHT_LAYER:
             return createAeLightLayer(comp, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
@@ -140,4 +151,20 @@ function _setLayerMarkers(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     }
 
     updateAeMarkers(aeLayer.marker, aexLayer.markers, state);
+}
+
+function getAexLayerType(aeLayer: Layer): AexLayerType {
+    if (aeq.isTextLayer(aeLayer)) {
+        return AEX_TEXT_LAYER;
+    } else if (aeq.isShapeLayer(aeLayer)) {
+        return AEX_SHAPE_LAYER;
+    } else if (aeq.isAVLayer(aeLayer)) {
+        return getAexAvLayerType(aeLayer as AVLayer);
+    } else if (aeq.isLightLayer(aeLayer)) {
+        return AEX_LIGHT_LAYER;
+    } else if (aeq.isCameraLayer(aeLayer)) {
+        return AEX_CAMERA_LAYER;
+    } else {
+        throw new Error(`Unrecognized Layer Type`);
+    }
 }

@@ -83,7 +83,7 @@ function _tryGetItemById(id: AexUID): Item {
     return aeq.getItems().find((item) => getItemUid(item) === id);
 }
 
-function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
+function tryGetExistingItemFromSource(aexFootageSource: AexFootageSource): AVItem {
     const item = _tryGetItemById(aexFootageSource.id);
 
     if (item && getAexItemType(item) === aexFootageSource.type) {
@@ -96,6 +96,8 @@ function getItemFromSource(aexFootageSource: AexFootageSource): AVItem {
 function getAexItemType(aeItem: Item): AexItemType {
     if (aeq.isComp(aeItem)) {
         return AEX_COMP_ITEM;
+    } else if (aeq.isFolderItem(aeItem)) {
+        return AEX_FOLDER_ITEM;
     } else if (aeq.isFootageItem(aeItem)) {
         const mainSource = aeItem.mainSource;
 
@@ -106,10 +108,8 @@ function getAexItemType(aeItem: Item): AexItemType {
         } else if (sourceIsPlaceholder(mainSource)) {
             return AEX_PLACEHOLDER_ITEM;
         } else {
-            throw new Error(`Unrecognized Footage Type`);
+            throw new Error(`Unrecognized Footage Item Type`);
         }
-    } else if (aeq.isFolderItem(aeItem)) {
-        return AEX_FOLDER_ITEM;
     } else {
         throw new Error(`Unrecognized Item Type`);
     }

@@ -7,12 +7,12 @@ function prescanAvLayer(aeAvLayer: AVLayer, state: AexState) {
     prescanPropertyGroup(aeAvLayer.geometryOption, state);
 }
 
-function getAvLayer(aeAvLayer: AVLayer, state: AexState): AexAVLayerBase {
+function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: AexState): AexAVLayerBase {
     const layerAttributes = getLayerAttributes(aeAvLayer, state);
 
     return {
         ...layerAttributes,
-        type: AEX_FOOTAGE_LAYER,
+        type,
 
         adjustmentLayer: getModifiedValue(aeAvLayer.adjustmentLayer, false),
         audioEnabled: getModifiedValue(aeAvLayer.audioEnabled, true),

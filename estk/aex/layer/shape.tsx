@@ -6,7 +6,7 @@ function prescanShapeLayer(aeShapeLayer: ShapeLayer, state: AexState) {
 }
 
 function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLayer {
-    const avLayerAttributes = getAvLayer(aeShapeLayer, state);
+    const avLayerAttributes = getAvLayerAttributes(aeShapeLayer, AEX_SHAPE_LAYER, state);
 
     /**
      * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.

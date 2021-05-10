@@ -2,13 +2,14 @@ import { AeObject, aex } from '../aex';
 import {
     AEX_CAMERA_LAYER,
     AEX_COMP_ITEM,
-    AEX_FOOTAGE_LAYER,
+    AEX_COMP_LAYER,
     AEX_LIGHT_LAYER,
     AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
     AEX_PROJECT,
     AEX_SHAPE_LAYER,
     AEX_SOLID_ITEM,
+    AEX_SOLID_LAYER,
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
@@ -195,7 +196,7 @@ describe('Basic Layer Attributes', function () {
                         value: [0, 0, 0],
                     },
                 },
-                type: AEX_FOOTAGE_LAYER,
+                type: AEX_SOLID_LAYER,
             });
         });
 
@@ -393,7 +394,7 @@ describe('Basic Layer Attributes', function () {
                 timeRemapEnabled: true,
                 trackers: [],
                 transform: {},
-                type: AEX_FOOTAGE_LAYER,
+                type: AEX_COMP_LAYER,
             });
         });
 
@@ -455,7 +456,7 @@ describe('Basic Layer Attributes', function () {
                 timeRemapEnabled: true,
                 trackers: [],
                 transform: {},
-                type: AEX_FOOTAGE_LAYER,
+                type: AEX_COMP_LAYER,
             });
         });
 
@@ -472,7 +473,7 @@ describe('Basic Layer Attributes', function () {
                 },
                 trackers: [],
                 transform: {},
-                type: AEX_FOOTAGE_LAYER,
+                type: AEX_SOLID_LAYER,
             });
 
             assertAreEqual(comp.layers[11], {
@@ -732,7 +733,7 @@ describe('Basic Layer Attributes', function () {
                                 value: [0, 0, 0],
                             },
                         },
-                        type: AEX_FOOTAGE_LAYER,
+                        type: AEX_SOLID_LAYER,
                     },
                     {
                         markers: [],
@@ -972,7 +973,7 @@ describe('Basic Layer Attributes', function () {
                                 timeRemapEnabled: true,
                                 trackers: [],
                                 transform: {},
-                                type: AEX_FOOTAGE_LAYER,
+                                type: AEX_COMP_LAYER,
                             },
                         ],
                         type: AEX_COMP_ITEM,
@@ -1062,7 +1063,7 @@ describe('Basic Layer Attributes', function () {
                                 timeRemapEnabled: true,
                                 trackers: [],
                                 transform: {},
-                                type: AEX_FOOTAGE_LAYER,
+                                type: AEX_COMP_LAYER,
                             },
                         ],
                         type: AEX_COMP_ITEM,
@@ -1094,7 +1095,7 @@ describe('Basic Layer Attributes', function () {
                         },
                         trackers: [],
                         transform: {},
-                        type: AEX_FOOTAGE_LAYER,
+                        type: AEX_SOLID_LAYER,
                     },
                     {
                         effects: [],

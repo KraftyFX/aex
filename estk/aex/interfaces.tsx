@@ -6,8 +6,15 @@ type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
 type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 
-type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType | 'aex:layer:null';
-type AexAvLayerType = 'aex:layer:av' | 'aex:layer:av:shape' | 'aex:layer:av:text';
+type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
+type AexAvLayerType =
+    | 'aex:layer:av:null'
+    | 'aex:layer:av:file'
+    | 'aex:layer:av:comp'
+    | 'aex:layer:av:solid'
+    | 'aex:layer:av:placeholder'
+    | 'aex:layer:av:shape'
+    | 'aex:layer:av:text';
 
 type AexPropertyType =
     | 'aex:property:no_value'
