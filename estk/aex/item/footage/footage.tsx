@@ -15,9 +15,9 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
 function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): FootageItem {
     switch (aexFootage.type) {
         case AEX_SOLID_ITEM:
-            return createAeSolid(aexFootage as AexSolidItem, state);
+            return createAeSolidItem(aexFootage as AexSolidItem, state);
         case AEX_PLACEHOLDER_ITEM:
-            return createAePlaceholder(aexFootage as AexPlaceholderItem, state);
+            return createAePlaceholderItem(aexFootage as AexPlaceholderItem, state);
         case AEX_FILE_FOOTAGE_ITEM:
             throw new Error(`TODO: Rafi`);
         default:
@@ -28,10 +28,10 @@ function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): Foota
 function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
     switch (aexFootage.type) {
         case AEX_SOLID_ITEM:
-            updateAeSolid(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
+            updateAeSolidItem(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
             break;
         case AEX_PLACEHOLDER_ITEM:
-            updateAePlaceholder(aeFootage, aexFootage as AexPlaceholderItem, state);
+            updateAePlaceholderItem(aeFootage, aexFootage as AexPlaceholderItem, state);
             break;
         case AEX_FILE_FOOTAGE_ITEM:
             throw new Error(`TODO: Rafi`);

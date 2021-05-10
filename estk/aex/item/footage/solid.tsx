@@ -13,7 +13,7 @@ function getAexSolidItem(item: FootageItem, state: AexState): AexSolidItem {
     };
 }
 
-function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
+function createAeSolidItem(aexSolid: AexSolidItem, state: AexState): FootageItem {
     const tempComp = aeq.comp.create();
 
     const solidSettings = {
@@ -45,7 +45,7 @@ function createAeSolid(aexSolid: AexSolidItem, state: AexState): FootageItem {
     return source as FootageItem;
 }
 
-function updateAeSolid(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
+function updateAeSolidItem(aeSolid: FootageItem, aexSolid: AexSolidItem, state: AexState) {
     state.stats.nonCompItemCount++;
 
     assignAttributes(aeSolid, {

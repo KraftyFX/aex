@@ -9,7 +9,7 @@ function getAexPlaceholderItem(item: PlaceholderItem, state: AexState): AexPlace
     };
 }
 
-function createAePlaceholder(aexPlaceholder: AexPlaceholderItem, state: AexState): PlaceholderItem {
+function createAePlaceholderItem(aexPlaceholder: AexPlaceholderItem, state: AexState): PlaceholderItem {
     const placeholderSettings = {
         name: 'New Placeholder',
         width: 1920,
@@ -33,7 +33,7 @@ function createAePlaceholder(aexPlaceholder: AexPlaceholderItem, state: AexState
     return aePlaceholder;
 }
 
-function updateAePlaceholder(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
+function updateAePlaceholderItem(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
     state.stats.nonCompItemCount++;
 
     assignAttributes(aePlaceholder, {
