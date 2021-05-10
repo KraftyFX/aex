@@ -31,6 +31,10 @@ function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, stat
     return aeShapeLayer;
 }
 
+function updateAexShapeLayer(aeShapeLayer: ShapeLayer, aexShapeLayer: AexShapeLayer, state: AexState) {
+    throw new Error(`TODO: Zack`);
+}
+
 function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {
     const rootVectorsGroups = _getRootVectorsGroup(aeShapeLayer);
 

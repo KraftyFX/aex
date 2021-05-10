@@ -47,6 +47,10 @@ function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, s
     return aeCameraLayer;
 }
 
+function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCameraLayer, state: AexState) {
+    throw new Error(`TODO: Zack`);
+}
+
 function _getCameraCenterPoint(aeComp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {
     let centerPoint: TwoDPoint;
 

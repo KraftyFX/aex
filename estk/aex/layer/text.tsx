@@ -75,3 +75,7 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
 
     return layer;
 }
+
+function updateAexTextLayer(aeTextLayer: TextLayer, aexTextLayer: AexTextLayer, state: AexState) {
+    throw new Error(`TODO: Zack`);
+}

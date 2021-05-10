@@ -77,12 +77,25 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
 }
 
 function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
-    // Go through all the different layer types, create setters for them
-    // and call it here just like in the getAexLayer function. For each
-    // update function make sure to count the stats and double check that
-    // it's not being double counted during created.
-
-    throw new Error(`TODO: Zack`);
+    switch (getAexLayerType(aeLayer)) {
+        case AEX_TEXT_LAYER:
+            return updateAexTextLayer(aeLayer as TextLayer, aexLayer as AexTextLayer, state);
+        case AEX_SHAPE_LAYER:
+            return updateAexShapeLayer(aeLayer as ShapeLayer, aexLayer as AexShapeLayer, state);
+        case AEX_NULL_LAYER:
+            return updateAexNullLayer(aeLayer as AVLayer, aexLayer as AexNullLayer, state);
+        case AEX_FILE_LAYER:
+        case AEX_PLACEHOLDER_LAYER:
+        case AEX_SOLID_LAYER:
+        case AEX_COMP_LAYER:
+            throw new Error(`Not Implemented`);
+        case AEX_LIGHT_LAYER:
+            return updateAexLightLayer(aeLayer as LightLayer, aexLayer as AexLightLayer, state);
+        case AEX_CAMERA_LAYER:
+            return updateAexCameraLayer(aeLayer as CameraLayer, aexLayer as AexCameraLayer, state);
+        default:
+            throw new Error(`Unrecognized Layer Type`);
+    }
 }
 
 function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
