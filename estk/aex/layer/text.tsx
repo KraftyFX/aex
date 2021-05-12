@@ -28,7 +28,6 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
 
     return {
         ...avLayerAttributes,
-        type: AEX_TEXT_LAYER,
 
         threeDPerChar: getBoundModifiedValue(aeTextLayer.threeDLayer, () => aeTextLayer.threeDPerChar, false),
         sourceText: getModifiedProperty(text.sourceText, state),

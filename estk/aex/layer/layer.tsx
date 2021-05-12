@@ -66,7 +66,7 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
         case AEX_PLACEHOLDER_LAYER:
         case AEX_SOLID_LAYER:
         case AEX_COMP_LAYER:
-            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, aexLayer.type, state);
+            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
         case AEX_LIGHT_LAYER:
             return createAeLightLayer(comp, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
@@ -171,8 +171,10 @@ function getAexLayerType(aeLayer: Layer): AexLayerType {
         return AEX_TEXT_LAYER;
     } else if (aeq.isShapeLayer(aeLayer)) {
         return AEX_SHAPE_LAYER;
+    } else if (aeLayer.nullLayer) {
+        return AEX_NULL_LAYER;
     } else if (aeq.isAVLayer(aeLayer)) {
-        return getAexAvLayerType(aeLayer as AVLayer);
+        return getAexAvFootageLayerType(aeLayer as AVLayer);
     } else if (aeq.isLightLayer(aeLayer)) {
         return AEX_LIGHT_LAYER;
     } else if (aeq.isCameraLayer(aeLayer)) {

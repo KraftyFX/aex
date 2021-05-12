@@ -17,7 +17,6 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
 
     return {
         ...avLayerAttributes,
-        type: AEX_SHAPE_LAYER,
 
         contents: _getContents(aeShapeLayer, state),
     };

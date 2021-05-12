@@ -6,7 +6,8 @@ function prescanFootageLayer(aeAvLayer: AVLayer, state: AexState) {
 }
 
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
-    const type = getAexAvLayerType(aeAvLayer);
+    const type = getAexAvFootageLayerType(aeAvLayer);
+
     const layerAttributes = getAvLayerAttributes(aeAvLayer, type, state);
 
     state.stats.layerCount++;
@@ -21,7 +22,7 @@ function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLaye
     };
 }
 
-function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, type: AexAvLayerType, state: AexState) {
+function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
     const aexSource = aexFootageLayer.source;
 
     let sourceItem = tryGetExistingItemFromSource(aexSource);
@@ -70,7 +71,7 @@ function _getTrackersProperty(aeAvLayer: AVLayer) {
     return aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
 }
 
-function getAexAvLayerType(aeAvLayer: AVLayer): AexAvLayerType {
+function getAexAvFootageLayerType(aeAvLayer: AVLayer): AexFootageLayerType {
     const aeItem = aeAvLayer.source;
 
     if (aeq.isComp(aeItem)) {
@@ -82,10 +83,10 @@ function getAexAvLayerType(aeAvLayer: AVLayer): AexAvLayerType {
             return AEX_FILE_LAYER;
         } else if (sourceIsSolid(mainSource)) {
             if (aeAvLayer.nullLayer) {
-                return AEX_NULL_LAYER;
-            } else {
-                return AEX_SOLID_LAYER;
+                throw new Error(`Null layers are technically solids however they should not be processed by AEXs footage layer component.`);
             }
+
+            return AEX_SOLID_LAYER;
         } else if (sourceIsPlaceholder(mainSource)) {
             return AEX_PLACEHOLDER_LAYER;
         } else {
