@@ -42,6 +42,7 @@ function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: A
     };
 }
 
+// TODO: Drop the _
 function _setAvLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
     assignAttributes(aeAvLayer, {
         adjustmentLayer: aexAvLayer.adjustmentLayer,
