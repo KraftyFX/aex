@@ -19,7 +19,7 @@ function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): Foota
         case AEX_PLACEHOLDER_ITEM:
             return createAePlaceholderItem(aexFootage as AexPlaceholderItem, state);
         case AEX_FILE_FOOTAGE_ITEM:
-            throw new Error(`TODO: Rafi`);
+            throw new Error(`TODO: Zack`);
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
