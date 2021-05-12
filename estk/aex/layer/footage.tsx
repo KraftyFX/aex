@@ -7,45 +7,57 @@ function prescanFootageLayer(aeAvLayer: AVLayer, state: AexState) {
 
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
     const type = getAexAvFootageLayerType(aeAvLayer);
-
     const layerAttributes = getAvLayerAttributes(aeAvLayer, type, state);
 
     state.stats.layerCount++;
 
-    // TODO: If comp layer, add to getComps queue
+    if (type === AEX_NULL_LAYER) {
+        return layerAttributes as AexNullLayer;
+    } else {
+        state.stats.layerCount++;
 
-    return {
-        ...layerAttributes,
+        // TODO: If comp layer, add to getComps queue
 
-        source: _getFootageSource(aeAvLayer),
-        trackers: _getTrackers(aeAvLayer, state),
-    };
+        return {
+            ...layerAttributes,
+
+            source: _getFootageSource(aeAvLayer),
+            trackers: _getTrackers(aeAvLayer, state),
+        };
+    }
 }
 
 function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
-    const aexSource = aexFootageLayer.source;
+    if (aexFootageLayer.type === AEX_NULL_LAYER) {
+        const aeNullLayer = aeComp.layers.addNull();
+        _setAvLayerAttributes(aeNullLayer, aexFootageLayer, state);
 
-    let sourceItem = tryGetExistingItemFromSource(aexSource);
+        return aeNullLayer;
+    } else {
+        const aexSource = aexFootageLayer.source;
 
-    if (!sourceItem) {
-        if (aexSource.type === AEX_COMP_ITEM) {
-            throw new Error(`TODO: Precomp deserialization`);
-            // sourceItem = _createAeComp(undefined, state);
-            // comp.openInViewer();
-        } else {
-            sourceItem = createAeFootageItem(
-                {
-                    type: aexSource.type,
-                } as AexFootageItem,
-                state
-            );
+        let sourceItem = tryGetExistingItemFromSource(aexSource);
+
+        if (!sourceItem) {
+            if (aexSource.type === AEX_COMP_ITEM) {
+                throw new Error(`TODO: Precomp deserialization`);
+                // sourceItem = _createAeComp(undefined, state);
+                // comp.openInViewer();
+            } else {
+                sourceItem = createAeFootageItem(
+                    {
+                        type: aexSource.type,
+                    } as AexFootageItem,
+                    state
+                );
+            }
         }
+
+        const aeFootageLayer = aeComp.layers.add(sourceItem);
+        _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
+
+        return aeFootageLayer;
     }
-
-    const aeFootageLayer = aeComp.layers.add(sourceItem);
-    _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
-
-    return aeFootageLayer;
 }
 
 function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
@@ -83,10 +95,10 @@ function getAexAvFootageLayerType(aeAvLayer: AVLayer): AexFootageLayerType {
             return AEX_FILE_LAYER;
         } else if (sourceIsSolid(mainSource)) {
             if (aeAvLayer.nullLayer) {
-                throw new Error(`Null layers are technically solids however they should not be processed by AEXs footage layer component.`);
+                return AEX_NULL_LAYER;
+            } else {
+                return AEX_SOLID_LAYER;
             }
-
-            return AEX_SOLID_LAYER;
         } else if (sourceIsPlaceholder(mainSource)) {
             return AEX_PLACEHOLDER_LAYER;
         } else {

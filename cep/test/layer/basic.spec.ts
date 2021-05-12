@@ -102,12 +102,7 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Empty',
-                trackers: [],
                 transform: {},
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 1:50',
-                },
                 type: AEX_NULL_LAYER,
             });
         });
@@ -146,11 +141,6 @@ describe('Basic Layer Attributes', function () {
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 1:50',
-                },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -164,11 +154,6 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Blend Mode',
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 1:50',
-                },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             });
@@ -594,11 +579,6 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Empty',
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 1:40',
-                },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -607,9 +587,6 @@ describe('Basic Layer Attributes', function () {
 
             const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
-
-            layerData.source.id = '';
-            comp.layers[0].source.id = '';
 
             assertAreEqual(comp.layers[0], layerData);
         });
@@ -655,11 +632,6 @@ describe('Basic Layer Attributes', function () {
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 2:67',
-                },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -668,9 +640,6 @@ describe('Basic Layer Attributes', function () {
 
             const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
-
-            layerData.source.id = '';
-            comp.layers[0].source.id = '';
 
             assertAreEqual(comp.layers[0], layerData);
         });
@@ -683,11 +652,6 @@ describe('Basic Layer Attributes', function () {
                 markers: [],
                 masks: [],
                 name: 'Blend Mode',
-                source: {
-                    type: AEX_SOLID_ITEM,
-                    id: 'null 3:81',
-                },
-                trackers: [],
                 transform: {},
                 type: AEX_NULL_LAYER,
             };
@@ -696,9 +660,6 @@ describe('Basic Layer Attributes', function () {
 
             const result = await aex().get(AeObject.ActiveComp);
             const comp = result.object;
-
-            layerData.source.id = '';
-            comp.layers[0].source.id = '';
 
             assertAreEqual(comp.layers[0], layerData);
         });

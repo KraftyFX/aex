@@ -8,7 +8,6 @@ function prescanLayer(aeLayer: Layer, state: AexState) {
         case AEX_SHAPE_LAYER:
             return prescanShapeLayer(aeLayer as ShapeLayer, state);
         case AEX_NULL_LAYER:
-            return prescanNullLayer(aeLayer as AVLayer, state);
         case AEX_FILE_LAYER:
         case AEX_PLACEHOLDER_LAYER:
         case AEX_FILE_LAYER:
@@ -33,7 +32,6 @@ function getAexLayer(aeLayer: Layer, state: AexState): AexLayer {
                 case AEX_SHAPE_LAYER:
                     return getAexShapeLayer(aeLayer as ShapeLayer, state);
                 case AEX_NULL_LAYER:
-                    return getAexNullLayer(aeLayer as AVLayer, state);
                 case AEX_FILE_LAYER:
                 case AEX_PLACEHOLDER_LAYER:
                 case AEX_SOLID_LAYER:
@@ -61,7 +59,6 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
         case AEX_SHAPE_LAYER:
             return createAeShapeLayer(comp, aexLayer as AexShapeLayer, state);
         case AEX_NULL_LAYER:
-            return createAeNullLayer(comp, aexLayer as AexNullLayer, state);
         case AEX_FILE_LAYER:
         case AEX_PLACEHOLDER_LAYER:
         case AEX_SOLID_LAYER:
@@ -83,7 +80,6 @@ function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
         case AEX_SHAPE_LAYER:
             return updateAexShapeLayer(aeLayer as ShapeLayer, aexLayer as AexShapeLayer, state);
         case AEX_NULL_LAYER:
-            return updateAexNullLayer(aeLayer as AVLayer, aexLayer as AexNullLayer, state);
         case AEX_FILE_LAYER:
         case AEX_PLACEHOLDER_LAYER:
         case AEX_SOLID_LAYER:
@@ -171,8 +167,6 @@ function getAexLayerType(aeLayer: Layer): AexLayerType {
         return AEX_TEXT_LAYER;
     } else if (aeq.isShapeLayer(aeLayer)) {
         return AEX_SHAPE_LAYER;
-    } else if (aeLayer.nullLayer) {
-        return AEX_NULL_LAYER;
     } else if (aeq.isAVLayer(aeLayer)) {
         return getAexAvFootageLayerType(aeLayer as AVLayer);
     } else if (aeq.isLightLayer(aeLayer)) {
