@@ -7,14 +7,8 @@ type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
 type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 
 type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
-type AexAvLayerType =
-    | 'aex:layer:av:null'
-    | 'aex:layer:av:file'
-    | 'aex:layer:av:comp'
-    | 'aex:layer:av:solid'
-    | 'aex:layer:av:placeholder'
-    | 'aex:layer:av:shape'
-    | 'aex:layer:av:text';
+type AexAvLayerType = 'aex:layer:av:null' | 'aex:layer:av:shape' | 'aex:layer:av:text' | AexFootageLayerType;
+type AexFootageLayerType = 'aex:layer:av:file' | 'aex:layer:av:comp' | 'aex:layer:av:solid' | 'aex:layer:av:placeholder';
 
 type AexPropertyType =
     | 'aex:property:no_value'
