@@ -14,7 +14,7 @@ function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLaye
     if (type === AEX_NULL_LAYER) {
         return layerAttributes as AexNullLayer;
     } else {
-        trackFootageSource(aeAvLayer, state);
+        _trackFootageSource(aeAvLayer, state);
 
         return {
             ...layerAttributes,
@@ -32,7 +32,7 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
 
         return aeNullLayer;
     } else {
-        const sourceItem = _ensureFootageSourceExists(aexFootageLayer, state);
+        const sourceItem = _ensureFootageLayerSourceExists(aexFootageLayer, state);
 
         const aeFootageLayer = aeComp.layers.add(sourceItem);
         _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
@@ -41,52 +41,45 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
     }
 }
 
-function _ensureFootageSourceExists(aexFootageLayer: AexFootageLayer, state: AexState) {
-    assertFootageSourceDataExists(aexFootageLayer, state);
+function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state: AexState) {
+    assertCanDoFootageSourceLookups(aexFootageLayer, state);
 
-    const aexSource = aexFootageLayer.source;
-    let aeSourceItem = _tryGetAeFootageSource(aexSource, state);
+    const aexFootageSource = aexFootageLayer.source;
+
+    let aeSourceItem = _tryGetAeFootageSourceItem(aexFootageSource, state);
 
     if (aeq.isNullOrUndefined(aeSourceItem)) {
-        if (aexSource.type === AEX_COMP_ITEM) {
-            const aexComp = getCompBySourceId(aexSource.id, state);
-            aeSourceItem = createAeComp(aexComp, state);
-        } else {
-            aeSourceItem = createAeFootageItem(
-                {
-                    type: aexSource.type,
-                } as AexFootageItem,
-                state
-            );
-        }
+        const aexItem = _getAexItemForFootageSource(aexFootageSource, state);
+        aeSourceItem = createAeItem(aexItem, state) as AVItem;
 
-        state.itemIdMap[aexSource.id] = aeSourceItem.id;
+        state.footageIdMap[aexFootageSource.id] = aeSourceItem.id;
     }
 
     return aeSourceItem;
 }
 
-function getCompBySourceId(sourceId: string, state: AexState) {
-    const aexComp = state.itemsToCreate.find((c) => c.aexid == sourceId && c.type === AEX_COMP_ITEM);
+function _getAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexFootageItem | AexComp {
+    const { id, type } = aexFootageSource;
+    const aexItem = state.itemsToCreate.find((item) => item.aexid == id && item.type === type);
 
-    if (aeq.isNullOrUndefined(aexComp)) {
+    if (aeq.isNullOrUndefined(aexItem)) {
+        throw new Error(`An item of type "${type}" with id "${id}" was not found for the footage layer.`);
+    }
+
+    return aexItem as AexFootageItem | AexComp;
+}
+
+function assertCanDoFootageSourceLookups(aexFootageLayer: AexFootageLayer, state: AexState) {
+    if (aeq.isNullOrUndefined(state.itemsToCreate) || aeq.isNullOrUndefined(state.footageIdMap)) {
+        const { name, type } = aexFootageLayer;
         throw new Error(
-            `An aex comp with id "${sourceId}" was not found. This  means the original get() call returned a bad result or the result was later corrupted.`
+            `A footage layer of type "${type}" with name "${name}" references a footage source the serialized object does not contain the details for it.`
         );
     }
-
-    return aexComp as AexComp;
 }
 
-function assertFootageSourceDataExists(aexFootageLayer: AexFootageLayer, state: AexState) {
-    if (aeq.isNullOrUndefined(state.itemsToCreate) || aeq.isNullOrUndefined(state.itemIdMap)) {
-        const { name, type } = aexFootageLayer;
-        throw new Error(`The provided "${type}" layer "${name}" has a source but there isn't data available to deserialize it.`);
-    }
-}
-
-function _tryGetAeFootageSource(aexFootageSource: AexFootageSource, state: AexState): AVItem {
-    const aeItemId = state.itemIdMap[aexFootageSource.id];
+function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: AexState): AVItem {
+    const aeItemId = state.footageIdMap[aexFootageSource.id];
     const aexItemType = aexFootageSource.type;
 
     return aeq.getItems().find(isMatchingFootage) as AVItem;
@@ -96,8 +89,18 @@ function _tryGetAeFootageSource(aexFootageSource: AexFootageSource, state: AexSt
     }
 }
 
+function _trackFootageSource(aeAvLayer: AVLayer, state: AexState) {
+    const { id } = aeAvLayer.source;
+
+    if (state.itemsToSerialize.find((item) => item.id === id)) {
+        return;
+    }
+
+    state.itemsToSerialize.push(aeAvLayer.source);
+}
+
 function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
-    const source = aeAvLayer.source as AVItem;
+    const source = aeAvLayer.source;
 
     return {
         id: getItemUid(aeAvLayer.source),

@@ -12,8 +12,6 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
-        itemsToCreate: aeq.arrayEx([]),
-        itemIdMap: {},
         log: [],
         stats: {
             nonCompItemCount: 0,
@@ -29,8 +27,8 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         const getResult = aexObject as GetResult<AexSerialized>;
 
         aexObject = getResult.object;
-        state.itemsToCreate = aeq.arrayEx(getResult.items);
-        state.itemIdMap = {};
+        state.itemsToCreate = aeq.arrayEx(getResult.items.concat(getResult.comps));
+        state.footageIdMap = {};
     }
 
     assignAttributes(state.updateOptions, options);

@@ -27,8 +27,8 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
         const getResult = aexObject as GetResult<AexSerialized>;
 
         aexObject = getResult.object;
-        state.itemsToCreate = aeq.arrayEx(getResult.items);
-        state.itemIdMap = {};
+        state.itemsToCreate = aeq.arrayEx(getResult.items.concat(getResult.comps));
+        state.footageIdMap = {};
     }
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {

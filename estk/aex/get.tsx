@@ -37,30 +37,27 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         throw new Error(`Getting a '${getDebugStringForAeType(aeObject)}' is not supported.`);
     }
 
-    const aeComps = state.itemsToSerialize;
+    const aeItems = state.itemsToSerialize;
     const aexComps: AexComp[] = [];
+    const aexItems: AexItem[] = [];
 
-    while (aeComps.length > 0) {
-        const comp = (aeComps.unshift() as unknown) as CompItem;
-        aexComps.push(getAexComp(comp, state));
+    while (aeItems.length > 0) {
+        const aexItem = getAexItem(aeItems.shift(), state);
+
+        if (aexItem.type === AEX_COMP_ITEM) {
+            aexComps.push(aexItem as AexComp);
+        } else {
+            aexItems.push(aexItem);
+        }
     }
 
     return {
         type: 'aex:getresult',
         object,
-        items: aexComps,
+        comps: aexComps,
+        items: aexItems,
         stats: state.stats,
         profile: state.profile,
         log: state.log,
     };
-}
-
-function trackFootageSource(aeAvLayer: AVLayer, state: AexState) {
-    const sourceId = aeAvLayer.source.id;
-
-    if (state.itemsToSerialize.find((item) => item.id === sourceId)) {
-        return;
-    }
-
-    state.itemsToSerialize.push(aeAvLayer.source);
 }
