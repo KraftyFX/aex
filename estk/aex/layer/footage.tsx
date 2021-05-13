@@ -14,10 +14,6 @@ function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLaye
     if (type === AEX_NULL_LAYER) {
         return layerAttributes as AexNullLayer;
     } else {
-        state.stats.layerCount++;
-
-        // TODO: If comp layer, add to getComps queue
-
         return {
             ...layerAttributes,
 
