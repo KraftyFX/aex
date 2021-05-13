@@ -1,7 +1,7 @@
 function update(aeObject: Project, aexObject: AexProject, options?: UpdateOptions): UpdateResult;
 function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions): UpdateResult;
 function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions): UpdateResult;
-function update(aeObject: Serializable, aexObject: AexSerialized, options?: UpdateOptions): UpdateResult {
+function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>, options?: UpdateOptions): UpdateResult {
     assertIsDefined(aeObject, 'aeObject');
     assertIsDefined(aexObject, 'aexObject');
 
@@ -12,7 +12,8 @@ function update(aeObject: Serializable, aexObject: AexSerialized, options?: Upda
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
-        getComps: [],
+        itemsToCreate: aeq.arrayEx([]),
+        itemIdMap: {},
         log: [],
         stats: {
             nonCompItemCount: 0,
@@ -23,6 +24,14 @@ function update(aeObject: Serializable, aexObject: AexSerialized, options?: Upda
         },
         profile: {},
     };
+
+    if (isGetResult(aexObject)) {
+        const getResult = aexObject as GetResult<AexSerialized>;
+
+        aexObject = getResult.object;
+        state.itemsToCreate = aeq.arrayEx(getResult.items);
+        state.itemIdMap = {};
+    }
 
     assignAttributes(state.updateOptions, options);
 
@@ -50,14 +59,14 @@ function update(aeObject: Serializable, aexObject: AexSerialized, options?: Upda
     };
 }
 
-function isUpdatingProject(aeObject: Serializable, aexObject: AexSerialized): aeObject is Project {
+function isUpdatingProject(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is Project {
     return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
 }
 
-function isUpdatingComp(aeObject: Serializable, aexObject: AexSerialized): aeObject is CompItem {
+function isUpdatingComp(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is CompItem {
     return aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM;
 }
 
-function isUpdatingLayer(aeObject: Serializable, aexObject: AexSerialized): aeObject is Layer {
-    return aeq.isLayer(aeObject) && isAexLayer(aexObject);
+function isUpdatingLayer(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is Layer {
+    return aeq.isLayer(aeObject) && isAexLayer(aexObject as AexSerialized);
 }

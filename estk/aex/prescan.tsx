@@ -5,7 +5,6 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
         prescanOptions: options,
         getOptions: null,
         updateOptions: null,
-        getComps: [],
         stats: {
             nonCompItemCount: 0,
             compCount: 0,

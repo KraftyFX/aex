@@ -42,7 +42,9 @@ interface GetOptions {
 }
 
 interface GetResult<T = AexSerialized> {
+    type: 'aex:getresult';
     object: T;
+    items: AexItem[];
     stats: AexStats;
     profile: {
         [key: string]: { elapsed: number; meta: string }[];
@@ -76,7 +78,9 @@ interface AexStats {
 interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
-    getComps: CompItem[];
+    itemsToSerialize?: AEQArrayEx<Item>;
+    itemsToCreate?: AEQArrayEx<AexItem>;
+    itemIdMap?: { [key: string]: number };
     updateOptions: UpdateOptions;
     stats: AexStats;
     profile: {

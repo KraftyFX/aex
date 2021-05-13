@@ -41,6 +41,8 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
 }
 
 function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootageItemBase {
+    assertIsDefined(item, 'item');
+
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 

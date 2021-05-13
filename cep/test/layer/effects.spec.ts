@@ -41,7 +41,7 @@ describe('Layer Effects', function () {
             console.log('layer_effects', project);
         });
 
-        it('Can parse simple unmodified effect', async () => {
+        it.only('Can parse simple unmodified effect', async () => {
             assertAreEqual(simpleComp.layers[0].effects[0], {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Default',

@@ -79,38 +79,28 @@ function getItemUid(aeItem: Item): string {
     }
 }
 
-function _tryGetItemById(id: AexUID): Item {
-    return aeq.getItems().find((item) => getItemUid(item) === id);
-}
-
-function tryGetExistingItemFromSource(aexFootageSource: AexFootageSource): AVItem {
-    const item = _tryGetItemById(aexFootageSource.id);
-
-    if (item && getAexItemType(item) === aexFootageSource.type) {
-        return item as AVItem;
-    } else {
-        return undefined;
-    }
-}
-
 function getAexItemType(aeItem: Item): AexItemType {
     if (aeq.isComp(aeItem)) {
         return AEX_COMP_ITEM;
     } else if (aeq.isFolderItem(aeItem)) {
         return AEX_FOLDER_ITEM;
     } else if (aeq.isFootageItem(aeItem)) {
-        const mainSource = aeItem.mainSource;
-
-        if (sourceIsFile(mainSource)) {
-            return AEX_FILE_FOOTAGE_ITEM;
-        } else if (sourceIsSolid(mainSource)) {
-            return AEX_SOLID_ITEM;
-        } else if (sourceIsPlaceholder(mainSource)) {
-            return AEX_PLACEHOLDER_ITEM;
-        } else {
-            throw new Error(`Unrecognized Footage Item Type`);
-        }
+        return getAexAvItemType(aeItem);
     } else {
         throw new Error(`Unrecognized Item Type`);
+    }
+}
+
+function getAexAvItemType(aeFootageItem: FootageItem): AexAvItemType {
+    const mainSource = aeFootageItem.mainSource;
+
+    if (sourceIsFile(mainSource)) {
+        return AEX_FILE_FOOTAGE_ITEM;
+    } else if (sourceIsSolid(mainSource)) {
+        return AEX_SOLID_ITEM;
+    } else if (sourceIsPlaceholder(mainSource)) {
+        return AEX_PLACEHOLDER_ITEM;
+    } else {
+        throw new Error(`Unrecognized Footage Item Type`);
     }
 }
