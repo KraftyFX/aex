@@ -24,7 +24,7 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
 
 function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const aeShapeLayer = aeComp.layers.addShape();
-    _setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
+    setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
     _setContents(_getRootVectorsGroup(aeShapeLayer), aexShapeLayer.contents, state);
 
     return aeShapeLayer;

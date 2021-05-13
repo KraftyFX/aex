@@ -28,14 +28,14 @@ function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLaye
 function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer, state: AexState) {
     if (aexFootageLayer.type === AEX_NULL_LAYER) {
         const aeNullLayer = aeComp.layers.addNull();
-        _setAvLayerAttributes(aeNullLayer, aexFootageLayer, state);
+        setAvLayerAttributes(aeNullLayer, aexFootageLayer, state);
 
         return aeNullLayer;
     } else {
         const sourceItem = _ensureFootageLayerSourceExists(aexFootageLayer, state);
 
         const aeFootageLayer = aeComp.layers.add(sourceItem);
-        _setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
+        setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
 
         return aeFootageLayer;
     }

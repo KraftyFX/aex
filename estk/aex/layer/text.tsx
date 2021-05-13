@@ -49,7 +49,7 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
         layer = aeComp.layers.addBoxText(boxSize, textValue);
     }
 
-    _setAvLayerAttributes(layer, aexTextLayer, state);
+    setAvLayerAttributes(layer, aexTextLayer, state);
 
     assignAttributes(layer, {
         threeDPerChar: aexTextLayer.threeDPerChar,
