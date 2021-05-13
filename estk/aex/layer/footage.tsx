@@ -6,10 +6,10 @@ function prescanFootageLayer(aeAvLayer: AVLayer, state: AexState) {
 }
 
 function getAexFootageLayer(aeAvLayer: AVLayer, state: AexState): AexFootageLayer {
+    state.stats.layerCount++;
+
     const type = getAexAvFootageLayerType(aeAvLayer);
     const layerAttributes = getAvLayerAttributes(aeAvLayer, type, state);
-
-    state.stats.layerCount++;
 
     if (type === AEX_NULL_LAYER) {
         return layerAttributes as AexNullLayer;
