@@ -1,14 +1,15 @@
 function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
-    const itemSource = item.mainSource;
+    const type = getAexFootageItemType(item);
 
-    if (sourceIsFile(itemSource)) {
-        return getAexFileItem(item, state);
-    } else if (sourceIsSolid(itemSource)) {
-        return getAexSolidItem(item, state);
-    } else if (sourceIsPlaceholder(itemSource)) {
-        return getAexPlaceholderItem(item, state);
-    } else {
-        throw new Error(`Unrecognized footage type`);
+    switch (type) {
+        case AEX_SOLID_ITEM:
+            return getAexSolidItem(item, state);
+        case AEX_PLACEHOLDER_ITEM:
+            return getAexPlaceholderItem(item, state);
+        case AEX_FILE_FOOTAGE_ITEM:
+            throw new Error(`TODO: Zack`);
+        default:
+            throw new Error(`Unsupported footage type: ${type}`);
     }
 }
 
@@ -34,9 +35,23 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
             updateAePlaceholderItem(aeFootage, aexFootage as AexPlaceholderItem, state);
             break;
         case AEX_FILE_FOOTAGE_ITEM:
-            throw new Error(`TODO: Rafi`);
+            throw new Error(`TODO: Zack`);
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
+    }
+}
+
+function getAexFootageItemType(aeFootageItem: FootageItem): AexFootageType {
+    const { mainSource } = aeFootageItem;
+
+    if (sourceIsFile(mainSource)) {
+        return AEX_FILE_FOOTAGE_ITEM;
+    } else if (sourceIsSolid(mainSource)) {
+        return AEX_SOLID_ITEM;
+    } else if (sourceIsPlaceholder(mainSource)) {
+        return AEX_PLACEHOLDER_ITEM;
+    } else {
+        throw new Error(`Unrecognized Footage Item Type`);
     }
 }
 

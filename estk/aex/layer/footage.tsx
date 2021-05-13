@@ -128,20 +128,19 @@ function getAexAvFootageLayerType(aeAvLayer: AVLayer): AexFootageLayerType {
     if (aeq.isComp(aeItem)) {
         return AEX_COMP_LAYER;
     } else if (aeq.isFootageItem(aeItem)) {
-        const { mainSource } = aeItem;
-
-        if (sourceIsFile(mainSource)) {
-            return AEX_FILE_LAYER;
-        } else if (sourceIsSolid(mainSource)) {
-            if (aeAvLayer.nullLayer) {
-                return AEX_NULL_LAYER;
-            } else {
-                return AEX_SOLID_LAYER;
-            }
-        } else if (sourceIsPlaceholder(mainSource)) {
-            return AEX_PLACEHOLDER_LAYER;
-        } else {
-            throw new Error(`Unrecognized Footage Layer Type`);
+        switch (getAexFootageItemType(aeItem)) {
+            case AEX_FILE_FOOTAGE_ITEM:
+                return AEX_FILE_LAYER;
+            case AEX_SOLID_ITEM:
+                if (aeAvLayer.nullLayer) {
+                    return AEX_NULL_LAYER;
+                } else {
+                    return AEX_SOLID_LAYER;
+                }
+            case AEX_PLACEHOLDER_ITEM:
+                return AEX_PLACEHOLDER_LAYER;
+            default:
+                throw new Error(`Unrecognized Footage Layer Type`);
         }
     } else {
         throw new Error(`Unrecognized AVLayer Footage Source Type`);

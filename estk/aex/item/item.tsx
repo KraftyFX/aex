@@ -85,22 +85,8 @@ function getAexItemType(aeItem: Item): AexItemType {
     } else if (aeq.isFolderItem(aeItem)) {
         return AEX_FOLDER_ITEM;
     } else if (aeq.isFootageItem(aeItem)) {
-        return getAexAvItemType(aeItem);
+        return getAexFootageItemType(aeItem);
     } else {
         throw new Error(`Unrecognized Item Type`);
-    }
-}
-
-function getAexAvItemType(aeFootageItem: FootageItem): AexAvItemType {
-    const mainSource = aeFootageItem.mainSource;
-
-    if (sourceIsFile(mainSource)) {
-        return AEX_FILE_FOOTAGE_ITEM;
-    } else if (sourceIsSolid(mainSource)) {
-        return AEX_SOLID_ITEM;
-    } else if (sourceIsPlaceholder(mainSource)) {
-        return AEX_PLACEHOLDER_ITEM;
-    } else {
-        throw new Error(`Unrecognized Footage Item Type`);
     }
 }
