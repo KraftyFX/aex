@@ -62,11 +62,5 @@ function trackFootageSource(aeAvLayer: AVLayer, state: AexState) {
         return;
     }
 
-    // Voodoo: The item on the footage source is missing some properties
-    // like parentFolder. Instead of tracking and serializing the inline
-    // version we'll go back to the original and use that instead.
-    //    aeq.getItems().find((item) => item.id === sourceId)
-    // const item = aeq.getItems().find((item) => item.id === sourceId);
-
     state.itemsToSerialize.push(aeAvLayer.source);
 }
