@@ -54,8 +54,10 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     return {
         type: 'aex:getresult',
         object,
-        comps: aexComps,
-        items: aexItems,
+        footage: {
+            comps: aexComps,
+            items: aexItems,
+        },
         stats: state.stats,
         profile: state.profile,
         log: state.log,

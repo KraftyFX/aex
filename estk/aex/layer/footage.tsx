@@ -60,7 +60,7 @@ function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state
 
 function _getAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexFootageItem | AexComp {
     const { id, type } = aexFootageSource;
-    const aexItem = state.itemsToCreate.find((item) => item.aexid == id && item.type === type);
+    const aexItem = state.footageToCreate.find((item) => item.aexid == id && item.type === type);
 
     if (aeq.isNullOrUndefined(aexItem)) {
         throw new Error(`An item of type "${type}" with id "${id}" was not found for the footage layer.`);
@@ -70,7 +70,7 @@ function _getAexItemForFootageSource(aexFootageSource: AexFootageSource, state: 
 }
 
 function assertCanDoFootageSourceLookups(aexFootageLayer: AexFootageLayer, state: AexState) {
-    if (aeq.isNullOrUndefined(state.itemsToCreate) || aeq.isNullOrUndefined(state.footageIdMap)) {
+    if (aeq.isNullOrUndefined(state.footageToCreate) || aeq.isNullOrUndefined(state.footageIdMap)) {
         const { name, type } = aexFootageLayer;
         throw new Error(
             `A footage layer of type "${type}" with name "${name}" references a footage source the serialized object does not contain the details for it.`

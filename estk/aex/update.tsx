@@ -27,7 +27,7 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         const getResult = aexObject as GetResult<AexSerialized>;
 
         aexObject = getResult.object;
-        state.itemsToCreate = aeq.arrayEx(getResult.items.concat(getResult.comps));
+        state.footageToCreate = aeq.arrayEx(getResult.footage.items.concat(getResult.footage.comps));
         state.footageIdMap = {};
     }
 

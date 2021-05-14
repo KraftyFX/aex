@@ -44,8 +44,10 @@ interface GetOptions {
 interface GetResult<T = AexSerialized> {
     type: 'aex:getresult';
     object: T;
-    comps: AexComp[];
-    items: AexItem[];
+    footage: {
+        comps: AexComp[];
+        items: AexItem[];
+    };
     stats: AexStats;
     profile: {
         [key: string]: { elapsed: number; meta: string }[];
@@ -80,7 +82,7 @@ interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
     footageSources?: AEQArrayEx<Item>;
-    itemsToCreate?: AEQArrayEx<AexItem>;
+    footageToCreate?: AEQArrayEx<AexItem>;
     footageIdMap?: { [key: string]: number };
     updateOptions: UpdateOptions;
     stats: AexStats;
