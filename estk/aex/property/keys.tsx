@@ -23,7 +23,6 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
                     roving: undefined,
                 };
 
-                // TODO: Refactor this block w.r.t. readability testing
                 if (!isUnreadable) {
                     profile(
                         'getPropertyKey',
