@@ -63,3 +63,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         log: state.log,
     };
 }
+
+function isGetResult(aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>): aexObject is GetResult<AexSerialized> {
+    return aexObject.type == 'aex:getresult';
+}
