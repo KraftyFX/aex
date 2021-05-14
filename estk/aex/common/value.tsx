@@ -9,9 +9,6 @@
  * set to something other than the default.
  */
 function getBoundModifiedValue<T>(shouldRead: boolean, callback: () => T, aeDefaultValue: T): T | undefined {
-    /**
-     * @todo Add AexOption for whether to return default values, vs return undefined
-     */
     return shouldRead ? getModifiedValue<T>(callback(), aeDefaultValue) : undefined;
 }
 
@@ -30,7 +27,7 @@ function getModifiedValue<T>(value: T, aeDefaultValue: T): T | undefined {
         return undefined;
     }
 
-    return _isEqual(value, aeDefaultValue) ? undefined : getRoundedValue(value);
+    return _isEqual(value, aeDefaultValue) ? undefined : getRoundedValue(value as any);
 }
 
 function _isObjectEqual(a: object, b: object): boolean {
@@ -92,10 +89,12 @@ function _isNumberArray(array: any[]): boolean {
     });
 }
 
-/** @todo Add type safety */
-function getRoundedValue(value: any): any {
+function getRoundedValue(value: number): number;
+function getRoundedValue(value: number[]): number[];
+function getRoundedValue(value: any): any;
+function getRoundedValue(value: number | number[] | any): number | number[] | any {
     if (typeof value === 'number') {
-        return roundNumber(value);
+        return roundNumber(value as number);
     } else if (value instanceof Array && _isNumberArray(value)) {
         return roundArray(value);
     } else {
