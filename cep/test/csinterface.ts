@@ -150,8 +150,6 @@ cs.addEventListener('aex_result', function (event: any) {
         onResult(ipcStats);
     }
 
-    // TODO: Expose logging hook
-
     delete ipcStats.funcStart;
     delete ipcStats.funcEnd;
     delete ipcStats.jsonEnd;
