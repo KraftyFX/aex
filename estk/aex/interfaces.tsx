@@ -79,7 +79,7 @@ interface AexStats {
 interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
-    itemsToSerialize?: AEQArrayEx<Item>;
+    footageSources?: AEQArrayEx<Item>;
     itemsToCreate?: AEQArrayEx<AexItem>;
     footageIdMap?: { [key: string]: number };
     updateOptions: UpdateOptions;

@@ -91,12 +91,13 @@ function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: A
 
 function _trackFootageSource(aeAvLayer: AVLayer, state: AexState) {
     const { id } = aeAvLayer.source;
+    const footageSources = state.footageSources;
 
-    if (state.itemsToSerialize.find((item) => item.id === id)) {
+    if (footageSources.find((item) => item.id === id)) {
         return;
     }
 
-    state.itemsToSerialize.push(aeAvLayer.source);
+    footageSources.push(aeAvLayer.source);
 }
 
 function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {

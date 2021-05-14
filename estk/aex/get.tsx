@@ -9,7 +9,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         getOptions: {
             unspportedPropertyBehavior: 'skip',
         },
-        itemsToSerialize: aeq.arrayEx([]),
+        footageSources: aeq.arrayEx([]),
         updateOptions: null,
         log: [],
         stats: {
@@ -37,12 +37,12 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         throw new Error(`Getting a '${getDebugStringForAeType(aeObject)}' is not supported.`);
     }
 
-    const aeItems = state.itemsToSerialize;
+    const footageSources = state.footageSources;
     const aexComps: AexComp[] = [];
     const aexItems: AexItem[] = [];
 
-    while (aeItems.length > 0) {
-        const aexItem = getAexItem(aeItems.shift(), state);
+    while (footageSources.length > 0) {
+        const aexItem = getAexItem(footageSources.shift(), state);
 
         if (aexItem.type === AEX_COMP_ITEM) {
             aexComps.push(aexItem as AexComp);
