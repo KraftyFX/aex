@@ -7,7 +7,7 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
         case AEX_PLACEHOLDER_ITEM:
             return getAexPlaceholderItem(item, state);
         case AEX_FILE_FOOTAGE_ITEM:
-            throw new Error(`TODO: Zack`);
+            return getAexFileItem(item, state);
         default:
             throw new Error(`Unsupported footage type: ${type}`);
     }
@@ -20,7 +20,7 @@ function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): Foota
         case AEX_PLACEHOLDER_ITEM:
             return createAePlaceholderItem(aexFootage as AexPlaceholderItem, state);
         case AEX_FILE_FOOTAGE_ITEM:
-            throw new Error(`TODO: Zack`);
+            return createAeFileItem(aexFootage as AexFileItem, state);
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
@@ -35,7 +35,8 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
             updateAePlaceholderItem(aeFootage, aexFootage as AexPlaceholderItem, state);
             break;
         case AEX_FILE_FOOTAGE_ITEM:
-            throw new Error(`TODO: Zack`);
+            updateAeFileItem(aeFootage, aexFootage as AexFileItem, state);
+            break;
         default:
             throw new Error(`Unsupported footage type: ${aexFootage.type}`);
     }
