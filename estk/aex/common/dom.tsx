@@ -88,14 +88,11 @@ function groupAeLayersBy(comp: CompItem, callback: (layer: Layer, i: number) => 
 }
 
 function forEachGroup<T>(obj: GroupByResult<T>, callback: (member: keyof T, value: T[]) => void) {
-    const members = aeq.arrayEx([] as (keyof T)[]);
     for (var m in obj) {
         if (obj.hasOwnProperty(m)) {
-            members.push(m as keyof T);
+            callback(m as keyof T, obj[m as string]);
         }
     }
-
-    members.sort().forEach((m) => callback(m, obj[m as string]));
 }
 
 type PropertyPairCallback<V, P> = (aexValue: V, aeObject: P, i: number) => void;

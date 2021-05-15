@@ -12,6 +12,8 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
             markerMatchBy: 'index',
             layerMatchBy: 'index',
         },
+        footageToCreate: aeq.arrayEx(),
+        footageIdMap: {},
         log: [],
         stats: {
             nonCompItemCount: 0,
@@ -28,7 +30,6 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
 
         aexObject = getResult.object;
         state.footageToCreate = aeq.arrayEx(getResult.footage.items.concat(getResult.footage.comps));
-        state.footageIdMap = {};
     }
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {

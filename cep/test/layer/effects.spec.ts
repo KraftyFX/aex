@@ -431,7 +431,7 @@ describe('Layer Effects', function () {
             });
         });
 
-        it('Can parse rotobrush effect', async () => {
+        it.skip('Can parse rotobrush effect', async () => {
             assertAreEqual(rotobrushComp.layers[0].effects[0], {
                 name: 'Roto Brush & Refine Edge',
                 matchName: 'ADBE Samurai',

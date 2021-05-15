@@ -42,7 +42,7 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
     }
 }
 
-function getAexFootageItemType(aeFootageItem: FootageItem): AexFootageType {
+function getAexFootageItemType(aeFootageItem: FootageItem): AexFootageItemType {
     const { mainSource } = aeFootageItem;
 
     if (sourceIsFile(mainSource)) {

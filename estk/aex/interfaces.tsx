@@ -2,9 +2,9 @@ type Serializable = Project | CompItem | Layer;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType;
-type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageType;
-type AexAvItemType = 'aex:item:av:comp' | AexFootageType;
-type AexFootageType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
+type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
+type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
+type AexFootageItemType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
 
 type AexLayerType = 'aex:layer:camera' | 'aex:layer:light' | AexAvLayerType;
 type AexAvLayerType = 'aex:layer:av:shape' | 'aex:layer:av:text' | AexFootageLayerType;

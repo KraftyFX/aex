@@ -13,6 +13,8 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
             layerMatchBy: 'index',
         },
         log: [],
+        footageToCreate: aeq.arrayEx(),
+        footageIdMap: {},
         stats: {
             nonCompItemCount: 0,
             compCount: 0,
@@ -28,7 +30,6 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
 
         aexObject = getResult.object;
         state.footageToCreate = aeq.arrayEx(getResult.footage.items.concat(getResult.footage.comps));
-        state.footageIdMap = {};
     }
 
     assignAttributes(state.updateOptions, options);

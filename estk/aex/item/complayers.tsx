@@ -37,7 +37,7 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
      * But because we add to the AexComp.layers array from top -> bottom, we need to reverse
      * our array to preserve the same layer ordering.
      */
-    aexComp.layers.reverse();
+    (aexComp.layers || []).reverse();
 
     switch (matchBy) {
         case 'index':

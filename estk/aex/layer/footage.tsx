@@ -42,49 +42,62 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
 }
 
 function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state: AexState) {
-    assertCanDoFootageSourceLookups(aexFootageLayer, state);
-
     const aexFootageSource = aexFootageLayer.source;
 
-    let aeSourceItem = _tryGetAeFootageSourceItem(aexFootageSource, state);
+    if (aeq.isNullOrUndefined(aexFootageSource)) {
+        const type = getAexLayerSourceType(aexFootageLayer);
 
-    if (aeq.isNullOrUndefined(aeSourceItem)) {
-        const aexItem = _getAexItemForFootageSource(aexFootageSource, state);
-        aeSourceItem = createAeItem(aexItem, state) as AVItem;
+        return createAeItem({ type } as AexItem, state) as AVItem;
+    } else {
+        let aeSourceItem = _tryGetAeFootageSourceItem(aexFootageSource, state);
 
-        state.footageIdMap[aexFootageSource.id] = aeSourceItem.id;
+        if (aeq.isNullOrUndefined(aeSourceItem)) {
+            const aexItem = _tryGetAexItemForFootageSource(aexFootageSource, state);
+            aeSourceItem = createAeItem(aexItem, state) as AVItem;
+
+            state.footageIdMap[aexFootageSource.id] = aeSourceItem.id;
+        }
+
+        return aeSourceItem;
     }
-
-    return aeSourceItem;
 }
 
-function _getAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexFootageItem | AexComp {
+function _tryGetAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexItem {
     const { id, type } = aexFootageSource;
-    const aexItem = state.footageToCreate.find((item) => item.aexid == id && item.type === type);
 
-    if (aeq.isNullOrUndefined(aexItem)) {
-        throw new Error(`An item of type "${type}" with id "${id}" was not found for the footage layer.`);
+    const aexItem =
+        state.footageToCreate.find(isMatchingAexItem) ||
+        ({
+            type: aexFootageSource.type,
+        } as AexItem);
+
+    return aexItem;
+
+    function isMatchingAexItem(item: AexItem): boolean {
+        return item.aexid == id && item.type === type;
     }
-
-    return aexItem as AexFootageItem | AexComp;
 }
 
 function assertCanDoFootageSourceLookups(aexFootageLayer: AexFootageLayer, state: AexState) {
-    if (aeq.isNullOrUndefined(state.footageToCreate) || aeq.isNullOrUndefined(state.footageIdMap)) {
-        const { name, type } = aexFootageLayer;
-        throw new Error(
-            `A footage layer of type "${type}" with name "${name}" references a footage source the serialized object does not contain the details for it.`
-        );
-    }
+    const {
+        name,
+        type,
+        source: { id },
+    } = aexFootageLayer;
+    throw new Error(`A layer with the name "${name}" of type "${type}" with id "${id}" a footage source but there are no details for it.`);
 }
 
-function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: AexState): AVItem {
-    const aeItemId = state.footageIdMap[aexFootageSource.id];
-    const aexItemType = aexFootageSource.type;
+function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: AexState): AVItem | null {
+    return (
+        _getAeItemById(state.footageIdMap[aexFootageSource.id], aexFootageSource.type) ||
+        _getAeItemById(parseInt(aexFootageSource.id), aexFootageSource.type)
+    );
+}
 
-    return aeq.getItems().find(isMatchingFootage) as AVItem;
+function _getAeItemById(aeItemId: number, aexItemType: string) {
+    return aeq.getItems().find(isMatchingAeItem) as AVItem;
 
-    function isMatchingFootage(item: Item) {
+    function isMatchingAeItem(item: Item) {
         return item.id === aeItemId && getAexItemType(item) === aexItemType;
     }
 }
@@ -121,6 +134,24 @@ function _getTrackers(aeAvLayer: AVLayer, state: AexState): AexPropertyGroup[] {
 
 function _getTrackersProperty(aeAvLayer: AVLayer) {
     return aeAvLayer.property('ADBE MTrackers') as PropertyGroup;
+}
+
+function getAexLayerSourceType(aexLayer: AexFootageLayer): AexAvItemType {
+    switch (aexLayer.type) {
+        case AEX_COMP_LAYER:
+            return AEX_COMP_ITEM;
+        case AEX_SOLID_LAYER:
+            return AEX_SOLID_ITEM;
+        case AEX_PLACEHOLDER_LAYER:
+            return AEX_PLACEHOLDER_ITEM;
+        case AEX_NULL_LAYER:
+        case AEX_SOLID_LAYER:
+            return AEX_SOLID_ITEM;
+        case AEX_FILE_LAYER:
+            return AEX_FILE_FOOTAGE_ITEM;
+        default:
+            throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
+    }
 }
 
 function getAexAvFootageLayerType(aeAvLayer: AVLayer): AexFootageLayerType {

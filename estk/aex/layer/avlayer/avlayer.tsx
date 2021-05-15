@@ -58,7 +58,7 @@ function setAvLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state:
         quality: aexAvLayer.quality,
         samplingQuality: aexAvLayer.samplingQuality,
         threeDLayer: aexAvLayer.threeDLayer,
-        timeRemapEnabled: aexAvLayer.timeRemapEnabled,
+        timeRemapEnabled: aexAvLayer.timeRemapEnabled, // Is this needed?
         trackMatteType: aexAvLayer.trackMatteType,
     });
 
