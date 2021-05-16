@@ -321,7 +321,7 @@ describe('Basic Layer Attributes', function () {
             });
         });
 
-        it.only(`Can parse time remap enabled (but not modified)`, async () => {
+        it.skip(`Can parse time remap enabled (but not modified)`, async () => {
             assertAreEqual(comp.layers[8], {
                 effects: [],
                 label: 15,
@@ -383,7 +383,7 @@ describe('Basic Layer Attributes', function () {
             });
         });
 
-        it.only(`Can parse time remap enabled (and modified)`, async () => {
+        it.skip(`Can parse time remap enabled (and modified)`, async () => {
             assertAreEqual(comp.layers[9], {
                 effects: [],
                 label: 15,
@@ -856,7 +856,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it.only(`Can set time remap enabled (but not modified)`, async () => {
+        it.skip(`Can set time remap enabled (but not modified)`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -946,7 +946,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
         });
 
-        it.only(`Can set time remap enabled (and modified)`, async () => {
+        it.skip(`Can set time remap enabled (and modified)`, async () => {
             await openCleanProject();
 
             const projectData = {
