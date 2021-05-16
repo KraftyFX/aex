@@ -78,23 +78,10 @@ function _tryGetAexItemForFootageSource(aexFootageSource: AexFootageSource, stat
     }
 }
 
-function assertCanDoFootageSourceLookups(aexFootageLayer: AexFootageLayer, state: AexState) {
-    const {
-        name,
-        type,
-        source: { id },
-    } = aexFootageLayer;
-    throw new Error(`A layer with the name "${name}" of type "${type}" with id "${id}" a footage source but there are no details for it.`);
-}
-
 function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: AexState): AVItem | null {
-    return (
-        _getAeItemById(state.footageIdMap[aexFootageSource.id], aexFootageSource.type) ||
-        _getAeItemById(parseInt(aexFootageSource.id), aexFootageSource.type)
-    );
-}
+    const aeItemId = state.footageIdMap[aexFootageSource.id];
+    const aexItemType = aexFootageSource.type;
 
-function _getAeItemById(aeItemId: number, aexItemType: string) {
     return aeq.getItems().find(isMatchingAeItem) as AVItem;
 
     function isMatchingAeItem(item: Item) {
