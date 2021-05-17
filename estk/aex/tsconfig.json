@@ -1,25 +1,17 @@
 {
     "include": [
-        "*.ts",
-        "*.tsx",
         "**/*.tsx",
-        "../dist/aeq.d.ts",
-        "../typings/*.d.ts",
-    ],
-    "exclude": [
-        "json2.tsx"
+        "**/*.d.ts",
     ],
     "compilerOptions": {
         "removeComments": true,
-        "allowJs": true,
         "noLib": true,
         "outDir": "../dist",
         "target": "ES3",
         "jsx": "preserve",
-        "esModuleInterop": false,
         "types": ["AfterEffects/17.1"],
         "typeRoots": [
-            "../node_modules/types-for-adobe"
+            "../node_modules/types-for-adobe",
         ]
     }
 }
