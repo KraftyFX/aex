@@ -8,8 +8,7 @@
   "scripts": {
     "clean": "gulp clean",
     "start": "yarn build --watch",
-    "build": "tsc -p aex/tsconfig.json",
-    "build2": "gulp build"
+    "build": "gulp build"
   },
   "dependencies": {
     "@types/del": "^4.0.0",
