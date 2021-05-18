@@ -5,12 +5,20 @@ import * as ts from 'gulp-typescript';
 const header = require(`gulp-header`);
 const footer = require(`gulp-footer`);
 
-export const paths = {
+const paths = {
     src: './src',
     lib: './lib',
     _build: './_build',
     dist: './dist',
 };
+
+const globalVarName = 'aex';
+const aexFiles = `./!(cep)**/!(exports)*.jsx`;
+const aexExports = `./**/exports.jsx`;
+const baseLibraryFiles = [aexFiles, aexExports];
+const libAeq = `../lib/aequery.jsx`;
+const libJson = `../lib/json2.jsx`;
+const aexIpc = `./cep/**/*.jsx`;
 
 function cleanBuild() {
     return del([`${paths._build}/*`, `${paths.dist}/*`], {
@@ -28,15 +36,8 @@ function buildAexBaseLibrary() {
         .pipe(gulp.dest(`${paths._build}`));
 }
 
-const globalVarName = 'aex';
-const libAeq = `../lib/aequery.jsx`;
-const libJson = `../lib/json2.jsx`;
-const aexIpc = `./cep/**/*.jsx`;
-
 function buildTarget(filename: string, libs?: string[], append?: string[]) {
-    const aexFiles = `./!(cep)**/!(exports)*.jsx`;
-    const aexExports = `./**/exports.jsx`;
-    const files = libs && libs.length > 0 ? libs.concat(aexFiles, aexExports) : [aexFiles, aexExports];
+    const files = libs && libs.length > 0 ? libs.concat(baseLibraryFiles) : baseLibraryFiles;
 
     let base = gulp
         .src(files, { cwd: paths._build })
