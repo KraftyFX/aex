@@ -19,7 +19,7 @@ function cleanBuild() {
     });
 }
 
-function buildAexBase() {
+function buildAexBaseLibrary() {
     const tsProject = ts.createProject(`${paths.src}/tsconfig.json`);
 
     return gulp
@@ -28,61 +28,48 @@ function buildAexBase() {
         .pipe(gulp.dest(`${paths._build}`));
 }
 
-function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') {
-    return function buildTarget() {
-        let files: string[];
-        let targetName: string;
+const globalVarName = 'aex';
+const libAeq = `../lib/aequery.jsx`;
+const libJson = `../lib/json2.jsx`;
+const aexIpc = `./cep/**/*.jsx`;
 
-        const aexFiles = `./**/!(exports|ipc)*.jsx`;
-        const aexExports = `./**/exports.jsx`;
-        const aexIpc = `./**/ipc.jsx`;
-        const libAeq = `../lib/aequery.jsx`;
-        const libJson = `../lib/json2.jsx`;
-        let useIpc = false;
+function buildTarget(filename: string, libs?: string[], append?: string[]) {
+    const aexFiles = `./!(cep)**/!(exports)*.jsx`;
+    const aexExports = `./**/exports.jsx`;
+    const files = libs && libs.length > 0 ? libs.concat(aexFiles, aexExports) : [aexFiles, aexExports];
 
-        switch (variant) {
-            case 'estk':
-                targetName = 'aex.jsx';
-                files = [libAeq, aexFiles, aexExports];
-                break;
-            case 'estk-lite':
-                targetName = 'aex-lite.jsx';
-                files = [aexFiles, aexExports];
-                break;
-            case 'cep':
-                targetName = 'aexcep.jsx';
-                files = [libAeq, libJson, aexFiles, aexExports];
-                useIpc = true;
-                break;
-            case 'cep-lite':
-                targetName = 'aexcep-lite.jsx';
-                files = [aexFiles, aexExports];
-                useIpc = true;
-                break;
-        }
+    let base = gulp
+        .src(files, { cwd: paths._build })
+        .pipe(concat(filename))
+        .pipe(header(`var ${globalVarName}=(function(_export_) {`))
+        .pipe(footer(`\nreturn _export_;\n})({});`));
 
-        let base = gulp
-            .src(files, { cwd: paths._build })
-            .pipe(concat(targetName))
-            .pipe(header('var aex=(function(_export_) {\n'))
-            .pipe(footer(`\nreturn _export_;\n})({});`));
+    if (append && append.length > 0) {
+        base = base.pipe(gulp.src(append, { cwd: paths._build })).pipe(concat(filename));
+    }
 
-        if (useIpc) {
-            base = base.pipe(gulp.src([aexIpc], { cwd: paths._build })).pipe(concat(targetName));
-        }
-
-        return base.pipe(gulp.dest(paths.dist));
-    };
+    return base.pipe(gulp.dest(paths.dist));
 }
 
-const buildAexTargets = gulp.parallel(
-    getBuildTargetTask('estk'),
-    getBuildTargetTask('estk-lite'),
-    getBuildTargetTask('cep'),
-    getBuildTargetTask('cep-lite')
-);
+function buildAexJsx() {
+    return buildTarget('aex.jsx', [libAeq]);
+}
 
-const buildAex = gulp.series(buildAexBase, buildAexTargets);
+function buildAexLiteJsx() {
+    return buildTarget('aex-lite.jsx');
+}
+
+function buildAexCepJsx() {
+    return buildTarget('aexcep.jsx', [libAeq, libJson], [aexIpc]);
+}
+
+function buildAexCepLiteJsx() {
+    return buildTarget('aexcep-lite.jsx', [], [aexIpc]);
+}
+
+const buildAllAexTargets = gulp.parallel(buildAexJsx, buildAexLiteJsx, buildAexCepJsx, buildAexCepLiteJsx);
+
+const buildAex = gulp.series(buildAexBaseLibrary, buildAllAexTargets);
 
 function startAex() {
     return gulp.watch([`**/*.tsx`, `**/*.d.ts`], { cwd: paths.src }, buildAex);
