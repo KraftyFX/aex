@@ -7,7 +7,7 @@
   "author": "rafikhan@kraftyfx.com",
   "scripts": {
     "clean": "gulp clean",
-    "start": "yarn build --watch",
+    "start": "gulp start",
     "build": "gulp build"
   },
   "dependencies": {

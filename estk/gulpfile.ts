@@ -19,7 +19,7 @@ function cleanBuild() {
     });
 }
 
-function buildAex() {
+function buildAexBase() {
     const tsProject = ts.createProject(`${paths.src}/tsconfig.json`);
 
     return gulp
@@ -50,11 +50,11 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
                 break;
             case 'cep':
                 targetName = 'aexcep.jsx';
-                files = [libAeq, libJson, aexIpc, aexFiles, aexExports];
+                files = [libAeq, libJson, aexFiles, aexExports];
                 break;
             case 'cep-lite':
                 targetName = 'aexcep-lite.jsx';
-                files = [aexFiles, aexIpc, aexExports];
+                files = [aexFiles, aexExports];
                 break;
         }
 
@@ -62,14 +62,26 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
             .src(files, { cwd: paths._build })
             .pipe(concat(targetName))
             .pipe(header('var aex=(function(_export_) {\n'))
-            .pipe(footer(`\nreturn _export_;\n})({})`))
+            .pipe(footer(`\nreturn _export_;\n})({});`))
+            .pipe(gulp.src([aexIpc], { cwd: paths._build }))
+            .pipe(concat(targetName))
             .pipe(gulp.dest(paths.dist));
     };
 }
 
-export const clean = gulp.series(cleanBuild);
-export const build = gulp.series(
-    cleanBuild,
-    buildAex,
-    gulp.parallel(getBuildTargetTask('estk'), getBuildTargetTask('estk-lite'), getBuildTargetTask('cep'), getBuildTargetTask('cep-lite'))
+const buildAexTargets = gulp.parallel(
+    getBuildTargetTask('estk'),
+    getBuildTargetTask('estk-lite'),
+    getBuildTargetTask('cep'),
+    getBuildTargetTask('cep-lite')
 );
+
+const buildAex = gulp.series(buildAexBase, buildAexTargets);
+
+function startAex() {
+    return gulp.watch([`**/*.tsx`, `**/*.d.ts`], { cwd: paths.src }, buildAex);
+}
+
+export const clean = gulp.series(cleanBuild);
+export const build = gulp.series(clean, buildAex);
+export const start = gulp.series(build, startAex);

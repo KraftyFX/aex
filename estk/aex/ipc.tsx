@@ -12,7 +12,7 @@ aex._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOption
 
         convertCallbacks(id, ipcOptions);
 
-        funcStart = time();
+        funcStart = new Date().valueOf();
         const result = func(ipcOptions.aex_args);
 
         if (ipcOptions.ignoreReturn) {
@@ -39,40 +39,39 @@ aex._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOption
     } finally {
         ipcResponse.ipcStats = {
             funcStart,
-            funcEnd: time(),
+            funcEnd: new Date().valueOf(),
             jsonEnd: 'aex:jsonEnd',
         };
 
         const eventObj = new CSXSEvent();
 
         eventObj.type = 'aex_result';
-        eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', time().toString());
+        eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', new Date().valueOf().toString());
+
+        eventObj.dispatch();
+    }
+    function convertCallbacks(id: number, options: any) {
+        const args = options.aex_args;
+
+        for (var member in args) {
+            if (args.hasOwnProperty(member)) {
+                if (args[member] === 'aex:callback') {
+                    args[member] = (callbackArgs) => raiseCepCallback(id, member, callbackArgs);
+                }
+            }
+        }
+    }
+
+    function raiseCepCallback(id: number, callbackId: string, args: any) {
+        const eventObj = new CSXSEvent();
+        eventObj.type = 'aex_callback';
+
+        eventObj.data = JSON.stringify({
+            id,
+            callbackId,
+            args,
+        });
 
         eventObj.dispatch();
     }
 };
-
-function convertCallbacks(id: number, options: any) {
-    const args = options.aex_args;
-
-    for (var member in args) {
-        if (args.hasOwnProperty(member)) {
-            if (args[member] === 'aex:callback') {
-                args[member] = (callbackArgs) => raiseCepCallback(id, member, callbackArgs);
-            }
-        }
-    }
-}
-
-function raiseCepCallback(id: number, callbackId: string, args: any) {
-    const eventObj = new CSXSEvent();
-    eventObj.type = 'aex_callback';
-
-    eventObj.data = JSON.stringify({
-        id,
-        callbackId,
-        args,
-    });
-
-    eventObj.dispatch();
-}

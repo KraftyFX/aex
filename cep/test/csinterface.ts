@@ -1,4 +1,4 @@
-import 'file-loader!../_build/panel/all.jsx';
+import 'file-loader!../_build/panel/aexcep.jsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import 'source-map-support/register';
@@ -16,7 +16,7 @@ export function pause(timeout: number) {
 }
 
 export async function evalAexIntoEstk() {
-    const jsxPath = 'all.jsx';
+    const jsxPath = 'aexcep.jsx';
     const fullyQualifiedPath = JSON.stringify(ExtensionPath + '/' + jsxPath).replace(/ /g, ' ');
 
     await evalScript(`$.evalFile(${fullyQualifiedPath})`);
