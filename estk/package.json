@@ -6,13 +6,25 @@
   "repository": "git@github.com:KraftyFX/aex.git",
   "author": "rafikhan@kraftyfx.com",
   "scripts": {
-    "clean": "rm -rf dist/* && yarn build",
-    "start": "yarn build --watch",
-    "build": "tsc -p aex/tsconfig.json"
+    "clean": "gulp clean",
+    "start": "gulp start",
+    "build": "gulp build"
   },
   "dependencies": {
+    "@types/del": "^4.0.0",
+    "@types/gulp": "^4.0.8",
+    "@types/gulp-concat": "^0.0.32",
+    "@types/gulp-header": "^2.0.0",
+    "@types/gulp-typescript": "^2.13.0",
+    "cross-env": "^7.0.3",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-footer": "^2.0.2",
+    "gulp-header": "^2.0.9",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "ts-node": "^9.1.1",
-    "types-for-adobe": "zlovatt/Types-for-Adobe",
+    "types-for-adobe": "github:zlovatt/types-for-adobe",
     "typescript": "^4.2.3"
   }
 }
