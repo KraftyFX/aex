@@ -1,4 +1,4 @@
-import 'file-loader!../_build/panel/aexcep.jsx';
+import 'file-loader!../_build/panel/aexcep-lite.jsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import 'source-map-support/register';
@@ -16,16 +16,17 @@ export function pause(timeout: number) {
 }
 
 export async function evalAexIntoEstk() {
-    const jsxPath = 'aexcep.jsx';
-    const fullyQualifiedPath = JSON.stringify(ExtensionPath + '/' + jsxPath).replace(/ /g, ' ');
+    await evalScript(`if (typeof aeq === 'undefined') { $.evalFile(${getFilePath('aequery.jsx')}) }`);
+    await evalScript(`if (typeof JSON === 'undefined') { $.evalFile(${getFilePath('json2.jsx')}) }`);
+    await evalScript(`$.evalFile(${getFilePath('aexcep-lite.jsx')})`);
+}
 
-    await evalScript(`$.evalFile(${fullyQualifiedPath})`);
+function getFilePath(fileName: string) {
+    return JSON.stringify(ExtensionPath + '/' + fileName).replace(/ /g, ' ');
 }
 
 export async function cleanupAex() {
-    await getEvalScriptResult('delete aeq', null, { ignoreReturn: true });
-    // await getEvalScriptResult('delete JSON', null, { ignoreReturn: true });
-    // await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
+    await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
     // await getEvalScriptResult('$.gc()', null, { ignoreReturn: true });
 }
 

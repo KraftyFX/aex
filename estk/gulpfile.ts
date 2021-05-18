@@ -13,12 +13,12 @@ const paths = {
 };
 
 const globalVarName = 'aex';
-const aexFiles = `./!(cep)**/!(exports)*.jsx`;
+const aexFiles = `./**/!(exports|ipc)*.jsx`;
 const aexExports = `./**/exports.jsx`;
 const baseLibraryFiles = [aexFiles, aexExports];
 const libAeq = `../lib/aequery.jsx`;
 const libJson = `../lib/json2.jsx`;
-const aexIpc = `./cep/**/*.jsx`;
+const aexIpc = `./cep/*.jsx`;
 
 function cleanBuild() {
     return del([`${paths._build}/*`, `${paths.dist}/*`], {

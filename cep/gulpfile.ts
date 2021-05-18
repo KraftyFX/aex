@@ -48,7 +48,7 @@ function deployTestAEPs() {
 }
 
 function deployJsx() {
-    return gulp.src([`${paths.estk}/dist/aexcep.jsx`]).pipe(gulp.dest(`${paths._build}/panel`));
+    return gulp.src([`${paths.estk}/dist/aexcep-lite.jsx`, `${paths.estk}/lib/**`]).pipe(gulp.dest(`${paths._build}/panel`));
 }
 
 const buildJsx = gulp.series(yarnBuildJsx, deployJsx);
