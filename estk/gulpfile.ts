@@ -36,13 +36,13 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
         const aexFiles = `jsx/**/!(exports|ipc)*.jsx`;
         const aexExports = `jsx/**/exports.jsx`;
         const aexIpc = `jsx/**/ipc.jsx`;
-        const aeq = `../lib/aequery.jsx`;
-        const json = `../lib/json2.jsx`;
+        const libAeq = `../lib/aequery.jsx`;
+        const libJson = `../lib/json2.jsx`;
 
         switch (variant) {
             case 'estk':
                 targetName = 'aex.jsx';
-                files = [aeq, aexFiles, aexExports];
+                files = [libAeq, aexFiles, aexExports];
                 break;
             case 'estk-lite':
                 targetName = 'aex-lite.jsx';
@@ -50,7 +50,7 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
                 break;
             case 'cep':
                 targetName = 'aexcep.jsx';
-                files = [aeq, json, aexFiles, aexIpc, aexExports];
+                files = [libAeq, libJson, aexIpc, aexFiles, aexExports];
                 break;
             case 'cep-lite':
                 targetName = 'aexcep-lite.jsx';
