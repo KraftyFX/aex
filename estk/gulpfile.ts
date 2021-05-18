@@ -6,7 +6,7 @@ const header = require(`gulp-header`);
 const footer = require(`gulp-footer`);
 
 export const paths = {
-    src: './aex',
+    src: './src',
     lib: './lib',
     _build: './_build',
     dist: './dist',
@@ -25,7 +25,7 @@ function buildAexBase() {
     return gulp
         .src([`**/*.tsx`, `**/*.d.ts`], { cwd: paths.src })
         .pipe(tsProject())
-        .pipe(gulp.dest(`${paths._build}/jsx`));
+        .pipe(gulp.dest(`${paths._build}`));
 }
 
 function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') {
@@ -33,11 +33,12 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
         let files: string[];
         let targetName: string;
 
-        const aexFiles = `jsx/**/!(exports|ipc)*.jsx`;
-        const aexExports = `jsx/**/exports.jsx`;
-        const aexIpc = `jsx/**/ipc.jsx`;
+        const aexFiles = `./**/!(exports|ipc)*.jsx`;
+        const aexExports = `./**/exports.jsx`;
+        const aexIpc = `./**/ipc.jsx`;
         const libAeq = `../lib/aequery.jsx`;
         const libJson = `../lib/json2.jsx`;
+        let useIpc = false;
 
         switch (variant) {
             case 'estk':
@@ -51,21 +52,26 @@ function getBuildTargetTask(variant: 'estk' | 'estk-lite' | 'cep' | 'cep-lite') 
             case 'cep':
                 targetName = 'aexcep.jsx';
                 files = [libAeq, libJson, aexFiles, aexExports];
+                useIpc = true;
                 break;
             case 'cep-lite':
                 targetName = 'aexcep-lite.jsx';
                 files = [aexFiles, aexExports];
+                useIpc = true;
                 break;
         }
 
-        return gulp
+        let base = gulp
             .src(files, { cwd: paths._build })
             .pipe(concat(targetName))
             .pipe(header('var aex=(function(_export_) {\n'))
-            .pipe(footer(`\nreturn _export_;\n})({});`))
-            .pipe(gulp.src([aexIpc], { cwd: paths._build }))
-            .pipe(concat(targetName))
-            .pipe(gulp.dest(paths.dist));
+            .pipe(footer(`\nreturn _export_;\n})({});`));
+
+        if (useIpc) {
+            base = base.pipe(gulp.src([aexIpc], { cwd: paths._build })).pipe(concat(targetName));
+        }
+
+        return base.pipe(gulp.dest(paths.dist));
     };
 }
 
