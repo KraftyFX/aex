@@ -41,7 +41,7 @@ function buildTarget(filename: string, libs?: string[], append?: string[]) {
     let base = gulp
         .src(files, { cwd: paths._build })
         .pipe(concat(filename))
-        .pipe(header(`var ${globalVarName}=(function(_export_) {`))
+        .pipe(header(`// (c) 2021 KraftyFX <rafikhan@kraftyfx.com>\nvar ${globalVarName}=(function(_export_) {\n`))
         .pipe(footer(`\nreturn _export_;\n})({});`));
 
     if (append && append.length > 0) {
