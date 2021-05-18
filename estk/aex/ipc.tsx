@@ -44,8 +44,8 @@ aex._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOption
         };
 
         const eventObj = new CSXSEvent();
-        eventObj.type = 'aex_result';
 
+        eventObj.type = 'aex_result';
         eventObj.data = JSON.stringify(ipcResponse).replace('aex:jsonEnd', time().toString());
 
         eventObj.dispatch();
