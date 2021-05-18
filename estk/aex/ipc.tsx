@@ -1,9 +1,9 @@
+declare var aex: any;
 declare var ExternalObject: any;
 declare var CSXSEvent: any;
 
-(aex as any)._eo = new ExternalObject('lib:PlugPlugExternalObject');
-
-(aex as any)._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOptionsAsJson: string) {
+aex._eo = new ExternalObject('lib:PlugPlugExternalObject');
+aex._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOptionsAsJson: string) {
     let funcStart: number;
     let ipcResponse: any = null;
 
