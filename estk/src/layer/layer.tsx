@@ -143,13 +143,8 @@ function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     const parentIndex = aexLayer.parentLayerIndex;
     const comp = aeLayer.containingComp;
 
-    if (comp.numLayers < parentIndex) {
-        throw fail(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
-    }
-
-    if (aeLayer.index === parentIndex) {
-        throw fail(`Can't set layer parent to self.`);
-    }
+    assertIsFalse(comp.numLayers < parentIndex, `Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
+    assertIsFalse(aeLayer.index === parentIndex, `Can't set layer parent to self.`);
 
     aeLayer.parent = comp.layer(parentIndex);
 }

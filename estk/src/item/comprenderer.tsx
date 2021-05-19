@@ -9,11 +9,9 @@ function setAeCompRenderer(aeComp: CompItem, aexComp: AexComp, state: AexState) 
 function setCompRenderer(aeComp: CompItem, renderer: string) {
     const renderers = aeq.arrayEx(aeComp.renderers);
 
-    if (renderers.indexOf(renderer) > -1) {
-        aeComp.renderer = renderer;
-    } else {
-        throw fail(`Can't set comp renderer to ${renderer}`);
-    }
+    assertIsTrue(renderers.indexOf(renderer) > -1, `Can't set comp renderer to ${renderer}`);
+
+    aeComp.renderer = renderer;
 }
 
 function getRequiredCompRendererFromProperties(aexPropertyGroup: AexPropertyGroup): string {

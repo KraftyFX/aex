@@ -4,6 +4,18 @@ function assertIsDefined(o: any, name?: string) {
     }
 }
 
+function assertIsTrue(condition: boolean, message: string) {
+    if (!condition) {
+        throw fail(message);
+    }
+}
+
+function assertIsFalse(condition: boolean, message: string) {
+    if (condition) {
+        throw fail(message);
+    }
+}
+
 function fail(message: string) {
     return new Error(message);
 }
