@@ -47,7 +47,7 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         updateAeLayer(aeObject, aexObject as AexLayer, state);
         app.endUndoGroup();
     } else {
-        throw notsupported(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
+        throw notSupported(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}' is not supported.`);
     }
 
     const { stats, log } = state;

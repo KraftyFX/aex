@@ -100,7 +100,7 @@ function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropert
         case PropertyValueType.CUSTOM_VALUE:
             return AEX_CUSTOM_PROPERTY;
         default:
-            throw notsupported(`Unsupported property type "${aeProperty.name}" ${aeProperty.propertyValueType}`);
+            throw notSupported(`Unsupported property type "${aeProperty.name}" ${aeProperty.propertyValueType}`);
     }
 }
 

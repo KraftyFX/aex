@@ -37,15 +37,15 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
         createAeComp(aexObject, state);
         app.endUndoGroup();
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
-        throw new Error(`TODO: Zack`);
+        throw notImplemented();
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
-        app.beginUndoGroup('AEX: Zack');
+        app.beginUndoGroup('AEX: Add Layer to Comp');
         createAeLayer(aeParentObject as CompItem, aexObject, state);
         app.endUndoGroup();
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
-        throw new Error(`TODO: Zack`);
+        throw notImplemented();
     } else {
-        throw notsupported(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
+        throw notSupported(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
     }
 
     const { stats, log } = state;

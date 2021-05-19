@@ -43,5 +43,5 @@ function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, stat
 }
 
 function updateAexLightLayer(aeLightLayer: LightLayer, aexLightLayer: AexLightLayer, state: AexState) {
-    throw new Error(`TODO: Zack`);
+    throw notImplemented();
 }

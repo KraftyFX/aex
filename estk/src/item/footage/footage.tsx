@@ -9,7 +9,7 @@ function getAexFootageItem(item: FootageItem, state: AexState): AexFootageItem {
         case AEX_FILE_FOOTAGE_ITEM:
             return getAexFileItem(item, state);
         default:
-            throw notsupported(`Unsupported footage type: ${type}`);
+            throw notSupported(`Unsupported footage type: ${type}`);
     }
 }
 
@@ -22,7 +22,7 @@ function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): Foota
         case AEX_FILE_FOOTAGE_ITEM:
             return createAeFileItem(aexFootage as AexFileItem, state);
         default:
-            throw notsupported(`Unsupported footage type: ${aexFootage.type}`);
+            throw notSupported(`Unsupported footage type: ${aexFootage.type}`);
     }
 }
 
@@ -38,7 +38,7 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
             updateAeFileItem(aeFootage, aexFootage as AexFileItem, state);
             break;
         default:
-            throw notsupported(`Unsupported footage type: ${aexFootage.type}`);
+            throw notSupported(`Unsupported footage type: ${aexFootage.type}`);
     }
 }
 

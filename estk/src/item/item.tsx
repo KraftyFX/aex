@@ -25,7 +25,7 @@ function createAeItem(aexItem: AexItem, state: AexState) {
         case AEX_FOLDER_ITEM:
             return createAeFolderItem(aexItem as AexFolderItem, state);
         default:
-            throw notsupported(`Not supported: Setting of project item type "${aexItem.type}"`);
+            throw notSupported(`Not supported: Setting of project item type "${aexItem.type}"`);
     }
 }
 
@@ -42,7 +42,7 @@ function updateAeItem(aeItem: Item, aexItem: AexItem, state: AexState) {
             updateAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
             break;
         default:
-            throw notsupported(`Not supported: Setting of project item type "${aexItem.type}"`);
+            throw notSupported(`Not supported: Setting of project item type "${aexItem.type}"`);
     }
 }
 

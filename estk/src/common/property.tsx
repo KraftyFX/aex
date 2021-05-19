@@ -38,7 +38,7 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
             });
             return undefined;
         case 'throw':
-            throw notsupported(`Property "${property.matchName}" is unsupported.`);
+            throw notSupported(`Property "${property.matchName}" is unsupported.`);
         case 'metadata':
             return;
         default:

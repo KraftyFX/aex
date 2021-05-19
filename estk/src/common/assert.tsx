@@ -8,8 +8,12 @@ function fail(message: string) {
     return new Error(message);
 }
 
-function notsupported(message: string) {
+function notSupported(message: string) {
     return new Error(message);
+}
+
+function notImplemented() {
+    return new Error(`TODO: Zack`);
 }
 
 function time() {
