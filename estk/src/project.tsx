@@ -42,8 +42,41 @@ function updateAeProject(aeProject: Project, aexProject: AexProject, state: AexS
 function _setAeProjectItem(aeItem: Item, aexItem: AexItem, state: AexState) {
     if (!aeItem) {
         aeItem = createAeItem(aexItem, state);
-    } else {
+        return;
+    }
+
+    const aeItemType = getAexItemType(aeItem);
+
+    if (aeItemType === aexItem.type) {
         updateAeItem(aeItem, aexItem, state);
+    } else {
+        handleItemTypeMismatch();
+    }
+
+    function handleItemTypeMismatch() {
+        const message = `The item "${aexItem.name}" of type "${aexItem.type}" did not match what was in the project "${aeItemType}".`;
+
+        switch (state.updateOptions.projectItemMismatchBehavior) {
+            case 'create':
+                createAeItem(aexItem, state);
+                break;
+            case 'skip':
+                break;
+            case 'log':
+                state.log.push({
+                    aexObject: aexItem,
+                    message: `${message} Skipping.`,
+                });
+                break;
+            case 'throw':
+                throw fail(message);
+            default:
+                state.updateOptions.projectItemMismatchBehavior({
+                    aexObject: aexItem,
+                    message,
+                });
+                break;
+        }
     }
 }
 

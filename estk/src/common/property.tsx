@@ -33,7 +33,7 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
             return undefined;
         case 'log':
             state.log.push({
-                aexProperty,
+                aexObject: aexProperty,
                 message: `Property "${property.matchName}" is unsupported. Skipping.`,
             });
             return undefined;
@@ -43,7 +43,7 @@ function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProp
             return;
         default:
             state.getOptions.unspportedPropertyBehavior({
-                aexProperty,
+                aexObject: aexProperty,
                 message: `Property "${property.matchName}" is unsupported. Skipping.`,
             });
             return;

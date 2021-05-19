@@ -11,6 +11,7 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
+            projectItemMismatchBehavior: 'create',
         },
         log: [],
         footageToCreate: aeq.arrayEx(),

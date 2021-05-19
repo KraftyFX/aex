@@ -11,6 +11,7 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
         updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
+            projectItemMismatchBehavior: 'create',
         },
         footageToCreate: aeq.arrayEx(),
         footageIdMap: {},

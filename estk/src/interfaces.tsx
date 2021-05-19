@@ -1,7 +1,7 @@
 type Serializable = Project | CompItem | Layer;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
-type AexObjectType = 'aex:project' | AexItemType | AexLayerType;
+type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
 type AexFootageItemType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
@@ -28,7 +28,7 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexUID = string;
 
-type UnsupportedTypeCallback = (log: AexLogEntry) => void;
+type CustomHandler = (log: AexLogEntry) => void;
 
 interface PrescanOptions {}
 
@@ -37,8 +37,10 @@ interface PrescanResult {
     log: AexLogEntry[];
 }
 
+type CommonBehavior = 'skip' | 'log' | 'throw' | CustomHandler;
+
 interface GetOptions {
-    unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
+    unspportedPropertyBehavior: CommonBehavior | 'metadata';
 }
 
 interface GetResult<T = AexSerialized> {
@@ -56,6 +58,7 @@ interface GetResult<T = AexSerialized> {
 }
 
 interface UpdateOptions {
+    projectItemMismatchBehavior: CommonBehavior | 'create';
     markerMatchBy: 'index' | 'time';
     layerMatchBy: 'index' | 'name';
 }
@@ -66,7 +69,7 @@ interface UpdateResult {
 }
 
 interface AexLogEntry {
-    aexProperty: AexProperty;
+    aexObject: AexObject;
     message: string;
 }
 
@@ -270,7 +273,7 @@ interface AexPropertyBase {
     name: string;
 }
 
-interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyBase {
+interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyBase, AexObject {
     expression: string;
     expressionEnabled: boolean;
     value: T;
