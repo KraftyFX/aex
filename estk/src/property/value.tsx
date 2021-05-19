@@ -1,6 +1,6 @@
 /** @todo Add type safety */
 function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
-    // Todo: Assert key belongs to property
+    // TODO: Assert key belongs to property
     const value = keyInfo?.value || aeProperty.value;
 
     if (isTextDocument(aeProperty)) {
