@@ -56,7 +56,8 @@ function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state
         let aeSourceItem = _tryGetAeFootageSourceItem(aexFootageSource, state);
 
         if (aeq.isNullOrUndefined(aeSourceItem)) {
-            const aexItem = _tryGetAexItemForFootageSource(aexFootageSource, state);
+            let aexItem = _tryGetAexItemForFootageSource(aexFootageSource, state) || ({ type: aexFootageSource.type } as AexItem);
+
             aeSourceItem = createAeItem(aexItem, state) as AVItem;
 
             state.footageIdMap[aexFootageSource.id] = aeSourceItem.id;
@@ -69,13 +70,7 @@ function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state
 function _tryGetAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexItem {
     const { id, type } = aexFootageSource;
 
-    const aexItem =
-        state.footageToCreate.find(isMatchingAexItem) ||
-        ({
-            type: aexFootageSource.type,
-        } as AexItem);
-
-    return aexItem;
+    return state.footageToCreate.find(isMatchingAexItem);
 
     function isMatchingAexItem(item: AexItem): boolean {
         return item.aexid == id && item.type === type;
