@@ -84,7 +84,7 @@ function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
         case AEX_PLACEHOLDER_LAYER:
         case AEX_SOLID_LAYER:
         case AEX_COMP_LAYER:
-            throw new Error(`Not Implemented`);
+            return updateAexFootageLayer(aeLayer as AVLayer, aexLayer as AexFootageLayer, state);
         case AEX_LIGHT_LAYER:
             return updateAexLightLayer(aeLayer as LightLayer, aexLayer as AexLightLayer, state);
         case AEX_CAMERA_LAYER:
