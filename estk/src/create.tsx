@@ -45,7 +45,7 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
         throw new Error(`TODO: Zack`);
     } else {
-        throw new Error(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
+        throw notsupported(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}' is not supported.`);
     }
 
     const { stats, log } = state;

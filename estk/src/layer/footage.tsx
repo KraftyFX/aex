@@ -141,7 +141,7 @@ function getAexLayerSourceType(aexLayer: AexFootageLayer): AexAvItemType {
         case AEX_FILE_LAYER:
             return AEX_FILE_FOOTAGE_ITEM;
         default:
-            throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
+            throw fail(`Unrecognized Layer Type ${aexLayer.type}`);
     }
 }
 
@@ -163,9 +163,9 @@ function getAexAvFootageLayerType(aeAvLayer: AVLayer): AexFootageLayerType {
             case AEX_PLACEHOLDER_ITEM:
                 return AEX_PLACEHOLDER_LAYER;
             default:
-                throw new Error(`Unrecognized Footage Layer Type`);
+                throw fail(`Unrecognized Footage Layer Type`);
         }
     } else {
-        throw new Error(`Unrecognized AVLayer Footage Source Type`);
+        throw fail(`Unrecognized AVLayer Footage Source Type`);
     }
 }

@@ -26,7 +26,7 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
     } else if (aeq.isLayer(aeObject)) {
         prescanLayer(aeObject as Layer, state);
     } else {
-        throw new Error(`Prescanning a '${getDebugStringForAeType(aeObject)}' is not supported.`);
+        throw notsupported(`Prescanning a '${getDebugStringForAeType(aeObject)}' is not supported.`);
     }
 
     const { stats, log } = state;

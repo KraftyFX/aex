@@ -49,7 +49,7 @@ function updateAeMarkers(aeMarkerProperty: MarkerValueProperty, aexMarkers: AexM
             forEachPairByGroup<AexMarkerProperty, MarkerValue>(aexMarkersByTime, aeMarkerValuesByTime, onMarkerPair);
             break;
         default:
-            throw new Error(`Unrecognized marker matching method "${matchBy}"`);
+            throw fail(`Unrecognized marker matching method "${matchBy}"`);
     }
 }
 

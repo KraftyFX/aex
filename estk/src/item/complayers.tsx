@@ -50,7 +50,7 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
             forEachPairByGroup(aexLayersByName, aeLayersByName, onLayerPair);
             break;
         default:
-            throw new Error(`Unrecognized layer matching method "${matchBy}"`);
+            throw fail(`Unrecognized layer matching method "${matchBy}"`);
     }
 }
 

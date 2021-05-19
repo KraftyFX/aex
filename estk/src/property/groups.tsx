@@ -95,7 +95,7 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
         }
 
         if (aeq.isNullOrUndefined(property)) {
-            throw new Error(`Can't set property '${matchName}' in group '${propertyGroup.matchName}'`);
+            throw fail(`Can't set property '${matchName}' in group '${propertyGroup.matchName}'`);
         }
 
         if (property.propertyType == PropertyType.PROPERTY) {

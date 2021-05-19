@@ -12,7 +12,7 @@ function setCompRenderer(aeComp: CompItem, renderer: string) {
     if (renderers.indexOf(renderer) > -1) {
         aeComp.renderer = renderer;
     } else {
-        throw new Error(`Can't set comp renderer to ${renderer}`);
+        throw fail(`Can't set comp renderer to ${renderer}`);
     }
 }
 

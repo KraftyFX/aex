@@ -1,7 +1,15 @@
 function assertIsDefined(o: any, name?: string) {
     if (aeq.isNullOrUndefined(o)) {
-        throw new Error(`${name || 'parameter'} is null or undefined`);
+        throw fail(`${name || 'parameter'} is null or undefined`);
     }
+}
+
+function fail(message: string) {
+    return new Error(message);
+}
+
+function notsupported(message: string) {
+    return new Error(message);
 }
 
 function time() {

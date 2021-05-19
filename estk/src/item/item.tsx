@@ -10,7 +10,7 @@ function getAexItem(aeItem: Item, state: AexState): AexItem {
     } else if (aeq.isFolderItem(aeItem)) {
         return getAexFolderItem(aeItem, state);
     } else {
-        throw new Error(`Unrecognized Item Type`);
+        throw fail(`Unrecognized Item Type`);
     }
 }
 
@@ -25,7 +25,7 @@ function createAeItem(aexItem: AexItem, state: AexState) {
         case AEX_FOLDER_ITEM:
             return createAeFolderItem(aexItem as AexFolderItem, state);
         default:
-            throw new Error(`Not supported: Setting of project item type "${aexItem.type}"`);
+            throw notsupported(`Not supported: Setting of project item type "${aexItem.type}"`);
     }
 }
 
@@ -42,7 +42,7 @@ function updateAeItem(aeItem: Item, aexItem: AexItem, state: AexState) {
             updateAeFolderItem(aeItem as FolderItem, aexItem as AexFolderItem, state);
             break;
         default:
-            throw new Error(`Not supported: Setting of project item type "${aexItem.type}"`);
+            throw notsupported(`Not supported: Setting of project item type "${aexItem.type}"`);
     }
 }
 
@@ -87,6 +87,6 @@ function getAexItemType(aeItem: Item): AexItemType {
     } else if (aeq.isFootageItem(aeItem)) {
         return getAexFootageItemType(aeItem);
     } else {
-        throw new Error(`Unrecognized Item Type`);
+        throw fail(`Unrecognized Item Type`);
     }
 }

@@ -18,7 +18,7 @@ function prescanLayer(aeLayer: Layer, state: AexState) {
         case AEX_CAMERA_LAYER:
             return prescanCameraLayer(aeLayer as CameraLayer, state);
         default:
-            throw new Error(`Unrecognized Layer Type`);
+            throw fail(`Unrecognized Layer Type`);
     }
 }
 
@@ -42,7 +42,7 @@ function getAexLayer(aeLayer: Layer, state: AexState): AexLayer {
                 case AEX_CAMERA_LAYER:
                     return getAexCameraLayer(aeLayer as CameraLayer, state);
                 default:
-                    throw new Error(`Unrecognized Layer Type`);
+                    throw fail(`Unrecognized Layer Type`);
             }
         },
         state,
@@ -69,7 +69,7 @@ function createAeLayer(comp: CompItem, aexLayer: AexLayer, state: AexState) {
         case AEX_CAMERA_LAYER:
             return createAeCameraLayer(comp, aexLayer as AexCameraLayer, state);
         default:
-            throw new Error(`Unrecognized Layer Type ${aexLayer.type}`);
+            throw fail(`Unrecognized Layer Type ${aexLayer.type}`);
     }
 }
 
@@ -90,7 +90,7 @@ function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
         case AEX_CAMERA_LAYER:
             return updateAexCameraLayer(aeLayer as CameraLayer, aexLayer as AexCameraLayer, state);
         default:
-            throw new Error(`Unrecognized Layer Type`);
+            throw fail(`Unrecognized Layer Type`);
     }
 }
 
@@ -144,11 +144,11 @@ function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     const comp = aeLayer.containingComp;
 
     if (comp.numLayers < parentIndex) {
-        throw new Error(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
+        throw fail(`Can't set parent to layer ${parentIndex}; comp only has ${comp.numLayers} layer(s).`);
     }
 
     if (aeLayer.index === parentIndex) {
-        throw new Error(`Can't set layer parent to self.`);
+        throw fail(`Can't set layer parent to self.`);
     }
 
     aeLayer.parent = comp.layer(parentIndex);
@@ -174,6 +174,6 @@ function getAexLayerType(aeLayer: Layer): AexLayerType {
     } else if (aeq.isCameraLayer(aeLayer)) {
         return AEX_CAMERA_LAYER;
     } else {
-        throw new Error(`Unrecognized Layer Type`);
+        throw fail(`Unrecognized Layer Type`);
     }
 }
