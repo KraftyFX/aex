@@ -26,26 +26,3 @@ function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
         return !property.isModified;
     }
 }
-
-function getUnsupportedProperty(property: Property<UnknownPropertyType>, aexProperty: AexProperty, state: AexState): AexProperty | undefined {
-    switch (state.getOptions.unspportedPropertyBehavior) {
-        case 'skip':
-            return undefined;
-        case 'log':
-            state.log.push({
-                aexObject: aexProperty,
-                message: `Property "${property.matchName}" is unsupported. Skipping.`,
-            });
-            return undefined;
-        case 'throw':
-            throw notSupported(`Property "${property.matchName}" is unsupported.`);
-        case 'metadata':
-            return;
-        default:
-            state.getOptions.unspportedPropertyBehavior({
-                aexObject: aexProperty,
-                message: `Property "${property.matchName}" is unsupported. Skipping.`,
-            });
-            return;
-    }
-}

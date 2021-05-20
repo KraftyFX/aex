@@ -21,16 +21,40 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
                 keys: undefined,
             };
 
-            const isUnreadable = isUnreadableProperty(aeProperty);
-            aexProperty.keys = _getPropertyKeys(aeProperty, isUnreadable, state);
+            const isUnsupportedProperty = isUnreadableProperty(aeProperty);
 
-            if (isUnreadable) {
-                getUnsupportedProperty(aeProperty, aexProperty, state);
+            if (isUnsupportedProperty) {
+                return handleUnsupportedProperty();
             } else {
+                aexProperty.keys = _getPropertyKeys(aeProperty, isUnsupportedProperty, state);
                 aexProperty.value = _getPropertyValue(aeProperty);
             }
 
             return aexProperty;
+
+            function handleUnsupportedProperty() {
+                switch (state.getOptions.unspportedPropertyBehavior) {
+                    case 'metadata':
+                        aexProperty.keys = _getPropertyKeys(aeProperty, isUnsupportedProperty, state);
+                        return aexProperty;
+                    case 'skip':
+                        return undefined;
+                    case 'log':
+                        state.log.push({
+                            aexObject: aexProperty,
+                            message: `Property "${aeProperty.matchName}" is unsupported. Skipping.`,
+                        });
+                        return undefined;
+                    case 'throw':
+                        throw notSupported(`Property "${aeProperty.matchName}" is unsupported.`);
+                    default:
+                        state.getOptions.unspportedPropertyBehavior({
+                            aexObject: aexProperty,
+                            message: `Property "${aeProperty.matchName}" is unsupported.`,
+                        });
+                        return aexProperty;
+                }
+            }
         },
         state,
         aeProperty.name
