@@ -31,6 +31,8 @@ function getParentFolders(aeItem: Item): string[] {
         parent = parent.parentFolder;
     }
 
+    folders.reverse();
+
     return folders;
 }
 
@@ -42,9 +44,6 @@ function setParentFolders(aeItem: Item, aexItem: AexItemBase, state: AexState): 
     const aexFolders: string[] = aexItem.folder;
 
     let root = app.project.rootFolder;
-
-    // TODO: the folders array should be serialized in a way that does not require this.
-    aexFolders.reverse();
 
     aeq.forEach(aexFolders, (aexFolder) => {
         const newFolder = aeq.project.getOrCreateFolder(aexFolder, root);

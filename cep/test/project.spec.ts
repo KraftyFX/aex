@@ -126,7 +126,7 @@ describe('Project', function () {
                 },
                 {
                     aexid: 'folder c:55',
-                    folder: ['Folder A', 'Solids'],
+                    folder: ['Solids', 'Folder A'],
                     name: 'Folder C',
                     type: AEX_FOLDER_ITEM,
                 },
@@ -275,7 +275,7 @@ describe('Project', function () {
                     },
                     {
                         aexid: 'folder c:3',
-                        folder: ['Folder A', 'Solids'],
+                        folder: ['Solids', 'Folder A'],
                         name: 'Folder C',
                         type: AEX_FOLDER_ITEM,
                     },
