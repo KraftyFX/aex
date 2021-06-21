@@ -321,7 +321,7 @@ describe('Basic Layer Attributes', function () {
             });
         });
 
-        it.skip(`Can parse time remap enabled (but not modified)`, async () => {
+        it(`Can parse time remap enabled (but not modified)`, async () => {
             assertAreEqual(comp.layers[8], {
                 effects: [],
                 label: 15,
@@ -383,7 +383,7 @@ describe('Basic Layer Attributes', function () {
             });
         });
 
-        it.skip(`Can parse time remap enabled (and modified)`, async () => {
+        it(`Can parse time remap enabled (and modified)`, async () => {
             assertAreEqual(comp.layers[9], {
                 effects: [],
                 label: 15,
