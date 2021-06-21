@@ -60,7 +60,7 @@ function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state
 
             aeSourceItem = createAeItem(aexItem, state) as AVItem;
 
-            state.footageIdMap[aexFootageSource.id] = aeSourceItem.id;
+            state.footageIdMap[aexFootageSource.aexid] = aeSourceItem.id;
         }
 
         return aeSourceItem;
@@ -68,17 +68,17 @@ function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state
 }
 
 function _tryGetAexItemForFootageSource(aexFootageSource: AexFootageSource, state: AexState): AexItem {
-    const { id, type } = aexFootageSource;
+    const { aexid, type } = aexFootageSource;
 
     return state.footageToCreate.find(isMatchingAexItem);
 
     function isMatchingAexItem(item: AexItem): boolean {
-        return item.aexid == id && item.type === type;
+        return item.aexid == aexid && item.type === type;
     }
 }
 
 function _tryGetAeFootageSourceItem(aexFootageSource: AexFootageSource, state: AexState): AVItem | null {
-    const aeItemId = state.footageIdMap[aexFootageSource.id];
+    const aeItemId = state.footageIdMap[aexFootageSource.aexid];
     const aexItemType = aexFootageSource.type;
 
     return aeq.getItems().find(isMatchingAeItem) as AVItem;
@@ -103,7 +103,7 @@ function _getFootageSource(aeAvLayer: AVLayer): AexFootageSource {
     const source = aeAvLayer.source;
 
     return {
-        id: getItemUid(aeAvLayer.source),
+        aexid: getItemUid(aeAvLayer.source),
         type: getAexItemType(source) as AexAvItemType,
     };
 }

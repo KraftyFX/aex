@@ -169,7 +169,7 @@ describe('Basic Layer Attributes', function () {
                 parentLayerIndex: 5,
                 source: {
                     type: AEX_SOLID_ITEM,
-                    id: 'parented solid:61',
+                    aexid: 'parented solid:61',
                 },
                 trackers: [],
                 transform: {
@@ -330,7 +330,7 @@ describe('Basic Layer Attributes', function () {
                 name: 'TR Enabled',
                 source: {
                     type: AEX_COMP_ITEM,
-                    id: 'precomp:65',
+                    aexid: 'precomp:65',
                 },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
@@ -392,7 +392,7 @@ describe('Basic Layer Attributes', function () {
                 name: 'TR Remapped',
                 source: {
                     type: AEX_COMP_ITEM,
-                    id: 'precomp:65',
+                    aexid: 'precomp:65',
                 },
                 timeRemap: {
                     type: AEX_ONED_PROPERTY,
@@ -454,7 +454,7 @@ describe('Basic Layer Attributes', function () {
                 name: 'Matte Solid',
                 source: {
                     type: AEX_SOLID_ITEM,
-                    id: 'parented solid:61',
+                    aexid: 'parented solid:61',
                 },
                 trackers: [],
                 transform: {},
@@ -880,7 +880,7 @@ describe('Basic Layer Attributes', function () {
                                 name: 'TR Enabled (and not modified)',
                                 source: {
                                     type: AEX_COMP_ITEM,
-                                    id: 'precomp 1:1',
+                                    aexid: 'precomp 1:1',
                                 },
                                 timeRemap: {
                                     type: AEX_ONED_PROPERTY,
