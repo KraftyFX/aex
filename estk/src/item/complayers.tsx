@@ -10,8 +10,6 @@ function getAexCompLayers(aeComp: CompItem, state: AexState) {
     aeq.forEachLayer(aeComp, (layer: Layer) => {
         const layerData = getAexLayer(layer, state);
 
-        // TODO: Insert the layers in the front, update the tests and get rid of
-        // the voodoo during deserialization
         aexLayers.push(layerData);
     });
 
@@ -34,8 +32,8 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
      *
      * New created layers get placed at the top of the stack.
      *
-     * But because we add to the AexComp.layers array from top -> bottom, we need to reverse
-     * our array to preserve the same layer ordering.
+     * But because we want AexComp.Layers to be in the same order as the resulting timeline,
+     * we need to reverse our layers array to create them to preserve the same layer ordering.
      */
     (aexComp.layers || []).reverse();
 
