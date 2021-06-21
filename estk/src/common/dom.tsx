@@ -1,20 +1,16 @@
 function sourceIsSolid(source: any): source is SolidSource {
-    // @ts-ignore
     return source instanceof SolidSource;
 }
 
 function sourceIsFile(source: any): source is FileSource {
-    // @ts-ignore
     return source instanceof FileSource;
 }
 
 function sourceIsPlaceholder(source: any): source is PlaceholderSource {
-    // @ts-ignore
     return source instanceof PlaceholderSource;
 }
 
 function isProject(item: any): item is Project {
-    // @ts-ignore
     return item instanceof Project;
 }
 

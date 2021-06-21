@@ -58,11 +58,9 @@ function setAvLayerAttributes(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state:
         quality: aexAvLayer.quality,
         samplingQuality: aexAvLayer.samplingQuality,
         threeDLayer: aexAvLayer.threeDLayer,
-        timeRemapEnabled: aexAvLayer.timeRemapEnabled, // Is this needed?
         trackMatteType: aexAvLayer.trackMatteType,
     });
 
-    // TODO: Find out why setting layer attributes higher up in this function causes "Can create modified 3d AVLayer Null data" test
     setLayerAttributes(aeAvLayer, aexAvLayer, state);
     setAvLayerMasks(aeAvLayer, aexAvLayer, state);
     setAvLayerEffects(aeAvLayer, aexAvLayer, state);
