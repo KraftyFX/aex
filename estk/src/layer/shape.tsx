@@ -65,8 +65,7 @@ function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGrou
         if (contents.canAddProperty(matchName)) {
             shapeGroup = _createPropertyBase(contents, aexContent, state);
 
-            // TODO: use isVectorGroup function for this
-            if (matchName === 'ADBE Vector Group') {
+            if (_isVectorGroup(aexContent)) {
                 _setContents(shapeGroup.property('ADBE Vectors Group') as PropertyGroup, aexContent.contents, state);
             }
         } else {
@@ -81,7 +80,7 @@ function _getRootVectorsGroup(aeShapeLayer: ShapeLayer): PropertyGroup {
     return aeShapeLayer.property('ADBE Root Vectors Group') as PropertyGroup;
 }
 
-function _isVectorGroup(propertyGroup: Property | PropertyGroup) {
+function _isVectorGroup(propertyGroup: Property | PropertyGroup | AexShapePropertyGroup) {
     return propertyGroup.matchName === 'ADBE Vector Group';
 }
 
