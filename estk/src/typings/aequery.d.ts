@@ -243,7 +243,12 @@ declare interface AEQuery {
     setDefault(value: any, defaultVal: any): any;
 
     /** Returns a pressed-state object of modifier keys */
-    getModifiers(): { meta: boolean; ctrl: boolean; alt: boolean; shift: boolean };
+    getModifiers(): {
+        meta: boolean;
+        ctrl: boolean;
+        alt: boolean;
+        shift: boolean;
+    };
 
     /** Normalizes a collection */
     normalizeCollection(collection: Array<any>): AEQArrayEx<any>;
@@ -469,7 +474,7 @@ declare interface AEQLayerClass {
 
 declare interface AEQProjectClass {
     /** Gets all footage items in project */
-    getFootage(parentFolder?: FolderItem | string): AEQArrayEx<Item>;
+    getFootage(parentFolder?: FolderItem | string): AEQArrayEx<FootageItem>;
 
     /** Gets all folders within target folder, or root */
     getFolders(parentFolder?: FolderItem | string): AEQArrayEx<FolderItem>;
@@ -667,7 +672,7 @@ declare interface AEQKey {
     ): { inType: KeyframeInterpolationType; outType: KeyframeInterpolationType } | boolean;
 
     /** Gets or sets in/out spatial tangents of current key */
-    spatialTangent(inType?: number[], outType?: number): { inTangent: number[]; outTangent: number[] };
+    spatialTangent(inType?: number[], outType?: number[]): { inTangent: number[]; outTangent: number[] };
 
     /** Gets or sets in/out temporal ease of current key */
     temporalEase(inType?: KeyframeEase[], outType?: KeyframeEase[]): { inEase: KeyframeEase[]; outEase: KeyframeEase[] };
@@ -828,6 +833,12 @@ declare interface AEQUIContainer<T> {
         onDoubleClick?: Function,
         creationProperties?: Partial<_AddControlPropertiesListBox>
     ): AEQUIListbox;
+    addListbox(
+        items: string[],
+        onChange?: Function,
+        onDoubleClick?: Function,
+        creationProperties?: Partial<_AddControlPropertiesListBox>
+    ): AEQUIListbox;
 
     /** Add a Panel to this container */
     addPanel(label?: string, creationProperties?: any): AEQUIContainer<Panel>;
@@ -847,6 +858,7 @@ declare interface AEQUIContainer<T> {
 
     /** Add a StaticText to this container */
     addStaticText(text: string, creationProperties?: Partial<_AddControlPropertiesStaticText>): StaticText;
+    addStatictext(text: string, creationProperties?: Partial<_AddControlPropertiesStaticText>): StaticText;
 
     /** Add a Tab to this container */
     addTab(label: string, creationProperties?: Partial<_AddControlProperties>): AEQUIContainer<Tab>;
@@ -856,6 +868,7 @@ declare interface AEQUIContainer<T> {
 
     /** Add a TreeView to this container */
     addTreeView(items: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesTreeView>): AEQUITreeView;
+    addTreeview(items: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesTreeView>): AEQUITreeView;
 }
 
 declare interface AEQUIListbox {
