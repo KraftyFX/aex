@@ -20,14 +20,6 @@ function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
 }
 
 function _setPropertyValue(aeProperty: Property, aexProperty: AexProperty, state: AexState) {
-    /** We can't setValue on an animated property, so back out */
-    if (aeProperty.numKeys > 0) {
-        // TODO: Discuss with Zack why we return here instead of logging or updating the property to
-        // be a static vs animated. Also, shouldn't this be treated as an unsupported property or
-        // something similar?
-        return;
-    }
-
     const aeValue = getAeValue(aeProperty, aexProperty.value, state);
 
     try {

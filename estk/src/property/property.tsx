@@ -95,8 +95,11 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         aeProperty.name = aexProperty.name;
     }
 
-    _setPropertyValue(aeProperty, aexProperty, state);
-    _setPropertyKeys(aeProperty, aexProperty, state);
+    if (aexProperty.keys.length > 0) {
+        _setPropertyKeys(aeProperty, aexProperty, state);
+    } else {
+        _setPropertyValue(aeProperty, aexProperty, state);
+    }
 }
 
 function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropertyType {
