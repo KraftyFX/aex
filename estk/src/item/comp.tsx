@@ -73,6 +73,7 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
     });
 
     const comp = aeq.comp.create(compSettings);
+    state.footageIdMap[aexComp.aexid] = comp.id;
 
     comp.openInViewer();
 

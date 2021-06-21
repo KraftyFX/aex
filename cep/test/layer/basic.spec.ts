@@ -856,7 +856,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(comp.layers[0], layerData);
         });
 
-        it.skip(`Can set time remap enabled (but not modified)`, async () => {
+        it(`Can set time remap enabled (but not modified)`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -946,7 +946,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
         });
 
-        it.skip(`Can set time remap enabled (and modified)`, async () => {
+        it(`Can set time remap enabled (and modified)`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -968,6 +968,10 @@ describe('Basic Layer Attributes', function () {
                                 markers: [],
                                 masks: [],
                                 name: 'TR Enabled (and modified)',
+                                source: {
+                                    type: AEX_COMP_ITEM,
+                                    aexid: 'precomp 1:1',
+                                },
                                 timeRemap: {
                                     type: AEX_ONED_PROPERTY,
                                     keys: [
