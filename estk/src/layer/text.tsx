@@ -18,7 +18,9 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
     const avLayerAttributes = getAvLayerAttributes(aeTextLayer, AEX_TEXT_LAYER, state);
 
     /**
-     * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
+     * Voodoo
+     *
+     * This property exists on TextLayer but can't be toggled. Meaningless cruft.
      */
     delete avLayerAttributes.collapseTransformation;
 

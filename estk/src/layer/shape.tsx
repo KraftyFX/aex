@@ -9,7 +9,9 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
     const avLayerAttributes = getAvLayerAttributes(aeShapeLayer, AEX_SHAPE_LAYER, state);
 
     /**
-     * Voodoo: This property exists on TextLayer but can't be toggled. Meaningless cruft.
+     * Voodoo
+     *
+     * This property exists on TextLayer but can't be toggled. Meaningless cruft.
      */
     delete avLayerAttributes.collapseTransformation;
 

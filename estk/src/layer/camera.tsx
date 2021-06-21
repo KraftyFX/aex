@@ -9,7 +9,9 @@ function getAexCameraLayer(aeCameraLayer: CameraLayer, state: AexState): AexCame
     const layerAttributes = getLayerAttributes(aeCameraLayer, state);
 
     /**
-     * Voodoo: Cameras don't have default positions when they're created,
+     * Voodoo
+     *
+     * Cameras don't have default positions when they're created,
      * so we need to get them explicitly if they're not modified
      */
     if (!layerAttributes.transform.position) {

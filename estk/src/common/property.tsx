@@ -18,7 +18,9 @@ function getModifiedProperty(property: Property, state: AexState): AexProperty |
 
 function hasDefaultPropertyValue(property: Property<UnknownPropertyType>) {
     /**
-     * Voodoo: For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
+     * Voodoo
+     *
+     * For Shape Stroke Dashes, we need to check `canSetExpression` instead of `isModified`
      */
     if (property.propertyGroup(1).matchName === 'ADBE Vector Stroke Dashes') {
         return !property.canSetExpression;

@@ -86,7 +86,9 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
         let property: PropertyBase;
 
         /**
-         * Voodoo: There are cases where a property will exist, but won't be visible in the UI unless we addProperty() it
+         * Voodoo
+         *
+         * There are cases where a property will exist, but won't be visible in the UI unless we addProperty() it.
          */
         if (propertyGroup.canAddProperty(matchName)) {
             property = _createPropertyBase(propertyGroup, aexProperty, state);

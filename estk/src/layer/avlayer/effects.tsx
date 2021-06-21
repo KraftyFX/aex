@@ -1,7 +1,9 @@
 function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
     const fillProperties = (effectGroup: PropertyGroup, aexEffectGroup: AexPropertyGroup) => {
         /**
-         * VOODOO: AE supports user defined dropdowns which only appear inside of Layer.effect
+         * Voodoo
+         *
+         * AE supports user defined dropdowns which only appear inside of Layer.effect
          * and only within a top level group. It doesn't exist anywhere else and requires special
          * serialization handling. In all other cases we want to use default property group
          * serialization.
@@ -10,7 +12,9 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
             aexEffectGroup.properties = [_getDropdownProperty(effectGroup, state)];
         } else {
             /**
-             * VOODOO: AE has some effect properties that are only used to drive the UI. They do not
+             * Voodoo
+             *
+             * AE has some effect properties that are only used to drive the UI. They do not
              * impact rendering and their values cannot be serialized. These only appear in the
              * Layer.effect hierarchy and should be gracefully skipped over.
              */

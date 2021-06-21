@@ -10,7 +10,9 @@ function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLa
     const { lightType } = aeLightLayer;
 
     /**
-     * Voodoo: Lights don't have default positions when they're created,
+     * Voodoo
+     *
+     * Lights don't have default positions when they're created,
      * so we need to get them explicitly if they're not modified
      */
     if (!layerAttributes.transform.position) {

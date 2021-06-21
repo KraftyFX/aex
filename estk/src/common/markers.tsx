@@ -72,7 +72,9 @@ function updateAeMarker(aeMarkerProperty: MarkerValueProperty, aeMarkerValue: Ma
     });
 
     /**
-     * Voodoo: Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
+     * Voodoo
+     *
+     * Unlike most animated properties, we can't use Property.setValueAtTime() with markers.
      * As a result, we need to set each keyframe individually.
      */
     aeMarkerProperty.setValueAtTime(aexMarker.time, aeMarkerValue);

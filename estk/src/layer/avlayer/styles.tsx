@@ -10,11 +10,13 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
         styleGroup,
         (property: Property | PropertyGroup, ii) => {
             /**
-             * Voodoo: We always want to parse the first property in this group
+             * Voodoo
+             *
+             * We always want to parse the first property in this group
              *   (it's a general property that affects all the others)
              *
-             * After that, however, layer styles only really exist in the aep if
-             * 'canSetEnabled' is true.
+             * After that, however, layer styles only really exist in the aep,
+             * if 'canSetEnabled' is true.
              */
             if (ii == 0 || property.canSetEnabled) {
                 const { name, matchName, enabled } = property;
@@ -51,7 +53,7 @@ function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
         let styleGroup: PropertyGroup;
 
         /**
-         * Voodoo:
+         * Voodoo
          *
          * We need to set this group _after_ the other style groups, or else it won't be
          * accessible to the API.
@@ -74,7 +76,7 @@ function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
 }
 
 /**
- * Voodoo:
+ * Voodoo
  *
  * Unlike most other groups, we can't group.addProperty(styleMatchName) because they already exist
  * The only way to "create" them in the UI is to call the commandID revealing it.
