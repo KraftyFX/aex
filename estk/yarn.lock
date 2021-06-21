@@ -2635,7 +2635,7 @@ typedarray@^0.0.6:
 
 "types-for-adobe@github:zlovatt/types-for-adobe":
   version "6.0.1"
-  resolved "https://codeload.github.com/zlovatt/types-for-adobe/tar.gz/c427b84748e96f52564ac9f90ee3c05a192b0b45"
+  resolved "https://codeload.github.com/zlovatt/types-for-adobe/tar.gz/896535394df0494a74bcff2545dd36f8a58f149b"
 
 typescript@^4.2.3:
   version "4.3.4"

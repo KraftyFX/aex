@@ -113,11 +113,8 @@ function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexPropertyGro
      *
      * Calling this function invalidates the reference to the effect and the property itself
      * However, it returns a new reference to the property, so we can return that.
-     *
-     * @todo - Types-For-Adobe needs to be updated that this method returns the property
      */
-    // @ts-ignore
-    const updatedProperty = dropdownProperty.setPropertyParameters(aexDropdownProperty.items) as Property;
+    const updatedProperty = dropdownProperty.setPropertyParameters(aexDropdownProperty.items);
 
     if (aexDropdownProperty.value) {
         setProperty(updatedProperty as Property, aexDropdownProperty, state);
