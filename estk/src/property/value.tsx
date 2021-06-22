@@ -4,15 +4,6 @@ function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
 
     if (isTextDocument(aeProperty)) {
         return _getTextDocumentProperties(value);
-    } else if (_isTimeRemapProperty(aeProperty)) {
-        /**
-         * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
-         */
-        const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
-        const propSource = propLayer.source as AVItem;
-        const propDuration = propSource.duration;
-
-        return getRoundedValue(value / propDuration);
     } else {
         return getRoundedValue(value);
     }
@@ -53,15 +44,6 @@ function getAeValue(aeProperty: Property, aexObjValue: any, state: AexState): an
         return _createTextDocument(aeProperty.value, aexObjValue, state);
     } else if (isShapeProperty(aeProperty)) {
         return _createShape(aexObjValue);
-    } else if (_isTimeRemapProperty(aeProperty)) {
-        /**
-         * Time Remap keyframes need to be 0 -> 1 normalized for deserialization
-         */
-        const propLayer = aeProperty.propertyGroup(aeProperty.propertyDepth) as AVLayer;
-        const propSource = propLayer.source as AVItem;
-        const propDuration = propSource.duration;
-
-        return aexObjValue * propDuration;
     } else {
         return aexObjValue;
     }
