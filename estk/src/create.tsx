@@ -1,7 +1,8 @@
 function create(aeParentObject: Project, aexObject: AexItem | AexComp);
 function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
-function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>) {
+function create(aeParentObject: PropertyGroup, aexObject: AexTypedGroup);
+function create(aeParentObject: Serializable, aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>) {
     assertIsDefined(aeParentObject, 'aeParentObject');
     assertIsDefined(aexObject, 'aexObject');
 
@@ -59,25 +60,28 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexProp
 
 function isAddingCompToProject(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
 ): aexObject is AexComp {
     return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
 }
 
 function isAddingNonCompItemToProject(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
 ): aexObject is AexItem {
     return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
 }
 
-function isAddingLayerToComp(aeParentObject: Serializable, aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>): aexObject is AexLayer {
+function isAddingLayerToComp(
+    aeParentObject: Serializable,
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+): aexObject is AexLayer {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
 function isAddingPropertyToLayer(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
 ): aexObject is AexProperty {
-    return aeParentObject instanceof Layer && aexObject.type.indexOf('aex:property') === 0;
+    return aeq.isLayer(aeParentObject) && aexObject.type.indexOf('aex:property') === 0;
 }
