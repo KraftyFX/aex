@@ -28,6 +28,7 @@ const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 const AEX_NONE_PROPERTY = 'aex:property:none';
 
 const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
+const AEX_TRACKER_PROPERTYGROUP = 'aex:propertyGroup:tracker';
 const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
 const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';
 const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';

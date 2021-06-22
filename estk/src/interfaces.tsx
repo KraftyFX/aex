@@ -28,6 +28,7 @@ type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | Mark
 
 type AexPropertyGroupType =
     | 'aex:propertyGroup:audio'
+    | 'aex:propertyGroup:tracker'
     | 'aex:propertyGroup:effect'
     | 'aex:propertyGroup:effect:dropdown'
     | 'aex:propertyGroup:shape:group'

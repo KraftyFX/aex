@@ -28,6 +28,7 @@ export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
 export const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
+export const AEX_TRACKER_PROPERTYGROUP = 'aex:propertyGroup:tracker';
 export const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
 export const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';
 export const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';
