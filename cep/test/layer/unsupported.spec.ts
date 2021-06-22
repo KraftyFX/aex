@@ -48,7 +48,7 @@ describe('Unsupported Properties', function () {
             console.log('unsupported_throw');
             console.dir(e);
             expect(e.isEstkError).to.be.true;
-            expect(e.message).to.contain('is unsupported');
+            expect(e.message).to.contain('is not supported.');
         }
     });
 

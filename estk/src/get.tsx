@@ -34,7 +34,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     } else if (aeq.isLayer(aeObject)) {
         object = getAexLayer(aeObject as Layer, state);
     } else {
-        throw notSupported(`Getting a '${getDebugStringForAeType(aeObject)}' is not supported.`);
+        throw notSupported(`Getting a '${getDebugStringForAeType(aeObject)}'`);
     }
 
     const footageSources = state.footageSources;

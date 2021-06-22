@@ -21,7 +21,7 @@ function fail(message: string) {
 }
 
 function notSupported(message: string) {
-    return new Error(message);
+    return new Error(`${message}' is not supported.`);
 }
 
 function notImplemented() {

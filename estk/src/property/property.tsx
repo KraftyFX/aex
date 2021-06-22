@@ -46,11 +46,11 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
                         });
                         return undefined;
                     case 'throw':
-                        throw notSupported(`Property "${aeProperty.matchName}" is unsupported.`);
+                        throw notSupported(`Property '${aeProperty.matchName}'`);
                     default:
                         state.getOptions.unspportedPropertyBehavior({
                             aexObject: aexProperty,
-                            message: `Property "${aeProperty.matchName}" is unsupported.`,
+                            message: `Property '${aeProperty.matchName}'`,
                         });
                         return aexProperty;
                 }
@@ -126,7 +126,7 @@ function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropert
         case PropertyValueType.CUSTOM_VALUE:
             return AEX_CUSTOM_PROPERTY;
         default:
-            throw notSupported(`Unsupported property type "${aeProperty.name}" ${aeProperty.propertyValueType}`);
+            throw notSupported(`Property type '${aeProperty.name}' (${aeProperty.propertyValueType})`);
     }
 }
 
