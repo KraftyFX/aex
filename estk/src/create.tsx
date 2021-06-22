@@ -36,14 +36,24 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexType
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Comp to Project');
-        createAeComp(aexObject, state);
-        app.endUndoGroup();
+        try {
+            createAeComp(aexObject, state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
-        createAeLayer(aeParentObject as CompItem, aexObject, state);
-        app.endUndoGroup();
+        try {
+            createAeLayer(aeParentObject as CompItem, aexObject, state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else {
