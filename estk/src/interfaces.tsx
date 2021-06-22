@@ -1,7 +1,7 @@
 type Serializable = Project | CompItem | Layer | PropertyGroup;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
-type AexTypedGroup = AexShapePropertyGroup | AexEffectPropertyGroup | AexAnimatorPropertyGroup;
+type AexTypedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
@@ -33,7 +33,6 @@ type AexPropertyGroupType =
     | 'aex:propertyGroup:shape:group'
     | 'aex:propertyGroup:shape:item'
     | 'aex:propertyGroup:text:animator'
-    | 'aex:propertyGroup:styles:group'
     | 'aex:propertyGroup:styles:item';
 
 type AexUID = string;

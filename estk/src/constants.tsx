@@ -31,7 +31,6 @@ const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';
 const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';
 const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 const AEX_TEXT_ANIMATOR_PROPERTYGROUP = 'aex:propertyGroup:text:animator';
-const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
 
 function isAexLayer(aexObject: AexObject) {

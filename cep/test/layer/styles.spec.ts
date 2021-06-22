@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_LAYERSTYLES_PROPERTYGROUP, AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
+import { AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -281,7 +281,6 @@ describe('Layer Styles', function () {
                         type: AEX_LAYERSTYLE_PROPERTYGROUP,
                     },
                 ],
-                type: AEX_LAYERSTYLES_PROPERTYGROUP,
             });
         });
 
@@ -712,7 +711,6 @@ describe('Layer Styles', function () {
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
-                    type: AEX_LAYERSTYLES_PROPERTYGROUP,
                 },
                 type: AEX_NULL_LAYER,
             };

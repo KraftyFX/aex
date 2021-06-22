@@ -1,10 +1,9 @@
-function _getAvLayerStyles(styleGroup: PropertyGroup, type: AexPropertyGroupType, state: AexState) {
+function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     const styles = {
         name: styleGroup.name,
         matchName: styleGroup.matchName,
         enabled: styleGroup.enabled,
         properties: [],
-        type,
     };
 
     forEachPropertyInGroup(

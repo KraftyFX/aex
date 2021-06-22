@@ -31,7 +31,6 @@ export const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropd
 export const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';
 export const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 export const AEX_TEXT_ANIMATOR_PROPERTYGROUP = 'aex:propertyGroup:text:animator';
-export const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 export const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
 
 export interface AexPrescanResult {

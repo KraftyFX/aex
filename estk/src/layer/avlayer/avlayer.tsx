@@ -38,11 +38,7 @@ function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: A
         materialOption: getPropertyGroup(aeAvLayer.materialOption, state),
         geometryOption: getPropertyGroup(aeAvLayer.geometryOption, state),
 
-        layerStyles: getBoundModifiedValue(
-            aeAvLayer.layerStyle.canSetEnabled,
-            () => _getAvLayerStyles(aeAvLayer.layerStyle, AEX_LAYERSTYLES_PROPERTYGROUP, state),
-            undefined
-        ),
+        layerStyles: getBoundModifiedValue(aeAvLayer.layerStyle.canSetEnabled, () => _getAvLayerStyles(aeAvLayer.layerStyle, state), undefined),
     };
 }
 
