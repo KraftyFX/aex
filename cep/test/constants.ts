@@ -16,7 +16,6 @@ export const AEX_TEXT_LAYER = 'aex:layer:av:text';
 export const AEX_CAMERA_LAYER = 'aex:layer:camera';
 export const AEX_LIGHT_LAYER = 'aex:layer:light';
 
-export const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 export const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
 export const AEX_ONED_PROPERTY = 'aex:property:oned';
 export const AEX_TWOD_PROPERTY = 'aex:property:twod';

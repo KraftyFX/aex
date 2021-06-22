@@ -15,7 +15,6 @@ type AexFootageLayerType = 'aex:layer:av:null' | 'aex:layer:av:file' | 'aex:laye
 type AexPropertyType =
     | 'aex:property:no_value'
     | 'aex:property:custom'
-    | 'aex:property:dropdown'
     | 'aex:property:oned'
     | 'aex:property:twod'
     | 'aex:property:threed'

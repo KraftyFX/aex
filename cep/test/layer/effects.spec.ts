@@ -3,7 +3,6 @@ import {
     AEX_COLOR_PROPERTY,
     AEX_COMP_ITEM,
     AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
-    AEX_DROPDOWN_PROPERTY,
     AEX_EFFECT_PROPERTYGROUP,
     AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
@@ -171,7 +170,6 @@ describe('Layer Effects', function () {
                     properties: [
                         {
                             items: ['Item 1', 'Item 2', 'Item 3'],
-                            type: AEX_DROPDOWN_PROPERTY,
                         },
                     ],
                     type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
@@ -261,7 +259,7 @@ describe('Layer Effects', function () {
                             items: ['Item 1', 'Item 2', 'Item 3'],
                             matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ-0001',
                             name: 'Menu',
-                            type: AEX_DROPDOWN_PROPERTY,
+                            type: AEX_ONED_PROPERTY,
                             value: 3,
                         },
                     ],
@@ -714,7 +712,6 @@ describe('Layer Effects', function () {
                         properties: [
                             {
                                 items: ['Item 1', 'Item 2', 'Item 3'],
-                                type: AEX_DROPDOWN_PROPERTY,
                             },
                         ],
                         type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
@@ -818,7 +815,7 @@ describe('Layer Effects', function () {
                                         keys: [],
                                         items: ['Item 1', 'Item 2', 'Item 3'],
                                         name: 'Menu',
-                                        type: AEX_DROPDOWN_PROPERTY,
+                                        type: AEX_ONED_PROPERTY,
                                         value: 3,
                                     },
                                 ],

@@ -29,9 +29,9 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState): AexEffectPro
 
 function setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
     const aeAvEffect: PropertyGroup = aeAvLayer.effect;
-    const aexAvEffects: AexPropertyGroup[] = aexAvLayer.effects;
+    const aexAvEffects: AexEffectPropertyGroup[] = aexAvLayer.effects;
 
-    aeq.arrayEx(aexAvEffects).forEach((aexEffect: AexPropertyGroup) => {
+    aeq.arrayEx(aexAvEffects).forEach((aexEffect: AexEffectPropertyGroup) => {
         let effect;
         const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
 
@@ -58,22 +58,8 @@ function _isUiOnlyEffectProperty(property: Property): boolean {
     return propertyValueType === PropertyValueType.NO_VALUE && propertyDepth > 2 && property.propertyGroup(propertyDepth - 2).isEffect;
 }
 
-function _isDropdownAexEffect(aexEffect: AexPropertyGroup, state: AexState): boolean {
-    if (!aexEffect.properties) {
-        return false;
-    }
-
-    if (aexEffect.properties.length !== 1) {
-        return false;
-    }
-
-    const aexProperty = aexEffect.properties[0] as AexProperty;
-
-    if (aexProperty.type === AEX_DROPDOWN_PROPERTY) {
-        return true;
-    } else {
-        return false;
-    }
+function _isDropdownAexEffect(aexEffect: AexEffectPropertyGroup, state: AexState): boolean {
+    return aexEffect.type === AEX_DROPDOWN_EFFECT_PROPERTYGROUP;
 }
 
 function _isDropdownEffect(effect: PropertyGroup, state: AexState): boolean {
@@ -95,7 +81,6 @@ function _getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdo
     }
 
     propertyData.items = _getDropdownPropertyItems(dropdownProperty, state);
-    propertyData.type = AEX_DROPDOWN_PROPERTY;
 
     return {
         ...propertyData,
@@ -103,7 +88,7 @@ function _getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdo
     };
 }
 
-function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexPropertyGroup, state: AexState): PropertyGroup {
+function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexEffectPropertyGroup, state: AexState): PropertyGroup {
     const effect = effects.addProperty('ADBE Dropdown Control');
 
     assignAttributes(effect, {
