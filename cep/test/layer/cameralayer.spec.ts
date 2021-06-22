@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_CAMERA_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import { AEX_CAMERAOPTION_PROPERTYGROUP, AEX_CAMERA_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -114,6 +114,7 @@ describe('Camera Layer Attributes', function () {
                         value: 11,
                     },
                 ],
+                type: AEX_CAMERAOPTION_PROPERTYGROUP,
             });
         });
 
@@ -238,6 +239,7 @@ describe('Camera Layer Attributes', function () {
                             value: 11,
                         },
                     ],
+                    type: AEX_CAMERAOPTION_PROPERTYGROUP,
                 },
                 label: 4,
                 markers: [],

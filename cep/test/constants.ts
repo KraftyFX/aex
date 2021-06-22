@@ -34,6 +34,7 @@ export const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';
 export const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 export const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 export const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
+export const AEX_CAMERAOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:camera';
 export const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
 export const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
 
