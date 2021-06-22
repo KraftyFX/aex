@@ -497,10 +497,10 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].effects, layerData.effects);
+            assertAreEqual(layer.effects, layerData.effects);
         });
 
         it('Can create simple modified effect', async () => {
@@ -561,10 +561,10 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].effects, layerData.effects);
+            assertAreEqual(layer.effects, layerData.effects);
         });
 
         it('Can create effect compositing options', async () => {
@@ -653,10 +653,10 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].effects, layerData.effects);
+            assertAreEqual(layer.effects, layerData.effects);
         });
 
         it('Can create default expression controls', async () => {
@@ -706,13 +706,13 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
             delete dropdownEffect.matchName;
 
-            assertAreEqual(comp.layers[0].effects, layerData.effects);
+            assertAreEqual(layer.effects, layerData.effects);
         });
 
         it('Can create modified expression controls', async () => {
@@ -835,14 +835,14 @@ describe('Layer Effects', function () {
 
             await aex().create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            const dropdownEffect = comp.layers[0].effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
             delete dropdownEffect.matchName;
             delete dropdownEffect.properties[0].matchName;
 
-            assertAreEqual(comp.layers[0].effects, compData.layers[0].effects);
+            assertAreEqual(layer.effects, compData.layers[0].effects);
         });
 
         it('Can create nested effect groups', async () => {
@@ -868,10 +868,10 @@ describe('Layer Effects', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].effects, layerData.effects);
+            assertAreEqual(layer.effects, layerData.effects);
         });
     });
 });

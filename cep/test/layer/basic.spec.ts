@@ -522,10 +522,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create a basic TextLayer`, async () => {
@@ -566,10 +566,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create a basic Null layer`, async () => {
@@ -585,10 +585,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create a basic LightLayer`, async () => {
@@ -613,10 +613,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can set various Layer flags`, async () => {
@@ -638,10 +638,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can set Layer blend mode`, async () => {
@@ -658,10 +658,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
     });
 
@@ -705,12 +705,12 @@ describe('Basic Layer Attributes', function () {
 
             await aex().update(AeObject.ActiveComp, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            (compData.layers[0] as any).source = comp.layers[0].source;
+            (compData.layers[0] as any).source = layer.source;
 
-            assertAreEqual(comp.layers[0], compData.layers[0]);
+            assertAreEqual(layer, compData.layers[0]);
         });
 
         it(`Can set 3d layers`, async () => {
@@ -850,10 +850,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can set time remap enabled (but not modified)`, async () => {
@@ -940,10 +940,10 @@ describe('Basic Layer Attributes', function () {
 
             await aex().update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
-            const project = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
+            assertAreEqual(layer, projectData.comps[1].layers[0]);
         });
 
         it(`Can set time remap enabled (and modified)`, async () => {

@@ -105,10 +105,10 @@ describe('Layer Markers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].markers, layerData.markers);
+            assertAreEqual(layer.markers, layerData.markers);
         });
 
         it(`Can create complicated layer markers`, async () => {
@@ -145,10 +145,10 @@ describe('Layer Markers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].markers, layerData.markers);
+            assertAreEqual(layer.markers, layerData.markers);
         });
     });
 });

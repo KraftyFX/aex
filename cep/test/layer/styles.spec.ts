@@ -301,10 +301,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties, layerData.layerStyles.properties);
+            assertAreEqual(layer.layerStyles.properties, layerData.layerStyles.properties);
         });
 
         it('Can create Inner Shadow style', async () => {
@@ -347,10 +347,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Outer Glow style', async () => {
@@ -370,10 +370,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Bevel Emboss style', async () => {
@@ -393,10 +393,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Satin style', async () => {
@@ -416,10 +416,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Color Overlay style', async () => {
@@ -439,10 +439,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Gradient Overlay style', async () => {
@@ -462,10 +462,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create Stroke style', async () => {
@@ -485,10 +485,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create modified layer style', async () => {
@@ -634,10 +634,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties, layerData.layerStyles.properties);
+            assertAreEqual(layer.layerStyles.properties, layerData.layerStyles.properties);
         });
 
         it('Can create specific disabled style', async () => {
@@ -657,10 +657,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
+            assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
         });
 
         it('Can create entire styles property disabled', async () => {
@@ -688,10 +688,10 @@ describe('Layer Styles', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].layerStyles, layerData.layerStyles);
+            assertAreEqual(layer.layerStyles, layerData.layerStyles);
         });
     });
 });

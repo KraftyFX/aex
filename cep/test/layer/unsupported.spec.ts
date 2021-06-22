@@ -53,13 +53,13 @@ describe('Unsupported Properties', function () {
     });
 
     it(`Can get metadata on serialization failures`, async () => {
-        const result = await aex().get(AeObject.ActiveComp, {
+        const result = await aex().get(AeObject.Layer(1), {
             unspportedPropertyBehavior: 'metadata',
         });
 
         console.log('unsupported_metadata', result);
 
         expect(result.object).to.be.ok;
-        expect(result.object.layers[0].layerStyles.properties[1].properties[0]).to.not.have.property('value');
+        expect(result.object.layerStyles.properties[1].properties[0]).to.not.have.property('value');
     });
 });

@@ -519,10 +519,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create default shape layers`, async () => {
@@ -553,10 +553,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create modified shape layers`, async () => {
@@ -769,10 +769,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create multiple shapes on one layer`, async () => {
@@ -821,10 +821,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create ungrouped shape items`, async () => {
@@ -849,10 +849,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create stroke dashes`, async () => {
@@ -900,10 +900,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create all stroke dashes`, async () => {
@@ -986,10 +986,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
 
         it(`Can create modified stroke dashes`, async () => {
@@ -1051,10 +1051,10 @@ describe('Shape Layers', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].contents, layerData.contents);
+            assertAreEqual(layer.contents, layerData.contents);
         });
     });
 });

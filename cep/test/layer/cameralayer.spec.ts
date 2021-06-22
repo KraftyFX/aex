@@ -249,10 +249,10 @@ describe('Camera Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].cameraOption, layerData.cameraOption);
+            assertAreEqual(layer.cameraOption, layerData.cameraOption);
         });
 
         it(`Can create 2-point cameras`, async () => {
@@ -282,10 +282,10 @@ describe('Camera Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
     });
 });

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { cleanupAex, evalAexIntoEstk } from './csinterface';
 
-describe.only('Zack Test Stuff', function () {
+describe.skip('Zack Test Stuff', function () {
     this.slow(500);
     this.timeout(5000);
 

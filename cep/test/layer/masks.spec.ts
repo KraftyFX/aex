@@ -429,10 +429,10 @@ describe('Layer Masks', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].masks, layerData.masks);
+            assertAreEqual(layer.masks, layerData.masks);
         });
 
         it('Can create simple mask attributes', async () => {
@@ -524,10 +524,10 @@ describe('Layer Masks', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].masks, layerData.masks);
+            assertAreEqual(layer.masks, layerData.masks);
         });
 
         it('Can create detailed masks with feather', async () => {
@@ -578,10 +578,10 @@ describe('Layer Masks', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].masks, layerData.masks);
+            assertAreEqual(layer.masks, layerData.masks);
         });
 
         it('Can create animated masks', async () => {
@@ -777,10 +777,10 @@ describe('Layer Masks', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].masks, layerData.masks);
+            assertAreEqual(layer.masks, layerData.masks);
         });
     });
 });

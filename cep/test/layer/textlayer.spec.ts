@@ -441,10 +441,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].threeDPerChar, layerData.threeDPerChar);
+            assertAreEqual(layer.threeDPerChar, layerData.threeDPerChar);
         });
 
         it('Can create Text Path Options', async () => {
@@ -559,10 +559,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].pathOption, layerData.pathOption);
+            assertAreEqual(layer.pathOption, layerData.pathOption);
         });
 
         it('Can create Text More Options', async () => {
@@ -630,10 +630,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].moreOption, layerData.moreOption);
+            assertAreEqual(layer.moreOption, layerData.moreOption);
         });
 
         it('Can create multiple Text Animators on one layer', async () => {
@@ -758,10 +758,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].animators, layerData.animators);
+            assertAreEqual(layer.animators, layerData.animators);
         });
 
         it('Can create multiple Text Animator Selectors on one layer', async () => {
@@ -838,10 +838,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].animators, layerData.animators);
+            assertAreEqual(layer.animators, layerData.animators);
         });
 
         it('Can create Text Animator with animated Range Selector', async () => {
@@ -954,10 +954,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].animators, layerData.animators);
+            assertAreEqual(layer.animators, layerData.animators);
         });
 
         it('Can create Text Animator with Expression Selector', async () => {
@@ -1023,10 +1023,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].animators, layerData.animators);
+            assertAreEqual(layer.animators, layerData.animators);
         });
 
         it('Can create Text Animator with Wiggle Selector', async () => {
@@ -1102,10 +1102,10 @@ describe('Text Layer Attributes', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0].animators, layerData.animators);
+            assertAreEqual(layer.animators, layerData.animators);
         });
     });
 });

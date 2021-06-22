@@ -398,10 +398,10 @@ describe('Layer Transform', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create modified 3d LightLayer data`, async () => {
@@ -425,10 +425,10 @@ describe('Layer Transform', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create modified 3d AVLayer Null data`, async () => {
@@ -503,10 +503,10 @@ describe('Layer Transform', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
 
         it(`Can create modified 2d AVLayer Null data`, async () => {
@@ -559,10 +559,10 @@ describe('Layer Transform', function () {
             await aex().createTestComp();
             await aex().create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
 
-            assertAreEqual(comp.layers[0], layerData);
+            assertAreEqual(layer, layerData);
         });
     });
 });
