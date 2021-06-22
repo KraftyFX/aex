@@ -35,8 +35,8 @@ function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: A
         audio: getPropertyGroup(aeAvLayer.audio, AEX_AUDIO_PROPERTYGROUP, state),
         timeRemap: getModifiedProperty(aeAvLayer.timeRemap, state),
         effects: getAexAvLayerEffects(aeAvLayer, state),
-        materialOption: getPropertyGroup(aeAvLayer.materialOption, undefined, state),
-        geometryOption: getPropertyGroup(aeAvLayer.geometryOption, undefined, state),
+        materialOption: getPropertyGroup(aeAvLayer.materialOption, AEX_MATERIALOPTION_PROPERTYGROUP, state),
+        geometryOption: getPropertyGroup(aeAvLayer.geometryOption, AEX_GEOMETRYOPTION_PROPERTYGROUP, state),
 
         layerStyles: getBoundModifiedValue(
             aeAvLayer.layerStyle.canSetEnabled,

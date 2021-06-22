@@ -28,6 +28,8 @@ export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
 export const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
+export const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
+export const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
 
 export interface AexPrescanResult {
     log: {
