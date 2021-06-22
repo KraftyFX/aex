@@ -28,10 +28,12 @@ export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
 export const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
-export const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
-export const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
+export const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
+export const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';
 export const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 export const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
+export const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
+export const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
 
 export interface AexPrescanResult {
     log: {

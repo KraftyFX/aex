@@ -2,7 +2,9 @@ import { AeObject, aex } from '../aex';
 import {
     AEX_COLOR_PROPERTY,
     AEX_COMP_ITEM,
+    AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
     AEX_DROPDOWN_PROPERTY,
+    AEX_EFFECT_PROPERTYGROUP,
     AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
     AEX_SHAPE_PROPERTY,
@@ -45,6 +47,7 @@ describe('Layer Effects', function () {
             assertAreEqual(simpleComp.layers[0].effects[0], {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Default',
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
 
@@ -96,6 +99,7 @@ describe('Layer Effects', function () {
                         value: 0.79,
                     },
                 ],
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
 
@@ -135,6 +139,7 @@ describe('Layer Effects', function () {
                         ],
                     },
                 ],
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
 
@@ -143,18 +148,22 @@ describe('Layer Effects', function () {
                 {
                     name: '3D Point Control',
                     matchName: 'ADBE Point3D Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Angle Control',
                     matchName: 'ADBE Angle Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Checkbox Control',
                     matchName: 'ADBE Checkbox Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Color Control',
                     matchName: 'ADBE Color Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Dropdown Menu Control',
@@ -165,18 +174,22 @@ describe('Layer Effects', function () {
                             type: AEX_DROPDOWN_PROPERTY,
                         },
                     ],
+                    type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Layer Control',
                     matchName: 'ADBE Layer Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Point Control',
                     matchName: 'ADBE Point Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Slider Control',
                     matchName: 'ADBE Slider Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
             ]);
         });
@@ -195,6 +208,7 @@ describe('Layer Effects', function () {
                             value: [0, 0, 0],
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Angle Control',
@@ -208,6 +222,7 @@ describe('Layer Effects', function () {
                             value: 100,
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Checkbox Control',
@@ -221,6 +236,7 @@ describe('Layer Effects', function () {
                             value: 1,
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Color Control',
@@ -234,6 +250,7 @@ describe('Layer Effects', function () {
                             value: [0, 0.5, 1, 1],
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Dropdown Menu Control',
@@ -248,6 +265,7 @@ describe('Layer Effects', function () {
                             value: 3,
                         },
                     ],
+                    type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Layer Control',
@@ -261,6 +279,7 @@ describe('Layer Effects', function () {
                             value: 1,
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Point Control',
@@ -274,6 +293,7 @@ describe('Layer Effects', function () {
                             value: [100, 200],
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
                 {
                     name: 'Slider Control',
@@ -287,6 +307,7 @@ describe('Layer Effects', function () {
                             value: 300,
                         },
                     ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
                 },
             ]);
         });
@@ -304,6 +325,7 @@ describe('Layer Effects', function () {
                         value: 123,
                     },
                 ],
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
 
@@ -428,6 +450,7 @@ describe('Layer Effects', function () {
                         ],
                     },
                 ],
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
 
@@ -474,6 +497,7 @@ describe('Layer Effects', function () {
                         ],
                     },
                 ],
+                type: AEX_EFFECT_PROPERTYGROUP,
             });
         });
     });
@@ -489,6 +513,7 @@ describe('Layer Effects', function () {
                     {
                         matchName: 'ADBE Fill',
                         name: 'Fill - Default',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_NULL_LAYER,
@@ -553,6 +578,7 @@ describe('Layer Effects', function () {
                                 value: 0.79,
                             },
                         ],
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_NULL_LAYER,
@@ -605,6 +631,7 @@ describe('Layer Effects', function () {
                                 ],
                             },
                         ],
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                 ],
                 masks: [
@@ -665,18 +692,22 @@ describe('Layer Effects', function () {
                     {
                         name: '3D Point Control',
                         matchName: 'ADBE Point3D Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Angle Control',
                         matchName: 'ADBE Angle Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Checkbox Control',
                         matchName: 'ADBE Checkbox Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Color Control',
                         matchName: 'ADBE Color Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Dropdown Menu Control',
@@ -686,18 +717,22 @@ describe('Layer Effects', function () {
                                 type: AEX_DROPDOWN_PROPERTY,
                             },
                         ],
+                        type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Layer Control',
                         matchName: 'ADBE Layer Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Point Control',
                         matchName: 'ADBE Point Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                     {
                         name: 'Slider Control',
                         matchName: 'ADBE Slider Control',
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_NULL_LAYER,
@@ -732,6 +767,7 @@ describe('Layer Effects', function () {
                                         value: [0, 0, 0],
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Angle Control',
@@ -745,6 +781,7 @@ describe('Layer Effects', function () {
                                         value: 100,
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Checkbox Control',
@@ -758,6 +795,7 @@ describe('Layer Effects', function () {
                                         value: 1,
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Color Control',
@@ -771,6 +809,7 @@ describe('Layer Effects', function () {
                                         value: [0, 0.5, 1, 1],
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Dropdown Menu Control',
@@ -783,6 +822,7 @@ describe('Layer Effects', function () {
                                         value: 3,
                                     },
                                 ],
+                                type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Layer Control',
@@ -796,6 +836,7 @@ describe('Layer Effects', function () {
                                         value: 2,
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Point Control',
@@ -809,6 +850,7 @@ describe('Layer Effects', function () {
                                         value: [100, 200],
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                             {
                                 name: 'Slider Control',
@@ -822,6 +864,7 @@ describe('Layer Effects', function () {
                                         value: 300,
                                     },
                                 ],
+                                type: AEX_EFFECT_PROPERTYGROUP,
                             },
                         ],
                         type: AEX_NULL_LAYER,
@@ -860,6 +903,7 @@ describe('Layer Effects', function () {
                                 value: 123,
                             },
                         ],
+                        type: AEX_EFFECT_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_NULL_LAYER,
