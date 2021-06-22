@@ -26,7 +26,12 @@ type AexPropertyType =
 
 type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
 
-type AexPropertyGroupType = 'aex:propertyGroup:audio' | 'aex:propertyGroup:option:material' | 'aex:propertyGroup:option:geometry';
+type AexPropertyGroupType =
+    | 'aex:propertyGroup:audio'
+    | 'aex:propertyGroup:styles:group'
+    | 'aex:propertyGroup:styles:item'
+    | 'aex:propertyGroup:option:material'
+    | 'aex:propertyGroup:option:geometry';
 
 type AexUID = string;
 

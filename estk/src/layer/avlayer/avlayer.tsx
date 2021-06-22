@@ -40,7 +40,7 @@ function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: A
 
         layerStyles: getBoundModifiedValue(
             aeAvLayer.layerStyle.canSetEnabled,
-            () => _getAvLayerStyles(aeAvLayer.layerStyle, undefined, state),
+            () => _getAvLayerStyles(aeAvLayer.layerStyle, AEX_LAYERSTYLES_PROPERTYGROUP, state),
             undefined
         ),
     };

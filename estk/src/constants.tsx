@@ -30,6 +30,8 @@ const AEX_NONE_PROPERTY = 'aex:property:none';
 const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
 const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
 const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
+const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
+const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
 
 function isAexLayer(aexObject: AexObject) {
     return aexObject.type.indexOf('aex:layer') == 0;

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
+import { AEX_LAYERSTYLES_PROPERTYGROUP, AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -32,11 +32,13 @@ describe('Layer Styles', function () {
                     name: 'Blending Options',
                     matchName: 'ADBE Blend Options Group',
                     enabled: true,
+                    type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
                 {
                     name: 'Drop Shadow',
                     matchName: 'dropShadow/enabled',
                     enabled: true,
+                    type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
             ]);
         });
@@ -46,6 +48,7 @@ describe('Layer Styles', function () {
                 name: 'Inner Shadow',
                 matchName: 'innerShadow/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -54,6 +57,7 @@ describe('Layer Styles', function () {
                 name: 'Outer Glow',
                 matchName: 'outerGlow/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -62,6 +66,7 @@ describe('Layer Styles', function () {
                 name: 'Inner Glow',
                 matchName: 'innerGlow/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -70,6 +75,7 @@ describe('Layer Styles', function () {
                 name: 'Bevel and Emboss',
                 matchName: 'bevelEmboss/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -78,6 +84,7 @@ describe('Layer Styles', function () {
                 name: 'Satin',
                 matchName: 'chromeFX/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -86,6 +93,7 @@ describe('Layer Styles', function () {
                 name: 'Color Overlay',
                 matchName: 'solidFill/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -94,6 +102,7 @@ describe('Layer Styles', function () {
                 name: 'Gradient Overlay',
                 matchName: 'gradientFill/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -102,6 +111,7 @@ describe('Layer Styles', function () {
                 name: 'Stroke',
                 matchName: 'frameFX/enabled',
                 enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -167,6 +177,7 @@ describe('Layer Styles', function () {
                             ],
                         },
                     ],
+                    type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
                 {
                     name: 'Drop Shadow',
@@ -237,6 +248,7 @@ describe('Layer Styles', function () {
                             keys: [],
                         },
                     ],
+                    type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
             ]);
         });
@@ -246,6 +258,7 @@ describe('Layer Styles', function () {
                 name: 'Drop Shadow',
                 matchName: 'dropShadow/enabled',
                 enabled: false,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
             });
         });
 
@@ -259,13 +272,16 @@ describe('Layer Styles', function () {
                         name: 'Blending Options',
                         matchName: 'ADBE Blend Options Group',
                         enabled: true,
+                        type: AEX_LAYERSTYLE_PROPERTYGROUP,
                     },
                     {
                         name: 'Drop Shadow',
                         matchName: 'dropShadow/enabled',
                         enabled: true,
+                        type: AEX_LAYERSTYLE_PROPERTYGROUP,
                     },
                 ],
+                type: AEX_LAYERSTYLES_PROPERTYGROUP,
             });
         });
 
@@ -287,11 +303,13 @@ describe('Layer Styles', function () {
                             name: 'Blending Options',
                             matchName: 'ADBE Blend Options Group',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
                             name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -315,6 +333,7 @@ describe('Layer Styles', function () {
                             name: 'Inner Shadow',
                             matchName: 'innerShadow/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -338,6 +357,7 @@ describe('Layer Styles', function () {
                             name: 'Outer Glow',
                             matchName: 'outerGlow/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -361,6 +381,7 @@ describe('Layer Styles', function () {
                             name: 'Inner Glow',
                             matchName: 'innerGlow/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -384,6 +405,7 @@ describe('Layer Styles', function () {
                             name: 'Bevel and Emboss',
                             matchName: 'bevelEmboss/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -407,6 +429,7 @@ describe('Layer Styles', function () {
                             name: 'Satin',
                             matchName: 'chromeFX/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -430,6 +453,7 @@ describe('Layer Styles', function () {
                             name: 'Color Overlay',
                             matchName: 'solidFill/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -453,6 +477,7 @@ describe('Layer Styles', function () {
                             name: 'Gradient Overlay',
                             matchName: 'gradientFill/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -476,6 +501,7 @@ describe('Layer Styles', function () {
                             name: 'Stroke',
                             matchName: 'frameFX/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -555,6 +581,7 @@ describe('Layer Styles', function () {
                                     ],
                                 },
                             ],
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
                             name: 'Drop Shadow',
@@ -625,6 +652,7 @@ describe('Layer Styles', function () {
                                     keys: [],
                                 },
                             ],
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -648,6 +676,7 @@ describe('Layer Styles', function () {
                             name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: false,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
                 },
@@ -674,13 +703,16 @@ describe('Layer Styles', function () {
                             name: 'Blending Options',
                             matchName: 'ADBE Blend Options Group',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
                             name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: true,
+                            type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                     ],
+                    type: AEX_LAYERSTYLES_PROPERTYGROUP,
                 },
                 type: AEX_NULL_LAYER,
             };

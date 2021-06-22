@@ -1,9 +1,10 @@
-function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
+function _getAvLayerStyles(styleGroup: PropertyGroup, type: AexPropertyGroupType, state: AexState) {
     const styles = {
         name: styleGroup.name,
         matchName: styleGroup.matchName,
         enabled: styleGroup.enabled,
         properties: [],
+        type,
     };
 
     forEachPropertyInGroup(
@@ -21,7 +22,7 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
             if (ii == 0 || property.canSetEnabled) {
                 const { name, matchName, enabled } = property;
 
-                const propertyData = getPropertyGroup(property as PropertyGroup, state);
+                const propertyData = getPropertyGroup(property as PropertyGroup, undefined, state);
 
                 styles.properties.push({
                     name,
@@ -29,6 +30,7 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
                     enabled,
 
                     properties: propertyData ? propertyData.properties : undefined,
+                    type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 });
             }
         },
