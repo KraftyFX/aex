@@ -33,10 +33,21 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
 
         threeDPerChar: getBoundModifiedValue(aeTextLayer.threeDLayer, () => aeTextLayer.threeDPerChar, false),
         sourceText: getModifiedProperty(text.sourceText, state),
-        pathOption: getPropertyGroup(text.pathOption, state),
-        moreOption: getPropertyGroup(text.moreOption, state),
-        animators: getPropertyGroup(_getAnimatorsProperty(aeTextLayer), state),
+        pathOption: getPropertyGroup(text.pathOption, AEX_TEXT_PATH_PROPERTYGROUP, state),
+        moreOption: getPropertyGroup(text.moreOption, AEX_TEXT_MORE_PROPERTYGROUP, state),
+        animators: _getAnimators(aeTextLayer, state),
     };
+}
+
+function _getAnimators(aeTextLayer: TextLayer, state: AexState): AexPropertyGroup[] {
+    const animators = _getAnimatorsProperty(aeTextLayer);
+
+    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
+        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, undefined, state)?.properties;
+        aexPropertyGroup.type = AEX_TEXT_ANIMATOR_PROPERTYGROUP;
+    };
+
+    return getTopLevelPropertyGroups(animators, fillProperties, state);
 }
 
 function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: AexState) {
@@ -71,10 +82,24 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
     }
 
     if (aexTextLayer.animators) {
-        setPropertyGroup(animators, aexTextLayer.animators, state);
+        // setPropertyGroup(animators, aexTextLayer.animators, state);
+        setTextLayerAnimators(animators, aexTextLayer.animators, state);
     }
 
     return layer;
+}
+
+function setTextLayerAnimators(aeAnimators: PropertyGroup, aexAnimators: AexPropertyGroup[], state: AexState) {
+    aeq.arrayEx(aexAnimators).forEach((aexAnimator: AexPropertyGroup) => {
+        let animator = aeAnimators.addProperty(aexAnimator.matchName) as PropertyGroup;
+
+        assignAttributes(animator, {
+            name: aexAnimator.name,
+            enabled: aexAnimator.enabled,
+        });
+
+        setPropertyGroup(animator, aexAnimator, state);
+    });
 }
 
 function updateAexTextLayer(aeTextLayer: TextLayer, aexTextLayer: AexTextLayer, state: AexState) {

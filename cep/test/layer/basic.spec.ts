@@ -62,6 +62,7 @@ describe('Basic Layer Attributes', function () {
 
         it(`Can parse basic TextLayer properties`, async () => {
             assertAreEqual(comp.layers[1], {
+                animators: [],
                 effects: [],
                 label: 1,
                 markers: [],
@@ -466,6 +467,7 @@ describe('Basic Layer Attributes', function () {
             });
 
             assertAreEqual(comp.layers[11], {
+                animators: [],
                 effects: [],
                 label: 9,
                 markers: [],
@@ -534,6 +536,7 @@ describe('Basic Layer Attributes', function () {
 
         it(`Can create a basic TextLayer`, async () => {
             const layerData = {
+                animators: [],
                 effects: [],
                 label: 1,
                 markers: [],
@@ -1056,6 +1059,7 @@ describe('Basic Layer Attributes', function () {
                         type: AEX_SOLID_LAYER,
                     },
                     {
+                        animators: [],
                         effects: [],
                         label: 9,
                         markers: [],

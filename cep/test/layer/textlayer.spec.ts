@@ -1,7 +1,10 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import {
+    AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+    AEX_TEXT_MORE_PROPERTYGROUP,
     AEX_ONED_PROPERTY,
+    AEX_TEXT_PATH_PROPERTYGROUP,
     AEX_SHAPE_PROPERTY,
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
@@ -77,6 +80,7 @@ describe('Text Layer Attributes', function () {
                         value: 20,
                     },
                 ],
+                type: AEX_TEXT_PATH_PROPERTYGROUP,
             });
         });
 
@@ -113,15 +117,16 @@ describe('Text Layer Attributes', function () {
                         value: 9,
                     },
                 ],
+                type: AEX_TEXT_MORE_PROPERTYGROUP,
             });
         });
 
         it('Can handle empty Text Animators', async () => {
-            expect(project.comps[1].layers[0]).to.not.have.property('animators');
+            expect(project.comps[1].layers[0].animators[0]).to.not.have.property('properties');
         });
 
         it('Can parse multiple Text Animators on one layer', async () => {
-            assertAreEqual(project.comps[1].layers[1].animators.properties, [
+            assertAreEqual(project.comps[1].layers[1].animators, [
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Animator 1',
@@ -157,6 +162,7 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
                 {
                     matchName: 'ADBE Text Animator',
@@ -206,12 +212,13 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
             ]);
         });
 
         it('Can parse multiple Text Animator Selectors on one layer', async () => {
-            assertAreEqual(project.comps[1].layers[2].animators.properties, [
+            assertAreEqual(project.comps[1].layers[2].animators, [
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Animator 1',
@@ -248,12 +255,13 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
             ]);
         });
 
         it('Can parse Text Animator with animated Range Selector', async () => {
-            assertAreEqual(project.comps[1].layers[3].animators.properties, [
+            assertAreEqual(project.comps[1].layers[3].animators, [
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Position Animator',
@@ -326,12 +334,13 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
             ]);
         });
 
         it('Can parse Text Animator with Expression Selector', async () => {
-            assertAreEqual(project.comps[1].layers[4].animators.properties, [
+            assertAreEqual(project.comps[1].layers[4].animators, [
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Colour Animator',
@@ -357,12 +366,13 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
             ]);
         });
 
         it('Can parse Text Animator with Wiggle Selector', async () => {
-            assertAreEqual(project.comps[1].layers[5].animators.properties, [
+            assertAreEqual(project.comps[1].layers[5].animators, [
                 {
                     matchName: 'ADBE Text Animator',
                     name: 'Tracking Animator',
@@ -398,6 +408,7 @@ describe('Text Layer Attributes', function () {
                             ],
                         },
                     ],
+                    type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
                 },
             ]);
         });
@@ -528,6 +539,7 @@ describe('Text Layer Attributes', function () {
                             value: 20,
                         },
                     ],
+                    type: AEX_TEXT_PATH_PROPERTYGROUP,
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
@@ -599,6 +611,7 @@ describe('Text Layer Attributes', function () {
                             value: 9,
                         },
                     ],
+                    type: AEX_TEXT_MORE_PROPERTYGROUP,
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
@@ -638,96 +651,95 @@ describe('Text Layer Attributes', function () {
 
         it('Can create multiple Text Animators on one layer', async () => {
             const layerData = {
-                animators: {
-                    matchName: 'ADBE Text Animators',
-                    properties: [
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Animator 1',
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Selector',
-                                            name: 'Anim 1 Selector 1',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    name: 'Start',
-                                                    matchName: 'ADBE Text Percent Start',
-                                                    value: 20,
-                                                    keys: [],
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    matchName: 'ADBE Text Animator Properties',
-                                    properties: [
-                                        {
-                                            type: AEX_THREED_PROPERTY,
-                                            name: 'Position',
-                                            matchName: 'ADBE Text Position 3D',
-                                            value: [100, 200, 0],
-                                            keys: [],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Animator 2',
-                            enabled: false,
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Selector',
-                                            name: 'Anim 2 Selector 1',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    name: 'End',
-                                                    matchName: 'ADBE Text Percent End',
-                                                    value: 50,
-                                                    keys: [],
-                                                },
-                                                {
-                                                    matchName: 'ADBE Text Range Advanced',
-                                                    properties: [
-                                                        {
-                                                            type: AEX_ONED_PROPERTY,
-                                                            name: 'Amount',
-                                                            matchName: 'ADBE Text Selector Max Amount',
-                                                            value: 50,
-                                                            keys: [],
-                                                        },
-                                                    ],
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    matchName: 'ADBE Text Animator Properties',
-                                    properties: [
-                                        {
-                                            type: AEX_THREED_PROPERTY,
-                                            name: 'Position',
-                                            matchName: 'ADBE Text Position 3D',
-                                            value: [100, 200, 0],
-                                            keys: [],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
+                animators: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Anim 1 Selector 1',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                name: 'Start',
+                                                matchName: 'ADBE Text Percent Start',
+                                                value: 20,
+                                                keys: [],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        type: AEX_THREED_PROPERTY,
+                                        name: 'Position',
+                                        matchName: 'ADBE Text Position 3D',
+                                        value: [100, 200, 0],
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 2',
+                        enabled: false,
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Anim 2 Selector 1',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                name: 'End',
+                                                matchName: 'ADBE Text Percent End',
+                                                value: 50,
+                                                keys: [],
+                                            },
+                                            {
+                                                matchName: 'ADBE Text Range Advanced',
+                                                properties: [
+                                                    {
+                                                        type: AEX_ONED_PROPERTY,
+                                                        name: 'Amount',
+                                                        matchName: 'ADBE Text Selector Max Amount',
+                                                        value: 50,
+                                                        keys: [],
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        type: AEX_THREED_PROPERTY,
+                                        name: 'Position',
+                                        matchName: 'ADBE Text Position 3D',
+                                        value: [100, 200, 0],
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
                     keys: [],
@@ -766,48 +778,46 @@ describe('Text Layer Attributes', function () {
 
         it('Can create multiple Text Animator Selectors on one layer', async () => {
             const layerData = {
-                animators: {
-                    matchName: 'ADBE Text Animators',
-                    properties: [
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Animator 1',
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Selector',
-                                            name: 'Range Selector 1',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    keys: [],
-                                                    matchName: 'ADBE Text Percent Start',
-                                                    name: 'Start',
-                                                    value: 10,
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            matchName: 'ADBE Text Selector',
-                                            name: 'Range Selector 2',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    keys: [],
-                                                    matchName: 'ADBE Text Percent Start',
-                                                    name: 'Start',
-                                                    value: 20,
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
+                animators: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Animator 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Range Selector 1',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                keys: [],
+                                                matchName: 'ADBE Text Percent Start',
+                                                name: 'Start',
+                                                value: 10,
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'Range Selector 2',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                keys: [],
+                                                matchName: 'ADBE Text Percent Start',
+                                                name: 'Start',
+                                                value: 20,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
                     keys: [],
@@ -846,84 +856,82 @@ describe('Text Layer Attributes', function () {
 
         it('Can create Text Animator with animated Range Selector', async () => {
             const layerData = {
-                animators: {
-                    matchName: 'ADBE Text Animators',
-                    properties: [
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Position Animator',
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Selector',
-                                            name: 'A Range Selector',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    name: 'Start',
-                                                    matchName: 'ADBE Text Percent Start',
-                                                    value: 0,
-                                                    keys: [
-                                                        {
-                                                            value: 0,
-                                                            time: 0,
-                                                            temporalEase: {
-                                                                inEase: [
-                                                                    {
-                                                                        influence: 16.66667,
-                                                                        speed: 0,
-                                                                    },
-                                                                ],
-                                                                outEase: [
-                                                                    {
-                                                                        influence: 16.66667,
-                                                                        speed: 50,
-                                                                    },
-                                                                ],
-                                                            },
+                animators: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Position Animator',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Selector',
+                                        name: 'A Range Selector',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                name: 'Start',
+                                                matchName: 'ADBE Text Percent Start',
+                                                value: 0,
+                                                keys: [
+                                                    {
+                                                        value: 0,
+                                                        time: 0,
+                                                        temporalEase: {
+                                                            inEase: [
+                                                                {
+                                                                    influence: 16.66667,
+                                                                    speed: 0,
+                                                                },
+                                                            ],
+                                                            outEase: [
+                                                                {
+                                                                    influence: 16.66667,
+                                                                    speed: 50,
+                                                                },
+                                                            ],
                                                         },
-                                                        {
-                                                            value: 100,
-                                                            time: 2,
-                                                            temporalEase: {
-                                                                inEase: [
-                                                                    {
-                                                                        influence: 16.66667,
-                                                                        speed: 50,
-                                                                    },
-                                                                ],
-                                                                outEase: [
-                                                                    {
-                                                                        influence: 16.66667,
-                                                                        speed: 0,
-                                                                    },
-                                                                ],
-                                                            },
+                                                    },
+                                                    {
+                                                        value: 100,
+                                                        time: 2,
+                                                        temporalEase: {
+                                                            inEase: [
+                                                                {
+                                                                    influence: 16.66667,
+                                                                    speed: 50,
+                                                                },
+                                                            ],
+                                                            outEase: [
+                                                                {
+                                                                    influence: 16.66667,
+                                                                    speed: 0,
+                                                                },
+                                                            ],
                                                         },
-                                                    ],
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    matchName: 'ADBE Text Animator Properties',
-                                    properties: [
-                                        {
-                                            type: AEX_THREED_PROPERTY,
-                                            keys: [],
-                                            matchName: 'ADBE Text Position 3D',
-                                            name: 'Position',
-                                            value: [0, 100, 0],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        type: AEX_THREED_PROPERTY,
+                                        keys: [],
+                                        matchName: 'ADBE Text Position 3D',
+                                        name: 'Position',
+                                        value: [0, 100, 0],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
                     keys: [],
@@ -962,37 +970,35 @@ describe('Text Layer Attributes', function () {
 
         it('Can create Text Animator with Expression Selector', async () => {
             const layerData = {
-                animators: {
-                    matchName: 'ADBE Text Animators',
-                    properties: [
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Colour Animator',
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Expressible Selector',
-                                            name: 'An Expression Selector',
-                                            properties: [
-                                                {
-                                                    type: AEX_THREED_PROPERTY,
-                                                    name: 'Amount',
-                                                    matchName: 'ADBE Text Expressible Amount',
-                                                    value: [100, 100, 100],
-                                                    expression: 'timeToFrames(time * 10) * textIndex/textTotal',
-                                                    expressionEnabled: true,
-                                                    keys: [],
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
+                animators: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Colour Animator',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Expressible Selector',
+                                        name: 'An Expression Selector',
+                                        properties: [
+                                            {
+                                                type: AEX_THREED_PROPERTY,
+                                                name: 'Amount',
+                                                matchName: 'ADBE Text Expressible Amount',
+                                                value: [100, 100, 100],
+                                                expression: 'timeToFrames(time * 10) * textIndex/textTotal',
+                                                expressionEnabled: true,
+                                                keys: [],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
                     keys: [],
@@ -1031,47 +1037,45 @@ describe('Text Layer Attributes', function () {
 
         it('Can create Text Animator with Wiggle Selector', async () => {
             const layerData = {
-                animators: {
-                    matchName: 'ADBE Text Animators',
-                    properties: [
-                        {
-                            matchName: 'ADBE Text Animator',
-                            name: 'Tracking Animator',
-                            properties: [
-                                {
-                                    matchName: 'ADBE Text Selectors',
-                                    properties: [
-                                        {
-                                            matchName: 'ADBE Text Wiggly Selector',
-                                            name: 'A Wiggly Selector',
-                                            properties: [
-                                                {
-                                                    type: AEX_ONED_PROPERTY,
-                                                    name: 'Mode',
-                                                    matchName: 'ADBE Text Selector Mode',
-                                                    value: 3,
-                                                    keys: [],
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    matchName: 'ADBE Text Animator Properties',
-                                    properties: [
-                                        {
-                                            type: AEX_ONED_PROPERTY,
-                                            name: 'Tracking Amount',
-                                            matchName: 'ADBE Text Tracking Amount',
-                                            value: 100,
-                                            keys: [],
-                                        },
-                                    ],
-                                },
-                            ],
-                        },
-                    ],
-                },
+                animators: [
+                    {
+                        matchName: 'ADBE Text Animator',
+                        name: 'Tracking Animator',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selectors',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Text Wiggly Selector',
+                                        name: 'A Wiggly Selector',
+                                        properties: [
+                                            {
+                                                type: AEX_ONED_PROPERTY,
+                                                name: 'Mode',
+                                                matchName: 'ADBE Text Selector Mode',
+                                                value: 3,
+                                                keys: [],
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Animator Properties',
+                                properties: [
+                                    {
+                                        type: AEX_ONED_PROPERTY,
+                                        name: 'Tracking Amount',
+                                        matchName: 'ADBE Text Tracking Amount',
+                                        value: 100,
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+                    },
+                ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
                     keys: [],
