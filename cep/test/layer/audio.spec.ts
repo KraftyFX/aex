@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_NULL_LAYER, AEX_TWOD_PROPERTY } from '../constants';
+import { AEX_AUDIO_PROPERTYGROUP, AEX_NULL_LAYER, AEX_TWOD_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -39,6 +39,7 @@ describe('Layer Audio', function () {
                         value: [12, 12],
                     },
                 ],
+                type: AEX_AUDIO_PROPERTYGROUP,
             });
         });
     });
@@ -68,6 +69,7 @@ describe('Layer Audio', function () {
                             value: [12, 12],
                         },
                     ],
+                    type: AEX_AUDIO_PROPERTYGROUP,
                 },
                 type: AEX_NULL_LAYER,
             };

@@ -32,13 +32,17 @@ function getAvLayerAttributes(aeAvLayer: AVLayer, type: AexAvLayerType, state: A
         trackMatteType: getModifiedValue(aeAvLayer.trackMatteType, TrackMatteType.NO_TRACK_MATTE),
 
         masks: _getAexLayerMasks(aeAvLayer, state),
-        audio: getPropertyGroup(aeAvLayer.audio, state),
+        audio: getPropertyGroup(aeAvLayer.audio, AEX_AUDIO_PROPERTYGROUP, state),
         timeRemap: getModifiedProperty(aeAvLayer.timeRemap, state),
         effects: getAexAvLayerEffects(aeAvLayer, state),
-        materialOption: getPropertyGroup(aeAvLayer.materialOption, state),
-        geometryOption: getPropertyGroup(aeAvLayer.geometryOption, state),
+        materialOption: getPropertyGroup(aeAvLayer.materialOption, undefined, state),
+        geometryOption: getPropertyGroup(aeAvLayer.geometryOption, undefined, state),
 
-        layerStyles: getBoundModifiedValue(aeAvLayer.layerStyle.canSetEnabled, () => _getAvLayerStyles(aeAvLayer.layerStyle, state), undefined),
+        layerStyles: getBoundModifiedValue(
+            aeAvLayer.layerStyle.canSetEnabled,
+            () => _getAvLayerStyles(aeAvLayer.layerStyle, undefined, state),
+            undefined
+        ),
     };
 }
 

@@ -1,7 +1,7 @@
-type Serializable = Project | CompItem | Layer;
+type Serializable = Project | CompItem | Layer | PropertyGroup;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
-type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType;
+type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
 type AexFootageItemType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
@@ -25,6 +25,8 @@ type AexPropertyType =
     | 'aex:property:none';
 
 type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
+
+type AexPropertyGroupType = 'aex:propertyGroup:audio';
 
 type AexUID = string;
 
@@ -264,7 +266,7 @@ interface AexTextLayer extends AexAVLayerBase, AexObject {
     sourceText: AexProperty<AexTextDocument>;
     pathOption: AexPropertyGroup;
     moreOption: AexPropertyGroup;
-    animators: AexPropertyGroup;
+    animators: AexPropertyGroup[];
 }
 
 interface AexPropertyBase {
@@ -286,8 +288,9 @@ interface AexDropdownProperty extends AexProperty {
     items: string[];
 }
 
-interface AexPropertyGroup extends AexPropertyBase {
+interface AexPropertyGroup extends AexPropertyBase, AexObject {
     properties: AexPropertyBase[];
+    type: AexPropertyGroupType;
 }
 
 interface AexShapePropertyGroup extends AexPropertyGroup {

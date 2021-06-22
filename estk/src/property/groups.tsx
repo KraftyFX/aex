@@ -16,7 +16,12 @@ function prescanPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState) {
     );
 }
 
-function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?: (property: PropertyBase) => boolean): AexPropertyGroup {
+function getPropertyGroup(
+    aePropertyGroup: PropertyGroup,
+    type: AexPropertyGroupType,
+    state: AexState,
+    skip?: (property: PropertyBase) => boolean
+): AexPropertyGroup {
     skip = skip || (() => false);
 
     const aexProperties: PropertyBase[] = [];
@@ -33,7 +38,7 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
             if (property.propertyType == PropertyType.PROPERTY) {
                 aexProperty = getModifiedProperty(property as any, state);
             } else {
-                aexProperty = getPropertyGroup(property as PropertyGroup, state, skip);
+                aexProperty = getPropertyGroup(property as PropertyGroup, type, state, skip);
             }
 
             /**
@@ -74,6 +79,7 @@ function getPropertyGroup(aePropertyGroup: PropertyGroup, state: AexState, skip?
         enabled,
 
         properties: aexProperties,
+        type,
     };
 }
 

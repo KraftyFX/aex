@@ -27,6 +27,8 @@ const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
 const AEX_DROPDOWN_PROPERTY = 'aex:property:dropdown';
 const AEX_NONE_PROPERTY = 'aex:property:none';
 
+const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
+
 function isAexLayer(aexObject: AexObject) {
     return aexObject.type.indexOf('aex:layer') == 0;
 }

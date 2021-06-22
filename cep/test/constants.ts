@@ -27,6 +27,8 @@ export const AEX_SHAPE_PROPERTY = 'aex:property:shape';
 export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
+export const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
+
 export interface AexPrescanResult {
     log: {
         message: string;
