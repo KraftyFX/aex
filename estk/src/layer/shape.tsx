@@ -46,11 +46,11 @@ function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapeProper
          * `contents` property.
          */
         if (_isVectorGroup(propertyGroup)) {
-            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, undefined, state, _isVectorsGroup)?.properties;
+            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state, _isVectorsGroup)?.properties;
             aexPropertyGroup.contents = _getVectorsGroupContents(propertyGroup, fillGroup, state);
             aexPropertyGroup.type = AEX_SHAPEGROUP_PROPERTYGROUP;
         } else {
-            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, undefined, state)?.properties;
+            aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
             aexPropertyGroup.type = AEX_SHAPEITEM_PROPERTYGROUP;
         }
     };

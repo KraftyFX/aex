@@ -2,9 +2,7 @@ import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import {
     AEX_TEXT_ANIMATOR_PROPERTYGROUP,
-    AEX_TEXT_MORE_PROPERTYGROUP,
     AEX_ONED_PROPERTY,
-    AEX_TEXT_PATH_PROPERTYGROUP,
     AEX_SHAPE_PROPERTY,
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
@@ -80,7 +78,6 @@ describe('Text Layer Attributes', function () {
                         value: 20,
                     },
                 ],
-                type: AEX_TEXT_PATH_PROPERTYGROUP,
             });
         });
 
@@ -117,7 +114,6 @@ describe('Text Layer Attributes', function () {
                         value: 9,
                     },
                 ],
-                type: AEX_TEXT_MORE_PROPERTYGROUP,
             });
         });
 
@@ -539,7 +535,6 @@ describe('Text Layer Attributes', function () {
                             value: 20,
                         },
                     ],
-                    type: AEX_TEXT_PATH_PROPERTYGROUP,
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
@@ -611,7 +606,6 @@ describe('Text Layer Attributes', function () {
                             value: 9,
                         },
                     ],
-                    type: AEX_TEXT_MORE_PROPERTYGROUP,
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,

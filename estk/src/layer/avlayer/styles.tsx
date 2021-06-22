@@ -22,7 +22,7 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, type: AexPropertyGroupType
             if (ii == 0 || property.canSetEnabled) {
                 const { name, matchName, enabled } = property;
 
-                const propertyData = getPropertyGroup(property as PropertyGroup, undefined, state);
+                const propertyData = getPropertyGroup(property as PropertyGroup, state);
 
                 styles.properties.push({
                     name,

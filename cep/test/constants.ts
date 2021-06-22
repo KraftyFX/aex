@@ -27,21 +27,13 @@ export const AEX_SHAPE_PROPERTY = 'aex:property:shape';
 export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
-export const AEX_AUDIO_PROPERTYGROUP = 'aex:propertyGroup:audio';
-export const AEX_TRACKER_PROPERTYGROUP = 'aex:propertyGroup:tracker';
 export const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
 export const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';
 export const AEX_SHAPEGROUP_PROPERTYGROUP = 'aex:propertyGroup:shape:group';
 export const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 export const AEX_TEXT_ANIMATOR_PROPERTYGROUP = 'aex:propertyGroup:text:animator';
-export const AEX_TEXT_PATH_PROPERTYGROUP = 'aex:propertyGroup:text:path';
-export const AEX_TEXT_MORE_PROPERTYGROUP = 'aex:propertyGroup:text:more';
 export const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 export const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
-export const AEX_CAMERAOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:camera';
-export const AEX_LIGHTOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:light';
-export const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
-export const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
 
 export interface AexPrescanResult {
     log: {

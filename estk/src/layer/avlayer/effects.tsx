@@ -1,5 +1,5 @@
-function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
-    const fillProperties = (effectGroup: PropertyGroup, aexEffectGroup: AexPropertyGroup) => {
+function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState): AexEffectPropertyGroup[] {
+    const fillProperties = (effectGroup: PropertyGroup, aexEffectGroup: AexEffectPropertyGroup) => {
         /**
          * Voodoo
          *
@@ -19,7 +19,7 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState) {
              * impact rendering and their values cannot be serialized. These only appear in the
              * Layer.effect hierarchy and should be gracefully skipped over.
              */
-            aexEffectGroup.properties = getPropertyGroup(effectGroup, undefined, state, _isUiOnlyEffectProperty)?.properties;
+            aexEffectGroup.properties = getPropertyGroup(effectGroup, state, _isUiOnlyEffectProperty)?.properties;
             aexEffectGroup.type = AEX_EFFECT_PROPERTYGROUP;
         }
     };

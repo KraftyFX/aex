@@ -25,7 +25,7 @@ function getAexCameraLayer(aeCameraLayer: CameraLayer, state: AexState): AexCame
         type: AEX_CAMERA_LAYER,
 
         hasVideo: getModifiedValue(aeCameraLayer.hasVideo, false),
-        cameraOption: getPropertyGroup(aeCameraLayer.cameraOption, AEX_CAMERAOPTION_PROPERTYGROUP, state),
+        cameraOption: getPropertyGroup(aeCameraLayer.cameraOption, state),
     };
 }
 

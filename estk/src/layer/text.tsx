@@ -33,17 +33,17 @@ function getAexTextLayer(aeTextLayer: TextLayer, state: AexState): AexTextLayer 
 
         threeDPerChar: getBoundModifiedValue(aeTextLayer.threeDLayer, () => aeTextLayer.threeDPerChar, false),
         sourceText: getModifiedProperty(text.sourceText, state),
-        pathOption: getPropertyGroup(text.pathOption, AEX_TEXT_PATH_PROPERTYGROUP, state),
-        moreOption: getPropertyGroup(text.moreOption, AEX_TEXT_MORE_PROPERTYGROUP, state),
+        pathOption: getPropertyGroup(text.pathOption, state),
+        moreOption: getPropertyGroup(text.moreOption, state),
         animators: _getAnimators(aeTextLayer, state),
     };
 }
 
-function _getAnimators(aeTextLayer: TextLayer, state: AexState): AexPropertyGroup[] {
+function _getAnimators(aeTextLayer: TextLayer, state: AexState): AexAnimatorPropertyGroup[] {
     const animators = _getAnimatorsProperty(aeTextLayer);
 
-    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexPropertyGroup) => {
-        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, undefined, state)?.properties;
+    const fillProperties = (propertyGroup: PropertyGroup, aexPropertyGroup: AexAnimatorPropertyGroup) => {
+        aexPropertyGroup.properties = getPropertyGroup(propertyGroup, state)?.properties;
         aexPropertyGroup.type = AEX_TEXT_ANIMATOR_PROPERTYGROUP;
     };
 

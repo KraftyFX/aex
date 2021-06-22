@@ -1,6 +1,8 @@
 type Serializable = Project | CompItem | Layer | PropertyGroup;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
+type AexTypedGroup = AexShapePropertyGroup | AexEffectPropertyGroup | AexAnimatorPropertyGroup;
+
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
@@ -27,21 +29,13 @@ type AexPropertyType =
 type AexPropertyValueType = number | TwoDPoint | ThreeDPoint | ColorValue | MarkerValue | Shape | AexTextDocument;
 
 type AexPropertyGroupType =
-    | 'aex:propertyGroup:audio'
-    | 'aex:propertyGroup:tracker'
     | 'aex:propertyGroup:effect'
     | 'aex:propertyGroup:effect:dropdown'
     | 'aex:propertyGroup:shape:group'
     | 'aex:propertyGroup:shape:item'
     | 'aex:propertyGroup:text:animator'
-    | 'aex:propertyGroup:text:path'
-    | 'aex:propertyGroup:text:more'
     | 'aex:propertyGroup:styles:group'
-    | 'aex:propertyGroup:styles:item'
-    | 'aex:propertyGroup:option:camera'
-    | 'aex:propertyGroup:option:light'
-    | 'aex:propertyGroup:option:material'
-    | 'aex:propertyGroup:option:geometry';
+    | 'aex:propertyGroup:styles:item';
 
 type AexUID = string;
 
@@ -248,7 +242,7 @@ interface AexAVLayerBase extends AexLayerBase, AexObject {
     layerStyles: AexPropertyGroup;
     geometryOption: AexPropertyGroup;
     materialOption: AexPropertyGroup;
-    effects: AexPropertyGroup[];
+    effects: AexEffectPropertyGroup[];
 }
 
 interface AexLightLayer extends AexLayerBase, AexObject {
@@ -281,7 +275,7 @@ interface AexTextLayer extends AexAVLayerBase, AexObject {
     sourceText: AexProperty<AexTextDocument>;
     pathOption: AexPropertyGroup;
     moreOption: AexPropertyGroup;
-    animators: AexPropertyGroup[];
+    animators: AexAnimatorPropertyGroup[];
 }
 
 interface AexPropertyBase {
@@ -303,14 +297,17 @@ interface AexDropdownProperty extends AexProperty {
     items: string[];
 }
 
-interface AexPropertyGroup extends AexPropertyBase, AexObject {
+interface AexPropertyGroup extends AexPropertyBase {
     properties: AexPropertyBase[];
-    type: AexPropertyGroupType;
 }
 
-interface AexShapePropertyGroup extends AexPropertyGroup {
+interface AexShapePropertyGroup extends AexPropertyGroup, AexObject {
     contents: AexShapePropertyGroup[];
 }
+
+interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {}
+
+interface AexAnimatorPropertyGroup extends AexPropertyGroup, AexObject {}
 
 interface AexMarkerProperty {
     time: number;
