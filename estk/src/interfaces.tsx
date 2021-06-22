@@ -33,7 +33,7 @@ type AexPropertyGroupType =
     | 'aex:propertyGroup:shape:group'
     | 'aex:propertyGroup:shape:item'
     | 'aex:propertyGroup:text:animator'
-    | 'aex:propertyGroup:styles:item';
+    | 'aex:propertyGroup:layerstyle';
 
 type AexUID = string;
 
