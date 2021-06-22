@@ -35,6 +35,7 @@ type AexPropertyGroupType =
     | 'aex:propertyGroup:styles:group'
     | 'aex:propertyGroup:styles:item'
     | 'aex:propertyGroup:option:camera'
+    | 'aex:propertyGroup:option:light'
     | 'aex:propertyGroup:option:material'
     | 'aex:propertyGroup:option:geometry';
 

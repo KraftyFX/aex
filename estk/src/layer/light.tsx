@@ -27,7 +27,7 @@ function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLa
 
         hasVideo: getModifiedValue(aeLightLayer.hasVideo, false),
         lightType,
-        lightOption: getPropertyGroup(aeLightLayer.lightOption, state),
+        lightOption: getPropertyGroup(aeLightLayer.lightOption, AEX_LIGHTOPTION_PROPERTYGROUP, state),
     };
 }
 

@@ -1,6 +1,13 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import {
+    AEX_COLOR_PROPERTY,
+    AEX_COMP_ITEM,
+    AEX_LIGHTOPTION_PROPERTYGROUP,
+    AEX_LIGHT_LAYER,
+    AEX_ONED_PROPERTY,
+    AEX_THREED_PROPERTY,
+} from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -85,6 +92,7 @@ describe('Light Layer Attributes', function () {
                             value: 42,
                         },
                     ],
+                    type: AEX_LIGHTOPTION_PROPERTYGROUP,
                 },
                 transform: {
                     position: {
@@ -167,6 +175,7 @@ describe('Light Layer Attributes', function () {
                             value: 42,
                         },
                     ],
+                    type: AEX_LIGHTOPTION_PROPERTYGROUP,
                 },
                 lightType: 4412,
                 markers: [],

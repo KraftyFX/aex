@@ -35,6 +35,7 @@ const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 const AEX_LAYERSTYLES_PROPERTYGROUP = 'aex:propertyGroup:styles:group';
 const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:styles:item';
 const AEX_CAMERAOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:camera';
+const AEX_LIGHTOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:light';
 const AEX_MATERIALOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:material';
 const AEX_GEOMETRYOPTION_PROPERTYGROUP = 'aex:propertyGroup:option:geometry';
 
