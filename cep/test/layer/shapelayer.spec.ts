@@ -1,6 +1,13 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_COLOR_PROPERTY, AEX_ONED_PROPERTY, AEX_SHAPE_LAYER, AEX_TWOD_PROPERTY } from '../constants';
+import {
+    AEX_COLOR_PROPERTY,
+    AEX_ONED_PROPERTY,
+    AEX_SHAPEGROUP_PROPERTYGROUP,
+    AEX_SHAPEITEM_PROPERTYGROUP,
+    AEX_SHAPE_LAYER,
+    AEX_TWOD_PROPERTY,
+} from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -40,16 +47,20 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 effects: [],
@@ -99,6 +110,7 @@ describe('Shape Layers', function () {
                                 value: 50,
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
@@ -154,6 +166,7 @@ describe('Shape Layers', function () {
                                 value: 2,
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Fill',
@@ -195,6 +208,7 @@ describe('Shape Layers', function () {
                                 value: 50,
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 matchName: 'ADBE Vector Group',
@@ -262,6 +276,7 @@ describe('Shape Layers', function () {
                         ],
                     },
                 ],
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
             });
         });
 
@@ -273,36 +288,44 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                     {
                         contents: [
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 2',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 effects: [],
@@ -321,14 +344,17 @@ describe('Shape Layers', function () {
                     {
                         matchName: 'ADBE Vector Shape - Rect',
                         name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
                         name: 'Stroke 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Fill',
                         name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 effects: [],
@@ -347,6 +373,7 @@ describe('Shape Layers', function () {
                     {
                         matchName: 'ADBE Vector Shape - Rect',
                         name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
@@ -372,10 +399,12 @@ describe('Shape Layers', function () {
                                 ],
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 matchName: 'ADBE Vector Group',
                 name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
             });
         });
 
@@ -385,6 +414,7 @@ describe('Shape Layers', function () {
                     {
                         matchName: 'ADBE Vector Shape - Rect',
                         name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
@@ -445,10 +475,12 @@ describe('Shape Layers', function () {
                                 ],
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 matchName: 'ADBE Vector Group',
                 name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
             });
         });
 
@@ -458,6 +490,7 @@ describe('Shape Layers', function () {
                     {
                         matchName: 'ADBE Vector Shape - Rect',
                         name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
@@ -497,10 +530,12 @@ describe('Shape Layers', function () {
                                 ],
                             },
                         ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 matchName: 'ADBE Vector Group',
                 name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
             });
         });
     });
@@ -535,16 +570,20 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -598,6 +637,7 @@ describe('Shape Layers', function () {
                                         value: 50,
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
@@ -653,6 +693,7 @@ describe('Shape Layers', function () {
                                         value: 2,
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
@@ -694,6 +735,7 @@ describe('Shape Layers', function () {
                                         value: 50,
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
@@ -761,6 +803,7 @@ describe('Shape Layers', function () {
                                 ],
                             },
                         ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -783,36 +826,44 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                     {
                         contents: [
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
                                 name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Fill',
                                 name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 2',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -833,14 +884,17 @@ describe('Shape Layers', function () {
                     {
                         matchName: 'ADBE Vector Shape - Rect',
                         name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Stroke',
                         name: 'Stroke 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                     {
                         matchName: 'ADBE Vector Graphic - Fill',
                         name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -863,6 +917,7 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
@@ -888,10 +943,12 @@ describe('Shape Layers', function () {
                                         ],
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -914,6 +971,7 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
@@ -974,10 +1032,12 @@ describe('Shape Layers', function () {
                                         ],
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
@@ -1000,6 +1060,7 @@ describe('Shape Layers', function () {
                             {
                                 matchName: 'ADBE Vector Shape - Rect',
                                 name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                             {
                                 matchName: 'ADBE Vector Graphic - Stroke',
@@ -1039,10 +1100,12 @@ describe('Shape Layers', function () {
                                         ],
                                     },
                                 ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
                             },
                         ],
                         matchName: 'ADBE Vector Group',
                         name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
                 type: AEX_SHAPE_LAYER,
