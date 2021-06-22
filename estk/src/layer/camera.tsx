@@ -50,7 +50,7 @@ function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, s
 }
 
 function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCameraLayer, state: AexState) {
-    throw notImplemented();
+    throw notImplemented(`Updating a camera layer`);
 }
 
 function _getCameraCenterPoint(aeComp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {

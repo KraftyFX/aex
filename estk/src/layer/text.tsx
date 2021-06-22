@@ -103,5 +103,5 @@ function setTextLayerAnimators(aeAnimators: PropertyGroup, aexAnimators: AexProp
 }
 
 function updateAexTextLayer(aeTextLayer: TextLayer, aexTextLayer: AexTextLayer, state: AexState) {
-    throw notImplemented();
+    throw notImplemented(`Updating a text layer`);
 }

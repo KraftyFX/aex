@@ -45,5 +45,5 @@ function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, stat
 }
 
 function updateAexLightLayer(aeLightLayer: LightLayer, aexLightLayer: AexLightLayer, state: AexState) {
-    throw notImplemented();
+    throw notImplemented(`Updating a light layer`);
 }

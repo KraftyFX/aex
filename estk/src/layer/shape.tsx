@@ -33,7 +33,7 @@ function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, stat
 }
 
 function updateAexShapeLayer(aeShapeLayer: ShapeLayer, aexShapeLayer: AexShapeLayer, state: AexState) {
-    throw notImplemented();
+    throw notImplemented(`Updating a shape layer`);
 }
 
 function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {

@@ -39,13 +39,13 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexType
         createAeComp(aexObject, state);
         app.endUndoGroup();
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
-        throw notImplemented();
+        throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
         createAeLayer(aeParentObject as CompItem, aexObject, state);
         app.endUndoGroup();
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
-        throw notImplemented();
+        throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else {
         throw notSupported(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     }
