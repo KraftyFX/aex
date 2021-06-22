@@ -15,17 +15,27 @@ describe.only('Zack Test Stuff', function () {
     });
 
     /** Data dumps */
+    it(`Unsophisticated test to check first layer`, async () => {
+        const result = await aex().get(AeObject.Layer(1));
+        const layer = result.object;
+
+        console.log('layer', layer);
+        expect(layer);
+    });
+
     it(`Unsophisticated test to check comp data parsing`, async () => {
         const result = await aex().get(AeObject.ActiveComp);
+        const comp = result.object;
 
-        console.log('activecomp', result.object);
-        expect(result.object);
+        console.log('comp', comp);
+        expect(comp);
     });
 
     it(`Unsophisticated test to check project data parsing`, async () => {
         const result = await aex().get(AeObject.Project);
+        const project = result.object;
 
-        console.log('full project', result.object);
-        expect(result.object);
+        console.log('project', project);
+        expect(project);
     });
 });
