@@ -47,10 +47,6 @@ function updateAeItem(aeItem: Item, aexItem: AexItem, state: AexState) {
 }
 
 function getItemBaseAttributes(aeItem: Item): AexItemBase {
-    /**
-     * @todo Add AexOption to preserve project folder structure.
-     * For now, just get the immediate parent folder name & assume lives in root
-     */
     return {
         name: aeItem.name,
         comment: getModifiedValue(aeItem.comment, ''),

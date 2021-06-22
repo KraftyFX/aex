@@ -122,7 +122,6 @@ function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state:
             const inEase = _createKeyframeEases(aexKey.temporalEase.inEase);
             const outEase = _createKeyframeEases(aexKey.temporalEase.outEase);
 
-            /** @todo something's broken in types-for-adobe here... */
             /** @ts-ignore */
             aeProperty.setTemporalEaseAtKey(keyIndex, inEase, outEase);
         }

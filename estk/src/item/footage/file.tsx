@@ -8,7 +8,6 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
         ...itemAttributes,
         type: AEX_FILE_FOOTAGE_ITEM,
 
-        /** @todo Explore file handling */
         file: itemSource.file.fsName,
     };
 }

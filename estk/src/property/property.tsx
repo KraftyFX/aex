@@ -61,7 +61,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
     );
 }
 
-// TODO: rename this function
 function _createPropertyBase(aePropertyGroup: PropertyGroup, aexProperty: AexPropertyBase, state: AexState): PropertyBase {
     const { matchName } = aexProperty;
 

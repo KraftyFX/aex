@@ -1,4 +1,3 @@
-/** @todo Add type safety */
 function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
     // TODO: Assert key belongs to property
     const value = keyInfo ? keyInfo.value : aeProperty.value;
@@ -72,7 +71,6 @@ function _isTimeRemapProperty(aeProperty: Property<UnknownPropertyType>) {
     return aeProperty.matchName === 'ADBE Time Remapping';
 }
 
-/** @todo Add type safety */
 function assignAttributes(aeItem: any, aexItem: any): void {
     for (let key in aexItem) {
         // Skip the internal JS properties
