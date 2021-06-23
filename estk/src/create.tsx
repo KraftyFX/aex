@@ -54,6 +54,15 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexType
         } finally {
             app.endUndoGroup();
         }
+    } else if (isAddingPropertyGroupToLayer(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Property Group to Layer');
+        try {
+            addToAeLayer(aeParentObject as Layer, aexObject, state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else {
@@ -89,9 +98,16 @@ function isAddingLayerToComp(
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
+function isAddingPropertyGroupToLayer(
+    aeParentObject: Serializable,
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+): aexObject is AexTypedGroup {
+    return aeq.isLayer(aeParentObject) && isAexTypedGroup(aexObject as AexObject);
+}
+
 function isAddingPropertyToLayer(
     aeParentObject: Serializable,
     aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
 ): aexObject is AexProperty {
-    return aeq.isLayer(aeParentObject) && aexObject.type.indexOf('aex:property') === 0;
+    return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
 }

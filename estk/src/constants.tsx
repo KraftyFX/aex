@@ -40,3 +40,11 @@ function isAexLayer(aexObject: AexObject) {
 function isAexAvLayer(aexObject: AexObject) {
     return aexObject.type.indexOf('aex:layer:av') == 0;
 }
+
+function isAexTypedGroup(aexObject: AexObject) {
+    return aexObject.type.indexOf('aex:propertyGroup') == 0;
+}
+
+function isAexProperty(aexObject: AexObject) {
+    return aexObject.type.indexOf('aex:property') == 0;
+}
