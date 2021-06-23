@@ -111,11 +111,9 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
                 throw fail(`Can not add animator to non-Text Layer '${aeLayer.name}'`);
             }
 
-            return setTextLayerAnimators(
-                aeLayer.text.property('ADBE Text Animators') as PropertyGroup,
-                [aexPropertyGroup] as AexAnimatorPropertyGroup[],
-                state
-            );
+            const animatorsGroup = aeLayer.text.property('ADBE Text Animators') as PropertyGroup;
+
+            return setTextLayerAnimators(animatorsGroup, [aexPropertyGroup] as AexAnimatorPropertyGroup[], state);
 
         case AEX_LAYERSTYLE_PROPERTYGROUP:
             if (!isVisibleLayer(aeLayer)) {
@@ -124,9 +122,14 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
 
             return setAvLayerStyle(aeLayer.layerStyle, aexPropertyGroup, state);
 
-        /** @todo finish these */
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
+            if (!aeq.isShapeLayer(aeLayer)) {
+                throw fail(`Can not add shape group to non-Shape Layer '${aeLayer.name}'`);
+            }
+
+            const rootVectorsGroups = _getRootVectorsGroup(aeLayer);
+            return setShapeContent(rootVectorsGroups, aexPropertyGroup as AexShapePropertyGroup, state);
 
         default:
             throw notImplemented(`Creating a '${aexPropertyGroup.type}' on a layer`);

@@ -60,22 +60,26 @@ function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapeProper
 
 function _setContents(contents: PropertyGroup, aexContents: AexShapePropertyGroup[], state: AexState) {
     aeq.arrayEx(aexContents).forEach((aexContent: AexShapePropertyGroup) => {
-        const { matchName } = aexContent;
-
-        let shapeGroup: PropertyBase;
-
-        if (contents.canAddProperty(matchName)) {
-            shapeGroup = _createPropertyBase(contents, aexContent, state);
-
-            if (_isVectorGroup(aexContent)) {
-                _setContents(shapeGroup.property('ADBE Vectors Group') as PropertyGroup, aexContent.contents, state);
-            }
-        } else {
-            shapeGroup = contents.property(matchName);
-        }
-
-        setPropertyGroup(shapeGroup as PropertyGroup, aexContent, state);
+        setShapeContent(contents, aexContent, state);
     });
+}
+
+function setShapeContent(contents: PropertyGroup, aexContent: AexShapePropertyGroup, state: AexState) {
+    const { matchName } = aexContent;
+
+    let shapeGroup: PropertyBase;
+
+    if (contents.canAddProperty(matchName)) {
+        shapeGroup = _createPropertyBase(contents, aexContent, state);
+
+        if (_isVectorGroup(aexContent)) {
+            _setContents(shapeGroup.property('ADBE Vectors Group') as PropertyGroup, aexContent.contents, state);
+        }
+    } else {
+        shapeGroup = contents.property(matchName);
+    }
+
+    setPropertyGroup(shapeGroup as PropertyGroup, aexContent, state);
 }
 
 function _getRootVectorsGroup(aeShapeLayer: ShapeLayer): PropertyGroup {
