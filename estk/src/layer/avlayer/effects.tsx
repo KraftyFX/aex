@@ -35,7 +35,7 @@ function setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
     });
 }
 
-function createLayerEffect(aeAvLayer: AVLayer, aexEffect: AexEffectPropertyGroup, state: AexState) {
+function createLayerEffect(aeAvLayer: AVLayer | TextLayer | ShapeLayer, aexEffect: AexEffectPropertyGroup, state: AexState) {
     const aeLayerEffectGroup: PropertyGroup = aeAvLayer.effect;
     const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
 

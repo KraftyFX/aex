@@ -99,7 +99,11 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
 
     switch (aexPropertyGroup.type as AexPropertyGroupType) {
         case AEX_EFFECT_PROPERTYGROUP:
-            return createLayerEffect(aeLayer as AVLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
+            if (!isVisibleLayer(aeLayer)) {
+                throw fail(`Can not add effects to layer '${aeLayer.name}'`);
+            }
+
+            return createLayerEffect(aeLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
         default:
             throw notImplemented(`Creating a '${aexPropertyGroup.type}' on a layer`);
     }
