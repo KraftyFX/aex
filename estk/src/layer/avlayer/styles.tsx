@@ -39,19 +39,11 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
     return styles;
 }
 
-function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState): void {
-    const layerStyles: PropertyGroup = aeAvLayer.layerStyle;
-    const aexStyleGroup: AexPropertyGroup = aexAvLayer.layerStyles;
-
-    if (aeq.isNullOrUndefined(aexStyleGroup)) {
-        return;
-    }
-
+function _setAvLayerStyles(layerStyles: PropertyGroup, aexStyleGroup: AexPropertyGroup, state: AexState): void {
     let aexBlendGroup;
 
-    aeq.arrayEx(aexStyleGroup.properties).forEach((aexStyleProperty: AexPropertyGroup) => {
+    aeq.arrayEx(aexStyleGroup.properties).forEach((aexStyleProperty: AexLayerStylePropertyGroup) => {
         const { matchName } = aexStyleProperty;
-        let styleGroup: PropertyGroup;
 
         /**
          * Voodoo
@@ -62,9 +54,7 @@ function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
         if (matchName === 'ADBE Blend Options Group') {
             aexBlendGroup = aexStyleProperty;
         } else {
-            styleGroup = _createStyleGroup(layerStyles, aexStyleProperty, state);
-
-            setPropertyGroup(styleGroup, aexStyleProperty, state);
+            setAvLayerStyle(layerStyles, aexStyleProperty, state);
         }
     });
 
@@ -76,6 +66,12 @@ function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
     assignAttributes(layerStyles, { enabled: aexStyleGroup.enabled });
 }
 
+function setAvLayerStyle(layerStyles: PropertyGroup, aexStylePropertyGroup: AexLayerStylePropertyGroup, state: AexState) {
+    let styleGroup = _createStyleGroup(layerStyles, aexStylePropertyGroup, state);
+
+    setPropertyGroup(styleGroup, aexStylePropertyGroup, state);
+}
+
 /**
  * Voodoo
  *
@@ -84,7 +80,7 @@ function _setAvLayerStyles(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: Ae
  *
  * However, this will operate on _all selected layers_, so we need to ensure only this layer is selected beforehad
  */
-function _createStyleGroup(layerStyles: PropertyGroup, aexStyleProperty: AexPropertyGroup, state: AexState): PropertyGroup {
+function _createStyleGroup(layerStyles: PropertyGroup, aexStyleProperty: AexLayerStylePropertyGroup, state: AexState): PropertyGroup {
     const layerStyleCommandIDs = {
         'dropShadow/enabled': 9000,
         'innerShadow/enabled': 9001,
