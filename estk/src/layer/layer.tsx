@@ -106,10 +106,20 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
 
             return createLayerEffect(aeLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
 
+        case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
+            if (!aeq.isTextLayer(aeLayer)) {
+                throw fail(`Can not add animator to non-Text Layer '${aeLayer.name}'`);
+            }
+
+            return setTextLayerAnimators(
+                aeLayer.text.property('ADBE Text Animators') as PropertyGroup,
+                [aexPropertyGroup] as AexAnimatorPropertyGroup[],
+                state
+            );
+
         /** @todo finish these */
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
-        case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
         case AEX_LAYERSTYLE_PROPERTYGROUP:
 
         default:

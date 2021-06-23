@@ -82,7 +82,6 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
     }
 
     if (aexTextLayer.animators) {
-        // setPropertyGroup(animators, aexTextLayer.animators, state);
         setTextLayerAnimators(animators, aexTextLayer.animators, state);
     }
 
