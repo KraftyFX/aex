@@ -237,7 +237,14 @@ interface AexAVLayerBase extends AexLayerBase, AexObject {
     masks: AexMask[];
     timeRemap: AexProperty<number>;
     audio: AexPropertyGroup;
+
+    /**
+     * Note: This is a PropertyGroup instead of AexLayerStylePropertyGroup[]
+     * because we need the "layerStyles.enabled" boolean that exists on the property
+     * If not for that, we would refactor layerStyles to be said array.
+     **/
     layerStyles: AexPropertyGroup;
+
     geometryOption: AexPropertyGroup;
     materialOption: AexPropertyGroup;
     effects: AexEffectPropertyGroup[];
