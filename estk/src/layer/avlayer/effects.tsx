@@ -28,28 +28,33 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState): AexEffectPro
 }
 
 function setAvLayerEffects(aeAvLayer: AVLayer, aexAvLayer: AexAVLayer, state: AexState) {
-    const aeAvEffect: PropertyGroup = aeAvLayer.effect;
-    const aexAvEffects: AexEffectPropertyGroup[] = aexAvLayer.effects;
+    const aexEffects: AexEffectPropertyGroup[] = aexAvLayer.effects;
 
-    aeq.arrayEx(aexAvEffects).forEach((aexEffect: AexEffectPropertyGroup) => {
-        let effect;
-        const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
-
-        if (isDropdownEffect) {
-            effect = _createDropdownEffect(aeAvEffect, aexEffect, state) as PropertyGroup;
-        } else {
-            effect = aeAvEffect.addProperty(aexEffect.matchName) as PropertyGroup;
-        }
-
-        assignAttributes(effect, {
-            name: aexEffect.name,
-            enabled: aexEffect.enabled,
-        });
-
-        if (!isDropdownEffect) {
-            setPropertyGroup(effect, aexEffect, state);
-        }
+    aeq.arrayEx(aexEffects).forEach((aexEffect: AexEffectPropertyGroup) => {
+        createLayerEffect(aeAvLayer, aexEffect, state);
     });
+}
+
+function createLayerEffect(aeAvLayer: AVLayer, aexEffect: AexEffectPropertyGroup, state: AexState) {
+    const aeLayerEffectGroup: PropertyGroup = aeAvLayer.effect;
+    const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
+
+    let effect;
+
+    if (isDropdownEffect) {
+        effect = _createDropdownEffect(aeLayerEffectGroup, aexEffect, state) as PropertyGroup;
+    } else {
+        effect = aeLayerEffectGroup.addProperty(aexEffect.matchName) as PropertyGroup;
+    }
+
+    assignAttributes(effect, {
+        name: aexEffect.name,
+        enabled: aexEffect.enabled,
+    });
+
+    if (!isDropdownEffect) {
+        setPropertyGroup(effect, aexEffect, state);
+    }
 }
 
 function _isUiOnlyEffectProperty(property: Property): boolean {
