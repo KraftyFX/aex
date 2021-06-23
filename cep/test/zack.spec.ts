@@ -4,7 +4,7 @@ import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_
 import { cleanupAex, evalAexIntoEstk } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe.only('Zack Test Stuff', function () {
+describe.skip('Zack Test Stuff', function () {
     this.slow(500);
     this.timeout(5000);
 
@@ -109,7 +109,7 @@ describe.only('Zack Test Stuff', function () {
             assertAreEqual(layer.effects, layerData.effects);
         });
 
-        it.only('Can create simple modified effect (add effect to layer)', async () => {
+        it('Can create simple modified effect (add effect to layer)', async () => {
             const effectData = {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Modified',
@@ -165,7 +165,7 @@ describe.only('Zack Test Stuff', function () {
             const result = await aex().get(AeObject.Layer(1));
             const layer = result.object;
 
-            assertAreEqual(layer.effects, effectData);
+            assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
     });
 });
