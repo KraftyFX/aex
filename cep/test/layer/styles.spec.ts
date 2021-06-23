@@ -289,7 +289,7 @@ describe('Layer Styles', function () {
         });
     });
 
-    describe('Create', async () => {
+    describe('Create Layer With Styles', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -722,6 +722,109 @@ describe('Layer Styles', function () {
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles, layerData.layerStyles);
+        });
+    });
+
+    describe('Create Styles on Existing Layer', async () => {
+        it('Can create Drop Shadow style', async () => {
+            const styleData = {
+                name: 'Drop Shadow',
+                matchName: 'dropShadow/enabled',
+                enabled: true,
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
+            };
+
+            await openProject('testAssets/layer_blank.aep');
+            await aex().create(AeObject.Layer(1), styleData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            console.log('add drop shadow style to layer', layer);
+            assertAreEqual(layer.layerStyles.properties[layer.layerStyles.properties.length - 1], styleData);
+        });
+
+        it('Can create modified Drop Shadow style', async () => {
+            const styleData = {
+                name: 'Drop Shadow',
+                matchName: 'dropShadow/enabled',
+                enabled: true,
+                properties: [
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Blend Mode',
+                        matchName: 'dropShadow/mode2',
+                        value: 16,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Opacity',
+                        matchName: 'dropShadow/opacity',
+                        value: 45,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Use Global Light',
+                        matchName: 'dropShadow/useGlobalAngle',
+                        value: 1,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Angle',
+                        matchName: 'dropShadow/localLightingAngle',
+                        value: 153,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Distance',
+                        matchName: 'dropShadow/distance',
+                        value: 23,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Spread',
+                        matchName: 'dropShadow/chokeMatte',
+                        value: 37,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Size',
+                        matchName: 'dropShadow/blur',
+                        value: 26,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Noise',
+                        matchName: 'dropShadow/noise',
+                        value: 23,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Layer Knocks Out Drop Shadow',
+                        matchName: 'dropShadow/layerConceals',
+                        value: 0,
+                        keys: [],
+                    },
+                ],
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
+            };
+
+            await openProject('testAssets/layer_blank.aep');
+            await aex().create(AeObject.Layer(1), styleData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            console.log('modified drop shadow style to layer', layer);
+            assertAreEqual(layer.layerStyles.properties[layer.layerStyles.properties.length - 1], styleData);
         });
     });
 });

@@ -117,10 +117,16 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
                 state
             );
 
+        case AEX_LAYERSTYLE_PROPERTYGROUP:
+            if (!isVisibleLayer(aeLayer)) {
+                throw fail(`Can not add layer style to layer '${aeLayer.name}'`);
+            }
+
+            return setAvLayerStyle(aeLayer.layerStyle, aexPropertyGroup, state);
+
         /** @todo finish these */
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
-        case AEX_LAYERSTYLE_PROPERTYGROUP:
 
         default:
             throw notImplemented(`Creating a '${aexPropertyGroup.type}' on a layer`);

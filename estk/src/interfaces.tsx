@@ -307,6 +307,8 @@ interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {}
 
 interface AexAnimatorPropertyGroup extends AexPropertyGroup, AexObject {}
 
+interface AexLayerStylePropertyGroup extends AexPropertyGroup, AexObject {}
+
 interface AexMarkerProperty {
     time: number;
     comment: string;
