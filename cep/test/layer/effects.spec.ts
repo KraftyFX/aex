@@ -500,7 +500,7 @@ describe('Layer Effects', function () {
         });
     });
 
-    describe('Create', async () => {
+    describe('Create Layer With Effect', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -913,6 +913,298 @@ describe('Layer Effects', function () {
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
+        });
+    });
+
+    describe('Create Effect on Existing Layer', async () => {
+        before(async () => {
+            await openProject('testAssets/layer_blank.aep');
+        });
+
+        it('Can create simple unmodified effect', async () => {
+            const effectData = {
+                matchName: 'ADBE Fill',
+                name: 'Fill - Default',
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
+        });
+
+        it('Can create simple modified effect', async () => {
+            const effectData = {
+                matchName: 'ADBE Fill',
+                name: 'Fill - Modified',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0007',
+                        name: 'All Masks',
+                        type: AEX_ONED_PROPERTY,
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0002',
+                        name: 'Color',
+                        type: AEX_COLOR_PROPERTY,
+                        value: [1, 0.5, 0, 1],
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0006',
+                        name: 'Invert',
+                        type: AEX_ONED_PROPERTY,
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0003',
+                        name: 'Horizontal Feather',
+                        type: AEX_ONED_PROPERTY,
+                        value: 2.2,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0004',
+                        name: 'Vertical Feather',
+                        type: AEX_ONED_PROPERTY,
+                        value: 2.8,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0005',
+                        name: 'Opacity',
+                        type: AEX_ONED_PROPERTY,
+                        value: 0.79,
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
+        });
+
+        /*
+        it.skip('Can create multiple default effects', async () => {
+            const effectData = [
+                {
+                    name: '3D Point Control',
+                    matchName: 'ADBE Point3D Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Angle Control',
+                    matchName: 'ADBE Angle Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Checkbox Control',
+                    matchName: 'ADBE Checkbox Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Color Control',
+                    matchName: 'ADBE Color Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Dropdown Menu Control',
+                    properties: [
+                        {
+                            items: ['Item 1', 'Item 2', 'Item 3'],
+                        },
+                    ],
+                    type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Layer Control',
+                    matchName: 'ADBE Layer Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Point Control',
+                    matchName: 'ADBE Point Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Slider Control',
+                    matchName: 'ADBE Slider Control',
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+            ];
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            delete dropdownEffect.matchName;
+
+            assertAreEqual(layer.effects, effectData);
+        });
+
+        it('Can create multiple modified effects', async () => {
+            const effectData = [
+                {
+                    name: '3D Point Control',
+                    matchName: 'ADBE Point3D Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Point3D Control-0001',
+                            name: '3D Point',
+                            type: AEX_THREED_PROPERTY,
+                            value: [0, 0, 0],
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Angle Control',
+                    matchName: 'ADBE Angle Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Angle Control-0001',
+                            name: 'Angle',
+                            type: AEX_ONED_PROPERTY,
+                            value: 100,
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Checkbox Control',
+                    matchName: 'ADBE Checkbox Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Checkbox Control-0001',
+                            name: 'Checkbox',
+                            type: AEX_ONED_PROPERTY,
+                            value: 1,
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Color Control',
+                    matchName: 'ADBE Color Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Color Control-0001',
+                            name: 'Color',
+                            type: AEX_COLOR_PROPERTY,
+                            value: [0, 0.5, 1, 1],
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Dropdown Menu Control',
+                    properties: [
+                        {
+                            keys: [],
+                            items: ['Item 1', 'Item 2', 'Item 3'],
+                            name: 'Menu',
+                            type: AEX_ONED_PROPERTY,
+                            value: 3,
+                        },
+                    ],
+                    type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Layer Control',
+                    matchName: 'ADBE Layer Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Layer Control-0001',
+                            name: 'Layer',
+                            type: AEX_ONED_PROPERTY,
+                            value: 2,
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Point Control',
+                    matchName: 'ADBE Point Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Point Control-0001',
+                            name: 'Point',
+                            type: AEX_TWOD_PROPERTY,
+                            value: [100, 200],
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+                {
+                    name: 'Slider Control',
+                    matchName: 'ADBE Slider Control',
+                    properties: [
+                        {
+                            keys: [],
+                            matchName: 'ADBE Slider Control-0001',
+                            name: 'Slider',
+                            type: AEX_ONED_PROPERTY,
+                            value: 300,
+                        },
+                    ],
+                    type: AEX_EFFECT_PROPERTYGROUP,
+                },
+            ];
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            delete dropdownEffect.matchName;
+            delete dropdownEffect.properties[0].matchName;
+
+            assertAreEqual(layer.effects, effectData);
+        });
+        */
+
+        it('Can create nested effect groups', async () => {
+            const effectData = {
+                matchName: 'ADBE Fractal Noise',
+                name: 'Fractal Noise',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fractal Noise-0010',
+                        name: 'Scale',
+                        type: AEX_ONED_PROPERTY,
+                        value: 123,
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
     });
 });
