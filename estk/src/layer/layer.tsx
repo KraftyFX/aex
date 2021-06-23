@@ -104,6 +104,14 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
             }
 
             return createLayerEffect(aeLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
+
+        /** @todo finish these */
+        case AEX_DROPDOWN_EFFECT_PROPERTYGROUP:
+        case AEX_SHAPEGROUP_PROPERTYGROUP:
+        case AEX_SHAPEITEM_PROPERTYGROUP:
+        case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
+        case AEX_LAYERSTYLE_PROPERTYGROUP:
+
         default:
             throw notImplemented(`Creating a '${aexPropertyGroup.type}' on a layer`);
     }
