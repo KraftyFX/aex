@@ -916,7 +916,7 @@ describe('Layer Effects', function () {
         });
     });
 
-    describe('Create Effect on Existing Layer', async () => {
+    describe.only('Create Effect on Existing Layer', async () => {
         before(async () => {
             await openProject('testAssets/layer_blank.aep');
         });
@@ -991,6 +991,33 @@ describe('Layer Effects', function () {
 
             const result = await aex().get(AeObject.Layer(1));
             const layer = result.object;
+
+            assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
+        });
+
+        it('Can create modified dropdown control', async () => {
+            const effectData = {
+                name: 'Dropdown Menu Control',
+                properties: [
+                    {
+                        keys: [],
+                        items: ['Item 1', 'Item 2', 'Item 3'],
+                        name: 'Menu',
+                        type: AEX_ONED_PROPERTY,
+                        value: 3,
+                    },
+                ],
+                type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().create(AeObject.Layer(1), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
+            delete dropdownEffect.matchName;
+            delete dropdownEffect.properties[0].matchName;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });

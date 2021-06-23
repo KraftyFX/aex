@@ -98,6 +98,7 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
     assertIsDefined(aeLayer);
 
     switch (aexPropertyGroup.type as AexPropertyGroupType) {
+        case AEX_DROPDOWN_EFFECT_PROPERTYGROUP:
         case AEX_EFFECT_PROPERTYGROUP:
             if (!isVisibleLayer(aeLayer)) {
                 throw fail(`Can not add effects to layer '${aeLayer.name}'`);
@@ -106,7 +107,6 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
             return createLayerEffect(aeLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
 
         /** @todo finish these */
-        case AEX_DROPDOWN_EFFECT_PROPERTYGROUP:
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
         case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
