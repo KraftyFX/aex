@@ -98,22 +98,10 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: Ae
     assertIsDefined(aeLayer);
 
     switch (aexPropertyGroup.type as AexPropertyGroupType) {
-        case AEX_TEXT_LAYER:
-            return createAeTextLayer(comp, aexLayer as AexTextLayer, state);
-        case AEX_SHAPE_LAYER:
-            return createAeShapeLayer(comp, aexLayer as AexShapeLayer, state);
-        case AEX_NULL_LAYER:
-        case AEX_FILE_LAYER:
-        case AEX_PLACEHOLDER_LAYER:
-        case AEX_SOLID_LAYER:
-        case AEX_COMP_LAYER:
-            return createAeFootageLayer(comp, aexLayer as AexFootageLayer, state);
-        case AEX_LIGHT_LAYER:
-            return createAeLightLayer(comp, aexLayer as AexLightLayer, state);
-        case AEX_CAMERA_LAYER:
-            return createAeCameraLayer(comp, aexLayer as AexCameraLayer, state);
+        case AEX_EFFECT_PROPERTYGROUP:
+            return createLayerEffect(aeLayer as AVLayer, aexPropertyGroup as AexEffectPropertyGroup, state);
         default:
-            throw fail(`Unrecognized Group Type ${aexPropertyGroup.type}`);
+            throw notImplemented(`Creating a '${aexPropertyGroup.type}' on a layer`);
     }
 }
 
