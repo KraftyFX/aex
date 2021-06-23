@@ -916,7 +916,7 @@ describe('Layer Effects', function () {
         });
     });
 
-    describe.only('Create Effect on Existing Layer', async () => {
+    describe('Create Effect on Existing Layer', async () => {
         before(async () => {
             await openProject('testAssets/layer_blank.aep');
         });
