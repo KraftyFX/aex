@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
+import { AEX_KEY, AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -246,6 +246,7 @@ describe('Layer Masks', function () {
                     keys: [
                         {
                             time: 0,
+                            type: AEX_KEY,
                             value: {
                                 closed: true,
                                 featherInterps: [0, 0],
@@ -309,6 +310,7 @@ describe('Layer Masks', function () {
                         },
                         {
                             time: 4.9583,
+                            type: AEX_KEY,
                             value: {
                                 closed: true,
                                 featherInterps: [0, 0],
@@ -643,6 +645,7 @@ describe('Layer Masks', function () {
                             keys: [
                                 {
                                     time: 0,
+                                    type: AEX_KEY,
                                     value: {
                                         closed: true,
                                         featherInterps: [0, 0],
@@ -706,6 +709,7 @@ describe('Layer Masks', function () {
                                 },
                                 {
                                     time: 4.9583,
+                                    type: AEX_KEY,
                                     value: {
                                         closed: true,
                                         featherInterps: [0, 0],

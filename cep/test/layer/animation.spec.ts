@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
+import { AEX_KEY, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -48,6 +48,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 0,
+                        type: AEX_KEY,
                         value: 0,
                     },
                     {
@@ -70,6 +71,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 2,
+                        type: AEX_KEY,
                         value: 20,
                     },
                     {
@@ -91,6 +93,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 3.9833,
+                        type: AEX_KEY,
                         value: 90,
                     },
                 ],
@@ -109,6 +112,7 @@ describe('Layer Animation', function () {
                             outType: 6614,
                         },
                         time: 0,
+                        type: AEX_KEY,
                         value: 0,
                     },
                     {
@@ -117,6 +121,7 @@ describe('Layer Animation', function () {
                             outType: 6614,
                         },
                         time: 2,
+                        type: AEX_KEY,
                         value: 20,
                     },
                     {
@@ -125,6 +130,7 @@ describe('Layer Animation', function () {
                             outType: 6614,
                         },
                         time: 3.5,
+                        type: AEX_KEY,
                         value: 90,
                     },
                 ],
@@ -154,6 +160,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 0,
+                        type: AEX_KEY,
                         value: 0,
                     },
                     {
@@ -172,6 +179,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 3.9833,
+                        type: AEX_KEY,
                         value: 90,
                     },
                 ],
@@ -204,6 +212,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 0,
+                        type: AEX_KEY,
                         value: 0,
                     },
                     {
@@ -211,6 +220,7 @@ describe('Layer Animation', function () {
                             outType: 6614,
                         },
                         time: 1,
+                        type: AEX_KEY,
                         value: 10,
                     },
                     {
@@ -233,6 +243,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 2,
+                        type: AEX_KEY,
                         value: 20,
                     },
                     {
@@ -254,6 +265,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 3,
+                        type: AEX_KEY,
                         value: 50,
                     },
                     {
@@ -272,6 +284,7 @@ describe('Layer Animation', function () {
                             ],
                         },
                         time: 3.9833,
+                        type: AEX_KEY,
                         value: 90,
                     },
                 ],
@@ -313,6 +326,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 0,
+                                type: AEX_KEY,
                                 value: 0,
                             },
                             {
@@ -335,6 +349,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 2,
+                                type: AEX_KEY,
                                 value: 20,
                             },
                             {
@@ -356,6 +371,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 3.9833,
+                                type: AEX_KEY,
                                 value: 90,
                             },
                         ],
@@ -388,6 +404,7 @@ describe('Layer Animation', function () {
                                     outType: 6614,
                                 },
                                 time: 0,
+                                type: AEX_KEY,
                                 value: 0,
                             },
                             {
@@ -396,6 +413,7 @@ describe('Layer Animation', function () {
                                     outType: 6614,
                                 },
                                 time: 2,
+                                type: AEX_KEY,
                                 value: 20,
                             },
                             {
@@ -404,6 +422,7 @@ describe('Layer Animation', function () {
                                     outType: 6614,
                                 },
                                 time: 3.5,
+                                type: AEX_KEY,
                                 value: 90,
                             },
                         ],
@@ -447,6 +466,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 0,
+                                type: AEX_KEY,
                                 value: 0,
                             },
                             {
@@ -465,6 +485,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 3.9833,
+                                type: AEX_KEY,
                                 value: 90,
                             },
                         ],
@@ -511,6 +532,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 0,
+                                type: AEX_KEY,
                                 value: 0,
                             },
                             {
@@ -518,6 +540,7 @@ describe('Layer Animation', function () {
                                     outType: 6614,
                                 },
                                 time: 1,
+                                type: AEX_KEY,
                                 value: 10,
                             },
                             {
@@ -540,6 +563,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 2,
+                                type: AEX_KEY,
                                 value: 20,
                             },
                             {
@@ -561,6 +585,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 3,
+                                type: AEX_KEY,
                                 value: 50,
                             },
                             {
@@ -579,6 +604,7 @@ describe('Layer Animation', function () {
                                     ],
                                 },
                                 time: 3.9833,
+                                type: AEX_KEY,
                                 value: 90,
                             },
                         ],

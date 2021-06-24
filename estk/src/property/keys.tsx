@@ -2,7 +2,7 @@ function prescanPropertyKeys(aeProperty: Property, state: AexState) {
     state.stats.keyCount += aeProperty.numKeys;
 }
 
-function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: AexState): AEQKeyInfo[] {
+function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: AexState): AexKey[] {
     return profile(
         'getPropertyKeys',
         () => {
@@ -21,6 +21,7 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
                     spatialAutoBezier: undefined,
                     spatialContinuous: undefined,
                     roving: undefined,
+                    type: AEX_KEY,
                 };
 
                 if (!isUnreadable) {
@@ -86,7 +87,7 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
                     );
                 }
 
-                return aexKey as AEQKeyInfo;
+                return aexKey as AexKey;
             });
 
             return keys;
@@ -96,12 +97,12 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
     );
 }
 
-function _setPropertyKeys(aeProperty: Property, aexKeys: AEQKeyInfo[], state: AexState): void {
+function _setPropertyKeys(aeProperty: Property, aexKeys: AexKey[], state: AexState): void {
     if (aexKeys.length == 0) {
         return;
     }
 
-    const keysArrayEx = aeq.arrayEx(aexKeys) as AEQArrayEx<AEQKeyInfo>;
+    const keysArrayEx = aeq.arrayEx(aexKeys) as AEQArrayEx<AexKey>;
 
     const times = [];
     const values = [];

@@ -3,7 +3,7 @@ type AexSerialized = AexProject | AexItem | AexLayer;
 
 type AexTypedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
 
-type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType;
+type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType | AexKeyType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
 type AexFootageItemType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
@@ -34,6 +34,8 @@ type AexPropertyGroupType =
     | 'aex:propertyGroup:shape:item'
     | 'aex:propertyGroup:text:animator'
     | 'aex:propertyGroup:layerstyle';
+
+type AexKeyType = 'aex:keyframe';
 
 type AexUID = string;
 
@@ -295,8 +297,10 @@ interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyB
     value: T;
 
     type: AexPropertyType;
-    keys: AEQKeyInfo[];
+    keys: AexKey[];
 }
+
+interface AexKey extends AEQKeyInfo, AexObject {}
 
 interface AexDropdownProperty extends AexProperty {
     items: string[];

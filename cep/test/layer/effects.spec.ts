@@ -4,6 +4,7 @@ import {
     AEX_COMP_ITEM,
     AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
     AEX_EFFECT_PROPERTYGROUP,
+    AEX_KEY,
     AEX_NULL_LAYER,
     AEX_ONED_PROPERTY,
     AEX_SHAPE_PROPERTY,
@@ -392,6 +393,7 @@ describe('Layer Effects', function () {
                                                                     {
                                                                         value: [15, 14],
                                                                         time: 0,
+                                                                        type: AEX_KEY,
                                                                         temporalEase: {
                                                                             inEase: [
                                                                                 {
@@ -415,6 +417,7 @@ describe('Layer Effects', function () {
                                                                     {
                                                                         value: [15, 254],
                                                                         time: 1.625,
+                                                                        type: AEX_KEY,
                                                                         temporalEase: {
                                                                             inEase: [
                                                                                 {
