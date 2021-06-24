@@ -96,17 +96,17 @@ function _getPropertyKeys(aeProperty: Property, isUnreadable: boolean, state: Ae
     );
 }
 
-function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state: AexState): void {
-    if (aexProperty.keys.length == 0) {
+function _setPropertyKeys(aeProperty: Property, aexKeys: AEQKeyInfo[], state: AexState): void {
+    if (aexKeys.length == 0) {
         return;
     }
 
-    const aexKeys = aeq.arrayEx(aexProperty.keys) as AEQArrayEx<AEQKeyInfo>;
+    const keysArrayEx = aeq.arrayEx(aexKeys) as AEQArrayEx<AEQKeyInfo>;
 
     const times = [];
     const values = [];
 
-    aexKeys.forEach((aexKey) => {
+    keysArrayEx.forEach((aexKey) => {
         times.push(aexKey.time);
 
         const aexValue = getAeValue(aeProperty, aexKey.value, state);
@@ -115,7 +115,7 @@ function _setPropertyKeys(aeProperty: Property, aexProperty: AexProperty, state:
 
     aeProperty.setValuesAtTimes(times, values);
 
-    aexKeys.forEach((aexKey, ii) => {
+    keysArrayEx.forEach((aexKey, ii) => {
         const keyIndex = ii + 1;
 
         if (!aeq.isNullOrUndefined(aexKey.temporalEase)) {

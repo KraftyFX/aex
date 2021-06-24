@@ -95,7 +95,7 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
     }
 
     if (aexProperty.keys.length > 0) {
-        _setPropertyKeys(aeProperty, aexProperty, state);
+        _setPropertyKeys(aeProperty, aexProperty.keys, state);
     } else {
         _setPropertyValue(aeProperty, aexProperty, state);
     }
