@@ -94,7 +94,7 @@ function updateAeLayer(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     }
 }
 
-function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexTypedGroup, state: AexState) {
+function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexSerializedGroup, state: AexState) {
     assertIsDefined(aeLayer);
 
     switch (aexPropertyGroup.type as AexPropertyGroupType) {

@@ -1,9 +1,8 @@
 type Serializable = Project | CompItem | Layer | PropertyGroup | Property;
-type Deserializable = AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>;
+type Deserializable = AexSerialized | AexProperty | AexKey | GetResult<AexSerialized>;
 
-type AexSerialized = AexProject | AexItem | AexLayer;
-
-type AexTypedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
+type AexSerialized = AexProject | AexItem | AexLayer | AexSerializedGroup;
+type AexSerializedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType | AexKeyType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;

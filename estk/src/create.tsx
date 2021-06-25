@@ -1,7 +1,7 @@
 function create(aeParentObject: Project, aexObject: AexItem | AexComp);
 function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
-function create(aeParentObject: PropertyGroup, aexObject: AexTypedGroup);
+function create(aeParentObject: PropertyGroup, aexObject: AexSerializedGroup);
 function create(aeParentObject: Property, aexObject: AexKey);
 function create(aeParentObject: Serializable, aexObject: Deserializable) {
     assertIsDefined(aeParentObject, 'aeParentObject');
@@ -101,8 +101,8 @@ function isAddingLayerToComp(aeParentObject: Serializable, aexObject: Deserializ
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
-function isAddingPropertyGroupToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexTypedGroup {
-    return aeq.isLayer(aeParentObject) && isAexTypedGroup(aexObject as AexObject);
+function isAddingPropertyGroupToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexSerializedGroup {
+    return aeq.isLayer(aeParentObject) && isAexSerializedGroup(aexObject as AexObject);
 }
 
 function isAddingPropertyToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexProperty {
