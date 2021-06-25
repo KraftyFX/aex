@@ -64,6 +64,8 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     };
 }
 
-function isGetResult(aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>): aexObject is GetResult<AexSerialized> {
+function isGetResult(
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
+): aexObject is GetResult<AexSerialized> {
     return aexObject.type == 'aex:getresult';
 }

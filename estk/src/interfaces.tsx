@@ -1,4 +1,4 @@
-type Serializable = Project | CompItem | Layer | PropertyGroup;
+type Serializable = Project | CompItem | Layer | PropertyGroup | Property;
 type AexSerialized = AexProject | AexItem | AexLayer;
 
 type AexTypedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;

@@ -50,3 +50,7 @@ function isAexTypedGroup(aexObject: AexObject) {
 function isAexProperty(aexObject: AexObject) {
     return aexObject.type.indexOf('aex:property') == 0;
 }
+
+function isAexKey(aexObject: AexObject) {
+    return aexObject.type.indexOf(AEX_KEY) == 0;
+}

@@ -2,7 +2,8 @@ function create(aeParentObject: Project, aexObject: AexItem | AexComp);
 function create(aeParentObject: CompItem, aexObject: AexLayer);
 function create(aeParentObject: Layer, aexObject: AexProperty);
 function create(aeParentObject: PropertyGroup, aexObject: AexTypedGroup);
-function create(aeParentObject: Serializable, aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>) {
+function create(aeParentObject: Property, aexObject: AexKey);
+function create(aeParentObject: Serializable, aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>) {
     assertIsDefined(aeParentObject, 'aeParentObject');
     assertIsDefined(aexObject, 'aexObject');
 
@@ -63,6 +64,15 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexType
         } finally {
             app.endUndoGroup();
         }
+    } else if (isAddingKeyToProperty(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Keys to Property');
+        try {
+            _setPropertyKeys(aeParentObject as Property, [aexObject] as AexKey[], state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else {
@@ -79,35 +89,44 @@ function create(aeParentObject: Serializable, aexObject: AexSerialized | AexType
 
 function isAddingCompToProject(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
 ): aexObject is AexComp {
-    return aeParentObject instanceof Project && aexObject.type === AEX_COMP_ITEM;
+    return aeParentObject instanceof Project && !aeq.isArray(aexObject) && aexObject.type === AEX_COMP_ITEM;
 }
 
 function isAddingNonCompItemToProject(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
 ): aexObject is AexItem {
-    return aeParentObject instanceof Project && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0;
+    return (
+        aeParentObject instanceof Project && !aeq.isArray(aexObject) && aexObject.type !== AEX_COMP_ITEM && aexObject.type.indexOf('aex:item') === 0
+    );
 }
 
 function isAddingLayerToComp(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
 ): aexObject is AexLayer {
     return aeParentObject instanceof CompItem && isAexLayer(aexObject as AexObject);
 }
 
 function isAddingPropertyGroupToLayer(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
 ): aexObject is AexTypedGroup {
     return aeq.isLayer(aeParentObject) && isAexTypedGroup(aexObject as AexObject);
 }
 
 function isAddingPropertyToLayer(
     aeParentObject: Serializable,
-    aexObject: AexSerialized | AexTypedGroup | AexProperty | GetResult<AexSerialized>
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
 ): aexObject is AexProperty {
     return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
+}
+
+function isAddingKeyToProperty(
+    aeParentObject: Serializable,
+    aexObject: AexSerialized | AexTypedGroup | AexProperty | AexKey | GetResult<AexSerialized>
+): aexObject is AexKey {
+    return aeq.isProperty(aeParentObject) && isAexKey(aexObject as AexObject);
 }
