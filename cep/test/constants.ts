@@ -27,6 +27,7 @@ export const AEX_TEXTDOCUMENT_PROPERTY = 'aex:property:textdocument';
 export const AEX_NONE_PROPERTY = 'aex:property:none';
 
 export const AEX_KEY = 'aex:keyframe';
+export const AEX_MARKER = 'aex:marker';
 
 export const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
 export const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';

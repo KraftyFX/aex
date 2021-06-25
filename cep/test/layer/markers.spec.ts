@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_NULL_LAYER } from '../constants';
+import { AEX_MARKER, AEX_NULL_LAYER } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -29,18 +29,23 @@ describe('Layer Markers', function () {
             assertAreEqual(comp.layers[0].markers, [
                 {
                     time: 0.1667,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 0.4667,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 0.7833,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 1.8333,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 3.55,
+                    type: AEX_MARKER,
                 },
             ]);
         });
@@ -50,24 +55,29 @@ describe('Layer Markers', function () {
                 {
                     duration: 0.2,
                     time: 0.1667,
+                    type: AEX_MARKER,
                 },
                 {
                     comment: 'Some Comment',
                     duration: 1,
                     label: 4,
                     time: 0.4667,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 0.7833,
+                    type: AEX_MARKER,
                 },
                 {
                     comment: 'banana',
                     time: 1.8333,
+                    type: AEX_MARKER,
                 },
                 {
                     duration: 0.3333,
                     label: 8,
                     time: 3.55,
+                    type: AEX_MARKER,
                 },
             ]);
         });
@@ -84,18 +94,23 @@ describe('Layer Markers', function () {
                 markers: [
                     {
                         time: 0.1667,
+                        type: AEX_MARKER,
                     },
                     {
                         time: 0.4667,
+                        type: AEX_MARKER,
                     },
                     {
                         time: 0.7833,
+                        type: AEX_MARKER,
                     },
                     {
                         time: 1.8333,
+                        type: AEX_MARKER,
                     },
                     {
                         time: 3.55,
+                        type: AEX_MARKER,
                     },
                 ],
                 transform: {},
@@ -118,24 +133,29 @@ describe('Layer Markers', function () {
                     {
                         duration: 0.2,
                         time: 0.1667,
+                        type: AEX_MARKER,
                     },
                     {
                         comment: 'Some Comment',
                         duration: 1,
                         label: 4,
                         time: 0.4667,
+                        type: AEX_MARKER,
                     },
                     {
                         time: 0.7833,
+                        type: AEX_MARKER,
                     },
                     {
                         comment: 'banana',
                         time: 1.8333,
+                        type: AEX_MARKER,
                     },
                     {
                         duration: 0.3333,
                         label: 8,
                         time: 3.55,
+                        type: AEX_MARKER,
                     },
                 ],
                 transform: {},

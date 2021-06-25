@@ -4,7 +4,7 @@ type Deserializable = AexSerialized | AexProperty | AexKey | GetResult<AexSerial
 type AexSerialized = AexProject | AexItem | AexLayer | AexSerializedGroup;
 type AexSerializedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
 
-type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType | AexKeyType;
+type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType | AexKeyType | AexMarkerType;
 type AexItemType = AexAvItemType | 'aex:item:folder' | AexFootageItemType;
 type AexAvItemType = 'aex:item:av:comp' | AexFootageItemType;
 type AexFootageItemType = 'aex:item:av:footage:file' | 'aex:item:av:footage:solid' | 'aex:item:av:footage:placeholder';
@@ -37,6 +37,7 @@ type AexPropertyGroupType =
     | 'aex:propertyGroup:layerstyle';
 
 type AexKeyType = 'aex:keyframe';
+type AexMarkerType = 'aex:marker';
 
 type AexUID = string;
 
@@ -321,7 +322,7 @@ interface AexAnimatorPropertyGroup extends AexPropertyGroup, AexObject {}
 
 interface AexLayerStylePropertyGroup extends AexPropertyGroup, AexObject {}
 
-interface AexMarkerProperty {
+interface AexMarkerProperty extends AexObject {
     time: number;
     comment: string;
     chapter: string;

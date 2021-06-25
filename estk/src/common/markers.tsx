@@ -21,6 +21,7 @@ function getAexMarkerProperties(markerProperty: MarkerValueProperty, state: AexS
             label: getModifiedValue(keyValue.label, 0),
             protectedRegion: getModifiedValue(keyValue.protectedRegion, false),
             parameters: _getMarkerParameters(keyValue),
+            type: AEX_MARKER,
         });
     });
 

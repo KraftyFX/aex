@@ -27,6 +27,7 @@ const AEX_CUSTOM_PROPERTY = 'aex:property:custom';
 const AEX_NONE_PROPERTY = 'aex:property:none';
 
 const AEX_KEY = 'aex:keyframe';
+const AEX_MARKER = 'aex:marker';
 
 const AEX_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect';
 const AEX_DROPDOWN_EFFECT_PROPERTYGROUP = 'aex:propertyGroup:effect:dropdown';

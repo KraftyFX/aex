@@ -1,5 +1,5 @@
 import { AeObject, aex } from '../aex';
-import { AEX_COMP_ITEM, AEX_PROJECT } from '../constants';
+import { AEX_COMP_ITEM, AEX_MARKER, AEX_PROJECT } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -30,6 +30,7 @@ describe('Comp Markers', function () {
                 {
                     duration: 0.2,
                     time: 0.1667,
+                    type: AEX_MARKER,
                 },
                 {
                     comment: 'Some Comment',
@@ -37,19 +38,23 @@ describe('Comp Markers', function () {
                     label: 4,
                     protectedRegion: true,
                     time: 0.4667,
+                    type: AEX_MARKER,
                 },
                 {
                     label: 3,
                     time: 0.7833,
+                    type: AEX_MARKER,
                 },
                 {
                     comment: 'banana',
                     time: 1.8333,
+                    type: AEX_MARKER,
                 },
                 {
                     duration: 0.3333,
                     protectedRegion: true,
                     time: 3.55,
+                    type: AEX_MARKER,
                 },
             ]);
         });
@@ -58,18 +63,23 @@ describe('Comp Markers', function () {
             assertAreEqual(project.comps[1].markers, [
                 {
                     time: 0.1667,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 0.4667,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 0.7833,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 1.8333,
+                    type: AEX_MARKER,
                 },
                 {
                     time: 3.55,
+                    type: AEX_MARKER,
                 },
             ]);
         });
@@ -91,6 +101,7 @@ describe('Comp Markers', function () {
                         {
                             duration: 0.2,
                             time: 0.1667,
+                            type: AEX_MARKER,
                         },
                         {
                             comment: 'Some Comment',
@@ -98,19 +109,23 @@ describe('Comp Markers', function () {
                             label: 4,
                             protectedRegion: true,
                             time: 0.4667,
+                            type: AEX_MARKER,
                         },
                         {
                             label: 3,
                             time: 0.7833,
+                            type: AEX_MARKER,
                         },
                         {
                             comment: 'banana',
                             time: 1.8333,
+                            type: AEX_MARKER,
                         },
                         {
                             duration: 0.3333,
                             protectedRegion: true,
                             time: 3.55,
+                            type: AEX_MARKER,
                         },
                     ],
                     name: 'DetailedMarkers',
@@ -128,18 +143,23 @@ describe('Comp Markers', function () {
                     markers: [
                         {
                             time: 0.1667,
+                            type: AEX_MARKER,
                         },
                         {
                             time: 0.4667,
+                            type: AEX_MARKER,
                         },
                         {
                             time: 0.7833,
+                            type: AEX_MARKER,
                         },
                         {
                             time: 1.8333,
+                            type: AEX_MARKER,
                         },
                         {
                             time: 3.55,
+                            type: AEX_MARKER,
                         },
                     ],
                     name: 'PlainMarkers',

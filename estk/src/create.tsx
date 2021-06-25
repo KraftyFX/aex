@@ -109,6 +109,13 @@ function isAddingPropertyToLayer(aeParentObject: Serializable, aexObject: Deseri
     return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
 }
 
+function isAddingMarkerToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexProperty {
+    return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
+}
+function isAddingMarkerToComp(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexProperty {
+    return aeq.isComp(aeParentObject) && isAexProperty(aexObject as AexObject);
+}
+
 function isAddingKeyToProperty(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexKey {
     return aeq.isProperty(aeParentObject) && isAexKey(aexObject as AexObject);
 }
