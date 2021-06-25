@@ -4,8 +4,10 @@ import { getEvalScriptResult } from './csinterface';
 export const AeObject = {
     ActiveComp: 'app.project.activeItem',
     Project: 'app.project',
-    Layer: (num: number) => `app.project.activeItem.layer(${num})`
-}
+    Layer: (num: number) => `app.project.activeItem.layer(${num})`,
+    CompProp: (route: string) => `app.project.activeItem.${route}`,
+    LayerProp: (num: number, route: string) => `app.project.activeItem.layer(${num}).${route}`,
+};
 
 export function aex() {
     return {

@@ -295,7 +295,7 @@ describe('Layer Animation', function () {
         });
     });
 
-    describe('Create', async () => {
+    describe('Create Layer With Animation', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -624,5 +624,174 @@ describe('Layer Animation', function () {
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
         });
+    });
+
+    describe('Create Keyframe On Property', async () => {
+        beforeEach(async () => {
+            await openProject('testAssets/layer_blank.aep');
+        });
+
+        it(`Can create an eased keyframe`, async () => {
+            const keyData = {
+                interpolationType: {
+                    outType: 6613,
+                },
+                temporalEase: {
+                    inEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                    outEase: [
+                        {
+                            influence: 33.33333,
+                            speed: 0,
+                        },
+                    ],
+                },
+                time: 0,
+                type: AEX_KEY,
+                value: 0,
+            };
+
+            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+
+        it(`Can create a hold keyframe`, async () => {
+            const keyData = {
+                interpolationType: {
+                    inType: 6613,
+                    outType: 6614,
+                },
+                time: 2,
+                type: AEX_KEY,
+                value: 20,
+            };
+
+            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+
+        it(`Can create a linear keyframe`, async () => {
+            const keyData = {
+                temporalEase: {
+                    inEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                    outEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                },
+                time: 3.9833,
+                type: AEX_KEY,
+                value: 90,
+            };
+
+            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+
+        // it(`Can create multiple eased keyframes`, async () => {
+        //     const keyData = [
+        //         {
+        //             interpolationType: {
+        //                 outType: 6613,
+        //             },
+        //             temporalEase: {
+        //                 inEase: [
+        //                     {
+        //                         influence: 16.66667,
+        //                         speed: 0,
+        //                     },
+        //                 ],
+        //                 outEase: [
+        //                     {
+        //                         influence: 33.33333,
+        //                         speed: 0,
+        //                     },
+        //                 ],
+        //             },
+        //             time: 0,
+        //             type: AEX_KEY,
+        //             value: 0,
+        //         },
+        //         {
+        //             interpolationType: {
+        //                 inType: 6613,
+        //                 outType: 6613,
+        //             },
+        //             temporalEase: {
+        //                 inEase: [
+        //                     {
+        //                         influence: 33.33333,
+        //                         speed: 33.89062,
+        //                     },
+        //                 ],
+        //                 outEase: [
+        //                     {
+        //                         influence: 33.33333,
+        //                         speed: 33.89062,
+        //                     },
+        //                 ],
+        //             },
+        //             time: 2,
+        //             type: AEX_KEY,
+        //             value: 20,
+        //         },
+        //         {
+        //             interpolationType: {
+        //                 inType: 6613,
+        //             },
+        //             temporalEase: {
+        //                 inEase: [
+        //                     {
+        //                         influence: 33.33333,
+        //                         speed: 0,
+        //                     },
+        //                 ],
+        //                 outEase: [
+        //                     {
+        //                         influence: 16.66667,
+        //                         speed: 0,
+        //                     },
+        //                 ],
+        //             },
+        //             time: 3.9833,
+        //             type: AEX_KEY,
+        //             value: 90,
+        //         },
+        //     ];
+
+        //     await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+        //     const result = await aex().get(AeObject.Layer(1));
+        //     const layer = result.object;
+        //     const route = layer.transform.rotation.keys;
+
+        //     assertAreEqual(route, keyData);
+        // });
     });
 });
