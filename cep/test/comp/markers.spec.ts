@@ -85,7 +85,7 @@ describe('Comp Markers', function () {
         });
     });
 
-    describe('Update', async () => {
+    describe('Create in New Comp', async () => {
         let project: any;
 
         const projectData = {
@@ -187,6 +187,45 @@ describe('Comp Markers', function () {
 
         it(`Can create simple markers`, async () => {
             assertAreEqual(project.comps[1].markers, projectData.comps[1].markers);
+        });
+    });
+
+    describe('Create on Existing Comp', async () => {
+        before(async () => {
+            await openProject('testAssets/layer_basic.aep');
+        });
+
+        it(`Can create simple marker`, async () => {
+            const markerData = {
+                time: 0,
+                type: AEX_MARKER,
+            };
+
+            await aex().create(AeObject.ActiveComp, markerData);
+
+            const result = await aex().get(AeObject.ActiveComp);
+            const comp = result.object;
+            const route = comp.markers;
+
+            assertAreEqual(route[route.length - 1], markerData);
+        });
+
+        it(`Can create complicated marker`, async () => {
+            const markerData = {
+                comment: 'Some Comment',
+                duration: 1,
+                label: 4,
+                time: 0.4667,
+                type: AEX_MARKER,
+            };
+
+            await aex().create(AeObject.ActiveComp, markerData);
+
+            const result = await aex().get(AeObject.ActiveComp);
+            const comp = result.object;
+            const route = comp.markers;
+
+            assertAreEqual(route[route.length - 1], markerData);
         });
     });
 });

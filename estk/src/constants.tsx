@@ -55,3 +55,7 @@ function isAexProperty(aexObject: AexObject) {
 function isAexKey(aexObject: AexObject) {
     return aexObject.type.indexOf(AEX_KEY) == 0;
 }
+
+function isAexMarker(aexObject: AexObject) {
+    return aexObject.type.indexOf(AEX_MARKER) == 0;
+}

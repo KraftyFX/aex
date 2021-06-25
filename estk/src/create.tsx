@@ -46,6 +46,16 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
         }
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
+    } else if (isAddingMarkerToComp(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Marker to Comp');
+        try {
+            const markerProperty = (aeParentObject as CompItem).markerProperty;
+            createAeMarker(markerProperty as MarkerValueProperty, aexObject, state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
         app.beginUndoGroup('AEX: Add Layer to Comp');
         try {
@@ -59,6 +69,16 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
         app.beginUndoGroup('AEX: Add Property Group to Layer');
         try {
             addToAeLayer(aeParentObject as Layer, aexObject, state);
+        } catch (e) {
+            throw e;
+        } finally {
+            app.endUndoGroup();
+        }
+    } else if (isAddingMarkerToLayer(aeParentObject, aexObject)) {
+        app.beginUndoGroup('AEX: Add Marker to Layer');
+        try {
+            const markerProperty = (aeParentObject as Layer).marker;
+            createAeMarker(markerProperty as MarkerValueProperty, aexObject, state);
         } catch (e) {
             throw e;
         } finally {
@@ -109,11 +129,11 @@ function isAddingPropertyToLayer(aeParentObject: Serializable, aexObject: Deseri
     return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
 }
 
-function isAddingMarkerToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexProperty {
-    return aeq.isLayer(aeParentObject) && isAexProperty(aexObject as AexObject);
+function isAddingMarkerToLayer(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexMarkerProperty {
+    return aeq.isLayer(aeParentObject) && isAexMarker(aexObject as AexObject);
 }
-function isAddingMarkerToComp(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexProperty {
-    return aeq.isComp(aeParentObject) && isAexProperty(aexObject as AexObject);
+function isAddingMarkerToComp(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexMarkerProperty {
+    return aeq.isComp(aeParentObject) && isAexMarker(aexObject as AexObject);
 }
 
 function isAddingKeyToProperty(aeParentObject: Serializable, aexObject: Deserializable): aexObject is AexKey {

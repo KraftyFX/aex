@@ -83,7 +83,7 @@ describe('Layer Markers', function () {
         });
     });
 
-    describe('Create', async () => {
+    describe('Create on New Layer', async () => {
         before(async () => {
             await openCleanProject();
         });
@@ -169,6 +169,45 @@ describe('Layer Markers', function () {
             const layer = result.object;
 
             assertAreEqual(layer.markers, layerData.markers);
+        });
+    });
+
+    describe('Create on Existing Layer', async () => {
+        before(async () => {
+            await openProject('testAssets/layer_blank.aep');
+        });
+
+        it(`Can create simple layer marker`, async () => {
+            const markerData = {
+                time: 0,
+                type: AEX_MARKER,
+            };
+
+            await aex().create(AeObject.Layer(1), markerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.markers;
+
+            assertAreEqual(route[route.length - 1], markerData);
+        });
+
+        it(`Can create complicated layer marker`, async () => {
+            const markerData = {
+                comment: 'Some Comment',
+                duration: 1,
+                label: 4,
+                time: 0.4667,
+                type: AEX_MARKER,
+            };
+
+            await aex().create(AeObject.Layer(1), markerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.markers;
+
+            assertAreEqual(route[route.length - 1], markerData);
         });
     });
 });
