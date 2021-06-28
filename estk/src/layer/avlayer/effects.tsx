@@ -121,6 +121,7 @@ function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexEffectPrope
     return updatedDropdownEffect;
 }
 
+/** @todo issue #19: Check if we need this in future versions of AE. */
 function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState): string[] {
     const propertyItems: string[] = [];
 
