@@ -1,5 +1,4 @@
 function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
-    // TODO: Assert key belongs to property
     const value = keyInfo ? keyInfo.value : aeProperty.value;
 
     if (isTextDocument(aeProperty)) {

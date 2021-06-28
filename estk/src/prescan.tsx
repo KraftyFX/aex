@@ -18,7 +18,6 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
 
     assignAttributes(state.getOptions, options || {});
 
-    // TODO: Cover collection types.
     if (isProject(aeObject)) {
         prescanProject(aeObject as Project, state);
     } else if (aeq.isComp(aeObject)) {
