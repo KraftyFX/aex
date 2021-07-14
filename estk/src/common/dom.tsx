@@ -18,6 +18,13 @@ function isVisibleLayer(layer: Layer): layer is AVLayer | TextLayer | ShapeLayer
     return aeq.isAVLayer(layer) || aeq.isTextLayer(layer) || aeq.isShapeLayer(layer);
 }
 
+function isEffectPropertyGroup(propertyGroup: PropertyGroup): boolean {
+    const propertyDepth = propertyGroup.propertyDepth;
+    const rootGroup = propertyGroup.propertyGroup(propertyDepth - 1);
+
+    return rootGroup.matchName === 'ADBE Effect Parade';
+}
+
 type ForEachPropertyGroupCallback = (property: PropertyBase, i: number, length: number) => void;
 
 function forEachPropertyInGroup(group: PropertyGroup, callback: ForEachPropertyGroupCallback, state: AexState) {
