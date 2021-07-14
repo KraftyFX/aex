@@ -42,17 +42,25 @@ function createLayerEffect(aeAvLayer: AVLayer | TextLayer | ShapeLayer, aexEffec
     let effect;
 
     if (isDropdownEffect) {
-        effect = _createDropdownEffect(aeLayerEffectGroup, aexEffect, state) as PropertyGroup;
+        effect = aeLayerEffectGroup.addProperty('ADBE Dropdown Control');
     } else {
         effect = aeLayerEffectGroup.addProperty(aexEffect.matchName) as PropertyGroup;
     }
+
+    setLayerEffect(effect, aexEffect, state);
+}
+
+function setLayerEffect(effect: PropertyGroup, aexEffect: AexEffectPropertyGroup, state: AexState) {
+    const isDropdownEffect = _isDropdownAexEffect(aexEffect, state);
 
     assignAttributes(effect, {
         name: aexEffect.name,
         enabled: aexEffect.enabled,
     });
 
-    if (!isDropdownEffect) {
+    if (isDropdownEffect) {
+        _setDropdownEffect(effect, aexEffect, state);
+    } else {
         setPropertyGroup(effect, aexEffect, state);
     }
 }
@@ -93,14 +101,7 @@ function _getDropdownProperty(effect: PropertyGroup, state: AexState): AexDropdo
     };
 }
 
-function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexEffectPropertyGroup, state: AexState): PropertyGroup {
-    const effect = effects.addProperty('ADBE Dropdown Control');
-
-    assignAttributes(effect, {
-        name: aexEffect.name,
-        enabled: aexEffect.enabled,
-    });
-
+function _setDropdownEffect(effect: PropertyGroup, aexEffect: AexEffectPropertyGroup, state: AexState) {
     const aexDropdownProperty = aexEffect.properties[0] as AexDropdownProperty;
     const dropdownProperty = effect.property(1) as Property;
 
@@ -115,10 +116,6 @@ function _createDropdownEffect(effects: PropertyGroup, aexEffect: AexEffectPrope
     if (aexDropdownProperty.value) {
         setProperty(updatedProperty as Property, aexDropdownProperty, state);
     }
-
-    const updatedDropdownEffect = updatedProperty.propertyGroup(1) as PropertyGroup;
-
-    return updatedDropdownEffect;
 }
 
 /** @todo issue #19: Check if we need this in future versions of AE. */
