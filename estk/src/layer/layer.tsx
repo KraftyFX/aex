@@ -113,7 +113,7 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexSerializedGroup, stat
 
             const animatorsGroup = aeLayer.text.property('ADBE Text Animators') as PropertyGroup;
 
-            return setTextLayerAnimators(animatorsGroup, [aexPropertyGroup] as AexAnimatorPropertyGroup[], state);
+            return createTextLayerAnimators(animatorsGroup, [aexPropertyGroup] as AexAnimatorPropertyGroup[], state);
 
         case AEX_LAYERSTYLE_PROPERTYGROUP:
             if (!isVisibleLayer(aeLayer)) {

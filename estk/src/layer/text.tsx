@@ -82,23 +82,27 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
     }
 
     if (aexTextLayer.animators) {
-        setTextLayerAnimators(animators, aexTextLayer.animators, state);
+        createTextLayerAnimators(animators, aexTextLayer.animators, state);
     }
 
     return layer;
 }
 
-function setTextLayerAnimators(aeAnimators: PropertyGroup, aexAnimators: AexPropertyGroup[], state: AexState) {
+function createTextLayerAnimators(aeAnimators: PropertyGroup, aexAnimators: AexPropertyGroup[], state: AexState) {
     aeq.arrayEx(aexAnimators).forEach((aexAnimator: AexPropertyGroup) => {
         let animator = aeAnimators.addProperty(aexAnimator.matchName) as PropertyGroup;
 
-        assignAttributes(animator, {
-            name: aexAnimator.name,
-            enabled: aexAnimator.enabled,
-        });
-
-        setPropertyGroup(animator, aexAnimator, state);
+        setTextLayerAnimator(animator, aexAnimator, state);
     });
+}
+
+function setTextLayerAnimator(aeAnimator: PropertyGroup, aexAnimator: AexPropertyGroup, state: AexState) {
+    assignAttributes(aeAnimator, {
+        name: aexAnimator.name,
+        enabled: aexAnimator.enabled,
+    });
+
+    setPropertyGroup(aeAnimator, aexAnimator, state);
 }
 
 function updateAexTextLayer(aeTextLayer: TextLayer, aexTextLayer: AexTextLayer, state: AexState) {

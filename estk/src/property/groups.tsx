@@ -121,6 +121,13 @@ function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: Aex
             return setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
 
         case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
+            if (propertyGroup.matchName !== 'ADBE Text Animator') {
+                throw fail(`Property '${propertyGroup.name}' is not a Text Animator`);
+            }
+
+            setTextLayerAnimator(propertyGroup, aexPropertyGroup as AexAnimatorPropertyGroup, state);
+            break;
+
         case AEX_LAYERSTYLE_PROPERTYGROUP:
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
