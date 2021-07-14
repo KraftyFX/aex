@@ -1237,4 +1237,165 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
     });
+
+    describe('Update Existing Effect', async () => {
+        before(async () => {
+            await openProject('testAssets/layer_effects.aep');
+        });
+
+        it('Can update simple modified effect', async () => {
+            const effectData = {
+                matchName: 'ADBE Fill',
+                name: 'Fill - Updated',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0007',
+                        name: 'All Masks',
+                        type: AEX_ONED_PROPERTY,
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0002',
+                        name: 'Color',
+                        type: AEX_COLOR_PROPERTY,
+                        value: [1, 0.5, 0, 1],
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0006',
+                        name: 'Invert',
+                        type: AEX_ONED_PROPERTY,
+                        value: 1,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0003',
+                        name: 'Horizontal Feather',
+                        type: AEX_ONED_PROPERTY,
+                        value: 2.2,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0004',
+                        name: 'Vertical Feather',
+                        type: AEX_ONED_PROPERTY,
+                        value: 2.8,
+                    },
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fill-0005',
+                        name: 'Opacity',
+                        type: AEX_ONED_PROPERTY,
+                        value: 0.79,
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'effect(1)'), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[0], effectData);
+        });
+
+        it('Can update effect compositing options', async () => {
+            const effectData = {
+                matchName: 'ADBE Fill',
+                name: 'Fill - Updated Compositing Options',
+                properties: [
+                    {
+                        matchName: 'ADBE Effect Built In Params',
+                        properties: [
+                            {
+                                matchName: 'ADBE Effect Mask Parade',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Effect Mask',
+                                        name: 'Mask Reference 1',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Effect Path Stream Ref',
+                                                name: 'Mask Reference 1',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 1,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                keys: [],
+                                matchName: 'ADBE Effect Mask Opacity',
+                                name: 'Effect Opacity',
+                                type: AEX_ONED_PROPERTY,
+                                value: 50,
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'effect(1)'), effectData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+            const compOptions = layer.effects[0].properties.find((effect: any) => effect.matchName == 'ADBE Effect Built In Params');
+
+            assertAreEqual(compOptions, effectData.properties[0]);
+        });
+
+        it('Can update modified expression controls', async () => {
+            const effectData = {
+                name: '3D Point Control',
+                matchName: 'ADBE Point3D Control',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Point3D Control-0001',
+                        name: '3D Point',
+                        type: AEX_THREED_PROPERTY,
+                        value: [0, 0, 0],
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(2, 'effect(1)'), effectData);
+
+            const result = await aex().get(AeObject.Layer(2));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[0], effectData);
+        });
+
+        it('Can update nested effect groups', async () => {
+            const effectData = {
+                matchName: 'ADBE Fractal Noise',
+                name: 'Updated Fractal Noise',
+                properties: [
+                    {
+                        keys: [],
+                        matchName: 'ADBE Fractal Noise-0010',
+                        name: 'Scale',
+                        type: AEX_ONED_PROPERTY,
+                        value: 98.76,
+                    },
+                ],
+                type: AEX_EFFECT_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(4, 'effect(1)'), effectData);
+
+            const result = await aex().get(AeObject.Layer(4));
+            const layer = result.object;
+
+            assertAreEqual(layer.effects[0], effectData);
+        });
+    });
 });
