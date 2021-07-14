@@ -114,6 +114,10 @@ function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: Aex
                 throw fail(`Property '${propertyGroup.name}' is not an effect`);
             }
 
+            if (propertyGroup.matchName !== aexPropertyGroup.matchName) {
+                throw fail(`Can't update AE effect '${propertyGroup.name}' with AEX effect '${aexPropertyGroup.name} – effects are not the same.`);
+            }
+
             return setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
 
         case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
