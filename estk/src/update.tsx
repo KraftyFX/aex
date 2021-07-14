@@ -1,6 +1,7 @@
 function update(aeObject: Project, aexObject: AexProject, options?: UpdateOptions): UpdateResult;
 function update(aeObject: CompItem, aexObject: AexComp, options?: UpdateOptions): UpdateResult;
 function update(aeObject: Layer, aexObject: AexLayer, options?: UpdateOptions): UpdateResult;
+function update(aeObject: PropertyGroup, aexObject: AexSerializedGroup, options?: UpdateOptions): UpdateResult;
 function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>, options?: UpdateOptions): UpdateResult {
     assertIsDefined(aeObject, 'aeObject');
     assertIsDefined(aexObject, 'aexObject');
@@ -47,6 +48,10 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         app.beginUndoGroup('AEX: Update Layer');
         updateAeLayer(aeObject, aexObject as AexLayer, state);
         app.endUndoGroup();
+    } else if (isUpdatingPropertyGroup(aeObject, aexObject)) {
+        app.beginUndoGroup('AEX: Update Property Group');
+        updatePropertyGroup(aeObject, aexObject as AexSerializedGroup, state);
+        app.endUndoGroup();
     } else {
         throw notSupported(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}'`);
     }
@@ -69,4 +74,8 @@ function isUpdatingComp(aeObject: Serializable, aexObject: AexSerialized | GetRe
 
 function isUpdatingLayer(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is Layer {
     return aeq.isLayer(aeObject) && isAexLayer(aexObject as AexSerialized);
+}
+
+function isUpdatingPropertyGroup(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is PropertyGroup {
+    return aeq.isPropertyGroup(aeObject) && isAexSerializedGroup(aexObject as AexSerialized);
 }

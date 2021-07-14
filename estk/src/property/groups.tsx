@@ -105,3 +105,23 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
         }
     });
 }
+
+function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexSerializedGroup, state: AexState) {
+    switch (aexPropertyGroup.type as AexPropertyGroupType) {
+        case AEX_DROPDOWN_EFFECT_PROPERTYGROUP:
+        case AEX_EFFECT_PROPERTYGROUP:
+            if (!isEffectPropertyGroup(propertyGroup)) {
+                throw fail(`Property '${propertyGroup.name}' is not an effect`);
+            }
+
+            return setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
+
+        case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
+        case AEX_LAYERSTYLE_PROPERTYGROUP:
+        case AEX_SHAPEGROUP_PROPERTYGROUP:
+        case AEX_SHAPEITEM_PROPERTYGROUP:
+
+        default:
+            throw notImplemented(`Updating a '${aexPropertyGroup.type}'`);
+    }
+}
