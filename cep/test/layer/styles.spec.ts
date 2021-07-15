@@ -827,4 +827,75 @@ describe('Layer Styles', function () {
             assertAreEqual(layer.layerStyles.properties[layer.layerStyles.properties.length - 1], styleData);
         });
     });
+
+    describe('Update Existing Styles', async () => {
+        it('Can update style', async () => {
+            const styleData = {
+                name: 'Drop Shadow',
+                matchName: 'dropShadow/enabled',
+                enabled: true,
+                properties: [
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Blend Mode',
+                        matchName: 'dropShadow/mode2',
+                        value: 12,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Opacity',
+                        matchName: 'dropShadow/opacity',
+                        value: 12,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Angle',
+                        matchName: 'dropShadow/localLightingAngle',
+                        value: 100,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Distance',
+                        matchName: 'dropShadow/distance',
+                        value: 10,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Spread',
+                        matchName: 'dropShadow/chokeMatte',
+                        value: 7,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Size',
+                        matchName: 'dropShadow/blur',
+                        value: 18,
+                        keys: [],
+                    },
+                    {
+                        type: AEX_ONED_PROPERTY,
+                        name: 'Noise',
+                        matchName: 'dropShadow/noise',
+                        value: 10,
+                        keys: [],
+                    },
+                ],
+                type: AEX_LAYERSTYLE_PROPERTYGROUP,
+            };
+
+            await openProject('testAssets/layer_styles.aep');
+            await aex().update(AeObject.LayerProp(1, 'layerStyle.property(2)'), styleData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            console.log('updated layer style drop shadow', layer.layerStyles);
+            assertAreEqual(layer.layerStyles.properties[layer.layerStyles.properties.length - 1], styleData);
+        });
+    });
 });

@@ -118,7 +118,8 @@ function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: Aex
                 throw fail(`Can't update AE effect '${propertyGroup.name}' with AEX effect '${aexPropertyGroup.name} – effects are not the same.`);
             }
 
-            return setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
+            setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
+            break;
 
         case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
             if (propertyGroup.matchName !== 'ADBE Text Animator') {
@@ -129,6 +130,9 @@ function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: Aex
             break;
 
         case AEX_LAYERSTYLE_PROPERTYGROUP:
+            setPropertyGroup(propertyGroup, aexPropertyGroup, state);
+            break;
+
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
 
