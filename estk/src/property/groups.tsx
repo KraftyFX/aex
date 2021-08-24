@@ -130,11 +130,10 @@ function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: Aex
             break;
 
         case AEX_LAYERSTYLE_PROPERTYGROUP:
-            setPropertyGroup(propertyGroup, aexPropertyGroup, state);
-            break;
-
         case AEX_SHAPEGROUP_PROPERTYGROUP:
         case AEX_SHAPEITEM_PROPERTYGROUP:
+            setPropertyGroup(propertyGroup, aexPropertyGroup, state);
+            break;
 
         default:
             throw notImplemented(`Updating a '${aexPropertyGroup.type}'`);

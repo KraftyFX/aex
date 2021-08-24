@@ -1580,6 +1580,29 @@ describe('Shape Layers', function () {
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
 
+        it(`Can update existing shape groups`, async () => {
+            const shapeItemData = {
+                properties: [
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 3',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPEITEM_PROPERTYGROUP,
+            };
+
+            await openProject('testAssets/layer_shapelayer.aep');
+            await aex().update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
+
+            const result = await aex().get(AeObject.Layer(2));
+            const layer = result.object;
+            const shapeGroup = layer.contents[0];
+            const contents = shapeGroup.contents;
+
+            assertAreEqual(contents[contents.length - 1], shapeItemData.properties[0]);
+        });
+
         //   it(`Can create ungrouped shape items`, async () => {
         //     const shapeData = {
         //         contents: [
