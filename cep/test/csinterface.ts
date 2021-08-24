@@ -193,7 +193,7 @@ window.addEventListener('message', (event: any) => {
                 request.resolve(data.result);
             }
         } else {
-            const estkError = event.data;
+            const estkError = event.data.result;
 
             const { name, message, fileName, line } = estkError;
             const err: any = new Error(message);
