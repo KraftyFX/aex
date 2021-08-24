@@ -62,28 +62,14 @@ function createAeTextLayer(aeComp: CompItem, aexTextLayer: AexTextLayer, state: 
         layer = aeComp.layers.addBoxText(boxSize, textValue);
     }
 
-    setAvLayerAttributes(layer, aexTextLayer, state);
-
-    assignAttributes(layer, {
-        threeDPerChar: aexTextLayer.threeDPerChar,
-    });
-
     const text = layer.text;
     const animators = text.property('ADBE Text Animators') as PropertyGroup;
-
-    setProperty(text.sourceText, aexTextLayer.sourceText, state);
-
-    if (aexTextLayer.pathOption) {
-        setPropertyGroup(text.pathOption, aexTextLayer.pathOption, state);
-    }
-
-    if (aexTextLayer.moreOption) {
-        setPropertyGroup(text.moreOption, aexTextLayer.moreOption, state);
-    }
 
     if (aexTextLayer.animators) {
         createTextLayerAnimators(animators, aexTextLayer.animators, state);
     }
+
+    updateAexTextLayer(layer, aexTextLayer, state);
 
     return layer;
 }
@@ -106,5 +92,25 @@ function setTextLayerAnimator(aeAnimator: PropertyGroup, aexAnimator: AexPropert
 }
 
 function updateAexTextLayer(aeTextLayer: TextLayer, aexTextLayer: AexTextLayer, state: AexState) {
-    throw notImplemented(`Updating a text layer`);
+    setAvLayerAttributes(aeTextLayer, aexTextLayer, state);
+
+    const text = aeTextLayer.text;
+
+    if (aexTextLayer.threeDPerChar) {
+        assignAttributes(aeTextLayer, {
+            threeDPerChar: aexTextLayer.threeDPerChar,
+        });
+    }
+
+    if (aexTextLayer.sourceText) {
+        setProperty(text.sourceText, aexTextLayer.sourceText, state);
+    }
+
+    if (aexTextLayer.pathOption) {
+        setPropertyGroup(text.pathOption, aexTextLayer.pathOption, state);
+    }
+
+    if (aexTextLayer.moreOption) {
+        setPropertyGroup(text.moreOption, aexTextLayer.moreOption, state);
+    }
 }
