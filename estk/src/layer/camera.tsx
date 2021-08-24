@@ -31,6 +31,12 @@ function getAexCameraLayer(aeCameraLayer: CameraLayer, state: AexState): AexCame
 
 function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, state: AexState) {
     const aeCameraLayer = aeComp.layers.addCamera(aexCameraLayer.name, _getCameraCenterPoint(aeComp, aexCameraLayer));
+    updateAexCameraLayer(aeCameraLayer, aexCameraLayer, state);
+
+    return aeCameraLayer;
+}
+
+function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCameraLayer, state: AexState) {
     setLayerAttributes(aeCameraLayer, aexCameraLayer, state);
 
     /** We're inferring 'One-Node' vs 'Two-Node' based on whether this property exists, as opposed to serializing an additional property */
@@ -47,10 +53,6 @@ function createAeCameraLayer(aeComp: CompItem, aexCameraLayer: AexCameraLayer, s
     }
 
     return aeCameraLayer;
-}
-
-function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCameraLayer, state: AexState) {
-    throw notImplemented(`Updating a camera layer`);
 }
 
 function _getCameraCenterPoint(aeComp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {
