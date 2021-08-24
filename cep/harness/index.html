@@ -5,8 +5,28 @@
       * { margin: 0; padding: 0; background-color: white; overflow: none; }
     </style>
   </head>
+  <script>
+        window.addEventListener('message', function(event) {
+          if (event.data.source === 'kraftyfx.evalScript.request') {
+            window.__adobe_cep__.evalScript(event.data.code, function (result) { 
+              var frm = document.getElementById('frm');
+              frm.contentWindow.postMessage({ source: 'kraftyfx.evalScript.response', result: result.data }, '*');
+            });
+          }
+        });
+
+        window.__adobe_cep__.addEventListener('aex_result', function (result) {
+          var frm = document.getElementById('frm');
+          frm.contentWindow.postMessage({ source: 'kraftyfx.aex_result', result: result.data }, '*');
+        });
+        
+        window.__adobe_cep__.addEventListener('aex_callback', function (result) {
+          var frm = document.getElementById('frm');
+          frm.contentWindow.postMessage({ source: 'kraftyfx.aex_callback', result: result.data }, '*');
+        });
+  </script>
   <body>
-    <iframe src="http://localhost:9000/mocha.html" style="position: absolute; width: 100%; height: 100%; border: 0" />
+    <iframe id="frm" src="http://localhost:9000/mocha.html" style="position: absolute; width: 100%; height: 100%; border: 0" />
     <div style="color: black; position: absolute; top: 0; right: 0; z-index: 1;"><a href="http://localhost:8094/" target="new">Debugger</a></div>
   </body>
 </html>
