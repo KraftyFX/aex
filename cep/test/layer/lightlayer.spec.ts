@@ -223,4 +223,104 @@ describe('Light Layer Attributes', function () {
             expect(comp.layers[2].lightType).to.eql(compData.layers[2].lightType);
         });
     });
+
+    describe('Update', async () => {
+        beforeEach(async () => {
+            await openProject('testAssets/layer_light.aep');
+        });
+
+        it(`Can update light layer attributes`, async () => {
+            const layerData = {
+                label: 9,
+                lightType: 4414,
+                markers: [],
+                name: 'Updated Parallel Light',
+                lightOption: {
+                    matchName: 'ADBE Light Options Group',
+                    properties: [
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Intensity',
+                            name: 'Intensity',
+                            value: 12,
+                        },
+                        {
+                            type: AEX_COLOR_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Color',
+                            name: 'Color',
+                            value: [1, 1, 0, 1],
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Type',
+                            name: 'Falloff',
+                            value: 2,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Start',
+                            name: 'Radius',
+                            value: 100,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Distance',
+                            name: 'Falloff Distance',
+                            value: 400,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Casts Shadows',
+                            name: 'Casts Shadows',
+                            value: 1,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Shadow Darkness',
+                            name: 'Shadow Darkness',
+                            value: 60,
+                        },
+                    ],
+                },
+                transform: {
+                    position: {
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        type: AEX_THREED_PROPERTY,
+                        value: [500, 400, 600],
+                    },
+                },
+                type: AEX_LIGHT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer, layerData);
+        });
+
+        it(`Can update light layer types`, async () => {
+            const layerData = {
+                lightType: 4414,
+                type: AEX_LIGHT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.lightType, layerData.lightType);
+        });
+    });
 });
