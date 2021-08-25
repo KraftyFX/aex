@@ -1580,29 +1580,6 @@ describe('Shape Layers', function () {
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
 
-        it(`Can update existing shape groups`, async () => {
-            const shapeItemData = {
-                properties: [
-                    {
-                        matchName: 'ADBE Vector Graphic - Fill',
-                        name: 'Fill 3',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPEITEM_PROPERTYGROUP,
-            };
-
-            await openProject('testAssets/layer_shapelayer.aep');
-            await aex().update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
-
-            const result = await aex().get(AeObject.Layer(2));
-            const layer = result.object;
-            const shapeGroup = layer.contents[0];
-            const contents = shapeGroup.contents;
-
-            assertAreEqual(contents[contents.length - 1], shapeItemData.properties[0]);
-        });
-
         //   it(`Can create ungrouped shape items`, async () => {
         //     const shapeData = {
         //         contents: [
@@ -1688,5 +1665,80 @@ describe('Shape Layers', function () {
 
         //     assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         // });
+    });
+
+    describe('Update Existing Shapes', async () => {
+        beforeEach(async () => {
+            await openProject('testAssets/layer_shapelayer.aep');
+        });
+
+        it(`Can update existing shape layer contents`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 2',
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                name: 'Updated Shape Contents',
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents[layer.contents.length - 1], layerData.contents[0]);
+        });
+
+        it(`Can update existing shape fills`, async () => {
+            const shapeItemData = {
+                properties: [
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                        properties: [
+                            {
+                                keys: [],
+                                matchName: 'ADBE Vector Fill Color',
+                                name: 'Color',
+                                type: AEX_COLOR_PROPERTY,
+                                value: [1, 0.5, 0, 1],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_SHAPEITEM_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
+
+            const result = await aex().get(AeObject.Layer(2));
+            const layer = result.object;
+            const shapeGroup = layer.contents[0];
+            const contents = shapeGroup.contents;
+
+            assertAreEqual(contents[contents.length - 1], shapeItemData.properties[0]);
+        });
     });
 });
