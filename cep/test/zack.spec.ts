@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
 import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from './constants';
-import { cleanupAex, evalAexIntoEstk } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
 describe.skip('Zack Test Stuff', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(9999999999);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -166,6 +166,37 @@ describe.skip('Zack Test Stuff', function () {
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
+        });
+    });
+
+    describe.only('Set & Get', function () {
+        let initialProject: any;
+
+        before(async () => {
+            await openProject('testAssets/prescan_2_nested_precomps_project.aep');
+        });
+
+        it('Can get() test project', async () => {
+            const result = await aex().get(AeObject.Project);
+            initialProject = result.object;
+
+            console.log('initial conversion', initialProject);
+        });
+
+        it('Can rebuild test project', async () => {
+            // Clear project
+            await openCleanProject();
+
+            // Rebuild project from scan
+            await aex().update(AeObject.Project, initialProject);
+
+            // Scan project again
+            const result = await aex().get(AeObject.Project);
+            const rebuiltProject = result.object;
+
+            console.log('rebuilt project', rebuiltProject);
+
+            assertAreEqual(initialProject, rebuiltProject);
         });
     });
 });
