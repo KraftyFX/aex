@@ -172,12 +172,11 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
         solo: aexLayer.solo,
     });
 
-    _setLayerParent(aeLayer, aexLayer, state);
     _setLayerMarkers(aeLayer, aexLayer, state);
     updateLayerTransform(aeLayer, aexLayer.transform, state);
 }
 
-function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
+function setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     if (aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
         return;
     }

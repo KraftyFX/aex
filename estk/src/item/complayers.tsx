@@ -17,9 +17,21 @@ function getAexCompLayers(aeComp: CompItem, state: AexState) {
 }
 
 function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
+    const layersWithParents = aeq.arrayEx();
+
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
         if (!aeLayer) {
             aeLayer = createAeLayer(aeComp, aexLayer, state);
+
+            /**
+             * Voodoo
+             *
+             * When deserializing entire comps, we need to first create all layers before setting layer parents.
+             * To that end, we'll keep track of which layers have parents, and then set the parents below.
+             */
+            if (aexLayer.parentLayerIndex) {
+                layersWithParents.push(aexComp.layers.length - i);
+            }
         } else {
             updateAeLayer(aeLayer, aexLayer, state);
         }
@@ -50,6 +62,17 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
         default:
             throw fail(`Unrecognized layer matching method "${matchBy}"`);
     }
+
+    /**
+     * Once all layers have been created, go set the parents & update their transforms
+     */
+    layersWithParents.forEach(function (parentedLayerIndex) {
+        const aeLayer = aeComp.layer(parentedLayerIndex);
+        const aexLayer = aexComp.layers[aexComp.layers.length - parentedLayerIndex];
+
+        setLayerParent(aeLayer, aexLayer, state);
+        updateLayerTransform(aeLayer, aexLayer.transform, state);
+    });
 }
 
 function forEachLayerPairByIndex(aexLayers: AexLayer[], aeComp: CompItem, callback: (aexLayer: AexLayer, aeLayer: Layer, i) => void) {
