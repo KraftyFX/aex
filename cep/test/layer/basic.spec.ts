@@ -671,57 +671,8 @@ describe('Basic Layer Attributes', function () {
 
             assertAreEqual(layer, layerData);
         });
-    });
 
-    describe('Update', async () => {
-        beforeEach(async () => {
-            await openProject('testAssets/comp_basic.aep');
-        });
-
-        it(`Can set parented layers`, async () => {
-            const compData = {
-                layers: [
-                    {
-                        effects: [],
-                        label: 1,
-                        markers: [],
-                        masks: [],
-                        name: 'Parented Solid',
-                        parentLayerIndex: 2,
-                        trackers: [],
-                        transform: {
-                            position: {
-                                type: AEX_THREED_PROPERTY,
-                                keys: [],
-                                matchName: 'ADBE Position',
-                                name: 'Position',
-                                value: [0, 0, 0],
-                            },
-                        },
-                        type: AEX_SOLID_LAYER,
-                    },
-                    {
-                        markers: [],
-                        name: '_Parent Layer',
-                        transform: {},
-                        type: AEX_CAMERA_LAYER,
-                    },
-                ],
-                markers: [],
-                type: AEX_COMP_ITEM,
-            };
-
-            await aex().update(AeObject.ActiveComp, compData);
-
-            const result = await aex().get(AeObject.Layer(1));
-            const layer = result.object;
-
-            (compData.layers[0] as any).source = layer.source;
-
-            assertAreEqual(layer, compData.layers[0]);
-        });
-
-        it(`Can set 3d layers`, async () => {
+        it(`Can create 3d layers`, async () => {
             const layerData = {
                 contents: [],
                 effects: [],
@@ -864,7 +815,120 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(layer, layerData);
         });
 
-        it(`Can set time remap enabled (but not modified)`, async () => {
+        it(`Can create matte and matted layers`, async () => {
+            const compData = {
+                layers: [
+                    {
+                        effects: [],
+                        label: 9,
+                        markers: [],
+                        masks: [],
+                        name: 'Matte Solid',
+                        trackers: [],
+                        transform: {},
+                        type: AEX_SOLID_LAYER,
+                    },
+                    {
+                        animators: [],
+                        effects: [],
+                        label: 9,
+                        markers: [],
+                        masks: [],
+                        name: 'Matted Text Layer',
+                        sourceText: {
+                            type: AEX_TEXTDOCUMENT_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Document',
+                            name: 'Source Text',
+                            value: {
+                                applyFill: true,
+                                baselineLocs: [-198.2544, 0, 198.2544, 0],
+                                baselineShift: 0,
+                                fillColor: [1, 1, 1],
+                                font: 'ArialMT',
+                                fontFamily: 'Arial',
+                                fontSize: 50,
+                                fontStyle: 'Regular',
+                                horizontalScale: 1,
+                                justification: 7415,
+                                leading: 60,
+                                pointText: true,
+                                text: 'Matted Text Layer',
+                                tracking: 0,
+                                tsume: 0,
+                                verticalScale: 1,
+                            },
+                        },
+                        transform: {},
+                        trackMatteType: 5013,
+                        type: AEX_TEXT_LAYER,
+                    },
+                ],
+                markers: [],
+                type: AEX_COMP_ITEM,
+            };
+
+            await aex().create(AeObject.Project, compData);
+
+            const result = await aex().get(AeObject.ActiveComp);
+            const comp = result.object;
+
+            (compData.layers[0] as any).source = comp.layers[0].source;
+
+            assertAreEqual(comp.layers[0], compData.layers[0]);
+            assertAreEqual(comp.layers[1], compData.layers[1]);
+        });
+    });
+
+    describe('Update Project', async () => {
+        beforeEach(async () => {
+            await openProject('testAssets/comp_basic.aep');
+        });
+
+        it(`Can update project with parented layers`, async () => {
+            const compData = {
+                layers: [
+                    {
+                        effects: [],
+                        label: 1,
+                        markers: [],
+                        masks: [],
+                        name: 'Parented Solid',
+                        parentLayerIndex: 2,
+                        trackers: [],
+                        transform: {
+                            position: {
+                                type: AEX_THREED_PROPERTY,
+                                keys: [],
+                                matchName: 'ADBE Position',
+                                name: 'Position',
+                                value: [0, 0, 0],
+                            },
+                        },
+                        type: AEX_SOLID_LAYER,
+                    },
+                    {
+                        markers: [],
+                        name: '_Parent Layer',
+                        transform: {},
+                        type: AEX_CAMERA_LAYER,
+                    },
+                ],
+                markers: [],
+                type: AEX_COMP_ITEM,
+            };
+
+            await aex().update(AeObject.ActiveComp, compData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            (compData.layers[0] as any).source = layer.source;
+
+            assertAreEqual(layer, compData.layers[0]);
+        });
+
+        it(`Can update project with unmodified time-remapped layers`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -956,7 +1020,7 @@ describe('Basic Layer Attributes', function () {
             assertAreEqual(layer, projectData.comps[1].layers[0]);
         });
 
-        it(`Can set time remap enabled (and modified)`, async () => {
+        it(`Can update project with modified time-remapped layers`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -1047,69 +1111,91 @@ describe('Basic Layer Attributes', function () {
 
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
         });
+    });
 
-        it(`Can set matte and matted layers`, async () => {
-            const compData = {
-                layers: [
-                    {
-                        effects: [],
-                        label: 9,
-                        markers: [],
-                        masks: [],
-                        name: 'Matte Solid',
-                        trackers: [],
-                        transform: {},
-                        type: AEX_SOLID_LAYER,
-                    },
-                    {
-                        animators: [],
-                        effects: [],
-                        label: 9,
-                        markers: [],
-                        masks: [],
-                        name: 'Matted Text Layer',
-                        sourceText: {
-                            type: AEX_TEXTDOCUMENT_PROPERTY,
-                            keys: [],
-                            matchName: 'ADBE Text Document',
-                            name: 'Source Text',
-                            value: {
-                                applyFill: true,
-                                baselineLocs: [-198.2544, 0, 198.2544, 0],
-                                baselineShift: 0,
-                                fillColor: [1, 1, 1],
-                                font: 'ArialMT',
-                                fontFamily: 'Arial',
-                                fontSize: 50,
-                                fontStyle: 'Regular',
-                                horizontalScale: 1,
-                                justification: 7415,
-                                leading: 60,
-                                pointText: true,
-                                text: 'Matted Text Layer',
-                                tracking: 0,
-                                tsume: 0,
-                                verticalScale: 1,
-                            },
-                        },
-                        transform: {},
-                        trackMatteType: 5013,
-                        type: AEX_TEXT_LAYER,
-                    },
-                ],
-                markers: [],
-                type: AEX_COMP_ITEM,
+    describe('Update Layers', async () => {
+        beforeEach(async () => {
+            await openProject('testAssets/layer_basic.aep');
+        });
+
+        it(`Can update AVLayer attributes`, async () => {
+            const layerData = {
+                adjustmentLayer: true,
+                guideLayer: true,
+                motionBlur: true,
+                name: 'Updated Text Layer',
+                type: AEX_TEXT_LAYER,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex().update(AeObject.Layer(2), layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
-            const comp = result.object;
+            const result = await aex().get(AeObject.Layer(2));
+            const layer = result.object;
 
-            (compData.layers[0] as any).source = comp.layers[0].source;
+            assertAreEqual(layer.adjustmentLayer, layerData.adjustmentLayer);
+            assertAreEqual(layer.guideLayer, layerData.guideLayer);
+            assertAreEqual(layer.motionBlur, layerData.motionBlur);
+            assertAreEqual(layer.name, layerData.name);
+        });
 
-            assertAreEqual(comp.layers[0], compData.layers[0]);
-            assertAreEqual(comp.layers[1], compData.layers[1]);
+        it(`Can update Time Remap attributes`, async () => {
+            const layerData = {
+                timeRemap: {
+                    type: AEX_ONED_PROPERTY,
+                    keys: [
+                        {
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.66667,
+                                        speed: 0,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.66667,
+                                        speed: 1,
+                                    },
+                                ],
+                            },
+                            time: 0,
+                            type: AEX_KEY,
+                            value: 1,
+                        },
+                        {
+                            temporalEase: {
+                                inEase: [
+                                    {
+                                        influence: 16.66667,
+                                        speed: 1,
+                                    },
+                                ],
+                                outEase: [
+                                    {
+                                        influence: 16.66667,
+                                        speed: 0,
+                                    },
+                                ],
+                            },
+                            time: 2,
+                            type: AEX_KEY,
+                            value: 3,
+                        },
+                    ],
+                    matchName: 'ADBE Time Remapping',
+                    name: 'Time Remap',
+                    value: 3,
+                },
+                timeRemapEnabled: true,
+                type: AEX_COMP_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(9), layerData);
+
+            const result = await aex().get(AeObject.Layer(9));
+            const layer = result.object;
+
+            assertAreEqual(layer.timeRemap, layerData.timeRemap);
         });
     });
 });
