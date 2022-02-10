@@ -19,7 +19,7 @@ describe('Layer Animation', function () {
         let project: any;
 
         before(async () => {
-            await openProject('testAssets/property_animated.aep');
+            await openProject('assets/property_animated.aep');
             const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('property_animated', project);
@@ -628,7 +628,7 @@ describe('Layer Animation', function () {
 
     describe('Create Keyframe On Property', async () => {
         beforeEach(async () => {
-            await openProject('testAssets/layer_blank.aep');
+            await openProject('assets/layer_blank.aep');
         });
 
         it(`Can create an eased keyframe`, async () => {

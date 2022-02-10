@@ -27,7 +27,7 @@ describe('Shape Layers', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_shapelayer.aep');
+            await openProject('assets/layer_shapelayer.aep');
             const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_shapelayer', comp);
@@ -1123,7 +1123,7 @@ describe('Shape Layers', function () {
 
     describe('Create Shape on Existing Layer', async () => {
         before(async () => {
-            await openProject('testAssets/layer_shapelayer_blank.aep');
+            await openProject('assets/layer_shapelayer_blank.aep');
         });
 
         it(`Can create default shape item`, async () => {

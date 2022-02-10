@@ -32,7 +32,7 @@ describe('Layer Effects', function () {
         let rotobrushComp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_effects.aep');
+            await openProject('assets/layer_effects.aep');
 
             const result = await aex().get(AeObject.Project);
             const project = result.object;
@@ -921,7 +921,7 @@ describe('Layer Effects', function () {
 
     describe('Create Effect on Existing Layer', async () => {
         before(async () => {
-            await openProject('testAssets/layer_blank.aep');
+            await openProject('assets/layer_blank.aep');
         });
 
         it('Can create simple unmodified effect', async () => {

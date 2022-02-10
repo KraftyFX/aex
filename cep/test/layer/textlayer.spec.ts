@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
 import {
-    AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+    AEX_KEY,
     AEX_ONED_PROPERTY,
     AEX_SHAPE_PROPERTY,
     AEX_TEXTDOCUMENT_PROPERTY,
+    AEX_TEXT_ANIMATOR_PROPERTYGROUP,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
     AEX_TWOD_PROPERTY,
-    AEX_KEY,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -29,7 +29,7 @@ describe('Text Layer Attributes', function () {
         let project: any;
 
         before(async () => {
-            await openProject('testAssets/layer_text.aep');
+            await openProject('assets/layer_text.aep');
             const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('layer_text', project);
@@ -1114,7 +1114,7 @@ describe('Text Layer Attributes', function () {
 
     describe('Create Animator on Existing Text Layer', async () => {
         before(async () => {
-            await openProject('testAssets/layer_text_blank.aep');
+            await openProject('assets/layer_text_blank.aep');
         });
 
         it('Can create multiple Text Animator Selectors on one layer', async () => {

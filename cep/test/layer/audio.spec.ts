@@ -20,7 +20,7 @@ describe('Layer Audio', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_audio.aep');
+            await openProject('assets/layer_audio.aep');
             const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_audio', comp);

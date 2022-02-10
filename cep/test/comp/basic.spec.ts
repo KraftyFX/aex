@@ -17,7 +17,7 @@ describe('Comp', function () {
 
     describe('Get', async () => {
         it(`Can parse basic comp attributes`, async () => {
-            await openProject('testAssets/comp_basic.aep');
+            await openProject('assets/comp_basic.aep');
 
             const { object: comp } = await aex().get(AeObject.ActiveComp);
 

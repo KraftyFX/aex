@@ -8,7 +8,7 @@ describe('Unsupported Properties', function () {
 
     before(async () => {
         await evalAexIntoEstk();
-        await openProject('testAssets/property_unsupported.aep');
+        await openProject('assets/property_unsupported.aep');
     });
 
     after(async () => {

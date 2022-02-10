@@ -20,7 +20,7 @@ describe('Layer Styles', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_styles.aep');
+            await openProject('assets/layer_styles.aep');
             const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_styles', comp);
@@ -734,7 +734,7 @@ describe('Layer Styles', function () {
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
             };
 
-            await openProject('testAssets/layer_blank.aep');
+            await openProject('assets/layer_blank.aep');
             await aex().create(AeObject.Layer(1), styleData);
 
             const result = await aex().get(AeObject.Layer(1));
@@ -817,7 +817,7 @@ describe('Layer Styles', function () {
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
             };
 
-            await openProject('testAssets/layer_blank.aep');
+            await openProject('assets/layer_blank.aep');
             await aex().create(AeObject.Layer(1), styleData);
 
             const result = await aex().get(AeObject.Layer(1));

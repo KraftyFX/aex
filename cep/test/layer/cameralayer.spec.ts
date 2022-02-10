@@ -19,7 +19,7 @@ describe('Camera Layer Attributes', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_camera.aep');
+            await openProject('assets/layer_camera.aep');
             const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_camera', comp);

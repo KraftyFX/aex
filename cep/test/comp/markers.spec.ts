@@ -19,7 +19,7 @@ describe('Comp Markers', function () {
         let project: any;
 
         before(async () => {
-            await openProject('testAssets/comp_markers.aep');
+            await openProject('assets/comp_markers.aep');
             const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('comp_markers', project);
@@ -192,7 +192,7 @@ describe('Comp Markers', function () {
 
     describe('Create on Existing Comp', async () => {
         before(async () => {
-            await openProject('testAssets/layer_basic.aep');
+            await openProject('assets/layer_basic.aep');
         });
 
         it(`Can create simple marker`, async () => {

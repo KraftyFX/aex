@@ -19,7 +19,7 @@ describe('Layer Transform', function () {
         let project: any;
 
         before(async () => {
-            await openProject('testAssets/layer_transform.aep');
+            await openProject('assets/layer_transform.aep');
             const result = await aex().get(AeObject.Project);
             project = result.object;
             console.log('layer_transform', project);

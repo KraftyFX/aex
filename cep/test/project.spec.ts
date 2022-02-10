@@ -17,7 +17,7 @@ describe('Project', function () {
 
     describe('Get', async () => {
         it(`Can parse basic project attributes`, async () => {
-            await openProject('testAssets/project_basic.aep');
+            await openProject('assets/project_basic.aep');
 
             const result = await aex().get(AeObject.Project);
             const project = result.object;
@@ -41,7 +41,7 @@ describe('Project', function () {
         });
 
         it(`Can parse basic project items`, async () => {
-            await openProject('testAssets/project_basic_items.aep');
+            await openProject('assets/project_basic_items.aep');
 
             const result = await aex().get(AeObject.Project);
             const project = result.object;
@@ -82,7 +82,7 @@ describe('Project', function () {
         });
 
         it(`Can parse flat project folders`, async () => {
-            await openProject('testAssets/project_folders-flat.aep');
+            await openProject('assets/project_folders-flat.aep');
 
             const result = await aex().get(AeObject.Project);
             const project = result.object;
@@ -105,7 +105,7 @@ describe('Project', function () {
         });
 
         it(`Can parse nested project folders`, async () => {
-            await openProject('testAssets/project_folders-nested.aep');
+            await openProject('assets/project_folders-nested.aep');
 
             const result = await aex().get(AeObject.Project);
             const project = result.object;

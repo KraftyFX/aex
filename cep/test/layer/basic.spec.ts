@@ -34,7 +34,7 @@ describe('Basic Layer Attributes', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('testAssets/layer_basic.aep');
+            await openProject('assets/layer_basic.aep');
             const result = await aex().get(AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_basic', comp);
@@ -507,7 +507,7 @@ describe('Basic Layer Attributes', function () {
 
     describe('Create', async () => {
         beforeEach(async () => {
-            await openProject('testAssets/comp_basic.aep');
+            await openProject('assets/comp_basic.aep');
         });
 
         it(`Can create a basic CameraLayer`, async () => {
@@ -675,7 +675,7 @@ describe('Basic Layer Attributes', function () {
 
     describe('Update', async () => {
         beforeEach(async () => {
-            await openProject('testAssets/comp_basic.aep');
+            await openProject('assets/comp_basic.aep');
         });
 
         it(`Can set parented layers`, async () => {
