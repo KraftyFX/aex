@@ -73,11 +73,22 @@ export async function getProject(aepPath: string, aexObject: string, options?: A
     const cacheRootDir = cacheLocation == 'repo' ? resolve(SOURCE_DIR, 'test') : DEPLOY_DIR;
     const cachedProjectFilepath = resolve(cacheRootDir, aepPath.replace('.aep', `${getAexObjectTag(aexObject)}.json`));
 
-    try {
-        if (!(await fileExists(cachedProjectFilepath))) {
-            // const fullAepPath = resolve(SOURCE_DIR, 'test', aepPath);
+    const projectFilepath = resolve(SOURCE_DIR, 'test', aepPath);
 
-            await openProject(aepPath); // TODO(zlovatt): Chokes on fullAepPath. Seems suspicious.
+    let upToDateCachedFileExists = false;
+
+    try {
+        if (await fileExists(cachedProjectFilepath)) {
+            if (compareLastUpdateTimes(cachedProjectFilepath, projectFilepath) < 0) {
+                fs.rmSync(cachedProjectFilepath);
+                upToDateCachedFileExists = false;
+            } else {
+                upToDateCachedFileExists = true;
+            }
+        }
+
+        if (!upToDateCachedFileExists) {
+            await openProject(aepPath); // TODO(zlovatt): This chokes on projectFilepath. Seems suspicious.
 
             const result = await aex().get(aexObject);
             const resultAsJson = JSON.stringify(result, null, 3);
@@ -113,5 +124,16 @@ export async function getProject(aepPath: string, aexObject: string, options?: A
                 resolve(!error);
             });
         });
+    }
+
+    function compareLastUpdateTimes(file1: string, file2: string) {
+        const time1 = lastUpdatedTime(file1);
+        const time2 = lastUpdatedTime(file2);
+
+        return time1.valueOf() - time2.valueOf();
+    }
+
+    function lastUpdatedTime(path: string) {
+        return fs.statSync(path).mtime;
     }
 }
