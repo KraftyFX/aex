@@ -1,9 +1,9 @@
-import { AeObject, aex } from './aex';
+import { AeObject, aex, getProject } from './aex';
 import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM } from './constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe('Project', function () {
+describe.only('Project', function () {
     this.slow(500);
     this.timeout(5000);
 
@@ -17,9 +17,8 @@ describe('Project', function () {
 
     describe('Get', async () => {
         it(`Can parse basic project attributes`, async () => {
-            await openProject('assets/project_basic.aep');
+            const result = await getProject('assets/project_basic.aep', AeObject.Project);
 
-            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_basic', project);
@@ -41,9 +40,8 @@ describe('Project', function () {
         });
 
         it(`Can parse basic project items`, async () => {
-            await openProject('assets/project_basic_items.aep');
+            const result = await getProject('assets/project_basic_items.aep', AeObject.Project);
 
-            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_basic_items', project);
@@ -82,9 +80,8 @@ describe('Project', function () {
         });
 
         it(`Can parse flat project folders`, async () => {
-            await openProject('assets/project_folders-flat.aep');
+            const result = await getProject('assets/project_folders-flat.aep', AeObject.Project);
 
-            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_folders-flat', project);
@@ -105,9 +102,8 @@ describe('Project', function () {
         });
 
         it(`Can parse nested project folders`, async () => {
-            await openProject('assets/project_folders-nested.aep');
+            const result = await getProject('assets/project_folders-nested.aep', AeObject.Project);
 
-            const result = await aex().get(AeObject.Project);
             const project = result.object;
 
             console.log('project_folders-nested', project);

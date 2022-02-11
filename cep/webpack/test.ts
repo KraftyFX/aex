@@ -1,4 +1,5 @@
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as path from 'path';
 import { resolve } from 'path';
 import * as webpack from 'webpack';
 import { merge } from 'webpack-merge';
@@ -10,10 +11,18 @@ import CopyPlugin = require('copy-webpack-plugin');
 export function getTestConfig(
     cepProjectRoot: string,
     testFileGlobs: string[],
-    options: { filter: string; watch: boolean; outputDir: string }
+    options: { filter: string; watch: boolean; outputDir: string; deployDir: string }
 ): webpack.Configuration {
     const testEntryPoint = './test/browser-entry.ts';
     const testFiles = resolveGlobs(testFileGlobs, cepProjectRoot).filter((v) => v.indexOf(options.filter || '') >= 0);
+
+    const projectRoot = path.resolve(__dirname, `../`);
+
+    const vars: { [key: string]: string } = {
+        'BUILDSCRIPT:SOURCE_DIR': projectRoot,
+        'BUILDSCRIPT:BUILD_DIR': options.outputDir,
+        'BUILDSCRIPT:DEPLOY_DIR': options.deployDir,
+    };
 
     const entry = [testEntryPoint, ...testFiles];
 
@@ -63,6 +72,18 @@ export function getTestConfig(
             },
             module: {
                 rules: [
+                    {
+                        test: /\.(tsx?|jsx?|html|xml)$/,
+                        exclude: [/node_modules/],
+                        loader: 'string-replace-loader',
+                        options: {
+                            multiple: Object.keys(vars).map((key) => ({
+                                search: key,
+                                replace: vars[key],
+                                flags: 'g',
+                            })),
+                        },
+                    },
                     {
                         test: /\.(sa|sc|c)ss$/,
                         use: [

@@ -1,10 +1,11 @@
-import { AeObject, aex } from './aex';
+import { AeObject, aex, getProject } from './aex';
 import { AEX_COMP_ITEM, AEX_PROJECT } from './constants';
 import { cleanupAex, evalAexIntoEstk, IPCStats, openProject, setOnResult } from './csinterface';
+import { assertAreEqual } from './utils';
 
 const cepfs = (window as any).cep.fs;
 
-describe.skip('Rafi Test Stuff', function () {
+describe.only('Rafi Test Stuff', function () {
     this.slow(500);
     this.timeout(30000);
 
@@ -86,12 +87,19 @@ describe.skip('Rafi Test Stuff', function () {
 
     before(async () => {
         await evalAexIntoEstk();
-        await openProject('testAssets/prescan_1_flat_project.aep');
+        // await openProject('assets/prescan_1_flat_project.aep');
     });
 
     after(async () => {
         await cleanupAex();
         setOnResult();
+    });
+
+    it.only(`Get`, async () => {
+        await openProject('assets/comp_markers.aep');
+        const result1 = await aex().get(AeObject.Project);
+        const result2 = await getProject(`assets/comp_markers.aep`, AeObject.Project);
+        assertAreEqual(result1, result2);
     });
 
     it(`Prescan`, async () => {
@@ -161,7 +169,7 @@ describe.skip('Rafi Test Stuff', function () {
     /*
     before(async () => {
         await evalAexIntoEstk();
-        await openProject('testAssets/property_unsupported.aep');
+        await openProject('assets/property_unsupported.aep');
     });
 
     after(async () => {

@@ -22,12 +22,22 @@ const testSuite = [`${paths.tests}/**/*.spec.ts`];
 const outputDir = `${paths._build}/webpack`;
 
 function buildTestServer() {
-    const config = getTestConfig(__dirname, testSuite, { watch: false, filter: argv.filter as string, outputDir });
+    const config = getTestConfig(__dirname, testSuite, {
+        watch: false,
+        filter: argv.filter as string,
+        outputDir,
+        deployDir: paths.user_ae_extension_root,
+    });
     return gulp.src(`${paths.tests}`, { read: false }).pipe(webpackStream(config)).pipe(gulp.dest(outputDir));
 }
 
 function startTestServer() {
-    const config = getTestConfig(__dirname, testSuite, { watch: true, filter: argv.filter as string, outputDir });
+    const config = getTestConfig(__dirname, testSuite, {
+        watch: true,
+        filter: argv.filter as string,
+        outputDir,
+        deployDir: paths.user_ae_extension_root,
+    });
     return startWebpackDevServer(config);
 }
 

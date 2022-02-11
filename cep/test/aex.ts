@@ -1,5 +1,10 @@
+import * as fs from 'fs';
+import { resolve } from 'path';
 import { AexObject, AexOptions, AexPrescanResult, AexResult } from './constants';
-import { getEvalScriptResult } from './csinterface';
+import { getEvalScriptResult, openProject } from './csinterface';
+
+const SOURCE_DIR = 'BUILDSCRIPT:SOURCE_DIR';
+const DEPLOY_DIR = 'BUILDSCRIPT:DEPLOY_DIR';
 
 export const AeObject = {
     ActiveComp: 'app.project.activeItem',
@@ -49,4 +54,64 @@ export function aex() {
             });
         },
     };
+}
+
+/**
+ * Looks for a pre-deserialized (cached) version of an aep containing specific aex data. If it
+ * doesn't exist then the function will open the aep, save it and return the result. This
+ * function is intended to speed up deserialization testing especially on large AEP's but can
+ * speed up serialization as well.
+ *
+ * @param aepPath Path to aep
+ * @param aexObject Data to deserialize via aex.
+ * @param options Aex and optons to customize the cached filename and location.  Use `repo` to cache
+ * files into the source repo and `panel` to read it from the deployed CEP panel.
+ * @returns The contents of the cached file or aex().get().
+ */
+export async function getProject(aepPath: string, aexObject: string, options?: AexOptions & { tag?: string; cacheLocation?: 'repo' | 'panel' }) {
+    const cacheLocation = options?.cacheLocation || 'panel';
+    const cacheRootDir = cacheLocation == 'repo' ? resolve(SOURCE_DIR, 'test') : DEPLOY_DIR;
+    const cachedProjectFilepath = resolve(cacheRootDir, aepPath.replace('.aep', `${getAexObjectTag(aexObject)}.json`));
+
+    try {
+        if (!(await fileExists(cachedProjectFilepath))) {
+            // const fullAepPath = resolve(SOURCE_DIR, 'test', aepPath);
+
+            await openProject(aepPath); // TODO(zlovatt): Chokes on fullAepPath. Seems suspicious.
+
+            const result = await aex().get(aexObject);
+            const resultAsJson = JSON.stringify(result, null, 3);
+
+            fs.writeFileSync(cachedProjectFilepath, resultAsJson);
+        }
+
+        const resultAsJson = fs.readFileSync(cachedProjectFilepath).toString();
+        const result = JSON.parse(resultAsJson) as AexResult;
+
+        return result;
+    } catch (e: any) {
+        throw new Error(`Could not open or read the aep cache for "${aepPath}". ${e.toString()}`);
+    }
+
+    function getAexObjectTag(aexObject: string) {
+        if (options?.tag) {
+            return `.${options!.tag!}`;
+        } else if (aexObject === AeObject.Project) {
+            return '';
+        } else if (aexObject === AeObject.ActiveComp) {
+            return '.comp';
+        } else if (aexObject.startsWith('app.project.activeItem')) {
+            return aexObject.replace('app.project.activeItem', '.comp').replace(/\(|\)/g, '');
+        } else {
+            throw new Error(`Don't know how to make a clear filename to cache "${aexObject}"`);
+        }
+    }
+
+    function fileExists(path: string) {
+        return new Promise<boolean>((resolve, reject) => {
+            fs.access(path, fs.constants.O_RDWR, (error) => {
+                resolve(!error);
+            });
+        });
+    }
 }
