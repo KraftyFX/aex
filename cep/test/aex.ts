@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { resolve } from 'path';
+import { join, normalize } from 'path';
 import { AexObject, AexOptions, AexPrescanResult, AexResult } from './constants';
 import { getEvalScriptResult, openProject } from './csinterface';
 
@@ -69,11 +69,9 @@ export function aex() {
  * @returns The contents of the cached file or aex().get().
  */
 export async function getProject(aepPath: string, aexObject: string, options?: AexOptions & { tag?: string; cacheLocation?: 'repo' | 'panel' }) {
-    const cacheLocation = options?.cacheLocation || 'panel';
-    const cacheRootDir = cacheLocation == 'repo' ? resolve(SOURCE_DIR, 'test') : DEPLOY_DIR;
-    const cachedProjectFilepath = resolve(cacheRootDir, aepPath.replace('.aep', `${getAexObjectTag(aexObject)}.json`));
+    const cachedProjectFilepath = getCachedProjectFilepath();
 
-    const projectFilepath = resolve(SOURCE_DIR, 'test', aepPath);
+    const projectFilepath = join(SOURCE_DIR, 'test', normalize(aepPath));
 
     let upToDateCachedFileExists = false;
 
@@ -102,6 +100,14 @@ export async function getProject(aepPath: string, aexObject: string, options?: A
         return result;
     } catch (e: any) {
         throw new Error(`Could not open or read the aep cache for "${aepPath}". ${e.toString()}`);
+    }
+
+    function getCachedProjectFilepath() {
+        const cacheLocation = options?.cacheLocation || 'panel';
+        const cacheRootDir = cacheLocation == 'repo' ? join(SOURCE_DIR, 'test') : DEPLOY_DIR;
+        const cachedProjectFilename = aepPath.replace('.aep', `${getAexObjectTag(aexObject)}.json`);
+
+        return join(cacheRootDir, cachedProjectFilename);
     }
 
     function getAexObjectTag(aexObject: string) {
