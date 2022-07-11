@@ -69,45 +69,51 @@ export function aex() {
  * @returns The contents of the cached file or aex().get().
  */
 export async function getProject(aepPath: string, aexObject: string, options?: AexOptions & { tag?: string; cacheLocation?: 'repo' | 'panel' }) {
-    const cachedProjectFilepath = getCachedProjectFilepath();
-
-    const projectFilepath = join(SOURCE_DIR, 'test', normalize(aepPath));
-
-    let upToDateCachedFileExists = false;
+    const cachedProjectFilepath = getCachedProjectFilepath(aepPath);
 
     try {
-        if (await fileExists(cachedProjectFilepath)) {
-            if (compareLastUpdateTimes(cachedProjectFilepath, projectFilepath) < 0) {
-                fs.rmSync(cachedProjectFilepath);
-                upToDateCachedFileExists = false;
-            } else {
-                upToDateCachedFileExists = true;
-            }
-        }
-
-        if (!upToDateCachedFileExists) {
+        if (await isCachedProjectStale(cachedProjectFilepath)) {
             await openProject(aepPath); // TODO(zlovatt): This chokes on projectFilepath. Seems suspicious.
 
-            const result = await aex().get(aexObject);
-            const resultAsJson = JSON.stringify(result, null, 3);
+            const serializedProject = await aex().get(aexObject);
 
-            fs.writeFileSync(cachedProjectFilepath, resultAsJson);
+            saveSerializedProjectToFile(cachedProjectFilepath, serializedProject);
         }
 
-        const resultAsJson = fs.readFileSync(cachedProjectFilepath).toString();
-        const result = JSON.parse(resultAsJson) as AexResult;
-
-        return result;
+        return getSerializedProjectFromFile(cachedProjectFilepath);
     } catch (e: any) {
         throw new Error(`Could not open or read the aep cache for "${aepPath}". ${e.toString()}`);
     }
 
-    function getCachedProjectFilepath() {
+    function saveSerializedProjectToFile(filepath: string, serializedResult: AexResult) {
+        const resultAsJson = JSON.stringify(serializedResult, null, 3);
+        fs.writeFileSync(filepath, resultAsJson);
+    }
+
+    function getSerializedProjectFromFile(filepath: string) {
+        const resultAsJson = fs.readFileSync(filepath).toString();
+        const serializedResult = JSON.parse(resultAsJson) as AexResult;
+
+        return serializedResult;
+    }
+
+    function getCachedProjectFilepath(aepPath: string) {
         const cacheLocation = options?.cacheLocation || 'panel';
         const cacheRootDir = cacheLocation == 'repo' ? join(SOURCE_DIR, 'test') : DEPLOY_DIR;
         const cachedProjectFilename = aepPath.replace('.aep', `${getAexObjectTag(aexObject)}.json`);
 
         return join(cacheRootDir, cachedProjectFilename);
+    }
+
+    async function isCachedProjectStale(cachedProjectFilepath: string) {
+        const projectFilepath = join(SOURCE_DIR, 'test', normalize(aepPath));
+        let isProjectNewerThanCachedVersion = false;
+
+        if (await fileExists(cachedProjectFilepath)) {
+            isProjectNewerThanCachedVersion = compareLastUpdateTimes(cachedProjectFilepath, projectFilepath) < 0;
+        }
+
+        return isProjectNewerThanCachedVersion;
     }
 
     function getAexObjectTag(aexObject: string) {
