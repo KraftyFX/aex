@@ -169,7 +169,7 @@ describe('Zack Test Stuff', function () {
         });
     });
 
-    describe('Set & Get', function () {
+    describe.skip('Set & Get', function () {
         let initialProject: any;
 
         before(async () => {
