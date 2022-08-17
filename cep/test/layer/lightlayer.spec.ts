@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

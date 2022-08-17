@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from './constants';
+import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY, TEST_TIMEOUT_TIME } from './constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe.skip('Zack Test Stuff', function () {
+describe('Zack Test Stuff', function () {
     this.slow(500);
-    this.timeout(9999999999);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -17,7 +17,7 @@ describe.skip('Zack Test Stuff', function () {
     });
 
     /** Get dup */
-    describe('Data Dumps', function () {
+    describe.skip('Data Dumps', function () {
         it(`Unsophisticated test to check first layer`, async () => {
             const result = await aex().get(AeObject.Layer(1));
             const layer = result.object;
@@ -169,7 +169,7 @@ describe.skip('Zack Test Stuff', function () {
         });
     });
 
-    describe.only('Set & Get', function () {
+    describe('Set & Get', function () {
         let initialProject: any;
 
         before(async () => {

@@ -36,6 +36,8 @@ export const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 export const AEX_TEXT_ANIMATOR_PROPERTYGROUP = 'aex:propertyGroup:text:animator';
 export const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:layerstyle';
 
+export const TEST_TIMEOUT_TIME = 100000;
+
 export interface AexPrescanResult {
     log: {
         message: string;

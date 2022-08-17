@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex } from '../aex';
-import { AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
+import { AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Styles', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

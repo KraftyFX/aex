@@ -14,13 +14,14 @@ import {
     AEX_TEXTDOCUMENT_PROPERTY,
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
+    TEST_TIMEOUT_TIME,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Basic Layer Attributes', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();
