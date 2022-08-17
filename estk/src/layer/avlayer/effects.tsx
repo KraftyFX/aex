@@ -114,6 +114,7 @@ function _setDropdownEffect(effect: PropertyGroup, aexEffect: AexEffectPropertyG
     const updatedProperty = dropdownProperty.setPropertyParameters(aexDropdownProperty.items);
 
     if (aexDropdownProperty.value) {
+        /** @ts-ignore */
         setProperty(updatedProperty as Property, aexDropdownProperty, state);
     }
 }
