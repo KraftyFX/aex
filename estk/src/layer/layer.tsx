@@ -165,11 +165,12 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
         label: aexLayer.label,
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,
-        inPoint: aexLayer.inPoint,
-        outPoint: aexLayer.outPoint,
-        startTime: aexLayer.startTime,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
+
+        startTime: aexLayer.startTime,
+        inPoint: aexLayer.inPoint,
+        outPoint: aexLayer.outPoint,
     });
 
     _setLayerMarkers(aeLayer, aexLayer, state);
