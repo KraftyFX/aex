@@ -5,7 +5,7 @@ import { assertAreEqual } from './utils';
 
 const cepfs = (window as any).cep.fs;
 
-describe.only('Rafi Test Stuff', function () {
+describe.skip('Rafi Test Stuff', function () {
     this.slow(500);
     this.timeout(30000);
 
@@ -95,7 +95,7 @@ describe.only('Rafi Test Stuff', function () {
         setOnResult();
     });
 
-    it.only(`Get`, async () => {
+    it(`Get`, async () => {
         await openProject('assets/comp_markers.aep');
         const result1 = await aex().get(AeObject.Project);
         const result2 = await getProject(`assets/comp_markers.aep`, AeObject.Project);
