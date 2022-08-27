@@ -182,9 +182,7 @@ cs.addEventListener('aex_result', function (event: any) {
         err.fileName = fileName;
         err.stack = `\n\n> -------- ${path.basename(fileName)}:${line} --------\n${getTextNearLine(
             fileName,
-            line,
-            5
-        )}\n> --------------------------------`;
+            line)}\n> --------------------------------`;
 
         request.reject(err);
     }
@@ -211,7 +209,7 @@ function convertCallbacks(request: IPCRequest) {
     }, args);
 }
 
-function getTextNearLine(estkPath: string, line: number, window: number) {
+function getTextNearLine(estkPath: string, line: number, window: number=5) {
     try {
         const fileContents: string = fs.readFileSync(cleanPathForNodeJS()).toString();
         const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
