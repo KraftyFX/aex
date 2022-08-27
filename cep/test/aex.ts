@@ -107,13 +107,13 @@ export async function getProject(aepPath: string, aexObject: string, options?: A
 
     async function isCachedProjectStale(cachedProjectFilepath: string) {
         const projectFilepath = join(SOURCE_DIR, 'test', normalize(aepPath));
-        let isProjectNewerThanCachedVersion = false;
 
         if (await fileExists(cachedProjectFilepath)) {
-            isProjectNewerThanCachedVersion = compareLastUpdateTimes(cachedProjectFilepath, projectFilepath) < 0;
+            const isProjectNewerThanCachedVersion = compareLastUpdateTimes(cachedProjectFilepath, projectFilepath) < 0;
+            return isProjectNewerThanCachedVersion;
         }
 
-        return isProjectNewerThanCachedVersion;
+        return true;
     }
 
     function getAexObjectTag(aexObject: string) {
