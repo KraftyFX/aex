@@ -8,6 +8,8 @@ import { resolveGlobs } from './util';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import CopyPlugin = require('copy-webpack-plugin');
 
+const cleanPath = (val: string) => process.platform === 'win32' ? val.replace(/\\/g, '\\\\') : val;
+
 export function getTestConfig(
     cepProjectRoot: string,
     testFileGlobs: string[],
@@ -19,9 +21,9 @@ export function getTestConfig(
     const projectRoot = path.resolve(__dirname, `../`);
 
     const vars: { [key: string]: string } = {
-        'BUILDSCRIPT:SOURCE_DIR': projectRoot,
-        'BUILDSCRIPT:BUILD_DIR': options.outputDir,
-        'BUILDSCRIPT:DEPLOY_DIR': options.deployDir,
+        'BUILDSCRIPT:SOURCE_DIR': cleanPath(projectRoot),
+        'BUILDSCRIPT:BUILD_DIR': cleanPath(options.outputDir),
+        'BUILDSCRIPT:DEPLOY_DIR': cleanPath(options.deployDir),
     };
 
     const entry = [testEntryPoint, ...testFiles];
