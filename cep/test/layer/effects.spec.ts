@@ -1,4 +1,4 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import {
     AEX_COLOR_PROPERTY,
     AEX_COMP_ITEM,
@@ -32,9 +32,7 @@ describe('Layer Effects', function () {
         let rotobrushComp: any;
 
         before(async () => {
-            await openProject('assets/layer_effects.aep');
-
-            const result = await aex().get(AeObject.Project);
+            const result = await getProject('assets/layer_effects.aep', AeObject.Project);
             const project = result.object;
             puppetComp = project.comps.find((comp: any) => comp.name === 'Puppet Pins');
             simpleComp = project.comps.find((comp: any) => comp.name === 'Simple');

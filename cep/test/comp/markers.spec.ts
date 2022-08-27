@@ -1,4 +1,4 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_COMP_ITEM, AEX_MARKER, AEX_PROJECT } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -19,8 +19,7 @@ describe('Comp Markers', function () {
         let project: any;
 
         before(async () => {
-            await openProject('assets/comp_markers.aep');
-            const result = await aex().get(AeObject.Project);
+            const result = await getProject('assets/comp_markers.aep', AeObject.Project);
             project = result.object;
             console.log('comp_markers', project);
         });

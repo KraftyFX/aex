@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import {
     AEX_KEY,
     AEX_ONED_PROPERTY,
@@ -29,8 +29,7 @@ describe('Text Layer Attributes', function () {
         let project: any;
 
         before(async () => {
-            await openProject('assets/layer_text.aep');
-            const result = await aex().get(AeObject.Project);
+            const result = await getProject('assets/layer_text.aep', AeObject.Project);
             project = result.object;
             console.log('layer_text', project);
         });

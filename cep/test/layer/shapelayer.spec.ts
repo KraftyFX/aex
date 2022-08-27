@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import {
     AEX_COLOR_PROPERTY,
     AEX_ONED_PROPERTY,
@@ -27,8 +27,7 @@ describe('Shape Layers', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_shapelayer.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_shapelayer', comp);
         });

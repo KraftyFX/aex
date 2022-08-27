@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_LAYERSTYLE_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -20,8 +20,7 @@ describe('Layer Styles', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_styles.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_styles', comp);
         });

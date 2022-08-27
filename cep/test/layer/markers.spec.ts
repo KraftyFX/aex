@@ -1,4 +1,4 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_MARKER, AEX_NULL_LAYER } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -19,8 +19,7 @@ describe('Layer Markers', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_markers.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_markers.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_markers', comp);
         });

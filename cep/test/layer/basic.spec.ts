@@ -1,4 +1,4 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import {
     AEX_CAMERA_LAYER,
     AEX_COMP_ITEM,
@@ -34,8 +34,7 @@ describe('Basic Layer Attributes', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_basic.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_basic', comp);
         });

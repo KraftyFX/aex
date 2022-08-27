@@ -1,6 +1,6 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_COMP_ITEM } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Comp', function () {
@@ -17,9 +17,7 @@ describe('Comp', function () {
 
     describe('Get', async () => {
         it(`Can parse basic comp attributes`, async () => {
-            await openProject('assets/comp_basic.aep');
-
-            const { object: comp } = await aex().get(AeObject.ActiveComp);
+            const { object: comp } = await getProject('assets/comp_basic.aep', AeObject.ActiveComp);
 
             console.log('comp_basic', comp);
             assertAreEqual(comp, {

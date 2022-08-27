@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
@@ -20,8 +20,7 @@ describe('Light Layer Attributes', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_light.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_light.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_light', comp);
         });

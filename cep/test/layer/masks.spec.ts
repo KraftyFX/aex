@@ -1,6 +1,6 @@
-import { AeObject, aex } from '../aex';
+import { AeObject, aex, getProject } from '../aex';
 import { AEX_KEY, AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_SHAPE_PROPERTY, AEX_TWOD_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Masks', function () {
@@ -19,8 +19,7 @@ describe('Layer Masks', function () {
         let comp: any;
 
         before(async () => {
-            await openProject('assets/layer_masks.aep');
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await getProject('assets/layer_masks.aep', AeObject.ActiveComp);
             comp = result.object;
             console.log('layer_masks', comp);
         });
