@@ -48,37 +48,13 @@ export async function openCleanProject() {
 
 function evalScript(code: string): Promise<void> {
     return new Promise((resolve, reject) => {
-        let timedOut = false;
-        let to = setTimeout(() => {
-            timedOut = true;
-            reject(getEvalScriptError(`AEX: Call to CSInterface.evalScript timed out`));
-        }, 3000);
-
-        window.addEventListener(
-            'message',
-            (event: any) => {
-                if (event.data.source === 'kraftyfx.evalScript.response') {
-                    if (timedOut) {
-                        console.warn(`AEX: Call to CSInterface.evalScript timed out but eventually finished`);
-                        console.warn(code);
-                        return;
-                    }
-
-                    clearTimeout(to);
-
-                    const result = event.data.result;
-
-                    if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
-                        reject(getEvalScriptError(`AEX: Call to CSInterface.evalScript failed`));
-                    } else {
-                        resolve(result);
-                    }
-                }
-            },
-            { once: true }
-        );
-
-        window.parent.postMessage({ source: 'kraftyfx.evalScript.request', code }, '*');
+        cs.evalScript(code, (result: any) => {
+            if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
+                reject(getEvalScriptError(`AEX: Call to CSInterface.evalScript failed`));
+            } else {
+                resolve();
+            }
+        });
     });
 
     function getEvalScriptError(message: string) {
@@ -129,7 +105,11 @@ export function getEvalScriptResult<T = void>(code: string, args: any, options: 
 
         const wrappedCode = `aex._ipc_invoke(${request.id}, function(aex_args) { return (${code}); }, ${JSON.stringify(ipcOptionsAsJson)})`;
 
-        window.parent.postMessage({ source: 'kraftyfx.evalScript.request', code: wrappedCode }, '*');
+        cs.evalScript(wrappedCode, (result: any) => {
+            if (typeof result === 'string' && result.indexOf('EvalScript') >= 0) {
+                reject(new Error(`AEX: Call to CSInterface.evalScript failed`));
+            }
+        });
     });
 
     requests[request.id] = request;
@@ -137,12 +117,10 @@ export function getEvalScriptResult<T = void>(code: string, args: any, options: 
     return request.promise;
 }
 
-window.addEventListener('message', (event: any) => {
-    if (event.data.source === 'kraftyfx.aex_callback') {
-        const { id, callbackId, args } = event.data.result;
+cs.addEventListener('aex_callback', function (event: any) {
+    const { id, callbackId, args } = event.data;
 
-        requests[id].callbacks[callbackId](args);
-    }
+    requests[id].callbacks[callbackId](args);
 });
 
 export interface IPCStats {
@@ -160,56 +138,54 @@ function setOnResult(value?: CB) {
 
 export { setOnResult };
 
-window.addEventListener('message', (event: any) => {
-    if (event.data.source === 'kraftyfx.aex_result') {
-        const now = new Date().valueOf();
-        const data = event.data.result;
-        const request = requests[data.id];
+cs.addEventListener('aex_result', function (event: any) {
+    const now = new Date().valueOf();
+    const data = event.data;
+    const request = requests[data.id];
 
-        const ipcStats = data.ipcStats;
+    const ipcStats = data.ipcStats;
 
-        ipcStats.jsonEnd = parseInt(ipcStats.jsonEnd);
+    ipcStats.jsonEnd = parseInt(ipcStats.jsonEnd);
 
-        ipcStats.entry = ipcStats.funcStart - request.cepStart;
-        ipcStats.func = ipcStats.funcEnd - ipcStats.funcStart;
-        ipcStats.json = ipcStats.jsonEnd - ipcStats.funcEnd;
-        ipcStats.exit = now - ipcStats.jsonEnd;
-        ipcStats.total = now - request.cepStart;
+    ipcStats.entry = ipcStats.funcStart - request.cepStart;
+    ipcStats.func = ipcStats.funcEnd - ipcStats.funcStart;
+    ipcStats.json = ipcStats.jsonEnd - ipcStats.funcEnd;
+    ipcStats.exit = now - ipcStats.jsonEnd;
+    ipcStats.total = now - request.cepStart;
 
-        if (onResult) {
-            onResult(ipcStats);
-        }
+    if (onResult) {
+        onResult(ipcStats);
+    }
 
-        delete ipcStats.funcStart;
-        delete ipcStats.funcEnd;
-        delete ipcStats.jsonEnd;
+    delete ipcStats.funcStart;
+    delete ipcStats.funcEnd;
+    delete ipcStats.jsonEnd;
 
-        delete requests[data.id];
+    delete requests[data.id];
 
-        if (data.success) {
-            if (request.options.ignoreReturn) {
-                request.resolve(void 0);
-            } else {
-                request.resolve(data.result);
-            }
+    if (data.success) {
+        if (request.options.ignoreReturn) {
+            request.resolve(void 0);
         } else {
-            const estkError = event.data;
-
-            const { name, message, fileName, line } = estkError;
-            const err: any = new Error(message);
-
-            err.isEstkError = true;
-            err.name = `(ESTK) ` + name;
-            err.line = line;
-            err.fileName = fileName;
-            err.stack = `\n\n> -------- ${path.basename(fileName)}:${line} --------\n${getTextNearLine(
-                fileName,
-                line,
-                5
-            )}\n> --------------------------------`;
-
-            request.reject(err);
+            request.resolve(data.result);
         }
+    } else {
+        const estkError = event.data;
+
+        const { name, message, fileName, line } = estkError;
+        const err: any = new Error(message);
+
+        err.isEstkError = true;
+        err.name = `(ESTK) ` + name;
+        err.line = line;
+        err.fileName = fileName;
+        err.stack = `\n\n> -------- ${path.basename(fileName)}:${line} --------\n${getTextNearLine(
+            fileName,
+            line,
+            5
+        )}\n> --------------------------------`;
+
+        request.reject(err);
     }
 });
 
