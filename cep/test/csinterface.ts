@@ -1,6 +1,7 @@
 import 'file-loader!../_build/panel/aexcep-lite.jsx';
 import * as fs from 'fs';
-import * as path from 'path';
+import * as path from 'path'
+import * as os from 'os'
 import 'source-map-support/register';
 const { CSInterface, SystemPath } = require('exports-loader?CSInterface,CSEvent,SystemPath!../lib/CSInterface.js');
 
@@ -210,11 +211,9 @@ function convertCallbacks(request: IPCRequest) {
     }, args);
 }
 
-function getTextNearLine(path: string, line: number, window: number) {
-    const userDir = navigator.platform === 'Win32' ? 'C:/Users/Zack' : '/Users/rafikhan';
-
+function getTextNearLine(estkPath: string, line: number, window: number) {
     try {
-        const fileContents: string = fs.readFileSync(path.replace(`~`, userDir).replace('%20', ' ')).toString();
+        const fileContents: string = fs.readFileSync(cleanPathForNodeJS()).toString();
         const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
 
         lines[line - 1] = lines[line - 1].replace('> ', '* ');
@@ -224,6 +223,10 @@ function getTextNearLine(path: string, line: number, window: number) {
 
         return lines.slice(start, end).join('\n');
     } catch (e) {
-        return `* Unable to get source code snippet for file "${path}" at line ${line}`;
+        return `* Unable to get source code snippet for file "${estkPath}" at line ${line}`;
+    }
+
+    function cleanPathForNodeJS(): number | fs.PathLike {
+        return estkPath.replace(`~`, os.homedir()).replace(/%20/g, ' ');
     }
 }
