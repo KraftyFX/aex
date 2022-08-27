@@ -37,21 +37,21 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
     assignAttributes(state.updateOptions, options);
 
     if (isUpdatingProject(aeObject, aexObject)) {
-        app.beginUndoGroup('AEX: Update Project');
-        updateAeProject(aeObject, aexObject as AexProject, state);
-        app.endUndoGroup();
+        undoGroup('AEX: Update Project', () => {
+            updateAeProject(aeObject, aexObject as AexProject, state);
+        });
     } else if (isUpdatingComp(aeObject, aexObject)) {
-        app.beginUndoGroup('AEX: Update Comp');
-        updateAeComp(aeObject, aexObject as AexComp, state);
-        app.endUndoGroup();
+        undoGroup('AEX: Update Comp', () => {
+            updateAeComp(aeObject, aexObject as AexComp, state);
+        });
     } else if (isUpdatingLayer(aeObject, aexObject)) {
-        app.beginUndoGroup('AEX: Update Layer');
-        updateAeLayer(aeObject, aexObject as AexLayer, state);
-        app.endUndoGroup();
+        undoGroup('AEX: Update Layer', () => {
+            updateAeLayer(aeObject, aexObject as AexLayer, state);
+        });
     } else if (isUpdatingPropertyGroup(aeObject, aexObject)) {
-        app.beginUndoGroup('AEX: Update Property Group');
-        updatePropertyGroup(aeObject, aexObject as AexSerializedGroup, state);
-        app.endUndoGroup();
+        undoGroup('AEX: Update Property Group', () => {
+            updatePropertyGroup(aeObject, aexObject as AexSerializedGroup, state);
+        });
     } else {
         throw notSupported(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}'`);
     }

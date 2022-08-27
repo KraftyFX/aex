@@ -41,3 +41,14 @@ function profile<T = void>(name: string, fn: () => T, state: AexState, meta?: st
 
     return ret;
 }
+
+function undoGroup<T = void>(label: string, fn:() => T) {
+    try {
+        app.beginUndoGroup(label);
+        return fn();
+    } catch (e) {
+        throw e;
+    } finally {
+        app.endUndoGroup();
+    }
+}
