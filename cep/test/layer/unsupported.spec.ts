@@ -1,10 +1,11 @@
 import { expect } from 'chai';
+import { TEST_TIMEOUT_TIME } from '../constants';
 import { AeObject, aex } from '../aex';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 
 describe('Unsupported Properties', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

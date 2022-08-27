@@ -1,11 +1,19 @@
 import { AeObject, aex, getProject } from '../aex';
-import { AEX_CAMERA_LAYER, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_NULL_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
+import {
+    AEX_CAMERA_LAYER,
+    AEX_COMP_ITEM,
+    AEX_LIGHT_LAYER,
+    AEX_NULL_LAYER,
+    AEX_ONED_PROPERTY,
+    AEX_THREED_PROPERTY,
+    TEST_TIMEOUT_TIME,
+} from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Transform', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

@@ -26,7 +26,6 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
 
     let object: AexSerialized;
 
-    // TODO: Cover collection types.
     if (isProject(aeObject)) {
         object = getAexProject(aeObject as Project, state);
     } else if (aeq.isComp(aeObject)) {

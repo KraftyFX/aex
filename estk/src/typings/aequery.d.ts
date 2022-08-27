@@ -260,7 +260,7 @@ declare interface AEQuery {
     timeToFrames(time: number, frameRate: number): number;
 
     /** Saves object of name:binaryContents pairs to files, returns object of files */
-    createResourceFiles(resources: { [name: string]: string }, folder: Folder | string, extension?: string): { name: File };
+    createResourceFiles(resources: { [name: string]: string }, folder: Folder | string, extension?: string): { [name: string]: File };
 
     /** Takes a file (or file path) and converts it to a binary string */
     getBinaryString(filePath: File | string): string;
@@ -781,6 +781,11 @@ declare interface AEQProperty {
     getKeys(): AEQArrayEx<AEQKey>;
 }
 
+declare interface AEQUICreationProperties<T> {
+    [key: string]: any;
+    properties?: Partial<T>;
+}
+
 declare interface AEQUIContainer<T> {
     obj: T;
 
@@ -806,38 +811,47 @@ declare interface AEQUIContainer<T> {
     removeAll(): void;
 
     /** Add a Button to this container */
-    addButton(buttonText: string, onClick?: Function, creationProperties?: Partial<_AddControlProperties>): Button;
+    addButton(buttonText: string, onClick?: Function, creationProperties?: AEQUICreationProperties<_AddControlProperties>): Button;
 
     /** Add a Checkbox to this container */
-    addCheckbox(checkboxLabel: string, onClick?: Function, creationProperties?: Partial<_AddControlProperties>): Checkbox;
+    addCheckbox(checkboxLabel: string, onClick?: Function, creationProperties?: AEQUICreationProperties<_AddControlProperties>): Checkbox;
 
     /** Add a DropdownList to this container */
-    addDropdownList(items?: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesDropDownList>): DropDownList;
+    addDropdownList(
+        items?: string[],
+        onChange?: Function,
+        creationProperties?: AEQUICreationProperties<_AddControlPropertiesDropDownList>
+    ): DropDownList;
 
     /** Add a EditText to this container */
-    addEditText(text?: string, onChange?: Function, onChanging?: Function, creationProperties?: Partial<_AddControlPropertiesEditText>): EditText;
+    addEditText(
+        text?: string,
+        onChange?: Function,
+        onChanging?: Function,
+        creationProperties?: AEQUICreationProperties<_AddControlPropertiesEditText>
+    ): EditText;
 
     /** Add a Group to this container */
     addGroup(properties?: any): AEQUIContainer<Group>;
 
     /** Add an IconButton to this container */
-    addIconButton(icon: File | string, onClick?: Function, creationProperties?: Partial<_AddControlPropertiesIconButton>): IconButton;
+    addIconButton(icon: File | string, onClick?: Function, creationProperties?: AEQUICreationProperties<_AddControlPropertiesIconButton>): IconButton;
 
     /** Add an Image to this container */
-    addImage(image: ScriptUIImage, onClick?: Function, creationProperties?: Partial<_AddControlProperties>): Image;
+    addImage(image: ScriptUIImage, onClick?: Function, creationProperties?: AEQUICreationProperties<_AddControlProperties>): Image;
 
     /** Add a ListBox to this container */
     addListBox(
         items: string[],
         onChange?: Function,
         onDoubleClick?: Function,
-        creationProperties?: Partial<_AddControlPropertiesListBox>
+        creationProperties?: AEQUICreationProperties<_AddControlPropertiesListBox>
     ): AEQUIListbox;
     addListbox(
         items: string[],
         onChange?: Function,
         onDoubleClick?: Function,
-        creationProperties?: Partial<_AddControlPropertiesListBox>
+        creationProperties?: AEQUICreationProperties<_AddControlPropertiesListBox>
     ): AEQUIListbox;
 
     /** Add a Panel to this container */
@@ -848,7 +862,7 @@ declare interface AEQUIContainer<T> {
     addProgressbar(value: number, maxValue: number): Progressbar;
 
     /** Add a RadioButton to this container */
-    addRadioButton(label: string, creationProperties?: Partial<_AddControlProperties>): RadioButton;
+    addRadioButton(label: string, creationProperties?: AEQUICreationProperties<_AddControlProperties>): RadioButton;
 
     /** Add a Scrollbar to this container */
     addScrollbar(value: number, maxValue: number, onChange?: Function, onChanging?: Function): Scrollbar;
@@ -857,26 +871,26 @@ declare interface AEQUIContainer<T> {
     addSlider(value: number, minValue: number, maxValue: number, onChange?: Function, onChanging?: Function): Slider;
 
     /** Add a StaticText to this container */
-    addStaticText(text: string, creationProperties?: Partial<_AddControlPropertiesStaticText>): StaticText;
-    addStatictext(text: string, creationProperties?: Partial<_AddControlPropertiesStaticText>): StaticText;
+    addStaticText(text: string, creationProperties?: AEQUICreationProperties<_AddControlPropertiesStaticText>): StaticText;
+    addStatictext(text: string, creationProperties?: AEQUICreationProperties<_AddControlPropertiesStaticText>): StaticText;
 
     /** Add a Tab to this container */
-    addTab(label: string, creationProperties?: Partial<_AddControlProperties>): AEQUIContainer<Tab>;
+    addTab(label: string, creationProperties?: AEQUICreationProperties<_AddControlProperties>): AEQUIContainer<Tab>;
 
     /** Add a TabbedPanel to this container */
-    addTabbedPanel(creationProperties?: Partial<_AddControlProperties>): AEQUIContainer<TabbedPanel>;
+    addTabbedPanel(creationProperties?: AEQUICreationProperties<_AddControlProperties>): AEQUIContainer<TabbedPanel>;
 
     /** Add a TreeView to this container */
-    addTreeView(items: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesTreeView>): AEQUITreeView;
-    addTreeview(items: string[], onChange?: Function, creationProperties?: Partial<_AddControlPropertiesTreeView>): AEQUITreeView;
+    addTreeView(items: string[], onChange?: Function, creationProperties?: AEQUICreationProperties<_AddControlPropertiesTreeView>): AEQUITreeView;
+    addTreeview(items: string[], onChange?: Function, creationProperties?: AEQUICreationProperties<_AddControlPropertiesTreeView>): AEQUITreeView;
 }
 
 declare interface AEQUIListbox {
     obj: ListBox;
 
     /** Adds a ListItem to this ListBox */
-    add(text: string, image?: ScriptUIImage, index?: number): ListItem;
-    addItem(text: string, image?: ScriptUIImage, index?: number): ListItem;
+    add(text: string, image?: string, index?: number): ListItem;
+    addItem(text: string, image?: string, index?: number): ListItem;
 
     /** Removes a ListItem from this list */
     removeItem(item: ListItem): void;
@@ -970,7 +984,7 @@ declare interface AEQUIClass {
     createDialog(title: string, options?: { resizable: boolean }): AEQUIWindow<Window>;
 
     /** Sets properties onto an item */
-    set(obj: _Control | AEQUIContainer<Panel | Group | Tab | TabbedPanel>, options: object): void;
+    set(obj: _Control | AEQUIContainer<Panel | Group | Tab | TabbedPanel> | AEQUIListbox | AEQUITreeView, options: object): void;
 }
 
 /** AEQ SUBOBJECTS **/

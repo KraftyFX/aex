@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex, getProject } from '../aex';
-import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
+import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, TEST_TIMEOUT_TIME } from '../constants';
+import { cleanupAex, openProject, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -220,6 +220,106 @@ describe('Light Layer Attributes', function () {
             expect(comp.layers[0].lightType).to.eql(compData.layers[0].lightType);
             expect(comp.layers[1].lightType).to.eql(compData.layers[1].lightType);
             expect(comp.layers[2].lightType).to.eql(compData.layers[2].lightType);
+        });
+    });
+
+    describe('Update', async () => {
+        beforeEach(async () => {
+            await openProject('assets/layer_light.aep');
+        });
+
+        it(`Can update light layer attributes`, async () => {
+            const layerData = {
+                label: 9,
+                lightType: 4414,
+                markers: [],
+                name: 'Updated Parallel Light',
+                lightOption: {
+                    matchName: 'ADBE Light Options Group',
+                    properties: [
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Intensity',
+                            name: 'Intensity',
+                            value: 12,
+                        },
+                        {
+                            type: AEX_COLOR_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Color',
+                            name: 'Color',
+                            value: [1, 1, 0, 1],
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Type',
+                            name: 'Falloff',
+                            value: 2,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Start',
+                            name: 'Radius',
+                            value: 100,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Falloff Distance',
+                            name: 'Falloff Distance',
+                            value: 400,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Casts Shadows',
+                            name: 'Casts Shadows',
+                            value: 1,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Light Shadow Darkness',
+                            name: 'Shadow Darkness',
+                            value: 60,
+                        },
+                    ],
+                },
+                transform: {
+                    position: {
+                        keys: [],
+                        matchName: 'ADBE Position',
+                        name: 'Position',
+                        type: AEX_THREED_PROPERTY,
+                        value: [500, 400, 600],
+                    },
+                },
+                type: AEX_LIGHT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer, layerData);
+        });
+
+        it(`Can update light layer types`, async () => {
+            const layerData = {
+                lightType: 4414,
+                type: AEX_LIGHT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.lightType, layerData.lightType);
         });
     });
 });

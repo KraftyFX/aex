@@ -1,11 +1,11 @@
 import { AeObject, aex, getProject } from '../aex';
-import { AEX_MARKER, AEX_NULL_LAYER } from '../constants';
+import { AEX_MARKER, AEX_NULL_LAYER, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Markers', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

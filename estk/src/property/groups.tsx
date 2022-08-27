@@ -105,3 +105,37 @@ function setPropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexPro
         }
     });
 }
+
+function updatePropertyGroup(propertyGroup: PropertyGroup, aexPropertyGroup: AexSerializedGroup, state: AexState) {
+    switch (aexPropertyGroup.type as AexPropertyGroupType) {
+        case AEX_DROPDOWN_EFFECT_PROPERTYGROUP:
+        case AEX_EFFECT_PROPERTYGROUP:
+            if (!isEffectPropertyGroup(propertyGroup)) {
+                throw fail(`Property '${propertyGroup.name}' is not an effect`);
+            }
+
+            if (propertyGroup.matchName !== aexPropertyGroup.matchName) {
+                throw fail(`Can't update AE effect '${propertyGroup.name}' with AEX effect '${aexPropertyGroup.name} – effects are not the same.`);
+            }
+
+            setLayerEffect(propertyGroup, aexPropertyGroup as AexEffectPropertyGroup, state);
+            break;
+
+        case AEX_TEXT_ANIMATOR_PROPERTYGROUP:
+            if (propertyGroup.matchName !== 'ADBE Text Animator') {
+                throw fail(`Property '${propertyGroup.name}' is not a Text Animator`);
+            }
+
+            setTextLayerAnimator(propertyGroup, aexPropertyGroup as AexAnimatorPropertyGroup, state);
+            break;
+
+        case AEX_LAYERSTYLE_PROPERTYGROUP:
+        case AEX_SHAPEGROUP_PROPERTYGROUP:
+        case AEX_SHAPEITEM_PROPERTYGROUP:
+            setPropertyGroup(propertyGroup, aexPropertyGroup, state);
+            break;
+
+        default:
+            throw notImplemented(`Updating a '${aexPropertyGroup.type}'`);
+    }
+}

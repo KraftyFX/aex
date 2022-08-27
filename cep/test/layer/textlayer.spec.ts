@@ -9,13 +9,14 @@ import {
     AEX_TEXT_LAYER,
     AEX_THREED_PROPERTY,
     AEX_TWOD_PROPERTY,
+    TEST_TIMEOUT_TIME,
 } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Text Layer Attributes', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -1434,5 +1435,436 @@ describe('Text Layer Attributes', function () {
             assertAreEqual(layer.animators, animatorData);
         });
         */
+    });
+
+    describe('Update Existing Animators', async () => {
+        beforeEach(async () => {
+            await openProject('assets/layer_text.aep');
+        });
+
+        it('Can update multiple Text Animator Selectors on one layer', async () => {
+            const animatorData = {
+                matchName: 'ADBE Text Animator',
+                name: 'Updated Animator',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Selectors',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selector',
+                                name: 'Updated Range Selector 1',
+                                properties: [
+                                    {
+                                        type: AEX_ONED_PROPERTY,
+                                        keys: [],
+                                        matchName: 'ADBE Text Percent Start',
+                                        name: 'Start',
+                                        value: 2,
+                                    },
+                                ],
+                            },
+                            {
+                                matchName: 'ADBE Text Selector',
+                                name: 'Updated Range Selector 2',
+                                properties: [
+                                    {
+                                        type: AEX_ONED_PROPERTY,
+                                        keys: [],
+                                        matchName: 'ADBE Text Percent Start',
+                                        name: 'Start',
+                                        value: 99,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.animators[0], animatorData);
+        });
+
+        it('Can update Text Animator with animated Range Selector', async () => {
+            const animatorData = {
+                matchName: 'ADBE Text Animator',
+                name: 'Position Animator',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Selectors',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Selector',
+                                name: 'A Range Selector',
+                                properties: [
+                                    {
+                                        type: AEX_ONED_PROPERTY,
+                                        name: 'Start',
+                                        matchName: 'ADBE Text Percent Start',
+                                        value: 0,
+                                        keys: [
+                                            {
+                                                value: 0,
+                                                time: 0,
+                                                type: AEX_KEY,
+                                                temporalEase: {
+                                                    inEase: [
+                                                        {
+                                                            influence: 16.66667,
+                                                            speed: 0,
+                                                        },
+                                                    ],
+                                                    outEase: [
+                                                        {
+                                                            influence: 16.66667,
+                                                            speed: 50,
+                                                        },
+                                                    ],
+                                                },
+                                            },
+                                            {
+                                                value: 100,
+                                                time: 2,
+                                                type: AEX_KEY,
+                                                temporalEase: {
+                                                    inEase: [
+                                                        {
+                                                            influence: 16.66667,
+                                                            speed: 50,
+                                                        },
+                                                    ],
+                                                    outEase: [
+                                                        {
+                                                            influence: 16.66667,
+                                                            speed: 0,
+                                                        },
+                                                    ],
+                                                },
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        matchName: 'ADBE Text Animator Properties',
+                        properties: [
+                            {
+                                type: AEX_THREED_PROPERTY,
+                                keys: [],
+                                matchName: 'ADBE Text Position 3D',
+                                name: 'Position',
+                                value: [0, 100, 0],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.animators[0], animatorData);
+        });
+
+        it('Can update Text Animator with Expression Selector', async () => {
+            const animatorData = {
+                matchName: 'ADBE Text Animator',
+                name: 'Colour Animator',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Selectors',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Expressible Selector',
+                                name: 'An Expression Selector',
+                                properties: [
+                                    {
+                                        type: AEX_THREED_PROPERTY,
+                                        name: 'Amount',
+                                        matchName: 'ADBE Text Expressible Amount',
+                                        value: [100, 100, 100],
+                                        expression: 'timeToFrames(time * 10) * textIndex/textTotal',
+                                        expressionEnabled: true,
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.animators[0], animatorData);
+        });
+
+        it('Can update Text Animator with Wiggle Selector', async () => {
+            const animatorData = {
+                matchName: 'ADBE Text Animator',
+                name: 'Tracking Animator',
+                properties: [
+                    {
+                        matchName: 'ADBE Text Selectors',
+                        properties: [
+                            {
+                                matchName: 'ADBE Text Wiggly Selector',
+                                name: 'A Wiggly Selector',
+                                properties: [
+                                    {
+                                        type: AEX_ONED_PROPERTY,
+                                        name: 'Mode',
+                                        matchName: 'ADBE Text Selector Mode',
+                                        value: 3,
+                                        keys: [],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        matchName: 'ADBE Text Animator Properties',
+                        properties: [
+                            {
+                                type: AEX_ONED_PROPERTY,
+                                name: 'Tracking Amount',
+                                matchName: 'ADBE Text Tracking Amount',
+                                value: 100,
+                                keys: [],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
+            };
+
+            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.animators[0], animatorData);
+        });
+    });
+
+    describe('Update Existing Text Layer', async () => {
+        beforeEach(async () => {
+            await openProject('assets/layer_text.aep');
+        });
+
+        it('Can update per-character 3d', async () => {
+            const layerData = {
+                threeDPerChar: true,
+                type: AEX_TEXT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.threeDPerChar, layerData.threeDPerChar);
+        });
+
+        it('Can update Text Path Options', async () => {
+            const layerData = {
+                masks: [
+                    {
+                        color: [1, 1, 1],
+                        maskPath: {
+                            type: AEX_SHAPE_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Mask Shape',
+                            name: 'Mask Path',
+                            value: {
+                                closed: true,
+                                featherInterps: [],
+                                featherRadii: [],
+                                featherRelCornerAngles: [],
+                                featherRelSegLocs: [],
+                                featherSegLocs: [],
+                                featherTensions: [],
+                                featherTypes: [],
+                                inTangents: [
+                                    [100, 0],
+                                    [0, -100],
+                                    [-100, 0],
+                                    [0, 100],
+                                ],
+                                outTangents: [
+                                    [-100, 0],
+                                    [0, 100],
+                                    [100, 0],
+                                    [0, -100],
+                                ],
+                                vertices: [
+                                    [200, 100],
+                                    [200, 300],
+                                    [300, 400],
+                                    [400, 300],
+                                ],
+                            },
+                        },
+                        name: 'Basic',
+                    },
+                ],
+                pathOption: {
+                    matchName: 'ADBE Text Path Options',
+                    properties: [
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Path',
+                            name: 'Path',
+                            value: 1,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Reverse Path',
+                            name: 'Reverse Path',
+                            value: 1,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Force Align Path',
+                            name: 'Force Alignment',
+                            value: 1,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text First Margin',
+                            name: 'First Margin',
+                            value: 18,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Last Margin',
+                            name: 'Last Margin',
+                            value: 20,
+                        },
+                    ],
+                },
+                sourceText: {
+                    type: AEX_TEXTDOCUMENT_PROPERTY,
+                    keys: [],
+                    matchName: 'ADBE Text Document',
+                    name: 'Source Text',
+                    value: {
+                        applyFill: true,
+                        baselineLocs: [-115.332, 0, 115.332, 0],
+                        baselineShift: 0,
+                        fillColor: [1, 1, 1],
+                        font: 'ArialMT',
+                        fontFamily: 'Arial',
+                        fontSize: 50,
+                        fontStyle: 'Regular',
+                        horizontalScale: 1,
+                        justification: 7415,
+                        leading: 60,
+                        pointText: true,
+                        text: 'Text Layer',
+                        tracking: 0,
+                        tsume: 0,
+                        verticalScale: 1,
+                    },
+                },
+                type: AEX_TEXT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.pathOption, layerData.pathOption);
+        });
+
+        it('Can update Text More Options', async () => {
+            const layerData = {
+                moreOption: {
+                    matchName: 'ADBE Text More Options',
+                    properties: [
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Anchor Point Option',
+                            name: 'Anchor Point Grouping',
+                            value: 2,
+                        },
+                        {
+                            type: AEX_TWOD_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Anchor Point Align',
+                            name: 'Grouping Alignment',
+                            value: [18, 20],
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Render Order',
+                            name: 'Fill & Stroke',
+                            value: 2,
+                        },
+                        {
+                            type: AEX_ONED_PROPERTY,
+                            keys: [],
+                            matchName: 'ADBE Text Character Blend Mode',
+                            name: 'Inter-Character Blending',
+                            value: 9,
+                        },
+                    ],
+                },
+                sourceText: {
+                    type: AEX_TEXTDOCUMENT_PROPERTY,
+                    keys: [],
+                    matchName: 'ADBE Text Document',
+                    name: 'Source Text',
+                    value: {
+                        applyFill: true,
+                        baselineLocs: [-115.332, 0, 115.332, 0],
+                        baselineShift: 0,
+                        fillColor: [1, 1, 1],
+                        font: 'ArialMT',
+                        fontFamily: 'Arial',
+                        fontSize: 50,
+                        fontStyle: 'Regular',
+                        horizontalScale: 1,
+                        justification: 7415,
+                        leading: 60,
+                        pointText: true,
+                        text: 'Text Layer',
+                        tracking: 0,
+                        tsume: 0,
+                        verticalScale: 1,
+                    },
+                },
+                type: AEX_TEXT_LAYER,
+            };
+
+            await aex().update(AeObject.Layer(1), layerData);
+
+            const result = await aex().get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.moreOption, layerData.moreOption);
+        });
     });
 });

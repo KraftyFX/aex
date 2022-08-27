@@ -33,6 +33,13 @@ function getAexLightLayer(aeLightLayer: LightLayer, state: AexState): AexLightLa
 
 function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, state: AexState) {
     const aeLightLayer = aeComp.layers.addLight(aexLightLayer.name, [aeComp.width / 2, aeComp.height / 2]);
+
+    updateAexLightLayer(aeLightLayer, aexLightLayer, state);
+
+    return aeLightLayer;
+}
+
+function updateAexLightLayer(aeLightLayer: LightLayer, aexLightLayer: AexLightLayer, state: AexState) {
     setLayerAttributes(aeLightLayer, aexLightLayer, state);
 
     aeLightLayer.lightType = aexLightLayer.lightType;
@@ -40,10 +47,4 @@ function createAeLightLayer(aeComp: CompItem, aexLightLayer: AexLightLayer, stat
     if (aexLightLayer.lightOption) {
         setPropertyGroup(aeLightLayer.lightOption, aexLightLayer.lightOption, state);
     }
-
-    return aeLightLayer;
-}
-
-function updateAexLightLayer(aeLightLayer: LightLayer, aexLightLayer: AexLightLayer, state: AexState) {
-    throw notImplemented(`Updating a light layer`);
 }

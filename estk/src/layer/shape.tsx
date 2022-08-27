@@ -26,14 +26,15 @@ function getAexShapeLayer(aeShapeLayer: ShapeLayer, state: AexState): AexShapeLa
 
 function createAeShapeLayer(aeComp: CompItem, aexShapeLayer: AexShapeLayer, state: AexState) {
     const aeShapeLayer = aeComp.layers.addShape();
-    setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
-    _setContents(_getRootVectorsGroup(aeShapeLayer), aexShapeLayer.contents, state);
+
+    updateAexShapeLayer(aeShapeLayer, aexShapeLayer, state);
 
     return aeShapeLayer;
 }
 
 function updateAexShapeLayer(aeShapeLayer: ShapeLayer, aexShapeLayer: AexShapeLayer, state: AexState) {
-    throw notImplemented(`Updating a shape layer`);
+    setAvLayerAttributes(aeShapeLayer, aexShapeLayer, state);
+    _setContents(_getRootVectorsGroup(aeShapeLayer), aexShapeLayer.contents, state);
 }
 
 function _getContents(aeShapeLayer: ShapeLayer, state: AexState): AexShapePropertyGroup[] {

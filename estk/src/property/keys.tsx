@@ -137,7 +137,10 @@ function _setPropertyKeys(aeProperty: Property, aexKeys: AexKey[], state: AexSta
             aeProperty.setSpatialContinuousAtKey(keyIndex, aexKey.spatialContinuous);
 
             aeProperty.setSpatialTangentsAtKey(keyIndex, aexKey.spatialTangent.inTangent, aexKey.spatialTangent.outTangent);
-            aeProperty.setRovingAtKey(keyIndex, aexKey.roving);
+
+            if (!aeq.isNullOrUndefined(aexKey.roving)) {
+              aeProperty.setRovingAtKey(keyIndex, aexKey.roving);
+            }
         }
 
         let inType = KeyframeInterpolationType.LINEAR;

@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import { AeObject, aex } from './aex';
-import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY } from './constants';
-import { cleanupAex, evalAexIntoEstk } from './csinterface';
+import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_PROPERTY, TEST_TIMEOUT_TIME } from './constants';
+import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe.skip('Zack Test Stuff', function () {
+describe('Zack Test Stuff', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();
@@ -17,7 +17,7 @@ describe.skip('Zack Test Stuff', function () {
     });
 
     /** Get dup */
-    describe('Data Dumps', function () {
+    describe.skip('Data Dumps', function () {
         it(`Unsophisticated test to check first layer`, async () => {
             const result = await aex().get(AeObject.Layer(1));
             const layer = result.object;
@@ -166,6 +166,37 @@ describe.skip('Zack Test Stuff', function () {
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
+        });
+    });
+
+    describe.skip('Set & Get', function () {
+        let initialProject: any;
+
+        before(async () => {
+            await openProject('assets/prescan_2_nested_precomps_project.aep');
+        });
+
+        it('Can get() test project', async () => {
+            const result = await aex().get(AeObject.Project);
+            initialProject = result.object;
+
+            console.log('initial conversion', initialProject);
+        });
+
+        it('Can rebuild test project', async () => {
+            // Clear project
+            await openCleanProject();
+
+            // Rebuild project from scan
+            await aex().update(AeObject.Project, initialProject);
+
+            // Scan project again
+            const result = await aex().get(AeObject.Project);
+            const rebuiltProject = result.object;
+
+            console.log('rebuilt project', rebuiltProject);
+
+            assertAreEqual(initialProject, rebuiltProject);
         });
     });
 });

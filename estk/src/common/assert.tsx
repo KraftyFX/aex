@@ -25,7 +25,7 @@ function notSupported(message: string) {
 }
 
 function notImplemented(message: string) {
-    return new Error(`${message} is not yet implemented. TODO: ZACK`);
+    return new Error(`${message} is not yet implemented.`);
 }
 
 function time() {

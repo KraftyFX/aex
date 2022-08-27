@@ -1,5 +1,5 @@
 import { AeObject, aex, getProject } from './aex';
-import { AEX_COMP_ITEM, AEX_PROJECT } from './constants';
+import { AEX_COMP_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from './constants';
 import { cleanupAex, evalAexIntoEstk, IPCStats, openProject, setOnResult } from './csinterface';
 import { assertAreEqual } from './utils';
 
@@ -7,7 +7,7 @@ const cepfs = (window as any).cep.fs;
 
 describe.skip('Rafi Test Stuff', function () {
     this.slow(500);
-    this.timeout(30000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     let project: any;
 

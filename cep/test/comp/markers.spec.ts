@@ -1,11 +1,11 @@
 import { AeObject, aex, getProject } from '../aex';
-import { AEX_COMP_ITEM, AEX_MARKER, AEX_PROJECT } from '../constants';
+import { AEX_COMP_ITEM, AEX_MARKER, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Comp Markers', function () {
     this.slow(500);
-    this.timeout(5000);
+    this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
         await evalAexIntoEstk();

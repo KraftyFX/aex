@@ -113,7 +113,7 @@ function addToAeLayer(aeLayer: Layer, aexPropertyGroup: AexSerializedGroup, stat
 
             const animatorsGroup = aeLayer.text.property('ADBE Text Animators') as PropertyGroup;
 
-            return setTextLayerAnimators(animatorsGroup, [aexPropertyGroup] as AexAnimatorPropertyGroup[], state);
+            return createTextLayerAnimators(animatorsGroup, [aexPropertyGroup] as AexAnimatorPropertyGroup[], state);
 
         case AEX_LAYERSTYLE_PROPERTYGROUP:
             if (!isVisibleLayer(aeLayer)) {
@@ -165,19 +165,19 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
         label: aexLayer.label,
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,
-        inPoint: aexLayer.inPoint,
-        outPoint: aexLayer.outPoint,
-        startTime: aexLayer.startTime,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
+
+        startTime: aexLayer.startTime,
+        inPoint: aexLayer.inPoint,
+        outPoint: aexLayer.outPoint,
     });
 
-    _setLayerParent(aeLayer, aexLayer, state);
     _setLayerMarkers(aeLayer, aexLayer, state);
     updateLayerTransform(aeLayer, aexLayer.transform, state);
 }
 
-function _setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
+function setLayerParent(aeLayer: Layer, aexLayer: AexLayer, state: AexState) {
     if (aeq.isNullOrUndefined(aexLayer.parentLayerIndex)) {
         return;
     }

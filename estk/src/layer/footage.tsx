@@ -42,7 +42,7 @@ function createAeFootageLayer(aeComp: CompItem, aexFootageLayer: AexFootageLayer
 }
 
 function updateAexFootageLayer(aeFootageLayer: AVLayer, aexFootageLayer: AexFootageLayer, state: AexState) {
-    throw notImplemented(`Updating a footage layer`);
+    setAvLayerAttributes(aeFootageLayer, aexFootageLayer, state);
 }
 
 function _ensureFootageLayerSourceExists(aexFootageLayer: AexFootageLayer, state: AexState) {
