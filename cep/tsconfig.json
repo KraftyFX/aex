@@ -10,7 +10,7 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
-    "target": "es5",
+    "target": "es6",
     "noLib": false,
     "baseUrl": ".",
     "paths": {
