@@ -116,10 +116,10 @@ describe('Layer Markers', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.markers, layerData.markers);
@@ -161,10 +161,10 @@ describe('Layer Markers', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.markers, layerData.markers);
@@ -182,9 +182,9 @@ describe('Layer Markers', function () {
                 type: AEX_MARKER,
             };
 
-            await aex().create(AeObject.Layer(1), markerData);
+            await aex.create(AeObject.Layer(1), markerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const route = layer.markers;
 
@@ -200,9 +200,9 @@ describe('Layer Markers', function () {
                 type: AEX_MARKER,
             };
 
-            await aex().create(AeObject.Layer(1), markerData);
+            await aex.create(AeObject.Layer(1), markerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const route = layer.markers;
 

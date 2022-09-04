@@ -156,9 +156,9 @@ describe('Project', function () {
                 workingSpace: 'Apple RGB',
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project, projectData);
@@ -204,9 +204,9 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             projectData.items[0].aexid = '';
@@ -243,9 +243,9 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.items, projectData.items);
@@ -285,9 +285,9 @@ describe('Project', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.items, projectData.items);

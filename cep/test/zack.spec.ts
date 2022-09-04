@@ -19,7 +19,7 @@ describe('Zack Test Stuff', function () {
     /** Get dup */
     describe.skip('Data Dumps', function () {
         it(`Unsophisticated test to check first layer`, async () => {
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             console.log('layer', layer);
@@ -27,7 +27,7 @@ describe('Zack Test Stuff', function () {
         });
 
         it(`Unsophisticated test to check comp data parsing`, async () => {
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
 
             console.log('comp', comp);
@@ -35,7 +35,7 @@ describe('Zack Test Stuff', function () {
         });
 
         it(`Unsophisticated test to check project data parsing`, async () => {
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             console.log('project', project);
@@ -100,10 +100,10 @@ describe('Zack Test Stuff', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
@@ -160,9 +160,9 @@ describe('Zack Test Stuff', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), effectData);
+            await aex.create(AeObject.Layer(1), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
@@ -177,7 +177,7 @@ describe('Zack Test Stuff', function () {
         });
 
         it('Can get() test project', async () => {
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             initialProject = result.object;
 
             console.log('initial conversion', initialProject);
@@ -188,10 +188,10 @@ describe('Zack Test Stuff', function () {
             await openCleanProject();
 
             // Rebuild project from scan
-            await aex().update(AeObject.Project, initialProject);
+            await aex.update(AeObject.Project, initialProject);
 
             // Scan project again
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const rebuiltProject = result.object;
 
             console.log('rebuilt project', rebuiltProject);

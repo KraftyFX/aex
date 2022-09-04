@@ -54,9 +54,9 @@ describe('Comp', function () {
                 width: 1280,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex.create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
             assertAreEqual(comp, compData);
         });

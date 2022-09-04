@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { AeObject, aex, getProject } from '../aex';
 import { AEX_COLOR_PROPERTY, AEX_COMP_ITEM, AEX_LIGHT_LAYER, AEX_ONED_PROPERTY, AEX_THREED_PROPERTY, TEST_TIMEOUT_TIME } from '../constants';
-import { cleanupAex, openProject, evalAexIntoEstk, openCleanProject } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
@@ -174,10 +174,10 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.lightOption, layerData.lightOption);
@@ -212,9 +212,9 @@ describe('Light Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex.create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
 
             expect(comp.layers[0].lightType).to.eql(compData.layers[0].lightType);
@@ -300,9 +300,9 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -314,9 +314,9 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.lightType, layerData.lightType);

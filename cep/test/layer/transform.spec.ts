@@ -342,9 +342,9 @@ describe('Layer Transform', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex.create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers, compData.layers);
@@ -402,10 +402,10 @@ describe('Layer Transform', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -429,10 +429,10 @@ describe('Layer Transform', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -507,10 +507,10 @@ describe('Layer Transform', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -563,10 +563,10 @@ describe('Layer Transform', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);

@@ -97,7 +97,7 @@ describe.skip('Rafi Test Stuff', function () {
 
     it(`Get`, async () => {
         await openProject('assets/comp_markers.aep');
-        const result1 = await aex().get(AeObject.Project);
+        const result1 = await aex.get(AeObject.Project);
         const result2 = await getProject(`assets/comp_markers.aep`, AeObject.Project);
         assertAreEqual(result1, result2);
     });
@@ -107,7 +107,7 @@ describe.skip('Rafi Test Stuff', function () {
 
         setOnResult((stats: IPCStats) => runtimes.push(stats.func));
 
-        const res = await aex().prescan(AeObject.Project);
+        const res = await aex.prescan(AeObject.Project);
 
         const results = {
             stats: res.stats,
@@ -127,7 +127,7 @@ describe.skip('Rafi Test Stuff', function () {
 
         setOnResult((stats: IPCStats) => runtimes.push(stats.func));
 
-        const res = await aex().get(AeObject.Project);
+        const res = await aex.get(AeObject.Project);
         const totalMs = runtimes.reduce((p, c) => c + p, 0);
 
         // res.stats.totalMs = res.stats.compCount + res.stats.nonCompItemCount + res.stats.layerCount + res.stats.propertyCount + res.stats.keyCount;

@@ -519,10 +519,10 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
@@ -584,10 +584,10 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
@@ -677,10 +677,10 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
@@ -737,10 +737,10 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
@@ -875,9 +875,9 @@ describe('Layer Effects', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex.create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
@@ -908,10 +908,10 @@ describe('Layer Effects', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects, layerData.effects);
@@ -930,9 +930,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), effectData);
+            await aex.create(AeObject.Layer(1), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
@@ -989,9 +989,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), effectData);
+            await aex.create(AeObject.Layer(1), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
@@ -1012,9 +1012,9 @@ describe('Layer Effects', function () {
                 type: AEX_DROPDOWN_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), effectData);
+            await aex.create(AeObject.Layer(1), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             const dropdownEffect = layer.effects.find((effect: any) => effect.name === 'Dropdown Menu Control');
@@ -1228,9 +1228,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), effectData);
+            await aex.create(AeObject.Layer(1), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
@@ -1293,9 +1293,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'effect(1)'), effectData);
+            await aex.update(AeObject.LayerProp(1, 'effect(1)'), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.effects[0], effectData);
@@ -1340,9 +1340,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'effect(1)'), effectData);
+            await aex.update(AeObject.LayerProp(1, 'effect(1)'), effectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const compOptions = layer.effects[0].properties.find((effect: any) => effect.matchName == 'ADBE Effect Built In Params');
 
@@ -1365,9 +1365,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(2, 'effect(1)'), effectData);
+            await aex.update(AeObject.LayerProp(2, 'effect(1)'), effectData);
 
-            const result = await aex().get(AeObject.Layer(2));
+            const result = await aex.get(AeObject.Layer(2));
             const layer = result.object;
 
             assertAreEqual(layer.effects[0], effectData);
@@ -1389,9 +1389,9 @@ describe('Layer Effects', function () {
                 type: AEX_EFFECT_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(4, 'effect(1)'), effectData);
+            await aex.update(AeObject.LayerProp(4, 'effect(1)'), effectData);
 
-            const result = await aex().get(AeObject.Layer(4));
+            const result = await aex.get(AeObject.Layer(4));
             const layer = result.object;
 
             assertAreEqual(layer.effects[0], effectData);

@@ -314,10 +314,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties, layerData.layerStyles.properties);
@@ -338,10 +338,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
 
             assertAreEqual(comp.layers[0].layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -362,10 +362,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -386,10 +386,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -410,10 +410,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -434,10 +434,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -458,10 +458,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -482,10 +482,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -506,10 +506,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -657,10 +657,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties, layerData.layerStyles.properties);
@@ -681,10 +681,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles.properties[1], layerData.layerStyles.properties[0]);
@@ -714,10 +714,10 @@ describe('Layer Styles', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.layerStyles, layerData.layerStyles);
@@ -734,9 +734,9 @@ describe('Layer Styles', function () {
             };
 
             await openProject('assets/layer_blank.aep');
-            await aex().create(AeObject.Layer(1), styleData);
+            await aex.create(AeObject.Layer(1), styleData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             console.log('add drop shadow style to layer', layer);
@@ -817,9 +817,9 @@ describe('Layer Styles', function () {
             };
 
             await openProject('assets/layer_blank.aep');
-            await aex().create(AeObject.Layer(1), styleData);
+            await aex.create(AeObject.Layer(1), styleData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             console.log('modified drop shadow style to layer', layer);
@@ -888,9 +888,9 @@ describe('Layer Styles', function () {
             };
 
             await openProject('assets/layer_styles.aep');
-            await aex().update(AeObject.LayerProp(1, 'layerStyle.property(2)'), styleData);
+            await aex.update(AeObject.LayerProp(1, 'layerStyle.property(2)'), styleData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             console.log('updated layer style drop shadow', layer.layerStyles);

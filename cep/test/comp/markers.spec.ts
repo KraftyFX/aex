@@ -174,9 +174,9 @@ describe('Comp Markers', function () {
         before(async () => {
             await openCleanProject();
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             project = result.object;
         });
 
@@ -200,9 +200,9 @@ describe('Comp Markers', function () {
                 type: AEX_MARKER,
             };
 
-            await aex().create(AeObject.ActiveComp, markerData);
+            await aex.create(AeObject.ActiveComp, markerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
             const route = comp.markers;
 
@@ -218,9 +218,9 @@ describe('Comp Markers', function () {
                 type: AEX_MARKER,
             };
 
-            await aex().create(AeObject.ActiveComp, markerData);
+            await aex.create(AeObject.ActiveComp, markerData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
             const route = comp.markers;
 

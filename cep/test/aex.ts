@@ -14,47 +14,45 @@ export const AeObject = {
     LayerProp: (num: number, route: string) => `app.project.activeItem.layer(${num}).${route}`,
 };
 
-export function aex() {
-    return {
-        async createTestComp(): Promise<AexResult> {
-            return await getEvalScriptResult<AexResult>(`aeq.comp.create().openInViewer()`, undefined, {
-                ignoreReturn: false,
-            });
-        },
+export const aex = {
+    async createTestComp(): Promise<AexResult> {
+        return await getEvalScriptResult<AexResult>(`aeq.comp.create().openInViewer()`, undefined, {
+            ignoreReturn: false,
+        });
+    },
 
-        async benchmark(options: { callback: (result: boolean) => void }): Promise<any> {
-            return await getEvalScriptResult(`aex.benchmark(aex_args)`, options, { ignoreReturn: false });
-        },
+    async benchmark(options: { callback: (result: boolean) => void }): Promise<any> {
+        return await getEvalScriptResult(`aex.benchmark(aex_args)`, options, { ignoreReturn: false });
+    },
 
-        async prescan(aeObject: string, options?: AexOptions): Promise<AexPrescanResult> {
-            return await getEvalScriptResult<AexPrescanResult>(`aex.prescan(${aeObject}, aex_args)`, options || {}, {
-                ignoreReturn: false,
-            });
-        },
+    async prescan(aeObject: string, options?: AexOptions): Promise<AexPrescanResult> {
+        return await getEvalScriptResult<AexPrescanResult>(`aex.prescan(${aeObject}, aex_args)`, options || {}, {
+            ignoreReturn: false,
+        });
+    },
 
-        async get(aeObject: string, options?: AexOptions): Promise<AexResult> {
-            const isLayer = aeObject.match(/app.project.activeItem.layer\(\d+\)/gi);
+    async get(aeObject: string, options?: AexOptions): Promise<AexResult> {
+        const isLayer = aeObject.match(/app.project.activeItem.layer\(\d+\)/gi);
 
-            if (isLayer || aeObject == AeObject.ActiveComp || aeObject == AeObject.Project) {
-                return await getEvalScriptResult<AexResult>(`aex.get(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
-            } else {
-                throw new Error(`Unrecognized AE Object - ${aeObject}`);
-            }
-        },
+        if (isLayer || aeObject == AeObject.ActiveComp || aeObject == AeObject.Project) {
+            return await getEvalScriptResult<AexResult>(`aex.get(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
+        } else {
+            throw new Error(`Unrecognized AE Object - ${aeObject}`);
+        }
+    },
 
-        async create(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
-            return await getEvalScriptResult<AexResult>(`aex.create(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
-                ignoreReturn: false,
-            });
-        },
+    async create(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
+        return await getEvalScriptResult<AexResult>(`aex.create(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
+            ignoreReturn: false,
+        });
+    },
 
-        async update(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
-            return await getEvalScriptResult<AexResult>(`aex.update(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
-                ignoreReturn: false,
-            });
-        },
-    };
-}
+    async update(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
+        return await getEvalScriptResult<AexResult>(`aex.update(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
+            ignoreReturn: false,
+        });
+    },
+};
 
 /**
  * Looks for a pre-deserialized (cached) version of an aep containing specific aex data. If it
@@ -75,7 +73,7 @@ export async function getProject(aepPath: string, aexObject: string, options?: A
         if (await isCachedProjectStale(cachedProjectFilepath)) {
             await openProject(aepPath); // TODO(zlovatt): This chokes on projectFilepath. Seems suspicious.
 
-            const serializedProject = await aex().get(aexObject);
+            const serializedProject = await aex.get(aexObject);
 
             saveSerializedProjectToFile(cachedProjectFilepath, serializedProject);
         }

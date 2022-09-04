@@ -448,10 +448,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.threeDPerChar, layerData.threeDPerChar);
@@ -566,10 +566,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.pathOption, layerData.pathOption);
@@ -637,10 +637,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.moreOption, layerData.moreOption);
@@ -764,10 +764,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators, layerData.animators);
@@ -842,10 +842,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators, layerData.animators);
@@ -958,10 +958,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators, layerData.animators);
@@ -1025,10 +1025,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators, layerData.animators);
@@ -1102,10 +1102,10 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators, layerData.animators);
@@ -1157,9 +1157,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), animatorData);
+            await aex.create(AeObject.Layer(1), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[layer.animators.length - 1], animatorData);
@@ -1243,9 +1243,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), animatorData);
+            await aex.create(AeObject.Layer(1), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[layer.animators.length - 1], animatorData);
@@ -1280,9 +1280,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), animatorData);
+            await aex.create(AeObject.Layer(1), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[layer.animators.length - 1], animatorData);
@@ -1327,9 +1327,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), animatorData);
+            await aex.create(AeObject.Layer(1), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[layer.animators.length - 1], animatorData);
@@ -1482,9 +1482,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+            await aex.update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[0], animatorData);
@@ -1568,9 +1568,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+            await aex.update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[0], animatorData);
@@ -1605,9 +1605,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+            await aex.update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[0], animatorData);
@@ -1652,9 +1652,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_ANIMATOR_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
+            await aex.update(AeObject.LayerProp(1, 'text.animator(1)'), animatorData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.animators[0], animatorData);
@@ -1672,9 +1672,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.threeDPerChar, layerData.threeDPerChar);
@@ -1789,9 +1789,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.pathOption, layerData.pathOption);
@@ -1859,9 +1859,9 @@ describe('Text Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.moreOption, layerData.moreOption);

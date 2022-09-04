@@ -382,10 +382,10 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
@@ -433,10 +433,10 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
@@ -496,10 +496,10 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
@@ -615,10 +615,10 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
@@ -654,9 +654,9 @@ describe('Layer Animation', function () {
                 value: 0,
             };
 
-            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const route = layer.transform.rotation.keys;
 
@@ -674,9 +674,9 @@ describe('Layer Animation', function () {
                 value: 20,
             };
 
-            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const route = layer.transform.rotation.keys;
 
@@ -704,9 +704,9 @@ describe('Layer Animation', function () {
                 value: 90,
             };
 
-            await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
             const route = layer.transform.rotation.keys;
 

@@ -527,9 +527,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -572,9 +572,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -591,9 +591,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -619,9 +619,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -644,9 +644,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -664,9 +664,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_NULL_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -711,9 +711,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().update(AeObject.ActiveComp, compData);
+            await aex.update(AeObject.ActiveComp, compData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             (compData.layers[0] as any).source = layer.source;
@@ -856,9 +856,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -917,9 +917,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().create(AeObject.Project, compData);
+            await aex.create(AeObject.Project, compData);
 
-            const result = await aex().get(AeObject.ActiveComp);
+            const result = await aex.get(AeObject.ActiveComp);
             const comp = result.object;
 
             (compData.layers[0] as any).source = comp.layers[0].source;
@@ -967,9 +967,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_ITEM,
             };
 
-            await aex().update(AeObject.ActiveComp, compData);
+            await aex.update(AeObject.ActiveComp, compData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             (compData.layers[0] as any).source = layer.source;
@@ -1061,9 +1061,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, projectData.comps[1].layers[0]);
@@ -1153,9 +1153,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_PROJECT,
             };
 
-            await aex().update(AeObject.Project, projectData);
+            await aex.update(AeObject.Project, projectData);
 
-            const result = await aex().get(AeObject.Project);
+            const result = await aex.get(AeObject.Project);
             const project = result.object;
 
             assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
@@ -1176,9 +1176,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_TEXT_LAYER,
             };
 
-            await aex().update(AeObject.Layer(2), layerData);
+            await aex.update(AeObject.Layer(2), layerData);
 
-            const result = await aex().get(AeObject.Layer(2));
+            const result = await aex.get(AeObject.Layer(2));
             const layer = result.object;
 
             assertAreEqual(layer.adjustmentLayer, layerData.adjustmentLayer);
@@ -1239,9 +1239,9 @@ describe('Basic Layer Attributes', function () {
                 type: AEX_COMP_LAYER,
             };
 
-            await aex().update(AeObject.Layer(9), layerData);
+            await aex.update(AeObject.Layer(9), layerData);
 
-            const result = await aex().get(AeObject.Layer(9));
+            const result = await aex.get(AeObject.Layer(9));
             const layer = result.object;
 
             assertAreEqual(layer.timeRemap, layerData.timeRemap);

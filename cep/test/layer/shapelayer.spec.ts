@@ -551,10 +551,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -589,10 +589,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -809,10 +809,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -869,10 +869,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -900,10 +900,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -954,10 +954,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -1043,10 +1043,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -1111,10 +1111,10 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents, layerData.contents);
@@ -1150,9 +1150,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1364,9 +1364,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1379,9 +1379,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEITEM_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1427,9 +1427,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1510,9 +1510,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1572,9 +1572,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
-            await aex().create(AeObject.Layer(1), shapeData);
+            await aex.create(AeObject.Layer(1), shapeData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
@@ -1702,9 +1702,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.contents[layer.contents.length - 1], layerData.contents[0]);
@@ -1731,9 +1731,9 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEITEM_PROPERTYGROUP,
             };
 
-            await aex().update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
+            await aex.update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
 
-            const result = await aex().get(AeObject.Layer(2));
+            const result = await aex.get(AeObject.Layer(2));
             const layer = result.object;
             const shapeGroup = layer.contents[0];
             const contents = shapeGroup.contents;

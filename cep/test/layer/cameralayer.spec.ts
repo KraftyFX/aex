@@ -245,10 +245,10 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.cameraOption, layerData.cameraOption);
@@ -278,10 +278,10 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().createTestComp();
-            await aex().create(AeObject.ActiveComp, layerData);
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer, layerData);
@@ -391,9 +391,9 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().update(AeObject.Layer(1), layerData);
+            await aex.update(AeObject.Layer(1), layerData);
 
-            const result = await aex().get(AeObject.Layer(1));
+            const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
             assertAreEqual(layer.cameraOption, layerData.cameraOption);
@@ -423,9 +423,9 @@ describe('Camera Layer Attributes', function () {
                 type: AEX_CAMERA_LAYER,
             };
 
-            await aex().update(AeObject.Layer(2), layerData);
+            await aex.update(AeObject.Layer(2), layerData);
 
-            const result = await aex().get(AeObject.Layer(2));
+            const result = await aex.get(AeObject.Layer(2));
             const layer = result.object;
 
             assertAreEqual(layer.transform, layerData.transform);
