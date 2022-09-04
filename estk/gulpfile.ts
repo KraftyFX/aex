@@ -12,14 +12,6 @@ const paths = {
     dist: './dist',
 };
 
-const globalVarName = 'aex';
-const aexFiles = `./**/!(exports|ipc)*.jsx`;
-const aexExports = `./**/exports.jsx`;
-const baseLibraryFiles = [aexFiles, aexExports];
-const libAeq = `../lib/aequery.jsx`;
-const libJson = `../lib/json2.jsx`;
-const aexIpc = `./cep/*.jsx`;
-
 function cleanBuild() {
     return del([`${paths._build}/*`, `${paths.dist}/*`], {
         force: true,
@@ -36,41 +28,25 @@ function buildAexBaseLibrary() {
         .pipe(gulp.dest(`${paths._build}`));
 }
 
-function buildTarget(filename: string, libs?: string[], append?: string[]) {
-    const files = libs && libs.length > 0 ? libs.concat(baseLibraryFiles) : baseLibraryFiles;
+function buildAexJsx() {
+    const globalVarName = 'aex';
+    const filename = `${globalVarName}.jsx`;
+    const aexFiles = `./**/!(exports|ipc)*.jsx`;
+    const aexExports = `./**/exports.jsx`;
+    const baseLibraryFiles = [aexFiles, aexExports];
+    const aexIpc = `./cep/*.jsx`;
 
-    let base = gulp
-        .src(files, { cwd: paths._build })
+    return gulp
+        .src(baseLibraryFiles, { cwd: paths._build })
         .pipe(concat(filename))
         .pipe(header(`// (c) 2021 KraftyFX <rafikhan@kraftyfx.com>\nvar ${globalVarName}=(function(_export_) {\n`))
-        .pipe(footer(`\nreturn _export_;\n})({});`));
-
-    if (append && append.length > 0) {
-        base = base.pipe(gulp.src(append, { cwd: paths._build })).pipe(concat(filename));
-    }
-
-    return base.pipe(gulp.dest(paths.dist));
+        .pipe(footer(`\nreturn _export_;\n})({});`))
+        .pipe(gulp.src([aexIpc], { cwd: paths._build }))
+        .pipe(concat(filename))
+        .pipe(gulp.dest(paths.dist));
 }
 
-function buildAexJsx() {
-    return buildTarget('aex.jsx', [libAeq]);
-}
-
-function buildAexLiteJsx() {
-    return buildTarget('aex-lite.jsx');
-}
-
-function buildAexCepJsx() {
-    return buildTarget('aexcep.jsx', [libAeq, libJson], [aexIpc]);
-}
-
-function buildAexCepLiteJsx() {
-    return buildTarget('aexcep-lite.jsx', [], [aexIpc]);
-}
-
-const buildAllAexTargets = gulp.parallel(buildAexJsx, buildAexLiteJsx, buildAexCepJsx, buildAexCepLiteJsx);
-
-const buildAex = gulp.series(buildAexBaseLibrary, buildAllAexTargets);
+const buildAex = gulp.series(buildAexBaseLibrary, buildAexJsx);
 
 function startAex() {
     return gulp.watch([`**/*.tsx`, `**/*.d.ts`], { cwd: paths.src }, buildAex);

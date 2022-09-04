@@ -1,7 +1,7 @@
-import 'file-loader!../_build/panel/aexcep-lite.jsx';
+import 'file-loader!../_build/panel/aex.jsx';
 import * as fs from 'fs';
-import * as path from 'path'
-import * as os from 'os'
+import * as os from 'os';
+import * as path from 'path';
 import 'source-map-support/register';
 const { CSInterface, SystemPath } = require('exports-loader?CSInterface,CSEvent,SystemPath!../lib/CSInterface.js');
 
@@ -19,7 +19,7 @@ export function pause(timeout: number) {
 export async function evalAexIntoEstk() {
     await evalScript(`if (typeof aeq === 'undefined') { $.evalFile(${getFilePath('aequery.jsx')}) }`);
     await evalScript(`if (typeof JSON === 'undefined') { $.evalFile(${getFilePath('json2.jsx')}) }`);
-    await evalScript(`$.evalFile(${getFilePath('aexcep-lite.jsx')})`);
+    await evalScript(`$.evalFile(${getFilePath('aex.jsx')})`);
 }
 
 function getFilePath(fileName: string) {
@@ -27,6 +27,8 @@ function getFilePath(fileName: string) {
 }
 
 export async function cleanupAex() {
+    // await getEvalScriptResult('delete aeq', null, { ignoreReturn: true });
+    // await getEvalScriptResult('delete JSON', null, { ignoreReturn: true });
     await getEvalScriptResult('delete aex', null, { ignoreReturn: true });
     // await getEvalScriptResult('$.gc()', null, { ignoreReturn: true });
 }
@@ -182,7 +184,8 @@ cs.addEventListener('aex_result', function (event: any) {
         err.fileName = fileName;
         err.stack = `\n\n> -------- ${path.basename(fileName)}:${line} --------\n${getTextNearLine(
             fileName,
-            line)}\n> --------------------------------`;
+            line
+        )}\n> --------------------------------`;
 
         request.reject(err);
     }
@@ -209,7 +212,7 @@ function convertCallbacks(request: IPCRequest) {
     }, args);
 }
 
-function getTextNearLine(estkPath: string, line: number, window: number=5) {
+function getTextNearLine(estkPath: string, line: number, window: number = 5) {
     try {
         const fileContents: string = fs.readFileSync(cleanPathForNodeJS()).toString();
         const lines: string[] = fileContents.split('\n').map((v: string) => '> ' + v);
