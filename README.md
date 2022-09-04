@@ -39,7 +39,7 @@ Aex has 4 major functions
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-const getResult = aex.get(app.project, {
+var getResult = aex.get(app.project, {
     unspportedPropertyBehavior: 'skip', // Skips any property that aex can't deserialize.
 });
 ```
@@ -63,14 +63,14 @@ const getResult = aex.get(app.project, {
 | `PropertyGroup` | `AexPropertyGroup` or `AexShapePropertyGroup` |
 | `Property`      | `AexKey`                                      |
 
-## `aex.update(aeThing, aexThing, options?)`
+## `aex.update(aeThing, aexThingBlob, options?)`
 
 `update` takes an element of the AE DOM and updates with an equivalent aex JSON object.
 
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-const updateResult = aex.update(app.project, { ... }, {
+var updateResult = aex.update(app.project, { ... }, {
     projectItemMismatchBehavior: 'create',
     layerMatchBy: 'index',
     markerMatchBy: 'index',
@@ -81,7 +81,7 @@ const updateResult = aex.update(app.project, { ... }, {
 
 | Value                | Behavior if the item is not found     |
 | -------------------- | ------------------------------------- |
-| `create`             | Create it                             |
+| `create`             | Create it.                            |
 | `skip`               | Skip over it.                         |
 | `log`                | Add it to the log                     |
 | `throw`              | Stop processing and throw an error    |
@@ -96,7 +96,7 @@ Similar behavior as `get()` (but not identical) but gives an _approximate_ count
 This is useful if you're writing a tool and want to make a progress bar.
 
 ```javascript
-const prescanResult = aex.prescan(app.project);
+var prescanResult = aex.prescan(app.project);
 ```
 
 # Contributing
