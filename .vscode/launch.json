@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "attach",
+            "name": "[Attach] CEP JavaScript",
+            "port": 8094,
+            "webRoot": "http://localhost:9000/",
+            "pathMapping": {
+                "/": "${workspaceRoot}/cep"
+            }
+        },        {
             "type": "extendscript-debug",
             "request": "attach",
             "name": "Attach to ExtendScript Engine",
