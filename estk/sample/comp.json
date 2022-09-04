@@ -1,0 +1,36 @@
+{
+   "type": "aex:getresult",
+   "object": {
+      "name": "Comp 1",
+      "folder": [],
+      "aexid": "comp 1:1",
+      "duration": 4,
+      "frameRate": 60,
+      "height": 720,
+      "pixelAspect": 1,
+      "width": 1280,
+      "type": "aex:item:av:comp",
+      "markers": [],
+      "layers": []
+   },
+   "footage": {
+      "comps": [],
+      "items": []
+   },
+   "stats": {
+      "nonCompItemCount": 0,
+      "compCount": 1,
+      "layerCount": 0,
+      "propertyCount": 1,
+      "keyCount": 0
+   },
+   "profile": {
+      "getAexComp": [
+         {
+            "elapsed": 7,
+            "meta": "Comp 1"
+         }
+      ]
+   },
+   "log": []
+}
