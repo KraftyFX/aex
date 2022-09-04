@@ -4,15 +4,13 @@ An easy to use JSON Serializer and Deserializer for Adobe After Effects.
 
 # Inspiration
 
-Do you ever templatize AEPs? Do you hate dealing with the complex AE DOM and wish it didn't need 20 years of experience to do it right? Are you a script author and simply want to make better/robust tools that work in AE?
+Have you ever wanted to manipulate the AE DOM with as human readable JSON blob instead of the scripting API? If so, AEX is for you!
 
 # Features
 
--   Converts most of the AE DOM to JSON and back. Not just shape layers! The [Lottie](https://lottiefiles.com/plugins/after-effects) on steroids
--   Create or apply the JSON on top of an existing project, comp, layer or property.
--   Can prescan and count the comps/layers/properties/keys/etc so you can make a progress bar for your tool.
--   Separates out the text for easy mapping to a spreadsheet.
--   Simplifies shape layer vector groups for easier manipulation.
+-   Converts _most_ of the AE DOM to human readable JSON **and back**. Think [Lottie](https://lottiefiles.com/plugins/after-effects) on steroids.
+-   Can create or update projects, comps, layers, and properties.
+-   Separates out text for easy reading and updating.
 
 # Installation
 
@@ -22,23 +20,23 @@ There are 2 ways to work with AEX. Directly or using a package manager like `yar
 
 Download the latest release. Unzip it and look at the sample project.
 
-## Package manager instructions
+## Package manager
 
 Download the latest release and look at the sample project.
 
 ```bash
-$ yarn add ....
+$ yarn add --TBD--
 ```
 
 # Usage
 
 Aex has 4 major functions
 
-**`aex.get(aeThing, options?)`**
+### `aex.get(aeThing, options?)`
 
-`get()` lets you convert a `project`, `comp`, `layer`, `property` to JSON.
+`get` converts an AE `project`, `comp`, `layer`, `property` to a aex JSON object.
 
-You can provide an `options` object to override some of the behaviors. Here's an overview of the default values.
+You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
 get(app.project, {
@@ -46,14 +44,32 @@ get(app.project, {
 });
 ```
 
-**`aex.create()`**
+### `aex.create(aeParentThing, aexChildThing)`
 
-TODO
+`create` takes an element of the AE DOM and adds a child to it described by an aex JSON object.
 
-**`aex.update()`**
+| `aeParent` Type | Allowed `aexChild` Type                       |
+| --------------- | --------------------------------------------- |
+| `Project`       | `AexComp` or `AexItem`                        |
+| `Comp`          | `AexLayer `                                   |
+| `Layer`         | `AexProperty`                                 |
+| `PropertyGroup` | `AexPropertyGroup` or `AexShapePropertyGroup` |
+| `Property`      | `AexKey`                                      |
 
-TODO
+### `aex.update(aeThing, aexThing, options?)`
 
-**`aex.prescan()`**
+`update` takes an element of the AE DOM and updates with an equivalent aex JSON object.
+
+You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
+
+```javascript
+update(app.project, { ... }, {
+    projectItemMismatchBehavior: 'create', // If the project doesn't have the equivalent item, create it.
+    layerMatchBy: 'index', // When updating an AE layer from AEX, use the index of the array entry to match it.
+    markerMatchBy: 'index', // When updating an AE marker from AEX, use the index of the array entry to match it.
+});
+```
+
+### `aex.prescan()`
 
 TODO
