@@ -3,11 +3,8 @@
     //@include "./libs/json2.jsx";
     //@include "./aex.jsx";
 
-    var comp = app.project.activeItem;
+    var json = aeq.file.readFile('comp.json');
+    var aexComp = JSON.parse(json);
 
-    var filePath = 'comp.json';
-    var aexData = aeq.file.readFile(filePath);
-    var parsed = JSON.parse(aexData);
-
-    aex().create(comp, parsed);
+    aex.create(app.project, aexComp);
 })();
