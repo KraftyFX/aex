@@ -32,23 +32,30 @@ $ yarn add --TBD--
 
 Aex has 4 major functions
 
-### `aex.get(aeThing, options?)`
+## `aex.get(aeThing, options?)`
 
 `get` converts an AE `project`, `comp`, `layer`, `property` to a aex JSON object.
 
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-get(app.project, {
+const getResult = aex.get(app.project, {
     unspportedPropertyBehavior: 'skip', // Skips any property that aex can't deserialize.
 });
 ```
 
-### `aex.create(aeParentThing, aexChildThing)`
+| Value                | Behavior if the item is not found     |
+| -------------------- | ------------------------------------- |
+| `skip`               | Skip over it.                         |
+| `log`                | Add it to the log                     |
+| `throw`              | Stop processing and throw an error    |
+| `callback(logEntry)` | Raise a callback to decide what to do |
+
+## `aex.create(aeParentThing, aexChildBlob)`
 
 `create` takes an element of the AE DOM and adds a child to it described by an aex JSON object.
 
-| `aeParent` Type | Allowed `aexChild` Type                       |
+| `aeParent` Type | Allowed `aexChildBlob` Type                   |
 | --------------- | --------------------------------------------- |
 | `Project`       | `AexComp` or `AexItem`                        |
 | `Comp`          | `AexLayer `                                   |
@@ -56,20 +63,46 @@ get(app.project, {
 | `PropertyGroup` | `AexPropertyGroup` or `AexShapePropertyGroup` |
 | `Property`      | `AexKey`                                      |
 
-### `aex.update(aeThing, aexThing, options?)`
+## `aex.update(aeThing, aexThing, options?)`
 
 `update` takes an element of the AE DOM and updates with an equivalent aex JSON object.
 
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-update(app.project, { ... }, {
-    projectItemMismatchBehavior: 'create', // If the project doesn't have the equivalent item, create it.
-    layerMatchBy: 'index', // When updating an AE layer from AEX, use the index of the array entry to match it.
-    markerMatchBy: 'index', // When updating an AE marker from AEX, use the index of the array entry to match it.
+const updateResult = aex.update(app.project, { ... }, {
+    projectItemMismatchBehavior: 'create',
+    layerMatchBy: 'index',
+    markerMatchBy: 'index',
 });
 ```
 
-### `aex.prescan()`
+### updateOptions.projectItemMismatchBehavior
 
-TODO
+| Value                | Behavior if the item is not found     |
+| -------------------- | ------------------------------------- |
+| `create`             | Create it                             |
+| `skip`               | Skip over it.                         |
+| `log`                | Add it to the log                     |
+| `throw`              | Stop processing and throw an error    |
+| `callback(logEntry)` | Raise a callback to decide what to do |
+
+### `projectItemMismatchBehavior`
+
+## `aex.prescan(aeThing, options?)`
+
+Similar behavior as `get()` (but not identical) but gives an _approximate_ count of all the items.
+
+This is useful if you're writing a tool and want to make a progress bar.
+
+```javascript
+const prescanResult = aex.prescan(app.project);
+```
+
+# Contributing
+
+See [contributing.md](./CONTRIBUTING.md) for details.
+
+# License
+
+MIT
