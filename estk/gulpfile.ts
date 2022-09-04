@@ -41,7 +41,7 @@ function assembleAexJsx() {
     return gulp
         .src(baseLibraryFiles, { cwd: paths._build })
         .pipe(concat(filename))
-        .pipe(header(`// (c) 2021 KraftyFX <rafikhan@kraftyfx.com>\nvar ${globalVarName}=(function() {\n`))
+        .pipe(header(`// (c) 2021 KraftyFX <rafikhan@kraftyfx.com>\nvar ${globalVarName}=(function(_export_) {\n`))
         .pipe(footer(`\nreturn _export_;\n})({});`))
         .pipe(gulp.src([aexIpc], { cwd: paths._build }))
         .pipe(concat(filename))
