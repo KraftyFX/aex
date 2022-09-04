@@ -4,7 +4,7 @@ An easy to use JSON Serializer and Deserializer for Adobe After Effects.
 
 # Inspiration
 
-Have you ever wanted to manipulate the AE DOM with as a human readable JSON blob instead of the scripting API? If so, AEX is for you!
+Have you ever wanted to manipulate the AE DOM with a human readable JSON blob instead of the scripting API? If so, AEX is for you!
 
 # Features
 
@@ -30,11 +30,11 @@ $ yarn add --TBD--
 
 # Usage
 
-Aex has 4 major functions. Creating project elements from JSON, reading them, updating them, and scanning them to get some statistics.
+AEX has 4 major functions. Creating project elements from JSON, reading them, updating them, and scanning them to get some statistics.
 
 ## `aex.get(aeThing, options?)`
 
-`get` converts an AE `project`, `comp`, `layer`, `property` to a aex JSON object.
+`get` converts an AE `project`, `comp`, `layer`, `property` to a AEX JSON object.
 
 You can provide an optional `options` object to modify the behavior. Here's an overview of the **default** values.
 
