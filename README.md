@@ -4,7 +4,7 @@ An easy to use JSON Serializer and Deserializer for Adobe After Effects.
 
 # Inspiration
 
-Have you ever wanted to manipulate the AE DOM with as human readable JSON blob instead of the scripting API? If so, AEX is for you!
+Have you ever wanted to manipulate the AE DOM with as a human readable JSON blob instead of the scripting API? If so, AEX is for you!
 
 # Features
 
@@ -70,14 +70,39 @@ var getResult = aex.get(app.project, {
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-var updateResult = aex.update(app.project, { ... }, {
+var updateResult = aex.update(app.project, exProject, {
     projectItemMismatchBehavior: 'create',
     layerMatchBy: 'index',
     markerMatchBy: 'index',
 });
 ```
 
-### updateOptions.projectItemMismatchBehavior
+### Sample Usage
+
+```javascript
+var aexProjectWithMarkers = {
+    type: 'aex:project',
+    comps: [
+        {
+            type: 'aex:item:av:comp',
+            name: 'DetailedMarkers',
+            markers: [
+                {
+                    time: 0.1667,
+                    duration: 0.2,
+                    type: 'aex:marker',
+                },
+            ],
+        },
+    ],
+};
+
+aex.update(app.project, aexProjectWithMarkers);
+```
+
+### `updateOptions.projectItemMismatchBehavior`
+
+If a project is being updated AEX tries to match the project items by the item name. If an item with a matching name isn't found `projectItemMismatchBehavior` defines what to do. The table below
 
 | Value                | Behavior if the item is not found     |
 | -------------------- | ------------------------------------- |
@@ -86,8 +111,6 @@ var updateResult = aex.update(app.project, { ... }, {
 | `log`                | Add it to the log                     |
 | `throw`              | Stop processing and throw an error    |
 | `callback(logEntry)` | Raise a callback to decide what to do |
-
-### `projectItemMismatchBehavior`
 
 ## `aex.prescan(aeThing, options?)`
 
