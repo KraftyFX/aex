@@ -30,21 +30,33 @@ $ yarn add --TBD--
 
 # Usage
 
-Aex has 4 major functions
+Aex has 4 major functions. Creating project elements from JSON, reading them, updating them, and scanning them to get some statistics.
 
 ## `aex.get(aeThing, options?)`
 
 `get` converts an AE `project`, `comp`, `layer`, `property` to a aex JSON object.
 
-You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
+You can provide an optional `options` object to modify the behavior. Here's an overview of the **default** values.
 
 ```javascript
 var getResult = aex.get(app.project, {
-    unspportedPropertyBehavior: 'skip', // Skips any property that aex can't deserialize.
+    unspportedPropertyBehavior: 'skip',
 });
 ```
 
-| Value                | Behavior if the item is not found     |
+### Sample Usage
+
+```javascript
+var getResult = aex.get(app.project);
+
+aeq.writeFile(getResult.object); // 'object' contains the usable JSON
+```
+
+### `options.unspportedPropertyBehavior`
+
+In AE there might not be a scriptable way to read a property or reasonably update it. When such a property is encountered you can tell aex what to do through the `unspportedPropertyBehavior` option.
+
+| Value                | Behavior                              |
 | -------------------- | ------------------------------------- |
 | `skip`               | Skip over it.                         |
 | `log`                | Add it to the log                     |
@@ -67,16 +79,6 @@ var getResult = aex.get(app.project, {
 
 `update` takes an element of the AE DOM and updates with an equivalent aex JSON object.
 
-You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
-
-```javascript
-var updateResult = aex.update(app.project, exProject, {
-    projectItemMismatchBehavior: 'create',
-    layerMatchBy: 'index',
-    markerMatchBy: 'index',
-});
-```
-
 ### Sample Usage
 
 ```javascript
@@ -97,20 +99,34 @@ var aexProjectWithMarkers = {
     ],
 };
 
-aex.update(app.project, aexProjectWithMarkers);
+var updateResult = aex.update(app.project, aexProjectWithMarkers);
+```
+
+You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
+
+```javascript
+var updateResult = aex.update(app.project, exProject, {
+    projectItemMismatchBehavior: 'create',
+    layerMatchBy: 'index',
+    markerMatchBy: 'index',
+});
 ```
 
 ### `updateOptions.projectItemMismatchBehavior`
 
-If a project is being updated AEX tries to match the project items by the item name. If an item with a matching name isn't found `projectItemMismatchBehavior` defines what to do. The table below
+If a project is being updated AEX tries to match the project items by the item name. If an item with a matching name isn't found you can tell AEX what to do through the `projectItemMismatchBehavior` option.
 
-| Value                | Behavior if the item is not found     |
+| Value                | Behavior                              |
 | -------------------- | ------------------------------------- |
 | `create`             | Create it.                            |
 | `skip`               | Skip over it.                         |
 | `log`                | Add it to the log                     |
 | `throw`              | Stop processing and throw an error    |
 | `callback(logEntry)` | Raise a callback to decide what to do |
+
+TODO: Layers
+
+TODO: Markers
 
 ## `aex.prescan(aeThing, options?)`
 
@@ -121,6 +137,8 @@ This is useful if you're writing a tool and want to make a progress bar.
 ```javascript
 var prescanResult = aex.prescan(app.project);
 ```
+
+TODO: Finish
 
 # Contributing
 
