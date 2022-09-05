@@ -48,8 +48,9 @@ var getResult = aex.get(app.project, {
 
 ```javascript
 var getResult = aex.get(app.project);
+var aexProject = getResult.object; // 'object' contains the serializable JSON
 
-aeq.writeFile(getResult.object); // 'object' contains the usable JSON
+aeq.writeFile(JSON.stringify(aexProject, null, 3));
 ```
 
 ### `options.unspportedPropertyBehavior`
@@ -67,6 +68,28 @@ In AE there might not be a scriptable way to read a property or reasonably updat
 
 `create` takes an element of the AE DOM and adds a child to it described by an aex JSON object.
 
+### Sample Usage
+
+```javascript
+// An aex blob that describes a 3D camera layer
+var aexLayer = {
+    type: 'aex:layer:camera',
+    label: 4,
+    name: 'Camera',
+    transform: {
+        position: {
+            type: 'aex:property:threed',
+            matchName: 'ADBE Position',
+            name: 'Position',
+            value: [640, 360, -1777.7778],
+        },
+    },
+};
+
+// Create the camera layer on the current comp
+var updateResult = aex.create(app.project.activeItem, aexLayer);
+```
+
 | `aeParent` Type | Allowed `aexChildBlob` Type                   |
 | --------------- | --------------------------------------------- |
 | `Project`       | `AexComp` or `AexItem`                        |
@@ -82,30 +105,27 @@ In AE there might not be a scriptable way to read a property or reasonably updat
 ### Sample Usage
 
 ```javascript
-var aexProjectWithMarkers = {
-    type: 'aex:project',
-    comps: [
+// An aex comp blob with a name and a single marker on it.
+var aexComp = {
+    type: 'aex:item:av:comp',
+    name: 'Comp with a marker',
+    markers: [
         {
-            type: 'aex:item:av:comp',
-            name: 'DetailedMarkers',
-            markers: [
-                {
-                    time: 0.1667,
-                    duration: 0.2,
-                    type: 'aex:marker',
-                },
-            ],
+            type: 'aex:marker',
+            time: 0.1667,
+            duration: 0.2,
         },
     ],
 };
 
-var updateResult = aex.update(app.project, aexProjectWithMarkers);
+// Updates the current comp with what's in the blob above
+var updateResult = aex.update(app.project.activeItem, aexComp);
 ```
 
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-var updateResult = aex.update(app.project, exProject, {
+var updateResult = aex.update(app.project, aexProject, {
     projectItemMismatchBehavior: 'create',
     layerMatchBy: 'index',
     markerMatchBy: 'index',
@@ -116,13 +136,13 @@ var updateResult = aex.update(app.project, exProject, {
 
 If a project is being updated AEX tries to match the project items by the item name. If an item with a matching name isn't found you can tell AEX what to do through the `projectItemMismatchBehavior` option.
 
-| Value                | Behavior                              |
-| -------------------- | ------------------------------------- |
-| `create`             | Create it.                            |
-| `skip`               | Skip over it.                         |
-| `log`                | Add it to the log                     |
-| `throw`              | Stop processing and throw an error    |
-| `callback(logEntry)` | Raise a callback to decide what to do |
+| Value              | Behavior                                       |
+| ------------------ | ---------------------------------------------- |
+| `"create"`         | Create it.                                     |
+| `"skip"`           | Skip over it.                                  |
+| `"log"`            | Log it and continue.                           |
+| `"throw"`          | Stop processing and throw an error.            |
+| _`callback(item)`_ | Raise a callback so you can decide what to do. |
 
 TODO: Layers
 
