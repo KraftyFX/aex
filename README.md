@@ -50,6 +50,10 @@ var getResult = aex.get(app.project, {
 var getResult = aex.get(app.project);
 var aexProject = getResult.object; // 'object' contains the serializable JSON
 
+/**
+  TODO(zlovatt): Add a sample blob that isn't too long
+*/
+
 aeq.writeFile(JSON.stringify(aexProject, null, 3));
 ```
 
