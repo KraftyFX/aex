@@ -12,6 +12,21 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 -   Can create or update projects, comps, layers, and properties.
 -   Separates out text for easy reading and updating.
 
+## Example
+
+```javascript
+//@include "./libs/aequery.jsx";
+//@include "./libs/json2.jsx";
+//@include "./aex.jsx";
+
+const aexProject = aex.get(app.project).object;
+
+aexProject.footage.comps[0].layers[1].markers[2].comment = 'OMG, that was easy!';
+
+// Update the current project with it.
+aex.update(app.project, aexProject);
+```
+
 # Installation
 
 There are 2 ways to work with AEX. Directly or using a package manager like `yarn`.
@@ -91,7 +106,7 @@ var aexLayer = {
 };
 
 // Create the camera layer on the current comp
-var updateResult = aex.create(app.project.activeItem, aexLayer);
+aex.create(app.project.activeItem, aexLayer);
 ```
 
 | `aeParent` Type | Allowed `aexChildBlob` Type                   |
@@ -123,13 +138,13 @@ var aexComp = {
 };
 
 // Updates the current comp with what's in the blob above
-var updateResult = aex.update(app.project.activeItem, aexComp);
+aex.update(app.project.activeItem, aexComp);
 ```
 
 You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
 
 ```javascript
-var updateResult = aex.update(app.project, aexProject, {
+aex.update(app.project, aexProject, {
     projectItemMismatchBehavior: 'create',
     layerMatchBy: 'index',
     markerMatchBy: 'index',
