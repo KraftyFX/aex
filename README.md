@@ -8,7 +8,7 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 
 # Features
 
--   Converts _most_ of the AE DOM to human readable JSON **and back**. Think [Lottie](https://lottiefiles.com/plugins/after-effects) on steroids.
+-   Converts _most_ of the AE DOM to human readable JSON **and back**.
 -   Can create or update projects, comps, layers, and properties.
 -   Separates out text for easy reading and updating.
 
@@ -21,6 +21,7 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 
 const aexProject = aex.get(app.project).object;
 
+// TODO(zlovatt): Come up with a better sample
 aexProject.footage.comps[0].layers[1].markers[2].comment = 'OMG, that was easy!';
 
 // Update the current project with it.
