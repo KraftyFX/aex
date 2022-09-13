@@ -169,7 +169,34 @@ describe('Zack Test Stuff', function () {
         });
     });
 
-    describe.skip('Set & Get', function () {
+    describe('Set & Get from ActiveComp', function () {
+        let activeComp: any;
+
+        it('Can get() test project', async () => {
+            const result = await aex.get(AeObject.ActiveComp);
+            activeComp = result;
+
+            console.log('initial conversion', result);
+        });
+
+        it('Can rebuild test project', async () => {
+            // Clear project
+            // await openCleanProject();
+
+            // Rebuild project from scan
+            await aex.create(AeObject.Project, activeComp);
+
+            // Scan project again
+            const result = await aex.get(AeObject.ActiveComp);
+            const rebuiltProject = result;
+
+            console.log('rebuilt project', rebuiltProject);
+
+            assertAreEqual(activeComp.object, rebuiltProject.object);
+        });
+    });
+
+    describe.skip('Set & Get from AEP', function () {
         let initialProject: any;
 
         before(async () => {

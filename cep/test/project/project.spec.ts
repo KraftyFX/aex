@@ -1,7 +1,7 @@
-import { AeObject, aex, getProject } from './aex';
-import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from './constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject } from './csinterface';
-import { assertAreEqual } from './utils';
+import { AeObject, aex, getProject } from '../aex';
+import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from '../constants';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
+import { assertAreEqual } from '../utils';
 
 describe('Project', function () {
     this.slow(500);

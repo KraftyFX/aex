@@ -54,6 +54,10 @@ export const aex = {
     },
 };
 
+export function getFilePath(filePath: string) {
+    return join(SOURCE_DIR, 'test', 'assets', 'files', normalize(filePath));
+}
+
 /**
  * Looks for a pre-deserialized (cached) version of an aep containing specific aex data. If it
  * doesn't exist then the function will open the aep, save it and return the result. This
