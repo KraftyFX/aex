@@ -180,6 +180,28 @@ var prescanResult = aex.prescan(app.project);
 
 TODO: Finish
 
+# Unsupported AE Features
+
+This is a list of currently-unsupported AE features. Some are only supported one-way and can be only serialized (layer stretch, trackers, rotobrush, puppet pin data), though most of this list won't work either direction at this point.
+
+|                           Feature                           |                                                           DOM API                                                            | Serialize | Deserialize |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| Viewer                                                      | [`app.activeViewer`](https://ae-scripting.docsforadobe.dev/other/viewer.html)                                                | X         | X           |
+| Render Queue                                                | [`app.project.renderQueue`](https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue.html)                              | X         | X           |
+| Footage Items                                               | [`app.project.item(index)`](https://ae-scripting.docsforadobe.dev/items/footageitem.html)                                    | X         | X           |
+| Proxies                                                     | [`...item(index).proxySource`](https://ae-scripting.docsforadobe.dev/items/avitem.html#avitem-proxysource)                   | X         | X           |
+| Guides                                                      | [`...item(index).guides`](https://ae-scripting.docsforadobe.dev/items/item.html#item-guides)                                 | X         | X           |
+| Selected Layers                                             | [`...item(index).selectedLayers`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedlayers)         | X         | X           |
+| Selected Properties                                         | [`...item(index).selectedProperties`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedproperties) | X         | X           |
+| Comp Essential Properties                                   | _(not API-accessible)_                                                                                                       | X         | X           |
+| Layer Essential Properties                                  | _(not API-accessible)_                                                                                                       | X         | X           |
+| Stretch                                                     | [`...layer(index).stretch`](https://ae-scripting.docsforadobe.dev/layers/layer.html#layer-stretch)                           | ✔         | X           |
+| Trackers                                                    | `...layer(index).property('ADBE MTrackers')`                                                                                 | ✔         | X           |
+| Rotobrush                                                   | `...property("ADBE Effect Parade").property("ADBE Samurai")`                                                                 | ✔         | X           |
+| Puppet Pins                                                 | `...property("ADBE Effect Parade").property("ADBE FreePin3")`                                                                | ✔         | X           |
+| Dropdown Expression Control item names                      | `...property("ADBE Effect Parade").property("Dropdown Menu Control")`                                                        | X         | X           |
+| Effect layer-selector "source/mask/effects & mask" dropdown | _n/a_; see #19                                                                                                               | X         | X           |
+
 # Contributing
 
 See [contributing.md](./CONTRIBUTING.md) for details.
