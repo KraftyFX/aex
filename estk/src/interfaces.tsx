@@ -168,8 +168,8 @@ interface AexFootageItemBase extends AexAVItemBase {
 }
 
 interface AexFileItem extends AexFootageItemBase, AexObject {
-    /** Path to file */
     file: string;
+    sequence: boolean;
 }
 
 interface AexSolidItem extends AexFootageItemBase, AexObject {
