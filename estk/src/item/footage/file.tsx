@@ -18,6 +18,8 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
     const importOptions = new ImportOptions();
 
+    /** @todo Add a check / throw an error if the file doesn't exist! */
+
     assignAttributes(importOptions, {
         file: new File(aexFile.file),
         forceAlphabetical: false,
