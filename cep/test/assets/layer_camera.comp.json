@@ -1,0 +1,310 @@
+{
+   "type": "aex:getresult",
+   "object": {
+      "name": "Comp 1",
+      "folder": [],
+      "aexid": "comp 1:37",
+      "duration": 4,
+      "frameRate": 60,
+      "height": 720,
+      "pixelAspect": 1,
+      "width": 1280,
+      "type": "aex:item:av:comp",
+      "dropFrame": true,
+      "markers": [],
+      "layers": [
+         {
+            "name": "One-Node",
+            "label": 4,
+            "markers": [],
+            "transform": {
+               "position": {
+                  "type": "aex:property:threed",
+                  "name": "Position",
+                  "matchName": "ADBE Position",
+                  "value": [
+                     640,
+                     360,
+                     -1
+                  ],
+                  "keys": []
+               }
+            },
+            "type": "aex:layer:camera",
+            "cameraOption": {
+               "matchName": "ADBE Camera Options Group",
+               "properties": [
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Zoom",
+                     "matchName": "ADBE Camera Zoom",
+                     "value": 1,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Focus Distance",
+                     "matchName": "ADBE Camera Focus Distance",
+                     "value": 2,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Aperture",
+                     "matchName": "ADBE Camera Aperture",
+                     "value": 3,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Blur Level",
+                     "matchName": "ADBE Camera Blur Level",
+                     "value": 4,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Iris Shape",
+                     "matchName": "ADBE Iris Shape",
+                     "value": 4,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Iris Rotation",
+                     "matchName": "ADBE Iris Rotation",
+                     "value": 5,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Iris Roundness",
+                     "matchName": "ADBE Iris Roundness",
+                     "value": 6,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Iris Aspect Ratio",
+                     "matchName": "ADBE Iris Aspect Ratio",
+                     "value": 7,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Iris Diffraction Fringe",
+                     "matchName": "ADBE Iris Diffraction Fringe",
+                     "value": 8,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Highlight Gain",
+                     "matchName": "ADBE Iris Highlight Gain",
+                     "value": 9,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Highlight Threshold",
+                     "matchName": "ADBE Iris Highlight Threshold",
+                     "value": 0.0392,
+                     "keys": []
+                  },
+                  {
+                     "type": "aex:property:oned",
+                     "name": "Highlight Saturation",
+                     "matchName": "ADBE Iris Hightlight Saturation",
+                     "value": 11,
+                     "keys": []
+                  }
+               ]
+            }
+         },
+         {
+            "name": "Two-Node",
+            "label": 4,
+            "markers": [],
+            "transform": {
+               "position": {
+                  "type": "aex:property:threed",
+                  "name": "Position",
+                  "matchName": "ADBE Position",
+                  "value": [
+                     640,
+                     360,
+                     -1777.7778
+                  ],
+                  "keys": []
+               },
+               "pointOfInterest": {
+                  "type": "aex:property:threed",
+                  "name": "Point of Interest",
+                  "matchName": "ADBE Anchor Point",
+                  "value": [
+                     100,
+                     200,
+                     300
+                  ],
+                  "keys": []
+               }
+            },
+            "type": "aex:layer:camera"
+         }
+      ]
+   },
+   "footage": {
+      "comps": [],
+      "items": []
+   },
+   "stats": {
+      "nonCompItemCount": 0,
+      "compCount": 1,
+      "layerCount": 2,
+      "propertyCount": 31,
+      "keyCount": 0
+   },
+   "profile": {
+      "getPropertyKeys": [
+         {
+            "elapsed": 1,
+            "meta": "Position"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Zoom"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Focus Distance"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Aperture"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Blur Level"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Shape"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Rotation"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Iris Roundness"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Aspect Ratio"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Iris Diffraction Fringe"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Highlight Gain"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Highlight Threshold"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Highlight Saturation"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Point of Interest"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Position"
+         }
+      ],
+      "getProperty": [
+         {
+            "elapsed": 1,
+            "meta": "Position"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Zoom"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Focus Distance"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Aperture"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Blur Level"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Shape"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Rotation"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Iris Roundness"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Iris Aspect Ratio"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Iris Diffraction Fringe"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Highlight Gain"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Highlight Threshold"
+         },
+         {
+            "elapsed": 0,
+            "meta": "Highlight Saturation"
+         },
+         {
+            "elapsed": 2,
+            "meta": "Point of Interest"
+         },
+         {
+            "elapsed": 1,
+            "meta": "Position"
+         }
+      ],
+      "getAexLayer": [
+         {
+            "elapsed": 10,
+            "meta": "One-Node"
+         },
+         {
+            "elapsed": 5,
+            "meta": "Two-Node"
+         }
+      ],
+      "getAexComp": [
+         {
+            "elapsed": 16,
+            "meta": "Comp 1"
+         }
+      ]
+   },
+   "log": []
+}
