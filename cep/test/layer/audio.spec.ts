@@ -5,7 +5,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Audio', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -16,18 +16,37 @@ describe('Layer Audio', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        let comp: any;
+    it(`Get`, async () => {
+        const { object: comp } = await getProject('assets/layer_audio.aep', AeObject.ActiveComp);
 
-        before(async () => {
-            const result = await getProject('assets/layer_audio.aep', AeObject.ActiveComp);
-            comp = result.object;
-            console.log('layer_audio', comp);
+        console.log('layer_audio', comp);
+
+        expect(comp.layers[0].audio).to.eql(undefined);
+
+        assertAreEqual(comp.layers[1].audio, {
+            matchName: 'ADBE Audio Group',
+            properties: [
+                {
+                    type: AEX_TWOD_PROPERTY,
+                    keys: [],
+                    matchName: 'ADBE Audio Levels',
+                    name: 'Audio Levels',
+                    value: [12, 12],
+                },
+            ],
         });
+    });
 
-        it(`Can parse layer audio`, async () => {
-            expect(comp.layers[0].audio).to.eql(undefined);
-            assertAreEqual(comp.layers[1].audio, {
+    it(`Create`, async () => {
+        const layerData = {
+            effects: [
+                {
+                    matchName: 'ADBE Aud Tone',
+                    name: 'Tone',
+                    enabled: true,
+                },
+            ],
+            audio: {
                 matchName: 'ADBE Audio Group',
                 properties: [
                     {
@@ -38,46 +57,17 @@ describe('Layer Audio', function () {
                         value: [12, 12],
                     },
                 ],
-            });
-        });
-    });
+            },
+            type: AEX_NULL_LAYER,
+        };
 
-    describe('Create', async () => {
-        before(async () => {
-            await openCleanProject();
-        });
+        await openCleanProject();
 
-        it(`Can create layer audio`, async () => {
-            const layerData = {
-                effects: [
-                    {
-                        matchName: 'ADBE Aud Tone',
-                        name: 'Tone',
-                        enabled: true,
-                    },
-                ],
-                audio: {
-                    matchName: 'ADBE Audio Group',
-                    properties: [
-                        {
-                            type: AEX_TWOD_PROPERTY,
-                            keys: [],
-                            matchName: 'ADBE Audio Levels',
-                            name: 'Audio Levels',
-                            value: [12, 12],
-                        },
-                    ],
-                },
-                type: AEX_NULL_LAYER,
-            };
+        await aex.createTestComp();
+        await aex.create(AeObject.ActiveComp, layerData);
 
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
+        const { object: layer } = await aex.get(AeObject.Layer(1));
 
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.audio, layerData.audio);
-        });
+        assertAreEqual(layer.audio, layerData.audio);
     });
 });
