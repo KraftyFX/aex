@@ -1,0 +1,113 @@
+{
+   "type": "aex:getresult",
+   "object": {
+      "gpuAccelType": 1812,
+      "type": "aex:project",
+      "items": [],
+      "comps": [
+         {
+            "name": "DetailedMarkers",
+            "folder": [],
+            "aexid": "detailedmarkers:13",
+            "duration": 4,
+            "frameRate": 60,
+            "height": 720,
+            "pixelAspect": 1,
+            "width": 1280,
+            "type": "aex:item:av:comp",
+            "dropFrame": true,
+            "markers": [
+               {
+                  "time": 0.1667,
+                  "duration": 0.2,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 0.4667,
+                  "comment": "Some Comment",
+                  "duration": 1,
+                  "label": 4,
+                  "protectedRegion": true,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 0.7833,
+                  "label": 3,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 1.8333,
+                  "comment": "banana",
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 3.55,
+                  "duration": 0.3333,
+                  "protectedRegion": true,
+                  "type": "aex:marker"
+               }
+            ],
+            "layers": []
+         },
+         {
+            "name": "PlainMarkers",
+            "folder": [],
+            "aexid": "plainmarkers:1",
+            "duration": 4,
+            "frameRate": 60,
+            "height": 720,
+            "pixelAspect": 1,
+            "width": 1280,
+            "type": "aex:item:av:comp",
+            "dropFrame": true,
+            "markers": [
+               {
+                  "time": 0.1667,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 0.4667,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 0.7833,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 1.8333,
+                  "type": "aex:marker"
+               },
+               {
+                  "time": 3.55,
+                  "type": "aex:marker"
+               }
+            ],
+            "layers": []
+         }
+      ]
+   },
+   "footage": {
+      "comps": [],
+      "items": []
+   },
+   "stats": {
+      "nonCompItemCount": 0,
+      "compCount": 2,
+      "layerCount": 0,
+      "propertyCount": 2,
+      "keyCount": 10
+   },
+   "profile": {
+      "getAexComp": [
+         {
+            "elapsed": 3,
+            "meta": "DetailedMarkers"
+         },
+         {
+            "elapsed": 2,
+            "meta": "PlainMarkers"
+         }
+      ]
+   },
+   "log": []
+}
