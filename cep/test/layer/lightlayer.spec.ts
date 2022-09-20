@@ -5,7 +5,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../c
 import { assertAreEqual } from '../utils';
 
 describe('Light Layer Attributes', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -16,16 +16,9 @@ describe('Light Layer Attributes', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        let comp: any;
-
-        before(async () => {
-            const result = await getProject('assets/layer_light.aep', AeObject.ActiveComp);
-            comp = result.object;
-            console.log('layer_light', comp);
-        });
-
-        it(`Can parse light layer attributes`, async () => {
+    describe('Light Layer Attributes', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_light.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[0], {
                 label: 6,
                 lightType: 4412,
@@ -98,19 +91,7 @@ describe('Light Layer Attributes', function () {
             });
         });
 
-        it(`Can parse light layer types`, async () => {
-            expect(comp.layers[1].lightType).to.eql(4413);
-            expect(comp.layers[2].lightType).to.eql(4414);
-            expect(comp.layers[3].lightType).to.eql(4415);
-        });
-    });
-
-    describe('Create', async () => {
-        before(async () => {
-            await openCleanProject();
-        });
-
-        it(`Can create light layer attributes`, async () => {
+        it(`Create`, async () => {
             const layerData = {
                 label: 6,
                 lightOption: {
@@ -174,6 +155,7 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
+            await openCleanProject();
             await aex.createTestComp();
             await aex.create(AeObject.ActiveComp, layerData);
 
@@ -183,52 +165,7 @@ describe('Light Layer Attributes', function () {
             assertAreEqual(layer.lightOption, layerData.lightOption);
         });
 
-        it(`Can create light layer types`, async () => {
-            const compData = {
-                layers: [
-                    {
-                        lightType: 4413,
-                        markers: [],
-                        name: 'Spot Light',
-                        transform: {},
-                        type: AEX_LIGHT_LAYER,
-                    },
-                    {
-                        lightType: 4414,
-                        markers: [],
-                        name: 'Point Light',
-                        transform: {},
-                        type: AEX_LIGHT_LAYER,
-                    },
-                    {
-                        lightType: 4415,
-                        markers: [],
-                        name: 'Ambient Light',
-                        transform: {},
-                        type: AEX_LIGHT_LAYER,
-                    },
-                ],
-                markers: [],
-                type: AEX_COMP_ITEM,
-            };
-
-            await aex.create(AeObject.Project, compData);
-
-            const result = await aex.get(AeObject.ActiveComp);
-            const comp = result.object;
-
-            expect(comp.layers[0].lightType).to.eql(compData.layers[0].lightType);
-            expect(comp.layers[1].lightType).to.eql(compData.layers[1].lightType);
-            expect(comp.layers[2].lightType).to.eql(compData.layers[2].lightType);
-        });
-    });
-
-    describe('Update', async () => {
-        beforeEach(async () => {
-            await openProject('assets/layer_light.aep');
-        });
-
-        it(`Can update light layer attributes`, async () => {
+        it(`Update`, async () => {
             const layerData = {
                 label: 9,
                 lightType: 4414,
@@ -300,6 +237,7 @@ describe('Light Layer Attributes', function () {
                 type: AEX_LIGHT_LAYER,
             };
 
+            await openProject('assets/layer_light.aep');
             await aex.update(AeObject.Layer(1), layerData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -307,13 +245,63 @@ describe('Light Layer Attributes', function () {
 
             assertAreEqual(layer, layerData);
         });
+    });
 
-        it(`Can update light layer types`, async () => {
+    describe('Light Layer Types', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_light.aep', AeObject.ActiveComp);
+            expect(comp.layers[1].lightType).to.eql(4413);
+            expect(comp.layers[2].lightType).to.eql(4414);
+            expect(comp.layers[3].lightType).to.eql(4415);
+        });
+
+        it(`Create`, async () => {
+            const compData = {
+                layers: [
+                    {
+                        lightType: 4413,
+                        markers: [],
+                        name: 'Spot Light',
+                        transform: {},
+                        type: AEX_LIGHT_LAYER,
+                    },
+                    {
+                        lightType: 4414,
+                        markers: [],
+                        name: 'Point Light',
+                        transform: {},
+                        type: AEX_LIGHT_LAYER,
+                    },
+                    {
+                        lightType: 4415,
+                        markers: [],
+                        name: 'Ambient Light',
+                        transform: {},
+                        type: AEX_LIGHT_LAYER,
+                    },
+                ],
+                markers: [],
+                type: AEX_COMP_ITEM,
+            };
+
+            await openCleanProject();
+            await aex.create(AeObject.Project, compData);
+
+            const result = await aex.get(AeObject.ActiveComp);
+            const comp = result.object;
+
+            expect(comp.layers[0].lightType).to.eql(compData.layers[0].lightType);
+            expect(comp.layers[1].lightType).to.eql(compData.layers[1].lightType);
+            expect(comp.layers[2].lightType).to.eql(compData.layers[2].lightType);
+        });
+
+        it(`Update`, async () => {
             const layerData = {
                 lightType: 4414,
                 type: AEX_LIGHT_LAYER,
             };
 
+            await openProject('assets/layer_light.aep');
             await aex.update(AeObject.Layer(1), layerData);
 
             const result = await aex.get(AeObject.Layer(1));
