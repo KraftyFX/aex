@@ -39,7 +39,7 @@ describe('Layer Effects', function () {
             });
         });
 
-        it('Create', async () => {
+        it('Create on comp', async () => {
             const layerData = {
                 effects: [
                     {
@@ -61,7 +61,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects, layerData.effects);
         });
 
-        it('Update Layer', async () => {
+        it('Create on layer', async () => {
             const effectData = {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Default',
@@ -77,7 +77,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
 
-        it('Update Effect', async () => {
+        it('Update', async () => {
             const effectData = {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Updated',
@@ -194,7 +194,7 @@ describe('Layer Effects', function () {
             });
         });
 
-        it('Create', async () => {
+        it('Create on comp', async () => {
             const layerData = {
                 effects: [
                     {
@@ -260,7 +260,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects, layerData.effects);
         });
 
-        it('Update Layer', async () => {
+        it('Create on layer', async () => {
             const effectData = {
                 matchName: 'ADBE Fill',
                 name: 'Fill - Modified',
@@ -809,7 +809,7 @@ describe('Layer Effects', function () {
             ]);
         });
 
-        it('Create', async () => {
+        it('Create on project', async () => {
             const compData = {
                 layers: [
                     {
@@ -947,7 +947,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects, compData.layers[0].effects);
         });
 
-        it('Update Layer', async () => {
+        it('Create on layer', async () => {
             const effectData = {
                 name: 'Dropdown Menu Control',
                 properties: [
@@ -975,7 +975,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
 
-        it('Update Effect', async () => {
+        it('Update', async () => {
             const effectData = {
                 name: '3D Point Control',
                 matchName: 'ADBE Point3D Control',
@@ -1023,7 +1023,7 @@ describe('Layer Effects', function () {
             });
         });
 
-        it('Create', async () => {
+        it('Create on comp', async () => {
             const layerData = {
                 effects: [
                     {
@@ -1054,7 +1054,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects, layerData.effects);
         });
 
-        it('Update Layer', async () => {
+        it('Create on layer', async () => {
             const effectData = {
                 matchName: 'ADBE Fractal Noise',
                 name: 'Fractal Noise',
@@ -1079,7 +1079,7 @@ describe('Layer Effects', function () {
             assertAreEqual(layer.effects[layer.effects.length - 1], effectData);
         });
 
-        it('Update Effect', async () => {
+        it('Update', async () => {
             const effectData = {
                 matchName: 'ADBE Fractal Noise',
                 name: 'Updated Fractal Noise',

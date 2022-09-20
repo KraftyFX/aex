@@ -189,7 +189,7 @@ describe('Project', function () {
             ]);
         });
 
-        it(`Updated`, async () => {
+        it(`Update`, async () => {
             await openCleanProject();
 
             const projectData = {
@@ -255,7 +255,7 @@ describe('Project', function () {
             ]);
         });
 
-        it(`Updated`, async () => {
+        it(`Update`, async () => {
             await openCleanProject();
 
             const projectData = {
