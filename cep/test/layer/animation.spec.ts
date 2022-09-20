@@ -4,7 +4,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../c
 import { assertAreEqual } from '../utils';
 
 describe('Layer Animation', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -15,16 +15,9 @@ describe('Layer Animation', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        let project: any;
-
-        before(async () => {
-            const result = await getProject('assets/property_animated.aep', AeObject.Project);
-            project = result.object;
-            console.log('property_animated', project);
-        });
-
-        it(`Can parse eased keyframes`, async () => {
+    describe('Eased Keyframes', async () => {
+        it(`Get`, async () => {
+            const { object: project } = await getProject('assets/property_animated.aep', AeObject.Project);
             assertAreEqual(project.comps[0].layers[0].transform.rotation, {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -102,7 +95,137 @@ describe('Layer Animation', function () {
             });
         });
 
-        it(`Can parse hold keyframes`, async () => {
+        it(`Create on layer`, async () => {
+            const layerData = {
+                threeDLayer: true,
+                transform: {
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [
+                            {
+                                interpolationType: {
+                                    outType: 6613,
+                                },
+                                temporalEase: {
+                                    inEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 0,
+                                        },
+                                    ],
+                                    outEase: [
+                                        {
+                                            influence: 33.33333,
+                                            speed: 0,
+                                        },
+                                    ],
+                                },
+                                time: 0,
+                                type: AEX_KEY,
+                                value: 0,
+                            },
+                            {
+                                interpolationType: {
+                                    inType: 6613,
+                                    outType: 6613,
+                                },
+                                temporalEase: {
+                                    inEase: [
+                                        {
+                                            influence: 33.33333,
+                                            speed: 33.89062,
+                                        },
+                                    ],
+                                    outEase: [
+                                        {
+                                            influence: 33.33333,
+                                            speed: 33.89062,
+                                        },
+                                    ],
+                                },
+                                time: 2,
+                                type: AEX_KEY,
+                                value: 20,
+                            },
+                            {
+                                interpolationType: {
+                                    inType: 6613,
+                                },
+                                temporalEase: {
+                                    inEase: [
+                                        {
+                                            influence: 33.33333,
+                                            speed: 0,
+                                        },
+                                    ],
+                                    outEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 0,
+                                        },
+                                    ],
+                                },
+                                time: 3.9833,
+                                type: AEX_KEY,
+                                value: 90,
+                            },
+                        ],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 0,
+                    },
+                },
+                type: AEX_NULL_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
+        });
+
+        it(`Create on property`, async () => {
+            const keyData = {
+                interpolationType: {
+                    outType: 6613,
+                },
+                temporalEase: {
+                    inEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                    outEase: [
+                        {
+                            influence: 33.33333,
+                            speed: 0,
+                        },
+                    ],
+                },
+                time: 0,
+                type: AEX_KEY,
+                value: 0,
+            };
+
+            await openProject('assets/layer_blank.aep');
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+    });
+
+    describe('Hold Keyframes', async () => {
+        it(`Get`, async () => {
+            const { object: project } = await getProject('assets/property_animated.aep', AeObject.Project);
             assertAreEqual(project.comps[1].layers[0].transform.rotation, {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -139,7 +262,83 @@ describe('Layer Animation', function () {
             });
         });
 
-        it(`Can parse linear keyframes`, async () => {
+        it(`Create on layer`, async () => {
+            const layerData = {
+                threeDLayer: true,
+                transform: {
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [
+                            {
+                                interpolationType: {
+                                    outType: 6614,
+                                },
+                                time: 0,
+                                type: AEX_KEY,
+                                value: 0,
+                            },
+                            {
+                                interpolationType: {
+                                    inType: 6613,
+                                    outType: 6614,
+                                },
+                                time: 2,
+                                type: AEX_KEY,
+                                value: 20,
+                            },
+                            {
+                                interpolationType: {
+                                    inType: 6613,
+                                    outType: 6614,
+                                },
+                                time: 3.5,
+                                type: AEX_KEY,
+                                value: 90,
+                            },
+                        ],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 0,
+                    },
+                },
+                type: AEX_NULL_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
+        });
+
+        it(`Create on property`, async () => {
+            const keyData = {
+                interpolationType: {
+                    inType: 6613,
+                    outType: 6614,
+                },
+                time: 2,
+                type: AEX_KEY,
+                value: 20,
+            };
+
+            await openProject('assets/layer_blank.aep');
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+    });
+
+    describe('Linear Keyframes', async () => {
+        it(`Get`, async () => {
+            const { object: project } = await getProject('assets/property_animated.aep', AeObject.Project);
             assertAreEqual(project.comps[2].layers[0].transform.rotation, {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -188,7 +387,105 @@ describe('Layer Animation', function () {
             });
         });
 
-        it(`Can parse mixed easing keyframes`, async () => {
+        it(`Create on layer`, async () => {
+            const layerData = {
+                threeDLayer: true,
+                transform: {
+                    rotation: {
+                        type: AEX_ONED_PROPERTY,
+                        keys: [
+                            {
+                                temporalEase: {
+                                    inEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 0,
+                                        },
+                                    ],
+                                    outEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 22.59423,
+                                        },
+                                    ],
+                                },
+                                time: 0,
+                                type: AEX_KEY,
+                                value: 0,
+                            },
+                            {
+                                temporalEase: {
+                                    inEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 22.59423,
+                                        },
+                                    ],
+                                    outEase: [
+                                        {
+                                            influence: 16.66667,
+                                            speed: 0,
+                                        },
+                                    ],
+                                },
+                                time: 3.9833,
+                                type: AEX_KEY,
+                                value: 90,
+                            },
+                        ],
+                        matchName: 'ADBE Rotate Z',
+                        name: 'Z Rotation',
+                        value: 0,
+                    },
+                },
+                type: AEX_NULL_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
+        });
+
+        it(`Create on property`, async () => {
+            const keyData = {
+                temporalEase: {
+                    inEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                    outEase: [
+                        {
+                            influence: 16.66667,
+                            speed: 0,
+                        },
+                    ],
+                },
+                time: 3.9833,
+                type: AEX_KEY,
+                value: 90,
+            };
+
+            await openProject('assets/layer_blank.aep');
+            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.transform.rotation.keys;
+
+            assertAreEqual(route[route.length - 1], keyData);
+        });
+    });
+
+    describe('Mixed Keyframes', async () => {
+        it(`Get`, async () => {
+            const { object: project } = await getProject('assets/property_animated.aep', AeObject.Project);
             assertAreEqual(project.comps[3].layers[0].transform.rotation, {
                 type: AEX_ONED_PROPERTY,
                 keys: [
@@ -292,220 +589,8 @@ describe('Layer Animation', function () {
                 value: 0,
             });
         });
-    });
 
-    describe('Create Layer With Animation', async () => {
-        before(async () => {
-            await openCleanProject();
-        });
-
-        it(`Can create eased keyframes`, async () => {
-            const layerData = {
-                threeDLayer: true,
-                transform: {
-                    rotation: {
-                        type: AEX_ONED_PROPERTY,
-                        keys: [
-                            {
-                                interpolationType: {
-                                    outType: 6613,
-                                },
-                                temporalEase: {
-                                    inEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 0,
-                                        },
-                                    ],
-                                    outEase: [
-                                        {
-                                            influence: 33.33333,
-                                            speed: 0,
-                                        },
-                                    ],
-                                },
-                                time: 0,
-                                type: AEX_KEY,
-                                value: 0,
-                            },
-                            {
-                                interpolationType: {
-                                    inType: 6613,
-                                    outType: 6613,
-                                },
-                                temporalEase: {
-                                    inEase: [
-                                        {
-                                            influence: 33.33333,
-                                            speed: 33.89062,
-                                        },
-                                    ],
-                                    outEase: [
-                                        {
-                                            influence: 33.33333,
-                                            speed: 33.89062,
-                                        },
-                                    ],
-                                },
-                                time: 2,
-                                type: AEX_KEY,
-                                value: 20,
-                            },
-                            {
-                                interpolationType: {
-                                    inType: 6613,
-                                },
-                                temporalEase: {
-                                    inEase: [
-                                        {
-                                            influence: 33.33333,
-                                            speed: 0,
-                                        },
-                                    ],
-                                    outEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 0,
-                                        },
-                                    ],
-                                },
-                                time: 3.9833,
-                                type: AEX_KEY,
-                                value: 90,
-                            },
-                        ],
-                        matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
-                        value: 0,
-                    },
-                },
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
-        });
-
-        it(`Can create hold keyframes`, async () => {
-            const layerData = {
-                threeDLayer: true,
-                transform: {
-                    rotation: {
-                        type: AEX_ONED_PROPERTY,
-                        keys: [
-                            {
-                                interpolationType: {
-                                    outType: 6614,
-                                },
-                                time: 0,
-                                type: AEX_KEY,
-                                value: 0,
-                            },
-                            {
-                                interpolationType: {
-                                    inType: 6613,
-                                    outType: 6614,
-                                },
-                                time: 2,
-                                type: AEX_KEY,
-                                value: 20,
-                            },
-                            {
-                                interpolationType: {
-                                    inType: 6613,
-                                    outType: 6614,
-                                },
-                                time: 3.5,
-                                type: AEX_KEY,
-                                value: 90,
-                            },
-                        ],
-                        matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
-                        value: 0,
-                    },
-                },
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
-        });
-
-        it(`Can create linear keyframes`, async () => {
-            const layerData = {
-                threeDLayer: true,
-                transform: {
-                    rotation: {
-                        type: AEX_ONED_PROPERTY,
-                        keys: [
-                            {
-                                temporalEase: {
-                                    inEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 0,
-                                        },
-                                    ],
-                                    outEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 22.59423,
-                                        },
-                                    ],
-                                },
-                                time: 0,
-                                type: AEX_KEY,
-                                value: 0,
-                            },
-                            {
-                                temporalEase: {
-                                    inEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 22.59423,
-                                        },
-                                    ],
-                                    outEase: [
-                                        {
-                                            influence: 16.66667,
-                                            speed: 0,
-                                        },
-                                    ],
-                                },
-                                time: 3.9833,
-                                type: AEX_KEY,
-                                value: 90,
-                            },
-                        ],
-                        matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
-                        value: 0,
-                    },
-                },
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
-        });
-
-        it(`Can create mixed easing keyframes`, async () => {
+        it(`Create on layer`, async () => {
             const layerData = {
                 threeDLayer: true,
                 transform: {
@@ -615,6 +700,7 @@ describe('Layer Animation', function () {
                 type: AEX_NULL_LAYER,
             };
 
+            await openCleanProject();
             await aex.createTestComp();
             await aex.create(AeObject.ActiveComp, layerData);
 
@@ -622,95 +708,6 @@ describe('Layer Animation', function () {
             const layer = result.object;
 
             assertAreEqual(layer.transform.rotation, layerData.transform.rotation);
-        });
-    });
-
-    describe('Create Keyframe On Property', async () => {
-        beforeEach(async () => {
-            await openProject('assets/layer_blank.aep');
-        });
-
-        it(`Can create an eased keyframe`, async () => {
-            const keyData = {
-                interpolationType: {
-                    outType: 6613,
-                },
-                temporalEase: {
-                    inEase: [
-                        {
-                            influence: 16.66667,
-                            speed: 0,
-                        },
-                    ],
-                    outEase: [
-                        {
-                            influence: 33.33333,
-                            speed: 0,
-                        },
-                    ],
-                },
-                time: 0,
-                type: AEX_KEY,
-                value: 0,
-            };
-
-            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-            const route = layer.transform.rotation.keys;
-
-            assertAreEqual(route[route.length - 1], keyData);
-        });
-
-        it(`Can create a hold keyframe`, async () => {
-            const keyData = {
-                interpolationType: {
-                    inType: 6613,
-                    outType: 6614,
-                },
-                time: 2,
-                type: AEX_KEY,
-                value: 20,
-            };
-
-            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-            const route = layer.transform.rotation.keys;
-
-            assertAreEqual(route[route.length - 1], keyData);
-        });
-
-        it(`Can create a linear keyframe`, async () => {
-            const keyData = {
-                temporalEase: {
-                    inEase: [
-                        {
-                            influence: 16.66667,
-                            speed: 0,
-                        },
-                    ],
-                    outEase: [
-                        {
-                            influence: 16.66667,
-                            speed: 0,
-                        },
-                    ],
-                },
-                time: 3.9833,
-                type: AEX_KEY,
-                value: 90,
-            };
-
-            await aex.create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-            const route = layer.transform.rotation.keys;
-
-            assertAreEqual(route[route.length - 1], keyData);
         });
 
         // it(`Can create multiple eased keyframes`, async () => {
@@ -784,6 +781,7 @@ describe('Layer Animation', function () {
         //         },
         //     ];
 
+        //     await openProject('assets/layer_blank.aep');
         //     await aex().create(AeObject.LayerProp(1, 'transform.rotation'), keyData);
 
         //     const result = await aex().get(AeObject.Layer(1));
