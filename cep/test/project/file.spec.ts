@@ -96,4 +96,91 @@ describe.only('File', function () {
             assertAreEqual(project, projectData);
         });
     });
+
+    describe('Alpha', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Frame Rate', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Start Timecode', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Split Fields', async () => {
+        it(`Get`, async () => {
+            const result = await getProject('assets/file_detailed.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('split_fields', items[0]);
+            assertAreEqual(items[0], {
+                aexid: '01_still_fields_upper:3',
+                conformFrameRate: 0,
+                duration: 0,
+                fieldSeparationType: 5612,
+                file: filePath,
+                folder: [],
+                frameRate: 30,
+                height: 432,
+                label: 5,
+                name: '01_Still_Fields_Upper',
+                pixelAspect: 1,
+                type: 'aex:item:av:footage:file',
+                width: 480,
+            });
+        });
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Remove Pulldown', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Pixel Aspect Ratio', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Loop', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Preserve RGB', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Colour Profile', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Linear', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
+
+    describe('Linear 32bpc', async () => {
+        it.skip(`Get TODO`, async () => {});
+        it.skip(`Create TODO`, async () => {});
+        it.skip(`Update TODO`, async () => {});
+    });
 });
