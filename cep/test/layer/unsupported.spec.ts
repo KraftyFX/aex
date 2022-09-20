@@ -3,7 +3,7 @@ import { AeObject, aex } from '../aex';
 import { TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openProject } from '../csinterface';
 
-describe('Unsupported Properties', function () {
+describe('Serialize Unsupported Properties', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 
@@ -16,7 +16,7 @@ describe('Unsupported Properties', function () {
         await cleanupAex();
     });
 
-    it(`Can get log of serialization failures`, async () => {
+    it(`Log`, async () => {
         const result = await aex.get(AeObject.ActiveComp, {
             unspportedPropertyBehavior: 'log',
         });
@@ -27,7 +27,7 @@ describe('Unsupported Properties', function () {
         expect(result.log[0].message).to.contain('is unsupported');
     });
 
-    it(`Can skip serialization failures`, async () => {
+    it(`Skip`, async () => {
         const result = await aex.get(AeObject.ActiveComp, {
             unspportedPropertyBehavior: 'skip',
         });
@@ -38,7 +38,7 @@ describe('Unsupported Properties', function () {
         expect(result.log).to.be.empty;
     });
 
-    it(`Can throw on serialization failures`, async () => {
+    it(`Throw`, async () => {
         try {
             await aex.get(AeObject.ActiveComp, {
                 unspportedPropertyBehavior: 'throw',
@@ -53,7 +53,7 @@ describe('Unsupported Properties', function () {
         }
     });
 
-    it(`Can get metadata on serialization failures`, async () => {
+    it(`Metadata`, async () => {
         const result = await aex.get(AeObject.Layer(1), {
             unspportedPropertyBehavior: 'metadata',
         });
