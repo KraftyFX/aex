@@ -25,10 +25,10 @@ describe.only('File', function () {
 
             console.log('file_basic', items[0]);
             assertAreEqual(items[0], {
-                name: 'Juvenile_Ragdoll.jpg',
+                name: '01_Still',
                 label: 5,
                 folder: [],
-                aexid: 'juvenile_ragdoll.jpg:1',
+                aexid: '01_still:1',
                 duration: 0,
                 frameRate: 0,
                 height: 432,
@@ -36,12 +36,11 @@ describe.only('File', function () {
                 width: 480,
                 type: 'aex:item:av:footage:file',
                 file: filePath,
-                sequence: false,
             });
         });
     });
 
-    describe.only('Create', async () => {
+    describe('Create', async () => {
         it(`Can import basic files`, async () => {
             await openCleanProject();
 
@@ -59,7 +58,6 @@ describe.only('File', function () {
                         width: 480,
                         type: 'aex:item:av:footage:file',
                         file: filePath,
-                        sequence: false,
                     },
                 ],
                 type: AEX_PROJECT,
