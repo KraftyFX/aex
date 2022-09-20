@@ -54,8 +54,11 @@ export const aex = {
     },
 };
 
-export function getFilePath(filePath: string) {
-    return join(SOURCE_DIR, 'test', 'assets', 'files', normalize(filePath));
+export function getFilePath(filePath: string, options?: { cacheLocation?: 'repo' | 'panel' }) {
+    const cacheLocation = options?.cacheLocation || 'panel';
+    const cacheRootDir = cacheLocation == 'repo' ? join(SOURCE_DIR, 'test') : DEPLOY_DIR;
+
+    return join(cacheRootDir, 'assets', '(Footage)', normalize(filePath));
 }
 
 /**
