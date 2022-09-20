@@ -17,8 +17,8 @@ describe.only('File', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        it(`Can parse basic footage attributes`, async () => {
+    describe('Basic Footage', async () => {
+        it(`Get`, async () => {
             const result = await getProject('assets/file_basic.aep', AeObject.Project);
 
             const items = result.object.items;
@@ -38,10 +38,8 @@ describe.only('File', function () {
                 file: filePath,
             });
         });
-    });
 
-    describe('Create', async () => {
-        it(`Can import basic files`, async () => {
+        it(`Create`, async () => {
             await openCleanProject();
 
             const itemData = {
@@ -70,10 +68,8 @@ describe.only('File', function () {
 
             assertAreEqual(items, itemData.items);
         });
-    });
 
-    describe.skip('Update', async () => {
-        it(`TODO: Can update basic footage attributes`, async () => {
+        it.skip(`Update TODO`, async () => {
             await openCleanProject();
 
             const projectData = {
