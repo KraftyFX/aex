@@ -39,7 +39,7 @@ describe.only('File', function () {
             });
         });
 
-        it(`Create`, async () => {
+        it.skip(`Create`, async () => {
             await openCleanProject();
 
             const itemData = {
@@ -69,32 +69,7 @@ describe.only('File', function () {
             assertAreEqual(items, itemData.items);
         });
 
-        it.skip(`Update TODO`, async () => {
-            await openCleanProject();
-
-            const projectData = {
-                bitsPerChannel: 16,
-                comps: [],
-                displayStartFrame: 1,
-                expressionEngine: 'extendscript',
-                feetFramesFilmType: 2412,
-                footageTimecodeDisplayStartType: 2213,
-                framesCountType: 2613,
-                gpuAccelType: 1816,
-                items: [],
-                linearizeWorkingSpace: true,
-                timeDisplayType: 2013,
-                type: AEX_PROJECT,
-                workingSpace: 'Apple RGB',
-            };
-
-            await aex.update(AeObject.Project, projectData);
-
-            const result = await aex.get(AeObject.Project);
-            const project = result.object;
-
-            assertAreEqual(project, projectData);
-        });
+        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Alpha', async () => {
@@ -121,7 +96,7 @@ describe.only('File', function () {
 
             const items = result.object.items;
 
-            console.log('split_fields', items[0]);
+            console.log('split_fields_upper', items[0]);
             assertAreEqual(items[0], {
                 aexid: '01_still_fields_upper:3',
                 conformFrameRate: 0,
@@ -133,6 +108,59 @@ describe.only('File', function () {
                 height: 432,
                 label: 5,
                 name: '01_Still_Fields_Upper',
+                pixelAspect: 1,
+                type: 'aex:item:av:footage:file',
+                width: 480,
+            });
+
+            console.log('split_fields_upper_preserve', items[1]);
+            assertAreEqual(items[1], {
+                aexid: '02_still_fields_upper_preserveedges:4',
+                conformFrameRate: 0,
+                duration: 0,
+                fieldSeparationType: 5612,
+                highQualityFieldSeparation: true,
+                file: filePath,
+                folder: [],
+                frameRate: 30,
+                height: 432,
+                label: 5,
+                name: '02_Still_Fields_Upper_PreserveEdges',
+                pixelAspect: 1,
+                type: 'aex:item:av:footage:file',
+                width: 480,
+            });
+
+            console.log('split_fields_lower', items[2]);
+            assertAreEqual(items[2], {
+                aexid: '03_still_fields_lower:5',
+                conformFrameRate: 0,
+                duration: 0,
+                fieldSeparationType: 5614,
+                file: filePath,
+                folder: [],
+                frameRate: 30,
+                height: 432,
+                label: 5,
+                name: '03_Still_Fields_Lower',
+                pixelAspect: 1,
+                type: 'aex:item:av:footage:file',
+                width: 480,
+            });
+
+            console.log('split_fields_lower_preserve', items[3]);
+            assertAreEqual(items[3], {
+                aexid: '04_still_fields_lower_preserveedges:6',
+                conformFrameRate: 0,
+                duration: 0,
+                fieldSeparationType: 5614,
+                highQualityFieldSeparation: true,
+                file: filePath,
+                folder: [],
+                frameRate: 30,
+                height: 432,
+                label: 5,
+                name: '04_Still_Fields_Lower_PreserveEdges',
                 pixelAspect: 1,
                 type: 'aex:item:av:footage:file',
                 width: 480,
