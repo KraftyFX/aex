@@ -1,9 +1,9 @@
 import { AeObject, aex, getProject } from '../aex';
-import { AEX_FOLDER_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
+import { AEX_FOLDER_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Folders', function () {
+describe('Folders', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 

@@ -3,7 +3,7 @@ import { AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TES
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Project', function () {
+describe('Project', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 
