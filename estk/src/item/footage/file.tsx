@@ -5,16 +5,6 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
     state.stats.nonCompItemCount++;
 
     const sequence = !item.mainSource.isStill && itemIsSequence(item) ? true : undefined;
-    const alphaMode = itemSource.hasAlpha ? getModifiedValue(itemSource.alphaMode, AlphaMode.IGNORE) : undefined;
-    const premulColor = alphaMode == AlphaMode.PREMULTIPLIED ? getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue) : undefined;
-
-    const conformFrameRate = getModifiedValue(itemSource.conformFrameRate, itemSource.nativeFrameRate);
-    // const displayFrameRate = getModifiedValue(itemSource.displayFrameRate, itemSource.nativeFrameRate);
-    const fieldSeparationType = getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF);
-    const invertAlpha =
-        itemSource.isStill || fieldSeparationType == FieldSeparationType.OFF ? undefined : getModifiedValue(itemSource.invertAlpha, false);
-    const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
-    const removePulldown = itemSource.isStill ? undefined : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
 
     return {
         ...itemAttributes,
@@ -22,15 +12,6 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 
         file: itemSource.file.fsName,
         sequence,
-
-        alphaMode,
-        premulColor,
-        conformFrameRate,
-        // displayFrameRate,
-        fieldSeparationType,
-        invertAlpha,
-        loop,
-        removePulldown,
     };
 }
 

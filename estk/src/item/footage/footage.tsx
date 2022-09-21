@@ -62,22 +62,26 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
-    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
+    const alphaMode = itemSource.hasAlpha ? getModifiedValue(itemSource.alphaMode, AlphaMode.IGNORE) : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
+    const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
+    const removePulldown = itemSource.isStill ? undefined : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
 
     state.stats.nonCompItemCount++;
 
     return {
         ...avItemBaseAttributes,
 
-        conformFrameRate: getModifiedValue(itemSource.conformFrameRate, 0),
-        fieldSeparationType: getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF),
-        highQualityFieldSeparation: getModifiedValue(itemSource.highQualityFieldSeparation, false),
-        loop: getModifiedValue(itemSource.loop, 1),
-        premulColor: getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue),
-        removePulldown: getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF),
         alphaMode,
         invertAlpha,
+        premulColor: getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue),
+
+        fieldSeparationType: getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF),
+        highQualityFieldSeparation: getModifiedValue(itemSource.highQualityFieldSeparation, false),
+
+        conformFrameRate: getModifiedValue(itemSource.conformFrameRate, 0),
+        loop,
+        removePulldown,
     };
 }
 
