@@ -60,82 +60,48 @@ describe.only('Footage', function () {
             ]);
         });
 
-        it(`Create TODO`, async () => {});
-
-        it(`Update`, async () => {
+        it(`Create`, async () => {
             await openCleanProject();
 
-            const projectData = {
-                comps: [],
-                items: [
-                    {
-                        aexid: 'placeholder:40',
-                        conformFrameRate: 30,
-                        duration: 5,
-                        folder: [],
-                        frameRate: 30,
-                        height: 1080,
-                        label: 3,
-                        name: 'Placeholder',
-                        pixelAspect: 1,
-                        type: AEX_PLACEHOLDER_ITEM,
-                        width: 1920,
-                    },
-                    {
-                        aexid: 'solids:1',
-                        folder: [],
-                        type: AEX_FOLDER_ITEM,
-                        name: 'Solids',
-                    },
-                    {
-                        aexid: 'black solid 1:14',
-                        duration: 0,
-                        folder: ['Solids'],
-                        frameRate: 0,
-                        height: 500,
-                        type: AEX_SOLID_ITEM,
-                        name: 'Black Solid 1',
-                        pixelAspect: 1,
-                        width: 500,
-                    },
-                ],
-                type: AEX_PROJECT,
+            const footageData = {
+                aexid: 'placeholder:40',
+                conformFrameRate: 30,
+                duration: 5,
+                folder: [],
+                frameRate: 30,
+                height: 1080,
+                label: 3,
+                name: 'Placeholder',
+                pixelAspect: 1,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
             };
 
-            await aex.update(AeObject.Project, projectData);
+            await aex.create(AeObject.Project, footageData);
 
             const result = await aex.get(AeObject.Project);
             const project = result.object;
 
-            projectData.items[0].aexid = '';
+            footageData.aexid = '';
             project.items[0].aexid = '';
 
-            projectData.items[1].aexid = '';
-            project.items[1].aexid = '';
-
-            projectData.items[2].aexid = '';
-            project.items[2].aexid = '';
-
-            assertAreEqual(project.items, projectData.items);
+            assertAreEqual(project.items[0], footageData);
         });
     });
 
     describe('Alpha Mode', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Invert Alpha', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Premult Color', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Field Separation', async () => {
@@ -179,7 +145,6 @@ describe.only('Footage', function () {
             });
         });
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('High-Quality Field Separation', async () => {
@@ -225,54 +190,45 @@ describe.only('Footage', function () {
             });
         });
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Conform Frame Rate', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Start Timecode', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Remove Pulldown', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Loop', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe.skip('Preserve RGB [Not API supported]', async () => {
         it(`Get`, async () => {});
         it(`Create`, async () => {});
-        it(`Update`, async () => {});
     });
 
     describe.skip('Colour Profile [Not API supported]', async () => {
         it(`Get`, async () => {});
         it(`Create`, async () => {});
-        it(`Update`, async () => {});
     });
 
     describe.skip('Interpret as Linear [Not API supported]', async () => {
         it(`Get`, async () => {});
         it(`Create`, async () => {});
-        it(`Update`, async () => {});
     });
 
     describe.skip('Interpret as Linear 32bpc  [Not API supported]', async () => {
         it(`Get`, async () => {});
         it(`Create`, async () => {});
-        it(`Update`, async () => {});
     });
 });

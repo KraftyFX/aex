@@ -3,7 +3,7 @@ import { AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from 
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe('Solids', function () {
+describe.only('Solids', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 
@@ -59,44 +59,6 @@ describe('Solids', function () {
             project.items[1].aexid = '';
 
             assertAreEqual(project.items[1], solidData);
-        });
-
-        it(`Update`, async () => {
-            await openCleanProject();
-
-            const projectData = {
-                comps: [],
-                items: [
-                    {
-                        aexid: 'solids:1',
-                        folder: [],
-                        type: AEX_FOLDER_ITEM,
-                        name: 'Solids',
-                    },
-                    {
-                        aexid: 'yellow solid 1:14',
-                        duration: 0,
-                        folder: ['Solids'],
-                        frameRate: 0,
-                        height: 500,
-                        type: AEX_SOLID_ITEM,
-                        color: [1, 1, 0],
-                        name: 'Yellow Solid 1',
-                        pixelAspect: 1,
-                        width: 500,
-                    },
-                ],
-                type: AEX_PROJECT,
-            };
-
-            await aex.update(AeObject.Project, projectData);
-            const result = await aex.get(AeObject.Project);
-            const project = result.object;
-
-            projectData.items[1].aexid = '';
-            project.items[1].aexid = '';
-
-            assertAreEqual(project.items, projectData.items);
         });
     });
 });

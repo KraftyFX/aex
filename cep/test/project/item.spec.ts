@@ -21,25 +21,21 @@ describe.only('Item', function () {
     describe('Basic Properties', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Duration', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Frame Rate', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Dimensions', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Pixel Aspect Ratio', async () => {
@@ -65,6 +61,5 @@ describe.only('Item', function () {
             });
         });
         it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
     });
 });
