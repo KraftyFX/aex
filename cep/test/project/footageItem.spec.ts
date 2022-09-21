@@ -113,7 +113,6 @@ describe.only('Footage', function () {
             console.log('split_fields_upper', items[0]);
             assertAreEqual(items[0], {
                 aexid: '01_still_fields_upper:3',
-                conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5612,
                 file: stillPath,
@@ -130,7 +129,6 @@ describe.only('Footage', function () {
             console.log('split_fields_lower', items[2]);
             assertAreEqual(items[2], {
                 aexid: '03_still_fields_lower:5',
-                conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5614,
                 file: stillPath,
@@ -156,7 +154,6 @@ describe.only('Footage', function () {
             console.log('split_fields_upper_preserve', items[1]);
             assertAreEqual(items[1], {
                 aexid: '02_still_fields_upper_preserveedges:4',
-                conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5612,
                 highQualityFieldSeparation: true,
@@ -174,7 +171,6 @@ describe.only('Footage', function () {
             console.log('split_fields_lower_preserve', items[3]);
             assertAreEqual(items[3], {
                 aexid: '04_still_fields_lower_preserveedges:6',
-                conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5614,
                 highQualityFieldSeparation: true,
@@ -203,8 +199,56 @@ describe.only('Footage', function () {
     });
 
     describe('Loop', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('loop', items[10]);
+            assertAreEqual(items[10], {
+                aexid: '11_loop:13',
+                conformFrameRate: 30,
+                duration: 180,
+                folder: [],
+                frameRate: 30,
+                height: 1080,
+                label: 3,
+                loop: 3,
+                name: '11_Loop',
+                pixelAspect: 1,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = {
+                aexid: '11_loop:13',
+                conformFrameRate: 30,
+                duration: 180,
+                folder: [],
+                frameRate: 30,
+                height: 1080,
+                label: 3,
+                loop: 3,
+                name: '11_Loop',
+                pixelAspect: 1,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            };
+
+            await aex.create(AeObject.Project, footageData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData.aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items[0], footageData);
+        });
     });
 
     describe.skip('Start Timecode [Not API supported]', async () => {
