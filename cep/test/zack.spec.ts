@@ -17,7 +17,7 @@ describe('Zack Test Stuff', function () {
     });
 
     /** Get dup */
-    describe.skip('Data Dumps', function () {
+    describe('Data Dumps', function () {
         it(`Unsophisticated test to check first layer`, async () => {
             const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;

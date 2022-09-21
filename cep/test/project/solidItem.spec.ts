@@ -3,7 +3,7 @@ import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TE
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Solids', function () {
+describe('Solids', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 
@@ -34,10 +34,36 @@ describe.only('Solids', function () {
             });
         });
 
-        it.skip(`Create TODO`, async () => {});
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const solidData = {
+                aexid: 'yellow solid 1:14',
+                duration: 0,
+                folder: ['Solids'],
+                frameRate: 0,
+                height: 500,
+                type: AEX_SOLID_ITEM,
+                color: [1, 1, 0],
+                name: 'Yellow Solid 1',
+                pixelAspect: 1,
+                width: 500,
+            };
+
+            await aex.create(AeObject.Project, solidData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            solidData.aexid = '';
+            project.items[1].aexid = '';
+
+            assertAreEqual(project.items[1], solidData);
+        });
 
         it(`Update`, async () => {
             await openCleanProject();
+
             const projectData = {
                 comps: [],
                 items: [
