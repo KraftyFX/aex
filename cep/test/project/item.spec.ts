@@ -1,6 +1,6 @@
 import { AeObject, aex, getFilePath, getProject } from '../aex';
-import { AEX_FILE_FOOTAGE_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
-import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
+import { AEX_FILE_FOOTAGE_ITEM, TEST_TIMEOUT_TIME } from '../constants';
+import { cleanupAex, evalAexIntoEstk } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe.only('Item', function () {

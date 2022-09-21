@@ -1,5 +1,5 @@
-import { AeObject, aex, getFilePath, getProject } from '../aex';
-import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from '../constants';
+import { AeObject, aex, getProject } from '../aex';
+import { AEX_FOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 

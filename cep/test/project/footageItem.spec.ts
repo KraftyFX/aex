@@ -1,16 +1,18 @@
 import { AeObject, aex, getFilePath, getProject } from '../aex';
-import { AEX_FILE_FOOTAGE_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
+import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJECT, AEX_SOLID_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe.only('Footage', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
-    let filePath: string;
+    let stillPath: string;
+    let seqPath: string;
 
     before(async () => {
         await evalAexIntoEstk();
-        filePath = getFilePath('Juvenile_Ragdoll.jpg');
+        stillPath = getFilePath('Juvenile_Ragdoll.jpg');
+        seqPath = getFilePath('seq/img.0000.jpg');
     });
 
     after(async () => {
@@ -19,57 +21,103 @@ describe.only('Footage', function () {
 
     describe('Basic Footage', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_basic.aep', AeObject.Project);
+            const result = await getProject('assets/project_basic_items.aep', AeObject.Project);
 
-            const items = result.object.items;
+            const project = result.object;
 
-            console.log('footage_basic', items[0]);
-            assertAreEqual(items[0], {
-                name: '01_Still',
-                label: 5,
-                folder: [],
-                aexid: '01_still:1',
-                duration: 0,
-                frameRate: 0,
-                height: 432,
-                pixelAspect: 1,
-                width: 480,
-                type: AEX_FILE_FOOTAGE_ITEM,
-                file: filePath,
-            });
+            console.log('project_basic_items', project);
+            assertAreEqual(project.items, [
+                {
+                    aexid: 'placeholder:40',
+                    conformFrameRate: 30,
+                    duration: 5,
+                    folder: [],
+                    frameRate: 30,
+                    height: 1080,
+                    label: 3,
+                    name: 'Placeholder',
+                    pixelAspect: 1,
+                    type: AEX_PLACEHOLDER_ITEM,
+                    width: 1920,
+                },
+                {
+                    aexid: 'solids:37',
+                    folder: [],
+                    type: AEX_FOLDER_ITEM,
+                    name: 'Solids',
+                },
+                {
+                    aexid: 'black solid 1:38',
+                    duration: 0,
+                    folder: ['Solids'],
+                    frameRate: 0,
+                    height: 500,
+                    type: AEX_SOLID_ITEM,
+                    name: 'Black Solid 1',
+                    pixelAspect: 1,
+                    width: 500,
+                },
+            ]);
         });
 
-        it(`Create`, async () => {
+        it(`Create TODO`, async () => {});
+
+        it(`Update`, async () => {
             await openCleanProject();
 
-            const itemData = {
+            const projectData = {
+                comps: [],
                 items: [
                     {
-                        name: 'Juvenile_Ragdoll.jpg',
-                        label: 5,
+                        aexid: 'placeholder:40',
+                        conformFrameRate: 30,
+                        duration: 5,
                         folder: [],
-                        aexid: 'juvenile_ragdoll.jpg:1',
-                        duration: 0,
-                        frameRate: 0,
-                        height: 432,
+                        frameRate: 30,
+                        height: 1080,
+                        label: 3,
+                        name: 'Placeholder',
                         pixelAspect: 1,
-                        width: 480,
-                        type: AEX_FILE_FOOTAGE_ITEM,
-                        file: filePath,
+                        type: AEX_PLACEHOLDER_ITEM,
+                        width: 1920,
+                    },
+                    {
+                        aexid: 'solids:1',
+                        folder: [],
+                        type: AEX_FOLDER_ITEM,
+                        name: 'Solids',
+                    },
+                    {
+                        aexid: 'black solid 1:14',
+                        duration: 0,
+                        folder: ['Solids'],
+                        frameRate: 0,
+                        height: 500,
+                        type: AEX_SOLID_ITEM,
+                        name: 'Black Solid 1',
+                        pixelAspect: 1,
+                        width: 500,
                     },
                 ],
                 type: AEX_PROJECT,
             };
 
-            await aex.update(AeObject.Project, itemData);
+            await aex.update(AeObject.Project, projectData);
 
             const result = await aex.get(AeObject.Project);
-            const items = result.object.items;
+            const project = result.object;
 
-            assertAreEqual(items, itemData.items);
+            projectData.items[0].aexid = '';
+            project.items[0].aexid = '';
+
+            projectData.items[1].aexid = '';
+            project.items[1].aexid = '';
+
+            projectData.items[2].aexid = '';
+            project.items[2].aexid = '';
+
+            assertAreEqual(project.items, projectData.items);
         });
-
-        it.skip(`Update TODO`, async () => {});
     });
 
     describe('Alpha Mode', async () => {
@@ -102,7 +150,7 @@ describe.only('Footage', function () {
                 conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5612,
-                file: filePath,
+                file: stillPath,
                 folder: [],
                 frameRate: 30,
                 height: 432,
@@ -119,7 +167,7 @@ describe.only('Footage', function () {
                 conformFrameRate: 0,
                 duration: 0,
                 fieldSeparationType: 5614,
-                file: filePath,
+                file: stillPath,
                 folder: [],
                 frameRate: 30,
                 height: 432,
@@ -147,7 +195,7 @@ describe.only('Footage', function () {
                 duration: 0,
                 fieldSeparationType: 5612,
                 highQualityFieldSeparation: true,
-                file: filePath,
+                file: stillPath,
                 folder: [],
                 frameRate: 30,
                 height: 432,
@@ -165,7 +213,7 @@ describe.only('Footage', function () {
                 duration: 0,
                 fieldSeparationType: 5614,
                 highQualityFieldSeparation: true,
-                file: filePath,
+                file: stillPath,
                 folder: [],
                 frameRate: 30,
                 height: 432,
