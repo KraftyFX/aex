@@ -69,7 +69,38 @@ describe.only('File', function () {
             assertAreEqual(items, itemData.items);
         });
 
-        it.skip(`Update TODO`, async () => {});
+        it(`Update`, async () => {
+            await openCleanProject();
+
+            const projectData = {
+                comps: [],
+                items: [
+                    {
+                        name: 'Juvenile_Ragdoll.jpg',
+                        label: 5,
+                        folder: [],
+                        aexid: 'juvenile_ragdoll.jpg:1',
+                        duration: 0,
+                        frameRate: 0,
+                        height: 432,
+                        pixelAspect: 1,
+                        width: 480,
+                        type: AEX_FILE_FOOTAGE_ITEM,
+                        file: filePath,
+                    },
+                ],
+                type: AEX_PROJECT,
+            };
+
+            await aex.update(AeObject.Project, projectData);
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            projectData.items[0].aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items, projectData.items);
+        });
     });
 
     describe('Sequences', async () => {
