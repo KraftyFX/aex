@@ -106,7 +106,7 @@ describe.only('Footage', function () {
 
     describe('Field Separation', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_detailed.aep', AeObject.Project);
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
 
             const items = result.object.items;
 
@@ -149,7 +149,7 @@ describe.only('Footage', function () {
 
     describe('High-Quality Field Separation', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_detailed.aep', AeObject.Project);
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
 
             const items = result.object.items;
 
@@ -197,11 +197,6 @@ describe.only('Footage', function () {
         it.skip(`Create TODO`, async () => {});
     });
 
-    describe('Start Timecode', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-    });
-
     describe('Remove Pulldown', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
@@ -210,6 +205,11 @@ describe.only('Footage', function () {
     describe('Loop', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
+    });
+
+    describe.skip('Start Timecode [Not API supported]', async () => {
+        it(`Get TODO`, async () => {});
+        it(`Create TODO`, async () => {});
     });
 
     describe.skip('Preserve RGB [Not API supported]', async () => {

@@ -1,9 +1,9 @@
 import { AeObject, aex, getFilePath, getProject } from '../aex';
-import { AEX_FILE_FOOTAGE_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
+import { AEX_FILE_FOOTAGE_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('File', function () {
+describe('File', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
@@ -21,11 +21,11 @@ describe.only('File', function () {
 
     describe('Still Files', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_basic.aep', AeObject.Project);
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
 
             const items = result.object.items;
 
-            console.log('file_basic', items[0]);
+            console.log('files', items[0]);
             assertAreEqual(items[0], {
                 aexid: '01_still:1',
                 duration: 0,
@@ -69,7 +69,7 @@ describe.only('File', function () {
 
     describe('Sequences', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_basic.aep', AeObject.Project);
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
 
             const items = result.object.items;
 

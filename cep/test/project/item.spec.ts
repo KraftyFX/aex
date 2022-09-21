@@ -3,7 +3,7 @@ import { AEX_FILE_FOOTAGE_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Item', function () {
+describe('Item', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
     let filePath: string;
@@ -40,7 +40,7 @@ describe.only('Item', function () {
 
     describe('Pixel Aspect Ratio', async () => {
         it(`Get`, async () => {
-            const result = await getProject('assets/file_detailed.aep', AeObject.Project);
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
 
             const items = result.object.items;
 
