@@ -40,7 +40,9 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
             createAeComp(aexObject as AexComp, state);
         });
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
-        throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
+        undoGroup('AEX: Add Item to Project', () => {
+            createAeItem(aexObject as AexItem, state);
+        });
     } else if (isAddingMarkerToComp(aeParentObject, aexObject)) {
         undoGroup('AEX: Add Marker to Comp', () => {
             const markerProperty = (aeParentObject as CompItem).markerProperty;
