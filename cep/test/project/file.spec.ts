@@ -6,11 +6,11 @@ import { assertAreEqual } from '../utils';
 describe.only('File', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
-    let filePath: string;
+    let stillPath: string;
 
     before(async () => {
         await evalAexIntoEstk();
-        filePath = getFilePath('Juvenile_Ragdoll.jpg');
+        stillPath = getFilePath('Juvenile_Ragdoll.jpg');
     });
 
     after(async () => {
@@ -25,17 +25,17 @@ describe.only('File', function () {
 
             console.log('file_basic', items[0]);
             assertAreEqual(items[0], {
-                name: '01_Still',
-                label: 5,
-                folder: [],
                 aexid: '01_still:1',
                 duration: 0,
+                file: stillPath,
+                folder: [],
                 frameRate: 0,
                 height: 432,
+                label: 5,
+                name: '01_Still',
                 pixelAspect: 1,
-                width: 480,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                file: filePath,
+                width: 480,
             });
         });
 
@@ -45,17 +45,17 @@ describe.only('File', function () {
             const itemData = {
                 items: [
                     {
-                        name: 'Juvenile_Ragdoll.jpg',
-                        label: 5,
-                        folder: [],
                         aexid: 'juvenile_ragdoll.jpg:1',
                         duration: 0,
+                        file: stillPath,
+                        folder: [],
                         frameRate: 0,
                         height: 432,
+                        label: 5,
+                        name: 'Juvenile_Ragdoll.jpg',
                         pixelAspect: 1,
-                        width: 480,
                         type: AEX_FILE_FOOTAGE_ITEM,
-                        file: filePath,
+                        width: 480,
                     },
                 ],
                 type: AEX_PROJECT,
@@ -76,17 +76,17 @@ describe.only('File', function () {
                 comps: [],
                 items: [
                     {
-                        name: 'Juvenile_Ragdoll.jpg',
-                        label: 5,
-                        folder: [],
                         aexid: 'juvenile_ragdoll.jpg:1',
                         duration: 0,
+                        file: stillPath,
+                        folder: [],
                         frameRate: 0,
                         height: 432,
+                        label: 5,
+                        name: 'Juvenile_Ragdoll.jpg',
                         pixelAspect: 1,
-                        width: 480,
                         type: AEX_FILE_FOOTAGE_ITEM,
-                        file: filePath,
+                        width: 480,
                     },
                 ],
                 type: AEX_PROJECT,
