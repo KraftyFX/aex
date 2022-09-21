@@ -1,5 +1,5 @@
 import { AeObject, aex, getFilePath, getProject } from '../aex';
-import { AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
+import { AEX_FILE_FOOTAGE_ITEM, AEX_PROJECT, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
@@ -17,7 +17,7 @@ describe.only('File', function () {
         await cleanupAex();
     });
 
-    describe('Basic Footage', async () => {
+    describe('File Paths', async () => {
         it(`Get`, async () => {
             const result = await getProject('assets/file_basic.aep', AeObject.Project);
 
@@ -34,12 +34,12 @@ describe.only('File', function () {
                 height: 432,
                 pixelAspect: 1,
                 width: 480,
-                type: 'aex:item:av:footage:file',
+                type: AEX_FILE_FOOTAGE_ITEM,
                 file: filePath,
             });
         });
 
-        it.skip(`Create`, async () => {
+        it(`Create`, async () => {
             await openCleanProject();
 
             const itemData = {
@@ -54,7 +54,7 @@ describe.only('File', function () {
                         height: 432,
                         pixelAspect: 1,
                         width: 480,
-                        type: 'aex:item:av:footage:file',
+                        type: AEX_FILE_FOOTAGE_ITEM,
                         file: filePath,
                     },
                 ],
@@ -72,141 +72,7 @@ describe.only('File', function () {
         it.skip(`Update TODO`, async () => {});
     });
 
-    describe('Alpha', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Frame Rate', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Start Timecode', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Split Fields', async () => {
-        it(`Get`, async () => {
-            const result = await getProject('assets/file_detailed.aep', AeObject.Project);
-
-            const items = result.object.items;
-
-            console.log('split_fields_upper', items[0]);
-            assertAreEqual(items[0], {
-                aexid: '01_still_fields_upper:3',
-                conformFrameRate: 0,
-                duration: 0,
-                fieldSeparationType: 5612,
-                file: filePath,
-                folder: [],
-                frameRate: 30,
-                height: 432,
-                label: 5,
-                name: '01_Still_Fields_Upper',
-                pixelAspect: 1,
-                type: 'aex:item:av:footage:file',
-                width: 480,
-            });
-
-            console.log('split_fields_upper_preserve', items[1]);
-            assertAreEqual(items[1], {
-                aexid: '02_still_fields_upper_preserveedges:4',
-                conformFrameRate: 0,
-                duration: 0,
-                fieldSeparationType: 5612,
-                highQualityFieldSeparation: true,
-                file: filePath,
-                folder: [],
-                frameRate: 30,
-                height: 432,
-                label: 5,
-                name: '02_Still_Fields_Upper_PreserveEdges',
-                pixelAspect: 1,
-                type: 'aex:item:av:footage:file',
-                width: 480,
-            });
-
-            console.log('split_fields_lower', items[2]);
-            assertAreEqual(items[2], {
-                aexid: '03_still_fields_lower:5',
-                conformFrameRate: 0,
-                duration: 0,
-                fieldSeparationType: 5614,
-                file: filePath,
-                folder: [],
-                frameRate: 30,
-                height: 432,
-                label: 5,
-                name: '03_Still_Fields_Lower',
-                pixelAspect: 1,
-                type: 'aex:item:av:footage:file',
-                width: 480,
-            });
-
-            console.log('split_fields_lower_preserve', items[3]);
-            assertAreEqual(items[3], {
-                aexid: '04_still_fields_lower_preserveedges:6',
-                conformFrameRate: 0,
-                duration: 0,
-                fieldSeparationType: 5614,
-                highQualityFieldSeparation: true,
-                file: filePath,
-                folder: [],
-                frameRate: 30,
-                height: 432,
-                label: 5,
-                name: '04_Still_Fields_Lower_PreserveEdges',
-                pixelAspect: 1,
-                type: 'aex:item:av:footage:file',
-                width: 480,
-            });
-        });
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Remove Pulldown', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Pixel Aspect Ratio', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Loop', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Preserve RGB', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Colour Profile', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Linear', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
-        it.skip(`Update TODO`, async () => {});
-    });
-
-    describe('Linear 32bpc', async () => {
+    describe('Sequences', async () => {
         it.skip(`Get TODO`, async () => {});
         it.skip(`Create TODO`, async () => {});
         it.skip(`Update TODO`, async () => {});
