@@ -4,7 +4,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../c
 import { assertAreEqual } from '../utils';
 
 describe('Layer Markers', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -15,16 +15,12 @@ describe('Layer Markers', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        let comp: any;
+    describe('Simple', async () => {
+        it('Get', async () => {
+            const { object: comp } = await getProject('assets/layer_markers.aep', AeObject.ActiveComp);
 
-        before(async () => {
-            const result = await getProject('assets/layer_markers.aep', AeObject.ActiveComp);
-            comp = result.object;
             console.log('layer_markers', comp);
-        });
 
-        it('Can parse simple layer markers', async () => {
             assertAreEqual(comp.layers[0].markers, [
                 {
                     time: 0.1667,
@@ -49,7 +45,70 @@ describe('Layer Markers', function () {
             ]);
         });
 
-        it('Can parse complicated layer markers', async () => {
+        it('Create', async () => {
+            const layerData = {
+                label: 4,
+                markers: [
+                    {
+                        time: 0.1667,
+                        type: AEX_MARKER,
+                    },
+                    {
+                        time: 0.4667,
+                        type: AEX_MARKER,
+                    },
+                    {
+                        time: 0.7833,
+                        type: AEX_MARKER,
+                    },
+                    {
+                        time: 1.8333,
+                        type: AEX_MARKER,
+                    },
+                    {
+                        time: 3.55,
+                        type: AEX_MARKER,
+                    },
+                ],
+                transform: {},
+                type: AEX_NULL_LAYER,
+            };
+
+            await openCleanProject();
+
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.markers, layerData.markers);
+        });
+
+        it('Update', async () => {
+            const markerData = {
+                time: 0,
+                type: AEX_MARKER,
+            };
+
+            await openProject('assets/layer_blank.aep');
+
+            await aex.create(AeObject.Layer(1), markerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+            const route = layer.markers;
+
+            assertAreEqual(route[route.length - 1], markerData);
+        });
+    });
+
+    describe('Complex', async () => {
+        it('Get', async () => {
+            const { object: comp } = await getProject('assets/layer_markers.aep', AeObject.ActiveComp);
+
+            console.log('layer_markers', comp);
+
             assertAreEqual(comp.layers[1].markers, [
                 {
                     duration: 0.2,
@@ -80,52 +139,8 @@ describe('Layer Markers', function () {
                 },
             ]);
         });
-    });
 
-    describe('Create on New Layer', async () => {
-        before(async () => {
-            await openCleanProject();
-        });
-
-        it(`Can create simple layer markers`, async () => {
-            const layerData = {
-                label: 4,
-                markers: [
-                    {
-                        time: 0.1667,
-                        type: AEX_MARKER,
-                    },
-                    {
-                        time: 0.4667,
-                        type: AEX_MARKER,
-                    },
-                    {
-                        time: 0.7833,
-                        type: AEX_MARKER,
-                    },
-                    {
-                        time: 1.8333,
-                        type: AEX_MARKER,
-                    },
-                    {
-                        time: 3.55,
-                        type: AEX_MARKER,
-                    },
-                ],
-                transform: {},
-                type: AEX_NULL_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.markers, layerData.markers);
-        });
-
-        it(`Can create complicated layer markers`, async () => {
+        it('Create', async () => {
             const layerData = {
                 label: 4,
                 markers: [
@@ -161,6 +176,8 @@ describe('Layer Markers', function () {
                 type: AEX_NULL_LAYER,
             };
 
+            await openCleanProject();
+
             await aex.createTestComp();
             await aex.create(AeObject.ActiveComp, layerData);
 
@@ -169,29 +186,8 @@ describe('Layer Markers', function () {
 
             assertAreEqual(layer.markers, layerData.markers);
         });
-    });
 
-    describe('Create on Existing Layer', async () => {
-        before(async () => {
-            await openProject('assets/layer_blank.aep');
-        });
-
-        it(`Can create simple layer marker`, async () => {
-            const markerData = {
-                time: 0,
-                type: AEX_MARKER,
-            };
-
-            await aex.create(AeObject.Layer(1), markerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-            const route = layer.markers;
-
-            assertAreEqual(route[route.length - 1], markerData);
-        });
-
-        it(`Can create complicated layer marker`, async () => {
+        it('Update', async () => {
             const markerData = {
                 comment: 'Some Comment',
                 duration: 1,
@@ -199,6 +195,8 @@ describe('Layer Markers', function () {
                 time: 0.4667,
                 type: AEX_MARKER,
             };
+
+            await openProject('assets/layer_blank.aep');
 
             await aex.create(AeObject.Layer(1), markerData);
 

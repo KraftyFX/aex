@@ -1,4 +1,17 @@
 import { AssertionError } from 'chai';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { AexResult } from './constants';
+
+const SOURCE_DIR = 'BUILDSCRIPT:SOURCE_DIR';
+
+export function getAexResultFromJson(jsonPath: string) {
+    jsonPath = join(SOURCE_DIR, 'test', jsonPath);
+
+    const contents = readFileSync(jsonPath, { encoding: 'utf-8' });
+
+    return JSON.parse(contents) as AexResult;
+}
 
 export function assertAreEqual(actual: any, expected: any) {
     const differences: string[] = [];
