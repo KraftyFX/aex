@@ -13,7 +13,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from '../c
 import { assertAreEqual } from '../utils';
 
 describe('Shape Layers', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -24,20 +24,64 @@ describe('Shape Layers', function () {
         await cleanupAex();
     });
 
-    describe('Get', async () => {
-        let comp: any;
-
-        before(async () => {
-            const result = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
-            comp = result.object;
-            console.log('layer_shapelayer', comp);
-        });
-
-        it(`Can parse empty shape layers`, async () => {
+    describe('Empty Shape Layers', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
             expect(comp.layers[0]).property('contents').to.be.empty;
         });
 
-        it(`Can parse default shape layers`, async () => {
+        it(`Create`, async () => {
+            const layerData = {
+                contents: [],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Update`, async () => {
+            const shapeItemData = {
+                properties: [
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                        properties: [
+                            {
+                                keys: [],
+                                matchName: 'ADBE Vector Fill Color',
+                                name: 'Color',
+                                type: AEX_COLOR_PROPERTY,
+                                value: [1, 0.5, 0, 1],
+                            },
+                        ],
+                    },
+                ],
+                type: AEX_SHAPEITEM_PROPERTYGROUP,
+            };
+
+            await openProject('assets/layer_shapelayer.aep');
+            await aex.update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
+
+            const result = await aex.get(AeObject.Layer(2));
+            const layer = result.object;
+            const shapeGroup = layer.contents[0];
+            const contents = shapeGroup.contents;
+
+            assertAreEqual(contents[contents.length - 1], shapeItemData.properties[0]);
+        });
+    });
+
+    describe('Default Shape Layers', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[1], {
                 contents: [
                     {
@@ -73,7 +117,82 @@ describe('Shape Layers', function () {
             });
         });
 
-        it(`Can parse modified shape layers`, async () => {
+        it(`Create on comp`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Create on layer`, async () => {
+            const shapeData = {
+                matchName: 'ADBE Vector Group',
+                name: 'Rectangle 1',
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
+            };
+
+            await openProject('assets/layer_shapelayer_blank.aep');
+            await aex.create(AeObject.Layer(1), shapeData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
+        });
+    });
+
+    describe('Modified Shape Layers', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[2].contents[0], {
                 contents: [
                     {
@@ -280,325 +399,7 @@ describe('Shape Layers', function () {
             });
         });
 
-        it(`Can parse multiple shapes on one layer`, async () => {
-            assertAreEqual(comp.layers[3], {
-                contents: [
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 2',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                effects: [],
-                label: 8,
-                markers: [],
-                masks: [],
-                name: 'Multiple Default',
-                transform: {},
-                type: AEX_SHAPE_LAYER,
-            });
-        });
-
-        it(`Can parse ungrouped shape items`, async () => {
-            assertAreEqual(comp.layers[4], {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Fill',
-                        name: 'Fill 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                effects: [],
-                label: 8,
-                markers: [],
-                masks: [],
-                name: 'Ungrouped Default',
-                transform: {},
-                type: AEX_SHAPE_LAYER,
-            });
-        });
-
-        it(`Can parse stroke dashes`, async () => {
-            assertAreEqual(comp.layers[5].contents[0], {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Vector Stroke Dashes',
-                                properties: [
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 1',
-                                        name: 'Dash',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Offset',
-                                        name: 'Offset',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 0,
-                                    },
-                                ],
-                            },
-                        ],
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                matchName: 'ADBE Vector Group',
-                name: 'Rectangle 1',
-                type: AEX_SHAPEGROUP_PROPERTYGROUP,
-            });
-        });
-
-        it(`Can parse all stroke dashes`, async () => {
-            assertAreEqual(comp.layers[6].contents[0], {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Vector Stroke Dashes',
-                                properties: [
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 1',
-                                        name: 'Dash',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Gap 1',
-                                        name: 'Gap',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 2',
-                                        name: 'Dash 2',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Gap 2',
-                                        name: 'Gap 2',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 3',
-                                        name: 'Dash 3',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Gap 3',
-                                        name: 'Gap 3',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 10,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Offset',
-                                        name: 'Offset',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 0,
-                                    },
-                                ],
-                            },
-                        ],
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                matchName: 'ADBE Vector Group',
-                name: 'Rectangle 1',
-                type: AEX_SHAPEGROUP_PROPERTYGROUP,
-            });
-        });
-
-        it(`Can parse modified stroke dashes`, async () => {
-            assertAreEqual(comp.layers[7].contents[0], {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        properties: [
-                            {
-                                matchName: 'ADBE Vector Stroke Dashes',
-                                properties: [
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 1',
-                                        name: 'Dash',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 1,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Gap 1',
-                                        name: 'Gap',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 2,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Dash 2',
-                                        name: 'Dash 2',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 3,
-                                    },
-                                    {
-                                        keys: [],
-                                        matchName: 'ADBE Vector Stroke Offset',
-                                        name: 'Offset',
-                                        type: AEX_ONED_PROPERTY,
-                                        value: 4,
-                                    },
-                                ],
-                            },
-                        ],
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                matchName: 'ADBE Vector Group',
-                name: 'Rectangle 1',
-                type: AEX_SHAPEGROUP_PROPERTYGROUP,
-            });
-        });
-    });
-
-    describe('Create Shape Layer', async () => {
-        before(async () => {
-            await openCleanProject();
-        });
-
-        it(`Can create empty shape layers`, async () => {
-            const layerData = {
-                contents: [],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create default shape layers`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create modified shape layers`, async () => {
+        it(`Create on comp`, async () => {
             const layerData = {
                 contents: [
                     {
@@ -809,6 +610,7 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPE_LAYER,
             };
 
+            await openCleanProject();
             await aex.createTestComp();
             await aex.create(AeObject.ActiveComp, layerData);
 
@@ -818,347 +620,7 @@ describe('Shape Layers', function () {
             assertAreEqual(layer.contents, layerData.contents);
         });
 
-        it(`Can create multiple shapes on one layer`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 2',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create ungrouped shape items`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Fill',
-                        name: 'Fill 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create stroke dashes`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Vector Stroke Dashes',
-                                        properties: [
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 1',
-                                                name: 'Dash',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Offset',
-                                                name: 'Offset',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 0,
-                                            },
-                                        ],
-                                    },
-                                ],
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create all stroke dashes`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Vector Stroke Dashes',
-                                        properties: [
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 1',
-                                                name: 'Dash',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Gap 1',
-                                                name: 'Gap',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 2',
-                                                name: 'Dash 2',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Gap 2',
-                                                name: 'Gap 2',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 3',
-                                                name: 'Dash 3',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Gap 3',
-                                                name: 'Gap 3',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 10,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Offset',
-                                                name: 'Offset',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 0,
-                                            },
-                                        ],
-                                    },
-                                ],
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-
-        it(`Can create modified stroke dashes`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 1',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 1',
-                                properties: [
-                                    {
-                                        matchName: 'ADBE Vector Stroke Dashes',
-                                        properties: [
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 1',
-                                                name: 'Dash',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 1,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Gap 1',
-                                                name: 'Gap',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 2,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Dash 2',
-                                                name: 'Dash 2',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 3,
-                                            },
-                                            {
-                                                keys: [],
-                                                matchName: 'ADBE Vector Stroke Offset',
-                                                name: 'Offset',
-                                                type: AEX_ONED_PROPERTY,
-                                                value: 4,
-                                            },
-                                        ],
-                                    },
-                                ],
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 1',
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.createTestComp();
-            await aex.create(AeObject.ActiveComp, layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents, layerData.contents);
-        });
-    });
-
-    describe('Create Shape on Existing Layer', async () => {
-        before(async () => {
-            await openProject('assets/layer_shapelayer_blank.aep');
-        });
-
-        it(`Can create default shape item`, async () => {
-            const shapeData = {
-                matchName: 'ADBE Vector Group',
-                name: 'Rectangle 1',
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Shape - Rect',
-                        name: 'Rectangle Path 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Stroke',
-                        name: 'Stroke 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                    {
-                        matchName: 'ADBE Vector Graphic - Fill',
-                        name: 'Fill 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                    },
-                ],
-                type: AEX_SHAPEGROUP_PROPERTYGROUP,
-            };
-
-            await aex.create(AeObject.Layer(1), shapeData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
-        });
-
-        it(`Can create modified shape layers`, async () => {
+        it(`Create on layer`, async () => {
             const shapeData = {
                 contents: [
                     {
@@ -1364,6 +826,7 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
+            await openProject('assets/layer_shapelayer_blank.aep');
             await aex.create(AeObject.Layer(1), shapeData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -1372,13 +835,239 @@ describe('Shape Layers', function () {
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
 
-        it(`Can create ungrouped shape item`, async () => {
+        it(`Update on layer`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 2',
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 2',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                name: 'Updated Shape Contents',
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openProject('assets/layer_shapelayer.aep');
+            await aex.update(AeObject.Layer(1), layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents[layer.contents.length - 1], layerData.contents[0]);
+        });
+    });
+
+    describe('Multiple Shapes On One Layer', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
+            assertAreEqual(comp.layers[3], {
+                contents: [
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 2',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                effects: [],
+                label: 8,
+                markers: [],
+                masks: [],
+                name: 'Multiple Default',
+                transform: {},
+                type: AEX_SHAPE_LAYER,
+            });
+        });
+
+        it(`Create`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Fill',
+                                name: 'Fill 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 2',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+    });
+
+    describe('Ungrouped Shape Items', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
+            assertAreEqual(comp.layers[4], {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                effects: [],
+                label: 8,
+                markers: [],
+                masks: [],
+                name: 'Ungrouped Default',
+                transform: {},
+                type: AEX_SHAPE_LAYER,
+            });
+        });
+
+        it(`Create on comp`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Fill',
+                        name: 'Fill 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Create on layer`, async () => {
             const shapeData = {
                 matchName: 'ADBE Vector Shape - Rect',
                 name: 'Rectangle Path 1',
                 type: AEX_SHAPEITEM_PROPERTYGROUP,
             };
 
+            await openProject('assets/layer_shapelayer_blank.aep');
             await aex.create(AeObject.Layer(1), shapeData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -1386,8 +1075,107 @@ describe('Shape Layers', function () {
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
+    });
 
-        it(`Can create stroke dashes`, async () => {
+    describe('Stroke Dashes', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
+            assertAreEqual(comp.layers[5].contents[0], {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Vector Stroke Dashes',
+                                properties: [
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 1',
+                                        name: 'Dash',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Offset',
+                                        name: 'Offset',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 0,
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                matchName: 'ADBE Vector Group',
+                name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
+            });
+        });
+
+        it(`Create on comp`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Vector Stroke Dashes',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 1',
+                                                name: 'Dash',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Offset',
+                                                name: 'Offset',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 0,
+                                            },
+                                        ],
+                                    },
+                                ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Create on layer`, async () => {
             const shapeData = {
                 contents: [
                     {
@@ -1427,6 +1215,7 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
+            await openProject('assets/layer_shapelayer_blank.aep');
             await aex.create(AeObject.Layer(1), shapeData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -1434,8 +1223,177 @@ describe('Shape Layers', function () {
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
+    });
 
-        it(`Can create all stroke dashes`, async () => {
+    describe('All Stroke Dashes', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
+            assertAreEqual(comp.layers[6].contents[0], {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Vector Stroke Dashes',
+                                properties: [
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 1',
+                                        name: 'Dash',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Gap 1',
+                                        name: 'Gap',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 2',
+                                        name: 'Dash 2',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Gap 2',
+                                        name: 'Gap 2',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 3',
+                                        name: 'Dash 3',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Gap 3',
+                                        name: 'Gap 3',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 10,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Offset',
+                                        name: 'Offset',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 0,
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                matchName: 'ADBE Vector Group',
+                name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
+            });
+        });
+
+        it(`Create on comp`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Vector Stroke Dashes',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 1',
+                                                name: 'Dash',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Gap 1',
+                                                name: 'Gap',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 2',
+                                                name: 'Dash 2',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Gap 2',
+                                                name: 'Gap 2',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 3',
+                                                name: 'Dash 3',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Gap 3',
+                                                name: 'Gap 3',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 10,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Offset',
+                                                name: 'Offset',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 0,
+                                            },
+                                        ],
+                                    },
+                                ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Create on layer`, async () => {
             const shapeData = {
                 contents: [
                     {
@@ -1510,6 +1468,7 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
+            await openProject('assets/layer_shapelayer_blank.aep');
             await aex.create(AeObject.Layer(1), shapeData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -1517,8 +1476,135 @@ describe('Shape Layers', function () {
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
+    });
 
-        it(`Can create modified stroke dashes`, async () => {
+    describe('Modified Stroke Dashes', async () => {
+        it(`Get`, async () => {
+            const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
+            assertAreEqual(comp.layers[7].contents[0], {
+                contents: [
+                    {
+                        matchName: 'ADBE Vector Shape - Rect',
+                        name: 'Rectangle Path 1',
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                    {
+                        matchName: 'ADBE Vector Graphic - Stroke',
+                        name: 'Stroke 1',
+                        properties: [
+                            {
+                                matchName: 'ADBE Vector Stroke Dashes',
+                                properties: [
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 1',
+                                        name: 'Dash',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 1,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Gap 1',
+                                        name: 'Gap',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 2,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Dash 2',
+                                        name: 'Dash 2',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 3,
+                                    },
+                                    {
+                                        keys: [],
+                                        matchName: 'ADBE Vector Stroke Offset',
+                                        name: 'Offset',
+                                        type: AEX_ONED_PROPERTY,
+                                        value: 4,
+                                    },
+                                ],
+                            },
+                        ],
+                        type: AEX_SHAPEITEM_PROPERTYGROUP,
+                    },
+                ],
+                matchName: 'ADBE Vector Group',
+                name: 'Rectangle 1',
+                type: AEX_SHAPEGROUP_PROPERTYGROUP,
+            });
+        });
+
+        it(`Create on comp`, async () => {
+            const layerData = {
+                contents: [
+                    {
+                        contents: [
+                            {
+                                matchName: 'ADBE Vector Shape - Rect',
+                                name: 'Rectangle Path 1',
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                            {
+                                matchName: 'ADBE Vector Graphic - Stroke',
+                                name: 'Stroke 1',
+                                properties: [
+                                    {
+                                        matchName: 'ADBE Vector Stroke Dashes',
+                                        properties: [
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 1',
+                                                name: 'Dash',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 1,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Gap 1',
+                                                name: 'Gap',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 2,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Dash 2',
+                                                name: 'Dash 2',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 3,
+                                            },
+                                            {
+                                                keys: [],
+                                                matchName: 'ADBE Vector Stroke Offset',
+                                                name: 'Offset',
+                                                type: AEX_ONED_PROPERTY,
+                                                value: 4,
+                                            },
+                                        ],
+                                    },
+                                ],
+                                type: AEX_SHAPEITEM_PROPERTYGROUP,
+                            },
+                        ],
+                        matchName: 'ADBE Vector Group',
+                        name: 'Rectangle 1',
+                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
+                    },
+                ],
+                type: AEX_SHAPE_LAYER,
+            };
+
+            await openCleanProject();
+            await aex.createTestComp();
+            await aex.create(AeObject.ActiveComp, layerData);
+
+            const result = await aex.get(AeObject.Layer(1));
+            const layer = result.object;
+
+            assertAreEqual(layer.contents, layerData.contents);
+        });
+
+        it(`Create on layer`, async () => {
             const shapeData = {
                 contents: [
                     {
@@ -1572,6 +1658,7 @@ describe('Shape Layers', function () {
                 type: AEX_SHAPEGROUP_PROPERTYGROUP,
             };
 
+            await openProject('assets/layer_shapelayer_blank.aep');
             await aex.create(AeObject.Layer(1), shapeData);
 
             const result = await aex.get(AeObject.Layer(1));
@@ -1579,7 +1666,9 @@ describe('Shape Layers', function () {
 
             assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         });
+    });
 
+    describe('Create on Layer', async () => {
         //   it(`Can create ungrouped shape items`, async () => {
         //     const shapeData = {
         //         contents: [
@@ -1601,15 +1690,11 @@ describe('Shape Layers', function () {
         //         ],
         //         type: AEX_SHAPEGROUP_PROPERTYGROUP,
         //     };
-
         //     await aex().create(AeObject.Layer(1), shapeData);
-
         //     const result = await aex().get(AeObject.Layer(1));
         //     const layer = result.object;
-
         //     assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         // });
-
         // it(`Can create multiple shapes on one layer`, async () => {
         //     const shapeData = [
         //         {
@@ -1657,88 +1742,10 @@ describe('Shape Layers', function () {
         //             type: AEX_SHAPEGROUP_PROPERTYGROUP,
         //         },
         //     ];
-
         //     await aex().create(AeObject.Layer(1), shapeData);
-
         //     const result = await aex().get(AeObject.Layer(1));
         //     const layer = result.object;
-
         //     assertAreEqual(layer.contents[layer.contents.length - 1], shapeData);
         // });
-    });
-
-    describe('Update Existing Shapes', async () => {
-        beforeEach(async () => {
-            await openProject('assets/layer_shapelayer.aep');
-        });
-
-        it(`Can update existing shape layer contents`, async () => {
-            const layerData = {
-                contents: [
-                    {
-                        matchName: 'ADBE Vector Group',
-                        name: 'Rectangle 2',
-                        contents: [
-                            {
-                                matchName: 'ADBE Vector Shape - Rect',
-                                name: 'Rectangle Path 2',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Stroke',
-                                name: 'Stroke 2',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                            {
-                                matchName: 'ADBE Vector Graphic - Fill',
-                                name: 'Fill 2',
-                                type: AEX_SHAPEITEM_PROPERTYGROUP,
-                            },
-                        ],
-                        type: AEX_SHAPEGROUP_PROPERTYGROUP,
-                    },
-                ],
-                name: 'Updated Shape Contents',
-                type: AEX_SHAPE_LAYER,
-            };
-
-            await aex.update(AeObject.Layer(1), layerData);
-
-            const result = await aex.get(AeObject.Layer(1));
-            const layer = result.object;
-
-            assertAreEqual(layer.contents[layer.contents.length - 1], layerData.contents[0]);
-        });
-
-        it(`Can update existing shape fills`, async () => {
-            const shapeItemData = {
-                properties: [
-                    {
-                        matchName: 'ADBE Vector Graphic - Fill',
-                        name: 'Fill 1',
-                        type: AEX_SHAPEITEM_PROPERTYGROUP,
-                        properties: [
-                            {
-                                keys: [],
-                                matchName: 'ADBE Vector Fill Color',
-                                name: 'Color',
-                                type: AEX_COLOR_PROPERTY,
-                                value: [1, 0.5, 0, 1],
-                            },
-                        ],
-                    },
-                ],
-                type: AEX_SHAPEITEM_PROPERTYGROUP,
-            };
-
-            await aex.update(AeObject.LayerProp(2, "property('ADBE Root Vectors Group').property(1).property(2)"), shapeItemData);
-
-            const result = await aex.get(AeObject.Layer(2));
-            const layer = result.object;
-            const shapeGroup = layer.contents[0];
-            const contents = shapeGroup.contents;
-
-            assertAreEqual(contents[contents.length - 1], shapeItemData.properties[0]);
-        });
     });
 });
