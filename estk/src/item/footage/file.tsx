@@ -29,15 +29,7 @@ function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
 
     const aeFileItem = app.project.importFile(importOptions as ImportOptions) as FootageItem;
 
-    assignAttributes(aeFileItem.mainSource, {
-        alphaMode: aexFile.alphaMode,
-        premulColor: aexFile.premulColor,
-        conformFrameRate: aexFile.conformFrameRate,
-        fieldSeparationType: aexFile.fieldSeparationType,
-        invertAlpha: aexFile.invertAlpha,
-        loop: aexFile.loop,
-        removePulldown: aexFile.removePulldown,
-    });
+    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
 
     state.stats.nonCompItemCount++;
 

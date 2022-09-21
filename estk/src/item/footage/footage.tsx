@@ -42,6 +42,18 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
     }
 }
 
+function updateAeFootageItemAttributes(aeItem: FootageItem, aexFootageItem: AexFootageItemBase, state: AexState): void {
+    assignAttributes(aeItem.mainSource, {
+        alphaMode: aexFootageItem.alphaMode,
+        premulColor: aexFootageItem.premulColor,
+        conformFrameRate: aexFootageItem.conformFrameRate,
+        fieldSeparationType: aexFootageItem.fieldSeparationType,
+        invertAlpha: aexFootageItem.invertAlpha,
+        loop: aexFootageItem.loop,
+        removePulldown: aexFootageItem.removePulldown,
+    });
+}
+
 function getAexFootageItemType(aeFootageItem: FootageItem): AexFootageItemType {
     const { mainSource } = aeFootageItem;
 

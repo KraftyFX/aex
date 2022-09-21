@@ -20,13 +20,17 @@ function createAePlaceholderItem(aexPlaceholder: AexPlaceholderItem, state: AexS
 
     assignAttributes(placeholderSettings, aexPlaceholder);
 
+    aexPlaceholder.loop = aexPlaceholder.loop || 1;
+
     const aePlaceholder = app.project.importPlaceholder(
         placeholderSettings.name,
         placeholderSettings.width,
         placeholderSettings.height,
         placeholderSettings.frameRate,
-        placeholderSettings.duration
+        placeholderSettings.duration / aexPlaceholder.loop
     );
+
+    updateAeFootageItemAttributes(aePlaceholder, aexPlaceholder, state);
 
     state.stats.nonCompItemCount++;
 
@@ -36,11 +40,15 @@ function createAePlaceholderItem(aexPlaceholder: AexPlaceholderItem, state: AexS
 function updateAePlaceholderItem(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
     state.stats.nonCompItemCount++;
 
+    aexPlaceholder.loop = aexPlaceholder.loop || 1;
+
     assignAttributes(aePlaceholder, {
         name: aexPlaceholder.name,
         width: aexPlaceholder.width,
         height: aexPlaceholder.height,
         frameRate: aexPlaceholder.frameRate,
-        duration: aexPlaceholder.duration,
+        duration: aexPlaceholder.duration / aexPlaceholder.loop,
     });
+
+    updateAeFootageItemAttributes(aePlaceholder, aexPlaceholder, state);
 }
