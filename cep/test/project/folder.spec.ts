@@ -42,7 +42,7 @@ describe.only('Folders', function () {
             await openCleanProject();
 
             const folderData = {
-                aexid: 'solids:2',
+                aexid: 'solids:1',
                 folder: [],
                 type: AEX_FOLDER_ITEM,
                 name: 'Solids',
@@ -103,7 +103,7 @@ describe.only('Folders', function () {
                     name: 'Parent',
                 },
                 {
-                    aexid: 'Child:2',
+                    aexid: 'child:2',
                     folder: ['Parent'],
                     type: AEX_FOLDER_ITEM,
                     name: 'Child',
