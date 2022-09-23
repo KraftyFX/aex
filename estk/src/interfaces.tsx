@@ -58,15 +58,22 @@ interface GetOptions {
 
 interface GetResult<T = AexSerialized> {
     type: 'aex:getresult';
+    /** The thing that was just serialized */
     object: T;
+    /** Additional footage that was found along the way. This is split up by comps and items. */
     footage: {
         comps: AexComp[];
         items: AexItem[];
     };
+    /**
+     * Counts of the various elements found while serializing.  Intended to make showing
+     * progress bars easier and estimating the complexity of something you plan to process.
+     */
     stats: AexStats;
     profile: {
         [key: string]: { elapsed: number; meta: string }[];
     };
+    /** Log of errors or skipped elements */
     log: AexLogEntry[];
 }
 
