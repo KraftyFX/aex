@@ -51,6 +51,8 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     }
 
     return {
+        schema: 1.0,
+        aeversion: 0.0, // TODO(zlovatt): Get this value
         type: 'aex:getresult',
         object,
         footage: {
