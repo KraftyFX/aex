@@ -57,6 +57,10 @@ interface GetOptions {
 }
 
 interface GetResult<T = AexSerialized> {
+    /** Version of the schema for this interface */
+    schema: number;
+    /** Version of AE that this blob was serialized with */
+    aeversion: number;
     type: 'aex:getresult';
     /** The thing that was just serialized */
     object: T;
