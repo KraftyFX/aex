@@ -189,7 +189,6 @@ describe.only('Footage', function () {
 
             footageData[0].aexid = '';
             project.items[0].aexid = '';
-            // project.items[1].aexid = '';
 
             assertAreEqual(project.items, footageData);
         });
@@ -235,7 +234,58 @@ describe.only('Footage', function () {
                 width: 480,
             });
         });
-        it.skip(`Create TODO`, async () => {});
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = [
+                {
+                    aexid: '02_still_fields_upper_preserveedges:3',
+                    conformFrameRate: 30,
+                    duration: 0.06666666666667,
+                    fieldSeparationType: 5612,
+                    file: seqPath,
+                    folder: [],
+                    frameRate: 30,
+                    height: 432,
+                    highQualityFieldSeparation: true,
+                    label: 3,
+                    name: '02_still_fields_upper_preserveedges',
+                    pixelAspect: 1,
+                    sequence: true,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 480,
+                },
+                {
+                    aexid: '04_still_fields_lower_preserveedges:2',
+                    conformFrameRate: 30,
+                    duration: 0.06666666666667,
+                    fieldSeparationType: 5614,
+                    file: seqPath,
+                    folder: [],
+                    frameRate: 30,
+                    height: 432,
+                    highQualityFieldSeparation: true,
+                    label: 3,
+                    name: '04_still_fields_lower_preserveedges',
+                    pixelAspect: 1,
+                    sequence: true,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 480,
+                },
+            ];
+
+            await aex.create(AeObject.Project, footageData[0]);
+            await aex.create(AeObject.Project, footageData[1]);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData[0].aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items, footageData);
+        });
     });
 
     describe('Conform Frame Rate', async () => {

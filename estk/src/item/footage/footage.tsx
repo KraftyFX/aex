@@ -49,11 +49,12 @@ function updateAeFootageItemAttributes(aeItem: FootageItem, aexFootageItem: AexF
 
     assignAttributes(aeItem.mainSource, {
         alphaMode: aexFootageItem.alphaMode,
-        premulColor: aexFootageItem.premulColor,
         conformFrameRate: aexFootageItem.conformFrameRate,
         fieldSeparationType: aexFootageItem.fieldSeparationType,
+        highQualityFieldSeparation: aexFootageItem.highQualityFieldSeparation,
         invertAlpha: aexFootageItem.invertAlpha,
         loop: aexFootageItem.loop,
+        premulColor: aexFootageItem.premulColor,
         removePulldown: aexFootageItem.removePulldown,
     });
 }
