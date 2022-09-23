@@ -142,7 +142,57 @@ describe.only('Footage', function () {
                 width: 480,
             });
         });
-        it.skip(`Create TODO`, async () => {});
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = [
+                {
+                    aexid: '01_still_fields_upper:3',
+                    conformFrameRate: 30,
+                    duration: 0.06666666666667,
+                    fieldSeparationType: 5612,
+                    file: seqPath,
+                    folder: [],
+                    frameRate: 30,
+                    height: 432,
+                    label: 3,
+                    name: '01_Still_Fields_Upper',
+                    pixelAspect: 1,
+                    sequence: true,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 480,
+                },
+                {
+                    aexid: '03_still_fields_lower:2',
+                    conformFrameRate: 30,
+                    duration: 0.06666666666667,
+                    fieldSeparationType: 5614,
+                    file: seqPath,
+                    folder: [],
+                    frameRate: 30,
+                    height: 432,
+                    label: 3,
+                    name: '03_Still_Fields_Lower',
+                    pixelAspect: 1,
+                    sequence: true,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 480,
+                },
+            ];
+
+            await aex.create(AeObject.Project, footageData[0]);
+            await aex.create(AeObject.Project, footageData[1]);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData[0].aexid = '';
+            project.items[0].aexid = '';
+            // project.items[1].aexid = '';
+
+            assertAreEqual(project.items, footageData);
+        });
     });
 
     describe('High-Quality Field Separation', async () => {

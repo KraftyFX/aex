@@ -43,6 +43,10 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
 }
 
 function updateAeFootageItemAttributes(aeItem: FootageItem, aexFootageItem: AexFootageItemBase, state: AexState): void {
+    assignAttributes(aeItem, {
+        name: aexFootageItem.name,
+    });
+
     assignAttributes(aeItem.mainSource, {
         alphaMode: aexFootageItem.alphaMode,
         premulColor: aexFootageItem.premulColor,
