@@ -112,11 +112,13 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
 }
 
 function _getRemovePulldownValue(itemSource: FileSource | SolidSource | PlaceholderSource): PulldownPhase {
-    return itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF
-        ? undefined
-        : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+    return getBoundModifiedValue(
+        !(itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF),
+        () => itemSource.removePulldown,
+        PulldownPhase.OFF
+    );
 }
 
 function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode): boolean {
-    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : getModifiedValue(itemSource.invertAlpha, false);
+    return getBoundModifiedValue(!(itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE), () => itemSource.invertAlpha, false);
 }
