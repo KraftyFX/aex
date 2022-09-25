@@ -14,7 +14,6 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
             layerMatchBy: 'index',
             projectItemMismatchBehavior: 'create',
         },
-        log: [],
         footageToCreate: aeq.arrayEx(),
         footageIdMap: {},
         stats: {
@@ -56,11 +55,10 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         throw notSupported(`Updating a '${getDebugStringForAeType(aeObject)}' from a '${aexObject.type}'`);
     }
 
-    const { stats, log } = state;
+    const { stats } = state;
 
     return {
         stats,
-        log,
     };
 }
 

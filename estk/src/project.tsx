@@ -62,12 +62,6 @@ function _setAeProjectItem(aeItem: Item, aexItem: AexItem, state: AexState) {
                 break;
             case 'skip':
                 break;
-            case 'log':
-                state.log.push({
-                    aexObject: aexItem,
-                    message: `${message} Skipping.`,
-                });
-                break;
             case 'throw':
                 throw fail(message);
             default:

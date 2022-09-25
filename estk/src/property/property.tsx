@@ -39,12 +39,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
                         return aexProperty;
                     case 'skip':
                         return undefined;
-                    case 'log':
-                        state.log.push({
-                            aexObject: aexProperty,
-                            message: `Property "${aeProperty.matchName}" is unsupported. Skipping.`,
-                        });
-                        return undefined;
                     case 'throw':
                         throw notSupported(`Property '${aeProperty.matchName}'`);
                     default:

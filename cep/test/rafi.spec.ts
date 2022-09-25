@@ -189,15 +189,6 @@ describe.skip('Rafi Test Stuff', function () {
         expect(called, 'callback invoked').to.be.true;
     });
 
-    it(`Can get log of serialization failures`, async () => {
-        const result = await aex().fromAeObject(AeObject.ActiveComp, {
-            unspportedPropertyBehavior: 'log',
-        });
-
-        expect(result.object).to.be.ok;
-        expect(result.log[0].message).to.contain('is unsupported');
-    });
-
     it(`Can get a callback during serialization failure`, async () => {
         let called = false;
 

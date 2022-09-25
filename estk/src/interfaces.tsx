@@ -47,10 +47,9 @@ interface PrescanOptions {}
 
 interface PrescanResult {
     stats: AexStats;
-    log: AexLogEntry[];
 }
 
-type CommonBehavior = 'skip' | 'log' | 'throw' | CustomHandler;
+type CommonBehavior = 'skip' | 'throw' | CustomHandler;
 
 interface GetOptions {
     unspportedPropertyBehavior: CommonBehavior | 'metadata';
@@ -77,8 +76,6 @@ interface GetResult<T = AexSerialized> {
     profile: {
         [key: string]: { elapsed: number; meta: string }[];
     };
-    /** Log of errors or skipped elements */
-    log: AexLogEntry[];
 }
 
 interface UpdateOptions {
@@ -89,7 +86,6 @@ interface UpdateOptions {
 
 interface UpdateResult {
     stats: AexStats;
-    log: AexLogEntry[];
 }
 
 interface AexLogEntry {
@@ -116,7 +112,6 @@ interface AexState {
     profile: {
         [key: string]: { elapsed: number; meta: string }[];
     };
-    log: AexLogEntry[];
 }
 
 interface AexObject {
