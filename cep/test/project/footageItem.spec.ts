@@ -3,7 +3,7 @@ import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJE
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Footage', function () {
+describe('Footage', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
@@ -213,8 +213,58 @@ describe.only('Footage', function () {
     });
 
     describe('Invert Alpha', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('invert_alpha', items[17]);
+            assertAreEqual(items[17], {
+                aexid: '18_alpha_invert:21',
+                alphaMode: 5412,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                invertAlpha: true,
+                label: 5,
+                name: '18_Alpha_Invert',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = {
+                aexid: '18_alpha_invert:3',
+                alphaMode: 5412,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                invertAlpha: true,
+                label: 5,
+                name: '18_Alpha_Invert',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            };
+
+            await aex.create(AeObject.Project, footageData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData.aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items[0], footageData);
+        });
     });
 
     describe('Premult Color', async () => {
