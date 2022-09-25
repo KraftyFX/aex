@@ -46,6 +46,8 @@ Download the latest release and look at the sample project.
 $ yarn add --TBD--
 ```
 
+---
+
 # Usage
 
 AEX has 4 major functions. Creating project elements from JSON, reading them, updating them, and scanning them to get some statistics.
@@ -182,28 +184,56 @@ var prescanResult = aex.prescan(app.project);
 
 TODO: Finish
 
+---
+
 # Unsupported AE Features
 
-This is a list of currently-unsupported AE features. Some are only supported one-way and can be only serialized (layer stretch, trackers, rotobrush, puppet pin data), though most of this list won't work either direction at this point.
+AEX isn't capable of working with every AE feature. Some are due to API limitations, and some are simply outside of the scope of this project, and some are partially implemented but require more work to complete. These lists aim to keep track of this all.
+
+Note that various features may have partial support, in that we can serialize some data (layer stretch, trackers, rotobrush, puppet pin data) but are unable to deserialize it.
+
+## Lacking AE API Support
+
+These features aren't currently fully supported by the AE API.
 
 |                           Feature                           |                                                                                                 DOM API                                                                                                 | Serialize | Deserialize |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| Viewer                                                      | [`app.activeViewer`](https://ae-scripting.docsforadobe.dev/other/viewer.html)                                                                                                                           | X         | X           |
-| Render Queue                                                | [`app.project.renderQueue`](https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue.html)                                                                                                         | X         | X           |
-| Footage Items                                               | [`app.project.item(index)`](https://ae-scripting.docsforadobe.dev/items/footageitem.html)                                                                                                               | X         | X           |
-| Proxies                                                     | [`...item(index).proxySource`](https://ae-scripting.docsforadobe.dev/items/avitem.html#avitem-proxysource)                                                                                              | X         | X           |
-| Guides                                                      | [`...item(index).guides`](https://ae-scripting.docsforadobe.dev/items/item.html#item-guides)                                                                                                            | X         | X           |
-| Selected Layers                                             | [`...item(index).selectedLayers`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedlayers)                                                                                    | X         | X           |
-| Selected Properties                                         | [`...item(index).selectedProperties`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedproperties)                                                                            | X         | X           |
+| Footage Item - Start Timecode                               | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Footage Item - Preserve RGB                                 | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Footage Item - Colour Profile                               | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Footage Item - Interpret as Linear                          | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Footage Item - Interpret as Linear (32bpc)                  | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
 | Comp Essential Properties                                   | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
 | Layer Essential Properties                                  | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Stretch                                                     | [`...layer(index).stretch`](https://ae-scripting.docsforadobe.dev/layers/layer.html#layer-stretch)                                                                                                      | ✔         | X           |
 | Trackers                                                    | `...layer(index).property('ADBE MTrackers')`                                                                                                                                                            | ✔         | X           |
 | Rotobrush                                                   | `...property("ADBE Effect Parade").property("ADBE Samurai")`                                                                                                                                            | ✔         | X           |
 | Puppet Pins                                                 | `...property("ADBE Effect Parade").property("ADBE FreePin3")`                                                                                                                                           | ✔         | X           |
-| Dropdown Expression Control item names                      | `...property("ADBE Effect Parade").property("Dropdown Menu Control")`                                                                                                                                   | X         | X           |
-| Effect layer-selector "source/mask/effects & mask" dropdown | _n/a_; see #19                                                                                                                                                                                          | X         | X           |
+| Dropdown Expression Control item names                      | `...property("ADBE Effect Parade").property("Dropdown Menu Control")`; see [#19](./issues/19)                                                                                                           | X         | X           |
+| Effect layer-selector "source/mask/effects & mask" dropdown | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
 | Custom Property types (levels, curves, colorama, gradients) | [`PropertyValueType.CUSTOM_VALUE`](https://ae-scripting.docsforadobe.dev/properties/property.html#property-propertyvaluetype); see [Unsupported Property Behaviour](#optionsunspportedpropertybehavior) | X         | X           |
+
+## Out of Scope
+
+These features are currently not seen as valuable to the AEX project, and are deliberately omitted. If you feel anything on this list would be of value, [please open a Github Issue to discuss](./issues)!
+
+|       Feature       |                                                           DOM API                                                            | Serialize | Deserialize |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| Viewer              | [`app.activeViewer`](https://ae-scripting.docsforadobe.dev/other/viewer.html)                                                | X         | X           |
+| Render Queue        | [`app.project.renderQueue`](https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue.html)                              | X         | X           |
+| Proxies             | [`...item(index).proxySource`](https://ae-scripting.docsforadobe.dev/items/avitem.html#avitem-proxysource)                   | X         | X           |
+| Selected Layers     | [`...item(index).selectedLayers`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedlayers)         | X         | X           |
+| Selected Properties | [`...item(index).selectedProperties`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedproperties) | X         | X           |
+| Guides              | [`...item(index).guides`](https://ae-scripting.docsforadobe.dev/items/item.html#item-guides)                                 | X         | X           |
+
+## Todo
+
+These are technically possible and in-scope, but require work to complete.
+
+| Feature |                                              DOM API                                               | Serialize | Deserialize |
+| ------- | -------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| Stretch | [`...layer(index).stretch`](https://ae-scripting.docsforadobe.dev/layers/layer.html#layer-stretch) | ✔         | X           |
+
+---
 
 # Contributing
 
