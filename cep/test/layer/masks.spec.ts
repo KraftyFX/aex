@@ -27,7 +27,6 @@ describe('Layer Masks', function () {
                     type: AEX_SHAPE_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Shape',
-                    name: 'Mask Path',
                     value: {
                         closed: true,
                         featherInterps: [],
@@ -70,7 +69,6 @@ describe('Layer Masks', function () {
                             type: AEX_SHAPE_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
                             value: {
                                 closed: true,
                                 featherInterps: [],
@@ -130,14 +128,12 @@ describe('Layer Masks', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Offset',
-                    name: 'Mask Expansion',
                     value: 23,
                 },
                 maskFeather: {
                     type: AEX_TWOD_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Feather',
-                    name: 'Mask Feather',
                     value: [33, 33],
                 },
                 maskMode: 6814,
@@ -145,14 +141,12 @@ describe('Layer Masks', function () {
                     type: AEX_ONED_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Opacity',
-                    name: 'Mask Opacity',
                     value: 73,
                 },
                 maskPath: {
                     type: AEX_SHAPE_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Shape',
-                    name: 'Mask Path',
                     value: {
                         closed: true,
                         featherInterps: [],
@@ -214,14 +208,12 @@ describe('Layer Masks', function () {
                             type: AEX_ONED_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Offset',
-                            name: 'Mask Expansion',
                             value: 23,
                         },
                         maskFeather: {
                             type: AEX_TWOD_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Feather',
-                            name: 'Mask Feather',
                             value: [33, 33],
                         },
                         maskMode: 6814,
@@ -229,14 +221,12 @@ describe('Layer Masks', function () {
                             type: AEX_ONED_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Opacity',
-                            name: 'Mask Opacity',
                             value: 73,
                         },
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
                             value: {
                                 closed: true,
                                 featherInterps: [],
@@ -314,7 +304,6 @@ describe('Layer Masks', function () {
                     type: AEX_SHAPE_PROPERTY,
                     keys: [],
                     matchName: 'ADBE Mask Shape',
-                    name: 'Mask Path',
                     value: {
                         closed: true,
                         featherInterps: [0, 0, 0],
@@ -357,7 +346,6 @@ describe('Layer Masks', function () {
                             type: AEX_SHAPE_PROPERTY,
                             keys: [],
                             matchName: 'ADBE Mask Shape',
-                            name: 'Mask Path',
                             value: {
                                 closed: true,
                                 featherInterps: [0, 0, 0],
@@ -416,7 +404,6 @@ describe('Layer Masks', function () {
                 color: [0.90980392156863, 0.57254901960784, 0.05098039215686],
                 maskPath: {
                     type: AEX_SHAPE_PROPERTY,
-                    name: 'Mask Path',
                     matchName: 'ADBE Mask Shape',
                     value: {
                         closed: true,
@@ -606,7 +593,6 @@ describe('Layer Masks', function () {
                         color: [0.90980392156863, 0.57254901960784, 0.05098039215686],
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            name: 'Mask Path',
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,

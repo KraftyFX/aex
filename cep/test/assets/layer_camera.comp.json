@@ -20,7 +20,6 @@
             "transform": {
                "position": {
                   "type": "aex:property:threed",
-                  "name": "Position",
                   "matchName": "ADBE Position",
                   "value": [
                      640,
@@ -36,84 +35,72 @@
                "properties": [
                   {
                      "type": "aex:property:oned",
-                     "name": "Zoom",
                      "matchName": "ADBE Camera Zoom",
                      "value": 1,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Focus Distance",
                      "matchName": "ADBE Camera Focus Distance",
                      "value": 2,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Aperture",
                      "matchName": "ADBE Camera Aperture",
                      "value": 3,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Blur Level",
                      "matchName": "ADBE Camera Blur Level",
                      "value": 4,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Iris Shape",
                      "matchName": "ADBE Iris Shape",
                      "value": 4,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Iris Rotation",
                      "matchName": "ADBE Iris Rotation",
                      "value": 5,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Iris Roundness",
                      "matchName": "ADBE Iris Roundness",
                      "value": 6,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Iris Aspect Ratio",
                      "matchName": "ADBE Iris Aspect Ratio",
                      "value": 7,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Iris Diffraction Fringe",
                      "matchName": "ADBE Iris Diffraction Fringe",
                      "value": 8,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Highlight Gain",
                      "matchName": "ADBE Iris Highlight Gain",
                      "value": 9,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Highlight Threshold",
                      "matchName": "ADBE Iris Highlight Threshold",
                      "value": 0.0392,
                      "keys": []
                   },
                   {
                      "type": "aex:property:oned",
-                     "name": "Highlight Saturation",
                      "matchName": "ADBE Iris Hightlight Saturation",
                      "value": 11,
                      "keys": []
@@ -128,7 +115,6 @@
             "transform": {
                "position": {
                   "type": "aex:property:threed",
-                  "name": "Position",
                   "matchName": "ADBE Position",
                   "value": [
                      640,
@@ -139,7 +125,6 @@
                },
                "pointOfInterest": {
                   "type": "aex:property:threed",
-                  "name": "Point of Interest",
                   "matchName": "ADBE Anchor Point",
                   "value": [
                      100,
@@ -167,7 +152,7 @@
    "profile": {
       "getPropertyKeys": [
          {
-            "elapsed": 1,
+            "elapsed": 31,
             "meta": "Position"
          },
          {
@@ -175,7 +160,7 @@
             "meta": "Zoom"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Focus Distance"
          },
          {
@@ -183,7 +168,7 @@
             "meta": "Aperture"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Blur Level"
          },
          {
@@ -203,7 +188,7 @@
             "meta": "Iris Aspect Ratio"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Iris Diffraction Fringe"
          },
          {
@@ -215,7 +200,7 @@
             "meta": "Highlight Threshold"
          },
          {
-            "elapsed": 0,
+            "elapsed": 1,
             "meta": "Highlight Saturation"
          },
          {
@@ -229,7 +214,7 @@
       ],
       "getProperty": [
          {
-            "elapsed": 1,
+            "elapsed": 31,
             "meta": "Position"
          },
          {
@@ -237,7 +222,7 @@
             "meta": "Zoom"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Focus Distance"
          },
          {
@@ -245,7 +230,7 @@
             "meta": "Aperture"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Blur Level"
          },
          {
@@ -273,35 +258,35 @@
             "meta": "Highlight Gain"
          },
          {
-            "elapsed": 1,
+            "elapsed": 0,
             "meta": "Highlight Threshold"
          },
          {
-            "elapsed": 0,
+            "elapsed": 1,
             "meta": "Highlight Saturation"
          },
          {
-            "elapsed": 2,
+            "elapsed": 1,
             "meta": "Point of Interest"
          },
          {
-            "elapsed": 1,
+            "elapsed": 2,
             "meta": "Position"
          }
       ],
       "getAexLayer": [
          {
-            "elapsed": 10,
+            "elapsed": 108,
             "meta": "One-Node"
          },
          {
-            "elapsed": 5,
+            "elapsed": 6,
             "meta": "Two-Node"
          }
       ],
       "getAexComp": [
          {
-            "elapsed": 16,
+            "elapsed": 115,
             "meta": "Comp 1"
          }
       ]

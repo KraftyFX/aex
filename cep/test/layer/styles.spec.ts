@@ -21,13 +21,11 @@ describe('Layer Styles', function () {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[0].layerStyles.properties, [
                 {
-                    name: 'Blending Options',
                     matchName: 'ADBE Blend Options Group',
                     enabled: true,
                     type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
                 {
-                    name: 'Drop Shadow',
                     matchName: 'dropShadow/enabled',
                     enabled: true,
                     type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -40,13 +38,11 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Blending Options',
                             matchName: 'ADBE Blend Options Group',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
-                            name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -68,7 +64,6 @@ describe('Layer Styles', function () {
 
         it('Create on layer', async () => {
             const styleData = {
-                name: 'Drop Shadow',
                 matchName: 'dropShadow/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -86,69 +81,59 @@ describe('Layer Styles', function () {
 
         it('Create on layer', async () => {
             const styleData = {
-                name: 'Drop Shadow',
                 matchName: 'dropShadow/enabled',
                 enabled: true,
                 properties: [
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Blend Mode',
                         matchName: 'dropShadow/mode2',
                         value: 16,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Opacity',
                         matchName: 'dropShadow/opacity',
                         value: 45,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Use Global Light',
                         matchName: 'dropShadow/useGlobalAngle',
                         value: 1,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Angle',
                         matchName: 'dropShadow/localLightingAngle',
                         value: 153,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Distance',
                         matchName: 'dropShadow/distance',
                         value: 23,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Spread',
                         matchName: 'dropShadow/chokeMatte',
                         value: 37,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Size',
                         matchName: 'dropShadow/blur',
                         value: 26,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Noise',
                         matchName: 'dropShadow/noise',
                         value: 23,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Layer Knocks Out Drop Shadow',
                         matchName: 'dropShadow/layerConceals',
                         value: 0,
                         keys: [],
@@ -172,7 +157,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[1].layerStyles.properties[1], {
-                name: 'Inner Shadow',
                 matchName: 'innerShadow/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -184,7 +168,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Inner Shadow',
                             matchName: 'innerShadow/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -209,7 +192,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[2].layerStyles.properties[1], {
-                name: 'Outer Glow',
                 matchName: 'outerGlow/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -219,7 +201,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[3].layerStyles.properties[1], {
-                name: 'Inner Glow',
                 matchName: 'innerGlow/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -231,7 +212,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Outer Glow',
                             matchName: 'outerGlow/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -256,7 +236,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Inner Glow',
                             matchName: 'innerGlow/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -281,7 +260,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[4].layerStyles.properties[1], {
-                name: 'Bevel and Emboss',
                 matchName: 'bevelEmboss/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -293,7 +271,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Bevel and Emboss',
                             matchName: 'bevelEmboss/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -318,7 +295,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[5].layerStyles.properties[1], {
-                name: 'Satin',
                 matchName: 'chromeFX/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -330,7 +306,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Satin',
                             matchName: 'chromeFX/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -355,7 +330,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[6].layerStyles.properties[1], {
-                name: 'Color Overlay',
                 matchName: 'solidFill/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -367,7 +341,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Color Overlay',
                             matchName: 'solidFill/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -392,7 +365,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[7].layerStyles.properties[1], {
-                name: 'Gradient Overlay',
                 matchName: 'gradientFill/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -404,7 +376,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Gradient Overlay',
                             matchName: 'gradientFill/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -429,7 +400,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[8].layerStyles.properties[1], {
-                name: 'Stroke',
                 matchName: 'frameFX/enabled',
                 enabled: true,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -441,7 +411,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Stroke',
                             matchName: 'frameFX/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -467,20 +436,17 @@ describe('Layer Styles', function () {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[9].layerStyles.properties, [
                 {
-                    name: 'Blending Options',
                     matchName: 'ADBE Blend Options Group',
                     enabled: true,
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Global Light Angle',
                             matchName: 'ADBE Global Angle2',
                             value: 72,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Global Light Altitude',
                             matchName: 'ADBE Global Altitude2',
                             value: 63,
                             keys: [],
@@ -490,35 +456,30 @@ describe('Layer Styles', function () {
                             properties: [
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Fill Opacity',
                                     matchName: 'ADBE Layer Fill Opacity2',
                                     value: 80,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Red',
                                     matchName: 'ADBE R Channel Blend',
                                     value: 0,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Green',
                                     matchName: 'ADBE G Channel Blend',
                                     value: 0,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Blue',
                                     matchName: 'ADBE B Channel Blend',
                                     value: 0,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Blend Interior Styles as Group',
                                     matchName: 'ADBE Blend Interior',
                                     value: 1,
                                     keys: [],
@@ -529,69 +490,59 @@ describe('Layer Styles', function () {
                     type: AEX_LAYERSTYLE_PROPERTYGROUP,
                 },
                 {
-                    name: 'Drop Shadow',
                     matchName: 'dropShadow/enabled',
                     enabled: true,
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Blend Mode',
                             matchName: 'dropShadow/mode2',
                             value: 16,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Opacity',
                             matchName: 'dropShadow/opacity',
                             value: 45,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Use Global Light',
                             matchName: 'dropShadow/useGlobalAngle',
                             value: 1,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Angle',
                             matchName: 'dropShadow/localLightingAngle',
                             value: 153,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Distance',
                             matchName: 'dropShadow/distance',
                             value: 23,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Spread',
                             matchName: 'dropShadow/chokeMatte',
                             value: 37,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Size',
                             matchName: 'dropShadow/blur',
                             value: 26,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Noise',
                             matchName: 'dropShadow/noise',
                             value: 23,
                             keys: [],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            name: 'Layer Knocks Out Drop Shadow',
                             matchName: 'dropShadow/layerConceals',
                             value: 0,
                             keys: [],
@@ -607,20 +558,17 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Blending Options',
                             matchName: 'ADBE Blend Options Group',
                             enabled: true,
                             properties: [
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Global Light Angle',
                                     matchName: 'ADBE Global Angle2',
                                     value: 72,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Global Light Altitude',
                                     matchName: 'ADBE Global Altitude2',
                                     value: 63,
                                     keys: [],
@@ -630,35 +578,30 @@ describe('Layer Styles', function () {
                                     properties: [
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            name: 'Fill Opacity',
                                             matchName: 'ADBE Layer Fill Opacity2',
                                             value: 80,
                                             keys: [],
                                         },
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            name: 'Red',
                                             matchName: 'ADBE R Channel Blend',
                                             value: 0,
                                             keys: [],
                                         },
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            name: 'Green',
                                             matchName: 'ADBE G Channel Blend',
                                             value: 0,
                                             keys: [],
                                         },
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            name: 'Blue',
                                             matchName: 'ADBE B Channel Blend',
                                             value: 0,
                                             keys: [],
                                         },
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            name: 'Blend Interior Styles as Group',
                                             matchName: 'ADBE Blend Interior',
                                             value: 1,
                                             keys: [],
@@ -669,69 +612,59 @@ describe('Layer Styles', function () {
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
-                            name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: true,
                             properties: [
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Blend Mode',
                                     matchName: 'dropShadow/mode2',
                                     value: 16,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Opacity',
                                     matchName: 'dropShadow/opacity',
                                     value: 45,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Use Global Light',
                                     matchName: 'dropShadow/useGlobalAngle',
                                     value: 1,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Angle',
                                     matchName: 'dropShadow/localLightingAngle',
                                     value: 153,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Distance',
                                     matchName: 'dropShadow/distance',
                                     value: 23,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Spread',
                                     matchName: 'dropShadow/chokeMatte',
                                     value: 37,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Size',
                                     matchName: 'dropShadow/blur',
                                     value: 26,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Noise',
                                     matchName: 'dropShadow/noise',
                                     value: 23,
                                     keys: [],
                                 },
                                 {
                                     type: AEX_ONED_PROPERTY,
-                                    name: 'Layer Knocks Out Drop Shadow',
                                     matchName: 'dropShadow/layerConceals',
                                     value: 0,
                                     keys: [],
@@ -759,7 +692,6 @@ describe('Layer Styles', function () {
         it('Get', async () => {
             const { object: comp } = await getProject('assets/layer_styles.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[10].layerStyles.properties[1], {
-                name: 'Drop Shadow',
                 matchName: 'dropShadow/enabled',
                 enabled: false,
                 type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -771,7 +703,6 @@ describe('Layer Styles', function () {
                 layerStyles: {
                     properties: [
                         {
-                            name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: false,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -801,13 +732,11 @@ describe('Layer Styles', function () {
                 enabled: false,
                 properties: [
                     {
-                        name: 'Blending Options',
                         matchName: 'ADBE Blend Options Group',
                         enabled: true,
                         type: AEX_LAYERSTYLE_PROPERTYGROUP,
                     },
                     {
-                        name: 'Drop Shadow',
                         matchName: 'dropShadow/enabled',
                         enabled: true,
                         type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -824,13 +753,11 @@ describe('Layer Styles', function () {
                     enabled: false,
                     properties: [
                         {
-                            name: 'Blending Options',
                             matchName: 'ADBE Blend Options Group',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
                         },
                         {
-                            name: 'Drop Shadow',
                             matchName: 'dropShadow/enabled',
                             enabled: true,
                             type: AEX_LAYERSTYLE_PROPERTYGROUP,
@@ -861,55 +788,47 @@ describe('Layer Styles', function () {
     describe('Update Existing Styles', async () => {
         it('Can update style', async () => {
             const styleData = {
-                name: 'Drop Shadow',
                 matchName: 'dropShadow/enabled',
                 enabled: true,
                 properties: [
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Blend Mode',
                         matchName: 'dropShadow/mode2',
                         value: 12,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Opacity',
                         matchName: 'dropShadow/opacity',
                         value: 12,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Angle',
                         matchName: 'dropShadow/localLightingAngle',
                         value: 100,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Distance',
                         matchName: 'dropShadow/distance',
                         value: 10,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Spread',
                         matchName: 'dropShadow/chokeMatte',
                         value: 7,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Size',
                         matchName: 'dropShadow/blur',
                         value: 18,
                         keys: [],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        name: 'Noise',
                         matchName: 'dropShadow/noise',
                         value: 10,
                         keys: [],
