@@ -3,7 +3,7 @@ import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJE
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe('Footage', function () {
+describe.only('Footage', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
@@ -38,6 +38,7 @@ describe('Footage', function () {
                     height: 1080,
                     label: 3,
                     name: 'Placeholder',
+                    pixelAspect: 2,
                     type: AEX_PLACEHOLDER_ITEM,
                     width: 1920,
                 },
