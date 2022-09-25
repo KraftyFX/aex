@@ -13,7 +13,6 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
             keyCount: 0,
         },
         profile: {},
-        log: [],
     };
 
     assignAttributes(state.getOptions, options || {});
@@ -28,10 +27,9 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
         throw notSupported(`Prescanning a '${getDebugStringForAeType(aeObject)}'`);
     }
 
-    const { stats, log } = state;
+    const { stats } = state;
 
     return {
         stats,
-        log,
     };
 }

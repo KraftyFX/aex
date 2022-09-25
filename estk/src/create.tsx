@@ -17,7 +17,6 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
         },
         footageToCreate: aeq.arrayEx(),
         footageIdMap: {},
-        log: [],
         stats: {
             nonCompItemCount: 0,
             compCount: 0,
@@ -71,11 +70,10 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
         throw notSupported(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     }
 
-    const { stats, log } = state;
+    const { stats } = state;
 
     return {
         stats,
-        log,
     };
 }
 

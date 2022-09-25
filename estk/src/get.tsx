@@ -11,7 +11,6 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         },
         footageSources: aeq.arrayEx([]),
         updateOptions: null,
-        log: [],
         stats: {
             nonCompItemCount: 0,
             compCount: 0,
@@ -61,7 +60,6 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         },
         stats: state.stats,
         profile: state.profile,
-        log: state.log,
     };
 }
 
