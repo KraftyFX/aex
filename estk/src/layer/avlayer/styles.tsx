@@ -19,12 +19,11 @@ function _getAvLayerStyles(styleGroup: PropertyGroup, state: AexState) {
              * if 'canSetEnabled' is true.
              */
             if (ii == 0 || property.canSetEnabled) {
-                const { name, matchName, enabled } = property;
+                const { matchName, enabled } = property;
 
                 const propertyData = getPropertyGroup(property as PropertyGroup, state);
 
                 styles.properties.push({
-                    name,
                     matchName,
                     enabled,
 

@@ -90,7 +90,6 @@ describe('Layer Animation', function () {
                     },
                 ],
                 matchName: 'ADBE Rotate Z',
-                name: 'Z Rotation',
                 value: 0,
             });
         });
@@ -171,7 +170,6 @@ describe('Layer Animation', function () {
                             },
                         ],
                         matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
                         value: 0,
                     },
                 },
@@ -257,7 +255,6 @@ describe('Layer Animation', function () {
                     },
                 ],
                 matchName: 'ADBE Rotate Z',
-                name: 'Z Rotation',
                 value: 0,
             });
         });
@@ -297,7 +294,6 @@ describe('Layer Animation', function () {
                             },
                         ],
                         matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
                         value: 0,
                     },
                 },
@@ -382,7 +378,6 @@ describe('Layer Animation', function () {
                     },
                 ],
                 matchName: 'ADBE Rotate Z',
-                name: 'Z Rotation',
                 value: 0,
             });
         });
@@ -434,7 +429,6 @@ describe('Layer Animation', function () {
                             },
                         ],
                         matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
                         value: 0,
                     },
                 },
@@ -585,7 +579,6 @@ describe('Layer Animation', function () {
                     },
                 ],
                 matchName: 'ADBE Rotate Z',
-                name: 'Z Rotation',
                 value: 0,
             });
         });
@@ -693,7 +686,6 @@ describe('Layer Animation', function () {
                             },
                         ],
                         matchName: 'ADBE Rotate Z',
-                        name: 'Z Rotation',
                         value: 0,
                     },
                 },

@@ -4,7 +4,7 @@ import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe('Zack Test Stuff', function () {
+describe.skip('Zack Test Stuff', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 
@@ -17,7 +17,7 @@ describe('Zack Test Stuff', function () {
     });
 
     /** Get dup */
-    describe.skip('Data Dumps', function () {
+    describe('Data Dumps', function () {
         it(`Unsophisticated test to check first layer`, async () => {
             const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
@@ -169,7 +169,34 @@ describe('Zack Test Stuff', function () {
         });
     });
 
-    describe.skip('Set & Get', function () {
+    describe('Set & Get from ActiveComp', function () {
+        let activeComp: any;
+
+        it('Can get() test project', async () => {
+            const result = await aex.get(AeObject.ActiveComp);
+            activeComp = result;
+
+            console.log('initial conversion', result);
+        });
+
+        it('Can rebuild test project', async () => {
+            // Clear project
+            // await openCleanProject();
+
+            // Rebuild project from scan
+            await aex.create(AeObject.Project, activeComp);
+
+            // Scan project again
+            const result = await aex.get(AeObject.ActiveComp);
+            const rebuiltProject = result;
+
+            console.log('rebuilt project', rebuiltProject);
+
+            assertAreEqual(activeComp.object, rebuiltProject.object);
+        });
+    });
+
+    describe.skip('Set & Get from AEP', function () {
         let initialProject: any;
 
         before(async () => {

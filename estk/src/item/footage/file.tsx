@@ -4,18 +4,52 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 
     state.stats.nonCompItemCount++;
 
+    const sequence = !item.mainSource.isStill && itemIsSequence(item) ? true : undefined;
+
     return {
         ...itemAttributes,
         type: AEX_FILE_FOOTAGE_ITEM,
 
         file: itemSource.file.fsName,
+        sequence,
     };
 }
 
 function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
-    throw notImplemented(`Creating a file item`);
+    const importOptions = new ImportOptions();
+
+    /** @todo Add a check / throw an error if the file doesn't exist! */
+
+    assignAttributes(importOptions, {
+        file: new File(aexFile.file),
+        forceAlphabetical: false,
+        importAs: ImportAsType.FOOTAGE,
+        sequence: aexFile.sequence,
+    });
+
+    const aeFileItem = app.project.importFile(importOptions as ImportOptions) as FootageItem;
+
+    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
+
+    state.stats.nonCompItemCount++;
+
+    return aeFileItem;
 }
 
 function updateAeFileItem(aeFile: FootageItem, aexFootage: AexFileItem, state: AexState) {
     throw notImplemented(`Updating a file item`);
+}
+
+function itemIsStillImage(item: FootageItem): boolean {
+    return item.mainSource.isStill;
+}
+
+function itemIsSequence(item: FootageItem): boolean {
+    const itemSource = item.mainSource as FileSource;
+
+    const importedItem = aeq.importFile(itemSource.file) as FootageItem;
+    const importIsImage = importedItem.mainSource.isStill;
+    importedItem.remove();
+
+    return importIsImage;
 }

@@ -105,7 +105,7 @@ function _getProjectBaseAttributes(project: Project): AexProjectBase {
         linearizeWorkingSpace: getModifiedValue(project.linearizeWorkingSpace, false),
         timeDisplayType: getModifiedValue(project.timeDisplayType, TimeDisplayType.TIMECODE),
         transparencyGridThumbnails: getModifiedValue(project.transparencyGridThumbnails, false),
-        workingGamma: getModifiedValue(project.workingGamma, 2.4),
+        workingGamma: project.workingGamma,
         workingSpace: getModifiedValue(project.workingSpace, 'None'),
     };
 }

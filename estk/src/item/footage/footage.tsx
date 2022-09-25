@@ -42,6 +42,23 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
     }
 }
 
+function updateAeFootageItemAttributes(aeItem: FootageItem, aexFootageItem: AexFootageItemBase, state: AexState): void {
+    assignAttributes(aeItem, {
+        name: aexFootageItem.name,
+    });
+
+    assignAttributes(aeItem.mainSource, {
+        alphaMode: aexFootageItem.alphaMode,
+        conformFrameRate: aexFootageItem.conformFrameRate,
+        fieldSeparationType: aexFootageItem.fieldSeparationType,
+        highQualityFieldSeparation: aexFootageItem.highQualityFieldSeparation,
+        invertAlpha: aexFootageItem.invertAlpha,
+        loop: aexFootageItem.loop,
+        premulColor: aexFootageItem.premulColor,
+        removePulldown: aexFootageItem.removePulldown,
+    });
+}
+
 function getAexFootageItemType(aeFootageItem: FootageItem): AexFootageItemType {
     const { mainSource } = aeFootageItem;
 
@@ -62,25 +79,35 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
-    const alphaMode = getModifiedValue(itemSource.alphaMode, AlphaMode.STRAIGHT);
+    const alphaMode = itemSource.hasAlpha ? itemSource.alphaMode : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
+    const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
+    const removePulldown = _getRemovePulldownValue(itemSource);
 
     state.stats.nonCompItemCount++;
 
     return {
         ...avItemBaseAttributes,
 
-        conformFrameRate: getModifiedValue(itemSource.conformFrameRate, 0),
-        fieldSeparationType: getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF),
-        highQualityFieldSeparation: getModifiedValue(itemSource.highQualityFieldSeparation, false),
-        loop: getModifiedValue(itemSource.loop, 1),
-        premulColor: getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue),
-        removePulldown: getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF),
         alphaMode,
         invertAlpha,
+        premulColor: getModifiedValue(itemSource.premulColor, [0, 0, 0] as ThreeDColorValue),
+
+        fieldSeparationType: getModifiedValue(itemSource.fieldSeparationType, FieldSeparationType.OFF),
+        highQualityFieldSeparation: getModifiedValue(itemSource.highQualityFieldSeparation, false),
+
+        conformFrameRate: getModifiedValue(itemSource.conformFrameRate, 0),
+        loop,
+        removePulldown,
     };
 }
 
-function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
-    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
+function _getRemovePulldownValue(itemSource: FileSource | SolidSource | PlaceholderSource): PulldownPhase {
+    return itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF
+        ? undefined
+        : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+}
+
+function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode): boolean {
+    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : getModifiedValue(itemSource.invertAlpha, false);
 }

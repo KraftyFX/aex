@@ -54,6 +54,13 @@ export const aex = {
     },
 };
 
+export function getFilePath(filePath: string, options?: { cacheLocation?: 'repo' | 'panel' }) {
+    const cacheLocation = options?.cacheLocation || 'panel';
+    const cacheRootDir = cacheLocation == 'repo' ? join(SOURCE_DIR, 'test') : DEPLOY_DIR;
+
+    return join(cacheRootDir, 'assets', '(Footage)', normalize(filePath));
+}
+
 /**
  * Looks for a pre-deserialized (cached) version of an aep containing specific aex data. If it
  * doesn't exist then the function will open the aep, save it and return the result. This

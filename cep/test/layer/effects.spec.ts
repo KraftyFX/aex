@@ -85,42 +85,36 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0007',
-                        name: 'All Masks',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0002',
-                        name: 'Color',
                         type: AEX_COLOR_PROPERTY,
                         value: [1, 0.5, 0, 1],
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0006',
-                        name: 'Invert',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0003',
-                        name: 'Horizontal Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.2,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0004',
-                        name: 'Vertical Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.8,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0005',
-                        name: 'Opacity',
                         type: AEX_ONED_PROPERTY,
                         value: 0.79,
                     },
@@ -150,42 +144,36 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0007',
-                        name: 'All Masks',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0002',
-                        name: 'Color',
                         type: AEX_COLOR_PROPERTY,
                         value: [1, 0.5, 0, 1],
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0006',
-                        name: 'Invert',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0003',
-                        name: 'Horizontal Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.2,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0004',
-                        name: 'Vertical Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.8,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0005',
-                        name: 'Opacity',
                         type: AEX_ONED_PROPERTY,
                         value: 0.79,
                     },
@@ -204,42 +192,36 @@ describe('Layer Effects', function () {
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0007',
-                                name: 'All Masks',
                                 type: AEX_ONED_PROPERTY,
                                 value: 1,
                             },
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0002',
-                                name: 'Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
                             },
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0006',
-                                name: 'Invert',
                                 type: AEX_ONED_PROPERTY,
                                 value: 1,
                             },
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0003',
-                                name: 'Horizontal Feather',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2.2,
                             },
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0004',
-                                name: 'Vertical Feather',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2.8,
                             },
                             {
                                 keys: [],
                                 matchName: 'ADBE Fill-0005',
-                                name: 'Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 0.79,
                             },
@@ -268,42 +250,36 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0007',
-                        name: 'All Masks',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0002',
-                        name: 'Color',
                         type: AEX_COLOR_PROPERTY,
                         value: [1, 0.5, 0, 1],
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0006',
-                        name: 'Invert',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0003',
-                        name: 'Horizontal Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.2,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0004',
-                        name: 'Vertical Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.8,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0005',
-                        name: 'Opacity',
                         type: AEX_ONED_PROPERTY,
                         value: 0.79,
                     },
@@ -328,42 +304,36 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0007',
-                        name: 'All Masks',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0002',
-                        name: 'Color',
                         type: AEX_COLOR_PROPERTY,
                         value: [1, 0.5, 0, 1],
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0006',
-                        name: 'Invert',
                         type: AEX_ONED_PROPERTY,
                         value: 1,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0003',
-                        name: 'Horizontal Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.2,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0004',
-                        name: 'Vertical Feather',
                         type: AEX_ONED_PROPERTY,
                         value: 2.8,
                     },
                     {
                         keys: [],
                         matchName: 'ADBE Fill-0005',
-                        name: 'Opacity',
                         type: AEX_ONED_PROPERTY,
                         value: 0.79,
                     },
@@ -403,7 +373,6 @@ describe('Layer Effects', function () {
                                             {
                                                 keys: [],
                                                 matchName: 'ADBE Effect Path Stream Ref',
-                                                name: 'Mask Reference 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 1,
                                             },
@@ -414,7 +383,6 @@ describe('Layer Effects', function () {
                             {
                                 keys: [],
                                 matchName: 'ADBE Effect Mask Opacity',
-                                name: 'Effect Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
                             },
@@ -445,7 +413,6 @@ describe('Layer Effects', function () {
                                                     {
                                                         keys: [],
                                                         matchName: 'ADBE Effect Path Stream Ref',
-                                                        name: 'Mask Reference 1',
                                                         type: AEX_ONED_PROPERTY,
                                                         value: 1,
                                                     },
@@ -456,7 +423,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Effect Mask Opacity',
-                                        name: 'Effect Opacity',
                                         type: AEX_ONED_PROPERTY,
                                         value: 50,
                                     },
@@ -537,7 +503,6 @@ describe('Layer Effects', function () {
                                             {
                                                 keys: [],
                                                 matchName: 'ADBE Effect Path Stream Ref',
-                                                name: 'Mask Reference 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 1,
                                             },
@@ -548,7 +513,6 @@ describe('Layer Effects', function () {
                             {
                                 keys: [],
                                 matchName: 'ADBE Effect Mask Opacity',
-                                name: 'Effect Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
                             },
@@ -700,7 +664,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Point3D Control-0001',
-                            name: '3D Point',
                             type: AEX_THREED_PROPERTY,
                             value: [0, 0, 0],
                         },
@@ -714,7 +677,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Angle Control-0001',
-                            name: 'Angle',
                             type: AEX_ONED_PROPERTY,
                             value: 100,
                         },
@@ -728,7 +690,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Checkbox Control-0001',
-                            name: 'Checkbox',
                             type: AEX_ONED_PROPERTY,
                             value: 1,
                         },
@@ -742,7 +703,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Color Control-0001',
-                            name: 'Color',
                             type: AEX_COLOR_PROPERTY,
                             value: [0, 0.5, 1, 1],
                         },
@@ -757,7 +717,6 @@ describe('Layer Effects', function () {
                             keys: [],
                             items: ['Item 1', 'Item 2', 'Item 3'],
                             matchName: 'Pseudo/@@DJHhoqupT8S4IxJ3m0KmfQ-0001',
-                            name: 'Menu',
                             type: AEX_ONED_PROPERTY,
                             value: 3,
                         },
@@ -771,7 +730,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Layer Control-0001',
-                            name: 'Layer',
                             type: AEX_ONED_PROPERTY,
                             value: 1,
                         },
@@ -785,7 +743,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Point Control-0001',
-                            name: 'Point',
                             type: AEX_TWOD_PROPERTY,
                             value: [100, 200],
                         },
@@ -799,7 +756,6 @@ describe('Layer Effects', function () {
                         {
                             keys: [],
                             matchName: 'ADBE Slider Control-0001',
-                            name: 'Slider',
                             type: AEX_ONED_PROPERTY,
                             value: 300,
                         },
@@ -821,7 +777,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Point3D Control-0001',
-                                        name: '3D Point',
                                         type: AEX_THREED_PROPERTY,
                                         value: [0, 0, 0],
                                     },
@@ -835,7 +790,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Angle Control-0001',
-                                        name: 'Angle',
                                         type: AEX_ONED_PROPERTY,
                                         value: 100,
                                     },
@@ -849,7 +803,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Checkbox Control-0001',
-                                        name: 'Checkbox',
                                         type: AEX_ONED_PROPERTY,
                                         value: 1,
                                     },
@@ -863,7 +816,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Color Control-0001',
-                                        name: 'Color',
                                         type: AEX_COLOR_PROPERTY,
                                         value: [0, 0.5, 1, 1],
                                     },
@@ -876,7 +828,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         items: ['Item 1', 'Item 2', 'Item 3'],
-                                        name: 'Menu',
                                         type: AEX_ONED_PROPERTY,
                                         value: 3,
                                     },
@@ -890,7 +841,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Layer Control-0001',
-                                        name: 'Layer',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
@@ -904,7 +854,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Point Control-0001',
-                                        name: 'Point',
                                         type: AEX_TWOD_PROPERTY,
                                         value: [100, 200],
                                     },
@@ -918,7 +867,6 @@ describe('Layer Effects', function () {
                                     {
                                         keys: [],
                                         matchName: 'ADBE Slider Control-0001',
-                                        name: 'Slider',
                                         type: AEX_ONED_PROPERTY,
                                         value: 300,
                                     },
@@ -954,7 +902,6 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         items: ['Item 1', 'Item 2', 'Item 3'],
-                        name: 'Menu',
                         type: AEX_ONED_PROPERTY,
                         value: 3,
                     },
@@ -983,7 +930,6 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Point3D Control-0001',
-                        name: '3D Point',
                         type: AEX_THREED_PROPERTY,
                         value: [0, 0, 0],
                     },
@@ -1014,7 +960,6 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fractal Noise-0010',
-                        name: 'Scale',
                         type: AEX_ONED_PROPERTY,
                         value: 123,
                     },
@@ -1033,7 +978,6 @@ describe('Layer Effects', function () {
                             {
                                 keys: [],
                                 matchName: 'ADBE Fractal Noise-0010',
-                                name: 'Scale',
                                 type: AEX_ONED_PROPERTY,
                                 value: 123,
                             },
@@ -1062,7 +1006,6 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fractal Noise-0010',
-                        name: 'Scale',
                         type: AEX_ONED_PROPERTY,
                         value: 123,
                     },
@@ -1087,7 +1030,6 @@ describe('Layer Effects', function () {
                     {
                         keys: [],
                         matchName: 'ADBE Fractal Noise-0010',
-                        name: 'Scale',
                         type: AEX_ONED_PROPERTY,
                         value: 98.76,
                     },
@@ -1125,7 +1067,6 @@ describe('Layer Effects', function () {
                                         properties: [
                                             {
                                                 type: AEX_ONED_PROPERTY,
-                                                name: 'Triangles',
                                                 matchName: 'ADBE FreePin3 Mesh Tri Count',
                                                 value: 50,
                                                 keys: [],
@@ -1139,14 +1080,12 @@ describe('Layer Effects', function () {
                                                         properties: [
                                                             {
                                                                 type: AEX_ONED_PROPERTY,
-                                                                name: 'Vertex Index',
                                                                 matchName: 'ADBE FreePin3 PosPin Vtx Index',
                                                                 value: 12,
                                                                 keys: [],
                                                             },
                                                             {
                                                                 type: AEX_TWOD_PROPERTY,
-                                                                name: 'Position',
                                                                 matchName: 'ADBE FreePin3 PosPin Position',
                                                                 value: [13, 482],
                                                                 keys: [],
@@ -1159,14 +1098,12 @@ describe('Layer Effects', function () {
                                                         properties: [
                                                             {
                                                                 type: AEX_ONED_PROPERTY,
-                                                                name: 'Vertex Index',
                                                                 matchName: 'ADBE FreePin3 PosPin Vtx Index',
                                                                 value: 13,
                                                                 keys: [],
                                                             },
                                                             {
                                                                 type: AEX_TWOD_PROPERTY,
-                                                                name: 'Position',
                                                                 matchName: 'ADBE FreePin3 PosPin Position',
                                                                 value: [15, 14],
                                                                 keys: [
@@ -1253,7 +1190,6 @@ describe('Layer Effects', function () {
                                 properties: [
                                     {
                                         type: AEX_TWOD_PROPERTY,
-                                        name: 'Duration',
                                         matchName: 'ADBE Paint Duration',
                                         value: [0, 1.25],
                                         keys: [],
@@ -1263,14 +1199,12 @@ describe('Layer Effects', function () {
                                         properties: [
                                             {
                                                 type: AEX_COLOR_PROPERTY,
-                                                name: 'Color',
                                                 matchName: 'ADBE Paint Color',
                                                 value: [0, 1, 0, 1],
                                                 keys: [],
                                             },
                                             {
                                                 type: AEX_ONED_PROPERTY,
-                                                name: 'Clone Source',
                                                 matchName: 'ADBE Paint Clone Layer',
                                                 value: 0,
                                                 keys: [],

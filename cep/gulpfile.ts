@@ -54,7 +54,7 @@ function yarnBuildJsx() {
 }
 
 function deployTestAEPs() {
-    return gulp.src(`${paths.tests}/assets/*.aep`).pipe(gulp.dest(`${paths._build}/panel/assets`));
+    return gulp.src(`${paths.tests}/assets/**/*`).pipe(gulp.dest(`${paths._build}/panel/assets`));
 }
 
 function deployJsx() {

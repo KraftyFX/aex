@@ -12,7 +12,7 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
         () => {
             const aexProperty: AexProperty = {
                 type: _getPropertyType(aeProperty),
-                name: aeProperty.name,
+                name: getBoundModifiedValue(aeProperty.parentProperty.propertyType === PropertyType.INDEXED_GROUP, () => aeProperty.name, undefined),
                 matchName: aeProperty.matchName,
                 value: undefined,
                 enabled: getModifiedValue(aeProperty.enabled, true),
