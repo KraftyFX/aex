@@ -49,7 +49,6 @@ describe('Item', function () {
                 aexid: '05_still_par_1.09:7',
                 file: filePath,
                 folder: [],
-                frameRate: 30,
                 label: 5,
                 name: '05_Still_PAR_1.09',
                 pixelAspect: 1.094,
