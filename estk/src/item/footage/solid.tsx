@@ -40,7 +40,7 @@ function createAeSolidItem(aexSolid: AexSolidItem, state: AexState): FootageItem
 
     tempComp.remove();
 
-    state.stats.nonCompItemCount++;
+    updateAeSolidItem(source, aexSolid, state);
 
     return source as FootageItem;
 }
@@ -50,10 +50,6 @@ function updateAeSolidItem(aeSolid: FootageItem, aexSolid: AexSolidItem, state: 
 
     assignAttributes(aeSolid, {
         color: aexSolid.color,
-        name: aexSolid.name,
-        width: aexSolid.width,
-        height: aexSolid.height,
-        pixelAspect: aexSolid.pixelAspect,
-        duration: aexSolid.duration,
     });
+    setAvItemBaseAttributes(aeSolid, aexSolid, state);
 }

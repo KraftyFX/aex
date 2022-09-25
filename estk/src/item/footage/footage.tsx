@@ -27,6 +27,8 @@ function createAeFootageItem(aexFootage: AexFootageItem, state: AexState): Foota
 }
 
 function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem, state: AexState) {
+    setAvItemBaseAttributes(aeFootage, aexFootage, state);
+
     switch (aexFootage.type) {
         case AEX_SOLID_ITEM:
             updateAeSolidItem(aeFootage as FootageItem, aexFootage as AexSolidItem, state);
@@ -43,11 +45,10 @@ function updateAeFootageItem(aeFootage: FootageItem, aexFootage: AexFootageItem,
 }
 
 function updateAeFootageItemAttributes(aeItem: FootageItem, aexFootageItem: AexFootageItemBase, state: AexState): void {
-    assignAttributes(aeItem, {
-        name: aexFootageItem.name,
-    });
+    setAvItemBaseAttributes(aeItem, aexFootageItem, state);
 
     assignAttributes(aeItem.mainSource, {
+        duration: aexFootageItem.duration / (aexFootageItem.loop || 1),
         alphaMode: aexFootageItem.alphaMode,
         conformFrameRate: aexFootageItem.conformFrameRate,
         fieldSeparationType: aexFootageItem.fieldSeparationType,
@@ -78,16 +79,24 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
 
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
+    const { isStill } = itemSource;
 
     const alphaMode = itemSource.hasAlpha ? itemSource.alphaMode : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
-    const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
+    const loop = isStill ? undefined : getModifiedValue(itemSource.loop, 1);
     const removePulldown = _getRemovePulldownValue(itemSource);
+
+    // Override irrelevant AV Item base props
+    const duration = isStill ? undefined : avItemBaseAttributes.duration;
+    const frameRate = isStill ? undefined : avItemBaseAttributes.frameRate;
 
     state.stats.nonCompItemCount++;
 
     return {
         ...avItemBaseAttributes,
+
+        duration,
+        frameRate,
 
         alphaMode,
         invertAlpha,

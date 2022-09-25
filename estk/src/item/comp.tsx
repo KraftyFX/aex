@@ -88,7 +88,7 @@ function createAeComp(aexComp: AexComp, state: AexState): CompItem {
 function updateAeComp(aeComp: CompItem, aexComp: AexComp, state: AexState): void {
     assertIsDefined(aeComp, 'aeComp');
 
-    setItemBaseAttributes(aeComp, aexComp, state);
+    setAvItemBaseAttributes(aeComp, aexComp, state);
 
     assignAttributes(aeComp, {
         bgColor: aexComp.bgColor,

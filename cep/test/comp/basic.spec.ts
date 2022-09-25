@@ -35,7 +35,6 @@ describe('Comp', function () {
                 layers: [],
                 markers: [],
                 name: 'Comp 1',
-                pixelAspect: 1,
                 type: AEX_COMP_ITEM,
                 width: 1280,
             };

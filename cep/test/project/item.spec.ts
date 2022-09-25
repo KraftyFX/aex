@@ -1,6 +1,6 @@
 import { AeObject, aex, getFilePath, getProject } from '../aex';
 import { AEX_FILE_FOOTAGE_ITEM, TEST_TIMEOUT_TIME } from '../constants';
-import { cleanupAex, evalAexIntoEstk } from '../csinterface';
+import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Item', function () {
@@ -50,14 +50,35 @@ describe('Item', function () {
                 file: filePath,
                 folder: [],
                 frameRate: 30,
-                height: 432,
                 label: 5,
                 name: '05_Still_PAR_1.09',
-                pixelAspect: 1.09401709401709,
+                pixelAspect: 1.094,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
         });
-        it.skip(`Create TODO`, async () => {});
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = {
+                file: filePath,
+                aexid: 'par_item:40',
+                folder: [],
+                label: 5,
+                name: 'PAR Item',
+                pixelAspect: 2,
+                type: AEX_FILE_FOOTAGE_ITEM,
+            };
+
+            await aex.create(AeObject.Project, footageData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData.aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items[0], footageData);
+        });
     });
 });

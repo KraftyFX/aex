@@ -62,7 +62,6 @@ describe('Project', function () {
                         height: 1080,
                         label: 3,
                         name: 'Placeholder',
-                        pixelAspect: 1,
                         type: AEX_PLACEHOLDER_ITEM,
                         width: 1920,
                     },
@@ -78,7 +77,6 @@ describe('Project', function () {
                         height: 500,
                         type: AEX_SOLID_ITEM,
                         name: 'Black Solid 1',
-                        pixelAspect: 1,
                         width: 500,
                     },
                 ],
@@ -93,7 +91,7 @@ describe('Project', function () {
 
             const result = await aex.get(AeObject.Project);
             const project = result.object;
-
+            console.log(project);
             assertAreEqual(project, projectData);
         });
     });

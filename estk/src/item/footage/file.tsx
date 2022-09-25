@@ -6,12 +6,23 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 
     const sequence = !item.mainSource.isStill && itemIsSequence(item) ? true : undefined;
 
+    // Override irrelevant AV Item base props
+    const height = undefined;
+    const width = undefined;
+    const duration = undefined;
+    const frameRate = undefined;
+
     return {
         ...itemAttributes,
         type: AEX_FILE_FOOTAGE_ITEM,
 
         file: itemSource.file.fsName,
         sequence,
+
+        height,
+        width,
+        duration,
+        frameRate,
     };
 }
 
@@ -29,15 +40,25 @@ function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
 
     const aeFileItem = app.project.importFile(importOptions as ImportOptions) as FootageItem;
 
-    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
+    aexFile.duration = undefined;
+    aexFile.frameRate = undefined;
 
-    state.stats.nonCompItemCount++;
+    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
+    /** @todo replace this ^ with updateAeFileItem() */
 
     return aeFileItem;
 }
 
-function updateAeFileItem(aeFile: FootageItem, aexFootage: AexFileItem, state: AexState) {
+function updateAeFileItem(aeFile: FootageItem, aexFile: AexFileItem, state: AexState): FootageItem {
     throw notImplemented(`Updating a file item`);
+
+    aexFile.duration = undefined;
+    aexFile.frameRate = undefined;
+    updateAeFootageItemAttributes(aeFile, aexFile, state);
+
+    state.stats.nonCompItemCount++;
+
+    return aeFile;
 }
 
 function itemIsStillImage(item: FootageItem): boolean {
