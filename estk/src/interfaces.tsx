@@ -73,7 +73,7 @@ interface GetResult<T = AexSerialized> {
      * progress bars easier and estimating the complexity of something you plan to process.
      */
     stats: AexStats;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
 }
@@ -109,7 +109,7 @@ interface AexState {
     footageIdMap?: { [key: string]: number };
     updateOptions: UpdateOptions;
     stats: AexStats;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
 }

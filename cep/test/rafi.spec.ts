@@ -137,8 +137,9 @@ describe.skip('Rafi Test Stuff', function () {
         const path = '/Users/rafikhan/kraftyfx/aex/cep/_build/stats.csv';
         const lines: string[] = [];
 
+        res.profile = res.profile || {};
         Object.keys(res.profile).forEach((m) => {
-            const data = res.profile[m];
+            const data = res.profile![m];
 
             lines.push(data.map((v) => [m, v.elapsed, v.meta].join(',')).join('\n'));
 
