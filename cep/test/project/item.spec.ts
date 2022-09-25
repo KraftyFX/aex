@@ -47,8 +47,6 @@ describe('Item', function () {
             console.log('pixel_aspect_ratio', items[4]);
             assertAreEqual(items[4], {
                 aexid: '05_still_par_1.09:7',
-                conformFrameRate: 0,
-                duration: 0,
                 file: filePath,
                 folder: [],
                 frameRate: 30,

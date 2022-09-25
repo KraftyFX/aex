@@ -50,9 +50,7 @@ describe('Footage', function () {
                 },
                 {
                     aexid: 'black solid 1:38',
-                    duration: 0,
                     folder: ['Solids'],
-                    frameRate: 0,
                     height: 500,
                     type: AEX_SOLID_ITEM,
                     name: 'Black Solid 1',
@@ -101,10 +99,8 @@ describe('Footage', function () {
             assertAreEqual(items[13], {
                 aexid: '14_alpha_straight:18',
                 alphaMode: 5412,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 label: 5,
                 name: '14_Alpha_Straight',
@@ -117,10 +113,8 @@ describe('Footage', function () {
             assertAreEqual(items[14], {
                 aexid: '15_alpha_ignore:19',
                 alphaMode: 5413,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 label: 5,
                 name: '15_Alpha_Ignore',
@@ -133,10 +127,8 @@ describe('Footage', function () {
             assertAreEqual(items[15], {
                 aexid: '16_alpha_premult_black:20',
                 alphaMode: 5414,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 label: 5,
                 name: '16_Alpha_Premult_Black',
@@ -153,10 +145,8 @@ describe('Footage', function () {
                 {
                     aexid: '14_alpha_straight:16',
                     alphaMode: 5412,
-                    duration: 0,
                     file: transparentPath,
                     folder: [],
-                    frameRate: 0,
                     height: 50,
                     label: 5,
                     name: '14_Alpha_Straight',
@@ -167,10 +157,8 @@ describe('Footage', function () {
                 {
                     aexid: '15_alpha_ignore:17',
                     alphaMode: 5413,
-                    duration: 0,
                     file: transparentPath,
                     folder: [],
-                    frameRate: 0,
                     height: 50,
                     label: 5,
                     name: '15_Alpha_Ignore',
@@ -181,10 +169,8 @@ describe('Footage', function () {
                 {
                     aexid: '16_alpha_premult_black:18',
                     alphaMode: 5414,
-                    duration: 0,
                     file: transparentPath,
                     folder: [],
-                    frameRate: 0,
                     height: 50,
                     label: 5,
                     name: '16_Alpha_Premult_Black',
@@ -222,10 +208,8 @@ describe('Footage', function () {
             assertAreEqual(items[17], {
                 aexid: '18_alpha_invert:21',
                 alphaMode: 5412,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 invertAlpha: true,
                 label: 5,
@@ -242,10 +226,8 @@ describe('Footage', function () {
             const footageData = {
                 aexid: '18_alpha_invert:3',
                 alphaMode: 5412,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 invertAlpha: true,
                 label: 5,
@@ -277,10 +259,8 @@ describe('Footage', function () {
             assertAreEqual(items[15], {
                 aexid: '16_alpha_premult_black:20',
                 alphaMode: 5414,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 label: 5,
                 name: '16_Alpha_Premult_Black',
@@ -293,10 +273,8 @@ describe('Footage', function () {
             assertAreEqual(items[16], {
                 aexid: '17_alpha_premult_red:22',
                 alphaMode: 5414,
-                duration: 0,
                 file: transparentPath,
                 folder: [],
-                frameRate: 0,
                 height: 50,
                 label: 5,
                 name: '17_Alpha_Premult_Red',
@@ -314,10 +292,8 @@ describe('Footage', function () {
                 {
                     aexid: '16_alpha_premult_black:20',
                     alphaMode: 5414,
-                    duration: 0,
                     file: transparentPath,
                     folder: [],
-                    frameRate: 0,
                     height: 50,
                     label: 5,
                     name: '16_Alpha_Premult_Black',
@@ -328,10 +304,8 @@ describe('Footage', function () {
                 {
                     aexid: '17_alpha_premult_red:2',
                     alphaMode: 5414,
-                    duration: 0,
                     file: transparentPath,
                     folder: [],
-                    frameRate: 0,
                     height: 50,
                     label: 5,
                     name: '17_Alpha_Premult_Red',
@@ -364,7 +338,6 @@ describe('Footage', function () {
             console.log('split_fields_upper', items[0]);
             assertAreEqual(items[0], {
                 aexid: '01_still_fields_upper:3',
-                duration: 0,
                 fieldSeparationType: 5612,
                 file: stillPath,
                 folder: [],
@@ -380,7 +353,6 @@ describe('Footage', function () {
             console.log('split_fields_lower', items[2]);
             assertAreEqual(items[2], {
                 aexid: '03_still_fields_lower:5',
-                duration: 0,
                 fieldSeparationType: 5614,
                 file: stillPath,
                 folder: [],
@@ -401,7 +373,7 @@ describe('Footage', function () {
                 {
                     aexid: '01_still_fields_upper:3',
                     conformFrameRate: 30,
-                    duration: 0.06666666666667,
+                    duration: 0.0667,
                     fieldSeparationType: 5612,
                     file: seqPath,
                     folder: [],
@@ -417,7 +389,7 @@ describe('Footage', function () {
                 {
                     aexid: '03_still_fields_lower:2',
                     conformFrameRate: 30,
-                    duration: 0.06666666666667,
+                    duration: 0.0667,
                     fieldSeparationType: 5614,
                     file: seqPath,
                     folder: [],
@@ -454,7 +426,6 @@ describe('Footage', function () {
             console.log('split_fields_upper_preserve', items[1]);
             assertAreEqual(items[1], {
                 aexid: '02_still_fields_upper_preserveedges:4',
-                duration: 0,
                 fieldSeparationType: 5612,
                 highQualityFieldSeparation: true,
                 file: stillPath,
@@ -471,7 +442,6 @@ describe('Footage', function () {
             console.log('split_fields_lower_preserve', items[3]);
             assertAreEqual(items[3], {
                 aexid: '04_still_fields_lower_preserveedges:6',
-                duration: 0,
                 fieldSeparationType: 5614,
                 highQualityFieldSeparation: true,
                 file: stillPath,
@@ -493,7 +463,7 @@ describe('Footage', function () {
                 {
                     aexid: '02_still_fields_upper_preserveedges:3',
                     conformFrameRate: 30,
-                    duration: 0.06666666666667,
+                    duration: 0.0667,
                     fieldSeparationType: 5612,
                     file: seqPath,
                     folder: [],
@@ -510,7 +480,7 @@ describe('Footage', function () {
                 {
                     aexid: '04_still_fields_lower_preserveedges:2',
                     conformFrameRate: 30,
-                    duration: 0.06666666666667,
+                    duration: 0.0667,
                     fieldSeparationType: 5614,
                     file: seqPath,
                     folder: [],
@@ -603,7 +573,7 @@ describe('Footage', function () {
                 duration: 60,
                 fieldSeparationType: 5612,
                 folder: [],
-                frameRate: 19.1999969482422,
+                frameRate: 19.2,
                 height: 1080,
                 label: 3,
                 name: '13_Pulldown',
@@ -623,7 +593,7 @@ describe('Footage', function () {
                 duration: 60,
                 fieldSeparationType: 5612,
                 folder: [],
-                frameRate: 19.1999969482422,
+                frameRate: 19.2,
                 height: 1080,
                 label: 3,
                 name: '13_Pulldown',

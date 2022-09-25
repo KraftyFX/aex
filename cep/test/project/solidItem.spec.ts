@@ -23,9 +23,7 @@ describe('Solids', function () {
             console.log('solid_color', project.items[2]);
             assertAreEqual(project.items[2], {
                 aexid: 'black solid 1:38',
-                duration: 0,
                 folder: ['Solids'],
-                frameRate: 0,
                 height: 500,
                 type: AEX_SOLID_ITEM,
                 name: 'Black Solid 1',
@@ -39,9 +37,7 @@ describe('Solids', function () {
 
             const solidData = {
                 aexid: 'yellow solid 1:14',
-                duration: 0,
                 folder: ['Solids'],
-                frameRate: 0,
                 height: 500,
                 type: AEX_SOLID_ITEM,
                 color: [1, 1, 0],

@@ -73,9 +73,7 @@ describe('Project', function () {
                     },
                     {
                         aexid: 'black solid 1:15',
-                        duration: 0,
                         folder: ['Solids'],
-                        frameRate: 0,
                         height: 500,
                         type: AEX_SOLID_ITEM,
                         name: 'Black Solid 1',

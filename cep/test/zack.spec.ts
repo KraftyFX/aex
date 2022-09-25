@@ -4,7 +4,7 @@ import { AEX_COLOR_PROPERTY, AEX_EFFECT_PROPERTYGROUP, AEX_NULL_LAYER, AEX_ONED_
 import { cleanupAex, evalAexIntoEstk, openCleanProject, openProject } from './csinterface';
 import { assertAreEqual } from './utils';
 
-describe('Zack Test Stuff', function () {
+describe.skip('Zack Test Stuff', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
 

@@ -28,10 +28,8 @@ describe('File', function () {
             console.log('files', items[0]);
             assertAreEqual(items[0], {
                 aexid: '01_still:1',
-                duration: 0,
                 file: stillPath,
                 folder: [],
-                frameRate: 0,
                 height: 432,
                 label: 5,
                 name: '01_Still',
@@ -46,10 +44,8 @@ describe('File', function () {
 
             const itemData = {
                 aexid: 'juvenile_ragdoll.jpg:1',
-                duration: 0,
                 file: stillPath,
                 folder: [],
-                frameRate: 0,
                 height: 432,
                 label: 5,
                 name: 'Juvenile_Ragdoll.jpg',
@@ -77,7 +73,7 @@ describe('File', function () {
             assertAreEqual(items[1], {
                 aexid: '02_sequence:2',
                 conformFrameRate: 30,
-                duration: 0.06666666666667,
+                duration: 0.0667,
                 file: seqPath,
                 folder: [],
                 frameRate: 30,
@@ -97,7 +93,7 @@ describe('File', function () {
             const itemData = {
                 aexid: 'img.[0000-0001].jpg:1',
                 conformFrameRate: 30,
-                duration: 0.06666666666667,
+                duration: 0.0667,
                 file: seqPath,
                 folder: [],
                 frameRate: 30,
