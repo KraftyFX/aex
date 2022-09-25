@@ -8,11 +8,13 @@ describe.only('Footage', function () {
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
     let seqPath: string;
+    let transparentPath: string;
 
     before(async () => {
         await evalAexIntoEstk();
         stillPath = getFilePath('Juvenile_Ragdoll.jpg');
         seqPath = getFilePath('seq/img.0000.jpg');
+        transparentPath = getFilePath('transparent.png');
     });
 
     after(async () => {
@@ -100,8 +102,91 @@ describe.only('Footage', function () {
     });
 
     describe('Premult Color', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('alpha_premult_black', items[15]);
+            assertAreEqual(items[15], {
+                aexid: '16_alpha_premult_black:20',
+                alphaMode: 5414,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                label: 5,
+                name: '16_Alpha_Premult_Black',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+
+            console.log('alpha_premult_red', items[16]);
+            assertAreEqual(items[16], {
+                aexid: '17_alpha_premult_red:22',
+                alphaMode: 5414,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                label: 5,
+                name: '17_Alpha_Premult_Red',
+                pixelAspect: 1,
+                premulColor: [1, 0, 0],
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = [
+                {
+                    aexid: '16_alpha_premult_black:20',
+                    alphaMode: 5414,
+                    duration: 0,
+                    file: transparentPath,
+                    folder: [],
+                    frameRate: 0,
+                    height: 50,
+                    label: 5,
+                    name: '16_Alpha_Premult_Black',
+                    pixelAspect: 1,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 50,
+                },
+                {
+                    aexid: '17_alpha_premult_red:2',
+                    alphaMode: 5414,
+                    duration: 0,
+                    file: transparentPath,
+                    folder: [],
+                    frameRate: 0,
+                    height: 50,
+                    label: 5,
+                    name: '17_Alpha_Premult_Red',
+                    pixelAspect: 1,
+                    premulColor: [1, 0, 0],
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 50,
+                },
+            ];
+
+            await aex.create(AeObject.Project, footageData[0]);
+            await aex.create(AeObject.Project, footageData[1]);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData[0].aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items, footageData);
+        });
     });
 
     describe('Field Separation', async () => {

@@ -82,10 +82,7 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     const alphaMode = itemSource.hasAlpha ? getModifiedValue(itemSource.alphaMode, AlphaMode.IGNORE) : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
     const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
-    const removePulldown =
-        itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF
-            ? undefined
-            : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+    const removePulldown = _getRemovePulldownValue(itemSource);
 
     state.stats.nonCompItemCount++;
 
@@ -105,6 +102,12 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     };
 }
 
-function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode) {
-    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : itemSource.invertAlpha;
+function _getRemovePulldownValue(itemSource: FileSource | SolidSource | PlaceholderSource): PulldownPhase {
+    return itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF
+        ? undefined
+        : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+}
+
+function _getInvertAlphaValue(itemSource: FileSource | SolidSource | PlaceholderSource, alphaMode: AlphaMode): boolean {
+    return itemSource.hasAlpha === false || alphaMode === AlphaMode.IGNORE ? undefined : getModifiedValue(itemSource.invertAlpha, false);
 }
