@@ -35,6 +35,7 @@ describe('Project', function () {
                 linearizeWorkingSpace: true,
                 timeDisplayType: 2013,
                 type: AEX_PROJECT,
+                workingGamma: 2.4,
                 workingSpace: 'Apple RGB',
             });
         });
@@ -84,6 +85,7 @@ describe('Project', function () {
                 linearizeWorkingSpace: true,
                 timeDisplayType: 2013,
                 type: AEX_PROJECT,
+                workingGamma: 2.4,
                 workingSpace: 'Apple RGB',
             };
 
