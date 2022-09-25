@@ -294,7 +294,7 @@ describe.only('Footage', function () {
 
             const items = result.object.items;
 
-            console.log('loop', items[11]);
+            console.log('conform_frame_rate', items[11]);
             assertAreEqual(items[11], {
                 aexid: '12_conformframerate:17',
                 conformFrameRate: 2,
@@ -340,8 +340,58 @@ describe.only('Footage', function () {
     });
 
     describe('Remove Pulldown', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('remove_pulldown', items[12]);
+            assertAreEqual(items[12], {
+                aexid: '13_pulldown:15',
+                conformFrameRate: 24,
+                duration: 60,
+                fieldSeparationType: 5612,
+                folder: [],
+                frameRate: 19.1999969482422,
+                height: 1080,
+                label: 3,
+                name: '13_Pulldown',
+                pixelAspect: 1,
+                removePulldown: 5818,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = {
+                aexid: '13_pulldown:15',
+                conformFrameRate: 24,
+                duration: 60,
+                fieldSeparationType: 5612,
+                folder: [],
+                frameRate: 19.1999969482422,
+                height: 1080,
+                label: 3,
+                name: '13_Pulldown',
+                pixelAspect: 1,
+                removePulldown: 5818,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            };
+
+            await aex.create(AeObject.Project, footageData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData.aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items[0], footageData);
+        });
     });
 
     describe('Loop', async () => {

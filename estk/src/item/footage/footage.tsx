@@ -82,7 +82,10 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     const alphaMode = itemSource.hasAlpha ? getModifiedValue(itemSource.alphaMode, AlphaMode.IGNORE) : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
     const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
-    const removePulldown = itemSource.isStill ? undefined : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
+    const removePulldown =
+        itemSource.isStill && itemSource.fieldSeparationType !== FieldSeparationType.OFF
+            ? undefined
+            : getModifiedValue(itemSource.removePulldown, PulldownPhase.OFF);
 
     state.stats.nonCompItemCount++;
 
