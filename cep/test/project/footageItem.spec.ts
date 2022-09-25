@@ -289,8 +289,54 @@ describe.only('Footage', function () {
     });
 
     describe('Conform Frame Rate', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('loop', items[11]);
+            assertAreEqual(items[11], {
+                aexid: '12_conformframerate:17',
+                conformFrameRate: 2,
+                duration: 60,
+                folder: [],
+                frameRate: 2,
+                height: 1080,
+                label: 3,
+                name: '12_ConformFrameRate',
+                pixelAspect: 1,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = {
+                aexid: '12_conformframerate:17',
+                conformFrameRate: 2,
+                duration: 60,
+                folder: [],
+                frameRate: 2,
+                height: 1080,
+                label: 3,
+                name: '12_ConformFrameRate',
+                pixelAspect: 1,
+                type: AEX_PLACEHOLDER_ITEM,
+                width: 1920,
+            };
+
+            await aex.create(AeObject.Project, footageData);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData.aexid = '';
+            project.items[0].aexid = '';
+
+            assertAreEqual(project.items[0], footageData);
+        });
     });
 
     describe('Remove Pulldown', async () => {
