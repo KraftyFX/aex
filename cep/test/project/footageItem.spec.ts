@@ -92,8 +92,124 @@ describe.only('Footage', function () {
     });
 
     describe('Alpha Mode', async () => {
-        it.skip(`Get TODO`, async () => {});
-        it.skip(`Create TODO`, async () => {});
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_footage.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('alpha_mode_straight', items[13]);
+            assertAreEqual(items[13], {
+                aexid: '14_alpha_straight:18',
+                alphaMode: 5412,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                label: 5,
+                name: '14_Alpha_Straight',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+
+            console.log('alpha_mode_ignore', items[14]);
+            assertAreEqual(items[14], {
+                aexid: '15_alpha_ignore:19',
+                alphaMode: 5413,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                label: 5,
+                name: '15_Alpha_Ignore',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+
+            console.log('alpha_mode_premult', items[15]);
+            assertAreEqual(items[15], {
+                aexid: '16_alpha_premult_black:20',
+                alphaMode: 5414,
+                duration: 0,
+                file: transparentPath,
+                folder: [],
+                frameRate: 0,
+                height: 50,
+                label: 5,
+                name: '16_Alpha_Premult_Black',
+                pixelAspect: 1,
+                type: AEX_FILE_FOOTAGE_ITEM,
+                width: 50,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const footageData = [
+                {
+                    aexid: '14_alpha_straight:16',
+                    alphaMode: 5412,
+                    duration: 0,
+                    file: transparentPath,
+                    folder: [],
+                    frameRate: 0,
+                    height: 50,
+                    label: 5,
+                    name: '14_Alpha_Straight',
+                    pixelAspect: 1,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 50,
+                },
+                {
+                    aexid: '15_alpha_ignore:17',
+                    alphaMode: 5413,
+                    duration: 0,
+                    file: transparentPath,
+                    folder: [],
+                    frameRate: 0,
+                    height: 50,
+                    label: 5,
+                    name: '15_Alpha_Ignore',
+                    pixelAspect: 1,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 50,
+                },
+                {
+                    aexid: '16_alpha_premult_black:18',
+                    alphaMode: 5414,
+                    duration: 0,
+                    file: transparentPath,
+                    folder: [],
+                    frameRate: 0,
+                    height: 50,
+                    label: 5,
+                    name: '16_Alpha_Premult_Black',
+                    pixelAspect: 1,
+                    type: AEX_FILE_FOOTAGE_ITEM,
+                    width: 50,
+                },
+            ];
+
+            await aex.create(AeObject.Project, footageData[0]);
+            await aex.create(AeObject.Project, footageData[1]);
+            await aex.create(AeObject.Project, footageData[2]);
+
+            const result = await aex.get(AeObject.Project);
+            const project = result.object;
+
+            footageData[0].aexid = '';
+            project.items[0].aexid = '';
+            footageData[1].aexid = '';
+            project.items[1].aexid = '';
+            footageData[2].aexid = '';
+            project.items[2].aexid = '';
+
+            assertAreEqual(project.items, footageData);
+        });
     });
 
     describe('Invert Alpha', async () => {

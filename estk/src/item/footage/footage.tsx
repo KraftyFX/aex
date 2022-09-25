@@ -79,7 +79,7 @@ function getFootageItemAttributes(item: FootageItem, state: AexState): AexFootag
     const avItemBaseAttributes = getAvItemBaseAttributes(item);
     const itemSource = item.mainSource;
 
-    const alphaMode = itemSource.hasAlpha ? getModifiedValue(itemSource.alphaMode, AlphaMode.IGNORE) : undefined;
+    const alphaMode = itemSource.hasAlpha ? itemSource.alphaMode : undefined;
     const invertAlpha = _getInvertAlphaValue(itemSource, alphaMode);
     const loop = itemSource.isStill ? undefined : getModifiedValue(itemSource.loop, 1);
     const removePulldown = _getRemovePulldownValue(itemSource);
