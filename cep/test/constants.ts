@@ -47,7 +47,7 @@ export interface AexPrescanResult {
 export interface AexResult {
     object: any;
     stats: any;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
 }

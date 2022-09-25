@@ -59,7 +59,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
             items: aexItems,
         },
         stats: state.stats,
-        profile: state.profile,
+        // profile: state.profile,
     };
 }
 
