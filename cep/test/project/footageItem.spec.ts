@@ -697,29 +697,4 @@ describe('Footage', function () {
             assertAreEqual(project.items[0], footageData);
         });
     });
-
-    describe.skip('Start Timecode [Not API supported]', async () => {
-        it(`Get TODO`, async () => {});
-        it(`Create TODO`, async () => {});
-    });
-
-    describe.skip('Preserve RGB [Not API supported]', async () => {
-        it(`Get`, async () => {});
-        it(`Create`, async () => {});
-    });
-
-    describe.skip('Colour Profile [Not API supported]', async () => {
-        it(`Get`, async () => {});
-        it(`Create`, async () => {});
-    });
-
-    describe.skip('Interpret as Linear [Not API supported]', async () => {
-        it(`Get`, async () => {});
-        it(`Create`, async () => {});
-    });
-
-    describe.skip('Interpret as Linear 32bpc  [Not API supported]', async () => {
-        it(`Get`, async () => {});
-        it(`Create`, async () => {});
-    });
 });
