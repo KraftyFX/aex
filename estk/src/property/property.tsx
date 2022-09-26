@@ -12,7 +12,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
         () => {
             const aexProperty: AexProperty = {
                 type: _getPropertyType(aeProperty),
-                name: getBoundModifiedValue(aeProperty.parentProperty.propertyType === PropertyType.INDEXED_GROUP, () => aeProperty.name, undefined),
                 matchName: aeProperty.matchName,
                 value: undefined,
                 enabled: getModifiedValue(aeProperty.enabled, true),
@@ -86,13 +85,6 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         expression: aexProperty.expression,
         expressionEnabled: aexProperty.expressionEnabled,
     });
-
-    /**
-     * We can only set property names if they're a member of a INDEXED_GROUP
-     */
-    if (aeProperty.propertyGroup(1).propertyType === PropertyType.INDEXED_GROUP) {
-        aeProperty.name = aexProperty.name;
-    }
 
     if (aexProperty.keys.length > 0) {
         _setPropertyKeys(aeProperty, aexProperty.keys, state);

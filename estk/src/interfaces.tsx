@@ -290,7 +290,7 @@ interface AexTextLayer extends AexAVLayerBase, AexObject {
 interface AexPropertyBase {
     enabled: boolean;
     matchName: string;
-    name: string;
+    name?: string;
 }
 
 interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyBase, AexObject {
