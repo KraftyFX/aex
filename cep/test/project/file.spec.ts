@@ -8,11 +8,15 @@ describe('File', function () {
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
     let seqPath: string;
+    let dataPath: string;
+    let audioPath: string;
 
     before(async () => {
         await evalAexIntoEstk();
         stillPath = getFilePath('Juvenile_Ragdoll.jpg');
         seqPath = getFilePath('seq/img.0000.jpg');
+        dataPath = getFilePath('table.csv');
+        audioPath = getFilePath('en-us-cheese.mp3');
     });
 
     after(async () => {
@@ -87,6 +91,82 @@ describe('File', function () {
                 label: 3,
                 name: 'img.[0000-0001].jpg',
                 sequence: true,
+                type: AEX_FILE_FOOTAGE_ITEM,
+            };
+
+            await aex.create(AeObject.Project, itemData);
+
+            const result = await aex.get(AeObject.Project);
+            const items = result.object.items;
+
+            assertAreEqual(items[0], itemData);
+        });
+    });
+
+    describe('Data Files', async () => {
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('data_file', items[2]);
+            assertAreEqual(items[2], {
+                aexid: '03_csv:3',
+                file: dataPath,
+                folder: [],
+                label: 0,
+                name: '03_CSV',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const itemData = {
+                aexid: 'table.csv:1',
+                file: dataPath,
+                folder: [],
+                label: 0,
+                name: 'table.csv',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            };
+
+            await aex.create(AeObject.Project, itemData);
+
+            const result = await aex.get(AeObject.Project);
+            const items = result.object.items;
+
+            assertAreEqual(items[0], itemData);
+        });
+    });
+
+    describe('Audio Files', async () => {
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('audio_file', items[3]);
+            assertAreEqual(items[3], {
+                aexid: '04_audio:4',
+                file: audioPath,
+                folder: [],
+                label: 7,
+                name: '04_Audio',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const itemData = {
+                aexid: 'en-us-cheese.mp3:1',
+                file: dataPath,
+                folder: [],
+                label: 7,
+                name: 'en-us-cheese.mp3',
                 type: AEX_FILE_FOOTAGE_ITEM,
             };
 
