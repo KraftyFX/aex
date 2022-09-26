@@ -7,7 +7,6 @@
       "duration": 4,
       "frameRate": 60,
       "height": 720,
-      "pixelAspect": 1,
       "width": 1280,
       "type": "aex:item:av:comp",
       "dropFrame": true,
