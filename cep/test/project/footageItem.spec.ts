@@ -3,7 +3,7 @@ import { AEX_FILE_FOOTAGE_ITEM, AEX_FOLDER_ITEM, AEX_PLACEHOLDER_ITEM, AEX_PROJE
 import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
-describe.only('Footage', function () {
+describe('Footage', function () {
     this.slow(500);
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
