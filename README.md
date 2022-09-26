@@ -162,10 +162,10 @@ If a project is being updated AEX tries to match the project items by the item n
 
 | Value              | Behavior                                       |
 | ------------------ | ---------------------------------------------- |
-| `"create"`         | Create it.                                     |
-| `"skip"`           | Skip over it.                                  |
-| `"log"`            | Log it and continue.                           |
-| `"throw"`          | Stop processing and throw an error.            |
+| `create`           | Create it.                                     |
+| `skip`             | Skip over it.                                  |
+| `log`              | Log it and continue.                           |
+| `throw`            | Stop processing and throw an error.            |
 | _`callback(item)`_ | Raise a callback so you can decide what to do. |
 
 TODO: Layers
@@ -196,40 +196,40 @@ Note that various features may have partial support, in that we can serialize so
 
 These features aren't currently fully supported by the AE API.
 
-|                           Feature                           |                                                                                                 DOM API                                                                                                 | Serialize | Deserialize |
+| Feature                                                     | DOM API                                                                                                                                                                                                 | Serialize | Deserialize |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| Footage Item - Start Timecode                               | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Footage Item - Preserve RGB                                 | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Footage Item - Colour Profile                               | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Footage Item - Interpret as Linear                          | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Footage Item - Interpret as Linear (32bpc)                  | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Comp Essential Properties                                   | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
-| Layer Essential Properties                                  | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Footage Item - Start Timecode                               | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Footage Item - Preserve RGB                                 | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Footage Item - Colour Profile                               | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Footage Item - Interpret as Linear                          | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Footage Item - Interpret as Linear (32bpc)                  | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Comp Essential Properties                                   | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
+| Layer Essential Properties                                  | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
 | Trackers                                                    | `...layer(index).property('ADBE MTrackers')`                                                                                                                                                            | ✔         | X           |
 | Rotobrush                                                   | `...property("ADBE Effect Parade").property("ADBE Samurai")`                                                                                                                                            | ✔         | X           |
 | Puppet Pins                                                 | `...property("ADBE Effect Parade").property("ADBE FreePin3")`                                                                                                                                           | ✔         | X           |
-| Dropdown Expression Control item names                      | `...property("ADBE Effect Parade").property("Dropdown Menu Control")`; see [#19](./issues/19)                                                                                                           | X         | X           |
-| Effect layer-selector "source/mask/effects & mask" dropdown | _(not API-accessible)_                                                                                                                                                                                  | X         | X           |
+| Dropdown Expression Control item names                      | `...property("ADBE Effect Parade").property("Dropdown Menu Control")`See [#19](./issues/19)                                                                                                             | X         | X           |
+| Effect layer-selector "source/mask/effects & mask" dropdown | _(not API-accessible)_                                                                                                                                                                                  | N/A       | N/A         |
 | Custom Property types (levels, curves, colorama, gradients) | [`PropertyValueType.CUSTOM_VALUE`](https://ae-scripting.docsforadobe.dev/properties/property.html#property-propertyvaluetype); see [Unsupported Property Behaviour](#optionsunspportedpropertybehavior) | X         | X           |
 
 ## Out of Scope
 
 These features are currently not seen as valuable to the AEX project, and are deliberately omitted. If you feel anything on this list would be of value, [please open a Github Issue to discuss](./issues)!
 
-|       Feature       |                                                           DOM API                                                            | Serialize | Deserialize |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| Viewer              | [`app.activeViewer`](https://ae-scripting.docsforadobe.dev/other/viewer.html)                                                | X         | X           |
-| Render Queue        | [`app.project.renderQueue`](https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue.html)                              | X         | X           |
-| Proxies             | [`...item(index).proxySource`](https://ae-scripting.docsforadobe.dev/items/avitem.html#avitem-proxysource)                   | X         | X           |
-| Selected Layers     | [`...item(index).selectedLayers`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedlayers)         | X         | X           |
-| Selected Properties | [`...item(index).selectedProperties`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedproperties) | X         | X           |
-| Guides              | [`...item(index).guides`](https://ae-scripting.docsforadobe.dev/items/item.html#item-guides)                                 | X         | X           |
+| Feature             | DOM API                                                                                                                      |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Viewer              | [`app.activeViewer`](https://ae-scripting.docsforadobe.dev/other/viewer.html)                                                |
+| Render Queue        | [`app.project.renderQueue`](https://ae-scripting.docsforadobe.dev/renderqueue/renderqueue.html)                              |
+| Proxies             | [`...item(index).proxySource`](https://ae-scripting.docsforadobe.dev/items/avitem.html#avitem-proxysource)                   |
+| Selected Layers     | [`...item(index).selectedLayers`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedlayers)         |
+| Selected Properties | [`...item(index).selectedProperties`](https://ae-scripting.docsforadobe.dev/items/compitem.html#compitem-selectedproperties) |
+| Guides              | [`...item(index).guides`](https://ae-scripting.docsforadobe.dev/items/item.html#item-guides)                                 |
 
 ## Todo
 
 These are technically possible and in-scope, but require work to complete.
 
-| Feature |                                              DOM API                                               | Serialize | Deserialize |
+| Feature | DOM API                                                                                            | Serialize | Deserialize |
 | ------- | -------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | Stretch | [`...layer(index).stretch`](https://ae-scripting.docsforadobe.dev/layers/layer.html#layer-stretch) | ✔         | X           |
 
