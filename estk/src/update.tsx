@@ -9,6 +9,9 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
     const state: AexState = {
         prescanOptions: null,
         getOptions: null,
+        createOptions: {
+            missingFileBehavior: 'throw',
+        },
         updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',

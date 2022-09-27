@@ -56,6 +56,10 @@ interface GetOptions {
     unspportedPropertyBehavior: CommonBehavior | 'metadata';
 }
 
+interface CreateOptions {
+    missingFileBehavior: CommonBehavior;
+}
+
 interface GetResult<T = AexSerialized> {
     type: 'aex:getresult';
     object: T;
@@ -97,6 +101,7 @@ interface AexStats {
 interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
+    createOptions: CreateOptions;
     footageSources?: AEQArrayEx<Item>;
     footageToCreate?: AEQArrayEx<AexItem>;
     footageIdMap?: { [key: string]: number };

@@ -29,10 +29,14 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
     const importOptions = new ImportOptions();
 
-    /** @todo Add a check / throw an error if the file doesn't exist! */
+    const file = new File(aexFile.file);
+
+    if (!file.exists) {
+        handleMissingFileAtPath();
+    }
 
     assignAttributes(importOptions, {
-        file: new File(aexFile.file),
+        file: file,
         forceAlphabetical: false,
         importAs: ImportAsType.FOOTAGE,
         sequence: aexFile.sequence,
@@ -40,20 +44,38 @@ function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
 
     const aeFileItem = app.project.importFile(importOptions as ImportOptions) as FootageItem;
 
-    aexFile.duration = undefined;
-    aexFile.frameRate = undefined;
-
-    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
-    /** @todo replace this ^ with updateAeFileItem() */
+    updateAeFileItem(aeFileItem, aexFile, state);
 
     return aeFileItem;
+
+    function handleMissingFileAtPath() {
+        const message = `The file at path "${aexFile.file}" does not appear to exist on disk.`;
+
+        switch (state.createOptions.missingFileBehavior) {
+            case 'skip':
+                break;
+            case 'log':
+                state.log.push({
+                    aexObject: aexFile,
+                    message: `${message} Skipping.`,
+                });
+                break;
+            case 'throw':
+                throw fail(message);
+            default:
+                state.createOptions.missingFileBehavior({
+                    aexObject: aexFile,
+                    message,
+                });
+                break;
+        }
+    }
 }
 
 function updateAeFileItem(aeFile: FootageItem, aexFile: AexFileItem, state: AexState): FootageItem {
-    throw notImplemented(`Updating a file item`);
-
     aexFile.duration = undefined;
     aexFile.frameRate = undefined;
+
     updateAeFootageItemAttributes(aeFile, aexFile, state);
 
     state.stats.nonCompItemCount++;

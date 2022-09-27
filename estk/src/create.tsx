@@ -10,6 +10,9 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
     const state: AexState = {
         prescanOptions: null,
         getOptions: null,
+        createOptions: {
+            missingFileBehavior: 'throw',
+        },
         updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
