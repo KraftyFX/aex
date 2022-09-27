@@ -2,7 +2,15 @@ function prescanTransform(layer: Layer, state: AexState) {
     const transformGroup = layer.transform;
 
     prescanProperty(transformGroup.anchorPoint, state);
-    prescanProperty(transformGroup.position, state);
+
+    if (layer.position.dimensionsSeparated) {
+        prescanProperty(transformGroup.xPosition, state);
+        prescanProperty(transformGroup.yPosition, state);
+        prescanProperty(transformGroup.zPosition, state);
+    } else {
+        prescanProperty(transformGroup.position, state);
+    }
+
     prescanProperty(transformGroup.scale, state);
     prescanProperty(transformGroup.opacity, state);
 
@@ -18,11 +26,29 @@ function prescanTransform(layer: Layer, state: AexState) {
 function getAexTransform(layer: Layer, state: AexState): AexTransform {
     const transformGroup = layer.transform;
 
+    let position: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    let xPosition: AexProperty<number>;
+    let yPosition: AexProperty<number>;
+    let zPosition: AexProperty<number>;
+
+    if (layer.position.dimensionsSeparated) {
+        xPosition = getModifiedProperty(transformGroup.xPosition, state);
+        yPosition = getModifiedProperty(transformGroup.yPosition, state);
+        zPosition = getModifiedProperty(transformGroup.zPosition, state);
+    } else {
+        position = getModifiedProperty(transformGroup.position, state);
+    }
+
     return {
         anchorPoint: getModifiedProperty(transformGroup.anchorPoint, state),
-        position: getModifiedProperty(transformGroup.position, state),
         scale: getModifiedProperty(transformGroup.scale, state),
         opacity: getModifiedProperty(transformGroup.opacity, state),
+
+        // Position values
+        xPosition,
+        yPosition,
+        zPosition,
+        position,
 
         // 3d & Camera properties
         pointOfInterest: getModifiedProperty(transformGroup.pointOfInterest, state),
@@ -39,7 +65,13 @@ function updateLayerTransform(aeLayer: Layer, aexTransform: AexTransform, state:
     }
 
     aeq.forEach(aexTransform, (xformPropertyName: string) => {
-        const layerTransformProperty = aeLayer[xformPropertyName];
+        let layerTransformProperty = aeLayer[xformPropertyName];
+
+        // AE madness: handle cases where the property doesn't exist as a layer shortcut but does in the transform property
+        if (!layerTransformProperty) {
+            layerTransformProperty = aeLayer.transform[xformPropertyName];
+        }
+
         const aexTransformProperty = aexTransform[xformPropertyName];
 
         setProperty(layerTransformProperty, aexTransformProperty, state);

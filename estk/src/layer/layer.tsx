@@ -153,6 +153,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         solo: getModifiedValue(layer.solo, false),
         stretch: getModifiedValue(layer.stretch, 100),
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
+        dimensionsSeparated: layer.position.dimensionsSeparated ? true : undefined,
 
         markers: getAexMarkerProperties(layer.marker, state),
         transform: getAexTransform(layer, state),
@@ -171,6 +172,10 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
         startTime: aexLayer.startTime,
         inPoint: aexLayer.inPoint,
         outPoint: aexLayer.outPoint,
+    });
+
+    assignAttributes(aeLayer.position, {
+        dimensionsSeparated: aexLayer.dimensionsSeparated,
     });
 
     _setLayerMarkers(aeLayer, aexLayer, state);

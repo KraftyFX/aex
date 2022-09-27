@@ -221,6 +221,7 @@ interface AexLayerBase {
     solo: boolean;
     stretch: number;
 
+    dimensionsSeparated: boolean;
     parentLayerIndex: number;
     markers: AexMarkerProperty[];
     transform: AexTransform;
@@ -388,7 +389,10 @@ interface AexMask {
 
 interface AexTransform {
     anchorPoint: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
-    position: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    position?: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    xPosition?: AexProperty<number>;
+    yPosition?: AexProperty<number>;
+    zPosition?: AexProperty<number>;
     scale: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
     pointOfInterest: AexProperty<ThreeDPoint>;
     orientation: AexProperty<ThreeDPoint>;
