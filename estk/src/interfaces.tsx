@@ -212,6 +212,8 @@ type AexAVLayer = AexShapeLayer | AexFootageLayer | AexTextLayer | AexNullLayer;
 interface AexLayerBase {
     name: string;
     label: number;
+    enabled: boolean;
+
     comment: string;
     hasVideo: boolean;
     inPoint: number;
@@ -220,9 +222,9 @@ interface AexLayerBase {
     shy: boolean;
     solo: boolean;
     stretch: number;
-
     dimensionsSeparated: boolean;
     parentLayerIndex: number;
+
     markers: AexMarkerProperty[];
     transform: AexTransform;
 }

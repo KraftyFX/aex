@@ -143,6 +143,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     return {
         name,
         label,
+        enabled: getModifiedValue(layer.enabled, true),
 
         comment: getModifiedValue(layer.comment, ''),
         hasVideo: getModifiedValue(layer.hasVideo, true),
@@ -164,6 +165,8 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
     assignAttributes(aeLayer, {
         name: aexLayer.name,
         label: aexLayer.label,
+        enabled: aexLayer.enabled,
+
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,
         shy: aexLayer.shy,
