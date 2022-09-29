@@ -35,13 +35,13 @@ Technically possible and in-scope, but require substantial work to complete.
 |     Project      | Get | Create | Update |
 | ---------------- | --- | ------ | ------ |
 | Basic Attributes | ✔   | ✔      | ✔      |
-| Folders          | ✔   | ✔      | ✔      |
 | Render Queue     | ❌   | ❌      | ❌      |
 
 |                Items                 | Get | Create | Update |
 | ------------------------------------ | --- | ------ | ------ |
 | Basic Attributes                     | ✔   | ✔      | ✔      |
 | Comps                                | ✔   | ✔      | ✔      |
+| Folders                              | ✔   | ✔      | ✔      |
 | Placeholders                         | ✔   | ✔      | ✔      |
 | Solids                               | ✔   | ✔      | ✔      |
 | Files & Footage ([#55](./issues/55)) | ⚠   | ⚠      | ⚠      |
