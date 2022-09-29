@@ -10,7 +10,6 @@ function prescanLayer(aeLayer: Layer, state: AexState) {
         case AEX_NULL_LAYER:
         case AEX_FILE_LAYER:
         case AEX_PLACEHOLDER_LAYER:
-        case AEX_FILE_LAYER:
         case AEX_COMP_LAYER:
             return prescanFootageLayer(aeLayer as AVLayer, state);
         case AEX_LIGHT_LAYER:
@@ -171,6 +170,9 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
         hasVideo: aexLayer.hasVideo,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
+
+        /** @todo issue #54 **/
+        // stretch: aexLayer.stretch,
 
         startTime: aexLayer.startTime,
         inPoint: aexLayer.inPoint,
