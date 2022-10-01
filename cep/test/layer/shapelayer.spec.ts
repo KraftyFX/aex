@@ -27,12 +27,11 @@ describe('Shape Layers', function () {
     describe('Empty Shape Layers', async () => {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_shapelayer.aep', AeObject.ActiveComp);
-            expect(comp.layers[0]).property('contents').to.be.empty;
+            expect(comp.layers[0].contents).to.be.undefined;
         });
 
         it(`Create`, async () => {
             const layerData = {
-                contents: [],
                 type: AEX_SHAPE_LAYER,
             };
 
@@ -43,7 +42,7 @@ describe('Shape Layers', function () {
             const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
-            assertAreEqual(layer.contents, layerData.contents);
+            assertAreEqual(layer.contents, undefined);
         });
 
         it(`Update`, async () => {
@@ -55,7 +54,6 @@ describe('Shape Layers', function () {
                         type: AEX_SHAPEITEM_PROPERTYGROUP,
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
@@ -106,12 +104,8 @@ describe('Shape Layers', function () {
                         type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
-                effects: [],
                 label: 8,
-                markers: [],
-                masks: [],
                 name: 'Default',
-                transform: {},
                 type: AEX_SHAPE_LAYER,
             });
         });
@@ -200,25 +194,21 @@ describe('Shape Layers', function () {
                         name: 'Rectangle Path 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Shape Direction',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Size',
                                 type: AEX_TWOD_PROPERTY,
                                 value: [100, 200],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Position',
                                 type: AEX_TWOD_PROPERTY,
                                 value: [30, 40],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Roundness',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
@@ -231,43 +221,36 @@ describe('Shape Layers', function () {
                         name: 'Stroke 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Blend Mode',
                                 type: AEX_ONED_PROPERTY,
                                 value: 17,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Composite Order',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 70,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Width',
                                 type: AEX_ONED_PROPERTY,
                                 value: 80,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Line Cap',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Line Join',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
@@ -280,31 +263,26 @@ describe('Shape Layers', function () {
                         name: 'Fill 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Blend Mode',
                                 type: AEX_ONED_PROPERTY,
                                 value: 23,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Composite Order',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Rule',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
@@ -317,7 +295,6 @@ describe('Shape Layers', function () {
                 name: 'Rectangle 1',
                 properties: [
                     {
-                        keys: [],
                         matchName: 'ADBE Vector Blend Mode',
                         type: AEX_ONED_PROPERTY,
                         value: 15,
@@ -329,43 +306,36 @@ describe('Shape Layers', function () {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Anchor',
                                 value: [10, 20],
-                                keys: [],
                             },
                             {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Position',
                                 value: [30, 40],
-                                keys: [],
                             },
                             {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Scale',
                                 value: [50, 50],
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Skew',
                                 value: 60,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Skew Axis',
                                 value: 70,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Rotation',
                                 value: 80,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Group Opacity',
                                 value: 90,
-                                keys: [],
                             },
                         ],
                     },
@@ -385,25 +355,21 @@ describe('Shape Layers', function () {
                                 name: 'Rectangle Path 1',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Shape Direction',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Rect Size',
                                         type: AEX_TWOD_PROPERTY,
                                         value: [100, 200],
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Rect Position',
                                         type: AEX_TWOD_PROPERTY,
                                         value: [30, 40],
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Rect Roundness',
                                         type: AEX_ONED_PROPERTY,
                                         value: 50,
@@ -416,43 +382,36 @@ describe('Shape Layers', function () {
                                 name: 'Stroke 1',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Blend Mode',
                                         type: AEX_ONED_PROPERTY,
                                         value: 17,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Composite Order',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Color',
                                         type: AEX_COLOR_PROPERTY,
                                         value: [1, 0.5, 0, 1],
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Opacity',
                                         type: AEX_ONED_PROPERTY,
                                         value: 70,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Width',
                                         type: AEX_ONED_PROPERTY,
                                         value: 80,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Line Cap',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Line Join',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
@@ -465,31 +424,26 @@ describe('Shape Layers', function () {
                                 name: 'Fill 1',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Blend Mode',
                                         type: AEX_ONED_PROPERTY,
                                         value: 23,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Composite Order',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Fill Rule',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Fill Color',
                                         type: AEX_COLOR_PROPERTY,
                                         value: [1, 0.5, 0, 1],
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Fill Opacity',
                                         type: AEX_ONED_PROPERTY,
                                         value: 50,
@@ -502,7 +456,6 @@ describe('Shape Layers', function () {
                         name: 'Rectangle 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Blend Mode',
                                 type: AEX_ONED_PROPERTY,
                                 value: 15,
@@ -514,43 +467,36 @@ describe('Shape Layers', function () {
                                         type: AEX_TWOD_PROPERTY,
                                         matchName: 'ADBE Vector Anchor',
                                         value: [10, 20],
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_TWOD_PROPERTY,
                                         matchName: 'ADBE Vector Position',
                                         value: [30, 40],
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_TWOD_PROPERTY,
                                         matchName: 'ADBE Vector Scale',
                                         value: [50, 50],
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Vector Skew',
                                         value: 60,
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Vector Skew Axis',
                                         value: 70,
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Vector Rotation',
                                         value: 80,
-                                        keys: [],
                                     },
                                     {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Vector Group Opacity',
                                         value: 90,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -580,25 +526,21 @@ describe('Shape Layers', function () {
                         name: 'Rectangle Path 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Shape Direction',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Size',
                                 type: AEX_TWOD_PROPERTY,
                                 value: [100, 200],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Position',
                                 type: AEX_TWOD_PROPERTY,
                                 value: [30, 40],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Rect Roundness',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
@@ -611,43 +553,36 @@ describe('Shape Layers', function () {
                         name: 'Stroke 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Blend Mode',
                                 type: AEX_ONED_PROPERTY,
                                 value: 17,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Composite Order',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 70,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Width',
                                 type: AEX_ONED_PROPERTY,
                                 value: 80,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Line Cap',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Stroke Line Join',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
@@ -660,31 +595,26 @@ describe('Shape Layers', function () {
                         name: 'Fill 1',
                         properties: [
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Blend Mode',
                                 type: AEX_ONED_PROPERTY,
                                 value: 23,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Composite Order',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Rule',
                                 type: AEX_ONED_PROPERTY,
                                 value: 2,
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Color',
                                 type: AEX_COLOR_PROPERTY,
                                 value: [1, 0.5, 0, 1],
                             },
                             {
-                                keys: [],
                                 matchName: 'ADBE Vector Fill Opacity',
                                 type: AEX_ONED_PROPERTY,
                                 value: 50,
@@ -697,7 +627,6 @@ describe('Shape Layers', function () {
                 name: 'Rectangle 1',
                 properties: [
                     {
-                        keys: [],
                         matchName: 'ADBE Vector Blend Mode',
                         type: AEX_ONED_PROPERTY,
                         value: 15,
@@ -709,43 +638,36 @@ describe('Shape Layers', function () {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Anchor',
                                 value: [10, 20],
-                                keys: [],
                             },
                             {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Position',
                                 value: [30, 40],
-                                keys: [],
                             },
                             {
                                 type: AEX_TWOD_PROPERTY,
                                 matchName: 'ADBE Vector Scale',
                                 value: [50, 50],
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Skew',
                                 value: 60,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Skew Axis',
                                 value: 70,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Rotation',
                                 value: 80,
-                                keys: [],
                             },
                             {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Vector Group Opacity',
                                 value: 90,
-                                keys: [],
                             },
                         ],
                     },
@@ -852,12 +774,8 @@ describe('Shape Layers', function () {
                         type: AEX_SHAPEGROUP_PROPERTYGROUP,
                     },
                 ],
-                effects: [],
                 label: 8,
-                markers: [],
-                masks: [],
                 name: 'Multiple Default',
-                transform: {},
                 type: AEX_SHAPE_LAYER,
             });
         });
@@ -945,12 +863,8 @@ describe('Shape Layers', function () {
                         type: AEX_SHAPEITEM_PROPERTYGROUP,
                     },
                 ],
-                effects: [],
                 label: 8,
-                markers: [],
-                masks: [],
                 name: 'Ungrouped Default',
-                transform: {},
                 type: AEX_SHAPE_LAYER,
             });
         });
@@ -1022,13 +936,11 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 0,
@@ -1063,13 +975,11 @@ describe('Shape Layers', function () {
                                         matchName: 'ADBE Vector Stroke Dashes',
                                         properties: [
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Offset',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 0,
@@ -1114,13 +1024,11 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 0,
@@ -1164,43 +1072,36 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 3',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 3',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 0,
@@ -1235,43 +1136,36 @@ describe('Shape Layers', function () {
                                         matchName: 'ADBE Vector Stroke Dashes',
                                         properties: [
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Gap 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 2',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Gap 2',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 3',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Gap 3',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 10,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Offset',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 0,
@@ -1316,43 +1210,36 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 3',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 3',
                                         type: AEX_ONED_PROPERTY,
                                         value: 10,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 0,
@@ -1396,25 +1283,21 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 1,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 3,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 4,
@@ -1449,25 +1332,21 @@ describe('Shape Layers', function () {
                                         matchName: 'ADBE Vector Stroke Dashes',
                                         properties: [
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 1,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Gap 1',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 2,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Dash 2',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 3,
                                             },
                                             {
-                                                keys: [],
                                                 matchName: 'ADBE Vector Stroke Offset',
                                                 type: AEX_ONED_PROPERTY,
                                                 value: 4,
@@ -1512,25 +1391,21 @@ describe('Shape Layers', function () {
                                 matchName: 'ADBE Vector Stroke Dashes',
                                 properties: [
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 1,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Gap 1',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Dash 2',
                                         type: AEX_ONED_PROPERTY,
                                         value: 3,
                                     },
                                     {
-                                        keys: [],
                                         matchName: 'ADBE Vector Stroke Offset',
                                         type: AEX_ONED_PROPERTY,
                                         value: 4,

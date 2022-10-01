@@ -32,82 +32,68 @@ describe('Camera Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Zoom',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Focus Distance',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Aperture',
                             value: 3,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Blur Level',
                             value: 4,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Shape',
                             value: 4,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Rotation',
                             value: 5,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Roundness',
                             value: 6,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Aspect Ratio',
                             value: 7,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Diffraction Fringe',
                             value: 8,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Highlight Gain',
                             value: 9,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Highlight Threshold',
                             value: 0.0392,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Hightlight Saturation',
                             value: 11,
                         },
                     ],
                 },
                 label: 4,
-                markers: [],
                 name: 'One-Node',
-                transform: {},
                 type: AEX_CAMERA_LAYER,
             };
 
@@ -128,82 +114,68 @@ describe('Camera Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Zoom',
                             value: 12,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Focus Distance',
                             value: 11,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Aperture',
                             value: 10,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Camera Blur Level',
                             value: 9,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Shape',
                             value: 8,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Rotation',
                             value: 7,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Roundness',
                             value: 6,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Aspect Ratio',
                             value: 5,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Diffraction Fringe',
                             value: 4,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Highlight Gain',
                             value: 3,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Highlight Threshold',
                             value: 0.2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Iris Hightlight Saturation',
                             value: 1,
                         },
                     ],
                 },
                 label: 8,
-                markers: [],
                 name: 'Updated One-Node',
-                transform: {},
                 type: AEX_CAMERA_LAYER,
             };
 
@@ -230,18 +202,15 @@ describe('Camera Layer Attributes', function () {
         it(`Create`, async () => {
             const layerData = {
                 label: 4,
-                markers: [],
                 name: 'Two-Node',
                 transform: {
                     pointOfInterest: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [100, 200, 300],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [640, 360, -1777.7778],
                     },
@@ -262,18 +231,15 @@ describe('Camera Layer Attributes', function () {
         it(`Update`, async () => {
             const layerData = {
                 label: 4,
-                markers: [],
                 name: 'Two-Node',
                 transform: {
                     pointOfInterest: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [200, 300, 100],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [100, 200, -100],
                     },

@@ -22,50 +22,42 @@ describe('Light Layer Attributes', function () {
             assertAreEqual(comp.layers[0], {
                 label: 6,
                 lightType: 4412,
-                markers: [],
                 name: 'Parallel Light',
                 lightOption: {
                     matchName: 'ADBE Light Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Intensity',
                             value: 76,
                         },
                         {
                             type: AEX_COLOR_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Color',
                             value: [1, 0, 0, 1],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Type',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Start',
                             value: 453,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Distance',
                             value: 394,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Casts Shadows',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Shadow Darkness',
                             value: 42,
                         },
@@ -73,7 +65,6 @@ describe('Light Layer Attributes', function () {
                 },
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [600, 500, 400],
@@ -91,52 +82,43 @@ describe('Light Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Intensity',
                             value: 76,
                         },
                         {
                             type: AEX_COLOR_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Color',
                             value: [1, 0, 0, 1],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Type',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Start',
                             value: 453,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Distance',
                             value: 394,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Casts Shadows',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Shadow Darkness',
                             value: 42,
                         },
                     ],
                 },
                 lightType: 4412,
-                markers: [],
                 name: 'Parallel Light',
-                transform: {},
                 type: AEX_LIGHT_LAYER,
             };
 
@@ -154,50 +136,42 @@ describe('Light Layer Attributes', function () {
             const layerData = {
                 label: 9,
                 lightType: 4414,
-                markers: [],
                 name: 'Updated Parallel Light',
                 lightOption: {
                     matchName: 'ADBE Light Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Intensity',
                             value: 12,
                         },
                         {
                             type: AEX_COLOR_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Color',
                             value: [1, 1, 0, 1],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Type',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Start',
                             value: 100,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Falloff Distance',
                             value: 400,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Casts Shadows',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Light Shadow Darkness',
                             value: 60,
                         },
@@ -205,7 +179,6 @@ describe('Light Layer Attributes', function () {
                 },
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [500, 400, 600],
@@ -237,27 +210,20 @@ describe('Light Layer Attributes', function () {
                 layers: [
                     {
                         lightType: 4413,
-                        markers: [],
                         name: 'Spot Light',
-                        transform: {},
                         type: AEX_LIGHT_LAYER,
                     },
                     {
                         lightType: 4414,
-                        markers: [],
                         name: 'Point Light',
-                        transform: {},
                         type: AEX_LIGHT_LAYER,
                     },
                     {
                         lightType: 4415,
-                        markers: [],
                         name: 'Ambient Light',
-                        transform: {},
                         type: AEX_LIGHT_LAYER,
                     },
                 ],
-                markers: [],
                 type: AEX_COMP_ITEM,
             };
 

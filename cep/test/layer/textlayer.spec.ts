@@ -37,7 +37,6 @@ describe('Text Layer Attributes', function () {
                 threeDPerChar: true,
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -95,31 +94,26 @@ describe('Text Layer Attributes', function () {
                 properties: [
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Path',
                         value: 1,
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Reverse Path',
                         value: 1,
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Force Align Path',
                         value: 1,
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text First Margin',
                         value: 18,
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Last Margin',
                         value: 20,
                     },
@@ -134,17 +128,9 @@ describe('Text Layer Attributes', function () {
                         color: [1, 1, 1],
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
                                 inTangents: [
                                     [100, 0],
                                     [0, -100],
@@ -173,31 +159,26 @@ describe('Text Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Reverse Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Force Align Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text First Margin',
                             value: 18,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Last Margin',
                             value: 20,
                         },
@@ -205,7 +186,6 @@ describe('Text Layer Attributes', function () {
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -246,17 +226,9 @@ describe('Text Layer Attributes', function () {
                         color: [1, 1, 1],
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
                                 inTangents: [
                                     [100, 0],
                                     [0, -100],
@@ -285,31 +257,26 @@ describe('Text Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Reverse Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Force Align Path',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text First Margin',
                             value: 18,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Last Margin',
                             value: 20,
                         },
@@ -317,7 +284,6 @@ describe('Text Layer Attributes', function () {
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -359,25 +325,21 @@ describe('Text Layer Attributes', function () {
                 properties: [
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Anchor Point Option',
                         value: 2,
                     },
                     {
                         type: AEX_TWOD_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Anchor Point Align',
                         value: [18, 20],
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Render Order',
                         value: 2,
                     },
                     {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Text Character Blend Mode',
                         value: 9,
                     },
@@ -392,25 +354,21 @@ describe('Text Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Anchor Point Option',
                             value: 2,
                         },
                         {
                             type: AEX_TWOD_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Anchor Point Align',
                             value: [18, 20],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Render Order',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Character Blend Mode',
                             value: 9,
                         },
@@ -418,7 +376,6 @@ describe('Text Layer Attributes', function () {
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -459,25 +416,21 @@ describe('Text Layer Attributes', function () {
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Anchor Point Option',
                             value: 2,
                         },
                         {
                             type: AEX_TWOD_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Anchor Point Align',
                             value: [18, 20],
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Render Order',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Character Blend Mode',
                             value: 9,
                         },
@@ -485,7 +438,6 @@ describe('Text Layer Attributes', function () {
                 },
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -545,7 +497,6 @@ describe('Text Layer Attributes', function () {
                                             type: AEX_ONED_PROPERTY,
                                             matchName: 'ADBE Text Percent Start',
                                             value: 20,
-                                            keys: [],
                                         },
                                     ],
                                 },
@@ -558,7 +509,6 @@ describe('Text Layer Attributes', function () {
                                     type: AEX_THREED_PROPERTY,
                                     matchName: 'ADBE Text Position 3D',
                                     value: [100, 200, 0],
-                                    keys: [],
                                 },
                             ],
                         },
@@ -581,7 +531,6 @@ describe('Text Layer Attributes', function () {
                                             type: AEX_ONED_PROPERTY,
                                             matchName: 'ADBE Text Percent End',
                                             value: 50,
-                                            keys: [],
                                         },
                                         {
                                             matchName: 'ADBE Text Range Advanced',
@@ -590,7 +539,6 @@ describe('Text Layer Attributes', function () {
                                                     type: AEX_ONED_PROPERTY,
                                                     matchName: 'ADBE Text Selector Max Amount',
                                                     value: 50,
-                                                    keys: [],
                                                 },
                                             ],
                                         },
@@ -605,7 +553,6 @@ describe('Text Layer Attributes', function () {
                                     type: AEX_THREED_PROPERTY,
                                     matchName: 'ADBE Text Position 3D',
                                     value: [100, 200, 0],
-                                    keys: [],
                                 },
                             ],
                         },
@@ -633,7 +580,6 @@ describe('Text Layer Attributes', function () {
                                                 type: AEX_ONED_PROPERTY,
                                                 matchName: 'ADBE Text Percent Start',
                                                 value: 20,
-                                                keys: [],
                                             },
                                         ],
                                     },
@@ -646,7 +592,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_THREED_PROPERTY,
                                         matchName: 'ADBE Text Position 3D',
                                         value: [100, 200, 0],
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -669,7 +614,6 @@ describe('Text Layer Attributes', function () {
                                                 type: AEX_ONED_PROPERTY,
                                                 matchName: 'ADBE Text Percent End',
                                                 value: 50,
-                                                keys: [],
                                             },
                                             {
                                                 matchName: 'ADBE Text Range Advanced',
@@ -678,7 +622,6 @@ describe('Text Layer Attributes', function () {
                                                         type: AEX_ONED_PROPERTY,
                                                         matchName: 'ADBE Text Selector Max Amount',
                                                         value: 50,
-                                                        keys: [],
                                                     },
                                                 ],
                                             },
@@ -693,7 +636,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_THREED_PROPERTY,
                                         matchName: 'ADBE Text Position 3D',
                                         value: [100, 200, 0],
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -703,7 +645,6 @@ describe('Text Layer Attributes', function () {
                 ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -753,7 +694,6 @@ describe('Text Layer Attributes', function () {
                                     properties: [
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            keys: [],
                                             matchName: 'ADBE Text Percent Start',
                                             value: 10,
                                         },
@@ -765,7 +705,6 @@ describe('Text Layer Attributes', function () {
                                     properties: [
                                         {
                                             type: AEX_ONED_PROPERTY,
-                                            keys: [],
                                             matchName: 'ADBE Text Percent Start',
                                             value: 20,
                                         },
@@ -795,7 +734,6 @@ describe('Text Layer Attributes', function () {
                                         properties: [
                                             {
                                                 type: AEX_ONED_PROPERTY,
-                                                keys: [],
                                                 matchName: 'ADBE Text Percent Start',
                                                 value: 10,
                                             },
@@ -807,7 +745,6 @@ describe('Text Layer Attributes', function () {
                                         properties: [
                                             {
                                                 type: AEX_ONED_PROPERTY,
-                                                keys: [],
                                                 matchName: 'ADBE Text Percent Start',
                                                 value: 20,
                                             },
@@ -821,7 +758,6 @@ describe('Text Layer Attributes', function () {
                 ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -869,7 +805,6 @@ describe('Text Layer Attributes', function () {
                                 properties: [
                                     {
                                         type: AEX_ONED_PROPERTY,
-                                        keys: [],
                                         matchName: 'ADBE Text Percent Start',
                                         value: 10,
                                     },
@@ -881,7 +816,6 @@ describe('Text Layer Attributes', function () {
                                 properties: [
                                     {
                                         type: AEX_ONED_PROPERTY,
-                                        keys: [],
                                         matchName: 'ADBE Text Percent Start',
                                         value: 20,
                                     },
@@ -916,7 +850,6 @@ describe('Text Layer Attributes', function () {
                                 properties: [
                                     {
                                         type: AEX_ONED_PROPERTY,
-                                        keys: [],
                                         matchName: 'ADBE Text Percent Start',
                                         value: 2,
                                     },
@@ -928,7 +861,6 @@ describe('Text Layer Attributes', function () {
                                 properties: [
                                     {
                                         type: AEX_ONED_PROPERTY,
-                                        keys: [],
                                         matchName: 'ADBE Text Percent Start',
                                         value: 99,
                                     },
@@ -1019,7 +951,6 @@ describe('Text Layer Attributes', function () {
                             properties: [
                                 {
                                     type: AEX_THREED_PROPERTY,
-                                    keys: [],
                                     matchName: 'ADBE Text Position 3D',
                                     value: [0, 100, 0],
                                 },
@@ -1099,7 +1030,6 @@ describe('Text Layer Attributes', function () {
                                 properties: [
                                     {
                                         type: AEX_THREED_PROPERTY,
-                                        keys: [],
                                         matchName: 'ADBE Text Position 3D',
                                         value: [0, 100, 0],
                                     },
@@ -1111,7 +1041,6 @@ describe('Text Layer Attributes', function () {
                 ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -1211,7 +1140,6 @@ describe('Text Layer Attributes', function () {
                         properties: [
                             {
                                 type: AEX_THREED_PROPERTY,
-                                keys: [],
                                 matchName: 'ADBE Text Position 3D',
                                 value: [0, 100, 0],
                             },
@@ -1296,7 +1224,6 @@ describe('Text Layer Attributes', function () {
                         properties: [
                             {
                                 type: AEX_THREED_PROPERTY,
-                                keys: [],
                                 matchName: 'ADBE Text Position 3D',
                                 value: [0, 100, 0],
                             },
@@ -1337,7 +1264,6 @@ describe('Text Layer Attributes', function () {
                                             value: [100, 100, 100],
                                             expression: 'timeToFrames(time * 10) * textIndex/textTotal',
                                             expressionEnabled: true,
-                                            keys: [],
                                         },
                                     ],
                                 },
@@ -1369,7 +1295,6 @@ describe('Text Layer Attributes', function () {
                                                 value: [100, 100, 100],
                                                 expression: 'timeToFrames(time * 10) * textIndex/textTotal',
                                                 expressionEnabled: true,
-                                                keys: [],
                                             },
                                         ],
                                     },
@@ -1381,7 +1306,6 @@ describe('Text Layer Attributes', function () {
                 ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -1433,7 +1357,6 @@ describe('Text Layer Attributes', function () {
                                         value: [100, 100, 100],
                                         expression: 'timeToFrames(time * 10) * textIndex/textTotal',
                                         expressionEnabled: true,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1470,7 +1393,6 @@ describe('Text Layer Attributes', function () {
                                         value: [100, 100, 100],
                                         expression: 'timeToFrames(time * 10) * textIndex/textTotal',
                                         expressionEnabled: true,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1509,7 +1431,6 @@ describe('Text Layer Attributes', function () {
                                             type: AEX_ONED_PROPERTY,
                                             matchName: 'ADBE Text Selector Mode',
                                             value: 3,
-                                            keys: [],
                                         },
                                     ],
                                 },
@@ -1522,7 +1443,6 @@ describe('Text Layer Attributes', function () {
                                     type: AEX_ONED_PROPERTY,
                                     matchName: 'ADBE Text Tracking Amount',
                                     value: 100,
-                                    keys: [],
                                 },
                             ],
                         },
@@ -1550,7 +1470,6 @@ describe('Text Layer Attributes', function () {
                                                 type: AEX_ONED_PROPERTY,
                                                 matchName: 'ADBE Text Selector Mode',
                                                 value: 3,
-                                                keys: [],
                                             },
                                         ],
                                     },
@@ -1563,7 +1482,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Text Tracking Amount',
                                         value: 100,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1573,7 +1491,6 @@ describe('Text Layer Attributes', function () {
                 ],
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -1623,7 +1540,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Text Selector Mode',
                                         value: 3,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1636,7 +1552,6 @@ describe('Text Layer Attributes', function () {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Text Tracking Amount',
                                 value: 100,
-                                keys: [],
                             },
                         ],
                     },
@@ -1669,7 +1584,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_ONED_PROPERTY,
                                         matchName: 'ADBE Text Selector Mode',
                                         value: 3,
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1682,7 +1596,6 @@ describe('Text Layer Attributes', function () {
                                 type: AEX_ONED_PROPERTY,
                                 matchName: 'ADBE Text Tracking Amount',
                                 value: 100,
-                                keys: [],
                             },
                         ],
                     },
@@ -1717,7 +1630,6 @@ describe('Text Layer Attributes', function () {
                                                 type: AEX_ONED_PROPERTY,
                                                 matchName: 'ADBE Text Percent Start',
                                                 value: 20,
-                                                keys: [],
                                             },
                                         ],
                                     },
@@ -1730,7 +1642,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_THREED_PROPERTY,
                                         matchName: 'ADBE Text Position 3D',
                                         value: [100, 200, 0],
-                                        keys: [],
                                     },
                                 ],
                             },
@@ -1753,7 +1664,6 @@ describe('Text Layer Attributes', function () {
                                                 type: AEX_ONED_PROPERTY,
                                                 matchName: 'ADBE Text Percent End',
                                                 value: 50,
-                                                keys: [],
                                             },
                                             {
                                                 matchName: 'ADBE Text Range Advanced',
@@ -1762,7 +1672,6 @@ describe('Text Layer Attributes', function () {
                                                         type: AEX_ONED_PROPERTY,
                                                         matchName: 'ADBE Text Selector Max Amount',
                                                         value: 50,
-                                                        keys: [],
                                                     },
                                                 ],
                                             },
@@ -1777,7 +1686,6 @@ describe('Text Layer Attributes', function () {
                                         type: AEX_THREED_PROPERTY,
                                         matchName: 'ADBE Text Position 3D',
                                         value: [100, 200, 0],
-                                        keys: [],
                                     },
                                 ],
                             },

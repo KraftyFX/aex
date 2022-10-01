@@ -29,7 +29,6 @@ describe('File', function () {
             assertAreEqual(items[0], {
                 aexid: '01_still:1',
                 file: stillPath,
-                folder: [],
                 height: 432,
                 label: 5,
                 name: '01_Still',
@@ -45,7 +44,6 @@ describe('File', function () {
             const itemData = {
                 aexid: 'juvenile_ragdoll.jpg:1',
                 file: stillPath,
-                folder: [],
                 height: 432,
                 label: 5,
                 name: 'Juvenile_Ragdoll.jpg',
@@ -75,7 +73,6 @@ describe('File', function () {
                 conformFrameRate: 30,
                 duration: 0.0667,
                 file: seqPath,
-                folder: [],
                 frameRate: 30,
                 height: 432,
                 label: 3,
@@ -95,7 +92,6 @@ describe('File', function () {
                 conformFrameRate: 30,
                 duration: 0.0667,
                 file: seqPath,
-                folder: [],
                 frameRate: 30,
                 height: 432,
                 label: 3,

@@ -1,4 +1,4 @@
-import { AeObject, aex, getFilePath, getProject } from '../aex';
+import { AeObject, getFilePath, getProject } from '../aex';
 import { AEX_FILE_FOOTAGE_ITEM, TEST_TIMEOUT_TIME } from '../constants';
 import { cleanupAex, evalAexIntoEstk } from '../csinterface';
 import { assertAreEqual } from '../utils';
@@ -48,7 +48,6 @@ describe('Item', function () {
             assertAreEqual(items[4], {
                 aexid: '05_still_par_1.09:7',
                 file: filePath,
-                folder: [],
                 frameRate: 30,
                 height: 432,
                 label: 5,
