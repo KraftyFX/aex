@@ -88,8 +88,10 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         aeProperty.name = aexProperty.name;
     }
 
-    if (aexProperty.keys.length > 0) {
-        _setPropertyKeys(aeProperty, aexProperty.keys, state);
+    const keys = aexProperty.keys || [];
+
+    if (keys.length > 0) {
+        _setPropertyKeys(aeProperty, keys, state);
     } else {
         _setPropertyValue(aeProperty, aexProperty, state);
     }

@@ -40,7 +40,7 @@ function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCam
     setLayerAttributes(aeCameraLayer, aexCameraLayer, state);
 
     /** We're inferring 'One-Node' vs 'Two-Node' based on whether this property exists, as opposed to serializing an additional property */
-    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
+    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform?.pointOfInterest);
 
     if (isOneNode) {
         aeCameraLayer.autoOrient = AutoOrientType.NO_AUTO_ORIENT;
@@ -58,7 +58,7 @@ function updateAexCameraLayer(aeCameraLayer: CameraLayer, aexCameraLayer: AexCam
 function _getCameraCenterPoint(aeComp: CompItem, aexCameraLayer: AexCameraLayer): TwoDPoint {
     let centerPoint: TwoDPoint;
 
-    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform.pointOfInterest);
+    const isOneNode = aeq.isNullOrUndefined(aexCameraLayer.transform?.pointOfInterest);
 
     if (isOneNode) {
         centerPoint = [aeComp.width / 2, aeComp.height / 2];
