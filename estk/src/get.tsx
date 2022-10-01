@@ -49,7 +49,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         }
     }
 
-    return {
+    return prune<GetResult>({
         schema: 1.0,
         aeversion: 0.0, // TODO(zlovatt): Get this value
         type: 'aex:getresult',
@@ -59,8 +59,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
             items: aexItems,
         },
         stats: state.stats,
-        // profile: state.profile,
-    };
+    });
 }
 
 function isGetResult(aexObject: Deserializable): aexObject is GetResult<AexSerialized> {
