@@ -29,11 +29,8 @@ describe('Comp', function () {
             const compData = {
                 aexid: 'comp 1:1',
                 duration: 4,
-                folder: [],
                 frameRate: 60,
                 height: 720,
-                layers: [],
-                markers: [],
                 name: 'Comp 1',
                 pixelAspect: 1,
                 type: AEX_COMP_ITEM,

@@ -57,11 +57,9 @@ describe('Basic Layer Attributes', function () {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[0], {
                 label: 4,
-                markers: [],
                 name: 'Camera',
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [640, 360, -1777.7778],
@@ -74,11 +72,9 @@ describe('Basic Layer Attributes', function () {
         it(`Create`, async () => {
             const layerData = {
                 label: 4,
-                markers: [],
                 name: 'Camera',
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [640, 360, -1777.7778],
@@ -101,15 +97,10 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[1], {
-                animators: [],
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Solo Text Layer',
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -131,22 +122,16 @@ describe('Basic Layer Attributes', function () {
                     },
                 },
                 solo: true,
-                transform: {},
                 type: AEX_TEXT_LAYER,
             });
         });
 
         it(`Create`, async () => {
             const layerData = {
-                animators: [],
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Solo Text Layer',
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -168,7 +153,6 @@ describe('Basic Layer Attributes', function () {
                     },
                 },
                 solo: true,
-                transform: {},
                 type: AEX_TEXT_LAYER,
             };
 
@@ -186,24 +170,16 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[2], {
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Empty',
-                transform: {},
                 type: AEX_NULL_LAYER,
             });
         });
 
         it(`Create`, async () => {
             const layerData = {
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Empty',
-                transform: {},
                 type: AEX_NULL_LAYER,
             };
 
@@ -224,12 +200,10 @@ describe('Basic Layer Attributes', function () {
                 inPoint: 0.5,
                 label: 1,
                 lightType: 4414,
-                markers: [],
                 name: 'Timing Light',
                 outPoint: 3.0667,
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [600, 500, 400],
@@ -244,12 +218,10 @@ describe('Basic Layer Attributes', function () {
                 inPoint: 0.5,
                 label: 1,
                 lightType: 4414,
-                markers: [],
                 name: 'Timing Light',
                 outPoint: 3.0667,
                 transform: {
                     position: {
-                        keys: [],
                         matchName: 'ADBE Position',
                         type: AEX_THREED_PROPERTY,
                         value: [600, 500, 400],
@@ -275,15 +247,11 @@ describe('Basic Layer Attributes', function () {
                 adjustmentLayer: true,
                 autoOrient: 4213,
                 collapseTransformation: true,
-                effects: [],
                 label: 2,
-                markers: [],
-                masks: [],
                 motionBlur: true,
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                transform: {},
                 type: AEX_NULL_LAYER,
             });
         });
@@ -293,15 +261,11 @@ describe('Basic Layer Attributes', function () {
                 adjustmentLayer: true,
                 autoOrient: 4213,
                 collapseTransformation: true,
-                effects: [],
                 label: 2,
-                markers: [],
-                masks: [],
                 motionBlur: true,
                 name: 'Flags',
                 samplingQuality: 4813,
                 shy: true,
-                transform: {},
                 type: AEX_NULL_LAYER,
             };
 
@@ -319,21 +283,16 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[6], {
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Parented Solid',
                 parentLayerIndex: 5,
                 source: {
                     type: AEX_SOLID_ITEM,
                     aexid: 'parented solid:61',
                 },
-                trackers: [],
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [0, 0, 0],
                     },
@@ -346,17 +305,12 @@ describe('Basic Layer Attributes', function () {
             const compData = {
                 layers: [
                     {
-                        effects: [],
                         label: 1,
-                        markers: [],
-                        masks: [],
                         name: 'Parented Solid',
                         parentLayerIndex: 2,
-                        trackers: [],
                         transform: {
                             position: {
                                 type: AEX_THREED_PROPERTY,
-                                keys: [],
                                 matchName: 'ADBE Position',
                                 value: [0, 0, 0],
                             },
@@ -364,13 +318,10 @@ describe('Basic Layer Attributes', function () {
                         type: AEX_SOLID_LAYER,
                     },
                     {
-                        markers: [],
                         name: '_Parent Layer',
-                        transform: {},
                         type: AEX_CAMERA_LAYER,
                     },
                 ],
-                markers: [],
                 type: AEX_COMP_ITEM,
             };
 
@@ -390,112 +341,92 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[7], {
-                contents: [],
-                effects: [],
                 geometryOption: {
                     matchName: 'ADBE Extrsn Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Bevel Styles',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Bevel Depth',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Hole Bevel Depth',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Extrsn Depth',
                             value: 3,
                         },
                     ],
                 },
                 label: 8,
-                markers: [],
-                masks: [],
                 materialOption: {
                     matchName: 'ADBE Material Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Casts Shadows',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Accepts Shadows',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Accepts Lights',
                             value: 0,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Appears in Reflections',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Ambient Coefficient',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Diffuse Coefficient',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Specular Coefficient',
                             value: 3,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Shininess Coefficient',
                             value: 4,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Metal Coefficient',
                             value: 5,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Reflection Coefficient',
                             value: 6,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Glossiness Coefficient',
                             value: 7,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Fresnel Coefficient',
                             value: 8,
                         },
@@ -503,119 +434,98 @@ describe('Basic Layer Attributes', function () {
                 },
                 name: '3d',
                 threeDLayer: true,
-                transform: {},
                 type: AEX_SHAPE_LAYER,
             });
         });
 
         it(`Create`, async () => {
             const layerData = {
-                contents: [],
-                effects: [],
                 geometryOption: {
                     matchName: 'ADBE Extrsn Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Bevel Styles',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Bevel Depth',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Hole Bevel Depth',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Extrsn Depth',
                             value: 3,
                         },
                     ],
                 },
                 label: 8,
-                markers: [],
-                masks: [],
                 materialOption: {
                     matchName: 'ADBE Material Options Group',
                     properties: [
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Casts Shadows',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Accepts Shadows',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Accepts Lights',
                             value: 0,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Appears in Reflections',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Ambient Coefficient',
                             value: 1,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Diffuse Coefficient',
                             value: 2,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Specular Coefficient',
                             value: 3,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Shininess Coefficient',
                             value: 4,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Metal Coefficient',
                             value: 5,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Reflection Coefficient',
                             value: 6,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Glossiness Coefficient',
                             value: 7,
                         },
                         {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Fresnel Coefficient',
                             value: 8,
                         },
@@ -623,7 +533,6 @@ describe('Basic Layer Attributes', function () {
                 },
                 name: '3d',
                 threeDLayer: true,
-                transform: {},
                 type: AEX_SHAPE_LAYER,
             };
 
@@ -641,10 +550,7 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[8], {
-                effects: [],
                 label: 15,
-                markers: [],
-                masks: [],
                 name: 'TR Enabled',
                 source: {
                     type: AEX_COMP_ITEM,
@@ -696,8 +602,6 @@ describe('Basic Layer Attributes', function () {
                     value: 2,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
-                transform: {},
                 type: AEX_COMP_LAYER,
             });
         });
@@ -764,12 +668,10 @@ describe('Basic Layer Attributes', function () {
 
         it(`Update`, async () => {
             const projectData = {
-                items: [],
                 comps: [
                     {
                         aexid: 'precomp 1:1',
                         duration: 4,
-                        layers: [],
                         name: 'Precomp 1',
                         type: AEX_COMP_ITEM,
                     },
@@ -777,10 +679,7 @@ describe('Basic Layer Attributes', function () {
                         duration: 4,
                         layers: [
                             {
-                                effects: [],
                                 label: 15,
-                                markers: [],
-                                masks: [],
                                 name: 'TR Enabled (and not modified)',
                                 source: {
                                     type: AEX_COMP_ITEM,
@@ -832,8 +731,6 @@ describe('Basic Layer Attributes', function () {
                                     value: 0,
                                 },
                                 timeRemapEnabled: true,
-                                trackers: [],
-                                transform: {},
                                 type: AEX_COMP_LAYER,
                             },
                         ],
@@ -849,7 +746,7 @@ describe('Basic Layer Attributes', function () {
             const result = await aex.get(AeObject.Layer(1));
             const layer = result.object;
 
-            assertAreEqual(layer, projectData.comps[1].layers[0]);
+            assertAreEqual(layer, projectData.comps[1].layers![0]);
         });
     });
 
@@ -857,10 +754,7 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[9], {
-                effects: [],
                 label: 15,
-                markers: [],
-                masks: [],
                 name: 'TR Remapped',
                 source: {
                     type: AEX_COMP_ITEM,
@@ -912,8 +806,6 @@ describe('Basic Layer Attributes', function () {
                     value: 4,
                 },
                 timeRemapEnabled: true,
-                trackers: [],
-                transform: {},
                 type: AEX_COMP_LAYER,
             });
         });
@@ -922,12 +814,10 @@ describe('Basic Layer Attributes', function () {
             await openCleanProject();
 
             const projectData = {
-                items: [],
                 comps: [
                     {
                         aexid: 'precomp 1:1',
                         duration: 4,
-                        layers: [],
                         name: 'Precomp 1',
                         type: AEX_COMP_ITEM,
                     },
@@ -935,10 +825,7 @@ describe('Basic Layer Attributes', function () {
                         duration: 4,
                         layers: [
                             {
-                                effects: [],
                                 label: 15,
-                                markers: [],
-                                masks: [],
                                 name: 'TR Enabled (and modified)',
                                 source: {
                                     type: AEX_COMP_ITEM,
@@ -990,8 +877,6 @@ describe('Basic Layer Attributes', function () {
                                     value: 0,
                                 },
                                 timeRemapEnabled: true,
-                                trackers: [],
-                                transform: {},
                                 type: AEX_COMP_LAYER,
                             },
                         ],
@@ -1006,7 +891,7 @@ describe('Basic Layer Attributes', function () {
             const result = await aex.get(AeObject.Project);
             const project = result.object;
 
-            assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers[0]);
+            assertAreEqual(project.comps[0].layers[0], projectData.comps[1].layers![0]);
         });
     });
 
@@ -1014,30 +899,20 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[10], {
-                effects: [],
                 label: 9,
-                markers: [],
-                masks: [],
                 name: 'Matte Solid',
                 source: {
                     type: AEX_SOLID_ITEM,
                     aexid: 'parented solid:61',
                 },
-                trackers: [],
-                transform: {},
                 type: AEX_SOLID_LAYER,
             });
 
             assertAreEqual(comp.layers[11], {
-                animators: [],
-                effects: [],
                 label: 9,
-                markers: [],
-                masks: [],
                 name: 'Matted Text Layer',
                 sourceText: {
                     type: AEX_TEXTDOCUMENT_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Text Document',
                     value: {
                         applyFill: true,
@@ -1058,7 +933,6 @@ describe('Basic Layer Attributes', function () {
                         verticalScale: 1,
                     },
                 },
-                transform: {},
                 trackMatteType: 5013,
                 type: AEX_TEXT_LAYER,
             });
@@ -1068,25 +942,15 @@ describe('Basic Layer Attributes', function () {
             const compData = {
                 layers: [
                     {
-                        effects: [],
                         label: 9,
-                        markers: [],
-                        masks: [],
                         name: 'Matte Solid',
-                        trackers: [],
-                        transform: {},
                         type: AEX_SOLID_LAYER,
                     },
                     {
-                        animators: [],
-                        effects: [],
                         label: 9,
-                        markers: [],
-                        masks: [],
                         name: 'Matted Text Layer',
                         sourceText: {
                             type: AEX_TEXTDOCUMENT_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Text Document',
                             value: {
                                 applyFill: true,
@@ -1107,12 +971,10 @@ describe('Basic Layer Attributes', function () {
                                 verticalScale: 1,
                             },
                         },
-                        transform: {},
                         trackMatteType: 5013,
                         type: AEX_TEXT_LAYER,
                     },
                 ],
-                markers: [],
                 type: AEX_COMP_ITEM,
             };
 
@@ -1134,12 +996,8 @@ describe('Basic Layer Attributes', function () {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[5], {
                 blendingMode: 5216,
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Blend Mode',
-                transform: {},
                 type: AEX_NULL_LAYER,
             });
         });
@@ -1147,12 +1005,8 @@ describe('Basic Layer Attributes', function () {
         it(`Create`, async () => {
             const layerData = {
                 blendingMode: 5216,
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: 'Blend Mode',
-                transform: {},
                 type: AEX_NULL_LAYER,
             };
 
