@@ -2,20 +2,13 @@
     "type": "aex:getresult",
     "object": {
         "name": "Comp 1",
-        "folder": [],
         "aexid": "comp 1:1",
         "duration": 4,
         "frameRate": 60,
         "height": 720,
         "pixelAspect": 1,
         "width": 1280,
-        "type": "aex:item:av:comp",
-        "markers": [],
-        "layers": []
-    },
-    "footage": {
-        "comps": [],
-        "items": []
+        "type": "aex:item:av:comp"
     },
     "stats": {
         "nonCompItemCount": 0,
