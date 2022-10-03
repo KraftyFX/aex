@@ -54,12 +54,6 @@ function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
         switch (state.createOptions.missingFileBehavior) {
             case 'skip':
                 break;
-            case 'log':
-                state.log.push({
-                    aexObject: aexFile,
-                    message: `${message} Skipping.`,
-                });
-                break;
             case 'throw':
                 throw fail(message);
             default:
