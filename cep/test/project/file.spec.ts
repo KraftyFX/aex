@@ -109,7 +109,6 @@ describe('File', function () {
             assertAreEqual(items[2], {
                 aexid: '03_csv:3',
                 file: dataPath,
-                folder: [],
                 label: 0,
                 name: '03_CSV',
                 type: AEX_FILE_FOOTAGE_ITEM,
@@ -122,7 +121,6 @@ describe('File', function () {
             const itemData = {
                 aexid: 'table.csv:1',
                 file: dataPath,
-                folder: [],
                 label: 0,
                 name: 'table.csv',
                 type: AEX_FILE_FOOTAGE_ITEM,
@@ -147,7 +145,6 @@ describe('File', function () {
             assertAreEqual(items[3], {
                 aexid: '04_audio:4',
                 file: audioPath,
-                folder: [],
                 label: 7,
                 name: '04_Audio',
                 type: AEX_FILE_FOOTAGE_ITEM,
@@ -160,7 +157,6 @@ describe('File', function () {
             const itemData = {
                 aexid: 'en-us-cheese.mp3:1',
                 file: dataPath,
-                folder: [],
                 label: 7,
                 name: 'en-us-cheese.mp3',
                 type: AEX_FILE_FOOTAGE_ITEM,

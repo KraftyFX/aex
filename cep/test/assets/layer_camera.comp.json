@@ -24,7 +24,6 @@
             {
                 "name": "Two-Node",
                 "label": 4,
-                "markers": [],
                 "transform": {
                     "position": {
                         "type": "aex:property:threed",
