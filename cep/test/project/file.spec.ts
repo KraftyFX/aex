@@ -33,7 +33,6 @@ describe('File', function () {
             assertAreEqual(items[0], {
                 aexid: '01_still:1',
                 file: stillPath,
-                folder: [],
                 label: 5,
                 name: '01_Still',
                 type: AEX_FILE_FOOTAGE_ITEM,
@@ -46,7 +45,6 @@ describe('File', function () {
             const itemData = {
                 aexid: 'juvenile_ragdoll.jpg:1',
                 file: stillPath,
-                folder: [],
                 label: 5,
                 name: 'Juvenile_Ragdoll.jpg',
                 type: AEX_FILE_FOOTAGE_ITEM,
@@ -72,7 +70,6 @@ describe('File', function () {
                 aexid: '02_sequence:2',
                 conformFrameRate: 30,
                 file: seqPath,
-                folder: [],
                 label: 3,
                 name: '02_Sequence',
                 sequence: true,
@@ -87,7 +84,6 @@ describe('File', function () {
                 aexid: 'img.[0000-0001].jpg:1',
                 conformFrameRate: 30,
                 file: seqPath,
-                folder: [],
                 label: 3,
                 name: 'img.[0000-0001].jpg',
                 sequence: true,

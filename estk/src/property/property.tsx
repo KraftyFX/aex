@@ -38,12 +38,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
                         return aexProperty;
                     case 'skip':
                         return undefined;
-                    case 'log':
-                        state.log.push({
-                            aexObject: aexProperty,
-                            message: `Property "${aeProperty.matchName}" is unsupported. Skipping.`,
-                        });
-                        return undefined;
                     case 'throw':
                         throw notSupported(`Property '${aeProperty.matchName}'`);
                     default:
@@ -86,8 +80,10 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         expressionEnabled: aexProperty.expressionEnabled,
     });
 
-    if (aexProperty.keys.length > 0) {
-        _setPropertyKeys(aeProperty, aexProperty.keys, state);
+    const keys = aexProperty.keys || [];
+
+    if (keys.length > 0) {
+        _setPropertyKeys(aeProperty, keys, state);
     } else {
         _setPropertyValue(aeProperty, aexProperty, state);
     }

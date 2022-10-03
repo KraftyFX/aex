@@ -25,13 +25,11 @@ describe('Folders', function () {
             assertAreEqual(project.items, [
                 {
                     aexid: 'folder a:52',
-                    folder: [],
                     type: AEX_FOLDER_ITEM,
                     name: 'Folder A',
                 },
                 {
                     aexid: 'solids:49',
-                    folder: [],
                     type: AEX_FOLDER_ITEM,
                     name: 'Solids',
                 },
@@ -43,7 +41,6 @@ describe('Folders', function () {
 
             const folderData = {
                 aexid: 'solids:1',
-                folder: [],
                 type: AEX_FOLDER_ITEM,
                 name: 'Solids',
             };
@@ -67,7 +64,6 @@ describe('Folders', function () {
             assertAreEqual(project.items, [
                 {
                     aexid: 'solids:49',
-                    folder: [],
                     name: 'Solids',
                     type: AEX_FOLDER_ITEM,
                 },
@@ -98,7 +94,6 @@ describe('Folders', function () {
             const foldersData = [
                 {
                     aexid: 'parent:1',
-                    folder: [],
                     type: AEX_FOLDER_ITEM,
                     name: 'Parent',
                 },

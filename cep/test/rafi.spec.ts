@@ -16,10 +16,8 @@ describe.skip('Rafi Test Stuff', function () {
             {
                 aexid: 'comp 1:1',
                 duration: 4,
-                folder: [],
                 frameRate: 60,
                 height: 720,
-                layers: [],
                 markers: [
                     {
                         duration: 0.2,
@@ -54,10 +52,8 @@ describe.skip('Rafi Test Stuff', function () {
             {
                 aexid: 'comp 2:2',
                 duration: 4,
-                folder: [],
                 frameRate: 60,
                 height: 720,
-                layers: [],
                 markers: [
                     {
                         time: 0.1667,
@@ -81,7 +77,6 @@ describe.skip('Rafi Test Stuff', function () {
                 width: 1280,
             },
         ],
-        items: [],
         type: AEX_PROJECT,
     };
 
@@ -137,8 +132,9 @@ describe.skip('Rafi Test Stuff', function () {
         const path = '/Users/rafikhan/kraftyfx/aex/cep/_build/stats.csv';
         const lines: string[] = [];
 
+        res.profile = res.profile || {};
         Object.keys(res.profile).forEach((m) => {
-            const data = res.profile[m];
+            const data = res.profile![m];
 
             lines.push(data.map((v) => [m, v.elapsed, v.meta].join(',')).join('\n'));
 
@@ -187,15 +183,6 @@ describe.skip('Rafi Test Stuff', function () {
         });
 
         expect(called, 'callback invoked').to.be.true;
-    });
-
-    it(`Can get log of serialization failures`, async () => {
-        const result = await aex().fromAeObject(AeObject.ActiveComp, {
-            unspportedPropertyBehavior: 'log',
-        });
-
-        expect(result.object).to.be.ok;
-        expect(result.log[0].message).to.contain('is unsupported');
     });
 
     it(`Can get a callback during serialization failure`, async () => {

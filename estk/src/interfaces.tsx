@@ -47,10 +47,9 @@ interface PrescanOptions {}
 
 interface PrescanResult {
     stats: AexStats;
-    log: AexLogEntry[];
 }
 
-type CommonBehavior = 'skip' | 'log' | 'throw' | CustomHandler;
+type CommonBehavior = 'skip' | 'throw' | CustomHandler;
 
 interface GetOptions {
     unspportedPropertyBehavior: CommonBehavior | 'metadata';
@@ -61,17 +60,26 @@ interface CreateOptions {
 }
 
 interface GetResult<T = AexSerialized> {
+    /** Version of the schema for this interface */
+    schema: number;
+    /** Version of AE that this blob was serialized with */
+    aeversion: number;
     type: 'aex:getresult';
+    /** The thing that was just serialized */
     object: T;
+    /** Additional footage that was found along the way. This is split up by comps and items. */
     footage: {
         comps: AexComp[];
         items: AexItem[];
     };
+    /**
+     * Counts of the various elements found while serializing.  Intended to make showing
+     * progress bars easier and estimating the complexity of something you plan to process.
+     */
     stats: AexStats;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
-    log: AexLogEntry[];
 }
 
 interface UpdateOptions {
@@ -82,7 +90,6 @@ interface UpdateOptions {
 
 interface UpdateResult {
     stats: AexStats;
-    log: AexLogEntry[];
 }
 
 interface AexLogEntry {
@@ -107,10 +114,9 @@ interface AexState {
     footageIdMap?: { [key: string]: number };
     updateOptions: UpdateOptions;
     stats: AexStats;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
-    log: AexLogEntry[];
 }
 
 interface AexObject {

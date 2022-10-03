@@ -20,10 +20,8 @@ describe('Comp Markers', function () {
             {
                 aexid: 'comp 1:1',
                 duration: 4,
-                folder: [],
                 frameRate: 60,
                 height: 720,
-                layers: [],
                 markers: [
                     {
                         duration: 0.2,
@@ -62,10 +60,8 @@ describe('Comp Markers', function () {
             {
                 aexid: 'comp 2:2',
                 duration: 4,
-                folder: [],
                 frameRate: 60,
                 height: 720,
-                layers: [],
                 markers: [
                     {
                         time: 0.1667,
@@ -93,7 +89,6 @@ describe('Comp Markers', function () {
                 width: 1280,
             },
         ],
-        items: [],
         type: AEX_PROJECT,
     };
 

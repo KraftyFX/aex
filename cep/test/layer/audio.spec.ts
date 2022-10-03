@@ -28,7 +28,6 @@ describe('Layer Audio', function () {
             properties: [
                 {
                     type: AEX_TWOD_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Audio Levels',
                     value: [12, 12],
                 },
@@ -50,7 +49,6 @@ describe('Layer Audio', function () {
                 properties: [
                     {
                         type: AEX_TWOD_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Audio Levels',
                         value: [12, 12],
                     },

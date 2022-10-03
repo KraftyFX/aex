@@ -4,7 +4,7 @@ import { cleanupAex, evalAexIntoEstk, openCleanProject } from '../csinterface';
 import { assertAreEqual } from '../utils';
 
 describe('Layer Masks', function () {
-    this.slow(500);
+    this.slow(1000);
     this.timeout(TEST_TIMEOUT_TIME);
 
     before(async () => {
@@ -25,17 +25,9 @@ describe('Layer Masks', function () {
                 color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
                 maskPath: {
                     type: AEX_SHAPE_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Shape',
                     value: {
                         closed: true,
-                        featherInterps: [],
-                        featherRadii: [],
-                        featherRelCornerAngles: [],
-                        featherRelSegLocs: [],
-                        featherSegLocs: [],
-                        featherTensions: [],
-                        featherTypes: [],
                         inTangents: [
                             [96.5352172851562, 0],
                             [0, -96.5352172851562],
@@ -67,17 +59,9 @@ describe('Layer Masks', function () {
                         color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
                                 inTangents: [
                                     [96.5352172851562, 0],
                                     [0, -96.5352172851562],
@@ -126,36 +110,25 @@ describe('Layer Masks', function () {
                 inverted: true,
                 maskExpansion: {
                     type: AEX_ONED_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Offset',
                     value: 23,
                 },
                 maskFeather: {
                     type: AEX_TWOD_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Feather',
                     value: [33, 33],
                 },
                 maskMode: 6814,
                 maskOpacity: {
                     type: AEX_ONED_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Opacity',
                     value: 73,
                 },
                 maskPath: {
                     type: AEX_SHAPE_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Shape',
                     value: {
                         closed: true,
-                        featherInterps: [],
-                        featherRadii: [],
-                        featherRelCornerAngles: [],
-                        featherRelSegLocs: [],
-                        featherSegLocs: [],
-                        featherTensions: [],
-                        featherTypes: [],
                         inTangents: [
                             [0, 0],
                             [0, 0],
@@ -206,36 +179,25 @@ describe('Layer Masks', function () {
                         inverted: true,
                         maskExpansion: {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Offset',
                             value: 23,
                         },
                         maskFeather: {
                             type: AEX_TWOD_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Feather',
                             value: [33, 33],
                         },
                         maskMode: 6814,
                         maskOpacity: {
                             type: AEX_ONED_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Opacity',
                             value: 73,
                         },
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,
-                                featherInterps: [],
-                                featherRadii: [],
-                                featherRelCornerAngles: [],
-                                featherRelSegLocs: [],
-                                featherSegLocs: [],
-                                featherTensions: [],
-                                featherTypes: [],
                                 inTangents: [
                                     [0, 0],
                                     [0, 0],
@@ -302,7 +264,6 @@ describe('Layer Masks', function () {
                 color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
                 maskPath: {
                     type: AEX_SHAPE_PROPERTY,
-                    keys: [],
                     matchName: 'ADBE Mask Shape',
                     value: {
                         closed: true,
@@ -344,7 +305,6 @@ describe('Layer Masks', function () {
                         color: [0.70196078431373, 0.78039215686275, 0.70196078431373],
                         maskPath: {
                             type: AEX_SHAPE_PROPERTY,
-                            keys: [],
                             matchName: 'ADBE Mask Shape',
                             value: {
                                 closed: true,

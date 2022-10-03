@@ -29,11 +29,9 @@ describe('Layer Transform', function () {
             assertAreEqual(project.comps[0].layers, [
                 {
                     label: 4,
-                    markers: [],
                     name: 'Camera',
                     transform: {
                         position: {
-                            keys: [],
                             matchName: 'ADBE Position',
                             type: AEX_THREED_PROPERTY,
                             value: [640, 360, -1777.7778],
@@ -44,11 +42,9 @@ describe('Layer Transform', function () {
                 {
                     label: 6,
                     lightType: 4414,
-                    markers: [],
                     name: 'Light',
                     transform: {
                         position: {
-                            keys: [],
                             matchName: 'ADBE Position',
                             type: AEX_THREED_PROPERTY,
                             value: [693.3333, 306.6667, -444.4444],
@@ -70,11 +66,8 @@ describe('Layer Transform', function () {
                 {
                     effects: [],
                     label: 1,
-                    markers: [],
-                    masks: [],
                     name: '3d AV Layer',
                     threeDLayer: true,
-                    transform: {},
                     type: AEX_NULL_LAYER,
                 },
                 {
@@ -90,10 +83,7 @@ describe('Layer Transform', function () {
                 {
                     effects: [],
                     label: 1,
-                    markers: [],
-                    masks: [],
                     name: '2d AV Layer',
-                    transform: {},
                     type: AEX_NULL_LAYER,
                 },
             ]);
@@ -104,11 +94,9 @@ describe('Layer Transform', function () {
                 layers: [
                     {
                         label: 4,
-                        markers: [],
                         name: 'Camera',
                         transform: {
                             position: {
-                                keys: [],
                                 matchName: 'ADBE Position',
                                 type: AEX_THREED_PROPERTY,
                                 value: [640, 360, -1777.7778],
@@ -119,11 +107,9 @@ describe('Layer Transform', function () {
                     {
                         label: 6,
                         lightType: 4414,
-                        markers: [],
                         name: 'Light',
                         transform: {
                             position: {
-                                keys: [],
                                 matchName: 'ADBE Position',
                                 type: AEX_THREED_PROPERTY,
                                 value: [693.3333, 306.6667, -444.4444],
@@ -132,7 +118,6 @@ describe('Layer Transform', function () {
                         type: AEX_LIGHT_LAYER,
                     },
                     {
-                        effects: [],
                         label: 1,
                         markers: [],
                         masks: [],
@@ -149,11 +134,9 @@ describe('Layer Transform', function () {
                         masks: [],
                         name: '3d AV Layer',
                         threeDLayer: true,
-                        transform: {},
                         type: AEX_NULL_LAYER,
                     },
                     {
-                        effects: [],
                         label: 1,
                         markers: [],
                         masks: [],
@@ -168,11 +151,9 @@ describe('Layer Transform', function () {
                         markers: [],
                         masks: [],
                         name: '2d AV Layer',
-                        transform: {},
                         type: AEX_NULL_LAYER,
                     },
                 ],
-                markers: [],
                 name: 'Defaults',
                 type: AEX_COMP_ITEM,
             };
@@ -192,42 +173,35 @@ describe('Layer Transform', function () {
             const { object: project } = await getProject('assets/layer_transform.aep', AeObject.Project);
             assertAreEqual(project.comps[1].layers[0], {
                 label: 4,
-                markers: [],
                 name: 'Camera',
                 transform: {
                     orientation: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Orientation',
                         value: [100, 200, 300],
                     },
                     pointOfInterest: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 33],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, -3],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     xRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate X',
                         value: -90,
                     },
                     yRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Y',
                         value: -3600,
                     },
@@ -239,42 +213,35 @@ describe('Layer Transform', function () {
         it(`Create`, async () => {
             const layerData = {
                 label: 4,
-                markers: [],
                 name: 'Camera',
                 transform: {
                     orientation: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Orientation',
                         value: [100, 200, 300],
                     },
                     pointOfInterest: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 33],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, -3],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     xRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate X',
                         value: -90,
                     },
                     yRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Y',
                         value: -3600,
                     },
@@ -299,12 +266,10 @@ describe('Layer Transform', function () {
             assertAreEqual(project.comps[1].layers[1], {
                 label: 6,
                 lightType: 4414,
-                markers: [],
                 name: 'Light',
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [100, 200, 300],
                     },
@@ -317,12 +282,10 @@ describe('Layer Transform', function () {
             const layerData = {
                 label: 6,
                 lightType: 4414,
-                markers: [],
                 name: 'Light',
                 transform: {
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [100, 200, 300],
                     },
@@ -509,56 +472,46 @@ describe('Layer Transform', function () {
             assertAreEqual(project.comps[1].layers[3], {
                 effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: '3d AV Layer',
                 threeDLayer: true,
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 33],
                     },
                     opacity: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Opacity',
                         value: 50,
                     },
                     orientation: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Orientation',
                         value: [100, 200, 300],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, -3],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     scale: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Scale',
                         value: [10, 20, 30],
                     },
                     xRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate X',
                         value: -90,
                     },
                     yRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Y',
                         value: -3600,
                     },
@@ -569,58 +522,47 @@ describe('Layer Transform', function () {
 
         it(`Create`, async () => {
             const layerData = {
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: '3d AV Layer',
                 threeDLayer: true,
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 33],
                     },
                     opacity: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Opacity',
                         value: 50,
                     },
                     orientation: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Orientation',
                         value: [100, 200, 300],
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, -3],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     scale: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Scale',
                         value: [10, 20, 30],
                     },
                     xRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate X',
                         value: -90,
                     },
                     yRotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Y',
                         value: -3600,
                     },
@@ -754,40 +696,32 @@ describe('Layer Transform', function () {
     describe('2D AVLayer Null', async () => {
         it('Get', async () => {
             const { object: project } = await getProject('assets/layer_transform.aep', AeObject.Project);
-            assertAreEqual(project.comps[1].layers[5], {
-                effects: [],
+            assertAreEqual(project.comps[1].layers[3], {
                 label: 1,
-                markers: [],
-                masks: [],
                 name: '2d AV Layer',
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 0],
                     },
                     opacity: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Opacity',
                         value: 50,
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, 0],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     scale: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Scale',
                         value: [10, 20, 100],
                     },
@@ -798,39 +732,31 @@ describe('Layer Transform', function () {
 
         it(`Create`, async () => {
             const layerData = {
-                effects: [],
                 label: 1,
-                markers: [],
-                masks: [],
                 name: '2d AV Layer',
                 transform: {
                     anchorPoint: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Anchor Point',
                         value: [11, 22, 0],
                     },
                     opacity: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Opacity',
                         value: 50,
                     },
                     position: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Position',
                         value: [1, 2, 0],
                     },
                     rotation: {
                         type: AEX_ONED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Rotate Z',
                         value: 90,
                     },
                     scale: {
                         type: AEX_THREED_PROPERTY,
-                        keys: [],
                         matchName: 'ADBE Scale',
                         value: [10, 20, 100],
                     },

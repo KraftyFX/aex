@@ -12,7 +12,6 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         createOptions: null,
         footageSources: aeq.arrayEx([]),
         updateOptions: null,
-        log: [],
         stats: {
             nonCompItemCount: 0,
             compCount: 0,
@@ -51,7 +50,9 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         }
     }
 
-    return {
+    return prune<GetResult>({
+        schema: 1.0,
+        aeversion: 0.0, // TODO(zlovatt): Get this value
         type: 'aex:getresult',
         object,
         footage: {
@@ -59,9 +60,7 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
             items: aexItems,
         },
         stats: state.stats,
-        profile: state.profile,
-        log: state.log,
-    };
+    });
 }
 
 function isGetResult(aexObject: Deserializable): aexObject is GetResult<AexSerialized> {

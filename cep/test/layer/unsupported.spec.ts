@@ -16,15 +16,19 @@ describe('Serialize Unsupported Properties', function () {
         await cleanupAex();
     });
 
-    it(`Log`, async () => {
+    it(`Callback`, async () => {
+        const log: string[] = [];
+
         const result = await aex.get(AeObject.ActiveComp, {
-            unspportedPropertyBehavior: 'log',
+            unspportedPropertyBehavior: (entry) => {
+                log.push(entry.message);
+            },
         });
 
-        console.log('unsupported_log', result);
+        console.log('unsupported_skip', result);
 
         expect(result.object).to.be.ok;
-        expect(result.log[0].message).to.contain('is unsupported');
+        expect(log.length).to.be.greaterThan(0);
     });
 
     it(`Skip`, async () => {
@@ -35,7 +39,6 @@ describe('Serialize Unsupported Properties', function () {
         console.log('unsupported_skip', result);
 
         expect(result.object).to.be.ok;
-        expect(result.log).to.be.empty;
     });
 
     it(`Throw`, async () => {

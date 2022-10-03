@@ -46,11 +46,8 @@ export interface AexPrescanResult {
 }
 export interface AexResult {
     object: any;
-    log: {
-        message: string;
-    }[];
     stats: any;
-    profile: {
+    profile?: {
         [key: string]: { elapsed: number; meta: string }[];
     };
 }
@@ -66,5 +63,5 @@ export interface AexObject {
 export type UnsupportedTypeCallback = (log: AexLogEntry) => void;
 
 export interface AexOptions {
-    unspportedPropertyBehavior: 'skip' | 'log' | 'throw' | 'metadata' | UnsupportedTypeCallback;
+    unspportedPropertyBehavior: 'skip' | 'throw' | 'metadata' | UnsupportedTypeCallback;
 }

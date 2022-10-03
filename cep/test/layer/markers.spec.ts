@@ -70,7 +70,6 @@ describe('Layer Markers', function () {
                         type: AEX_MARKER,
                     },
                 ],
-                transform: {},
                 type: AEX_NULL_LAYER,
             };
 
@@ -172,7 +171,6 @@ describe('Layer Markers', function () {
                         type: AEX_MARKER,
                     },
                 ],
-                transform: {},
                 type: AEX_NULL_LAYER,
             };
 

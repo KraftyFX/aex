@@ -24,14 +24,12 @@ describe('Project', function () {
             console.log('project_basic', project);
             assertAreEqual(project, {
                 bitsPerChannel: 16,
-                comps: [],
                 displayStartFrame: 1,
                 expressionEngine: 'extendscript',
                 feetFramesFilmType: 2412,
                 footageTimecodeDisplayStartType: 2213,
                 framesCountType: 2613,
                 gpuAccelType: 1816,
-                items: [],
                 linearizeWorkingSpace: true,
                 timeDisplayType: 2013,
                 type: AEX_PROJECT,
@@ -45,7 +43,6 @@ describe('Project', function () {
 
             const projectData = {
                 bitsPerChannel: 16,
-                comps: [],
                 displayStartFrame: 1,
                 expressionEngine: 'extendscript',
                 feetFramesFilmType: 2412,
@@ -57,7 +54,6 @@ describe('Project', function () {
                         aexid: 'placeholder:1',
                         conformFrameRate: 30,
                         duration: 5,
-                        folder: [],
                         frameRate: 30,
                         height: 1080,
                         label: 3,
@@ -67,7 +63,6 @@ describe('Project', function () {
                     },
                     {
                         aexid: 'solids:2',
-                        folder: [],
                         type: AEX_FOLDER_ITEM,
                         name: 'Solids',
                     },
