@@ -71,8 +71,36 @@ var getResult = aex.get(app.project);
 var aexProject = getResult.object; // 'object' contains the serializable JSON
 
 /**
-  TODO(zlovatt): Add a sample blob that isn't too long
-*/
+ * Sample data:
+    {
+      "name": "Camera Comp",
+      "aexid": "camera comp:1",
+      "duration": 4,
+      "frameRate": 60,
+      "height": 720,
+      "width": 1280,
+      "type": "aex:item:av:comp",
+      "layers": [
+        {
+          "name": "My Cool Camera",
+          "label": 4,
+          "transform": {
+            "position": {
+              "type": "aex:property:threed",
+              "matchName": "ADBE Position",
+              "value": [640, 360, -1777.7778]
+            },
+            "pointOfInterest": {
+              "type": "aex:property:threed",
+              "matchName": "ADBE Anchor Point",
+              "value": [100, 200, 300]
+            }
+          },
+          "type": "aex:layer:camera"
+        }
+      ]
+    }
+**/
 
 aeq.writeFile(JSON.stringify(aexProject, null, 3));
 ```
