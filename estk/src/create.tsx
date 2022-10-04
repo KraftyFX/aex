@@ -34,7 +34,15 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
         const getResult = aexObject as GetResult<AexSerialized>;
 
         aexObject = getResult.object;
-        state.footageToCreate = aeq.arrayEx(getResult.footage.items.concat(getResult.footage.comps));
+
+        if (getResult.footage) {
+            if (getResult.footage.items) {
+                state.footageToCreate = aeq.arrayEx(getResult.footage.items);
+            }
+            if (getResult.footage.comps) {
+                state.footageToCreate = aeq.arrayEx(state.footageToCreate.concat(getResult.footage.comps));
+            }
+        }
     }
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
