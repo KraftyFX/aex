@@ -50,6 +50,7 @@ aex._ipc_invoke = function (id: number, func: (aex_args: any) => void, ipcOption
 
         eventObj.dispatch();
     }
+
     function convertCallbacks(id: number, options: any) {
         const args = options.aex_args;
 

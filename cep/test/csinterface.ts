@@ -85,7 +85,7 @@ interface IPCRequest {
 let requestId = 0;
 const requests: { [key: string]: IPCRequest } = {};
 
-export function getEvalScriptResult<T = void>(code: string, args: any, options: { ignoreReturn: boolean }): Promise<T> {
+export function getEvalScriptResult<T = void>(code: string, args: any, options?: { ignoreReturn: boolean }): Promise<T> {
     const request = {} as IPCRequest;
 
     options = options || { ignoreReturn: false };
@@ -98,11 +98,11 @@ export function getEvalScriptResult<T = void>(code: string, args: any, options: 
         request.reject = reject;
 
         request.code = code;
-        request.args = args;
-        request.options = options;
+        request.args = args || {};
+        request.options = options!;
 
         const ipcOptionsAsJson = JSON.stringify({
-            ignoreReturn: options.ignoreReturn,
+            ignoreReturn: options!.ignoreReturn,
             aex_args: convertCallbacks(request),
         });
 

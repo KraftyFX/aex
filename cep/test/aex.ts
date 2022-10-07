@@ -25,30 +25,30 @@ export const aex = {
         return await getEvalScriptResult(`aex.benchmark(aex_args)`, options, { ignoreReturn: false });
     },
 
-    async prescan(aeObject: string, options?: AexOptions): Promise<AexPrescanResult> {
-        return await getEvalScriptResult<AexPrescanResult>(`aex.prescan(${aeObject}, aex_args)`, options || {}, {
+    async prescan(aeObject: string, prescanOptions?: AexOptions): Promise<AexPrescanResult> {
+        return await getEvalScriptResult<AexPrescanResult>(`aex.prescan(${aeObject}, aex_args)`, prescanOptions, {
             ignoreReturn: false,
         });
     },
 
-    async get(aeObject: string, options?: AexOptions): Promise<AexResult> {
+    async get(aeObject: string, getOptions?: AexOptions): Promise<AexResult> {
         const isLayer = aeObject.match(/app.project.activeItem.layer\(\d+\)/gi);
 
         if (isLayer || aeObject == AeObject.ActiveComp || aeObject == AeObject.Project) {
-            return await getEvalScriptResult<AexResult>(`aex.get(${aeObject}, aex_args)`, options || {}, { ignoreReturn: false });
+            return await getEvalScriptResult<AexResult>(`aex.get(${aeObject}, aex_args)`, getOptions, { ignoreReturn: false });
         } else {
             throw new Error(`Unrecognized AE Object - ${aeObject}`);
         }
     },
 
-    async create(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
-        return await getEvalScriptResult<AexResult>(`aex.create(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
+    async create(aeObject: string, aexObject: AexObject, createOptions?: AexOptions): Promise<AexResult> {
+        return await getEvalScriptResult<AexResult>(`aex.create(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, createOptions, {
             ignoreReturn: false,
         });
     },
 
-    async update(aeObject: string, aexObject: AexObject, options?: AexOptions): Promise<AexResult> {
-        return await getEvalScriptResult<AexResult>(`aex.update(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, options || {}, {
+    async update(aeObject: string, aexObject: AexObject, updateOptions?: AexOptions): Promise<AexResult> {
+        return await getEvalScriptResult<AexResult>(`aex.update(${aeObject}, ${JSON.stringify(aexObject)}, aex_args)`, updateOptions, {
             ignoreReturn: false,
         });
     },
