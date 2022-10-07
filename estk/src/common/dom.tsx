@@ -112,11 +112,13 @@ function forEachPairByGroup<V, P>(aexGroupedValues: GroupByResult<V>, aeGroupedV
     let index = 0;
 
     forEachGroup(aexGroupedValues, (member, aexValues) => {
-        const aeKeyValues = aeGroupedValues[member as string] || [];
-        const aeKeyValuesLength = aeKeyValues.length;
+        const aeValues = aeGroupedValues[member as string] || [];
+        const aeValuesLength = aeValues.length;
 
-        aeq.arrayEx(aexValues).forEach((v, i) => {
-            callback(v, i < aeKeyValuesLength ? aeKeyValues[i] : null, index++);
+        aeq.arrayEx(aexValues).forEach((aexValue, i) => {
+            const aeValue = i < aeValuesLength ? aeValues[i] : null;
+
+            callback(aexValue, aeValue, index++);
         });
     });
 }
