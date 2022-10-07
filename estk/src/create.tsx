@@ -35,39 +35,25 @@ function create(aeParentObject: Serializable, aexObject: Deserializable) {
     }
 
     if (isAddingCompToProject(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Comp to Project', () => {
-            createAeComp(aexObject as AexComp, state);
-        });
+        createAeComp(aexObject as AexComp, state);
     } else if (isAddingNonCompItemToProject(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Item to Project', () => {
-            createAeItem(aexObject as AexItem, state);
-        });
+        createAeItem(aexObject as AexItem, state);
     } else if (isAddingMarkerToComp(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Marker to Comp', () => {
-            const markerProperty = (aeParentObject as CompItem).markerProperty;
-            createAeMarker(markerProperty as MarkerValueProperty, aexObject as AexMarkerProperty, state);
-        });
+        const markerProperty = (aeParentObject as CompItem).markerProperty;
+        createAeMarker(markerProperty as MarkerValueProperty, aexObject as AexMarkerProperty, state);
     } else if (isAddingLayerToComp(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Layer(s) to Comp', () => {
-            if (aeq.isArray(aexObject)) {
-                aeq.arrayEx(aexObject).forEach((layer) => createAeLayer(aeParentObject as CompItem, layer, state));
-            } else {
-                createAeLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
-            }
-        });
+        if (aeq.isArray(aexObject)) {
+            aeq.arrayEx(aexObject).forEach((layer) => createAeLayer(aeParentObject as CompItem, layer, state));
+        } else {
+            createAeLayer(aeParentObject as CompItem, aexObject as AexLayer, state);
+        }
     } else if (isAddingPropertyGroupToLayer(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Property Group to Layer', () => {
-            addToAeLayer(aeParentObject as Layer, aexObject as AexSerializedGroup, state);
-        });
+        addToAeLayer(aeParentObject as Layer, aexObject as AexSerializedGroup, state);
     } else if (isAddingMarkerToLayer(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Marker to Layer', () => {
-            const markerProperty = (aeParentObject as Layer).marker;
-            createAeMarker(markerProperty as MarkerValueProperty, aexObject as AexMarkerProperty, state);
-        });
+        const markerProperty = (aeParentObject as Layer).marker;
+        createAeMarker(markerProperty as MarkerValueProperty, aexObject as AexMarkerProperty, state);
     } else if (isAddingKeyToProperty(aeParentObject, aexObject)) {
-        undoGroup('AEX: Add Keys to Property', () => {
-            _setPropertyKeys(aeParentObject as Property, [aexObject] as AexKey[], state);
-        });
+        _setPropertyKeys(aeParentObject as Property, [aexObject] as AexKey[], state);
     } else if (isAddingPropertyToLayer(aeParentObject, aexObject)) {
         throw notImplemented(`Creating a '${aexObject.type}' under a '${getDebugStringForAeType(aeParentObject)}'`);
     } else {
