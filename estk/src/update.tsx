@@ -45,7 +45,11 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         });
     } else if (isUpdatingLayer(aeObject, aexObject)) {
         undoGroup('AEX: Update Layer', () => {
-            updateAeLayer(aeObject, aexObject as AexLayer, state);
+            if (aeq.isArray(aeObject)) {
+                throw notSupported(`Updating arrays of layers is not supported. Update using a comp instead.`);
+            }
+
+            updateAeLayer(aeObject as Layer, aexObject as AexLayer, state);
         });
     } else if (isUpdatingPropertyGroup(aeObject, aexObject)) {
         undoGroup('AEX: Update Property Group', () => {
@@ -63,17 +67,17 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
 }
 
 function isUpdatingProject(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is Project {
-    return aeObject instanceof Project && aexObject.type === AEX_PROJECT;
+    return aeObject instanceof Project && !aeq.isArray(aexObject) && aexObject.type === AEX_PROJECT;
 }
 
 function isUpdatingComp(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is CompItem {
-    return aeObject instanceof CompItem && aexObject.type === AEX_COMP_ITEM;
+    return aeObject instanceof CompItem && !aeq.isArray(aexObject) && aexObject.type === AEX_COMP_ITEM;
 }
 
-function isUpdatingLayer(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is Layer {
-    return aeq.isLayer(aeObject) && isAexLayer(aexObject as AexSerialized);
+function isUpdatingLayer(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aexObject is AexLayer | AexLayer[] {
+    return isLayerOrLayerArray(aeObject) && isAexLayerOrAexLayerArray(aexObject);
 }
 
 function isUpdatingPropertyGroup(aeObject: Serializable, aexObject: AexSerialized | GetResult<AexSerialized>): aeObject is PropertyGroup {
-    return aeq.isPropertyGroup(aeObject) && isAexSerializedGroup(aexObject as AexSerialized);
+    return aeq.isPropertyGroup(aeObject) && !aeq.isArray(aexObject) && isAexSerializedGroup(aexObject as AexObject);
 }

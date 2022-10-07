@@ -121,13 +121,15 @@ function forEachPairByGroup<V, P>(aexGroupedValues: GroupByResult<V>, aeGroupedV
     });
 }
 
-function getDebugStringForAeType(obj: Project | Item | Layer | PropertyBase) {
+function getDebugStringForAeType(obj: Project | Item | Layer | Layer[] | PropertyBase) {
     if (aeq.isNullOrUndefined(obj)) {
         return 'null or undefined';
     }
 
     if (obj instanceof Project) {
         return 'project';
+    } else if (aeq.isArray(obj)) {
+        return 'array';
     } else if (aeq.isProperty(obj)) {
         return 'property';
     } else if (aeq.isTextLayer(obj)) {
