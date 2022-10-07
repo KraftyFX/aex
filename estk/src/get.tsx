@@ -1,6 +1,6 @@
 function get(aeObject: Project, options?: GetOptions): GetResult<AexProject>;
 function get(aeObject: CompItem, options?: GetOptions): GetResult<AexComp>;
-function get(aeObject: Layer, options?: GetOptions): GetResult<AexLayer>;
+function get(aeObject: Layer | Layer[], options?: GetOptions): GetResult<AexLayer>;
 function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSerialized> {
     assertIsDefined(aeObject, 'aeObject');
 
@@ -29,8 +29,12 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
         object = getAexProject(aeObject as Project, state);
     } else if (aeq.isComp(aeObject)) {
         object = getAexComp(aeObject as CompItem, state);
-    } else if (aeq.isLayer(aeObject)) {
-        object = getAexLayer(aeObject as Layer, state);
+    } else if (isLayerOrLayerArray(aeObject)) {
+        if (aeq.isArray(aeObject)) {
+            object = aeq.arrayEx(aeObject).map((layer) => getAexLayer(layer, state));
+        } else {
+            object = getAexLayer(aeObject, state);
+        }
     } else {
         throw notSupported(`Getting a '${getDebugStringForAeType(aeObject)}'`);
     }
@@ -62,6 +66,14 @@ function get(aeObject: Serializable, options?: GetOptions): GetResult<AexSeriali
     });
 }
 
+function isLayerOrLayerArray(aeObject: Serializable | Layer[]): aeObject is Layer | Layer[] {
+    if (aeq.isArray(aeObject)) {
+        return aeq.arrayEx(aeObject).every(aeq.isLayer);
+    } else {
+        return aeq.isLayer(aeObject);
+    }
+}
+
 function isGetResult(aexObject: Deserializable): aexObject is GetResult<AexSerialized> {
-    return aexObject.type == 'aex:getresult';
+    return !aeq.isArray(aexObject) && aexObject.type == 'aex:getresult';
 }

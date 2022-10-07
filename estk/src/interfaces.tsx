@@ -1,7 +1,7 @@
-type Serializable = Project | CompItem | Layer | PropertyGroup | Property;
+type Serializable = Project | CompItem | Layer | Layer[] | PropertyGroup | Property;
 type Deserializable = AexSerialized | AexProperty | AexKey | AexMarkerProperty | GetResult<AexSerialized>;
 
-type AexSerialized = AexProject | AexItem | AexLayer | AexSerializedGroup;
+type AexSerialized = AexProject | AexItem | AexLayer | AexLayer[] | AexSerializedGroup;
 type AexSerializedGroup = AexEffectPropertyGroup | AexShapePropertyGroup | AexAnimatorPropertyGroup;
 
 type AexObjectType = 'aex:project' | AexItemType | AexLayerType | AexPropertyType | AexPropertyGroupType | AexKeyType | AexMarkerType;
