@@ -12,11 +12,11 @@ function _getAexLayerMasks(layer: AVLayer, state: AexState): AexMask[] {
     forEachPropertyInGroup(
         layer.mask,
         (mask: MaskPropertyGroup) => {
-            const { name, color } = mask;
+            const { name } = mask;
 
             masks.push({
                 name,
-                color,
+                color: roundArray(mask.color),
                 maskMode: getModifiedValue(mask.maskMode, MaskMode.ADD),
                 inverted: getModifiedValue(mask.inverted, false),
                 rotoBezier: getModifiedValue(mask.rotoBezier, false),
