@@ -33,7 +33,7 @@ There are 2 ways to work with AEX. Directly by downloading and including the lib
 
 ## Direct usage instructions
 
-Download the latest release from [the Releases page](./releases) page. Unzip it and look at the sample project.
+Download the latest release from [the Releases page](../../releases) page. Unzip it and look at the sample project.
 
 > **Note**: you don't need to download this repo to **use** AEX! Most of this codebase is for developing and [contributing to AEX](#contributing); stick to the Releases linked above.
 
