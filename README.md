@@ -21,7 +21,6 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 
 const aexProject = aex.get(app.project).object;
 
-// TODO(zlovatt): Come up with a better sample
 aexProject.footage.comps[0].layers[1].markers[2].comment = 'OMG, that was easy!';
 
 // Update the current project with it.
@@ -204,13 +203,7 @@ TODO: Markers
 
 Similar behavior as `get()` (but not identical) but gives an _approximate_ count of all the items.
 
-This is useful if you're writing a tool and want to make a progress bar.
-
-```javascript
-var prescanResult = aex.prescan(app.project);
-```
-
-TODO: Finish
+This is useful if you're writing a tool and want to make a progress bar that shows the total number of items that will be processed without actually processing them.
 
 ---
 
