@@ -10,7 +10,6 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 
 -   Converts _most_ of the AE DOM to human readable JSON **and back**.
 -   Can create or update projects, comps, layers, and properties.
--   Separates out text for easy reading and updating.
 
 ## Example
 
