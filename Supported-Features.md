@@ -18,7 +18,7 @@ Some facets of this are supported, others aren't; see ticket for details.
 
 These features are currently not seen as valuable to the AEX project, and are deliberately omitted.
 
-If you feel anything on this list would be of value, [please open a Github Issue to discuss](./issues)!
+If you feel anything on this list would be of value, [please open a Github Issue to discuss](../../discussions)!
 
 ## Wishlist (🌠)
 
