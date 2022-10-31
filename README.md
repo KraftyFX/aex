@@ -150,6 +150,10 @@ You can also create from a previously serizlied get call. This is usually necess
 ```javascript
 var getResult = JSON.parse(aeq.readFile('project.json'));
 aex.create(app.project, getResult);
+
+// Note that this would fail because the getResult.object might contain
+// pre-comp references and they aren't included in the blob.
+aex.create(app.project, getResult.object); // throws
 ```
 
 ## `aex.update(aeThing, aexThingBlob, options?)`
