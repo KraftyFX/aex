@@ -330,7 +330,18 @@ interface AexShapePropertyGroup extends AexPropertyGroup, AexObject {
     contents: AexShapePropertyGroup[];
 }
 
-interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {}
+interface AexEffectLinkedLayerIndex {
+    /** Property index in the effect that links to a layer */
+    propertyIndex: number;
+
+    /** Layer index that the property points to */
+    layerIndex: number;
+}
+
+interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {
+    /** If the effect contains any properties that link to a specific layer, store those to set in a second pass */
+    linkedLayerIndices: AexEffectLinkedLayerIndex[];
+}
 
 interface AexAnimatorPropertyGroup extends AexPropertyGroup, AexObject {}
 

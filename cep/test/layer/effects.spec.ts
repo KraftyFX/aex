@@ -578,6 +578,13 @@ describe('Layer Effects', function () {
                         name: 'Layer Control',
                         matchName: 'ADBE Layer Control',
                         type: AEX_EFFECT_PROPERTYGROUP,
+
+                        linkedLayerIndices: [
+                            {
+                                propertyIndex: 1,
+                                layerIndex: 1,
+                            },
+                        ],
                     },
                     {
                         name: 'Point Control',
@@ -785,6 +792,12 @@ describe('Layer Effects', function () {
                                         matchName: 'ADBE Layer Control-0001',
                                         type: AEX_ONED_PROPERTY,
                                         value: 2,
+                                    },
+                                ],
+                                linkedLayerIndices: [
+                                    {
+                                        propertyIndex: 1,
+                                        layerIndex: 2,
                                     },
                                 ],
                                 type: AEX_EFFECT_PROPERTYGROUP,
