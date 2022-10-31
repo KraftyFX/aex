@@ -55,6 +55,10 @@ interface GetOptions {
     unspportedPropertyBehavior: CommonBehavior | 'metadata';
 }
 
+interface CreateOptions {
+    missingFileBehavior: CommonBehavior;
+}
+
 interface GetResult<T = AexSerialized> {
     /** Version of the schema for this interface */
     schema: number;
@@ -104,6 +108,7 @@ interface AexStats {
 interface AexState {
     prescanOptions: PrescanOptions;
     getOptions: GetOptions;
+    createOptions: CreateOptions;
     footageSources?: AEQArrayEx<Item>;
     footageToCreate?: AEQArrayEx<AexItem>;
     footageIdMap?: { [key: string]: number };
@@ -213,6 +218,8 @@ type AexAVLayer = AexShapeLayer | AexFootageLayer | AexTextLayer | AexNullLayer;
 interface AexLayerBase {
     name: string;
     label: number;
+    enabled: boolean;
+
     comment: string;
     hasVideo: boolean;
     inPoint: number;
@@ -221,8 +228,9 @@ interface AexLayerBase {
     shy: boolean;
     solo: boolean;
     stretch: number;
-
+    dimensionsSeparated: boolean;
     parentLayerIndex: number;
+
     markers: AexMarkerProperty[];
     transform: AexTransform;
 }
@@ -296,7 +304,7 @@ interface AexTextLayer extends AexAVLayerBase, AexObject {
 interface AexPropertyBase {
     enabled: boolean;
     matchName: string;
-    name: string;
+    name?: string;
 }
 
 interface AexProperty<T extends AexPropertyValueType = any> extends AexPropertyBase, AexObject {
@@ -322,7 +330,18 @@ interface AexShapePropertyGroup extends AexPropertyGroup, AexObject {
     contents: AexShapePropertyGroup[];
 }
 
-interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {}
+interface AexEffectLinkedLayerIndex {
+    /** Property index in the effect that links to a layer */
+    propertyIndex: number;
+
+    /** Layer index that the property points to */
+    layerIndex: number;
+}
+
+interface AexEffectPropertyGroup extends AexPropertyGroup, AexObject {
+    /** If the effect contains any properties that link to a specific layer, store those to set in a second pass */
+    linkedLayerIndices: AexEffectLinkedLayerIndex[];
+}
 
 interface AexAnimatorPropertyGroup extends AexPropertyGroup, AexObject {}
 
@@ -389,7 +408,10 @@ interface AexMask {
 
 interface AexTransform {
     anchorPoint: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
-    position: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    position?: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
+    xPosition?: AexProperty<number>;
+    yPosition?: AexProperty<number>;
+    zPosition?: AexProperty<number>;
     scale: AexProperty<TwoDPoint> | AexProperty<ThreeDPoint>;
     pointOfInterest: AexProperty<ThreeDPoint>;
     orientation: AexProperty<ThreeDPoint>;

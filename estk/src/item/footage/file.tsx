@@ -6,22 +6,37 @@ function getAexFileItem(item: FootageItem, state: AexState): AexFileItem {
 
     const sequence = !item.mainSource.isStill && itemIsSequence(item) ? true : undefined;
 
+    // Override irrelevant AV Item base props
+    const height = undefined;
+    const width = undefined;
+    const duration = undefined;
+    const frameRate = undefined;
+
     return {
         ...itemAttributes,
         type: AEX_FILE_FOOTAGE_ITEM,
 
         file: itemSource.file.fsName,
         sequence,
+
+        height,
+        width,
+        duration,
+        frameRate,
     };
 }
 
 function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
     const importOptions = new ImportOptions();
 
-    /** @todo Add a check / throw an error if the file doesn't exist! */
+    const file = new File(aexFile.file);
+
+    if (!file.exists) {
+        handleMissingFileAtPath();
+    }
 
     assignAttributes(importOptions, {
-        file: new File(aexFile.file),
+        file: file,
         forceAlphabetical: false,
         importAs: ImportAsType.FOOTAGE,
         sequence: aexFile.sequence,
@@ -29,15 +44,37 @@ function createAeFileItem(aexFile: AexFileItem, state: AexState): FootageItem {
 
     const aeFileItem = app.project.importFile(importOptions as ImportOptions) as FootageItem;
 
-    updateAeFootageItemAttributes(aeFileItem, aexFile, state);
+    updateAeFileItem(aeFileItem, aexFile, state);
+
+    return aeFileItem;
+
+    function handleMissingFileAtPath() {
+        const message = `The file at path "${aexFile.file}" does not appear to exist on disk.`;
+
+        switch (state.createOptions.missingFileBehavior) {
+            case 'skip':
+                break;
+            case 'throw':
+                throw fail(message);
+            default:
+                state.createOptions.missingFileBehavior({
+                    aexObject: aexFile,
+                    message,
+                });
+                break;
+        }
+    }
+}
+
+function updateAeFileItem(aeFile: FootageItem, aexFile: AexFileItem, state: AexState): FootageItem {
+    aexFile.duration = undefined;
+    aexFile.frameRate = undefined;
+
+    updateAeFootageItemAttributes(aeFile, aexFile, state);
 
     state.stats.nonCompItemCount++;
 
-    return aeFileItem;
-}
-
-function updateAeFileItem(aeFile: FootageItem, aexFootage: AexFileItem, state: AexState) {
-    throw notImplemented(`Updating a file item`);
+    return aeFile;
 }
 
 function itemIsStillImage(item: FootageItem): boolean {

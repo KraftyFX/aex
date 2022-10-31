@@ -18,6 +18,7 @@ function getAexCompLayers(aeComp: CompItem, state: AexState) {
 
 function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState) {
     const layersWithParents = aeq.arrayEx();
+    const layersWithLayerLinkedEffects = aeq.arrayEx();
 
     const onLayerPair = (aexLayer: AexLayer, aeLayer: Layer, i: number) => {
         if (!aeLayer) {
@@ -31,6 +32,25 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
              */
             if (aexLayer.parentLayerIndex) {
                 layersWithParents.push(aexComp.layers.length - i);
+            }
+
+            /**
+             * Filter out all layer effects that refer to other layers, to process once we've built layers.
+             */
+            if (isAexAvLayer(aexLayer) && aexLayer.effects && aexLayer.effects.length > 0) {
+                aeq.arrayEx(aexLayer.effects).forEach((aexEffect, j: number) => {
+                    const effectLinkedLayerIndices = aexEffect.linkedLayerIndices;
+
+                    if (!effectLinkedLayerIndices || effectLinkedLayerIndices.length == 0) {
+                        return;
+                    }
+
+                    layersWithLayerLinkedEffects.push({
+                        layerIndex: aexComp.layers.length - i,
+                        effectIndex: j + 1,
+                        linkedLayerIndices: effectLinkedLayerIndices,
+                    });
+                });
             }
         } else {
             updateAeLayer(aeLayer, aexLayer, state);
@@ -72,6 +92,30 @@ function updateAeCompLayers(aeComp: CompItem, aexComp: AexComp, state: AexState)
 
         setLayerParent(aeLayer, aexLayer, state);
         updateLayerTransform(aeLayer, aexLayer.transform, state);
+    });
+
+    /**
+     * Once all layers have been created, set all effects that refer to other layers to those layer indices
+     */
+    layersWithLayerLinkedEffects.forEach(function (layerLinkedEffectLayerData) {
+        const aeLayer = aeComp.layer(layerLinkedEffectLayerData.layerIndex);
+
+        if (!isVisibleLayer(aeLayer)) {
+            return;
+        }
+
+        const layerEffect = aeLayer.effect(layerLinkedEffectLayerData.effectIndex);
+        const effectLinkedLayerIndices = layerLinkedEffectLayerData.linkedLayerIndices;
+
+        aeq.arrayEx(effectLinkedLayerIndices).forEach((linkedLayerIndex: AexEffectLinkedLayerIndex) => {
+            const effectProperty = layerEffect.property(linkedLayerIndex.propertyIndex);
+
+            if (!aeq.isProperty(effectProperty)) {
+                return;
+            }
+
+            effectProperty.setValue(linkedLayerIndex.layerIndex);
+        });
     });
 }
 

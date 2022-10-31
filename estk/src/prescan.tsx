@@ -4,6 +4,7 @@ function prescan(aeObject: Serializable, options?: PrescanOptions): PrescanResul
     const state: AexState = {
         prescanOptions: options,
         getOptions: null,
+        createOptions: null,
         updateOptions: null,
         stats: {
             nonCompItemCount: 0,

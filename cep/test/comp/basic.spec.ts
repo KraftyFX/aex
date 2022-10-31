@@ -32,7 +32,6 @@ describe('Comp', function () {
                 frameRate: 60,
                 height: 720,
                 name: 'Comp 1',
-                pixelAspect: 1,
                 type: AEX_COMP_ITEM,
                 width: 1280,
             };

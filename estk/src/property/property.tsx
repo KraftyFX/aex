@@ -12,7 +12,6 @@ function getProperty(aeProperty: Property, state: AexState): AexProperty {
         () => {
             const aexProperty: AexProperty = {
                 type: _getPropertyType(aeProperty),
-                name: getBoundModifiedValue(aeProperty.parentProperty.propertyType === PropertyType.INDEXED_GROUP, () => aeProperty.name, undefined),
                 matchName: aeProperty.matchName,
                 value: undefined,
                 enabled: getModifiedValue(aeProperty.enabled, true),
@@ -81,13 +80,6 @@ function setProperty(aeProperty: Property, aexProperty: AexProperty, state: AexS
         expressionEnabled: aexProperty.expressionEnabled,
     });
 
-    /**
-     * We can only set property names if they're a member of a INDEXED_GROUP
-     */
-    if (aeProperty.propertyGroup(1).propertyType === PropertyType.INDEXED_GROUP) {
-        aeProperty.name = aexProperty.name;
-    }
-
     const keys = aexProperty.keys || [];
 
     if (keys.length > 0) {
@@ -126,6 +118,6 @@ function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropert
     }
 }
 
-function isShapeProperty(aeProperty: Property<UnknownPropertyType>): boolean {
+function isShapeProperty(aeProperty: Property<UnknownPropertyType>): aeProperty is ShapeProperty {
     return aeProperty.propertyValueType === PropertyValueType.SHAPE;
 }

@@ -20,19 +20,15 @@ function createAePlaceholderItem(aexPlaceholder: AexPlaceholderItem, state: AexS
 
     assignAttributes(placeholderSettings, aexPlaceholder);
 
-    aexPlaceholder.loop = aexPlaceholder.loop || 1;
-
     const aePlaceholder = app.project.importPlaceholder(
         placeholderSettings.name,
         placeholderSettings.width,
         placeholderSettings.height,
         placeholderSettings.frameRate,
-        placeholderSettings.duration / aexPlaceholder.loop
+        placeholderSettings.duration / (aexPlaceholder.loop || 1)
     );
 
-    updateAeFootageItemAttributes(aePlaceholder, aexPlaceholder, state);
-
-    state.stats.nonCompItemCount++;
+    updateAePlaceholderItem(aePlaceholder, aexPlaceholder, state);
 
     return aePlaceholder;
 }
@@ -40,15 +36,7 @@ function createAePlaceholderItem(aexPlaceholder: AexPlaceholderItem, state: AexS
 function updateAePlaceholderItem(aePlaceholder: FootageItem, aexPlaceholder: AexPlaceholderItem, state: AexState) {
     state.stats.nonCompItemCount++;
 
-    aexPlaceholder.loop = aexPlaceholder.loop || 1;
-
-    assignAttributes(aePlaceholder, {
-        name: aexPlaceholder.name,
-        width: aexPlaceholder.width,
-        height: aexPlaceholder.height,
-        frameRate: aexPlaceholder.frameRate,
-        duration: aexPlaceholder.duration / aexPlaceholder.loop,
-    });
-
+    aexPlaceholder.duration = undefined;
+    aexPlaceholder.frameRate = undefined;
     updateAeFootageItemAttributes(aePlaceholder, aexPlaceholder, state);
 }

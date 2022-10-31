@@ -6,7 +6,6 @@
         "duration": 4,
         "frameRate": 60,
         "height": 720,
-        "pixelAspect": 1,
         "width": 1280,
         "type": "aex:item:av:comp",
         "dropFrame": true,
@@ -20,72 +19,6 @@
                         "matchName": "ADBE Position",
                         "value": [640, 360, -1]
                     }
-                },
-                "type": "aex:layer:camera",
-                "cameraOption": {
-                    "matchName": "ADBE Camera Options Group",
-                    "properties": [
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Camera Zoom",
-                            "value": 1
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Camera Focus Distance",
-                            "value": 2
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Camera Aperture",
-                            "value": 3
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Camera Blur Level",
-                            "value": 4
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Shape",
-                            "value": 4
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Rotation",
-                            "value": 5
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Roundness",
-                            "value": 6
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Aspect Ratio",
-                            "value": 7
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Diffraction Fringe",
-                            "value": 8
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Highlight Gain",
-                            "value": 9
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Highlight Threshold",
-                            "value": 0.0392
-                        },
-                        {
-                            "type": "aex:property:oned",
-                            "matchName": "ADBE Iris Hightlight Saturation",
-                            "value": 11
-                        }
-                    ]
                 }
             },
             {

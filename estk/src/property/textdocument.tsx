@@ -1,4 +1,4 @@
-function isTextDocument(aeProperty: Property<UnknownPropertyType>) {
+function isTextDocument(aeProperty: Property<UnknownPropertyType>): aeProperty is TextDocumentProperty {
     return aeProperty.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
 }
 
@@ -42,7 +42,8 @@ function _createTextDocument(aeTextDocument: TextDocument, aexTextDocument: AexT
     aeTextDocument.resetCharStyle();
 
     /**
-     * These properties are read & serialized, but can't be deserialized:
+     * These properties are read & serialized, but can't be deserialized
+     * @todo issue #53
      *
      * aeTextDocument.allCaps = aexTextDocument.allCaps;
      * aeTextDocument.boxTextPos = aexTextDocument.boxTextPos;

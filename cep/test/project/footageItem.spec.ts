@@ -37,7 +37,7 @@ describe('Footage', function () {
                     height: 1080,
                     label: 3,
                     name: 'Placeholder',
-                    pixelAspect: 1,
+                    pixelAspect: 2,
                     type: AEX_PLACEHOLDER_ITEM,
                     width: 1920,
                 },
@@ -52,7 +52,6 @@ describe('Footage', function () {
                     height: 500,
                     type: AEX_SOLID_ITEM,
                     name: 'Black Solid 1',
-                    pixelAspect: 1,
                     width: 500,
                 },
             ]);
@@ -69,7 +68,6 @@ describe('Footage', function () {
                 height: 1080,
                 label: 3,
                 name: 'Placeholder',
-                pixelAspect: 1,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
             };
@@ -97,12 +95,9 @@ describe('Footage', function () {
                 aexid: '14_alpha_straight:18',
                 alphaMode: 5412,
                 file: transparentPath,
-                height: 50,
                 label: 5,
                 name: '14_Alpha_Straight',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
 
             console.log('alpha_mode_ignore', items[14]);
@@ -110,12 +105,9 @@ describe('Footage', function () {
                 aexid: '15_alpha_ignore:19',
                 alphaMode: 5413,
                 file: transparentPath,
-                height: 50,
                 label: 5,
                 name: '15_Alpha_Ignore',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
 
             console.log('alpha_mode_premult', items[15]);
@@ -123,12 +115,9 @@ describe('Footage', function () {
                 aexid: '16_alpha_premult_black:20',
                 alphaMode: 5414,
                 file: transparentPath,
-                height: 50,
                 label: 5,
                 name: '16_Alpha_Premult_Black',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
         });
 
@@ -140,34 +129,25 @@ describe('Footage', function () {
                     aexid: '14_alpha_straight:16',
                     alphaMode: 5412,
                     file: transparentPath,
-                    height: 50,
                     label: 5,
                     name: '14_Alpha_Straight',
-                    pixelAspect: 1,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 50,
                 },
                 {
                     aexid: '15_alpha_ignore:17',
                     alphaMode: 5413,
                     file: transparentPath,
-                    height: 50,
                     label: 5,
                     name: '15_Alpha_Ignore',
-                    pixelAspect: 1,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 50,
                 },
                 {
                     aexid: '16_alpha_premult_black:18',
                     alphaMode: 5414,
                     file: transparentPath,
-                    height: 50,
                     label: 5,
                     name: '16_Alpha_Premult_Black',
-                    pixelAspect: 1,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 50,
                 },
             ];
 
@@ -200,13 +180,10 @@ describe('Footage', function () {
                 aexid: '18_alpha_invert:21',
                 alphaMode: 5412,
                 file: transparentPath,
-                height: 50,
                 invertAlpha: true,
                 label: 5,
                 name: '18_Alpha_Invert',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
         });
 
@@ -217,13 +194,10 @@ describe('Footage', function () {
                 aexid: '18_alpha_invert:3',
                 alphaMode: 5412,
                 file: transparentPath,
-                height: 50,
                 invertAlpha: true,
                 label: 5,
                 name: '18_Alpha_Invert',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             };
 
             await aex.create(AeObject.Project, footageData);
@@ -249,12 +223,9 @@ describe('Footage', function () {
                 aexid: '16_alpha_premult_black:20',
                 alphaMode: 5414,
                 file: transparentPath,
-                height: 50,
                 label: 5,
                 name: '16_Alpha_Premult_Black',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
 
             console.log('alpha_premult_red', items[16]);
@@ -262,13 +233,10 @@ describe('Footage', function () {
                 aexid: '17_alpha_premult_red:22',
                 alphaMode: 5414,
                 file: transparentPath,
-                height: 50,
                 label: 5,
                 name: '17_Alpha_Premult_Red',
-                pixelAspect: 1,
                 premulColor: [1, 0, 0],
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 50,
             });
         });
 
@@ -280,24 +248,18 @@ describe('Footage', function () {
                     aexid: '16_alpha_premult_black:20',
                     alphaMode: 5414,
                     file: transparentPath,
-                    height: 50,
                     label: 5,
                     name: '16_Alpha_Premult_Black',
-                    pixelAspect: 1,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 50,
                 },
                 {
                     aexid: '17_alpha_premult_red:2',
                     alphaMode: 5414,
                     file: transparentPath,
-                    height: 50,
                     label: 5,
                     name: '17_Alpha_Premult_Red',
-                    pixelAspect: 1,
                     premulColor: [1, 0, 0],
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 50,
                 },
             ];
 
@@ -325,13 +287,9 @@ describe('Footage', function () {
                 aexid: '01_still_fields_upper:3',
                 fieldSeparationType: 5612,
                 file: stillPath,
-                frameRate: 30,
-                height: 432,
                 label: 5,
                 name: '01_Still_Fields_Upper',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
 
             console.log('split_fields_lower', items[2]);
@@ -339,13 +297,9 @@ describe('Footage', function () {
                 aexid: '03_still_fields_lower:5',
                 fieldSeparationType: 5614,
                 file: stillPath,
-                frameRate: 30,
-                height: 432,
                 label: 5,
                 name: '03_Still_Fields_Lower',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
         });
 
@@ -356,32 +310,22 @@ describe('Footage', function () {
                 {
                     aexid: '01_still_fields_upper:3',
                     conformFrameRate: 30,
-                    duration: 0.0667,
                     fieldSeparationType: 5612,
                     file: seqPath,
-                    frameRate: 30,
-                    height: 432,
                     label: 3,
                     name: '01_Still_Fields_Upper',
-                    pixelAspect: 1,
                     sequence: true,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 480,
                 },
                 {
                     aexid: '03_still_fields_lower:2',
                     conformFrameRate: 30,
-                    duration: 0.0667,
                     fieldSeparationType: 5614,
                     file: seqPath,
-                    frameRate: 30,
-                    height: 432,
                     label: 3,
                     name: '03_Still_Fields_Lower',
-                    pixelAspect: 1,
                     sequence: true,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 480,
                 },
             ];
 
@@ -410,13 +354,9 @@ describe('Footage', function () {
                 fieldSeparationType: 5612,
                 highQualityFieldSeparation: true,
                 file: stillPath,
-                frameRate: 30,
-                height: 432,
                 label: 5,
                 name: '02_Still_Fields_Upper_PreserveEdges',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
 
             console.log('split_fields_lower_preserve', items[3]);
@@ -425,13 +365,9 @@ describe('Footage', function () {
                 fieldSeparationType: 5614,
                 highQualityFieldSeparation: true,
                 file: stillPath,
-                frameRate: 30,
-                height: 432,
                 label: 5,
                 name: '04_Still_Fields_Lower_PreserveEdges',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
         });
 
@@ -442,34 +378,24 @@ describe('Footage', function () {
                 {
                     aexid: '02_still_fields_upper_preserveedges:3',
                     conformFrameRate: 30,
-                    duration: 0.0667,
                     fieldSeparationType: 5612,
                     file: seqPath,
-                    frameRate: 30,
-                    height: 432,
                     highQualityFieldSeparation: true,
                     label: 3,
                     name: '02_still_fields_upper_preserveedges',
-                    pixelAspect: 1,
                     sequence: true,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 480,
                 },
                 {
                     aexid: '04_still_fields_lower_preserveedges:2',
                     conformFrameRate: 30,
-                    duration: 0.0667,
                     fieldSeparationType: 5614,
                     file: seqPath,
-                    frameRate: 30,
-                    height: 432,
                     highQualityFieldSeparation: true,
                     label: 3,
                     name: '04_still_fields_lower_preserveedges',
-                    pixelAspect: 1,
                     sequence: true,
                     type: AEX_FILE_FOOTAGE_ITEM,
-                    width: 480,
                 },
             ];
 
@@ -501,7 +427,6 @@ describe('Footage', function () {
                 height: 1080,
                 label: 3,
                 name: '12_ConformFrameRate',
-                pixelAspect: 1,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
             });
@@ -518,7 +443,6 @@ describe('Footage', function () {
                 height: 1080,
                 label: 3,
                 name: '12_ConformFrameRate',
-                pixelAspect: 1,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
             };
@@ -551,7 +475,6 @@ describe('Footage', function () {
                 height: 1080,
                 label: 3,
                 name: '13_Pulldown',
-                pixelAspect: 1,
                 removePulldown: 5818,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
@@ -570,7 +493,6 @@ describe('Footage', function () {
                 height: 1080,
                 label: 3,
                 name: '13_Pulldown',
-                pixelAspect: 1,
                 removePulldown: 5818,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
@@ -604,7 +526,6 @@ describe('Footage', function () {
                 label: 3,
                 loop: 3,
                 name: '11_Loop',
-                pixelAspect: 1,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
             });
@@ -622,7 +543,6 @@ describe('Footage', function () {
                 label: 3,
                 loop: 3,
                 name: '11_Loop',
-                pixelAspect: 1,
                 type: AEX_PLACEHOLDER_ITEM,
                 width: 1920,
             };

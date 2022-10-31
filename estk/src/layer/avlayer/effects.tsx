@@ -20,6 +20,7 @@ function getAexAvLayerEffects(aeAvLayer: AVLayer, state: AexState): AexEffectPro
              * Layer.effect hierarchy and should be gracefully skipped over.
              */
             aexEffectGroup.properties = getPropertyGroup(effectGroup, state, _isUiOnlyEffectProperty)?.properties;
+            aexEffectGroup.linkedLayerIndices = _getLinkedLayerIndices(effectGroup);
             aexEffectGroup.type = AEX_EFFECT_PROPERTYGROUP;
         }
     };
@@ -128,4 +129,24 @@ function _getDropdownPropertyItems(dropdownProperty: Property, state: AexState):
     }
 
     return propertyItems;
+}
+
+/**
+ * Find all properties within an effect that refer to other layers by index
+ */
+function _getLinkedLayerIndices(effectGroup: PropertyGroup): AexEffectLinkedLayerIndex[] {
+    const linkedLayerIndices = aeq.arrayEx();
+
+    aeq.forEachProperty(effectGroup, (effectProperty: Property) => {
+        if (effectProperty.propertyValueType !== PropertyValueType.LAYER_INDEX) {
+            return;
+        }
+
+        linkedLayerIndices.push({
+            propertyIndex: effectProperty.propertyIndex,
+            layerIndex: effectProperty.value,
+        });
+    });
+
+    return linkedLayerIndices;
 }

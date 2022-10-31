@@ -36,11 +36,11 @@ const AEX_SHAPEITEM_PROPERTYGROUP = 'aex:propertyGroup:shape:item';
 const AEX_TEXT_ANIMATOR_PROPERTYGROUP = 'aex:propertyGroup:text:animator';
 const AEX_LAYERSTYLE_PROPERTYGROUP = 'aex:propertyGroup:layerstyle';
 
-function isAexLayer(aexObject: AexObject) {
+function isAexLayer(aexObject: AexObject): aexObject is AexLayer {
     return aexObject.type.indexOf('aex:layer') == 0;
 }
 
-function isAexAvLayer(aexObject: AexObject) {
+function isAexAvLayer(aexObject: AexObject): aexObject is AexAVLayer {
     return aexObject.type.indexOf('aex:layer:av') == 0;
 }
 
@@ -48,14 +48,14 @@ function isAexSerializedGroup(aexObject: AexObject) {
     return aexObject.type.indexOf('aex:propertyGroup') == 0;
 }
 
-function isAexProperty(aexObject: AexObject) {
+function isAexProperty(aexObject: AexObject): aexObject is AexProperty {
     return aexObject.type.indexOf('aex:property') == 0;
 }
 
-function isAexKey(aexObject: AexObject) {
+function isAexKey(aexObject: AexObject): aexObject is AexKey {
     return aexObject.type.indexOf(AEX_KEY) == 0;
 }
 
-function isAexMarker(aexObject: AexObject) {
+function isAexMarker(aexObject: AexObject): aexObject is AexMarkerProperty {
     return aexObject.type.indexOf(AEX_MARKER) == 0;
 }

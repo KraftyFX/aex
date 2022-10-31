@@ -9,6 +9,9 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
     const state: AexState = {
         prescanOptions: null,
         getOptions: null,
+        createOptions: {
+            missingFileBehavior: 'throw',
+        },
         updateOptions: {
             markerMatchBy: 'index',
             layerMatchBy: 'index',
@@ -30,7 +33,15 @@ function update(aeObject: Serializable, aexObject: AexSerialized | GetResult<Aex
         const getResult = aexObject as GetResult<AexSerialized>;
 
         aexObject = getResult.object;
-        state.footageToCreate = aeq.arrayEx(getResult.footage.items.concat(getResult.footage.comps));
+
+        if (getResult.footage) {
+            if (getResult.footage.items) {
+                state.footageToCreate = aeq.arrayEx(getResult.footage.items);
+            }
+            if (getResult.footage.comps) {
+                state.footageToCreate = aeq.arrayEx(state.footageToCreate.concat(getResult.footage.comps));
+            }
+        }
     }
 
     assignAttributes(state.updateOptions, options);

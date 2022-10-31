@@ -8,11 +8,15 @@ describe('File', function () {
     this.timeout(TEST_TIMEOUT_TIME);
     let stillPath: string;
     let seqPath: string;
+    let dataPath: string;
+    let audioPath: string;
 
     before(async () => {
         await evalAexIntoEstk();
         stillPath = getFilePath('Juvenile_Ragdoll.jpg');
         seqPath = getFilePath('seq/img.0000.jpg');
+        dataPath = getFilePath('table.csv');
+        audioPath = getFilePath('en-us-cheese.mp3');
     });
 
     after(async () => {
@@ -29,12 +33,9 @@ describe('File', function () {
             assertAreEqual(items[0], {
                 aexid: '01_still:1',
                 file: stillPath,
-                height: 432,
                 label: 5,
                 name: '01_Still',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
         });
 
@@ -44,12 +45,9 @@ describe('File', function () {
             const itemData = {
                 aexid: 'juvenile_ragdoll.jpg:1',
                 file: stillPath,
-                height: 432,
                 label: 5,
                 name: 'Juvenile_Ragdoll.jpg',
-                pixelAspect: 1,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             };
 
             await aex.create(AeObject.Project, itemData);
@@ -71,16 +69,11 @@ describe('File', function () {
             assertAreEqual(items[1], {
                 aexid: '02_sequence:2',
                 conformFrameRate: 30,
-                duration: 0.0667,
                 file: seqPath,
-                frameRate: 30,
-                height: 432,
                 label: 3,
                 name: '02_Sequence',
-                pixelAspect: 1,
                 sequence: true,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
             });
         });
 
@@ -90,16 +83,83 @@ describe('File', function () {
             const itemData = {
                 aexid: 'img.[0000-0001].jpg:1',
                 conformFrameRate: 30,
-                duration: 0.0667,
                 file: seqPath,
-                frameRate: 30,
-                height: 432,
                 label: 3,
                 name: 'img.[0000-0001].jpg',
-                pixelAspect: 1,
                 sequence: true,
                 type: AEX_FILE_FOOTAGE_ITEM,
-                width: 480,
+            };
+
+            await aex.create(AeObject.Project, itemData);
+
+            const result = await aex.get(AeObject.Project);
+            const items = result.object.items;
+
+            assertAreEqual(items[0], itemData);
+        });
+    });
+
+    describe('Data Files', async () => {
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('data_file', items[2]);
+            assertAreEqual(items[2], {
+                aexid: '03_csv:3',
+                file: dataPath,
+                label: 0,
+                name: '03_CSV',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const itemData = {
+                aexid: 'table.csv:1',
+                file: dataPath,
+                label: 0,
+                name: 'table.csv',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            };
+
+            await aex.create(AeObject.Project, itemData);
+
+            const result = await aex.get(AeObject.Project);
+            const items = result.object.items;
+
+            assertAreEqual(items[0], itemData);
+        });
+    });
+
+    describe('Audio Files', async () => {
+        it(`Get`, async () => {
+            const result = await getProject('assets/project_files.aep', AeObject.Project);
+
+            const items = result.object.items;
+
+            console.log('audio_file', items[3]);
+            assertAreEqual(items[3], {
+                aexid: '04_audio:4',
+                file: audioPath,
+                label: 7,
+                name: '04_Audio',
+                type: AEX_FILE_FOOTAGE_ITEM,
+            });
+        });
+
+        it(`Create`, async () => {
+            await openCleanProject();
+
+            const itemData = {
+                aexid: 'en-us-cheese.mp3:1',
+                file: dataPath,
+                label: 7,
+                name: 'en-us-cheese.mp3',
+                type: AEX_FILE_FOOTAGE_ITEM,
             };
 
             await aex.create(AeObject.Project, itemData);

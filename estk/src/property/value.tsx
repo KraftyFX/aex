@@ -11,6 +11,11 @@ function _getPropertyValue(aeProperty: Property, keyInfo?: AEQKeyInfo): any {
 function _setPropertyValue(aeProperty: Property, aexProperty: AexProperty, state: AexState) {
     const aeValue = getAeValue(aeProperty, aexProperty.value, state);
 
+    // Skip 'LAYER_INDEX' properties as we handle these elsewhere
+    if (aeProperty.propertyValueType === PropertyValueType.LAYER_INDEX) {
+        return;
+    }
+
     try {
         aeProperty.setValue(aeValue);
     } catch (e) {

@@ -247,6 +247,7 @@ describe('Basic Layer Attributes', function () {
                 adjustmentLayer: true,
                 autoOrient: 4213,
                 collapseTransformation: true,
+                enabled: false,
                 label: 2,
                 motionBlur: true,
                 name: 'Flags',
@@ -550,6 +551,7 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[8], {
+                enabled: false,
                 label: 15,
                 name: 'TR Enabled',
                 source: {
@@ -754,6 +756,7 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[9], {
+                enabled: false,
                 label: 15,
                 name: 'TR Remapped',
                 source: {
@@ -899,6 +902,7 @@ describe('Basic Layer Attributes', function () {
         it(`Get`, async () => {
             const { object: comp } = await getProject('assets/layer_basic.aep', AeObject.ActiveComp);
             assertAreEqual(comp.layers[10], {
+                enabled: false,
                 label: 9,
                 name: 'Matte Solid',
                 source: {

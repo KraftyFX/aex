@@ -83,23 +83,34 @@ function _isEqual(a: any, b: any): boolean {
     }
 }
 
-function _isNumberArray(array: any[]): boolean {
-    return aeq.arrayEx(array).every((element) => {
-        return typeof element === 'number';
-    });
-}
-
-function getRoundedValue(value: number): number;
-function getRoundedValue(value: number[]): number[];
-function getRoundedValue(value: any): any;
-function getRoundedValue(value: number | number[] | any): number | number[] | any {
+function getRoundedValue(value: number, precision?): number;
+function getRoundedValue(value: number[], precision?): number[];
+function getRoundedValue(value: any, precision?): any;
+function getRoundedValue(value: number | number[] | any, precision = 4): number | number[] | any {
     if (typeof value === 'number') {
-        return roundNumber(value as number);
-    } else if (value instanceof Array && _isNumberArray(value)) {
-        return roundArray(value);
+        return roundNumber(value as number, precision);
+    } else if (value instanceof Array) {
+        return roundArray(value, precision);
+    } else if (value instanceof Shape) {
+        return roundObject(value, precision);
     } else {
         return value;
     }
+}
+
+function roundObject(value: object, precision): any {
+    const roundedObject = {};
+
+    for (let key in value) {
+        if (!value.hasOwnProperty(key)) {
+            continue;
+        }
+
+        const keyValue = value[key];
+        roundedObject[key] = getRoundedValue(keyValue, precision);
+    }
+
+    return roundedObject;
 }
 
 function roundNumber(value: number, precision = 4): number {
@@ -108,6 +119,6 @@ function roundNumber(value: number, precision = 4): number {
 
 function roundArray(values: number[], precision = 4): number[] {
     return aeq.arrayEx(values).map((value) => {
-        return roundNumber(value, precision);
+        return getRoundedValue(value, precision);
     });
 }

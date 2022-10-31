@@ -10,7 +10,6 @@ function prescanLayer(aeLayer: Layer, state: AexState) {
         case AEX_NULL_LAYER:
         case AEX_FILE_LAYER:
         case AEX_PLACEHOLDER_LAYER:
-        case AEX_FILE_LAYER:
         case AEX_COMP_LAYER:
             return prescanFootageLayer(aeLayer as AVLayer, state);
         case AEX_LIGHT_LAYER:
@@ -143,6 +142,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
     return {
         name,
         label,
+        enabled: getModifiedValue(layer.enabled, true),
 
         comment: getModifiedValue(layer.comment, ''),
         hasVideo: getModifiedValue(layer.hasVideo, true),
@@ -153,6 +153,7 @@ function getLayerAttributes(layer: Layer, state: AexState): AexLayerBase {
         solo: getModifiedValue(layer.solo, false),
         stretch: getModifiedValue(layer.stretch, 100),
         parentLayerIndex: layer.parent ? layer.parent.index : undefined,
+        dimensionsSeparated: layer.position.dimensionsSeparated ? true : undefined,
 
         markers: getAexMarkerProperties(layer.marker, state),
         transform: getAexTransform(layer, state),
@@ -163,14 +164,23 @@ function setLayerAttributes(aeLayer: Layer, aexLayer: AexLayer, state: AexState)
     assignAttributes(aeLayer, {
         name: aexLayer.name,
         label: aexLayer.label,
+        enabled: aexLayer.enabled,
+
         comment: aexLayer.comment,
         hasVideo: aexLayer.hasVideo,
         shy: aexLayer.shy,
         solo: aexLayer.solo,
 
+        /** @todo issue #54 **/
+        // stretch: aexLayer.stretch,
+
         startTime: aexLayer.startTime,
         inPoint: aexLayer.inPoint,
         outPoint: aexLayer.outPoint,
+    });
+
+    assignAttributes(aeLayer.position, {
+        dimensionsSeparated: aexLayer.dimensionsSeparated,
     });
 
     _setLayerMarkers(aeLayer, aexLayer, state);
