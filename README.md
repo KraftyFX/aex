@@ -29,7 +29,7 @@ aex.update(app.project, aexProject);
 
 # Installation
 
-There are 2 ways to work with AEX. Directly by downloading and including the library as a .jsx file, or using a package manager like `yarn`.
+There are 2 ways to work with AEX. Directly by downloading and including the library as a .jsx file, or using a package manager.
 
 ## Direct usage instructions
 
@@ -39,11 +39,7 @@ Download the latest release from [the Releases page](./releases) page. Unzip it 
 
 ## Package manager
 
-Download the latest release and look at the sample project.
-
-```bash
-$ yarn add --TBD--
-```
+This is not supported yet but is expected to be available soon.
 
 ---
 
@@ -111,7 +107,6 @@ In AE there might not be a scriptable way to read a property or reasonably updat
 | Value                | Behavior                              |
 | -------------------- | ------------------------------------- |
 | `skip`               | Skip over it.                         |
-| `log`                | Add it to the log                     |
 | `throw`              | Stop processing and throw an error    |
 | `callback(logEntry)` | Raise a callback to decide what to do |
 
@@ -191,7 +186,6 @@ If a project is being updated AEX tries to match the project items by the item n
 | ------------------ | ---------------------------------------------- |
 | `create`           | Create it.                                     |
 | `skip`             | Skip over it.                                  |
-| `log`              | Log it and continue.                           |
 | `throw`            | Stop processing and throw an error.            |
 | _`callback(item)`_ | Raise a callback so you can decide what to do. |
 
