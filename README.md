@@ -63,10 +63,9 @@ var getResult = aex.get(app.project, {
 
 ```javascript
 var getResult = aex.get(app.project);
-var aexProject = getResult.object; // 'object' contains the serializable JSON
 
 /**
- * Sample data:
+ * Contents of getResult.object:
     {
       "name": "Camera Comp",
       "aexid": "camera comp:1",
@@ -97,8 +96,10 @@ var aexProject = getResult.object; // 'object' contains the serializable JSON
     }
 **/
 
-aeq.writeFile(JSON.stringify(aexProject, null, 3));
+aeq.writeFile('project.json', JSON.stringify(getResult, null, 3));
 ```
+
+If `aex.get()` is called on an item with pre-comps they'll get serialized into the return value and duplicate references will be smartly combined. This applies to nested pre-comps as well.
 
 ### `options.unspportedPropertyBehavior`
 
@@ -143,6 +144,13 @@ aex.create(app.project.activeItem, aexLayer);
 | `Layer`         | `AexProperty`                                 |
 | `PropertyGroup` | `AexPropertyGroup` or `AexShapePropertyGroup` |
 | `Property`      | `AexKey`                                      |
+
+You can also create from a previously serizlied get call. This is usually necessary when working with serialized AEPs with pre-comp references.
+
+```javascript
+var getResult = JSON.parse(aeq.readFile('project.json'));
+aex.create(app.project, getResult);
+```
 
 ## `aex.update(aeThing, aexThingBlob, options?)`
 
