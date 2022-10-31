@@ -1,4 +1,4 @@
-function isTextDocument(aeProperty: Property<UnknownPropertyType>) {
+function isTextDocument(aeProperty: Property<UnknownPropertyType>): aeProperty is TextDocumentProperty {
     return aeProperty.propertyValueType === PropertyValueType.TEXT_DOCUMENT;
 }
 

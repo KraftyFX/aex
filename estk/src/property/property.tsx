@@ -118,6 +118,6 @@ function _getPropertyType(aeProperty: Property<UnknownPropertyType>): AexPropert
     }
 }
 
-function isShapeProperty(aeProperty: Property<UnknownPropertyType>): boolean {
+function isShapeProperty(aeProperty: Property<UnknownPropertyType>): aeProperty is ShapeProperty {
     return aeProperty.propertyValueType === PropertyValueType.SHAPE;
 }
