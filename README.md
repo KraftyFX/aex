@@ -10,6 +10,7 @@ Have you ever wanted to manipulate the AE DOM with a human readable JSON blob in
 
 -   Converts _most_ of the AE DOM to human readable JSON **and back**.
 -   Can create or update projects, comps, layers, and properties.
+-   In the future: Easy access to all the text souces for easy templating.
 
 ## Example
 
@@ -44,19 +45,23 @@ This is not supported yet but is expected to be available soon.
 
 # Usage
 
-AEX has 4 major functions. Creating project elements from JSON, reading them, updating them, and scanning them to get some statistics.
+AEX converts between native AE types and their equivalent AEX type.
 
+| AE Type Type     | Equivalent AEX Type                           |
+| ---------------- | --------------------------------------------- |
+| `Project`        | `AexProject`                                  |
+| `Comp` or `Item` | `AexComp` or `AexItem`                        |
+| `Layer`          | `AexLayer `                                   |
+| `Property`       | `AexProperty`                                 |
+| `PropertyGroup`  | `AexPropertyGroup` or `AexShapePropertyGroup` |
+| `Key`            | `AexKey`                                      |
+
+Unlike the AE DOM the AEX types are all simple properties. When working with Shape layers the vector data is less nested and simpler to iterate over.
+
+# API
 ## `aex.get(aeThing, options?)`
 
-`get` converts an AE `project`, `comp`, `layer`, `property` to a AEX JSON object.
-
-You can provide an optional `options` object to modify the behavior. Here's an overview of the **default** values.
-
-```javascript
-var getResult = aex.get(app.project, {
-    unspportedPropertyBehavior: 'skip',
-});
-```
+`get` converts an AE `project`, `comp`, `layer`, `property` to an equivalent AEX JSON object (a.k.a. an aexThing).
 
 ### Sample Usage
 
@@ -99,6 +104,14 @@ aeq.writeFile('project.json', JSON.stringify(getResult, null, 3));
 ```
 
 If `aex.get()` is called on an item with pre-comps they'll get serialized into the return value and duplicate references will be smartly combined. This applies to nested pre-comps as well.
+
+Separately, you can provide an optional `options` object to modify the behavior of `aex.get()`. Here's an overview of the **default** values.
+
+```javascript
+var getResult = aex.get(app.project, {
+    unspportedPropertyBehavior: 'skip',
+});
+```
 
 ### `options.unspportedPropertyBehavior`
 
