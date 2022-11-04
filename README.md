@@ -71,15 +71,16 @@ var getResult = aex.get(app.project);
 /**
  * Contents of getResult.object:
     {
+      "type": "aex:item:av:comp",
       "name": "Camera Comp",
       "aexid": "camera comp:1",
       "duration": 4,
       "frameRate": 60,
       "height": 720,
       "width": 1280,
-      "type": "aex:item:av:comp",
       "layers": [
         {
+          "type": "aex:layer:camera",
           "name": "My Cool Camera",
           "label": 4,
           "transform": {
@@ -93,8 +94,7 @@ var getResult = aex.get(app.project);
               "matchName": "ADBE Anchor Point",
               "value": [100, 200, 300]
             }
-          },
-          "type": "aex:layer:camera"
+          }
         }
       ]
     }
