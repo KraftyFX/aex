@@ -125,7 +125,7 @@ In AE there might not be a scriptable way to read a property or reasonably updat
 
 ## `aex.create(aeParentThing, aexChildBlob)`
 
-`create` takes an element of the AE DOM and adds a child to it described by an aex JSON object.
+`create` takes an element of the AE DOM and adds a child to it described by an appropriate AEX JSON object.
 
 ### Sample Usage
 
@@ -149,7 +149,7 @@ var aexLayer = {
 aex.create(app.project.activeItem, aexLayer);
 ```
 
-| `aeParent` Type | Allowed `aexChildBlob` Type                   |
+| `aeParent` Type | Allowed `aexChild` Type                       |
 | --------------- | --------------------------------------------- |
 | `Project`       | `AexComp` or `AexItem`                        |
 | `Comp`          | `AexLayer `                                   |
