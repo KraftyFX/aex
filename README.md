@@ -6,11 +6,15 @@ An easy to use JSON Serializer and Deserializer for Adobe After Effects.
 
 Have you ever wanted to manipulate the AE DOM with a human readable JSON blob instead of the scripting API? If so, AEX is for you!
 
+# Status of this project
+
+This project is in pre-release. This means that it's buggy and future versions will have breaking changes.  We'll try avoid breaking changes when possible and surface the details in release notes.
+
 # Features
 
 -   Converts _most_ of the AE DOM to human readable JSON **and back**.
 -   Can create or update projects, comps, layers, and properties.
--   In the future: Easy access to all the text souces for easy templating.
+-   Coming soon: Access to all the text souces in a simple array for easy templating.
 
 ## Example
 
@@ -39,7 +43,7 @@ Download the latest release from [the Releases page](../../releases) page. Unzip
 
 ## Package manager
 
-This is not supported yet but is expected to be available soon.
+This is not supported yet but we're working on it.
 
 ---
 
