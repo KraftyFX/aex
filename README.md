@@ -12,9 +12,12 @@ This project is in pre-release. This means that it's buggy and future versions w
 
 # Features
 
--   Converts _most_ of the AE DOM to human readable JSON **and back**.
+-   Converts [most of the AE DOM](./Supported-Features.md) to human readable JSON **and back**.
 -   Can create or update projects, comps, layers, and properties.
 -   Coming soon: Access to all the text souces in a simple array for easy templating.
+
+
+---
 
 ## Example
 
@@ -226,12 +229,6 @@ TODO: Markers
 Similar behavior as `get()` (but not identical) but gives an _approximate_ count of all the items.
 
 This is useful if you're writing a tool and want to make a progress bar that shows the total number of items that will be processed without actually processing them.
-
----
-
-# Supported Features
-
-AEX doesn't currently support every feature in AE. For information on which features are & aren't supported, see the [Supported Features document](./Supported-Features.md).
 
 ---
 
