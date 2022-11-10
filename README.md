@@ -1,13 +1,15 @@
 # AEX
 
-Serialize and deserialize objects in Adobe After Effects to and from JSON
+JSON serializer and deserializer for objects in Adobe After Effects
 
 > **Warning**
 > This project is in pre-release. This means it's buggy and future versions will have breaking changes. We'll try to avoid breaking changes where possible and explain the details in the release notes.
 
 ## Why
 
-With AEX you can serialize native objects to JSON which makes it easy to manipulate objects without having to write custom ExtendScript. It's great for templating AE project files; save a project to JSON and recreate the project from that JSON.
+Creating and manipulating objects in After Effects requires writing a lot of ExtendScript. AEX aims to simplify this process by giving you easy to manipulate JSON objects that can then be stored, updated and returned to After Effects.
+
+It's great for templating AE project files; save a project to JSON, manipulate it and recreate the project from that JSON.
 
 ## Example
 
