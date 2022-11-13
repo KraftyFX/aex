@@ -1,58 +1,47 @@
-# What is aex?
+# AEX
 
-An easy to use JSON Serializer and Deserializer for Adobe After Effects.
+JSON serializer and deserializer for objects in Adobe After Effects
 
-# Inspiration
+> **Warning**
+> This project is in pre-release. This means it's buggy and future versions will have breaking changes. We'll try to avoid breaking changes where possible and explain the details in the release notes.
 
-Have you ever wanted to manipulate the AE DOM with a human readable JSON blob instead of the scripting API? If so, AEX is for you!
+## Why
 
-# Status of this project
+Creating and manipulating objects in After Effects requires writing a lot of ExtendScript. AEX aims to simplify this process by giving you easy to manipulate JSON objects that can then be stored, updated and returned to After Effects.
 
-This project is in pre-release. This means that it's buggy and future versions will have breaking changes.  We'll try avoid breaking changes when possible and surface the details in release notes.
-
-# Features
-
--   Converts [most of the AE DOM](./Supported-Features.md) to human readable JSON **and back**.
--   Can create or update projects, comps, layers, and properties.
--   Coming soon: Access to all the text souces in a simple array for easy templating.
-
-
----
+It's great for templating AE project files; save a project to JSON, manipulate it and recreate the project from that JSON.
 
 ## Example
 
-```javascript
-//@include "./libs/aequery.jsx";
-//@include "./libs/json2.jsx";
-//@include "./aex.jsx";
-
+```js
+// Serialize a native object to JSON
 const aexProject = aex.get(app.project).object;
-
+// Change values in the JSON object
 aexProject.footage.comps[0].layers[1].markers[2].comment = 'OMG, that was easy!';
-
-// Update the current project with it.
+// And update the current project with it
 aex.update(app.project, aexProject);
 ```
 
-# Installation
+## Features
 
-There are 2 ways to work with AEX. Directly by downloading and including the library as a .jsx file, or using a package manager.
+-   Converts _most_ of the AE DOM to human readable JSON and back
+-   Creates or updates projects, comps, layers, and properties
 
-## Direct usage instructions
+> **Warning**
+> AEX currently doesn't support every feature in AE. Check the [supported features](./Supported-Features.md).
 
-Download the latest release from [the Releases page](../../releases) page. Unzip it and look at the sample project.
+## Installation
 
-> **Note**: you don't need to download this repo to **use** AEX! Most of this codebase is for developing and [contributing to AEX](#contributing); stick to the Releases linked above.
+Download the [the latest release](../../releases). After unzipping have a look at [aex_sample.jsx](./estk/sample/aex_sample.jsx) on how to include it in your script.
 
-## Package manager
+> **Note**
+> Currently you can only use AEX by downloading the latest release. It will soon be available on NPM.
 
-This is not supported yet but we're working on it.
-
----
-
-# Usage
+## API
 
 AEX converts between native AE types and their equivalent AEX type.
+
+Unlike the AE DOM the AEX types are all simple properties. When working with shape layers the vector data is less nested and simpler to iterate over.
 
 | AE Type Type     | Equivalent AEX Type                           |
 | ---------------- | --------------------------------------------- |
@@ -63,81 +52,89 @@ AEX converts between native AE types and their equivalent AEX type.
 | `PropertyGroup`  | `AexPropertyGroup` or `AexShapePropertyGroup` |
 | `Key`            | `AexKey`                                      |
 
-Unlike the AE DOM the AEX types are all simple properties. When working with Shape layers the vector data is less nested and simpler to iterate over.
+### Get
 
-# API
-## `aex.get(aeThing, options?)`
+`aex.get(aeObject, options?)`
 
-`get` converts an AE `project`, `comp`, `layer`, `property` to an equivalent AEX JSON object (a.k.a. an aexThing).
+`get` converts an AE `project`, `comp`, `layer` or `property` to an equivalent AEX JSON object.
 
-### Sample Usage
+> **Note**
+> TODO: Needs clarification
 
-```javascript
+If `get` is called on an item with pre-comps they'll get serialized and duplicates will be combined. This applies to nested pre-comps as well.
+
+#### Usage
+
+```js
 var getResult = aex.get(app.project);
-
-/**
- * Contents of getResult.object:
-    {
-      "type": "aex:item:av:comp",
-      "name": "Camera Comp",
-      "aexid": "camera comp:1",
-      "duration": 4,
-      "frameRate": 60,
-      "height": 720,
-      "width": 1280,
-      "layers": [
-        {
-          "type": "aex:layer:camera",
-          "name": "My Cool Camera",
-          "label": 4,
-          "transform": {
-            "position": {
-              "type": "aex:property:threed",
-              "matchName": "ADBE Position",
-              "value": [640, 360, -1777.7778]
-            },
-            "pointOfInterest": {
-              "type": "aex:property:threed",
-              "matchName": "ADBE Anchor Point",
-              "value": [100, 200, 300]
-            }
-          }
-        }
-      ]
-    }
-**/
-
 aeq.writeFile('project.json', JSON.stringify(getResult, null, 3));
 ```
 
-If `aex.get()` is called on an item with pre-comps they'll get serialized into the return value and duplicate references will be smartly combined. This applies to nested pre-comps as well.
+<details>
+  <summary>Result</summary>
+  
+  ```json
+  {
+    "type": "aex:item:av:comp",
+    "name": "Camera Comp",
+    "aexid": "camera comp:1",
+    "duration": 4,
+    "frameRate": 60,
+    "height": 720,
+    "width": 1280,
+    "layers": [
+      {
+        "type": "aex:layer:camera",
+        "name": "My Cool Camera",
+        "label": 4,
+        "transform": {
+          "position": {
+            "type": "aex:property:threed",
+            "matchName": "ADBE Position",
+            "value": [640, 360, -1777.7778]
+          },
+          "pointOfInterest": {
+            "type": "aex:property:threed",
+            "matchName": "ADBE Anchor Point",
+            "value": [100, 200, 300]
+          }
+        }
+      }
+    ]
+  }
+```
+</details>
 
-Separately, you can provide an optional `options` object to modify the behavior of `aex.get()`. Here's an overview of the **default** values.
+#### Options
 
-```javascript
+You can provide an optional `options` object to tune the behavior. `'skip'` is the _default_ value.
+
+```js
 var getResult = aex.get(app.project, {
     unspportedPropertyBehavior: 'skip',
 });
 ```
 
-### `options.unspportedPropertyBehavior`
+#### `options.unspportedPropertyBehavior`
 
-In AE there might not be a scriptable way to read a property or reasonably update it. When such a property is encountered you can tell aex what to do through the `unspportedPropertyBehavior` option.
+In AE there might not be a scriptable way to read a property or reasonably update it. When such a property is encountered you can tell AEX what to do through the `unspportedPropertyBehavior` option.
 
 | Value                | Behavior                              |
 | -------------------- | ------------------------------------- |
-| `skip`               | Skip over it.                         |
+| `skip`               | Skip over it                          |
 | `throw`              | Stop processing and throw an error    |
 | `callback(logEntry)` | Raise a callback to decide what to do |
 
-## `aex.create(aeParentThing, aexChildBlob)`
+### Create
 
-`create` takes an element of the AE DOM and adds a child to it described by an appropriate AEX JSON object.
+`aex.create(aeParentObject, aexChildObject)`
 
-### Sample Usage
+`create` allows you to add an AEX object to an AE object. This effectively creates the item in AE.
 
-```javascript
-// An aex blob that describes a 3D camera layer
+#### Usage
+
+```js
+// An `aex` object that describes a 3D camera layer
 var aexLayer = {
     type: 'aex:layer:camera',
     label: 4,
@@ -151,10 +148,24 @@ var aexLayer = {
         },
     },
 };
-
-// Create the camera layer on the current comp
+// Create the camera layer in the current comp
 aex.create(app.project.activeItem, aexLayer);
 ```
+
+> **Note**
+> TODO: Needs clarification
+
+You can also create from a previously serialized get call. This is usually necessary when working with serialized AE projects with pre-comp references.
+
+```js
+var getResult = JSON.parse(aeq.readFile('project.json'));
+aex.create(app.project, getResult);
+// Note that this would fail because the getResult.object might contain
+// pre-comp references and they aren't included in the JSON.
+aex.create(app.project, getResult.object); // throws
+```
+
+#### Allowed Types
 
 | `aeParent` Type | Allowed `aexChild` Type                       |
 | --------------- | --------------------------------------------- |
@@ -164,25 +175,16 @@ aex.create(app.project.activeItem, aexLayer);
 | `PropertyGroup` | `AexPropertyGroup` or `AexShapePropertyGroup` |
 | `Property`      | `AexKey`                                      |
 
-You can also create from a previously serizlied get call. This is usually necessary when working with serialized AEPs with pre-comp references.
+### Update
 
-```javascript
-var getResult = JSON.parse(aeq.readFile('project.json'));
-aex.create(app.project, getResult);
+`aex.update(aeObject, aexObject, options?)`
 
-// Note that this would fail because the getResult.object might contain
-// pre-comp references and they aren't included in the blob.
-aex.create(app.project, getResult.object); // throws
-```
+`update` takes an AE object and updates it with an equivalent AEX object.
 
-## `aex.update(aeThing, aexThingBlob, options?)`
+#### Usage
 
-`update` takes an element of the AE DOM and updates with an equivalent aex JSON object.
-
-### Sample Usage
-
-```javascript
-// An aex comp blob with a name and a single marker on it.
+```js
+// An `aex` comp object with a name and a single marker on it.
 var aexComp = {
     type: 'aex:item:av:comp',
     name: 'Comp with a marker',
@@ -194,14 +196,15 @@ var aexComp = {
         },
     ],
 };
-
-// Updates the current comp with what's in the blob above
+// Updates the current comp with the values in the `aexComp` object
 aex.update(app.project.activeItem, aexComp);
 ```
 
-You can provide an optional `options` object to tune the behavior. Here's an overview of the **default** values.
+#### Options
 
-```javascript
+You can provide an optional `options` object to tune the behavior. Here's an overview of the _default_ values.
+
+```js
 aex.update(app.project, aexProject, {
     projectItemMismatchBehavior: 'create',
     layerMatchBy: 'index',
@@ -209,7 +212,7 @@ aex.update(app.project, aexProject, {
 });
 ```
 
-### `updateOptions.projectItemMismatchBehavior`
+#### `updateOptions.projectItemMismatchBehavior`
 
 If a project is being updated AEX tries to match the project items by the item name. If an item with a matching name isn't found you can tell AEX what to do through the `projectItemMismatchBehavior` option.
 
@@ -220,22 +223,24 @@ If a project is being updated AEX tries to match the project items by the item n
 | `throw`            | Stop processing and throw an error.            |
 | _`callback(item)`_ | Raise a callback so you can decide what to do. |
 
-TODO: Layers
+> **Note**
+> TODO: Add value/behaviour table for `layerMatchBy`
 
-TODO: Markers
+> **Note**
+> TODO: Add value/behaviour table for `markerMatchBy`
 
-## `aex.prescan(aeThing, options?)`
+### Prescan
 
-Similar behavior as `get()` (but not identical) but gives an _approximate_ count of all the items.
+`aex.prescan(aeObject, options?)`
 
-This is useful if you're writing a tool and want to make a progress bar that shows the total number of items that will be processed without actually processing them.
+Similar behavior to [`get`](#aexgetaeobject-options), but instead it gives an _approximate_ count of all the items.
 
----
+This is useful if you want to display a progress bar that shows the total number of items without actually processing them.
 
-# Contributing
+#### Options
+
+Same as [`get`](#options)
+
+## Contributing
 
 See [contributing.md](./CONTRIBUTING.md) for details.
-
-# License
-
-MIT
